@@ -1,0 +1,36 @@
+{
+  "name": "mono",
+  "main": "./main.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "client": "webpack --mode development --watch",
+    "server": "nodemon --experimental-specifier-resolution=node main.js"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.3",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1"
+  },
+  "dependencies": {
+    "@onflow/fcl": "^0.0.77",
+    "@onflow/types": "^0.0.5",
+    "aphrodite": "^2.4.0",
+    "buffer": "^6.0.3",
+    "classnames": "^2.3.1",
+    "fastify": "^3.22.1",
+    "fastify-static": "^4.4.2",
+    "https-browserify": "^1.0.0",
+    "process": "^0.11.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0"
+  }
+}
