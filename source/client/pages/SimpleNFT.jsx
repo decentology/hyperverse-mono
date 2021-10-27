@@ -46,7 +46,7 @@ function SimpleNFT(props) {
       });
     }
 
-    setNFTs(nextNFTs);
+    setNFTs(nextNFTs.sort((a, b) => a.ID - b.ID));
   };
   
   useEffect(() => {
