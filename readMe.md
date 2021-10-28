@@ -7,6 +7,7 @@ This repo is for bleeding edge Hyperverse builds. Tight coupling between client 
 Install dependencies.
 
 ```sh
+npm i -g nodemon
 yarn
 ```
 
