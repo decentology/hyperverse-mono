@@ -19,6 +19,9 @@ function SimpleNFT(props) {
   const [transaction, setTransaction] = useState(null);
   const [isWaiting, setIsWaiting] = useState(null);
 
+  const [recipient, setRecipient] = useState(null);
+  const [NFTID, setNFTID] = useState(null);
+
   const onGetPackage = async () => {
     const transactionID = await simpleNFT.getPackage();
     console.log(transactionID);
@@ -31,6 +34,13 @@ function SimpleNFT(props) {
   const onMint = async () => {
     setIsWaiting(true);
     const transactionID = await simpleNFT.mintNFT(flow.state.user?.addr, name);
+    setIsWaiting(false);
+    setTransaction(transactionID);
+  };
+
+  const onTransfer = async () => {
+    setIsWaiting(true);
+    const transactionID = await simpleNFT.transferNFT(recipient, NFTID);
     setIsWaiting(false);
     setTransaction(transactionID);
   };
@@ -88,36 +98,76 @@ function SimpleNFT(props) {
         {transaction &&
           <Transaction id={transaction} />
         }
-        {flow.state.user && flow.state.user.loggedIn &&
-          <div className="block">
-            <div className="field">
-              <label className="label">Name</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Name"
-                  value={name || ''}
-                  onChange={(event) => setName(event.target.value)}
-                />
-              </div>
-            </div>
-            <div className="field">
-              <div className="control">
-                <button
-                  className={classNames({
-                    'button': true,
-                    'is-primary': true,
-                    'is-loading': isWaiting
-                  })}
-                  onClick={onMint}
-                >
-                  Mint
-                </button>
-              </div>
+        <div className="block">
+          <div className="field">
+            <label className="label">Name</label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                placeholder="Name"
+                value={name || ''}
+                onChange={(event) => setName(event.target.value)}
+              />
             </div>
           </div>
-        }
+          <div className="field">
+            <div className="control">
+              <button
+                className={classNames({
+                  'button': true,
+                  'is-primary': true,
+                  'is-loading': isWaiting
+                })}
+                onClick={onMint}
+              >
+                Mint
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <h3 className="title">Transfer NFT</h3>
+        <div className="block">
+          <div className="field">
+            <label className="label">Recipient</label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                placeholder="Recipient"
+                value={recipient || ''}
+                onChange={(event) => setRecipient(event.target.value)}
+              />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">NFT ID</label>
+            <div className="control">
+              <input
+                className="input"
+                type="text"
+                placeholder="ID"
+                value={NFTID || ''}
+                onChange={(event) => setNFTID(event.target.value)}
+              />
+            </div>
+          </div>
+          <div className="field">
+            <div className="control">
+              <button
+                className={classNames({
+                  'button': true,
+                  'is-primary': true,
+                  'is-loading': isWaiting
+                })}
+                onClick={onTransfer}
+              >
+                Transfer
+              </button>
+            </div>
+          </div>
+        </div>
 
         <h3 className="title">Admin</h3>
         <div className="block">
