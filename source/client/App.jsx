@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {StyleSheet, css} from 'aphrodite/no-important';
 
 import * as Hyperverse from '../packages/hyperverse';
@@ -36,12 +37,14 @@ function App(props) {
       <Navigation />
       <Tabs
         pages={[
-          {title: 'Home', component: <pages.Home />},
-          {title: 'NFTs', component: <pages.SimpleNFT />}
+          {title: 'Home', path: '/'},
+          {title: 'SimpleNFT', path: '/simple-nft'}
         ]}
-        current={page}
-        onChange={setPage} />
-      {page && page.component}
+      />
+      <Switch>
+        <Route path="/" exact component={pages.Home} />
+        <Route path="/simple-nft" component={pages.SimpleNFT} />
+      </Switch>
     </div>
   );
 }
@@ -49,7 +52,9 @@ function App(props) {
 function WrappedApp(props) {
   return (
     <Hyperverse.Provider hyperverse={hyperversePromise}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Hyperverse.Provider>
   );
 }

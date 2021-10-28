@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import classNames from 'classnames';
 import {css, StyleSheet} from 'aphrodite/no-important';
 
@@ -14,6 +15,8 @@ const styles = StyleSheet.create({
 });
 
 function Tabs(props) {
+  const location = useLocation();
+  
   return (
     <div className="tabs">
       <ul className={css(styles.list)}>
@@ -22,10 +25,10 @@ function Tabs(props) {
             <li
               key={page.title}
               className={classNames({
-                'is-active':props.current && page.title === props.current.title
+                'is-active': page.path === location.pathname
               })}
             >
-              <a onClick={() => props.onChange(page)}>{page.title}</a>
+              <Link to={page.path}>{page.title}</Link>
             </li>
           );
         })}
