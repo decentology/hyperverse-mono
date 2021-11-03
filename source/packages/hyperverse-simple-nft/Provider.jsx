@@ -1,6 +1,7 @@
 import React from 'react';
 import * as fcl from '@onflow/fcl';
 
+import * as Package from './Package';
 import * as actions from './actions';
 
 const Context = React.createContext(null);
@@ -39,6 +40,7 @@ function Provider(props) {
     <Context.Provider
       value={{
         isInitialized,
+        package: Package,
         ...boundActions
       }}
     >

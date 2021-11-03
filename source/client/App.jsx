@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
 });
 
 function App(props) {
-  const [page, setPage] = React.useState(null);
-
   return (
     <div className={css(styles.App)}>
       <Icons />

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState, useContext, useReducer} from 'react';
 import {StyleSheet, css} from 'aphrodite/no-important';
 import classNames from 'classnames';
 
@@ -8,12 +8,31 @@ import {useSimpleNFT} from '../../packages/hyperverse-simple-nft';
 import Page from '../components/Page.jsx';
 import Transaction from '../components/Transaction.jsx';
 
-const styles = StyleSheet.create({
-});
+function reducer(state, action) {
+  switch (action.type) {
+    case 'startWaiting': {
+      return {
+        ...state,
+        isWaiting: true
+      };
+    }
+    case 'stopWaiting': {
+      return {
+        ...state,
+        isWaiting: false
+      };
+    }
+    default:
+      return state;
+  }
+}
 
 function SimpleNFT(props) {
   const flow = useFlow();
   const simpleNFT = useSimpleNFT();
+  const [state, dispatch] = useReducer(reducer, {
+    isWaiting: false
+  });
   const [name, setName] = useState(null);
   const [NFTs, setNFTs] = useState(null);
   const [transaction, setTransaction] = useState(null);
@@ -22,8 +41,12 @@ function SimpleNFT(props) {
   const [recipient, setRecipient] = useState(null);
   const [NFTID, setNFTID] = useState(null);
 
-  const onGetPackage = async () => {
-    const transactionID = await simpleNFT.getPackage();
+  const onCreatePackage = async () => {
+    const transactionID = await simpleNFT.package.create();
+    console.log(transactionID);
+  };
+  const onRemovePackage = async () => {
+    const transactionID = await simpleNFT.removePackage();
     console.log(transactionID);
   };
   const onGetInstance = async () => {
@@ -32,16 +55,16 @@ function SimpleNFT(props) {
   };
 
   const onMint = async () => {
-    setIsWaiting(true);
+    dispatch({type: 'startWaiting'});
     const transactionID = await simpleNFT.mintNFT(flow.state.user?.addr, name);
-    setIsWaiting(false);
+    dispatch({type: 'stopWaiting'});
     setTransaction(transactionID);
   };
 
   const onTransfer = async () => {
-    setIsWaiting(true);
+    dispatch({type: 'startWaiting'});
     const transactionID = await simpleNFT.transferNFT(recipient, NFTID);
-    setIsWaiting(false);
+    dispatch({type: 'stopWaiting'});
     setTransaction(transactionID);
   };
 
@@ -58,10 +81,17 @@ function SimpleNFT(props) {
 
     setNFTs(nextNFTs.sort((a, b) => a.ID - b.ID));
   };
+
+  const queryPackage = async () => {
+    console.log(flow.state.user);
+    const result = await simpleNFT.package.query(flow.state.user.addr);
+    console.log(result);
+  };
   
   useEffect(() => {
     if (flow.state.user && flow.state.user.loggedIn) {
-      loadNFTs();
+      // loadNFTs();
+      queryPackage();
     }
   }, [flow.state.user]);
 
@@ -173,15 +203,26 @@ function SimpleNFT(props) {
         <div className="block">
           <div className="field">
             <div className="control">
-              <button
-                className={classNames({
-                  'button': true,
-                  'is-primary': true
-                })}
-                onClick={onGetPackage}
-              >
-                Get Package
-              </button>
+              <div className="buttons">
+                <button
+                  className={classNames({
+                    'button': true,
+                    'is-primary': true
+                  })}
+                  onClick={onCreatePackage}
+                >
+                  Create Package
+                </button>
+                <button
+                  className={classNames({
+                    'button': true,
+                    'is-danger': true
+                  })}
+                  onClick={onRemovePackage}
+                >
+                  Remove Package
+                </button>
+              </div>
             </div>
           </div>
           <div className="field">
@@ -193,7 +234,7 @@ function SimpleNFT(props) {
                 })}
                 onClick={onGetInstance}
               >
-                Get Instance
+                Create Instance
               </button>
             </div>
           </div>

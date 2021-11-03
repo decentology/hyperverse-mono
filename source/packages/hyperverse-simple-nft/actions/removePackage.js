@@ -1,19 +1,15 @@
 import * as fcl from '@onflow/fcl';
 
-async function getPackage() {
+async function removePackage() {
   try {
     const transactionID = await fcl.send([
       fcl.transaction`
         import SimpleNFT from 0xSimpleNFT
         
-        // Will only be run 1 time per user - ever. So even if they need this
-        // collection as dependencies, etc.
         transaction() {
         
           prepare(signer: AuthAccount) {
-            signer.save(<- SimpleNFT.getPackage(), to: SimpleNFT.PackageStoragePath)
-            signer.link<&SimpleNFT.Package>(SimpleNFT.PackagePrivatePath, target: SimpleNFT.PackageStoragePath)
-            signer.link<&SimpleNFT.Package{SimpleNFT.PackagePublic}>(SimpleNFT.PackagePublicPath, target: SimpleNFT.PackageStoragePath)
+            destroy signer.load<@SimpleNFT.Package>(from: SimpleNFT.PackageStoragePath)
           }
       
           execute {
@@ -35,5 +31,5 @@ async function getPackage() {
 }
 
 export {
-  getPackage
+  removePackage
 };
