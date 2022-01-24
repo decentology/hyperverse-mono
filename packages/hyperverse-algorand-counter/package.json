@@ -9,12 +9,12 @@
   },
   "scripts": {},
   "peerDependencies": {
-    "react": "^17.0.2",
-    "@decentology/hyperverse": "*",
-    "@decentology/hyperverse-algorand": "*"
+    "react": "^17.0.2"
   },
   "devDependencies": {},
   "dependencies": {
+    "@decentology/hyperverse": "*",
+    "@decentology/hyperverse-algorand": "*",
     "algosdk": "^1.12.0"
   }
 }

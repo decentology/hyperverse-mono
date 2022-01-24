@@ -4,8 +4,11 @@
   "type": "module",
   "main": "./source/index.ts",
   "license": "MIT",
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
   "dependencies": {
-    "react": "^17.0.2",
+    "@decentology/hyperverse": "*",
     "wagmi": "^0.2.0"
   }
 }

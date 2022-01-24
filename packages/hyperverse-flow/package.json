@@ -13,13 +13,13 @@
     "build": "parcel build"
   },
   "peerDependencies": {
-    "@decentology/hyperverse": "*",
     "react": "^17.0.2"
   },
   "devDependencies": {
     "parcel": "^2.2.1"
   },
   "dependencies": {
+    "@decentology/hyperverse": "*",
     "@onflow/fcl": "^0.0.77",
     "@onflow/types": "^0.0.5",
     "aphrodite": "^2.4.0",
