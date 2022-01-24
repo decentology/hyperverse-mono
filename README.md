@@ -1,78 +1,75 @@
-# Turborepo starter
+# Preview
 
-This is an official Yarn v1 starter turborepo.
+# tribes-eth
 
-## What's inside?
+`tribes-eth` is a sample [Next.js](https://nextjs.org/) project utilizing the tribes module from the [hyperverse](https://www.decentology.com/hyperverse). The aim of this project is to allow users to join different tribes (or communities) and gain access to content only visible to those in that specific tribe.
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package manager. It includes the following packages/apps:
+- If you have any questions please join the [Decentology Discord.](http://discord.gg/decentology)
 
-### Apps and Packages
+## 💻 System Requirements
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- [Visual Studio Code](https://code.visualstudio.com/download) (or any IDE for editing JavaScript)
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en/)
+- [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## 🛠 Installation
 
-### Utilities
+To run this project locally:
 
-This turborepo has some additional tools already setup for you:
+1. In your terminal run these commands:
+   clone the repository
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Prettier](https://prettier.io) for code formatting
+   ```bash
+   git clone https://github.com/decentology/workshop-yeovil
+   ```
 
-## Setup
+   cd into that folder
 
-This repository is used in the `npx create-turbo` command, and selected when choosing which package manager you wish to use with your monorepo (Yarn).
+   ```bash
+   cd workshop-yeovil
+   ```
 
-### Build
+2. Download all the dependencies needed to run the project by running `yarn`.
 
-To build all apps and packages, run the following command:
+   ```bash
+   yarn
+   ```
 
-```
-cd my-turborepo
-yarn run build
-```
+   To run the development server run our custom script
 
-### Develop
+   ```bash
+   yarn dev:tribes
+   ```
 
-To develop all apps and packages, run the following command:
+   Open [http://localhost:3000](http://localhost:3000/) with your browser to see the result.
 
-```
-cd my-turborepo
-yarn run dev
-```
+## 🏁 Testing & Running the Application
 
-### Remote Caching
+If you were successful following the Installation application, you should be greeted with the tribes home page that looks like this:
+<img src="./apps/ethereum/tribes/public/tribes-home.png" alt="tribes"/>
 
-Turborepo can use a technique known as [Remote Caching (Beta)](https://turborepo.org/docs/features/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Prerequisities
 
-By default, Turborepo will cache locally. To enable Remote Caching (Beta) you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+To be able to interact with the dapp, you need a Metmask Wallet and Rinkeby eth.
 
-```
-cd my-turborepo
-npx turbo login
-```
+1. **Metamask**
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+   If you do not have a metamask wallet, [here](https://www.surgewomen.io/learn-about-web3/set-up-metamask-wallet) is a guide you can follow on how to set up one.
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+2. **Rinkeby Faucets**
 
-```
-npx turbo link
-```
+   To get some Rinkeby eth here are some available faucets you can request from:
 
-## Useful Links
+- https://faucet.paradigm.xyz/
+- https://app.mycrypto.com/faucet
 
-Learn more about the power of Turborepo:
+  Or ask us to send you some in our [Discord Server.](http://discord.gg/decentology)
 
-- [Pipelines](https://turborepo.org/docs/features/pipelines)
-- [Caching](https://turborepo.org/docs/features/caching)
-- [Remote Caching (Beta)](https://turborepo.org/docs/features/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/features/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
+## 📌 Important Links and File Locations
+
+Here are some links and locations of files related to tribes:
+
+- Rinkeby Etherscan of the [contract](https://rinkeby.etherscan.io/address/0x410E22b393B3A90953c0677F2282E331580ed45b)
+- [Contract code](https://github.com/decentology/workshop-yeovil/blob/workshop/yeovil/packages/hyperverse-ethereum-tribes/contracts/Tribes.sol) found in the repo
+- [useTribe](https://github.com/decentology/workshop-yeovil/blob/workshop/yeovil/packages/hyperverse-ethereum-tribes/source/useTribes.ts) hook which is what allows us to interact and transact with the contract
