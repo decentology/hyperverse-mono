@@ -1,15 +1,15 @@
 import { createContext, FC } from "react";
-import useEthereum from "@decentology/hyperverse-ethereum/useEthereum";
+import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { Provider as WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "react-query";
-import ABI from "./utils/Tribes.json";
+import ABI from "../utils/Tribes.json";
 const client = new QueryClient();
 
 const Context = createContext({});
 Context.displayName = "EthereumTribesContext";
 
 export const ContractABI = ABI.abi;
-export const CONTRACT_ADDRESS = "0xB58253d0F33ac34312949d450f1ec82FD87d92Ce";
+export const CONTRACT_ADDRESS = "0x410E22b393B3A90953c0677F2282E331580ed45b";
 export const TENANT_ADDRESS = "0xD847C7408c48b6b6720CCa75eB30a93acbF5163D";
 
 Context.displayName = "EthereumTribesContext";
