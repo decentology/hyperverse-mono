@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as fcl from '@onflow/fcl';
 import {networks, useHyperverse} from '@decentology/hyperverse';
 
 import * as actions from './actions';
 
-const Context = React.createContext(null);
+type FlowTribesContext = {
+  isInitialized: boolean;
+} | null;
 
-function Provider(props) {
-  const [isInitialized, setInitialized] = React.useState(null);
+const Context = React.createContext<FlowTribesContext>(null);
+
+type ProviderProps = {
+  tenantID: string 
+}
+
+const Provider: FC<ProviderProps> = (props) => {
+  const [isInitialized, setInitialized] = React.useState<boolean>(false);
 
   let { network } = useHyperverse();
 
@@ -31,8 +39,8 @@ function Provider(props) {
     initialize();
   }, []);
 
-  const boundActions = {};
-  for (const actionName of Object.keys(actions)) {
+  const boundActions = {} as typeof actions;
+  for (const actionName in actions) {
     boundActions[actionName] = actions[actionName].bind(null, props.tenantID);
   }
 

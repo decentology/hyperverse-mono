@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, createContext } from "react";
+import React, { useReducer, useEffect, createContext, VFC, FC } from "react";
 import * as fcl from "@onflow/fcl";
 import authenticate from "./authenticate";
 import unauthenticate from "./unauthenticate";
@@ -32,6 +32,9 @@ function reducer(state: State, action: Action) {
   }
 }
 
+const bob = () => {
+  return true;
+}
 type FlowContext = {
   state?: {};
   isInitialized?: boolean;
@@ -45,7 +48,7 @@ type FlowContext = {
 const Context = createContext<FlowContext>({});
 Context.displayName = "FlowContext";
 
-function Provider(props) {
+const Provider: FC<any> = ({children}) => {
   const [state, dispatch] = useReducer(reducer, {
     user: null,
   });
@@ -57,8 +60,9 @@ function Provider(props) {
     dispatch({ type: "setBalance", payload: nextBalance });
   };
 
+
   useEffect(() => {
-    fcl.currentUser().subscribe((nextUser) => {
+    fcl.currentUser().subscribe((nextUser: any) => {
       dispatch({ type: "setUser", payload: nextUser });
     });
   }, []);
@@ -75,9 +79,9 @@ function Provider(props) {
         sendFlow,
       }}
     >
-      {props.children}
+      {children}
     </Context.Provider>
   );
 }
 
-export { Context as default, Provider };
+export { Context, Provider };

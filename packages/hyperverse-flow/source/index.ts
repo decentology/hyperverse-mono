@@ -49,3 +49,6 @@ export const Flow = makeHyperverseBlockchain({
     }
   },
 });
+
+
+export {default as useFlow} from './useFlow'

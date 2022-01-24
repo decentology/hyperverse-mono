@@ -3,8 +3,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 import Nav from "../components/Nav";
+import {useFlow } from '@decentology/hyperverse-flow'
 import { useTribes } from "@decentology/hyperverse-flow-tribes";
-import { useAccount } from "@decentology/hyperverse-ethereum";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -12,6 +12,9 @@ const Home: NextPage = () => {
   const account = null;
   // const { TribeId } = useTribes();
   // const { data, error: tribeIdErr } = TribeId();
+  const tribes = useTribes();
+  const flow = useFlow();
+  
   return (
     <>
       <Head>
