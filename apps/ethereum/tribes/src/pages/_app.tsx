@@ -1,3 +1,5 @@
+//Contract Address : 0x410E22b393B3A90953c0677F2282E331580ed45b
+
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import * as Hyperverse from "@decentology/hyperverse";
