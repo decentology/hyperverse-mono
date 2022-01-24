@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useStorage from "@hyperverse/hyperverse-db";
+import useStorage from "@decentology/hyperverse-db";
 export default function Inner() {
   const storage = useStorage("http://localhost:3005/gun");
   useEffect(() => {

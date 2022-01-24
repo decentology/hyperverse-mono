@@ -61,4 +61,4 @@ const Provider: FC<any> = ({ children, ...props }) => {
   );
 };
 
-export default { Context, Provider };
+export  { Context, Provider };

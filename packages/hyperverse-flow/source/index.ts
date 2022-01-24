@@ -4,7 +4,7 @@ import * as Hyperverse from "@decentology/hyperverse";
 import { Provider } from "./context/Provider";
 import { makeHyperverseBlockchain } from "@decentology/hyperverse";
 
-const FlowBlockchain = makeHyperverseBlockchain({
+export const Flow = makeHyperverseBlockchain({
   name: Hyperverse.blockchains.Flow,
   Provider: Provider,
   initialize: async (options) => {
@@ -49,5 +49,3 @@ const FlowBlockchain = makeHyperverseBlockchain({
     }
   },
 });
-
-export default FlowBlockchain;

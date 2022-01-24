@@ -1,7 +1,7 @@
 import { Provider } from "./context/Algorand";
 import { blockchains, makeHyperverseBlockchain } from "@decentology/hyperverse";
 
-const AlgorandBlockchain = makeHyperverseBlockchain({
+export const Algorand = makeHyperverseBlockchain({
   name: blockchains.Algorand,
   Provider: Provider,
   initialize: async (options) => {
@@ -10,6 +10,4 @@ const AlgorandBlockchain = makeHyperverseBlockchain({
 });
 
 export { Address, Signature, Transactions } from "./components";
-
 export { default as useAlgorand } from "./useAlgorand";
-export default AlgorandBlockchain;

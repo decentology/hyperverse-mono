@@ -1,17 +1,16 @@
 export * from "wagmi";
-import Ethereum from "./Provider";
+import { Provider } from "./Provider";
 import {
   blockchains,
   makeHyperverseBlockchain,
   networks,
 } from "@decentology/hyperverse";
 
-const EthereumBlockchain = makeHyperverseBlockchain({
+export const Ethereum = makeHyperverseBlockchain({
   name: blockchains.Ethereum,
-  Provider: Ethereum.Provider,
+  Provider: Provider,
   initialize: async (options) => {
     return { client: "testing", explorer: "" };
   },
 });
 export { default as useEthereum } from "./useEthereum";
-export default EthereumBlockchain;
