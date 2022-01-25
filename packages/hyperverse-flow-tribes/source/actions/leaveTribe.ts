@@ -2,6 +2,7 @@ import * as fcl from '@onflow/fcl';
 import * as t from '@onflow/types';
 
 async function leaveTribe(tenantID) {
+  tenantID = "0x1960ff14acc51991";
   try {
     const transactionID = await fcl.send([
       fcl.transaction`

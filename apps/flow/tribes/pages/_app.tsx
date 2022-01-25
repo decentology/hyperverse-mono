@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const hyperverse = Hyperverse.initialize({
     blockchain: Flow,
     network: networks.TestNet,
-    modules: [{ bundle: Tribes, tenantId: "tribes" }],
+    modules: [{ bundle: Tribes, tenantId: "0x1960ff14acc51991" }],
   });
   return (
     <Hyperverse.Provider hyperverse={hyperverse}>

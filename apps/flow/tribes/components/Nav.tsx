@@ -1,8 +1,7 @@
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import { useState } from "react";
-// import {  } from "@decentology/hyperverse-flow";
-// import Wallets from "./WalletModal";
+import { useFlow } from "@decentology/hyperverse-flow";
+
 const shortenHash = (
   hash: string = "",
   charLength: number = 6,
@@ -21,9 +20,7 @@ const shortenHash = (
 };
 
 const Nav = () => {
-  // return null;
-  const [showModal, setShowModal] = useState<boolean>(false);
-  // const [{ data }, disconnect] = useAccount();
+  let flow = useFlow();
 
   return (
     <nav>
@@ -40,17 +37,16 @@ const Nav = () => {
           </a>
         </Link>
 
-        {/* {!data ? (
-          <button className={styles.connect} onClick={() => setShowModal(true)}>
+        {flow.user && flow.user.loggedIn
+          ?
+          <button className={styles.logout} onClick={() => flow.unauthenticate()}>
+            <span>{shortenHash(flow.user.addr, 5, 5)}</span>
+          </button>
+          :
+          <button className={styles.connect} onClick={() => flow.authenticate()}>
             Connect Wallet
           </button>
-        ) : (
-          <button className={styles.logout} onClick={disconnect}>
-            <span>{shortenHash(data?.address, 5, 5)}</span>
-          </button>
-        )} */}
-
-        {/* {showModal && <Wallets close={() => setShowModal(false)} />} */}
+        }
       </div>
     </nav>
   );
