@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import Context from "./context";
+import {Context} from "./context/Provider";
 
-function useFlow(options: any = null) {
+function useFlow() {
   const context = useContext(Context);
   return context;
 }

@@ -385,4 +385,4 @@ function Provider(props) {
   );
 }
 
-export { Context as default, Provider };
+export { Context, Provider };

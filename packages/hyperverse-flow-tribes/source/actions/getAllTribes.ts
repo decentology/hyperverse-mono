@@ -2,6 +2,7 @@ import * as fcl from '@onflow/fcl';
 import * as t from '@onflow/types';
 
 async function getAllTribes(tenantID) {
+  tenantID = "0x1960ff14acc51991";
   try {
     const allTribes = await fcl.send([
       fcl.script`

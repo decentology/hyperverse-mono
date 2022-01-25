@@ -3,10 +3,18 @@ import * as fcl from '@onflow/fcl';
 import {HyperverseModuleInstance, networks, useHyperverse} from '@decentology/hyperverse';
 import * as actions from './actions';
 
-const Context = React.createContext(null);
+type FlowTribesContext = {
+  isInitialized: boolean;
+} | null;
 
-const Provider: FC<HyperverseModuleInstance> = (props) => {
-  const [isInitialized, setInitialized] = React.useState(null);
+const Context = React.createContext<FlowTribesContext>(null);
+
+type ProviderProps = {
+  tenantID: string 
+}
+
+const Provider: FC<ProviderProps> = (props) => {
+  const [isInitialized, setInitialized] = React.useState<boolean>(false);
 
   let { network } = useHyperverse();
 
@@ -32,9 +40,9 @@ const Provider: FC<HyperverseModuleInstance> = (props) => {
     initialize();
   }, []);
 
-  const boundActions = {};
-  for (const actionName of Object.keys(actions)) {
-    boundActions[actionName] = actions[actionName].bind(null, props.tenantId);
+  const boundActions = {} as typeof actions;
+  for (const actionName in actions) {
+    boundActions[actionName] = actions[actionName].bind(null, props.tenantID);
   }
 
   return (
