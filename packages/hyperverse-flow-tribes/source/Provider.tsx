@@ -9,11 +9,8 @@ type FlowTribesContext = {
 
 const Context = React.createContext<FlowTribesContext>(null);
 
-type ProviderProps = {
-  tenantId: string 
-}
 
-const Provider: FC<ProviderProps> = (props) => {
+const Provider: FC<HyperverseModuleInstance> = (props) => {
   const [isInitialized, setInitialized] = React.useState<boolean>(false);
 
   let { network } = useHyperverse();
