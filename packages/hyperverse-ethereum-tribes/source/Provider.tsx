@@ -3,6 +3,7 @@ import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { Provider as WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "react-query";
 import ABI from "../utils/Tribes.json";
+import { HyperverseModuleInstance } from "@decentology/hyperverse";
 const client = new QueryClient();
 
 const Context = createContext({});
@@ -14,7 +15,7 @@ export const TENANT_ADDRESS = "0xD847C7408c48b6b6720CCa75eB30a93acbF5163D";
 
 Context.displayName = "EthereumTribesContext";
 
-const Provider: FC<any> = ({ children }) => {
+const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
   const ethereum = useEthereum();
   return (
       <QueryClientProvider client={client}>

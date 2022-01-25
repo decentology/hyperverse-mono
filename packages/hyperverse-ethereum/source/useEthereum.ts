@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import Ethereum from "./Provider";
+import { Context } from "./Provider";
 function useEthereum() {
-  return useContext(Ethereum.Context);
+  return useContext(Context);
 }
 export default useEthereum;

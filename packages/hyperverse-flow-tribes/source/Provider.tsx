@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as fcl from '@onflow/fcl';
-import {networks, useHyperverse} from '@decentology/hyperverse';
-
+import {HyperverseModuleInstance, networks, useHyperverse} from '@decentology/hyperverse';
 import * as actions from './actions';
 
 const Context = React.createContext(null);
 
-function Provider(props) {
+const Provider: FC<HyperverseModuleInstance> = (props) => {
   const [isInitialized, setInitialized] = React.useState(null);
 
   let { network } = useHyperverse();
 
+  const tenantId = props.tenantId;
+  console.log("tenantId", tenantId);
   const initialize = async () => {
     if (network === networks.MainNet) {
       // TODO: Deploy to Flow Mainnet.
@@ -33,7 +34,7 @@ function Provider(props) {
 
   const boundActions = {};
   for (const actionName of Object.keys(actions)) {
-    boundActions[actionName] = actions[actionName].bind(null, props.tenantID);
+    boundActions[actionName] = actions[actionName].bind(null, props.tenantId);
   }
 
   return (

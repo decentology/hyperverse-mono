@@ -48,6 +48,6 @@ export type HyperverseModule = {
 
 export type HyperverseModuleInstance = {
   tenantId: string;
-  network: Network;
-  blockchain: Blockchain;
+  // network: Network;
+  // blockchain: Blockchain;
 };

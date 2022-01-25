@@ -13,8 +13,7 @@ const Context = createContext<EthereumContext>({});
 Context.displayName = "EthereumContext";
 
 const Provider: FC<any> = ({ children, ...props }) => {
-  const infuraId = props.infuraId || "fb9f66bab7574d70b281f62e19c27d49";
-
+  const infuraId = "fb9f66bab7574d70b281f62e19c27d49";
   // Chains for connectors to support
   const chains = defaultChains;
   const defaultChain = chain.ropsten;
@@ -50,15 +49,15 @@ const Provider: FC<any> = ({ children, ...props }) => {
       ? new providers.InfuraWebSocketProvider(chainId, infuraId)
       : undefined;
   return (
-      <WagmiProvider
-        autoConnect
-        provider={provider}
-        connectors={connectors}
-        webSocketProvider={webSocketProvider}
-      >
-        {children}
-      </WagmiProvider>
+    <WagmiProvider
+      autoConnect
+      provider={provider}
+      connectors={connectors}
+      webSocketProvider={webSocketProvider}
+    >
+      {children}
+    </WagmiProvider>
   );
 };
 
-export  { Context, Provider };
+export { Context, Provider };
