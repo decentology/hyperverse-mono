@@ -10,7 +10,7 @@ type FlowTribesContext = {
 const Context = React.createContext<FlowTribesContext>(null);
 
 type ProviderProps = {
-  tenantID: string 
+  tenantId: string 
 }
 
 const Provider: FC<ProviderProps> = (props) => {
@@ -42,7 +42,7 @@ const Provider: FC<ProviderProps> = (props) => {
 
   const boundActions = {} as typeof actions;
   for (const actionName in actions) {
-    boundActions[actionName] = actions[actionName].bind(null, props.tenantID);
+    boundActions[actionName] = actions[actionName].bind(null, props.tenantId);
   }
 
   return (
