@@ -10,7 +10,7 @@ const Context = createContext({});
 Context.displayName = "EthereumTribesContext";
 
 export const ContractABI = ABI.abi;
-export const CONTRACT_ADDRESS = "0x410E22b393B3A90953c0677F2282E331580ed45b";
+export const CONTRACT_ADDRESS = "0xf8CEc073d08e42cdDC1bF1fd8d44ce3252ab7352";
 export const TENANT_ADDRESS = "0xD847C7408c48b6b6720CCa75eB30a93acbF5163D";
 
 Context.displayName = "EthereumTribesContext";
