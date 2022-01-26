@@ -6,5 +6,6 @@
 		"Hyperverse",
 		"walletconnect"
 	],
-	"cSpell.enabled": false
+	"cSpell.enabled": false,
+	"typescript.tsserver.experimental.enableProjectDiagnostics": true
 }

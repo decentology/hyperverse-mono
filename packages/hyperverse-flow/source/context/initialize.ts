@@ -1,4 +1,4 @@
-import * as fcl from "@onflow/fcl";
+const fcl = require("@onflow/fcl");
 import { networks } from '@decentology/hyperverse'
 export const Initialize = async (network: string) => {
   if (network != null) {

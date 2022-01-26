@@ -11,7 +11,7 @@ export function makeHyperverseBlockchain<
 
 export type HyperverseBlockchainInit<T> = (
   options: Hyperverse
-) => Promise<BlockchainFeatures<T>>;
+) => Promise<BlockchainFeatures<T>> | unknown;
 
 export type HyperverseBlockchain<T> = {
   name: Blockchain;

@@ -1,4 +1,4 @@
-import React, { createContext, FC, useState } from "react";
+import { createContext, createElement, FC, useEffect, useState } from "react";
 
 import { DeviceDetectProvider } from "./components";
 import Network from "./constants/networks";
@@ -18,7 +18,7 @@ type ProviderProps = {
 const Provider: FC<ProviderProps> = (props) => {
   const [hyperverse, setHyperverse] = useState<Hyperverse | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     props.hyperverse.then((hyperverse) => {
       setHyperverse(hyperverse);
     });
@@ -28,7 +28,7 @@ const Provider: FC<ProviderProps> = (props) => {
     let children = props.children;
 
     for (const module of hyperverse.modules.reverse()) {
-      children = React.createElement(
+      children = createElement(
         module.bundle.Provider,
         {
           tenantId: module.tenantId,
@@ -36,7 +36,7 @@ const Provider: FC<ProviderProps> = (props) => {
         children
       );
     }
-    const blockchain = React.createElement(
+    const blockchain = createElement(
       hyperverse.blockchain.Provider,
       null,
       children

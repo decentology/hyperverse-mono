@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, FC } from "react";
+import { useState, useEffect, useContext, FC, createContext } from "react";
 
 type HyperverseContext = {
   width: number;
@@ -7,7 +7,7 @@ type HyperverseContext = {
   isAppleMobile: boolean;
 };
 
-const Context = React.createContext<HyperverseContext>({
+const Context = createContext<HyperverseContext>({
   width: 0,
   isMobile: false,
   isDesktop: false,

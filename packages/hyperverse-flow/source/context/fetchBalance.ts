@@ -1,4 +1,4 @@
-import * as fcl from '@onflow/fcl';
+const fcl = require("@onflow/fcl");
 import * as FlowTypes from '@onflow/types';
 
 const fetchBalance = async (address: string) => {

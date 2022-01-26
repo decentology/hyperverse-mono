@@ -1,5 +1,4 @@
-import React, { FC } from "react";
-// @ts-ignore
+import { createContext, FC, useEffect, useState } from "react";
 import * as fcl from "@onflow/fcl";
 import {
   HyperverseModuleInstance,
@@ -16,10 +15,10 @@ type FlowTribesContext = {
   getCurrentTribe: Bind1<typeof actions.getCurrentTribe>;
 } | null;
 
-const Context = React.createContext<FlowTribesContext>(null);
+const Context = createContext<FlowTribesContext>(null);
 
 const Provider: FC<HyperverseModuleInstance> = (props) => {
-  const [isInitialized, setInitialized] = React.useState<boolean>(false);
+  const [isInitialized, setInitialized] = useState<boolean>(false);
 
   let { network } = useHyperverse();
 
@@ -48,7 +47,7 @@ const Provider: FC<HyperverseModuleInstance> = (props) => {
   //   });
   // }
 
-  React.useEffect(() => {
+  useEffect(() => {
     initialize();
   }, []);
 

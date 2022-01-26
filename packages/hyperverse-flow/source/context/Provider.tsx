@@ -1,4 +1,4 @@
-import React, {
+import {
   useReducer,
   useState,
   useEffect,
@@ -6,10 +6,7 @@ import React, {
   VFC,
   FC,
 } from "react";
-// @ts-ignore
-import * as fcl from "@onflow/fcl";
-import authenticate from "./authenticate";
-import unauthenticate from "./unauthenticate";
+const fcl = require("@onflow/fcl");
 import sendFlow from "./sendFlow";
 import fetchBalance from "./fetchBalance";
 import { useAsync } from "react-async-hook";
@@ -30,15 +27,13 @@ type FlowContext = {
   user?: FlowUser;
   balance?: Number;
   isInitialized?: boolean;
-  authenticate?: typeof authenticate;
-  unauthenticate?: typeof unauthenticate;
   fetchBalance?: typeof fetchBalance;
   updateBalance?: () => Promise<void>;
   sendFlow?: typeof sendFlow;
-  client?: fcl;
+  client?: typeof fcl;
   explorer?: string | null;
   loggedIn?: boolean;
-}| null;
+} | null;
 
 const Context = createContext<FlowContext>(null);
 Context.displayName = "FlowContext";
@@ -87,8 +82,6 @@ const Provider: FC<any> = ({ children }) => {
       value={{
         user,
         isInitialized,
-        authenticate,
-        unauthenticate,
         fetchBalance,
         sendFlow,
         client,

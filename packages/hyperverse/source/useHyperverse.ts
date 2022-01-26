@@ -1,9 +1,9 @@
-import React from 'react';
 
+import { useContext } from 'react';
 import {Context} from './Provider';
 
 function useHyperverse() {
-  const hyperverse = React.useContext(Context);
+  const hyperverse = useContext(Context);
   return hyperverse;
 }
 

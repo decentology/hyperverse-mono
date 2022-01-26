@@ -1,7 +1,5 @@
-// @ts-ignore
-import * as fcl from '@onflow/fcl';
-// @ts-ignore
-import * as t from '@onflow/types';
+const fcl = require("@onflow/fcl");
+const t = require("@onflow/types");
 import { FlowTransaction } from '..';
 
 async function joinTribe(tenantId: string, tribeName: string) {
