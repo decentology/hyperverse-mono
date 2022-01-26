@@ -86,17 +86,16 @@ contract Tribes is IHyperverseModule {
     }
 
     function leaveTribe(address tenant) public virtual {
-        address user = msg.sender;
         Tenant storage state = getState(tenant);
-        require(state.participants[user] != 0, "This member is not in a Tribe!");
+        require(state.participants[msg.sender] != 0, "This member is not in a Tribe!");
 
-        TribeData storage tribeData = state.tribes[state.participants[user]];
-        uint256 tribeId = state.participants[user];
-        state.participants[user] = 0;
-        tribeData.members[user] = false;
+        TribeData storage tribeData = state.tribes[state.participants[msg.sender]];
+        uint256 tribeId = state.participants[msg.sender];
+        state.participants[msg.sender] = 0;
+        tribeData.members[msg.sender] = false;
         tribeData.numOfMembers -= 1;
 
-        emit LeftTribe(tribeId, user);
+        emit LeftTribe(tribeId, msg.sender);
     }
 
     function getUserTribe(address tenant, address user) public view virtual returns (uint256) {

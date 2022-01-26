@@ -1,9 +1,8 @@
 import styles from '../styles/Home.module.css'
-import { useNetwork } from 'wagmi'
+import { useNetwork } from '@decentology/hyperverse-ethereum'
 
 
 const Footer = () => {
-  return null;
   const [
     { data: networkData, error: switchNetworkError },
     switchNetwork,
