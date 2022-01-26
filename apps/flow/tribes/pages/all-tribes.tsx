@@ -6,6 +6,9 @@ import { TribesData, useTribes } from "@decentology/hyperverse-flow-tribes";
 import { useFlow } from "@decentology/hyperverse-flow";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
+import { getAllTribes } from "@decentology/hyperverse-flow-tribes/source/actions";
+import Image from "next/image";
 
 const AllTribes = () => {
   const [loaderMessage, setLoaderMessage] = useState("Processing...");
@@ -14,25 +17,28 @@ const AllTribes = () => {
   const tribes = useTribes();
   const flow = useFlow();
   const router = useRouter();
-  useEffect(() => {
-    getTheTribes();
-  }, []);
 
-  const getTheTribes = async () => {
+  const getTheTribes = useCallback(async () => {
     setIsLoading(true);
     setLoaderMessage("Processing...");
     setAllTribes((await tribes?.getAllTribes()) || []);
     setIsLoading(false);
-  };
+  }, [setAllTribes, setIsLoading, setLoaderMessage, tribes]);
 
-  const joinATribe = async (itemName: string) => {
-    setIsLoading(true);
-    setLoaderMessage("Joining a tribe. Please wait.");
-    await tribes?.joinTribe(itemName);
-    setIsLoading(false);
-    router.push("/my-tribe");
-  };
+  const joinATribe = useCallback(
+    async (itemName: string) => {
+      setIsLoading(true);
+      setLoaderMessage("Joining a tribe. Please wait.");
+      await tribes?.joinTribe(itemName);
+      setIsLoading(false);
+      router.push("/my-tribe");
+    },
+    [router, setIsLoading, setLoaderMessage, tribes]
+  );
 
+  useEffect(() => {
+    getTheTribes();
+  }, [getTheTribes]);
   return (
     <main>
       <Nav />
@@ -54,7 +60,7 @@ const AllTribes = () => {
                   {allTribes.map((tribe, id) => {
                     return (
                       <div key={id} onClick={() => joinATribe(tribe.name)}>
-                        <img
+                        <Image
                           className={styles.cards}
                           src={`https://ipfs.infura.io/ipfs/${tribe.ipfsHash}/`}
                           alt={tribe.name}
