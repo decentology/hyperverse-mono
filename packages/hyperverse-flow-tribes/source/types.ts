@@ -8,3 +8,10 @@ type Tail<T extends readonly unknown[]> = T extends readonly [
 export type Bind1<Fn extends (...args: any) => any> = (
     ...args: Tail<Parameters<Fn>>
   ) => ReturnType<Fn>;
+
+
+export type TribesData = {
+  name: string,
+  ipfsHash: string,
+  description: string,
+}

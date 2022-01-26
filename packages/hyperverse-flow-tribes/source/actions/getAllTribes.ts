@@ -2,6 +2,8 @@
 import * as fcl from '@onflow/fcl';
 // @ts-ignore
 import * as t from '@onflow/types';
+import { TribesData } from '../types';
+
 
 async function getAllTribes(tenantId: string) {
   try {
@@ -18,7 +20,7 @@ async function getAllTribes(tenantId: string) {
       ])
     ]).then(fcl.decode);
 
-    return allTribes;
+    return allTribes as TribesData[];
   } catch (error) {
     console.error(error);
   }

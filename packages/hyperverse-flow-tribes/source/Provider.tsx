@@ -7,7 +7,7 @@ import {
   useHyperverse,
 } from "@decentology/hyperverse";
 import * as actions from "./actions";
-import { Bind1 } from "../types";
+import { Bind1 } from "./types";
 type FlowTribesContext = {
   isInitialized: boolean;
   leaveTribe: Bind1<typeof actions.leaveTribe>;

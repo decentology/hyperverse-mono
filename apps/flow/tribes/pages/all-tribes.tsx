@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import Nav from "../components/Nav";
 import Loader from "../components/Loader";
-import { useTribes } from "@decentology/hyperverse-flow-tribes";
+import { TribesData, useTribes } from "@decentology/hyperverse-flow-tribes";
 import { useFlow } from "@decentology/hyperverse-flow";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 const AllTribes = () => {
   const [loaderMessage, setLoaderMessage] = useState("Processing...");
   const [isLoading, setIsLoading] = useState(false);
-  const [allTribes, setAllTribes] = useState<string[]>([]);
+  const [allTribes, setAllTribes] = useState<TribesData[]>([]);
   const tribes = useTribes();
   const flow = useFlow();
   const router = useRouter();
@@ -51,13 +51,13 @@ const AllTribes = () => {
               <div>
                 <h5>Select Your Tribe</h5>
                 <div className={styles.allTribes}>
-                  {allTribes.map((name, id) => {
+                  {allTribes.map((tribe, id) => {
                     return (
-                      <div key={id} onClick={() => joinATribe(name)}>
+                      <div key={id} onClick={() => joinATribe(tribe.name)}>
                         <img
                           className={styles.cards}
-                          src={`https://ipfs.infura.io/ipfs/${name.ipfsHash}/`}
-                          alt={name}
+                          src={`https://ipfs.infura.io/ipfs/${tribe.ipfsHash}/`}
+                          alt={tribe.name}
                         />
                       </div>
                     );
