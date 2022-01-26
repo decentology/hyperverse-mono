@@ -1,8 +1,9 @@
+// @ts-ignore
 import * as fcl from '@onflow/fcl';
+// @ts-ignore
 import * as t from '@onflow/types';
 
 async function getCurrentTribe(tenantId: string, accountAddress: string) {
-  tenantId = "0x1960ff14acc51991";
   try {
     const allTribes = await fcl.send([
       fcl.script`

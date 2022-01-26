@@ -14,7 +14,6 @@ const AllTribes = () => {
   const tribes = useTribes();
   const flow = useFlow();
   const router = useRouter();
-
   useEffect(() => {
     getTheTribes();
   }, []);

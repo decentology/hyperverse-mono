@@ -1,8 +1,9 @@
+// @ts-ignore
 import * as fcl from '@onflow/fcl';
+// @ts-ignore
 import * as t from '@onflow/types';
 
 async function joinTribe(tenantId: string, tribeName: string) {
-  tenantId = "0x1960ff14acc51991";
   try {
     const transactionID = await fcl.send([
       fcl.transaction`
