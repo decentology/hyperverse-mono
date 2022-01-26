@@ -18,10 +18,6 @@ const AllTribes = () => {
   const flow = useFlow();
   const router = useRouter();
 
-  const bob = async () => {
-    
-  }
-
   const getTheTribes = useCallback(async () => {
     setIsLoading(true);
     setLoaderMessage("Processing...");
