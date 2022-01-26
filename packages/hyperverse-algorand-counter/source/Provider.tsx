@@ -1,11 +1,7 @@
-// @strictBindCallApply: true
-
-import React from "react";
-
-// import {} from '@hyperverse/hyperverse-algorand';
+import React, { FC } from "react";
+import { HyperverseModuleInstance } from "@decentology/hyperverse";
 import { useAlgorand } from "@decentology/hyperverse-algorand";
 import { useEnvironment } from "./environment";
-
 import * as actions from "./actions";
 import * as bundle from "./bundle";
 
@@ -20,7 +16,7 @@ type AlgorandConterContext = {
 const Context = React.createContext<AlgorandConterContext>(null);
 Context.displayName = "AlgorandCounterContext";
 
-function Provider(props) {
+const Provider: FC<HyperverseModuleInstance> = (props) => {
   const environment = useEnvironment();
   const algorand = useAlgorand();
 
@@ -53,6 +49,6 @@ function Provider(props) {
       {props.children}
     </Context.Provider>
   );
-}
+};
 
 export { Context, Provider };

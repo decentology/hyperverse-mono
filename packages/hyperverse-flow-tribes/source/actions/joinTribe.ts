@@ -1,8 +1,8 @@
 import * as fcl from '@onflow/fcl';
 import * as t from '@onflow/types';
 
-async function joinTribe(tenantID, tribeName) {
-  tenantID = "0x1960ff14acc51991";
+async function joinTribe(tenantId: string, tribeName: string) {
+  tenantId = "0x1960ff14acc51991";
   try {
     const transactionID = await fcl.send([
       fcl.transaction`
@@ -26,7 +26,7 @@ async function joinTribe(tenantID, tribeName) {
       }
       `,
       fcl.args([
-        fcl.arg(tenantID, t.Address),
+        fcl.arg(tenantId, t.Address),
         fcl.arg(tribeName, t.String)
       ]),
       fcl.payer(fcl.authz),

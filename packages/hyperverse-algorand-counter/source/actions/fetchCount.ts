@@ -1,7 +1,7 @@
 import { ActionProps } from ".";
 
 async function fetchCount(props: ActionProps): Promise<number> {
-  const {environment, algorand} = props;
+  const { environment, algorand } = props;
 
   const response = await algorand.client.getApplicationByID(environment.appID).do();
   const globalState = response.params['global-state'];
@@ -15,9 +15,9 @@ async function fetchCount(props: ActionProps): Promise<number> {
         [key]: value
       };
     })
-    .reduce((previous, current) => ({...previous, ...current}), {});
-  
+    .reduce((previous, current) => ({ ...previous, ...current }), {});
+
   return parsedState.Count;
 };
 
-export {fetchCount};
+export { fetchCount };

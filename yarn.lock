@@ -1214,6 +1214,21 @@
     "@onflow/util-template" "0.0.1"
     "@onflow/util-uid" "0.0.1"
 
+"@onflow/fcl@^0.0.78":
+  version "0.0.78"
+  resolved "https://registry.yarnpkg.com/@onflow/fcl/-/fcl-0.0.78.tgz#45c57a3556c139e61d6458b8f4eb96a22b492144"
+  integrity sha512-zWtzCjG2URWXLblSsXiSKr3qBroq2BSVGsZrWeosbmup/03fb/MJ10w3ECF83Cd2m/M0TevSSp+hcpdBVLZSfw==
+  dependencies:
+    "@onflow/interaction" "0.0.11"
+    "@onflow/rlp" "0.0.3"
+    "@onflow/sdk" "0.0.56"
+    "@onflow/types" "0.0.6"
+    "@onflow/util-actor" "0.0.2"
+    "@onflow/util-address" "0.0.0"
+    "@onflow/util-invariant" "0.0.0"
+    "@onflow/util-template" "0.0.1"
+    "@onflow/util-uid" "0.0.1"
+
 "@onflow/interaction@0.0.11":
   version "0.0.11"
   resolved "https://registry.yarnpkg.com/@onflow/interaction/-/interaction-0.0.11.tgz#4db8f4304039e33d6fc3b14c38b392d724113374"
@@ -1232,6 +1247,22 @@
   resolved "https://registry.yarnpkg.com/@onflow/rlp/-/rlp-0.0.3.tgz#42e10944309732bfd9acca79710c8210b9aabd4c"
   integrity sha512-oAf0VEiMjX8eC6Vd66j1BdGYTHOM6UBaS/sLSScnc7bKX5gICqe2gtEsCeJVE9rUzRk3GD3JqXRnPAW6YFWd/Q==
 
+"@onflow/sdk@0.0.56":
+  version "0.0.56"
+  resolved "https://registry.yarnpkg.com/@onflow/sdk/-/sdk-0.0.56.tgz#6f4528b8c3a78207ec5cb35d1133ff466e950428"
+  integrity sha512-yYOE+5Tvgprqo01vSxIgYTu4fO6sDFfyueVYFgzXx/F0fdHqy0zfAq+gEVjtWG+LvVD/YvR8eRbcBpfvXu1USA==
+  dependencies:
+    "@improbable-eng/grpc-web" "^0.14.0"
+    "@improbable-eng/grpc-web-node-http-transport" "^0.14.0"
+    "@onflow/protobuf" "^0.1.8"
+    "@onflow/rlp" "^0.0.3"
+    "@onflow/util-actor" "0.0.2"
+    "@onflow/util-address" "^0.0.0"
+    "@onflow/util-invariant" "^0.0.0"
+    "@onflow/util-template" "0.0.1"
+    deepmerge "^4.2.2"
+    sha3 "^2.1.4"
+
 "@onflow/sdk@^0.0.54":
   version "0.0.54"
   resolved "https://registry.yarnpkg.com/@onflow/sdk/-/sdk-0.0.54.tgz#e5aae23c0a1f3707e47ddab1ca2c1d78e5e75d7a"
@@ -1247,6 +1278,11 @@
     "@onflow/util-template" "0.0.1"
     deepmerge "^4.2.2"
 
+"@onflow/types@0.0.6", "@onflow/types@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.6.tgz#4fb20754565da4995a1b0b71b01210947f899841"
+  integrity sha512-2eBrmqiFO37EUOJvzksygP8Wu6lL/m9az36AF0qYdGQW/79KGCHBCchUsIzxyGt8UDXl/dgnIcMkiTH7tWZqXg==
+
 "@onflow/types@^0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.4.tgz#d4a9c3e301d23182dd256b73d3679c952fe653f0"
@@ -1256,11 +1292,6 @@
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.5.tgz#933f12dd85eadfec1ab62d23bd767e993c7be0cf"
   integrity sha512-Pgh3hz3Cr8KPpkaDd1E3FdQRASGqpfA1NK7dtgz+6xdTdESeqU2z0ksocrOdfy9ikRvKt4RyFmDuXPx2CVbjuQ==
-
-"@onflow/types@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@onflow/types/-/types-0.0.6.tgz#4fb20754565da4995a1b0b71b01210947f899841"
-  integrity sha512-2eBrmqiFO37EUOJvzksygP8Wu6lL/m9az36AF0qYdGQW/79KGCHBCchUsIzxyGt8UDXl/dgnIcMkiTH7tWZqXg==
 
 "@onflow/util-actor@0.0.2":
   version "0.0.2"
@@ -3996,6 +4027,14 @@ buffer@5.6.0:
     base64-js "^1.0.2"
     ieee754 "^1.1.4"
 
+buffer@6.0.3, buffer@^6.0.1, buffer@^6.0.2:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
+  integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
+  dependencies:
+    base64-js "^1.3.1"
+    ieee754 "^1.2.1"
+
 buffer@^5.0.5, buffer@^5.2.1, buffer@^5.4.3, buffer@^5.5.0, buffer@^5.6.0:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.7.1.tgz#ba62e7c13133053582197160851a8f648e99eed0"
@@ -4003,14 +4042,6 @@ buffer@^5.0.5, buffer@^5.2.1, buffer@^5.4.3, buffer@^5.5.0, buffer@^5.6.0:
   dependencies:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
-
-buffer@^6.0.1, buffer@^6.0.2:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
-  integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
-  dependencies:
-    base64-js "^1.3.1"
-    ieee754 "^1.2.1"
 
 bufferutil@^4.0.1:
   version "4.0.6"
@@ -11445,6 +11476,13 @@ sha.js@^2.4.0, sha.js@^2.4.8:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+sha3@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/sha3/-/sha3-2.1.4.tgz#000fac0fe7c2feac1f48a25e7a31b52a6492cc8f"
+  integrity sha512-S8cNxbyb0UGUM2VhRD4Poe5N58gJnJsLJ5vC7FYWGUmGhcsj4++WaIOBFVDxlG0W3To6xBuiRh+i0Qp2oNCOtg==
+  dependencies:
+    buffer "6.0.3"
 
 shallow-equal@^1.2.0:
   version "1.2.1"

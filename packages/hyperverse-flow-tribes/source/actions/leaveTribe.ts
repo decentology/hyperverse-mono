@@ -1,8 +1,10 @@
+// @ts-ignore
 import * as fcl from '@onflow/fcl';
+// @ts-ignore
 import * as t from '@onflow/types';
 
-async function leaveTribe(tenantID) {
-  tenantID = "0x1960ff14acc51991";
+async function leaveTribe(tenantId: string) {
+  tenantId = "0x1960ff14acc51991";
   try {
     const transactionID = await fcl.send([
       fcl.transaction`
@@ -21,7 +23,7 @@ async function leaveTribe(tenantID) {
       }
       `,
       fcl.args([
-        fcl.arg(tenantID, t.Address)
+        fcl.arg(tenantId, t.Address)
       ]),
       fcl.payer(fcl.authz),
       fcl.proposer(fcl.authz),

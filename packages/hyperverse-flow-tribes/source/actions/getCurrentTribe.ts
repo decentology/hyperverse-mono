@@ -1,8 +1,8 @@
 import * as fcl from '@onflow/fcl';
 import * as t from '@onflow/types';
 
-async function getCurrentTribe(tenantID, accountAddress) {
-  tenantID = "0x1960ff14acc51991";
+async function getCurrentTribe(tenantId: string, accountAddress: string) {
+  tenantId = "0x1960ff14acc51991";
   try {
     const allTribes = await fcl.send([
       fcl.script`
@@ -30,7 +30,7 @@ async function getCurrentTribe(tenantID, accountAddress) {
       }
       `,
       fcl.args([
-        fcl.arg(tenantID, t.Address),
+        fcl.arg(tenantId, t.Address),
         fcl.arg(accountAddress, t.Address)
       ])
     ]).then(fcl.decode);

@@ -1,38 +1,38 @@
-import { useState } from 'react';
-import styles from '../styles/Home.module.css'
-import Nav from '../components/Nav';
-import Loader from '../components/Loader';
-import { useTribes } from '@decentology/hyperverse-flow-tribes';
-import { useFlow } from '@decentology/hyperverse-flow';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from "react";
+import styles from "../styles/Home.module.css";
+import Nav from "../components/Nav";
+import Loader from "../components/Loader";
+import { useTribes } from "@decentology/hyperverse-flow-tribes";
+import { useFlow } from "@decentology/hyperverse-flow";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const AllTribes = () => {
-  const [loaderMessage, setLoaderMessage] = useState('Processing...')
+  const [loaderMessage, setLoaderMessage] = useState("Processing...");
   const [isLoading, setIsLoading] = useState(false);
-  const [allTribes, setAllTribes] = useState([]);
+  const [allTribes, setAllTribes] = useState<string[]>([]);
   const tribes = useTribes();
   const flow = useFlow();
   const router = useRouter();
 
   useEffect(() => {
     getTheTribes();
-  }, [])
+  }, []);
 
   const getTheTribes = async () => {
     setIsLoading(true);
     setLoaderMessage("Processing...");
-    setAllTribes(await tribes.getAllTribes());
+    setAllTribes((await tribes?.getAllTribes()) || []);
     setIsLoading(false);
-  }
+  };
 
-  const joinATribe = async (itemName) => {
+  const joinATribe = async (itemName: string) => {
     setIsLoading(true);
     setLoaderMessage("Joining a tribe. Please wait.");
-    await tribes.joinTribe(itemName);
+    await tribes?.joinTribe(itemName);
     setIsLoading(false);
-    router.push('/my-tribe')
-  }
+    router.push("/my-tribe");
+  };
 
   return (
     <main>
@@ -52,16 +52,16 @@ const AllTribes = () => {
               <div>
                 <h5>Select Your Tribe</h5>
                 <div className={styles.allTribes}>
-                  {allTribes.map((item, id) => {
+                  {allTribes.map((name, id) => {
                     return (
-                      <div key={id} onClick={() => joinATribe(item.name)}>
+                      <div key={id} onClick={() => joinATribe(name)}>
                         <img
                           className={styles.cards}
-                          src={`https://ipfs.infura.io/ipfs/${item.ipfsHash}/`}
-                          alt={item.name}
+                          src={`https://ipfs.infura.io/ipfs/${name.ipfsHash}/`}
+                          alt={name}
                         />
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -74,7 +74,7 @@ const AllTribes = () => {
         </div>
       )}
     </main>
-  )
-}
+  );
+};
 
-export default AllTribes
+export default AllTribes;

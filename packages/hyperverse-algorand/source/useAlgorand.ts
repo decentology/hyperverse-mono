@@ -1,9 +1,9 @@
 import {useContext} from 'react';
 
-import Algorand from './context/Algorand';
+import {Context} from './context/Algorand';
 
 function useAlgorand() {
-  return useContext(Algorand);
+  return useContext(Context);
 }
 
 export default useAlgorand;

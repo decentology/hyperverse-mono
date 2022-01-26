@@ -11,9 +11,9 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@onflow/fcl": "^0.0.77",
-    "@onflow/types": "^0.0.6",
     "@decentology/hyperverse": "*",
-    "@decentology/hyperverse-flow": "*"
+    "@decentology/hyperverse-flow": "*",
+    "@onflow/fcl": "^0.0.78",
+    "@onflow/types": "^0.0.6"
   }
 }
