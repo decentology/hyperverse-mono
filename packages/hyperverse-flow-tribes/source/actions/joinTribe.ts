@@ -35,7 +35,7 @@ async function joinTribe(tenantId: string, tribeName: string) {
       fcl.limit(9999)
     ]).then(fcl.decode);
 
-    return transactionID;
+    return fcl.tx(transactionID).onceSealed();
   } catch (error) {
     console.error(error);
   }
