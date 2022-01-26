@@ -18,6 +18,10 @@ const AllTribes = () => {
   const flow = useFlow();
   const router = useRouter();
 
+  const bob = async () => {
+    
+  }
+
   const getTheTribes = useCallback(async () => {
     setIsLoading(true);
     setLoaderMessage("Processing...");
@@ -30,8 +34,8 @@ const AllTribes = () => {
       setIsLoading(true);
       setLoaderMessage("Joining a tribe. Please wait.");
       await tribes?.joinTribe(itemName);
-      setIsLoading(false);
       router.push("/my-tribe");
+      setIsLoading(false);
     },
     [router, setIsLoading, setLoaderMessage, tribes]
   );
@@ -47,7 +51,7 @@ const AllTribes = () => {
       ) : (
         <div className={styles.container}>
           <h1>Tribes</h1>
-          {flow.loggedIn ? (
+          {flow?.loggedIn ? (
             !allTribes ? (
               <div>
                 <h5>There are currently no existing tribes.</h5>
@@ -61,6 +65,8 @@ const AllTribes = () => {
                     return (
                       <div key={id} onClick={() => joinATribe(tribe.name)}>
                         <Image
+                          width={200}
+                          height={200}
                           className={styles.cards}
                           src={`https://ipfs.infura.io/ipfs/${tribe.ipfsHash}/`}
                           alt={tribe.name}

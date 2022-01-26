@@ -2,6 +2,7 @@
 import * as fcl from '@onflow/fcl';
 // @ts-ignore
 import * as t from '@onflow/types';
+import { FlowTransaction } from '..';
 
 async function joinTribe(tenantId: string, tribeName: string) {
   try {
@@ -36,7 +37,7 @@ async function joinTribe(tenantId: string, tribeName: string) {
       fcl.limit(9999)
     ]).then(fcl.decode);
 
-    return fcl.tx(transactionID).onceSealed();
+    return fcl.tx(transactionID).onceSealed() as Promise<FlowTransaction>;
   } catch (error) {
     console.error(error);
   }

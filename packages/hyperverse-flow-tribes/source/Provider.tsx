@@ -57,9 +57,9 @@ const Provider: FC<HyperverseModuleInstance> = (props) => {
       value={{
         isInitialized,
         leaveTribe: actions.leaveTribe.bind(null, tenantId),
-        getAllTribes: actions.leaveTribe.bind(null, tenantId),
-        getCurrentTribe: actions.leaveTribe.bind(null, tenantId),
-        joinTribe: actions.leaveTribe.bind(null, tenantId),
+        getAllTribes: actions.getAllTribes.bind(null, tenantId),
+        getCurrentTribe: actions.getCurrentTribe.bind(null, tenantId),
+        joinTribe: actions.joinTribe.bind(null, tenantId),
       }}
     >
       {props.children}

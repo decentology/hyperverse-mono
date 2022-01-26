@@ -1,56 +1,61 @@
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 // @ts-ignore
-import { useTribes } from '@decentology/hyperverse-flow-tribes'
-import { useFlow } from '@decentology/hyperverse-flow';
-import styles from '../styles/Home.module.css';
-import Nav from '../components/Nav';
-import Loader from '../components/Loader';
+import { TribesData, useTribes } from "@decentology/hyperverse-flow-tribes";
+import { useFlow } from "@decentology/hyperverse-flow";
+import styles from "../styles/Home.module.css";
+import Nav from "../components/Nav";
+import Loader from "../components/Loader";
+import { useCallback } from "react";
+import Image from "next/image";
 
 const TribesPage = () => {
   const router = useRouter();
   const tribes = useTribes();
-  const [currentTribe, setCurrentTribe] = useState({});
+  const [currentTribe, setCurrentTribe] = useState<TribesData>();
   const [isLoading, setIsLoading] = useState(false);
-  const [loaderMessage, setLoaderMessage] = useState('Processing...');
+  const [loaderMessage, setLoaderMessage] = useState("Processing...");
   const flow = useFlow();
 
-  useEffect(() => {
-    if (flow.loggedIn) {
-      getMyTribe();
-    }
-  }, [flow.user])
-
-  const getMyTribe = async () => {
+  const getMyTribe = useCallback(async () => {
     setIsLoading(true);
     setLoaderMessage("Processing...");
-    setCurrentTribe(await tribes.getCurrentTribe(flow.user.addr));
+    if (flow?.user?.addr) {
+      setCurrentTribe(await tribes?.getCurrentTribe(flow.user.addr));
+    }
     setIsLoading(false);
-  }
+  }, [flow?.user, setIsLoading, setLoaderMessage, setCurrentTribe, tribes]);
 
-  const leaveMyTribe = async () => {
+  const leaveMyTribe = useCallback(async () => {
     setIsLoading(true);
     setLoaderMessage("Leaving your tribe. Please wait.");
-    await tribes.leaveTribe();
+    await tribes?.leaveTribe();
     setIsLoading(false);
-    router.push('/all-tribes');
-  }
+    router.push("/all-tribes");
+  }, [router, setIsLoading, setLoaderMessage, tribes]);
+
+  useEffect(() => {
+    if (flow?.loggedIn) {
+      getMyTribe();
+    }
+  }, [flow, getMyTribe]);
 
   return (
     <main>
       <Nav />
       {isLoading ? (
         <Loader loaderMessage="Processing..." />
-      ) : flow.loggedIn && currentTribe ? (
+      ) : flow?.loggedIn && currentTribe ? (
         <div className={styles.container2}>
           <div className={styles.container3}>
-            {currentTribe.ipfsHash === 'N/A' ? (
+            {currentTribe.ipfsHash === "N/A" ? (
               <div className={styles.tribeCard}>
                 <h2>{currentTribe.name}</h2>
               </div>
             ) : (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
+                height={200}
+                width={200}
                 src={`https://ipfs.infura.io/ipfs/${currentTribe.ipfsHash}/`}
                 alt={currentTribe.name}
                 className="tribe"
@@ -67,11 +72,12 @@ const TribesPage = () => {
           </button>
         </div>
       ) : (
-        flow.user && flow.user.addr && (
+        flow?.user &&
+        flow.user.addr && (
           <div className={styles.container2}>
             <button
               className={styles.join}
-              onClick={() => router.push('/all-tribes')}
+              onClick={() => router.push("/all-tribes")}
             >
               Join a Tribe
             </button>
@@ -79,14 +85,13 @@ const TribesPage = () => {
         )
       )}
 
-      {!flow.user || !flow.user.addr
-        ?
+      {!flow?.user || !flow.user.addr ? (
         <div className={styles.container2}>
           <p className={styles.error}>Connect Wallet to view your tribe</p>
         </div>
-        : null}
+      ) : null}
     </main>
-  )
-}
+  );
+};
 
-export default TribesPage
+export default TribesPage;

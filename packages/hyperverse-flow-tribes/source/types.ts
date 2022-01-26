@@ -15,3 +15,19 @@ export type TribesData = {
   ipfsHash: string,
   description: string,
 }
+
+
+export type FlowTransaction = {
+  errorMessage: string,
+  events: FlowEvent[],
+  status: number
+  statusCode: number
+}
+
+export type FlowEvent = {
+  data: any;
+  type: string
+  transactionId: string
+  transactionIndex: number
+  eventIndex: number
+}

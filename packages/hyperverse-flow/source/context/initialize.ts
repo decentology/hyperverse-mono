@@ -1,8 +1,8 @@
 import * as fcl from "@onflow/fcl";
 import { networks } from '@decentology/hyperverse'
-export const Initialize = async (network: String) => {
+export const Initialize = async (network: string) => {
   if (network != null) {
-    let explorer: String;
+    let explorer: string;
     if (network == networks.MainNet) {
       explorer = "https://flowscan.org";
       fcl.config()
@@ -10,7 +10,7 @@ export const Initialize = async (network: String) => {
         .put("discovery.wallet", "https://flow-wallet.blocto.app/authn")
         .put("0xFungibleToken", "0xf233dcee88fe0abe")
         .put("0xFlowToken", "0x1654653399040a61");
-    } else if (network == networks.TestNet) {
+    } else {
       explorer = "https://testnet.flowscan.org";
       fcl.config()
         .put("accessNode.api", "https://access-testnet.onflow.org")
