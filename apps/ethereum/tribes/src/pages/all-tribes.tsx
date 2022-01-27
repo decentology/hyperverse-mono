@@ -1,44 +1,43 @@
-import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
-import styles from '../styles/Home.module.css'
-import Nav from '../components/Nav'
-import Loader from '../components/Loader'
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import styles from "../styles/Home.module.css";
+import Nav from "../components/Nav";
+import Loader from "../components/Loader";
 // @ts-ignore
-import { useTribes } from '@decentology/hyperverse-ethereum-tribes'
-import { useAccount } from '@decentology/hyperverse-ethereum'
+import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
+import { useAccount } from "@decentology/hyperverse-ethereum";
+import Image from "next/image";
 
 const getData = async (data: { id: number; txn: string }[]) => {
   return Promise.all(
     data.map(async ({ id, txn }) => {
-      const link = txn.replace('sia:', '')
+      const link = txn.replace("sia:", "");
       const json = JSON.parse(
         // eslint-disable-next-line no-await-in-loop
-        await (await fetch(`https://siasky.net/${link}`)).text(),
-      )
-      return { id, ...json }
-    }),
-  )
-}
+        await (await fetch(`https://siasky.net/${link}`)).text()
+      );
+      return { id, ...json };
+    })
+  );
+};
 
 const AllTribes = () => {
-  const [{ data: account }] = useAccount()
-  const { Tribes, Join, useTribeEvents, contract } = useTribes()
-  const router = useRouter()
-  const { data: tribeHash, isLoading: allTribesLoading } = Tribes()
+  const [{ data: account }] = useAccount();
+  const { Tribes, Join, useTribeEvents, contract } = useTribes();
+  const router = useRouter();
+  const { data: tribeHash, isLoading: allTribesLoading } = Tribes();
 
   const { mutate, isLoading: joinTribeLoading } = Join({
-    onSuccess: () => router.push('/my-tribe'),
-  })
+    onSuccess: () => router.push("/my-tribe"),
+  });
   const { data, isLoading: loadingTribeData } = useQuery(
-    ['allTribes', tribeHash],
+    ["allTribes", tribeHash],
     () => getData(tribeHash!),
     {
       enabled: !!tribeHash,
-    },
-  )
-  const isLoading = allTribesLoading || joinTribeLoading || loadingTribeData
-
-
+    }
+  );
+  const isLoading = allTribesLoading || joinTribeLoading || loadingTribeData;
 
   return (
     <main>
@@ -60,11 +59,13 @@ const AllTribes = () => {
                 <div className={styles.allTribes}>
                   {data.map((item) => (
                     <div key={item.id} onClick={() => mutate(item.id)}>
-                      <img
+                      <Image
+                        width={200}
+                        height={200}
                         className={styles.cards}
                         src={`https://siasky.net/${item.image.replace(
-                          'sia:',
-                          '',
+                          "sia:",
+                          ""
                         )}/`}
                         alt={item.name}
                       />
@@ -81,7 +82,7 @@ const AllTribes = () => {
         </div>
       )}
     </main>
-  )
-}
+  );
+};
 
-export default AllTribes
+export default AllTribes;
