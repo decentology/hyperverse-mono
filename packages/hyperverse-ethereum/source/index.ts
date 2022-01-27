@@ -3,7 +3,6 @@ import { Provider } from "./Provider";
 import {
   blockchains,
   makeHyperverseBlockchain,
-  networks,
 } from "@decentology/hyperverse";
 
 export const Ethereum = makeHyperverseBlockchain({

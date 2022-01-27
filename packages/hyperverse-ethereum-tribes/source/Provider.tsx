@@ -1,6 +1,5 @@
 import { createContext, FC } from "react";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
-import { Provider as WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "react-query";
 import ABI from "../utils/Tribes.json";
 import { HyperverseModuleInstance } from "@decentology/hyperverse";

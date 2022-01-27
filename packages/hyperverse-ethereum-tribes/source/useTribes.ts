@@ -14,17 +14,17 @@ type Transaction = {
   wait: () => void
 }
 type ContractState = {
-  createInstance: () => Transaction;
-  instance: (account: string) => void;
-  addNewTribe: (metadata: any) => Transaction;
-  getUserTribe: (tenant: string, account: string) => any;
-  getTribeData: (tenant: string, id: number) => any;
-  leaveTribe: (tenant: string) => any;
-  totalTribes: (tenant: string) => any;
-  tenantCount: () => any;
-  joinTribe: (tenant: string, tribeId: string) => Transaction;
+  createInstance: () => Promise<Transaction>;
+  instance: (account: string) => Promise<boolean>;
+  addNewTribe: (metadata: any) => Promise<Transaction>;
+  getUserTribe: (tenant: string, account: string) => Promise<any>;
+  getTribeData: (tenant: string, id: number) => Promise<any>;
+  leaveTribe: (tenant: string) => Promise<any>;
+  totalTribes: (tenant: string) =>Promise<any>;
+  tenantCount: () => Promise<any>;
+  joinTribe: (tenant: string, tribeId: string) => Promise<Transaction>;
   address: string;
-} | null;
+} & ethers.Contract | null;
 export const useTribes = () => {
   const [contract, setTribesContract] = useState<ContractState>(null);
   const queryClient = useQueryClient();
@@ -32,8 +32,7 @@ export const useTribes = () => {
 
   const setup = async () => {
     const signer = await data?.connector?.getSigner()
-    const ctr = new ethers.Contract(CONTRACT_ADDRESS, ContractABI, signer)
-    // @ts-ignore
+    const ctr = new ethers.Contract(CONTRACT_ADDRESS, ContractABI, signer) as ContractState
     setTribesContract(ctr)
   }
 
