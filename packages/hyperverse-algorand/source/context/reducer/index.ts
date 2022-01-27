@@ -3,7 +3,7 @@ import WalletConnect from "@walletconnect/client";
 export type State = {
   isInitialized: boolean;
   connector: WalletConnect | null;
-  account: string | null;
+  account: string| null;
   isWaiting: boolean;
   pendingTransactions: Transaction[];
   completedTransactions: Transaction[];

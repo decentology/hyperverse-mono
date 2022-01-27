@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
   }
 });
 
-function Address(props) {
+function Address(props: { title: string, address: string} ) {
   const algorand = useAlgorand();
   const title = props.title || constants.title;
   const url = (
-    `${algorand.explorer}/address/${props.address}`
+    `${algorand?.explorer}/address/${props.address}`
   );
 
   return (

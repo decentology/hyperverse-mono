@@ -1,5 +1,5 @@
 import { createContext, FC, useEffect, useState } from "react";
-import * as fcl from "@onflow/fcl";
+const fcl = require("@onflow/fcl");
 import {
   HyperverseModuleInstance,
   networks,

@@ -1,13 +1,13 @@
 import { Algodv2, Indexer } from "algosdk";
 import { networks } from '@decentology/hyperverse'
-export const Initialize = async (network) => {
+export const Initialize = async (network: networks) => {
     if (network != null) {
         let client, explorer, indexer;
         if (network == networks.MainNet) {
             client = new Algodv2("", "https://algoexplorerapi.io/", "");
             indexer = new Indexer("", "https://algoexplorerapi.io/idx2", "");
             explorer = "https://algoexplorer.io";
-        } else if (network == networks.TestNet) {
+        } else  {
             client = new Algodv2("", "https://testnet.algoexplorerapi.io", "");
             indexer = new Indexer("", "https://testnet.algoexplorerapi.io/idx2", "");
             explorer = "https://testnet.algoexplorer.io";

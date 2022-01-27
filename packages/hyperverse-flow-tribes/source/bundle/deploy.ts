@@ -1,4 +1,4 @@
-async function deploy(props) {
+async function deploy(props: any) {
   console.log("Deploy");
 }
 

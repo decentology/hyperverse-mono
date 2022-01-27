@@ -1,4 +1,5 @@
 import algosdk from 'algosdk';
+import { ActionProps } from '../types';
 
 const approvalProgramSource = (
   `#pragma version 4
@@ -99,7 +100,7 @@ const clearStateProgramSource = (
   return`
 );
 
-async function deploy(props) {
+async function deploy(props: ActionProps) {
   const {environment, algorand, account} = props;
   console.log(algorand.client);
 

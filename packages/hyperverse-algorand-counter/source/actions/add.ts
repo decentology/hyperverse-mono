@@ -1,6 +1,5 @@
 import algosdk from "algosdk";
-import { ActionProps } from ".";
-
+import { ActionProps } from "../types";
 async function add(props: ActionProps): Promise<void> {
   const { environment, algorand, account } = props;
 

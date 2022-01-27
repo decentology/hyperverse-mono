@@ -1,5 +1,5 @@
 const fcl = require('@onflow/fcl')
-import * as FlowTypes from '@onflow/types';
+const FlowTypes = require('@onflow/types')
 
 const fixedPoint = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 1,

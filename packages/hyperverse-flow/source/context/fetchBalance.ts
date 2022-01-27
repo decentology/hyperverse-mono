@@ -1,5 +1,5 @@
 const fcl = require("@onflow/fcl");
-import * as FlowTypes from '@onflow/types';
+const FlowTypes = require('@onflow/types')
 
 const fetchBalance = async (address: string) => {
   const balance = await fcl.send([

@@ -6,7 +6,7 @@ import "gun/lib/load";
 import "gun/lib/then";
 const hyperverseUser =
   "q_L0TOz1LXLvdFF_K7OemqkOzI6DFLnpj_7OvKiOtG0.fF83VNl5EjVr7uXGJIrAgt6tSjBTWA2CaOICQCnlyD8";
-const useStorage = (url) => {
+const useStorage = (url: string) => {
   if (url === undefined) {
     url = "https://hyperverse.dev/gun";
   }

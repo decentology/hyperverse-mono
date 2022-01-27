@@ -37,16 +37,21 @@ const Nav = () => {
           </a>
         </Link>
 
-        {flow.user && flow.user.loggedIn
-          ?
-          <button className={styles.logout} onClick={() => flow.unauthenticate()}>
+        {flow?.user?.loggedIn && flow?.user?.addr ? (
+          <button
+            className={styles.logout}
+            onClick={() => flow?.unauthenticate()}
+          >
             <span>{shortenHash(flow.user.addr, 5, 5)}</span>
           </button>
-          :
-          <button className={styles.connect} onClick={() => flow.authenticate()}>
+        ) : (
+          <button
+            className={styles.connect}
+            onClick={() => flow?.authenticate()}
+          >
             Connect Wallet
           </button>
-        }
+        )}
       </div>
     </nav>
   );

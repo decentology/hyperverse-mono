@@ -1,4 +1,4 @@
-import { Provider } from "./context/Algorand";
+import { Provider } from "./context/Provider";
 import { blockchains, makeHyperverseBlockchain } from "@decentology/hyperverse";
 
 export const Algorand = makeHyperverseBlockchain({

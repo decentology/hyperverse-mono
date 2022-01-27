@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import {useDeviceDetect} from '@decentology/hyperverse';
 
-function Signature(props) {
+function Signature(props: any) {
   const device = useDeviceDetect();
   console.log(device);
 

@@ -1,27 +1,28 @@
 import type { NextPage } from "next";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 import Nav from "../components/Nav";
-import { useFlow } from '@decentology/hyperverse-flow'
-import { useTribes } from "@decentology/hyperverse-flow-tribes";
+import { useFlow } from "@decentology/hyperverse-flow";
+import { TribesData, useTribes } from "@decentology/hyperverse-flow-tribes";
+import { useCallback } from "react";
 
 const Home: NextPage = () => {
-  const [currentTribe, setCurrentTribe] = useState(null);
+  const [currentTribe, setCurrentTribe] = useState<TribesData>();
   const router = useRouter();
   const tribes = useTribes();
   const flow = useFlow();
-
+  const getUserTribe = useCallback(async () => {
+    if (flow?.user?.addr != null) {
+      setCurrentTribe(await tribes?.getCurrentTribe(flow.user.addr));
+    }
+  }, [flow, setCurrentTribe, tribes]);
   useEffect(() => {
-    if (flow.loggedIn) {
+    if (flow?.loggedIn) {
       getUserTribe();
     }
-  }, [flow.user])
-
-  const getUserTribe = async () => {
-    setCurrentTribe(await tribes.getCurrentTribe(flow.user.addr));
-  }
+  }, [flow, getUserTribe]);
 
   return (
     <div>
@@ -38,21 +39,24 @@ const Home: NextPage = () => {
         <div className={styles.hero}>
           <div className={styles.header}>
             <h1>Tribes</h1>
-            {flow.loggedIn ? (
-              !currentTribe
-                ?
+            {flow?.loggedIn ? (
+              !currentTribe ? (
                 <button
                   className={styles.join}
                   onClick={() => {
-                    router.push('/all-tribes')
+                    router.push("/all-tribes");
                   }}
                 >
                   Join A Tribe
                 </button>
-                :
-                <button className={styles.join} onClick={() => router.push('/my-tribe')}>
+              ) : (
+                <button
+                  className={styles.join}
+                  onClick={() => router.push("/my-tribe")}
+                >
                   View Your Tribe
                 </button>
+              )
             ) : null}
           </div>
         </div>

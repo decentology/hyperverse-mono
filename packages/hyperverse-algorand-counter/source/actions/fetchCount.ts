@@ -1,4 +1,4 @@
-import { ActionProps } from ".";
+import { ActionProps } from "../types";
 
 async function fetchCount(props: ActionProps): Promise<number> {
   const { environment, algorand } = props;
@@ -7,7 +7,7 @@ async function fetchCount(props: ActionProps): Promise<number> {
   const globalState = response.params['global-state'];
 
   const parsedState = globalState
-    .map((item) => {
+    .map((item: any) => {
       const key = Buffer.from(item.key, 'base64').toString();
       // Decode value based on type...
       const value = item.value.bytes.length === 0 ? item.value.uint : item.value.bytes;
@@ -15,7 +15,7 @@ async function fetchCount(props: ActionProps): Promise<number> {
         [key]: value
       };
     })
-    .reduce((previous, current) => ({ ...previous, ...current }), {});
+    .reduce((previous: any, current: any) => ({ ...previous, ...current }), {});
 
   return parsedState.Count;
 };

@@ -23,9 +23,11 @@ const styles = StyleSheet.create({
   },
 });
 
-function Transactions(props) {
+function Transactions(props: any) {
   const algorand = useAlgorand();
-
+  if (!algorand) {
+    return null;
+  }
   const { pendingTransactions, completedTransactions } = algorand.state;
 
   if (pendingTransactions.length === 0 && completedTransactions.length === 0) {
