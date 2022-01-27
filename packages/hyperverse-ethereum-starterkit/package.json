@@ -1,7 +1,7 @@
 {
   "name": "@hyperverse/hyperverse-ethereum-starterkit",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./source/index.ts",
   "license": "MIT",
   "dependencies": {
     "@decentology/hyperverse": "*"

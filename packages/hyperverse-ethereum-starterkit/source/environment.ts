@@ -1,4 +1,4 @@
-import { networks, useHyperverse } from "@hyperverse/hyperverse";
+import { networks, useHyperverse } from "@decentology/hyperverse";
 
 const environment = {
   [networks.MainNet]: {

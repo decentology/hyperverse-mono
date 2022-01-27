@@ -1,9 +1,8 @@
-import React from "react";
-
+import { useContext } from 'react';
 import { Context } from "./Provider";
 
 function useHook() {
-  const context = React.useContext(Context);
+  const context = useContext(Context);
   return context;
 }
 
