@@ -10,7 +10,7 @@
 
 - [Visual Studio Code](https://code.visualstudio.com/download) (or any IDE for editing JavaScript)
 - [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/) >=14.0.0
 - [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable)
 
 ## 🛠 Installation
