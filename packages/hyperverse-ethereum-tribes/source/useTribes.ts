@@ -6,7 +6,7 @@ import {
   UseMutationOptions,
 } from 'react-query'
 import { ethers } from 'ethers'
-import { useAccount } from '@decentology/hyperverse-ethereum'
+import {  useEthereum } from '@decentology/hyperverse-ethereum'
 import { ContractABI, TENANT_ADDRESS, CONTRACT_ADDRESS } from './Provider'
 import { useEvent } from 'react-use'
 
@@ -28,20 +28,20 @@ type ContractState = {
 export const useTribes = () => {
   const [contract, setTribesContract] = useState<ContractState>(null);
   const queryClient = useQueryClient();
-  const [{ data }] = useAccount();
+  const {address, web3Provider} = useEthereum()
 
   const setup = async () => {
-    const signer = await data?.connector?.getSigner()
+    const signer = await web3Provider?.getSigner()
     const ctr = new ethers.Contract(CONTRACT_ADDRESS, ContractABI, signer) as ContractState
     setTribesContract(ctr)
   }
 
   useEffect(() => {
-    if (!data?.connector) {
+    if (!web3Provider) {
       return
     }
     setup()
-  }, [data?.connector])
+  }, [web3Provider])
 
   const checkInstance = useCallback(
     async (account: any) => {
@@ -187,10 +187,10 @@ export const useTribes = () => {
     useTribeEvents,
     CheckInstance: () =>
       useQuery(
-        ['checkInstance', data?.address, contract?.address],
-        () => checkInstance(data?.address),
+        ['checkInstance', address, contract?.address],
+        () => checkInstance(address),
         {
-          enabled: !!data?.address && !!contract?.address,
+          enabled: !!address && !!contract?.address,
         },
       ),
     NewInstance: (
@@ -233,18 +233,18 @@ export const useTribes = () => {
       }),
     TribeId: () =>
       useQuery(
-        ['getTribeId', data?.address, contract?.address],
-        () => getTribeId(data?.address),
+        ['getTribeId', address, contract?.address],
+        () => getTribeId(address),
         {
-          enabled: !!data?.address && !!contract?.address,
+          enabled: !!address && !!contract?.address,
           retry: false,
         },
       ),
     Tribe: () => {
       const { data: tribeId } = useQuery(
-        ['getTribeId', data?.address, contract?.address],
-        () => getTribeId(data?.address),
-        { enabled: !!data?.address && !!contract?.address },
+        ['getTribeId', address, contract?.address],
+        () => getTribeId(address),
+        { enabled: !!address && !!contract?.address },
       )
       return useQuery(['getTribeData', tribeId], () => getTribe(tribeId), {
         enabled: !!tribeId,
