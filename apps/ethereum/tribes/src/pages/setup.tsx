@@ -5,7 +5,8 @@ import { SkynetClient } from 'skynet-js'
 import styles from '../styles/Home.module.css'
 import Loader from '../components/Loader'
 import { useTribes  } from '@decentology/hyperverse-ethereum-tribes'
-import { useAccount } from '@decentology/hyperverse-ethereum'
+import { useEthereum } from "@decentology/hyperverse-ethereum";
+
 
 import Wallets from '../components/WalletModal'
 
@@ -15,7 +16,7 @@ const TENANT_ADDRESS = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D'
 const Setup = () => {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-  const [{ data: account }] = useAccount()
+  const { address: account } = useEthereum()
   const { CheckInstance, NewInstance, AddTribe } = useTribes()
   const [isLoadingAddTribe, setIsLoadingAddTribe] = useState(false)
   const [loaderMessage, setLoaderMessage] = useState('Processing...')
@@ -88,7 +89,7 @@ const Setup = () => {
                 Connect Wallet
               </button>
             </div>
-          ) : account.address?.toLowerCase() ===
+          ) : account.toLowerCase() ===
             TENANT_ADDRESS.toLowerCase() ? (
             <div className={styles.container2}>
               <input

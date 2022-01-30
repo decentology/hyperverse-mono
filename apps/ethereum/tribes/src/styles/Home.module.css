@@ -9,6 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Press Start 2P";
 }
 
 .connect {
@@ -78,6 +79,7 @@
   justify-content: space-between;
   align-items: center;
   height: calc(100vh - 8rem);
+  font-family: "Press Start 2P";
 }
 
 .header {
@@ -132,6 +134,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Press Start 2P";
 }
 
 .container > h1 {
@@ -151,6 +154,7 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  
 }
 
 .allTribes > div {
@@ -203,6 +207,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Press Start 2P";
 }
 
 .container3 {
@@ -212,6 +217,7 @@
   align-items: center;
   width: 70%;
   height: 100%;
+  font-family: "Press Start 2P";
 }
 
 .tribe {
@@ -243,7 +249,7 @@
 
 @media screen and (max-width: 1200px) {
   .tribe {
-    width: 60rem;
+    width: 50rem;
   }
 }
 
@@ -281,7 +287,6 @@
     font-size: 1rem;
   }
 }
-
 /* --------------- End of My Tribe Page ---------------- */
 
 /* ------------------- Footer -------------------- */
@@ -418,9 +423,4 @@
 
 .modalContainer > button {
   margin-bottom: 0.5rem;
-}
-
-
-.switch {
-  
 }

@@ -15,10 +15,12 @@
 
 html,
 body {
-  font-family: "Press Start 2P";
+  font-family: "Inconsolata";
   background-color: var(--color-theme-black);
   color: var(--color-theme-white);
+  
 }
+
 
 /* ------------------- Tribes Main Page ------------------- */
 main {
@@ -35,6 +37,7 @@ nav {
   align-items: center;
   margin: auto;
   max-width: 1500px;
+  font-family: "Press Start 2P";
 }
 
 
@@ -86,3 +89,4 @@ footer {
   height: 300px;
   padding: 0 1rem;
 }
+
