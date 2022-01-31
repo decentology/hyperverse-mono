@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@decentology/hyperverse": "*",
-    "wagmi": "^0.2.0"
+    "@walletconnect/web3-provider": "^1.7.1",
+    "ethers": "^5.5.3",
+    "wagmi": "^0.2.0",
+    "web3modal": "^1.9.5"
   }
 }

@@ -5,7 +5,7 @@ import Nav from "../components/Nav";
 import Loader from "../components/Loader";
 // @ts-ignore
 import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
-import { useAccount } from "@decentology/hyperverse-ethereum";
+import { useEthereum } from "@decentology/hyperverse-ethereum";
 import Image from "next/image";
 
 const getData = async (data: { id: number; txn: string }[]) => {
@@ -22,7 +22,7 @@ const getData = async (data: { id: number; txn: string }[]) => {
 };
 
 const AllTribes = () => {
-  const [{ data: account }] = useAccount();
+  const { address } = useEthereum();
   const { Tribes, Join, useTribeEvents, contract } = useTribes();
   const router = useRouter();
   const { data: tribeHash, isLoading: allTribesLoading } = Tribes();
@@ -47,7 +47,7 @@ const AllTribes = () => {
       ) : (
         <div className={styles.container}>
           <h1>Tribes</h1>
-          {account ? (
+          {address ? (
             !data ? (
               <>
                 <h5>There are currently no existing tribes.</h5>

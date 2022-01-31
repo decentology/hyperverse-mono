@@ -5,11 +5,11 @@ import styles from "../styles/Home.module.css";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
-import { useAccount } from "@decentology/hyperverse-ethereum";
+import { useEthereum } from "@decentology/hyperverse-ethereum";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const [{ data: account, error: accountErr }] = useAccount();
+  const { address } = useEthereum();
   const { TribeId } = useTribes();
   const { data, error: tribeIdErr } = TribeId();
   return (
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
         <div className={styles.hero}>
           <div className={styles.header}>
             <h1> Tribes</h1>
-            {account ? (
+            {address ? (
               !data ? (
                 <button
                   className={styles.join}
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
             ) : null}
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </>
   );

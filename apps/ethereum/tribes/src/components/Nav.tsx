@@ -1,8 +1,6 @@
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import { useState } from "react";
-import { useAccount } from "@decentology/hyperverse-ethereum";
-import Wallets from "./WalletModal";
+import { useEthereum } from "@decentology/hyperverse-ethereum";
 
 const shortenHash = (
   hash: string = "",
@@ -22,9 +20,7 @@ const shortenHash = (
 };
 
 const Nav = () => {
-  // return null;
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [{ data }, disconnect] = useAccount();
+  const { address, disconnect, connect } = useEthereum();
 
   return (
     <nav>
@@ -41,17 +37,15 @@ const Nav = () => {
           </a>
         </Link>
 
-        {!data ? (
-          <button className={styles.connect} onClick={() => setShowModal(true)}>
+        {!address ? (
+          <button className={styles.connect} onClick={connect}>
             Connect Wallet
           </button>
         ) : (
           <button className={styles.logout} onClick={disconnect}>
-            <span>{shortenHash(data?.address, 5, 5)}</span>
+            <span>{shortenHash(address, 5, 5)}</span>
           </button>
         )}
-
-        {showModal && <Wallets close={() => setShowModal(false)} />}
       </div>
     </nav>
   );

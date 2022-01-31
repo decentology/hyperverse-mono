@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
+import { useContext } from 'react'
 // @ts-ignore
+import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { useTribes } from '@decentology/hyperverse-ethereum-tribes'
-import { useAccount } from '@decentology/hyperverse-ethereum'
 import styles from '../styles/Home.module.css'
 import Nav from '../components/Nav'
 import Loader from '../components/Loader'
@@ -17,7 +18,7 @@ const getTribeData = async (data: string) => {
 
 const TribesPage = () => {
   const router = useRouter()
-  const [{ data: account }] = useAccount()
+  const { address: account } = useEthereum();
   const { Tribe, Leave } = useTribes()
   const { data: tribeHash, isLoading: tribeDataLoading } = Tribe()
   const { mutate, isLoading: leaveTribeLoading } = Leave({
@@ -46,7 +47,6 @@ const TribesPage = () => {
                 <h2>{data.name}</h2>
               </div>
             ) : (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={`https://siasky.net/${data.image}/`}
                 alt={data.name}
@@ -54,8 +54,8 @@ const TribesPage = () => {
               />
             )}
 
-            <div>
-              <h1 className={styles.text}>{data.name}</h1>
+            <div className={styles.text}>
+              <h1>{data.name}</h1>
               <p className={styles.description}>{data.description}</p>
             </div>
           </div>
