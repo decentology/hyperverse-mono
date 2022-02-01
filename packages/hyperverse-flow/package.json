@@ -8,8 +8,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/decentology/npm-hyperverse-flow"
+    "url": "https://github.com/decentology/hyperverse-mono"
   },
+  "files": [
+    "distribution"
+  ],
   "scripts": {
     "build": "parcel build"
   },

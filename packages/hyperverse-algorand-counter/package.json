@@ -8,9 +8,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/decentology/npm-hyperverse-algorand-counter"
+    "url": "https://github.com/decentology/hyperverse-mono"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "parcel build"
+  },
+  "files": [
+    "distribution"
+  ],
   "peerDependencies": {
     "react": "^17.0.2"
   },
