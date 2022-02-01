@@ -1,8 +1,10 @@
 {
   "name": "@decentology/hyperverse-ethereum-tribes",
   "version": "1.0.0",
-  "module": "dist/index.ts",
-  "main": "./source/index.ts",
+  "module": "./distribution/index.js",
+  "types": "./distribution/index.d.ts",
+  "main": "./distribution/index.js",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "test": "hardhat test"
@@ -17,6 +19,7 @@
     "wagmi": "^0.0.17"
   },
   "devDependencies": {
+    "@decentology/config": "*",
     "@nomiclabs/hardhat-ethers": "^2.0.4",
     "@nomiclabs/hardhat-waffle": "^2.0.2",
     "chai": "^4.3.4",

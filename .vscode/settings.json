@@ -1,11 +1,11 @@
 {
-	"cSpell.words": [
-		"Algodv",
-		"Algorand",
-		"algosdk",
-		"Hyperverse",
-		"walletconnect"
-	],
-	"cSpell.enabled": false,
-	"typescript.tsserver.experimental.enableProjectDiagnostics": true
+  "cSpell.words": [
+    "Algodv",
+    "Algorand",
+    "algosdk",
+    "Hyperverse",
+    "walletconnect"
+  ],
+  "cSpell.enabled": false,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true
 }

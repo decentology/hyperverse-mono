@@ -1,10 +1,13 @@
 {
-  "name": "config",
+  "name": "@decentology/config",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "license": "MIT",
   "files": [
-    "eslint-preset.js"
+    "eslint-preset.js",
+    "base.json",
+    "nextjs.json",
+    "react-library.json"
   ],
   "dependencies": {
     "eslint-config-next": "^12.0.3",

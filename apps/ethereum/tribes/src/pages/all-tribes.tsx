@@ -3,7 +3,6 @@ import { useQuery } from "react-query";
 import styles from "../styles/Home.module.css";
 import Nav from "../components/Nav";
 import Loader from "../components/Loader";
-// @ts-ignore
 import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import Image from "next/image";

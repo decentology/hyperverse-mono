@@ -4,7 +4,6 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import ABI from "../utils/Tribes.json";
 import { HyperverseModuleInstance } from "@decentology/hyperverse";
 const client = new QueryClient();
-
 const Context = createContext({});
 Context.displayName = "EthereumTribesContext";
 

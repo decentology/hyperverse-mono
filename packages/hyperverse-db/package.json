@@ -11,5 +11,8 @@
     "gun": "^0.2020.1235",
     "react-query": "^3.34.8",
     "react-use": "^17.3.2"
+  },
+  "devDependencies": {
+    "@decentology/config": "*"
   }
 }

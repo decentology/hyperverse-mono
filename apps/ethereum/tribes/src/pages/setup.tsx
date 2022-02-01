@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-// @ts-ignore
 import { SkynetClient } from 'skynet-js'
 import styles from '../styles/Home.module.css'
 import Loader from '../components/Loader'

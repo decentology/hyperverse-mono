@@ -2,13 +2,14 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "React Library",
   "extends": "./base.json",
-  "include": ["src"],
+  "include": ["source/**/*"],
   "exclude": ["node_modules"],
   "compilerOptions": {
-    "lib": ["ES2015"],
+    "lib": ["ES2015", "DOM"],
     "module": "ESNext",
-    "rootDir": "src",
-    "outDir": "dist",
-    "jsx": "react"
+    "rootDir": "source",
+    "outDir": "distribution",
+    "moduleResolution": "Node",
+    "jsx": "react-jsx"
   }
 }

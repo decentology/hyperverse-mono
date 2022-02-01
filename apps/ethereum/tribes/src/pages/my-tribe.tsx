@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { useContext } from 'react'
-// @ts-ignore
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { useTribes } from '@decentology/hyperverse-ethereum-tribes'
 import styles from '../styles/Home.module.css'

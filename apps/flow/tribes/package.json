@@ -18,6 +18,7 @@
     "@decentology/hyperverse-flow-tribes": "*"
   },
   "devDependencies": {
+    "@decentology/config": "*",
     "@types/node": "17.0.10",
     "@types/react": "17.0.38",
     "eslint": "8.7.0",
