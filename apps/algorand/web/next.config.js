@@ -1,5 +1,4 @@
 const withTM = require("next-transpile-modules")([
-  "ui",
   "@decentology/hyperverse",
   "@decentology/hyperverse-flow",
   "@decentology/hyperverse-flow-tribes",

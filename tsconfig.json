@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": ".",
     "composite": true,
     "target": "es2016",
     "jsx": "react-jsx",
@@ -22,6 +23,6 @@
       "@decentology/*": ["packages/*/source"]
     }
   },
-  "exclude": ["node_modules", "distribution"],
-  "include": ["./**/*", "./**/*.json"]
+  "noEmit": true,
+  "exclude": ["node_modules", "distribution"]
 }
