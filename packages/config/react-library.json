@@ -7,7 +7,7 @@
   "compilerOptions": {
     "lib": ["ES2015", "DOM"],
     "module": "ESNext",
-    "rootDir": "source",
+    "rootDir": "../",
     "outDir": "distribution",
     "moduleResolution": "Node",
     "jsx": "react-jsx"
