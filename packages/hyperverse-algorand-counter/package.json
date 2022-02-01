@@ -1,6 +1,9 @@
 {
   "name": "@decentology/hyperverse-algorand-counter",
-  "main": "./source/index.ts",
+  "source": "./source/index.ts",
+  "main": "./distribution/index.js",
+  "types": "./distribution/index.d.ts",
+  "type": "module",
   "version": "0.1.2",
   "license": "MIT",
   "repository": {

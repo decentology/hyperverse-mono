@@ -1,10 +1,14 @@
 {
   "name": "@decentology/hyperverse",
-  "source": "./source/index.js",
-  "main": "./source/index.ts",
-  "module": "./distribution/index.module.js",
+  "source": "./source/index.ts",
+  "main": "./distribution/index.js",
+  "types": "./distribution/index.d.ts",
+  "type": "module",
   "version": "0.1.4",
   "license": "MIT",
+  "files": [
+    "distribution"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/decentology/npm-hyperverse"

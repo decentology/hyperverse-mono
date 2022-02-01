@@ -1,12 +1,18 @@
 {
   "name": "@decentology/hyperverse-algorand",
-  "main": "./source/index.ts",
+  "source": "./source/index.ts",
+  "main": "./distribution/index.js",
+  "types": "./distribution/index.d.ts",
+  "type": "module",
   "version": "0.1.2",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/decentology/npm-hyperverse-algorand"
   },
+  "files": [
+    "distribution"
+  ],
   "scripts": {},
   "peerDependencies": {
     "react": "^17.0.2"

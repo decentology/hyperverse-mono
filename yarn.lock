@@ -1728,6 +1728,13 @@
     "@parcel/utils" "^2.2.1"
     posthtml "^0.16.4"
 
+"@parcel/packager-ts@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@parcel/packager-ts/-/packager-ts-2.2.1.tgz#fdc31e574b9a5d1d8bc524087383ecc12f710781"
+  integrity sha512-MSiV7hTTMo+QzzxfjqEjzMXTz0IJ09WOZ126AKe8jL7fYL9lp8H1ha+wGeH1gDq+EHjgIANFcjFuC1MdY2J+1Q==
+  dependencies:
+    "@parcel/plugin" "^2.2.1"
+
 "@parcel/plugin@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@parcel/plugin/-/plugin-2.2.1.tgz#14d46cababae45d89afcf4a26b67880870d4fcfc"
@@ -1955,6 +1962,24 @@
     posthtml-parser "^0.10.1"
     posthtml-render "^3.0.0"
     semver "^5.7.1"
+
+"@parcel/transformer-typescript-types@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@parcel/transformer-typescript-types/-/transformer-typescript-types-2.2.1.tgz#46943081c15690a56c634f32549bc9cd6a4525f1"
+  integrity sha512-0zpZkvTbldaEtdGkb3f3jL+1ANON4v6UmIwYFLf/4pDtDm4D2/sisAUoayc8wMhCzm6A6I6RDv2LXrZulvowBw==
+  dependencies:
+    "@parcel/diagnostic" "^2.2.1"
+    "@parcel/plugin" "^2.2.1"
+    "@parcel/source-map" "^2.0.0"
+    "@parcel/ts-utils" "^2.2.1"
+    nullthrows "^1.1.1"
+
+"@parcel/ts-utils@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@parcel/ts-utils/-/ts-utils-2.2.1.tgz#b1e551f212134dfe7ab75688e4f37a760da2f144"
+  integrity sha512-VBpaCrZ6TPOltr68RbMuvVaZbLVFppqs0MZFiVqoF2XQ5Jb1CIxk5gHZvoA2l8/434AMLQes1kGCaAtgaCoVTw==
+  dependencies:
+    nullthrows "^1.1.1"
 
 "@parcel/types@^2.2.1":
   version "2.2.1"
@@ -12867,7 +12892,7 @@ typescript@4.5.4:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.4.tgz#a17d3a0263bf5c8723b9c52f43c5084edf13c2e8"
   integrity sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==
 
-typescript@4.5.5:
+typescript@4.5.5, typescript@>=3.0.0:
   version "4.5.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
   integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==

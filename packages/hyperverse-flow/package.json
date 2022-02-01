@@ -1,8 +1,9 @@
 {
   "name": "@decentology/hyperverse-flow",
   "source": "./source/index.ts",
-  "main": "./source/index.ts",
-  "module": "./distribution/index.module.js",
+  "main": "./distribution/index.js",
+  "types": "./distribution/index.d.ts",
+  "type": "module",
   "version": "0.1.1",
   "license": "MIT",
   "repository": {

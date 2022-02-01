@@ -2,7 +2,9 @@
   "name": "@decentology/hyperverse-ethereum",
   "version": "1.0.0",
   "type": "module",
-  "main": "./source/index.ts",
+  "source": "./source/index.ts",
+  "main": "./distribution/index.js",
+  "types": "./distribution/index.d.ts",
   "license": "MIT",
   "peerDependencies": {
     "react": "^17.0.2"
