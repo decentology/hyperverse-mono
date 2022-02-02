@@ -1,13 +1,14 @@
 {
   "name": "@decentology/hyperverse-ethereum-tribes",
   "version": "1.0.0",
-  "module": "./distribution/index.js",
+  "source": "./source/index.ts",
   "types": "./distribution/index.d.ts",
   "main": "./distribution/index.js",
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "hardhat test"
+    "test": "hardhat test",
+    "build": "parcel build"
   },
   "peerDependencies": {
     "react": "^17.0.2"
@@ -31,6 +32,7 @@
     "chai": "^4.3.4",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.3",
-    "hardhat": "^2.8.3"
+    "hardhat": "^2.8.3",
+    "parcel": "^2.2.1"
   }
 }
