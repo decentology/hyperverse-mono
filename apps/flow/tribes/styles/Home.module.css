@@ -140,6 +140,10 @@
   margin-bottom: 2rem;
 }
 
+.container h5 {
+  text-align: center;
+}
+
 .container > a {
   margin-top: 8rem;
   font-size: 0.9rem;

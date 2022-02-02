@@ -61,8 +61,8 @@ const AllTribes = () => {
                     return (
                       <div key={id} onClick={() => joinATribe(tribe.name)}>
                         <Image
-                          width={200}
-                          height={200}
+                          width={240}
+                          height={300}
                           className={styles.cards}
                           src={`https://ipfs.infura.io/ipfs/${tribe.ipfsHash}/`}
                           alt={tribe.name}

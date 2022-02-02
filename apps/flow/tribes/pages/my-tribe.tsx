@@ -54,8 +54,8 @@ const TribesPage = () => {
               </div>
             ) : (
               <Image
-                height={200}
-                width={200}
+                height={600}
+                width={480}
                 src={`https://ipfs.infura.io/ipfs/${currentTribe.ipfsHash}/`}
                 alt={currentTribe.name}
                 className="tribe"
