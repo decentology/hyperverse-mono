@@ -1,0 +1,19 @@
+{
+  "name": "@decentology/hyperverse-flow-simple-nft",
+  "main": "./source/index.ts",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decentology/npm-hyperverse-flow-simple-nft"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
+  "dependencies": {
+    "@decentology/hyperverse": "*",
+    "@decentology/hyperverse-flow": "*",
+    "@onflow/fcl": "^0.0.78",
+    "@onflow/types": "^0.0.6"
+  }
+}
