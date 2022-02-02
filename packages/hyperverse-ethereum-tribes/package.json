@@ -10,6 +10,9 @@
     "test": "hardhat test",
     "build": "parcel build"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "react": "^17.0.2"
   },
