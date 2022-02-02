@@ -12,6 +12,10 @@
   "peerDependencies": {
     "react": "^17.0.2"
   },
+  "files": [
+    "distribution",
+    "utils"
+  ],
   "dependencies": {
     "@decentology/hyperverse": "*",
     "@decentology/hyperverse-ethereum": "*",
