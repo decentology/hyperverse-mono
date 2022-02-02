@@ -9,11 +9,13 @@
   "scripts": {
     "test": "hardhat test"
   },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
   "dependencies": {
     "@decentology/hyperverse": "*",
     "@decentology/hyperverse-ethereum": "*",
     "@openzeppelin/contracts": "^4.4.2",
-    "react": "^17.0.2",
     "react-query": "^3.34.7",
     "react-use": "^17.3.2",
     "wagmi": "^0.0.17"
