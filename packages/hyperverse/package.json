@@ -1,10 +1,9 @@
 {
   "name": "@decentology/hyperverse",
-  "type": "module",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "files": [
     "distribution"
