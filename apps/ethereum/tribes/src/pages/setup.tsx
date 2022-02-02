@@ -6,16 +6,12 @@ import Loader from '../components/Loader'
 import { useTribes  } from '@decentology/hyperverse-ethereum-tribes'
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 
-
-import Wallets from '../components/WalletModal'
-
 const client = new SkynetClient('https://siasky.net')
 
 const TENANT_ADDRESS = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D'
 const Setup = () => {
   const router = useRouter()
-  const [showModal, setShowModal] = useState(false)
-  const { address: account } = useEthereum()
+  const { address: account, connect } = useEthereum()
   const { CheckInstance, NewInstance, AddTribe } = useTribes()
   const [isLoadingAddTribe, setIsLoadingAddTribe] = useState(false)
   const [loaderMessage, setLoaderMessage] = useState('Processing...')
@@ -83,7 +79,7 @@ const Setup = () => {
             <div className={styles.container2}>
               <button
                 className={styles.connect}
-                onClick={() => setShowModal(true)}
+                onClick={() => connect()}
               >
                 Connect Wallet
               </button>
@@ -139,7 +135,6 @@ const Setup = () => {
             Home
           </button>
 
-          {showModal && <Wallets close={() => setShowModal(false)} />}
         </div>
       )}
     </main>

@@ -29,7 +29,7 @@ const Nav = () => {
       </Link>
       <div className={styles.rightNav}>
         <Link
-          href="https://docs-hyperhack.decentology.com/learn-with-examples"
+          href="https://docs.hyperverse.dev/"
           passHref
         >
           <a target="_blank" rel="noreferrer">

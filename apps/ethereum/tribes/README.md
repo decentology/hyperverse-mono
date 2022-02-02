@@ -21,7 +21,7 @@ To run this project locally:
    clone the repository
 
    ```bash
-   git clone -b feat/back-to-typescript https://github.com/decentology/hyperverse-mono.git
+   git clone https://github.com/decentology/hyperverse-mono.git
    ```
 
    cd into apps/ethereum/tribes folder
