@@ -19,6 +19,9 @@
   "peerDependencies": {
     "react": "^17.0.2"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@decentology/config": "*",
     "parcel": "^2.2.1"

@@ -12,6 +12,9 @@
   "files": [
     "distribution"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "react": "^17.0.2"
   },

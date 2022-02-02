@@ -13,6 +13,9 @@
   "scripts": {
     "build": "parcel build"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "distribution"
   ],
