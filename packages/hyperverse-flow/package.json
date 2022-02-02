@@ -3,8 +3,7 @@
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
-  "type": "module",
-  "version": "0.1.1",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -31,6 +30,7 @@
     "@onflow/fcl": "^0.0.77",
     "@onflow/types": "^0.0.5",
     "aphrodite": "^2.4.0",
-    "classnames": "^2.3.1"
+    "classnames": "^2.3.1",
+    "react-async-hook": "^4.0.0"
   }
 }
