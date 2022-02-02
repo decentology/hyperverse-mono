@@ -90,6 +90,10 @@
   font-size: 2.5rem;
 }
 
+.header p {
+  width: 75%;
+}
+
 .join {
   font-family: 'Press Start 2P';
   cursor: pointer;

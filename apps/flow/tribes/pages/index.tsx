@@ -39,6 +39,7 @@ const Home: NextPage = () => {
         <div className={styles.hero}>
           <div className={styles.header}>
             <h1>Tribes</h1>
+            <p>A sample DApp on the Hyperverse in which you can join and leave your favorite Tribes.</p>
             {flow?.loggedIn ? (
               !currentTribe ? (
                 <button
