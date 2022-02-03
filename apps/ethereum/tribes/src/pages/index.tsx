@@ -27,6 +27,7 @@ const Home: NextPage = () => {
         <div className={styles.hero}>
           <div className={styles.header}>
             <h1> Tribes</h1>
+            <p className={styles.about}>An example dapp utilizing the tribes module built on the hyperverse. Tribes allows you to build communities that people can join, leave, or create.</p>
             {address ? (
               !data ? (
                 <button
