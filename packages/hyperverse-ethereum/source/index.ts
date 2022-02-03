@@ -1,4 +1,4 @@
-export * from "wagmi";
+export * from 'web3modal'
 import { Provider } from "./Provider";
 import {
   blockchains,
