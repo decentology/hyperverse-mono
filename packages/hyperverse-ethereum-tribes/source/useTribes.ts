@@ -77,6 +77,11 @@ export const useTribes = () => {
       if (!contract) {
         return
       }
+
+      if(!contract.signer) {
+        connect()
+      }
+
       const createTxn = await contract.createInstance()
       return createTxn.wait()
     } catch (err) {
@@ -102,6 +107,9 @@ export const useTribes = () => {
       try {
         if (!contract) {
           return
+        }
+        if(!contract.signer) {
+          connect()
         }
         const addTxn = await contract.addNewTribe(metadata)
         return addTxn.wait()
@@ -147,6 +155,11 @@ export const useTribes = () => {
       if (!contract) {
         return
       }
+
+      if(!contract.signer) {
+        connect()
+      }
+
       const leaveTxn = await contract.leaveTribe(TENANT_ADDRESS)
       await leaveTxn.wait()
       return leaveTxn.hash
@@ -169,15 +182,14 @@ export const useTribes = () => {
         const json = JSON.parse(
           // eslint-disable-next-line no-await-in-loop
           await (await fetch(`https://siasky.net/${link}`)).text()
-        );
-        
+        )
+
         json.id = i
         json.image = `https://siasky.net/${json.image.replace(
           "sia:",
           ""
         )}/`
 
-   
         tribes.push( json)
       }
 
