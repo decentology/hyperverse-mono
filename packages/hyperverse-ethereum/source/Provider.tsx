@@ -7,9 +7,9 @@ import {
 } from "react";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { providers } from "ethers";
+import { providers, ethers } from "ethers";
 
-const INFURA_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY!;
+const INFURA_ID = 'fb9f66bab7574d70b281f62e19c27d49';
 
 const providerOptions = {
   walletconnect: {
@@ -49,8 +49,9 @@ export const Context = createContext<State>({
 Context.displayName = "EthereumContext";
 
 export const Provider = ({ children }: { children: ReactNode }) => {
+  const prov = new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${INFURA_ID}`);
   const [state, setState] = useState<Omit<State, "disconnect" | "connect">>({
-    provider: null,
+    provider: prov,
     web3Provider: null,
     address: null,
     chainId: null,
@@ -89,7 +90,7 @@ export const Provider = ({ children }: { children: ReactNode }) => {
       }
 
       setState({
-        provider: null,
+        provider: prov,
         web3Provider: null,
         address: null,
         chainId: null,
