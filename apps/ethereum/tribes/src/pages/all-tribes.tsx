@@ -60,7 +60,7 @@ const AllTribes = () => {
                     <div key={item.id} onClick={() => mutate(item.id)}>
                       <Image
                         width={200}
-                        height={200}
+                        height={250}
                         className={styles.cards}
                         src={`https://siasky.net/${item.image.replace(
                           "sia:",
