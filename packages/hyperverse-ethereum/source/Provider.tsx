@@ -9,7 +9,7 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providers, ethers } from "ethers";
 
-const INFURA_ID = 'fb9f66bab7574d70b281f62e19c27d49';
+const INFURA_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
 const providerOptions = {
   walletconnect: {
