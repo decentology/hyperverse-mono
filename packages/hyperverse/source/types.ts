@@ -1,6 +1,7 @@
 import { FC, Context } from "react";
 import Blockchain from "./constants/blockchains";
 import Network from "./constants/networks";
+import Storage from "./constants/storage";
 type Exact<A, B> = A extends B ? (B extends A ? A : never) : never;
 
 export function makeHyperverseBlockchain<
@@ -32,6 +33,7 @@ export type BlockchainFeatures2<T extends {}> = T & {
 export type Hyperverse = {
   blockchain: HyperverseBlockchain<unknown> | null;
   network: Network;
+  storage?: Storage;
   modules: HyperverseModuleBase[];
 };
 export type HyperverseModuleBase = {
