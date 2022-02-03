@@ -14,6 +14,8 @@ const Context = createContext<HyperverseContext>({
   isAppleMobile: false,
 });
 
+Context.displayName = "MobileDetectContext";
+
 function useDeviceDetect() {
   const context = useContext(Context);
   return context;
