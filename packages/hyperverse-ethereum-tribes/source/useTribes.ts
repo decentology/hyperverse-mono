@@ -13,6 +13,7 @@ import { useEvent } from 'react-use'
 type Transaction = {
   wait: () => void
 }
+
 type ContractState = {
   createInstance: () => Promise<Transaction>;
   instance: (account: string) => Promise<boolean>;
@@ -25,16 +26,29 @@ type ContractState = {
   joinTribe: (tenant: string, tribeId: string) => Promise<Transaction>;
   address: string;
 } & ethers.Contract | null;
+
+
+
 export const useTribes = () => {
-  const [contract, setTribesContract] = useState<ContractState>(null);
+
+  const [contract, setTribesContract] = useState<ContractState>();
   const queryClient = useQueryClient();
-  const {address, web3Provider} = useEthereum()
+  const {address, web3Provider, provider, connect} = useEthereum()
 
   const setup = async () => {
+    console.log('setup')
     const signer = await web3Provider?.getSigner()
-    const ctr = new ethers.Contract(CONTRACT_ADDRESS, ContractABI, signer) as ContractState
-    setTribesContract(ctr)
+    if(signer && contract) {
+      const ctr = contract.connect(signer) as ContractState
+      setTribesContract(ctr)
+    }
   }
+
+  useEffect(() => {
+    console.log('a',provider)
+    const ctr = new ethers.Contract(CONTRACT_ADDRESS, ContractABI, provider) as ContractState
+    setTribesContract(ctr)
+  } , [])
 
   useEffect(() => {
     if (!web3Provider) {
@@ -63,6 +77,11 @@ export const useTribes = () => {
       if (!contract) {
         return
       }
+
+      if(!contract.signer) {
+        connect()
+      }
+
       const createTxn = await contract.createInstance()
       return createTxn.wait()
     } catch (err) {
@@ -88,6 +107,9 @@ export const useTribes = () => {
       try {
         if (!contract) {
           return
+        }
+        if(!contract.signer) {
+          connect()
         }
         const addTxn = await contract.addNewTribe(metadata)
         return addTxn.wait()
@@ -133,6 +155,11 @@ export const useTribes = () => {
       if (!contract) {
         return
       }
+
+      if(!contract.signer) {
+        connect()
+      }
+
       const leaveTxn = await contract.leaveTribe(TENANT_ADDRESS)
       await leaveTxn.wait()
       return leaveTxn.hash
@@ -151,11 +178,23 @@ export const useTribes = () => {
       for (let i = 1; i <= tribesData.toNumber(); ++i) {
         // eslint-disable-next-line no-await-in-loop
         const txn = await contract.getTribeData(TENANT_ADDRESS, i)
-        tribes.push({
-          id: i,
-          txn: txn,
-        })
+        const link = txn.replace("sia:","")
+        const json = JSON.parse(
+          // eslint-disable-next-line no-await-in-loop
+          await (await fetch(`https://siasky.net/${link}`)).text()
+        )
+
+        json.id = i
+        json.image = `https://siasky.net/${json.image.replace(
+          "sia:",
+          ""
+        )}/`
+
+        tribes.push( json)
       }
+
+
+
       return tribes
     } catch (err) {
       throw err
@@ -167,6 +206,10 @@ export const useTribes = () => {
       try {
         if (!contract) {
           return
+        }
+
+        if(!contract.signer) {
+          connect()
         }
         const joinTxn = await contract.joinTribe(TENANT_ADDRESS, id)
         return joinTxn.wait()
