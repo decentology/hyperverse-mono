@@ -6,7 +6,8 @@
   "types": "./distribution/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "parcel build"
+    "build": "parcel build",
+    "clean": "rimraf ./distribution"
   },
   "files": [
     "distribution"
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@decentology/config": "*",
-    "parcel": "^2.2.1"
+    "parcel": "^2.2.1",
+    "rimraf": "^3.0.2"
   }
 }

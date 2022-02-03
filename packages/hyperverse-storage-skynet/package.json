@@ -1,25 +1,24 @@
 {
-  "name": "@decentology/hyperverse-algorand-counter",
+  "name": "@decentology/hyperverse-storage-skynet",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
-  "type": "module",
-  "version": "0.1.2",
+  "version": "1.0.1",
   "license": "MIT",
+  "files": [
+    "distribution"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/decentology/hyperverse-mono"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "parcel build",
     "clean": "rimraf ./distribution"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "distribution"
-  ],
   "peerDependencies": {
     "react": "^17.0.2"
   },
@@ -29,8 +28,6 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "*",
-    "@decentology/hyperverse-algorand": "*",
-    "algosdk": "^1.12.0"
+    "skynet-js": "^4.0.23-beta"
   }
 }
