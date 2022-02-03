@@ -1,11 +1,13 @@
 import { createContext, createElement, FC, useEffect, useState } from "react";
-
+import {Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet'
 import { DeviceDetectProvider } from "./components";
 import Network from "./constants/networks";
+import Storage from "./constants/storage";
 import { Hyperverse } from "./types";
 
 const Context = createContext<Hyperverse>({
   blockchain: null,
+  storage: Storage.Skynet,
   network: Network.TestNet,
   modules: [],
 });
@@ -36,6 +38,10 @@ const Provider: FC<ProviderProps> = (props) => {
         children
       );
     }
+
+    // TODO Make this conditional
+    children = createElement(SkyNetProvider, null, children);
+
     const blockchain = createElement(
       hyperverse.blockchain.Provider,
       null,
