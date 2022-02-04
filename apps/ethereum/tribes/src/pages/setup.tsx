@@ -1,58 +1,51 @@
-import { useState } from 'react'
-import { useRouter } from 'next/router'
-import { SkynetClient } from 'skynet-js'
-import styles from '../styles/Home.module.css'
-import Loader from '../components/Loader'
-import { useTribes  } from '@decentology/hyperverse-ethereum-tribes'
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { SkynetClient } from "skynet-js";
+import styles from "../styles/Home.module.css";
+import Loader from "../components/Loader";
+import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 
-const client = new SkynetClient('https://siasky.net')
+const client = new SkynetClient("https://siasky.net");
 
-const TENANT_ADDRESS = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D'
+const TENANT_ADDRESS = "0xD847C7408c48b6b6720CCa75eB30a93acbF5163D";
 const Setup = () => {
-  const router = useRouter()
-  const { address: account, connect } = useEthereum()
-  const { CheckInstance, NewInstance, AddTribe } = useTribes()
-  const [isLoadingAddTribe, setIsLoadingAddTribe] = useState(false)
-  const [loaderMessage, setLoaderMessage] = useState('Processing...')
-  const [imageFile, setImageFile] = useState<File>()
+  const router = useRouter();
+  const { address: account, connect } = useEthereum();
+  const { CheckInstance, NewInstance, AddTribe } = useTribes();
+  const [isLoadingAddTribe, setIsLoadingAddTribe] = useState(false);
+  const [loaderMessage, setLoaderMessage] = useState("Processing...");
+  const [imageFile, setImageFile] = useState<File>();
   const [formInput, updateInput] = useState({
-    name: '',
-    description: '',
-  })
+    name: "",
+    description: "",
+  });
 
-  const { data } = CheckInstance()
-  const { mutate, isLoading: isCreateInstanceLoading } = NewInstance()
-  const isLoading = isLoadingAddTribe || isCreateInstanceLoading
-  const { mutate: addTribe } = AddTribe({
+  const { data } = CheckInstance();
+  const { mutate, isLoading: isCreateInstanceLoading } = NewInstance();
+  const isLoading = isLoadingAddTribe || isCreateInstanceLoading;
+  const { mutate: addTribe,  } = AddTribe({
     onSuccess: () => {
-      setIsLoadingAddTribe(false)
+      setIsLoadingAddTribe(false);
     },
-  })
+  });
   const addNewTribe = async () => {
     try {
-      setIsLoadingAddTribe(true)
-      setLoaderMessage('Uploading image...')
-      const { skylink } = await client.uploadFile(imageFile!)
+      setIsLoadingAddTribe(true);
 
-      const data = JSON.stringify({
+      const metadata = {
         name: formInput.name,
         description: formInput.description,
-        image: skylink.replace('sia:', ''),
-      })
-
-      setLoaderMessage('Uploading Metadata...')
-      const { skylink: file } = await client.uploadFile(
-        new File([data], 'metadata.json'),
-      )
+      };
 
       try {
-        setLoaderMessage('Intiating Transaction...')
-        addTribe(file.replace('sia:', ''))
-        setLoaderMessage('Processing Transaction...')
+        setLoaderMessage("Intiating Transaction...");
+        // addTribe({metadata: data, image: imageFile});
+        addTribe({ metadata, image: imageFile });
+        setLoaderMessage("Processing Transaction...");
       } catch {}
     } catch {}
-  }
+  };
 
   return (
     <main>
@@ -77,15 +70,11 @@ const Setup = () => {
           )}
           {!account ? (
             <div className={styles.container2}>
-              <button
-                className={styles.connect}
-                onClick={() => connect()}
-              >
+              <button className={styles.connect} onClick={() => connect()}>
                 Connect Wallet
               </button>
             </div>
-          ) : account.toLowerCase() ===
-            TENANT_ADDRESS.toLowerCase() ? (
+          ) : account.toLowerCase() === TENANT_ADDRESS.toLowerCase() ? (
             <div className={styles.container2}>
               <input
                 type="text"
@@ -130,14 +119,13 @@ const Setup = () => {
           <button
             className={styles.connect}
             type="submit"
-            onClick={() => router.push('/')}
+            onClick={() => router.push("/")}
           >
             Home
           </button>
-
         </div>
       )}
     </main>
-  )
-}
-export default Setup
+  );
+};
+export default Setup;
