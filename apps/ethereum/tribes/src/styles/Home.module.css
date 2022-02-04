@@ -110,6 +110,17 @@
   );
 }
 
+.about {
+  margin-top: 1.5rem;
+  color: var(--color-theme-red);
+  font-size: 1.1rem;
+  font-family: 'Inconsolata', monospace;
+  text-transform: none;
+  letter-spacing: 2px;
+  width: 60%;
+  text-align: center;
+}
+
 .error {
   margin-top: 1.5rem;
   color: var(--color-theme-red);
