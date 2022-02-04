@@ -35,13 +35,17 @@ type MetaData = {
   image: string;
 };
 
+
 export const useTribes = () => {
   const [contract, setTribesContract] = useState<ContractState>();
   const queryClient = useQueryClient();
-  const { address, web3Provider, provider, connect } = useEthereum();
+  const { address, web3Provider, provider } = useEthereum();
   const [skyNetClient] = useState<SkynetClient>(
     new SkynetClient("https://siasky.net")
   );
+
+
+
   const setup = async () => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {
@@ -50,6 +54,23 @@ export const useTribes = () => {
     }
   };
 
+  const errors = (err:any) => {
+    if (!contract?.signer) {
+      throw new Error("Please connect your wallet!");
+    }
+
+    if(err.code === 4001){
+      throw new Error("You rejected the transaction!")
+    }
+
+    if(err.message.includes("not in a Tribe")) {
+      throw new Error("You are not in a tribe!");
+    }
+
+    throw new Error("Something went wrong!");
+
+  }
+  
   useEffect(() => {
     const ctr = new ethers.Contract(
       CONTRACT_ADDRESS,
@@ -87,13 +108,10 @@ export const useTribes = () => {
         return;
       }
 
-      if (!contract.signer) {
-        connect();
-      }
-
       const createTxn = await contract.createInstance();
       return createTxn.wait();
     } catch (err) {
+      errors(err)
       throw err;
     }
   }, [contract]);
@@ -114,6 +132,10 @@ export const useTribes = () => {
   const addTribe = useCallback(
     async (metadata: Omit<MetaData, "image">, image: File) => {
       try {
+        if (!contract) {
+          return;
+        }
+
         // TODO: Add progress indicator notices for steps
         // 1. Upload file notification
         // 2. Upload metadata information
@@ -130,17 +152,13 @@ export const useTribes = () => {
         const { skylink: metadataFileLink } = await skyNetClient.uploadFile(
           metadataFile
         );
-        if (!contract) {
-          return;
-        }
-        if (!contract.signer) {
-          connect();
-        }
+
         const addTxn = await contract.addNewTribe(
           metadataFileLink.replace("sia:", "")
         );
         return addTxn.wait();
       } catch (err) {
+        errors(err)
         throw err;
       }
     },
@@ -156,7 +174,7 @@ export const useTribes = () => {
         const id = await contract.getUserTribe(TENANT_ADDRESS, account);
         return id.toNumber();
       } catch (err) {
-        throw err;
+        errors(err)
       }
     },
     [contract]
@@ -171,7 +189,7 @@ export const useTribes = () => {
         const userTribeTxn = await contract.getTribeData(TENANT_ADDRESS, id);
         return userTribeTxn;
       } catch (err) {
-        throw err;
+        errors(err)
       }
     },
     [contract]
@@ -183,15 +201,13 @@ export const useTribes = () => {
         return;
       }
 
-      if (!contract.signer) {
-        connect();
-      }
-
+      
       const leaveTxn = await contract.leaveTribe(TENANT_ADDRESS);
       await leaveTxn.wait();
       return leaveTxn.hash;
     } catch (err) {
-      throw err;
+      errors(err)
+
     }
   }, [contract]);
 
@@ -219,7 +235,7 @@ export const useTribes = () => {
 
       return tribes;
     } catch (err) {
-      throw err;
+      errors(err)
     }
   }, [contract]);
 
@@ -229,14 +245,12 @@ export const useTribes = () => {
         if (!contract) {
           return;
         }
+     
 
-        if (!contract.signer) {
-          connect();
-        }
         const joinTxn = await contract.joinTribe(TENANT_ADDRESS, id);
         return joinTxn.wait();
       } catch (err) {
-        throw err;
+        errors(err)
       }
     },
     [contract]
