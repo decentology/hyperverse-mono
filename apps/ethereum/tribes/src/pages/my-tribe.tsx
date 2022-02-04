@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
-import { useContext } from 'react'
+import { useEffect } from 'react'
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { useTribes } from '@decentology/hyperverse-ethereum-tribes'
 import styles from '../styles/Home.module.css'
 import Nav from '../components/Nav'
 import Loader from '../components/Loader'
+import { toast } from 'react-toastify';
+import Image from 'next/image';
 
 const getTribeData = async (data: string) => {
   const json = JSON.parse(
@@ -19,8 +21,8 @@ const TribesPage = () => {
   const router = useRouter()
   const { address: account } = useEthereum();
   const { Tribe, Leave } = useTribes()
-  const { data: tribeHash, isLoading: tribeDataLoading } = Tribe()
-  const { mutate, isLoading: leaveTribeLoading } = Leave({
+  const { data: tribeHash, isLoading: tribeDataLoading, error:tribeErr } = Tribe()
+  const { mutate, isLoading: leaveTribeLoading, error: leaveErr } = Leave({
     onSuccess: () => router.push('/'),
   })
 
@@ -32,13 +34,23 @@ const TribesPage = () => {
     },
   )
   const isLoading = tribeDataLoading || leaveTribeLoading || tribeDataSiaLoading
-
+  
+  const error = tribeErr || leaveErr
+  useEffect(() => {
+  
+    if (error) {
+      //@ts-ignore
+      toast.error(error.message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+      })
+    }
+  }, [error])
   return (
     <main>
       <Nav />
       {isLoading ? (
         <Loader loaderMessage="Processing..." />
-      ) : account && data ? (
+      ) : account && !tribeErr && data ? (
         <div className={styles.container2}>
           <div className={styles.container3}>
             {data.image === 'N/A' ? (
@@ -46,7 +58,9 @@ const TribesPage = () => {
                 <h2>{data.name}</h2>
               </div>
             ) : (
-              <img
+              <Image
+                width={300}
+                height={400}
                 src={`https://siasky.net/${data.image}/`}
                 alt={data.name}
                 className={styles.tribe}
@@ -63,7 +77,7 @@ const TribesPage = () => {
           </button>
         </div>
       ) : (
-        account && (
+        account && !tribeErr && (
           <div className={styles.container2}>
             <button
               className={styles.join}

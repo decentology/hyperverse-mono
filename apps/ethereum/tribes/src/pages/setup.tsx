@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { SkynetClient } from "skynet-js";
 import styles from "../styles/Home.module.css";
 import Loader from "../components/Loader";
 import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
+import { toast } from "react-toastify";
 
-const client = new SkynetClient("https://siasky.net");
-
-const TENANT_ADDRESS = "0xD847C7408c48b6b6720CCa75eB30a93acbF5163D";
+const TENANT_ADDRESS = "0x87DAD25225CaB96E1C9492CB43c41d70c85E6022";
 const Setup = () => {
   const router = useRouter();
   const { address: account, connect } = useEthereum();
@@ -21,14 +19,16 @@ const Setup = () => {
     description: "",
   });
 
-  const { data } = CheckInstance();
-  const { mutate, isLoading: isCreateInstanceLoading } = NewInstance();
+  const { data, error: instanceErr } = CheckInstance();
+  const { mutate, isLoading: isCreateInstanceLoading,  error: newInstanceErr } = NewInstance();
   const isLoading = isLoadingAddTribe || isCreateInstanceLoading;
-  const { mutate: addTribe,  } = AddTribe({
+  const { mutate: addTribe, error:addTribeErr  } = AddTribe({
     onSuccess: () => {
       setIsLoadingAddTribe(false);
     },
   });
+
+  const error = instanceErr || newInstanceErr || addTribeErr;
   const addNewTribe = async () => {
     try {
       setIsLoadingAddTribe(true);
@@ -46,6 +46,16 @@ const Setup = () => {
       } catch {}
     } catch {}
   };
+
+
+  useEffect(() => {
+    if (error) {
+      //@ts-ignore
+      toast.error(error.message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+      })
+    }
+  }, [error])
 
   return (
     <main>
