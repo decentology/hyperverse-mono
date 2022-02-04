@@ -23,7 +23,7 @@ const providerOptions = {
 let web3Modal: Web3Modal;
 if (typeof window !== "undefined") {
   web3Modal = new Web3Modal({
-    network: "mainnet", // optional
+    network: "testnet", // optional
     cacheProvider: true,
     providerOptions, // required
   });
@@ -48,8 +48,21 @@ export const Context = createContext<State>({
 });
 Context.displayName = "EthereumContext";
 
+
+// Once we refactored the chainID coming from hyperverse initilaize, we can make 
+// this less specific
+const switchNetwork = async (chainId: number, prov: any) => {
+  if(chainId !== 4) {
+    await prov.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: '0x4' }],
+    });
+  }
+}
+
 export const Provider = ({ children }: { children: ReactNode }) => {
   const prov = new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${INFURA_ID}`);
+
   const [state, setState] = useState<Omit<State, "disconnect" | "connect">>({
     provider: prov,
     web3Provider: null,
@@ -57,6 +70,9 @@ export const Provider = ({ children }: { children: ReactNode }) => {
     chainId: null,
   });
   const { provider } = state;
+
+
+
 
   const connect = useCallback(async function() {
     // This is the initial `provider` that is returned when
@@ -72,6 +88,8 @@ export const Provider = ({ children }: { children: ReactNode }) => {
     const address = await signer.getAddress();
 
     const network = await web3Provider.getNetwork();
+
+    switchNetwork(network.chainId, provider);
 
     setState((prev) => ({
       ...prev,
