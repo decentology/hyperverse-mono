@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@decentology/hyperverse": "*",
+    "@decentology/hyperverse-storage-skynet": "*",
     "@onflow/fcl": "^0.0.77",
     "@onflow/types": "^0.0.5",
     "aphrodite": "^2.4.0",

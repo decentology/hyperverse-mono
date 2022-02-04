@@ -1,28 +1,31 @@
 import { createContext, FC, useContext, useEffect, useState } from "react";
 import { SkynetClient } from "skynet-js";
-// const SkyNetClient = require("skynet-js");
 
-export const Context = createContext<any>({});
+type StorageContext = {
+  uploadFile: SkynetClient['uploadFile'];
+  uploadDirectory: SkynetClient["uploadDirectory"];
+  downloadFile: SkynetClient["downloadFile"];
+  openFile: SkynetClient["openFile"];
+  client: SkynetClient;
+} | null;
+
+export const Context = createContext<StorageContext>(null);
 Context.displayName = "StorageContext";
 
 export const Provider: FC<{ clientUrl: string }> = ({
   children,
   clientUrl,
 }) => {
-  const [client, setClient] = useState<any>(null);
-  useEffect(() => {
-    const client = new SkynetClient(clientUrl || "https://siasky.net");
-    setClient(client);
-  }, [setClient]);
-  const { uploadFile, uploadDirectory, downloadFile, file, openFile, db } =
-    client || {};
+  const [client] = useState<SkynetClient>(
+    new SkynetClient(clientUrl || "https://siasky.net")
+  );
+  const { uploadFile, uploadDirectory, downloadFile, openFile } = client || {};
   return (
     <Context.Provider
       value={{
         uploadFile,
         uploadDirectory,
         downloadFile,
-        file,
         openFile,
         client,
       }}

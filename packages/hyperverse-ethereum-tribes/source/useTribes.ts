@@ -9,7 +9,7 @@ import { ethers } from "ethers";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { ContractABI, TENANT_ADDRESS, CONTRACT_ADDRESS } from "./Provider";
 import { useEvent } from "react-use";
-import { SkynetClient } from "skynet-js";
+import { useStorage } from "@decentology/hyperverse-storage-skynet";
 type Transaction = {
   wait: () => void;
 };
@@ -39,9 +39,7 @@ export const useTribes = () => {
   const [contract, setTribesContract] = useState<ContractState>();
   const queryClient = useQueryClient();
   const { address, web3Provider, provider, connect } = useEthereum();
-  const [skyNetClient] = useState<SkynetClient>(
-    new SkynetClient("https://siasky.net")
-  );
+  const storage = useStorage();
   const setup = async () => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {
@@ -58,6 +56,10 @@ export const useTribes = () => {
     ) as ContractState;
     setTribesContract(ctr);
   }, []);
+
+  // useEffect(() => {
+  //   setSkynetClient(storage);
+  // }, [storage]);
 
   useEffect(() => {
     if (!web3Provider) {
@@ -118,7 +120,7 @@ export const useTribes = () => {
         // 1. Upload file notification
         // 2. Upload metadata information
         // 3. Success notification
-        const { skylink: imageLink } = await skyNetClient.uploadFile(image);
+        const { skylink: imageLink } = await storage?.client.uploadFile(image)!;
         const fullMetaData: MetaData = {
           ...metadata,
           image: imageLink.replace("sia:", ""),
@@ -127,9 +129,9 @@ export const useTribes = () => {
           [JSON.stringify(fullMetaData)],
           "metadata.json"
         );
-        const { skylink: metadataFileLink } = await skyNetClient.uploadFile(
+        const { skylink: metadataFileLink } = await storage?.client.uploadFile(
           metadataFile
-        );
+        )!;
         if (!contract) {
           return;
         }
