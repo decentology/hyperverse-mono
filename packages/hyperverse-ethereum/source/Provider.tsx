@@ -8,6 +8,8 @@ import {
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providers, ethers } from "ethers";
+import {useHyperverse} from "@decentology/hyperverse"
+import Network from "@decentology/hyperverse/source/constants/networks";
 
 const INFURA_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
@@ -51,8 +53,13 @@ Context.displayName = "EthereumContext";
 
 // Once we refactored the chainID coming from hyperverse initilaize, we can make 
 // this less specific
-const switchNetwork = async (chainId: number, prov: any) => {
-  if(chainId !== 4) {
+const switchNetwork = async (network: Network, chainId: number, prov: any) => {
+  if (network === Network.MainNet) {
+    await prov.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: '0x1' }],
+    });
+  } else {
     await prov.request({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: '0x4' }],
@@ -62,6 +69,7 @@ const switchNetwork = async (chainId: number, prov: any) => {
 
 export const Provider = ({ children }: { children: ReactNode }) => {
   const prov = new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${INFURA_ID}`);
+  const { network } = useHyperverse();
 
   const [state, setState] = useState<Omit<State, "disconnect" | "connect">>({
     provider: prov,
@@ -70,8 +78,6 @@ export const Provider = ({ children }: { children: ReactNode }) => {
     chainId: null,
   });
   const { provider } = state;
-
-
 
 
   const connect = useCallback(async function() {
@@ -87,16 +93,16 @@ export const Provider = ({ children }: { children: ReactNode }) => {
     const signer = web3Provider.getSigner();
     const address = await signer.getAddress();
 
-    const network = await web3Provider.getNetwork();
+    const userNetwork = await web3Provider.getNetwork();
 
-    switchNetwork(network.chainId, provider);
+    switchNetwork(network, userNetwork.chainId, provider);
 
     setState((prev) => ({
       ...prev,
       provider,
       web3Provider,
       address,
-      chainId: network.chainId,
+      chainId: userNetwork.chainId, //??? 
     }));
   }, []);
 
