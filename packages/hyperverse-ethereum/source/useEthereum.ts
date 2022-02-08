@@ -43,7 +43,7 @@ type State = {
 };
 
 const switchNetwork = async (network: Network, prov: any) => {
-  if (network === Network.MainNet) {
+  if (network === Network.Mainnet) {
     await prov.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: "0x1" }],

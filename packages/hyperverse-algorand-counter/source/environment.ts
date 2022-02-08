@@ -1,10 +1,10 @@
 import {networks, useHyperverse} from '@decentology/hyperverse';
 
 const environment = {
-  [networks.MainNet]: {
+  [networks.Mainnet]: {
     appID: 448458617
   },
-  [networks.TestNet]: {
+  [networks.Testnet]: {
     appID: 45445115
   }
 };

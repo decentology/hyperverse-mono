@@ -3,7 +3,7 @@ import { networks } from '@decentology/hyperverse'
 export const Initialize = async (network: networks) => {
     if (network != null) {
         let client, explorer, indexer;
-        if (network == networks.MainNet) {
+        if (network == networks.Mainnet) {
             client = new Algodv2("", "https://algoexplorerapi.io/", "");
             indexer = new Indexer("", "https://algoexplorerapi.io/idx2", "");
             explorer = "https://algoexplorer.io";

@@ -24,7 +24,7 @@ const Provider: FC<HyperverseModuleInstance> = (props) => {
 
   const tenantId = props.tenantId;
   const initialize = async () => {
-    if (network === networks.MainNet) {
+    if (network === networks.Mainnet) {
       // TODO: Deploy to Flow Mainnet.
     } else if (network === networks.Testnet) {
       fcl.config().put("0xTribes", "0x1960ff14acc51991");
