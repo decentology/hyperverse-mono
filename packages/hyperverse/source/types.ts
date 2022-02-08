@@ -1,4 +1,5 @@
 import { FC, Context } from "react";
+import { ContainerProviderProps } from "unstated-next";
 import Blockchain from "./constants/blockchains";
 import Network from "./constants/networks";
 import Storage from "./constants/storage";
@@ -16,8 +17,7 @@ export type HyperverseBlockchainInit<T> = (
 
 export type HyperverseBlockchain<T> = {
   name: Blockchain;
-  Provider: FC<any>;
-  initialize: HyperverseBlockchainInit<T>;
+  Provider: FC<any> | React.ComponentType<ContainerProviderProps<void>>;
 };
 
 export type BlockchainFeatures<T> = {

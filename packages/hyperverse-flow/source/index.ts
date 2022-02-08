@@ -6,9 +6,6 @@ import { makeHyperverseBlockchain } from "@decentology/hyperverse";
 export const Flow = makeHyperverseBlockchain({
   name: Hyperverse.blockchains.Flow,
   Provider: Provider,
-  initialize: async (options) => {
-    // return { client: fcl, explorer: "https://flowscan.org" };
-  },
 });
 
 

@@ -10,24 +10,10 @@ import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { ContractABI, TENANT_ADDRESS, CONTRACT_ADDRESS } from "./Provider";
 import { useEvent } from "react-use";
 import { useStorage } from "@decentology/hyperverse-storage-skynet";
-type Transaction = {
-  wait: () => void;
-};
+import { createContainer, useContainer } from "unstated-next";
+import { SkynetClient } from "skynet-js";
 
-type ContractState =
-  | ({
-      createInstance: () => Promise<Transaction>;
-      instance: (account: string) => Promise<boolean>;
-      addNewTribe: (metadata: any) => Promise<Transaction>;
-      getUserTribe: (tenant: string, account: string) => Promise<any>;
-      getTribeData: (tenant: string, id: number) => Promise<any>;
-      leaveTribe: (tenant: string) => Promise<any>;
-      totalTribes: (tenant: string) => Promise<any>;
-      tenantCount: () => Promise<any>;
-      joinTribe: (tenant: string, tribeId: string) => Promise<Transaction>;
-      address: string;
-    } & ethers.Contract)
-  | null;
+type ContractState = ethers.Contract | null;
 
 type MetaData = {
   name: string;
@@ -35,11 +21,12 @@ type MetaData = {
   image: string;
 };
 
-export const useTribes = () => {
+function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const [contract, setTribesContract] = useState<ContractState>();
   const queryClient = useQueryClient();
   const { address, web3Provider, provider, connect } = useEthereum();
-  const storage = useStorage();
+  const { uploadFile } = useStorage();
+
   const setup = async () => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {
@@ -56,10 +43,6 @@ export const useTribes = () => {
     ) as ContractState;
     setTribesContract(ctr);
   }, []);
-
-  // useEffect(() => {
-  //   setSkynetClient(storage);
-  // }, [storage]);
 
   useEffect(() => {
     if (!web3Provider) {
@@ -120,7 +103,8 @@ export const useTribes = () => {
         // 1. Upload file notification
         // 2. Upload metadata information
         // 3. Success notification
-        const { skylink: imageLink } = await storage?.client.uploadFile(image)!;
+
+        const { skylink: imageLink } = await uploadFile(image);
         const fullMetaData: MetaData = {
           ...metadata,
           image: imageLink.replace("sia:", ""),
@@ -129,9 +113,7 @@ export const useTribes = () => {
           [JSON.stringify(fullMetaData)],
           "metadata.json"
         );
-        const { skylink: metadataFileLink } = await storage?.client.uploadFile(
-          metadataFile
-        )!;
+        const { skylink: metadataFileLink } = await uploadFile(metadataFile);
         if (!contract) {
           return;
         }
@@ -329,6 +311,10 @@ export const useTribes = () => {
       });
     },
   };
-};
+}
 
-export default useTribes;
+export const Tribes = createContainer(TribesState);
+
+export function useTribes() {
+  return useContainer(Tribes);
+}

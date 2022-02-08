@@ -1,2 +1,2 @@
-export { default as useTribes } from './useTribes'
-export { Context, Provider } from "./Provider";
+export {  useTribes } from './useTribes'
+export { Provider } from "./Provider";

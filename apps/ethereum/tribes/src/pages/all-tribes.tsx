@@ -11,7 +11,7 @@ import Image from "next/image";
 
 const AllTribes = () => {
   const { address } = useEthereum();
-  const { Tribes, Join, useTribeEvents, contract } = useTribes();
+  const { Tribes, Join, useTribeEvents, contract,  } = useTribes();
   const router = useRouter();
   const { data, isLoading: allTribesLoading } = Tribes();
 

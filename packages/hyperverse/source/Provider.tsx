@@ -1,35 +1,30 @@
 import { createContext, createElement, FC, useEffect, useState } from "react";
-import {Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet'
+import { Provider as SkyNetProvider } from "@decentology/hyperverse-storage-skynet";
 import { DeviceDetectProvider } from "./components";
 import Network from "./constants/networks";
 import Storage from "./constants/storage";
 import { Hyperverse } from "./types";
+import { createContainer, useContainer } from "unstated-next";
 
-const Context = createContext<Hyperverse>({
-  blockchain: null,
-  storage: Storage.Skynet,
-  network: Network.TestNet,
-  modules: [],
-});
-Context.displayName = "HyperverseContext";
+function HyperverseState(
+  initialState: Hyperverse = {
+    blockchain: null,
+    network: Network.TestNet,
+    storage: Storage.Skynet,
+    modules: [],
+  }
+) {
+  return initialState;
+}
 
-type ProviderProps = {
-  hyperverse: Promise<Hyperverse>;
-};
+const HyperverseContainer = createContainer(HyperverseState);
+export function useHyperverse() {
+  return HyperverseContainer.useContainer();
+}
 
-const Provider: FC<ProviderProps> = (props) => {
-  const [hyperverse, setHyperverse] = useState<Hyperverse | null>(null);
-
-  useEffect(() => {
-    props.hyperverse.then((hyperverse) => {
-      setHyperverse(hyperverse);
-    });
-  }, [props.hyperverse]);
-
-  if (hyperverse?.blockchain) {
-    let children = props.children;
-
-    for (const module of hyperverse.modules.reverse()) {
+export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialState }) => {
+  if (initialState.blockchain) {
+    for (const module of initialState.modules.reverse()) {
       children = createElement(
         module.bundle.Provider,
         {
@@ -39,22 +34,14 @@ const Provider: FC<ProviderProps> = (props) => {
       );
     }
 
-    // TODO Make this conditional
     children = createElement(SkyNetProvider, null, children);
-
-    const blockchain = createElement(
-      hyperverse.blockchain.Provider,
-      null,
-      children
-    );
+    children = createElement(initialState.blockchain.Provider, null, children);
 
     return (
-      <Context.Provider value={hyperverse}>
-        <DeviceDetectProvider>{blockchain}</DeviceDetectProvider>
-      </Context.Provider>
+      <HyperverseContainer.Provider>
+        <DeviceDetectProvider>{children}</DeviceDetectProvider>
+      </HyperverseContainer.Provider>
     );
   }
   return null;
 };
-
-export { Context, Provider };

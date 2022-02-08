@@ -1,5 +1,5 @@
 export * from 'web3modal'
-import { Provider } from "./Provider";
+import { Provider, useEthereum } from "./useEthereum";
 import {
   blockchains,
   makeHyperverseBlockchain,
@@ -7,9 +7,7 @@ import {
 
 export const Ethereum = makeHyperverseBlockchain({
   name: blockchains.Ethereum,
-  Provider: Provider,
-  initialize: async (options) => {
-    return { client: "testing", explorer: "" };
-  },
+  Provider: Provider
 });
-export { default as useEthereum } from "./useEthereum";
+
+export { Provider, useEthereum };

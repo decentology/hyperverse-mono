@@ -23,7 +23,8 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse-storage-skynet": "*"
+    "@decentology/hyperverse-storage-skynet": "*",
+    "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@decentology/config": "*",

@@ -24,6 +24,9 @@ function useDeviceDetect() {
 type ProviderProps = {};
 
 const Provider: FC<ProviderProps> = (props) => {
+  if (typeof window === "undefined") {
+    return null;
+  }
   const [width, setWidth] = useState(window.innerWidth);
   const onResize = () => {
     setWidth(window.innerWidth);

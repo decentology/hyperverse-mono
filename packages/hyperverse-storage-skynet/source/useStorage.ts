@@ -12,10 +12,10 @@ function StorageState(
   const [client] = useState<SkynetClient>(new SkynetClient(clientUrl));
   const { uploadFile, uploadDirectory, downloadFile, openFile } = client;
   return {
-    uploadFile,
-    uploadDirectory,
-    downloadFile,
-    openFile,
+    uploadFile: uploadFile.bind(client),
+    uploadDirectory: uploadDirectory.bind(client),
+    downloadFile: downloadFile.bind(client),
+    openFile: openFile.bind(client),
     client,
   };
 }
