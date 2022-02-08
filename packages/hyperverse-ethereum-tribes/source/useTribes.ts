@@ -38,6 +38,14 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     if (signer && contract) {
       const ctr = contract.connect(signer) as ContractState;
       setTribesContract(ctr);
+    } else {
+      setTribesContract(
+        new ethers.Contract(
+          CONTRACT_ADDRESS,
+          ContractABI,
+          provider
+        ) as ContractState
+      );
     }
   };
 
@@ -62,7 +70,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     if (web3Provider) {
       setup();
     }
-  }, [web3Provider]);
+  }, [ web3Provider]);
   // useEffect(() => {
   //   const ctr = new ethers.Contract(
   //     CONTRACT_ADDRESS,
@@ -146,7 +154,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
           "metadata.json"
         );
         const { skylink: metadataFileLink } = await uploadFile(metadataFile);
-
+        
         const addTxn = await contract.addNewTribe(
           metadataFileLink.replace("sia:", "")
         );
@@ -242,6 +250,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         if (!contract) {
           return;
         }
+
 
         const joinTxn = await contract.joinTribe(TENANT_ADDRESS, id);
         return joinTxn.wait();

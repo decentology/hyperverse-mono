@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function MyApp({ Component, pageProps }: AppProps) {
   const hyperverse = initialize({
     blockchain: Ethereum,
-    network: networks.TestNet,
+    network: networks.Testnet,
     modules: [{ bundle: Tribes, tenantId: "tribes" }],
   });
   return (

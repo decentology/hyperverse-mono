@@ -3,7 +3,7 @@ import { networks } from '@decentology/hyperverse'
 export const Initialize = async (network: string) => {
   if (network != null) {
     let explorer: string;
-    if (network == networks.MainNet) {
+    if (network == networks.Mainnet) {
       explorer = "https://flowscan.org";
       fcl.config()
         .put("accessNode.api", "https://flow-access-mainnet.portto.io")

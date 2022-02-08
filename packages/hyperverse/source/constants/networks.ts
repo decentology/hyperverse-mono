@@ -1,6 +1,6 @@
 enum Network {
-  MainNet = "mainnet",
-  TestNet = "testnet",
+  Mainnet = "mainnet",
+  Testnet = "testnet",
 }
 export default Network;
 export const NetworkList: string[] = Object.values(Network).filter(

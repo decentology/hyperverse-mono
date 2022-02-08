@@ -9,7 +9,7 @@ import { createContainer, useContainer } from "unstated-next";
 function HyperverseState(
   initialState: Hyperverse = {
     blockchain: null,
-    network: Network.TestNet,
+    network: Network.Testnet,
     storage: Storage.Skynet,
     modules: [],
   }
