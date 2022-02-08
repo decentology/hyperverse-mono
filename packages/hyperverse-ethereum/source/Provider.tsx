@@ -115,7 +115,7 @@ export const Provider = ({ children }: { children: ReactNode }) => {
 
     setState((prev) => ({
       ...prev,
-      provider: web3Provider,
+      provider,
       web3Provider,
       address,
       chainId: userNetwork.chainId, //??? 
