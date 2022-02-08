@@ -1,26 +1,33 @@
-import { useRouter } from "next/router";
-import { useQuery } from "react-query";
-import styles from "../styles/Home.module.css";
-import Nav from "../components/Nav";
-import Loader from "../components/Loader";
-import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
-import { useEthereum } from "@decentology/hyperverse-ethereum";
-import Image from "next/image";
-
-
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import styles from '../styles/Home.module.css'
+import Nav from '../components/Nav'
+import Loader from '../components/Loader'
+import { useTribes } from '@decentology/hyperverse-ethereum-tribes'
+import { useEthereum } from '@decentology/hyperverse-ethereum'
+import Image from 'next/image'
+import { toast } from 'react-toastify'
 
 const AllTribes = () => {
-  const { address } = useEthereum();
-  const { Tribes, Join, useTribeEvents, contract,  } = useTribes();
-  const router = useRouter();
-  const { data, isLoading: allTribesLoading } = Tribes();
+  const { address } = useEthereum()
+  const { Tribes, Join } = useTribes()
+  const router = useRouter()
+  const { data, isLoading: allTribesLoading } = Tribes()
 
-  const { mutate, isLoading: joinTribeLoading } = Join({
-    onSuccess: () => router.push("/my-tribe"),
-  });
+  const { mutate, isLoading: joinTribeLoading, error } = Join({
+    onSuccess: () => router.push('/my-tribe'),
+  })
 
+  const isLoading = allTribesLoading || joinTribeLoading
 
-  const isLoading = allTribesLoading || joinTribeLoading ;
+  useEffect(() => {
+    if (error) {
+      //@ts-ignore
+      toast.error(error.message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+      })
+    }
+  }, [error])
 
   return (
     <main>
@@ -42,7 +49,6 @@ const AllTribes = () => {
                 <div className={styles.allTribes}>
                   {data.map((item) => (
                     <div key={item.id} onClick={() => mutate(item.id)}>
-                      {console.log(item)}
                       <Image
                         width={200}
                         height={250}
@@ -63,7 +69,7 @@ const AllTribes = () => {
         </div>
       )}
     </main>
-  );
-};
+  )
+}
 
-export default AllTribes;
+export default AllTribes

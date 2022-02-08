@@ -226,16 +226,15 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 90%;
   height: 100%;
   font-family: "Press Start 2P";
 }
 
 .tribe {
-  width: 90%;
   height: auto;
   margin-top: 2.5rem;
-  margin-right: 4rem;
+  margin-right: 2rem !important;
 }
 
 .tribeCard {
@@ -251,7 +250,8 @@
 }
 
 .text {
-  font-size: 1.5rem;
+  width: 50%;
+  font-size: 1.3rem;
 }
 .description {
   color: var(--color-theme-white);

@@ -7,6 +7,8 @@ import { networks } from "@decentology/hyperverse";
 import { Ethereum } from "@decentology/hyperverse-ethereum";
 import * as Tribes from "@decentology/hyperverse-ethereum-tribes";
 import InnerComponent from "../components/InnerComponent";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const hyperverse = initialize({
@@ -17,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider initialState={hyperverse}>
       <InnerComponent>
+        <ToastContainer />
         <Component {...pageProps} />
       </InnerComponent>
     </Provider>

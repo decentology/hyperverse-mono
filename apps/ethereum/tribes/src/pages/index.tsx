@@ -1,17 +1,30 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
+import { toast } from "react-toastify";
+
 
 const Home: NextPage = () => {
   const router = useRouter();
   const { address } = useEthereum();
   const { TribeId } = useTribes();
-  const { data, error: tribeIdErr } = TribeId();
+  const { data, error } = TribeId();
+
+
+  useEffect(() => {
+       //@ts-ignore
+    if (error) {
+         //@ts-ignore
+      toast.error(error.message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+      })
+    }
+  }, [error])
   return (
     <>
       <Head>

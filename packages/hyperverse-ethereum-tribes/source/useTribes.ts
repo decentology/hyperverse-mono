@@ -27,7 +27,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const { address, web3Provider, provider, connect } = useEthereum();
   const { uploadFile } = useStorage();
 
-  const setup = async () => {
+  const setup = async (contract: ContractState) => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {
       const ctr = contract.connect(signer) as ContractState;
@@ -35,21 +35,56 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     }
   };
 
-  useEffect(() => {
-    const ctr = new ethers.Contract(
-      CONTRACT_ADDRESS,
-      ContractABI,
-      provider
-    ) as ContractState;
-    setTribesContract(ctr);
-  }, []);
+  const errors = (err: any) => {
+    if (!contract?.signer) {
+      throw new Error("Please connect your wallet!");
+    }
+
+    if (err.code === 4001) {
+      throw new Error("You rejected the transaction!");
+    }
+
+    if (err.message.includes("User is already in a Tribe!")) {
+      throw new Error("You are already in a tribe!");
+    }
+
+    throw err;
+    // throw new Error("Something went wrong!");
+  };
 
   useEffect(() => {
-    if (!web3Provider) {
-      return;
+    let ctr;
+    if (!contract) {
+      ctr = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        ContractABI,
+        provider
+      ) as ContractState;
+      setTribesContract(ctr);
     }
-    setup();
-  }, [web3Provider]);
+
+    if (web3Provider) {
+      setup(ctr);
+    }
+  }, [setTribesContract, web3Provider]);
+  // useEffect(() => {
+  //   const ctr = new ethers.Contract(
+  //     CONTRACT_ADDRESS,
+  //     ContractABI,
+  //     provider
+  //   ) as ContractState;
+  //   setTribesContract(ctr);
+  //   console.log("load", ctr, contract)
+  // }, []);
+
+  // useEffect(() => {
+
+  //   console.log("web3Provider", web3Provider);
+  //   if (!web3Provider) {
+  //     return;
+  //   }
+  //   setup();
+  // }, [web3Provider]);
 
   const checkInstance = useCallback(
     async (account: any) => {
@@ -72,13 +107,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         return;
       }
 
-      if (!contract.signer) {
-        connect();
-      }
-
       const createTxn = await contract.createInstance();
       return createTxn.wait();
     } catch (err) {
+      errors(err);
       throw err;
     }
   }, [contract]);
@@ -99,6 +131,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const addTribe = useCallback(
     async (metadata: Omit<MetaData, "image">, image: File) => {
       try {
+        if (!contract) {
+          return;
+        }
+
         // TODO: Add progress indicator notices for steps
         // 1. Upload file notification
         // 2. Upload metadata information
@@ -114,17 +150,13 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
           "metadata.json"
         );
         const { skylink: metadataFileLink } = await uploadFile(metadataFile);
-        if (!contract) {
-          return;
-        }
-        if (!contract.signer) {
-          connect();
-        }
+        
         const addTxn = await contract.addNewTribe(
           metadataFileLink.replace("sia:", "")
         );
         return addTxn.wait();
       } catch (err) {
+        errors(err);
         throw err;
       }
     },
@@ -140,7 +172,12 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         const id = await contract.getUserTribe(TENANT_ADDRESS, account);
         return id.toNumber();
       } catch (err) {
-        throw err;
+        if (err instanceof Error) {
+          if (err.message.includes("This member is not in a Tribe!")) {
+            return null;
+          }
+        }
+        errors(err);
       }
     },
     [contract]
@@ -155,7 +192,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         const userTribeTxn = await contract.getTribeData(TENANT_ADDRESS, id);
         return userTribeTxn;
       } catch (err) {
-        throw err;
+        errors(err);
       }
     },
     [contract]
@@ -167,15 +204,11 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         return;
       }
 
-      if (!contract.signer) {
-        connect();
-      }
-
       const leaveTxn = await contract.leaveTribe(TENANT_ADDRESS);
       await leaveTxn.wait();
       return leaveTxn.hash;
     } catch (err) {
-      throw err;
+      errors(err);
     }
   }, [contract]);
 
@@ -203,7 +236,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
 
       return tribes;
     } catch (err) {
-      throw err;
+      errors(err);
     }
   }, [contract]);
 
@@ -214,13 +247,11 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
           return;
         }
 
-        if (!contract.signer) {
-          connect();
-        }
+
         const joinTxn = await contract.joinTribe(TENANT_ADDRESS, id);
         return joinTxn.wait();
       } catch (err) {
-        throw err;
+        errors(err);
       }
     },
     [contract]
