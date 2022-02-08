@@ -63,11 +63,12 @@ export const useTribes = () => {
       throw new Error("You rejected the transaction!")
     }
 
-    if(err.message.includes("not in a Tribe")) {
-      throw new Error("You are not in a tribe!");
+    if(err.message.includes("User is already in a Tribe!")) {
+      throw new Error("You are already in a tribe!")
     }
 
-    throw new Error("Something went wrong!");
+    throw err
+    // throw new Error("Something went wrong!");
 
   }
   
@@ -81,11 +82,11 @@ export const useTribes = () => {
   }, []);
 
   useEffect(() => {
-    if (!web3Provider) {
+    if (!provider) {
       return;
     }
     setup();
-  }, [web3Provider]);
+  }, [provider]);
 
   const checkInstance = useCallback(
     async (account: any) => {
@@ -174,6 +175,11 @@ export const useTribes = () => {
         const id = await contract.getUserTribe(TENANT_ADDRESS, account);
         return id.toNumber();
       } catch (err) {
+        if(err instanceof Error){
+          if(err.message.includes("This member is not in a Tribe!")) {
+            return null;
+          }
+        }
         errors(err)
       }
     },

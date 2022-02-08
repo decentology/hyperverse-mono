@@ -53,7 +53,7 @@ Context.displayName = "EthereumContext";
 
 // Once we refactored the chainID coming from hyperverse initilaize, we can make 
 // this less specific
-const switchNetwork = async (network: Network, chainId: number, prov: any) => {
+const switchNetwork = async (network: Network,  prov: any) => {
   if (network === Network.MainNet) {
     await prov.request({
       method: 'wallet_switchEthereumChain',
@@ -64,7 +64,9 @@ const switchNetwork = async (network: Network, chainId: number, prov: any) => {
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: '0x4' }],
     });
+
   }
+
 }
 
 export const Provider = ({ children }: { children: ReactNode }) => {
@@ -79,27 +81,41 @@ export const Provider = ({ children }: { children: ReactNode }) => {
   });
   const { provider } = state;
 
+  // useEffect(() => {
+  //   window.location.reload();
+  // },[network])
+
 
   const connect = useCallback(async function() {
     // This is the initial `provider` that is returned when
     // using web3Modal to connect. Can be MetaMask or WalletConnect.
-    const provider = await web3Modal.connect();
+    const externalProvider = await web3Modal.connect();
 
     // We plug the initial `provider` into ethers.js and get back
     // a Web3Provider. This will add on methods from ethers.js and
     // event listeners such as `.on()` will be different.
-    const web3Provider = new providers.Web3Provider(provider);
+    const web3Provider = new providers.Web3Provider(externalProvider);
 
     const signer = web3Provider.getSigner();
     const address = await signer.getAddress();
 
     const userNetwork = await web3Provider.getNetwork();
 
-    switchNetwork(network, userNetwork.chainId, provider);
+    // console.log(externalProvider.isConnected()) : can only check this on external Provider
+
+    //TO DO: handle this better
+    if(userNetwork.chainId !== 4) {
+      await switchNetwork(network, web3Provider.provider);
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000);
+    }
+    
 
     setState((prev) => ({
       ...prev,
-      provider,
+      provider: web3Provider,
       web3Provider,
       address,
       chainId: userNetwork.chainId, //??? 
@@ -137,6 +153,7 @@ export const Provider = ({ children }: { children: ReactNode }) => {
     if (provider?.on) {
       const handleAccountsChanged = (accounts: string[]) => {
         setState((prev) => ({ ...prev, address: accounts[0] }));
+        disconnect();
       };
 
       // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
@@ -145,6 +162,7 @@ export const Provider = ({ children }: { children: ReactNode }) => {
       };
 
       const handleDisconnect = (error: { code: number; message: string }) => {
+        web3Modal.clearCachedProvider();
         disconnect();
       };
 
