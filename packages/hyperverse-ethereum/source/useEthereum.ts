@@ -1,15 +1,12 @@
 import {
-  ReactNode,
   useCallback,
   useEffect,
   useState,
-  createContext,
 } from "react";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providers, ethers } from "ethers";
 import { createContainer, useContainer } from "unstated-next";
-import { networks } from "@decentology/hyperverse";
 import Network from "@decentology/hyperverse/source/constants/networks";
 import { useHyperverse } from "@decentology/hyperverse";
 
