@@ -1,4 +1,2 @@
-export { default as useTribes } from "./useTribes";
-
-export { Context, Provider } from "./Provider";
-export * from './types';
+export { Provider, useFlow } from "./useTribes";
+export * from "./types";

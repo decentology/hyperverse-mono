@@ -1,10 +1,46 @@
+import { networks, useHyperverse } from "@decentology/hyperverse";
+import { useEffect, useState } from "react";
+import { createContainer } from "unstated-next";
+import * as actions from "./actions";
+const fcl = require("@onflow/fcl");
 
-import { useContext } from 'react';
-import { Context } from './Provider';
+function FlowTribesState(
+  initialState: { tenantId: string } = { tenantId: "" }
+) {
+  const [isInitialized, setInitialized] = useState<boolean>(false);
 
-function useTribes() {
-  const context = useContext(Context);
-  return context;
+  let { network } = useHyperverse();
+
+  const tenantId = initialState.tenantId;
+  const initialize = async () => {
+    if (network === networks.Mainnet) {
+      // TODO: Deploy to Flow Mainnet.
+    } else if (network === networks.Testnet) {
+      fcl.config().put("0xTribes", "0x1960ff14acc51991");
+    }
+
+    const TribesAddress = await fcl.config().get("0xTribes");
+    if (typeof TribesAddress !== "undefined") {
+      setInitialized(true);
+    } else {
+      setInitialized(false);
+    }
+  };
+
+  useEffect(() => {
+    initialize();
+  }, []);
+  return {
+    isInitialized,
+    leaveTribe: actions.leaveTribe.bind(null, tenantId),
+    getAllTribes: actions.getAllTribes.bind(null, tenantId),
+    getCurrentTribe: actions.getCurrentTribe.bind(null, tenantId),
+    joinTribe: actions.joinTribe.bind(null, tenantId),
+  };
 }
 
-export default useTribes;
+const FlowTribesContainer = createContainer(FlowTribesState);
+export const Provider = FlowTribesContainer.Provider;
+export function useFlow() {
+  return FlowTribesContainer.useContainer();
+}

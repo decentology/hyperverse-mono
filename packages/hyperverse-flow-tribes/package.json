@@ -26,7 +26,8 @@
     "@decentology/hyperverse": "*",
     "@decentology/hyperverse-flow": "*",
     "@onflow/fcl": "^0.0.78",
-    "@onflow/types": "^0.0.6"
+    "@onflow/types": "^0.0.6",
+    "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@decentology/config": "*",
