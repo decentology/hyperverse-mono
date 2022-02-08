@@ -1,2 +1,2 @@
-export { Provider, useFlow } from "./useTribes";
+export { Provider, useTribes } from "./useTribes";
 export * from "./types";

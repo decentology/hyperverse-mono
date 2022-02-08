@@ -7,7 +7,6 @@ import { useFlow } from "@decentology/hyperverse-flow";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import { getAllTribes } from "@decentology/hyperverse-flow-tribes/source/actions";
 import Image from "next/image";
 
 const AllTribes = () => {

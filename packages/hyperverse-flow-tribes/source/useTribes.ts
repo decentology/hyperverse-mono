@@ -30,6 +30,7 @@ function FlowTribesState(
   useEffect(() => {
     initialize();
   }, []);
+
   return {
     isInitialized,
     leaveTribe: actions.leaveTribe.bind(null, tenantId),
@@ -41,6 +42,6 @@ function FlowTribesState(
 
 const FlowTribesContainer = createContainer(FlowTribesState);
 export const Provider = FlowTribesContainer.Provider;
-export function useFlow() {
+export function useTribes() {
   return FlowTribesContainer.useContainer();
 }
