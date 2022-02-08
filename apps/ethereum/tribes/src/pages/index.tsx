@@ -15,9 +15,10 @@ const Home: NextPage = () => {
   const { TribeId } = useTribes();
   const { data, error } = TribeId();
 
+
   useEffect(() => {
        //@ts-ignore
-    if (error && !error.message.includes("not in a Tribe")) {
+    if (error) {
          //@ts-ignore
       toast.error(error.message, {
         position: toast.POSITION.BOTTOM_CENTER,

@@ -26,6 +26,7 @@ const TribesPage = () => {
     onSuccess: () => router.push('/'),
   })
 
+
   const { data, isLoading: tribeDataSiaLoading } = useQuery(
     ['tribeData', tribeHash],
     () => getTribeData(tribeHash!),

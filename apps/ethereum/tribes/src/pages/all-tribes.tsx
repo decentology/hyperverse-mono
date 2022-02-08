@@ -37,7 +37,7 @@ const AllTribes = () => {
       ) : (
         <div className={styles.container}>
           <h1>Tribes</h1>
-          {!address ? (
+          {address ? (
             !data ? (
               <>
                 <h5>There are currently no existing tribes.</h5>
