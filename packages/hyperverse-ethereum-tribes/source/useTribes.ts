@@ -22,12 +22,18 @@ type MetaData = {
 };
 
 function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
-  const [contract, setTribesContract] = useState<ContractState>();
   const queryClient = useQueryClient();
   const { address, web3Provider, provider, connect } = useEthereum();
+  const [contract, setTribesContract] = useState<ContractState>(
+    new ethers.Contract(
+      CONTRACT_ADDRESS,
+      ContractABI,
+      provider
+    ) as ContractState
+  );
   const { uploadFile } = useStorage();
 
-  const setup = async (contract: ContractState | undefined) => {
+  const setup = async () => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {
       const ctr = contract.connect(signer) as ContractState;
@@ -53,20 +59,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   };
 
   useEffect(() => {
-    let ctr;
-    if (!contract) {
-      ctr = new ethers.Contract(
-        CONTRACT_ADDRESS,
-        ContractABI,
-        provider
-      ) as ContractState;
-      setTribesContract(ctr);
-    }
-
     if (web3Provider) {
-      setup(ctr);
+      setup();
     }
-  }, [setTribesContract, web3Provider]);
+  }, [web3Provider]);
   // useEffect(() => {
   //   const ctr = new ethers.Contract(
   //     CONTRACT_ADDRESS,
@@ -150,7 +146,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
           "metadata.json"
         );
         const { skylink: metadataFileLink } = await uploadFile(metadataFile);
-        
+
         const addTxn = await contract.addNewTribe(
           metadataFileLink.replace("sia:", "")
         );
@@ -246,7 +242,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         if (!contract) {
           return;
         }
-
 
         const joinTxn = await contract.joinTribe(TENANT_ADDRESS, id);
         return joinTxn.wait();
