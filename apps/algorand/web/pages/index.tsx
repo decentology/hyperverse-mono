@@ -6,12 +6,12 @@ import AlgoTest from "../components/AlgoTest";
 export default function Web() {
   const hyperverse = Hyperverse.initialize({
     blockchain: Algorand,
-    network: Hyperverse.networks.TestNet,
+    network: Hyperverse.networks.Testnet,
     modules: [{ bundle: Counter, tenantId: "123" }],
   });
 
   return (
-    <Hyperverse.Provider hyperverse={hyperverse}>
+    <Hyperverse.Provider initialState={hyperverse}>
       <div>
         <h1>Web</h1>
         <AlgoTest />
