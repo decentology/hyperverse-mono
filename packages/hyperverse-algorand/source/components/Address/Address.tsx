@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, css} from 'aphrodite/no-important';
+import { useAlgorand } from '../../useAlgorand';
 
-import useAlgorand from '../../useAlgorand';
 
 const constants = {
   title: 'Account'

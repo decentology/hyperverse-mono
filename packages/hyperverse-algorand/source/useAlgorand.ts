@@ -1,11 +1,13 @@
 import { useHyperverse } from "@decentology/hyperverse";
+import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
+import algosdk from "algosdk";
 import { useCallback, useEffect, useReducer } from "react";
 import { useAsync } from "react-async-hook";
 import { Initialize } from "./context/initialize";
 import reducer from "./context/reducer";
-
+import { createContainer } from "unstated-next";
 
 const constants = {
   walletConnectOptions: {
@@ -376,4 +378,11 @@ function AlgorandState() {
     optIn,
     sendAsset,
   };
+}
+
+const AlgorandContainer = createContainer(AlgorandState);
+export const Provider = AlgorandContainer.Provider;
+
+export function useAlgorand() {
+  return AlgorandContainer.useContainer();
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, css } from "aphrodite/no-important";
+import { useAlgorand } from "../../useAlgorand";
 
-import useAlgorand from "../../useAlgorand";
 
 const styles = StyleSheet.create({
   Transactions: {
@@ -42,7 +42,7 @@ function Transactions(props: any) {
       <div>
         <h4 className="title is-4">Transactions</h4>
         <div className={css(styles.Transactions)}>
-          {pendingTransactions.map((transaction) => {
+          {pendingTransactions.map((transaction: any) => {
             return (
               <div key={transaction.ID} className="tags has-addons">
                 <span className="tag is-warning">pending</span>
@@ -55,7 +55,7 @@ function Transactions(props: any) {
           })}
         </div>
         <div className={css(styles.Transactions)}>
-          {completedTransactions.map((transaction) => {
+          {completedTransactions.map((transaction: any) => {
             return (
               <div key={transaction.ID} className="tags has-addons">
                 <span className="tag is-success">completed</span>
