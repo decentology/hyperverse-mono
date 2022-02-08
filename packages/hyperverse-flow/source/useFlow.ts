@@ -45,9 +45,7 @@ function FlowState() {
   useEffect(() => {
     fcl.currentUser().subscribe(setUser);
   }, []);
-  if (!explorer) {
-    return null;
-  }
+
   return {
     user,
     isInitialized,

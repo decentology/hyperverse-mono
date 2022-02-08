@@ -4,7 +4,7 @@ import { DeviceDetectProvider } from "./components";
 import Network from "./constants/networks";
 import Storage from "./constants/storage";
 import { Hyperverse } from "./types";
-import { createContainer, useContainer } from "unstated-next";
+import { createContainer } from "unstated-next";
 
 function HyperverseState(
   initialState: Hyperverse = {
@@ -22,7 +22,10 @@ export function useHyperverse() {
   return HyperverseContainer.useContainer();
 }
 
-export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialState }) => {
+export const Provider: FC<{ initialState: Hyperverse }> = ({
+  children,
+  initialState,
+}) => {
   if (initialState.blockchain) {
     for (const module of initialState.modules.reverse()) {
       children = createElement(
@@ -36,11 +39,8 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 
     children = createElement(SkyNetProvider, null, children);
     children = createElement(initialState.blockchain.Provider, null, children);
-
     return (
-      <HyperverseContainer.Provider>
-        <DeviceDetectProvider>{children}</DeviceDetectProvider>
-      </HyperverseContainer.Provider>
+      <HyperverseContainer.Provider>{children}</HyperverseContainer.Provider>
     );
   }
   return null;

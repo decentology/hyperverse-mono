@@ -4,9 +4,7 @@ import { createContainer } from "unstated-next";
 import * as actions from "./actions";
 const fcl = require("@onflow/fcl");
 
-function FlowTribesState(
-  initialState: { tenantId: string } = { tenantId: "" }
-) {
+function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const [isInitialized, setInitialized] = useState<boolean>(false);
 
   let { network } = useHyperverse();
@@ -40,7 +38,7 @@ function FlowTribesState(
   };
 }
 
-const FlowTribesContainer = createContainer(FlowTribesState);
+export const FlowTribesContainer = createContainer(TribesState);
 export const Provider = FlowTribesContainer.Provider;
 export function useTribes() {
   return FlowTribesContainer.useContainer();
