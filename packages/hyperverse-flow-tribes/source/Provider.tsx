@@ -23,7 +23,6 @@ const Provider: FC<HyperverseModuleInstance> = (props) => {
   let { network } = useHyperverse();
 
   const tenantId = props.tenantId;
-  console.log("tenantId", tenantId);
   const initialize = async () => {
     if (network === networks.MainNet) {
       // TODO: Deploy to Flow Mainnet.

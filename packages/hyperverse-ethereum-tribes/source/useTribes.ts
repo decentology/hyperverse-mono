@@ -27,7 +27,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const { address, web3Provider, provider, connect } = useEthereum();
   const { uploadFile } = useStorage();
 
-  const setup = async (contract: ContractState) => {
+  const setup = async (contract: ContractState | undefined) => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {
       const ctr = contract.connect(signer) as ContractState;

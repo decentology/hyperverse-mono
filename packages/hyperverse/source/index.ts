@@ -1,6 +1,6 @@
 
 export { default as initialize } from "./initialize";
-export { Provider } from "./Provider";
+export { Provider, useHyperverse } from "./Provider";
 export { useDeviceDetect } from "./components";
 
 export { default as blockchains } from "./constants/blockchains";

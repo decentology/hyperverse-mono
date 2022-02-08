@@ -5,7 +5,6 @@ import {useDeviceDetect} from '@decentology/hyperverse';
 
 function Signature(props: any) {
   const device = useDeviceDetect();
-  console.log(device);
 
   const onClose = () => {
     props.onCancel();
