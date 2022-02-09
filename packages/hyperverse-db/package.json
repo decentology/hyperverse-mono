@@ -4,6 +4,7 @@
   "type": "module",
   "main": "index.ts",
   "license": "MIT",
+  "private": true,
   "peerDependencies": {
     "react": "^17.0.2"
   },
