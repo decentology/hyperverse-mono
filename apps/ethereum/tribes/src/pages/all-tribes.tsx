@@ -13,7 +13,7 @@ const getData = async (data: { id: number; txn: string }[]) => {
       const link = txn.replace("sia:", "");
       const json = JSON.parse(
         // eslint-disable-next-line no-await-in-loop
-        await (await fetch(`https://siasky.net/${link}`)).text()
+        await (await fetch(`https://fileportal.org/${link}`)).text()
       );
       return { id, ...json };
     })
@@ -62,7 +62,7 @@ const AllTribes = () => {
                         width={200}
                         height={250}
                         className={styles.cards}
-                        src={`https://siasky.net/${item.image.replace(
+                        src={`https://fileportal.org/${item.image.replace(
                           "sia:",
                           ""
                         )}/`}
