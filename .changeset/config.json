@@ -6,9 +6,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "@decentology/samples*",
-    "@decentology/config",
-    "@decentology/hyperverse-template"
-  ]
+  "ignore": []
 }

@@ -1,6 +1,6 @@
 {
   "name": "@decentology/hyperverse-ethereum-starterkit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./source/index.ts",
   "private": true,
   "license": "MIT",
