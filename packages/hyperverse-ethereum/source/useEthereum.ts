@@ -97,7 +97,7 @@ function EthereumState() {
         chainId: userNetwork.chainId,
       }));
     } catch (err: any) {
-      if (typeof err === "string") { 
+      if (typeof err === "string") {
         setState((prev) => ({
           ...prev,
           error: new Error(err),
@@ -141,30 +141,32 @@ function EthereumState() {
   useEffect(() => {
     if (web3Modal) {
       // @ts-ignore - Using private method to override click event handler
-      const click = web3Modal.userOptions[0].onClick;
-      // @ts-ignore
-      web3Modal.userOptions[0].onClick = () => {
-        let flagTripped = false;
-        const timeout = setTimeout(() => {
-          // If not triggered in 2 seconds show alert to user
-          (window as Window).removeEventListener("blur", blur);
-          if (!addressRef.current) {
-           setState((prev) => ({
-             ...prev,
-             error: new Error(
-               "Please click the metamask extension to sign in!"
-             ),
-           })); 
-          }
-        }, 500);
-        const blur = () => {
-          flagTripped = true;
-          clearTimeout(timeout);
-          (window as Window).removeEventListener("blur", blur);
-        };
-        (window as Window).addEventListener("blur", blur);
-        // Call original click event handler to trigger metamask
-        click();
+      const web3ModalUserOptions = web3Modal.userOptions.find(x => x.name === 'MetaMask');
+      if (web3ModalUserOptions) {
+        const click = web3ModalUserOptions.onClick;
+        web3ModalUserOptions.onClick = () => {
+          let flagTripped = false;
+          const timeout = setTimeout(() => {
+            // If not triggered in 2 seconds show alert to user
+            (window as Window).removeEventListener("blur", blur);
+            if (!addressRef.current) {
+              setState((prev) => ({
+                ...prev,
+                error: new Error(
+                  "Please click the metamask extension to sign in!"
+                ),
+              }));
+            }
+          }, 500);
+          const blur = () => {
+            flagTripped = true;
+            clearTimeout(timeout);
+            (window as Window).removeEventListener("blur", blur);
+          };
+          (window as Window).addEventListener("blur", blur);
+          // Call original click event handler to trigger metamask
+          click();
+        }
       };
     }
   }, [web3Modal]);
