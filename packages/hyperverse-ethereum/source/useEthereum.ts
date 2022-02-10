@@ -1,8 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providers, ethers } from "ethers";
@@ -16,8 +12,10 @@ const INFURA_ID =
 
 const providerOptions = {
   walletconnect: {
+    onClick: () => console.log("Test"),
     package: WalletConnectProvider, // required
     options: {
+      onClick: () => console.log("Test 2"),
       infuraId: INFURA_ID, // required
     },
   },
@@ -63,6 +61,8 @@ function EthereumState() {
     chainId: null,
   });
   const { provider } = state;
+  const addressRef = useRef(state.address);
+  addressRef.current = state.address;
   const { network } = useHyperverse();
   const connect = useCallback(async function () {
     // This is the initial `provider` that is returned when
@@ -112,6 +112,35 @@ function EthereumState() {
     },
     [provider]
   );
+
+  useEffect(() => {
+    if (web3Modal) {
+      // @ts-ignore - Using private method to override click event handler
+      const click = web3Modal.userOptions[0].onClick;
+      // @ts-ignore
+      web3Modal.userOptions[0].onClick = () => {
+        let flagTripped = false;
+        const timeout = setTimeout(() => {
+          // If not triggered in 2 seconds show alert to user
+          (window as Window).removeEventListener("blur", blur);
+          console.log("What is the address?", addressRef.current);
+          if (!addressRef.current) {
+            alert(
+              "Click metamask icon in your chrome browser extension to sign in"
+            );
+          }
+        }, 500);
+        const blur = () => {
+          flagTripped = true;
+          clearTimeout(timeout);
+          (window as Window).removeEventListener("blur", blur);
+        };
+        (window as Window).addEventListener("blur", blur);
+        // Call original click event handler to trigger metamask
+        click();
+      };
+    }
+  }, [web3Modal]);
 
   // Auto connect to the cached provider
   useEffect(() => {
