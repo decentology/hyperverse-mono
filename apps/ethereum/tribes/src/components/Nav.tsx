@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { useEffect } from 'react'
 import styles from "../styles/Home.module.css";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
+import { toast } from 'react-toastify'
 
 const shortenHash = (
   hash: string = "",
@@ -20,8 +22,18 @@ const shortenHash = (
 };
 
 const Nav = () => {
-  const { address, disconnect, connect } = useEthereum();
+  const { address, disconnect, connect, error } = useEthereum();
 
+
+  useEffect(() => {
+
+ if (error) {
+
+   toast.warn(error.message, {
+     position: toast.POSITION.BOTTOM_CENTER,
+   })
+ }
+}, [error])
   return (
     <nav>
       <Link href="/" passHref>

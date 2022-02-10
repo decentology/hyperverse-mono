@@ -12,10 +12,8 @@ const INFURA_ID =
 
 const providerOptions = {
   walletconnect: {
-    onClick: () => console.log("Test"),
     package: WalletConnectProvider, // required
     options: {
-      onClick: () => console.log("Test 2"),
       infuraId: INFURA_ID, // required
     },
   },
@@ -35,6 +33,7 @@ type State = {
   web3Provider: providers.Web3Provider | null;
   address: string | null;
   chainId: number | null;
+  error: Error | null;
 };
 
 const switchNetwork = async (network: Network, prov: any) => {
@@ -59,41 +58,60 @@ function EthereumState() {
     web3Provider: null,
     address: null,
     chainId: null,
+    error: null,
   });
   const { provider } = state;
   const addressRef = useRef(state.address);
   addressRef.current = state.address;
   const { network } = useHyperverse();
+
   const connect = useCallback(async function () {
-    // This is the initial `provider` that is returned when
-    // using web3Modal to connect. Can be MetaMask or WalletConnect.
-    const externalProvider = await web3Modal.connect();
+    try {
+      // This is the initial `provider` that is returned when
+      // using web3Modal to connect. Can be MetaMask or WalletConnect.
+      const externalProvider = await web3Modal.connect();
 
-    // We plug the initial `provider` into ethers.js and get back
-    // a Web3Provider. This will add on methods from ethers.js and
-    // event listeners such as `.on()` will be different.
-    const web3Provider = new providers.Web3Provider(externalProvider);
+      // We plug the initial `provider` into ethers.js and get back
+      // a Web3Provider. This will add on methods from ethers.js and
+      // event listeners such as `.on()` will be different.
+      const web3Provider = new providers.Web3Provider(externalProvider);
 
-    const signer = web3Provider.getSigner();
-    const address = await signer.getAddress();
+      const signer = web3Provider.getSigner();
+      const address = await signer.getAddress();
 
-    const userNetwork = await web3Provider.getNetwork();
+      const userNetwork = await web3Provider.getNetwork();
 
-    if (userNetwork.chainId !== 4) {
-      await switchNetwork(network, web3Provider.provider);
+      if (userNetwork.chainId !== 4) {
+        await switchNetwork(network, web3Provider.provider);
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+
+      setState((prev) => ({
+        ...prev,
+        provider,
+        web3Provider,
+        address,
+        chainId: userNetwork.chainId,
+      }));
+    } catch (err: any) {
+      if (
+        err.message.includes("User Rejected") ||
+        err.message.includes("Already processing")
+      ) {
+        setState((prev) => ({
+          ...prev,
+          error: new Error("Please click the metamask extension to sign in!"),
+        }));
+      } else {
+        setState((prev) => ({
+          ...prev,
+          error: new Error("Something went wrong!"),
+        }));
+      }
     }
-
-    setState((prev) => ({
-      ...prev,
-      provider,
-      web3Provider,
-      address,
-      chainId: userNetwork.chainId,
-    }));
   }, []);
 
   const disconnect = useCallback(
@@ -108,6 +126,7 @@ function EthereumState() {
         web3Provider: null,
         address: null,
         chainId: null,
+        error: null,
       });
     },
     [provider]
@@ -123,7 +142,6 @@ function EthereumState() {
         const timeout = setTimeout(() => {
           // If not triggered in 2 seconds show alert to user
           (window as Window).removeEventListener("blur", blur);
-          console.log("What is the address?", addressRef.current);
           if (!addressRef.current) {
             alert(
               "Click metamask icon in your chrome browser extension to sign in"
