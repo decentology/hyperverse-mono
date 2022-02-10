@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import styles from '../styles/Home.module.css'
-import Nav from '../components/Nav'
-import Loader from '../components/Loader'
-import { useTribes } from '@decentology/hyperverse-ethereum-tribes'
-import { useEthereum } from '@decentology/hyperverse-ethereum'
-import Image from 'next/image'
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import styles from "../styles/Home.module.css";
+import Nav from "../components/Nav";
+import Loader from "../components/Loader";
+import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
+import { useEthereum } from "@decentology/hyperverse-ethereum";
+import Image from "next/image";
 import { toast } from 'react-toastify'
 
 const AllTribes = () => {
@@ -53,7 +53,10 @@ const AllTribes = () => {
                         width={200}
                         height={250}
                         className={styles.cards}
-                        src={item.image}
+                        src={`https://fileportal.org/${item.image.replace(
+                          "sia:",
+                          ""
+                        )}/`}
                         alt={item.name}
                       />
                     </div>
