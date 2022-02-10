@@ -2807,7 +2807,7 @@
   resolved "https://registry.yarnpkg.com/@walletconnect/environment/-/environment-1.0.0.tgz#c4545869fa9c389ec88c364e1a5f8178e8ab5034"
   integrity sha512-4BwqyWy6KpSvkocSaV7WR3BlZfrxLbJSLkg+j7Gl6pTDE+U55lLhJvQaMuDVazXYxcjBsG09k7UlH7cGiUI5vQ==
 
-"@walletconnect/ethereum-provider@1.7.1", "@walletconnect/ethereum-provider@^1.6.6":
+"@walletconnect/ethereum-provider@^1.6.6":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@walletconnect/ethereum-provider/-/ethereum-provider-1.7.1.tgz#706bbb18659bd6475750fed7e5a93438c97a9fa9"
   integrity sha512-r01XPO8NHs0n/rjU77VXXgCtxC/hL8F34bu+UHGXmkMUHZGCSY2uKN4VCe2uptkCVYUQ9gCEDyCOUyQSQzULjw==
@@ -14130,14 +14130,6 @@ wagmi-private@0.0.17:
     "@ethersproject/providers" "^5.5.1"
     eventemitter3 "^4.0.7"
 
-wagmi-private@0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/wagmi-private/-/wagmi-private-0.1.7.tgz#7e29f609452531395692cc0c4f7ffa57d4a92dc5"
-  integrity sha512-73HlcoZkom1WSZCfNRrtNd7MZ3j1z5T9nVG3LJZ+dAhOhVLxg00uEFo6PGq2Ex8IWkowU5fff9DCDWYGoCjrCg==
-  dependencies:
-    "@ethersproject/providers" "^5.5.1"
-    eventemitter3 "^4.0.7"
-
 wagmi@^0.0.17:
   version "0.0.17"
   resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.0.17.tgz#3a831b226d14b26df63d7bc8ec6b838deb13e9e2"
@@ -14146,16 +14138,6 @@ wagmi@^0.0.17:
     "@ethersproject/providers" "^5.5.1"
     "@walletconnect/ethereum-provider" "^1.6.6"
     wagmi-private "0.0.17"
-    walletlink "^2.2.8"
-
-wagmi@^0.2.0:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.2.6.tgz#ac47c455e19336c111822d9880b381b8cd904808"
-  integrity sha512-0pvboWgCkPrX16K0evT9VxNVTq559FSs28WwjotPKlMYAkkcVN46kTIWaLUN7Bm5BaysWlgxaCHrS6kcBC9czw==
-  dependencies:
-    "@ethersproject/providers" "^5.5.1"
-    "@walletconnect/ethereum-provider" "1.7.1"
-    wagmi-private "0.1.7"
     walletlink "^2.2.8"
 
 walletlink@^2.2.8:
