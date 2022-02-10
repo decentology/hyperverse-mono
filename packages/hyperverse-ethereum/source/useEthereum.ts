@@ -97,7 +97,13 @@ function EthereumState() {
         chainId: userNetwork.chainId,
       }));
     } catch (err: any) {
-      if (
+      if (typeof err === "string") { 
+        setState((prev) => ({
+          ...prev,
+          error: new Error(err),
+        }));
+      }
+      else if (
         err.message.includes("User Rejected") ||
         err.message.includes("Already processing")
       ) {
@@ -143,9 +149,12 @@ function EthereumState() {
           // If not triggered in 2 seconds show alert to user
           (window as Window).removeEventListener("blur", blur);
           if (!addressRef.current) {
-            alert(
-              "Click metamask icon in your chrome browser extension to sign in"
-            );
+           setState((prev) => ({
+             ...prev,
+             error: new Error(
+               "Please click the metamask extension to sign in!"
+             ),
+           })); 
           }
         }, 500);
         const blur = () => {
