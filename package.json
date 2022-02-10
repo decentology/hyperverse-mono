@@ -7,8 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --no-deps --scope=@decentology/hyperverse --scope=@decentology/hyperverse-algorand --scope=@decentology/hyperverse-algorand-counter --scope=@decentology/hyperverse-ethereum --scope=@decentology/hyperverse-ethereum-tribes --scope=@decentology/hyperverse-flow --scope=@decentology/hyperverse-flow-tribes --scope=@decentology/hyperverse-storage-skynet",
     "dev": "turbo run dev --parallel",
+    "clean": "turbo run clean --parallel",
     "dev:algorand": "turbo run dev --cwd=./apps/algorand --parallel ",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -17,7 +18,13 @@
     "@changesets/cli": "^2.20.0",
     "@parcel/packager-ts": "^2.2.1",
     "@parcel/transformer-typescript-types": "^2.2.1",
+    "@types/fs-extra": "^9.0.13",
+    "chalk": "4",
+    "fast-glob": "^3.2.11",
+    "fs-extra": "^10.0.0",
     "prettier": "^2.5.1",
+    "tiny-glob": "^0.2.9",
+    "ts-node": "^10.5.0",
     "turbo": "latest",
     "typescript": ">=3.0.0"
   },
@@ -37,11 +44,17 @@
       },
       "dev": {
         "cache": false
+      },
+      "clean": {
+        "cache": false
       }
     }
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "turborepo": "^0.0.1"
   }
 }

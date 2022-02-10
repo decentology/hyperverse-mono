@@ -23,6 +23,7 @@
   "dependencies": {
     "@decentology/hyperverse": "*",
     "@decentology/hyperverse-ethereum": "*",
+    "@decentology/hyperverse-storage-skynet": "*",
     "@openzeppelin/contracts": "^4.4.2",
     "ethers": "^5.5.3",
     "react-query": "^3.34.7",

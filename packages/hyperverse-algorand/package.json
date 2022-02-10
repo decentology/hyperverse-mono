@@ -13,7 +13,8 @@
     "distribution"
   ],
   "scripts": {
-    "build": "parcel build"
+    "build": "parcel build",
+    "clean": "rimraf ./distribution"
   },
   "peerDependencies": {
     "react": "^17.0.2"
