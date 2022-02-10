@@ -180,10 +180,11 @@ function EthereumState() {
   // here so that when a user switches accounts or networks, we can update the
   // local React state with that new information.
   useEffect(() => {
+    const provider = state.web3Provider?.provider as any;
     if (provider?.on) {
       const handleAccountsChanged = (accounts: string[]) => {
         setState((prev) => ({ ...prev, address: accounts[0] }));
-        disconnect();
+        // disconnect();
       };
 
       // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
@@ -209,7 +210,7 @@ function EthereumState() {
         }
       };
     }
-  }, [provider, disconnect]);
+  }, [state.web3Provider, disconnect]);
   return { ...state, connect, disconnect };
 }
 
