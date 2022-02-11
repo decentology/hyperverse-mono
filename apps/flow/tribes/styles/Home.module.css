@@ -119,6 +119,8 @@
   font-family: 'Inconsolata', monospace;
   text-transform: none;
   letter-spacing: 2px;
+  width: 50%;
+  text-align: center;
 }
 
 .error > p {
