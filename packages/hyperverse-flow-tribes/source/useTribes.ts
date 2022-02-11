@@ -35,6 +35,8 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     getAllTribes: actions.getAllTribes.bind(null, tenantId),
     getCurrentTribe: actions.getCurrentTribe.bind(null, tenantId),
     joinTribe: actions.joinTribe.bind(null, tenantId),
+    createTenant: actions.createTenant,
+    addTribe: actions.addTribe
   };
 }
 
