@@ -34,7 +34,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     ) as ContractState
   );
   const { uploadFile } = useStorage();
-
   const setup = async () => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {

@@ -74,7 +74,7 @@ const Setup = () => {
               </button>
               <p className={styles.error}>
                 If you already created an instance, change the Tenant in
-                shared.ts to the signer address.
+                setup.tsx to the signer address.
               </p>
             </>
           )}
