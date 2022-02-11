@@ -1,5 +1,13 @@
 # @decentology/hyperverse
 
+## 1.0.5
+
+### Patch Changes
+
+- 8183269: Bug fixes for login/logout workflow
+- Updated dependencies [8183269]
+  - @decentology/hyperverse-storage-skynet@1.0.5
+
 ## 1.0.4
 
 ### Patch Changes

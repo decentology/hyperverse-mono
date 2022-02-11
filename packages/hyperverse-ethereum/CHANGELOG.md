@@ -1,5 +1,14 @@
 # @decentology/hyperverse-ethereum
 
+## 1.0.5
+
+### Patch Changes
+
+- 38bce19: fixed caching on logout
+- 8183269: Bug fixes for login/logout workflow
+- Updated dependencies [8183269]
+  - @decentology/hyperverse@1.0.5
+
 ## 1.0.4
 
 ### Patch Changes

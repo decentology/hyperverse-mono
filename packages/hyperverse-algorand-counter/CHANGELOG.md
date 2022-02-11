@@ -1,5 +1,14 @@
 # @decentology/hyperverse-algorand-counter
 
+## 0.1.6
+
+### Patch Changes
+
+- 8183269: Bug fixes for login/logout workflow
+- Updated dependencies [8183269]
+  - @decentology/hyperverse@1.0.5
+  - @decentology/hyperverse-algorand@1.0.5
+
 ## 0.1.5
 
 ### Patch Changes
