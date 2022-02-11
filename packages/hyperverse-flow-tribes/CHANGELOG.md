@@ -1,5 +1,14 @@
 # @decentology/hyperverse-flow-tribes
 
+## 1.0.4
+
+### Patch Changes
+
+- Handle metamask workflow and stablizing platform
+- Updated dependencies
+  - @decentology/hyperverse@1.0.4
+  - @decentology/hyperverse-flow@1.0.4
+
 ## 1.0.3
 
 ### Patch Changes

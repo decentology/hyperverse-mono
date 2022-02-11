@@ -1,5 +1,13 @@
 # @decentology/hyperverse-algorand
 
+## 1.0.4
+
+### Patch Changes
+
+- Handle metamask workflow and stablizing platform
+- Updated dependencies
+  - @decentology/hyperverse@1.0.4
+
 ## 1.0.3
 
 ### Patch Changes
