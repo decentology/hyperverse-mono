@@ -180,6 +180,7 @@ function EthereumState() {
   // here so that when a user switches accounts or networks, we can update the
   // local React state with that new information.
   useEffect(() => {
+    // MetaMask Only
     const provider = state.web3Provider?.provider as any;
     if (provider?.on) {
       const handleAccountsChanged = (accounts: string[]) => {
