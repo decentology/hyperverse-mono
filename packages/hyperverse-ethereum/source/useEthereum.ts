@@ -126,14 +126,6 @@ function EthereumState() {
     if (typeof web3InnerProvider?.disconnect === "function") {
       await web3InnerProvider.disconnect();
     }
-
-    setState((prevState) => ({
-      ...prevState,
-      web3Provider: null,
-      address: null,
-      chainId: null,
-      error: null,
-    }));
     window.location.reload();
   }, [state.web3Provider]);
 
