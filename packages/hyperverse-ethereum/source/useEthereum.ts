@@ -92,7 +92,7 @@ function EthereumState() {
       setState((prev) => ({
         ...prev,
         provider,
-        web3Provider,
+        web3Provider : web3Provider,
         address,
         chainId: userNetwork.chainId,
       }));
@@ -123,8 +123,10 @@ function EthereumState() {
   const disconnect = useCallback(
     async function () {
       await web3Modal.clearCachedProvider();
-      if (provider?.disconnect && typeof provider.disconnect === "function") {
-        await provider.disconnect();
+      // @ts-ignore
+      if (state.web3Provider?.provider?.disconnect && typeof state.web3Provider?.provider?.disconnect === "function") {
+        // @ts-ignore
+        await state.web3Provider?.provider?.disconnect();
       }
 
       setState({
@@ -135,7 +137,7 @@ function EthereumState() {
         error: null,
       });
     },
-    [provider]
+    [provider, state.web3Provider?.provider]
   );
 
   useEffect(() => {
