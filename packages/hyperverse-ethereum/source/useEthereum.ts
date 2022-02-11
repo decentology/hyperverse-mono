@@ -3,8 +3,7 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { providers, ethers } from "ethers";
 import { createContainer, useContainer } from "unstated-next";
-import Network from "@decentology/hyperverse/source/constants/networks";
-import { useHyperverse } from "@decentology/hyperverse";
+import { useHyperverse, networks } from "@decentology/hyperverse";
 
 const INFURA_ID =
   process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! ||
@@ -36,8 +35,8 @@ type State = {
   error: Error | null;
 };
 
-const switchNetwork = async (network: Network, prov: any) => {
-  if (network === Network.Mainnet) {
+const switchNetwork = async (network: networks, prov: any) => {
+  if (network === networks.Mainnet) {
     await prov.request({
       method: "wallet_switchEthereumChain",
       params: [{ chainId: "0x1" }],
