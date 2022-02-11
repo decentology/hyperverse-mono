@@ -7,6 +7,7 @@ import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import Image from "next/image";
 import { toast } from 'react-toastify'
+import { useEffect } from "react";
 
 const AllTribes = () => {
   const { address } = useEthereum()

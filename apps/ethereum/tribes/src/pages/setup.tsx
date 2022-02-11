@@ -41,7 +41,7 @@ const Setup = () => {
       try {
         setLoaderMessage("Intiating Transaction...");
         // addTribe({metadata: data, image: imageFile});
-        addTribe({ metadata, image: imageFile });
+        addTribe({ metadata, image: imageFile! });
         setLoaderMessage("Processing Transaction...");
       } catch {}
     } catch {}
