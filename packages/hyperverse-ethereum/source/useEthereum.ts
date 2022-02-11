@@ -5,7 +5,6 @@ import { providers, ethers } from "ethers";
 import { createContainer, useContainer } from "unstated-next";
 import Network from "@decentology/hyperverse/source/constants/networks";
 import { useHyperverse } from "@decentology/hyperverse";
-import { BaseProvider } from "@ethersproject/providers";
 
 const INFURA_ID =
   process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! ||
@@ -20,21 +19,14 @@ const providerOptions = {
   },
 };
 
-let web3Modal: Web3Modal;
-if (typeof window !== "undefined") {
-  web3Modal = new Web3Modal({
-    network: "mainnet", // optional
-    cacheProvider: true,
-    providerOptions, // required
-  });
-}
-
 type State = {
+  web3Modal: Web3Modal | null;
   provider: any | null;
   web3Provider: providers.Web3Provider | null;
   address: string | null;
   chainId: number | null;
   error: Error | null;
+  externalProvider?: any;
 };
 
 const switchNetwork = async (network: Network, prov: any) => {
@@ -53,6 +45,14 @@ const switchNetwork = async (network: Network, prov: any) => {
 
 function EthereumState() {
   const [state, setState] = useState<Omit<State, "disconnect" | "connect">>({
+    web3Modal:
+      typeof window !== "undefined"
+        ? new Web3Modal({
+            network: "mainnet", // optional
+            cacheProvider: true,
+            providerOptions, // required
+          })
+        : null,
     provider: new ethers.providers.JsonRpcProvider(
       `https://rinkeby.infura.io/v3/${INFURA_ID}`
     ),
@@ -61,7 +61,7 @@ function EthereumState() {
     chainId: null,
     error: null,
   });
-  const { provider } = state;
+  const { provider, web3Modal } = state;
   const addressRef = useRef(state.address);
   addressRef.current = state.address;
   const { network } = useHyperverse();
@@ -70,7 +70,7 @@ function EthereumState() {
     try {
       // This is the initial `provider` that is returned when
       // using web3Modal to connect. Can be MetaMask or WalletConnect.
-      const externalProvider = await web3Modal.connect();
+      const externalProvider = await web3Modal?.connect();
 
       // We plug the initial `provider` into ethers.js and get back
       // a Web3Provider. This will add on methods from ethers.js and
@@ -92,8 +92,7 @@ function EthereumState() {
 
       setState((prev) => ({
         ...prev,
-        provider,
-        web3Provider: web3Provider,
+        web3Provider,
         address,
         chainId: userNetwork.chainId,
       }));
@@ -121,9 +120,10 @@ function EthereumState() {
   }, []);
 
   const disconnect = useCallback(async () => {
-    await web3Modal.clearCachedProvider();
+    await web3Modal?.clearCachedProvider();
     const web3InnerProvider = state.web3Provider?.provider as any;
     if (typeof web3InnerProvider?.disconnect === "function") {
+      // await state.externalProvider.disconnect();
       await web3InnerProvider.disconnect();
     }
 
@@ -134,7 +134,7 @@ function EthereumState() {
       chainId: null,
       error: null,
     }));
-  }, [state.web3Provider]);
+  }, [web3Modal, state.web3Provider, state.externalProvider]);
 
   useEffect(() => {
     if (web3Modal) {
@@ -171,7 +171,7 @@ function EthereumState() {
 
   // Auto connect to the cached provider
   useEffect(() => {
-    if (web3Modal.cachedProvider) {
+    if (web3Modal?.cachedProvider) {
       connect();
     }
   }, [connect]);
@@ -179,38 +179,38 @@ function EthereumState() {
   // A `provider` should come with EIP-1193 events. We'll listen for those events
   // here so that when a user switches accounts or networks, we can update the
   // local React state with that new information.
-  useEffect(() => {
-    const provider = state.web3Provider?.provider as any;
-    if (provider?.on) {
-      const handleAccountsChanged = (accounts: string[]) => {
-        setState((prev) => ({ ...prev, address: accounts[0] }));
-        // disconnect();
-      };
+  // useEffect(() => {
+  //   const provider = state.web3Provider?.provider as any;
+  //   if (provider?.on) {
+  //     const handleAccountsChanged = (accounts: string[]) => {
+  //       setState((prev) => ({ ...prev, address: accounts[0] }));
+  //       // disconnect();
+  //     };
 
-      // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
-      const handleChainChanged = (_hexChainId: string) => {
-        window.location.reload();
-      };
+  //     // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
+  //     const handleChainChanged = (_hexChainId: string) => {
+  //       window.location.reload();
+  //     };
 
-      const handleDisconnect = (error: { code: number; message: string }) => {
-        web3Modal.clearCachedProvider();
-        disconnect();
-      };
+  //     const handleDisconnect = (error: { code: number; message: string }) => {
+  //       web3Modal?.clearCachedProvider();
+  //       disconnect();
+  //     };
 
-      provider.on("accountsChanged", handleAccountsChanged);
-      provider.on("chainChanged", handleChainChanged);
-      provider.on("disconnect", handleDisconnect);
+  //     provider.on("accountsChanged", handleAccountsChanged);
+  //     provider.on("chainChanged", handleChainChanged);
+  //     provider.on("disconnect", handleDisconnect);
 
-      // Subscription Cleanup
-      return () => {
-        if (provider.removeListener) {
-          provider.removeListener("accountsChanged", handleAccountsChanged);
-          provider.removeListener("chainChanged", handleChainChanged);
-          provider.removeListener("disconnect", handleDisconnect);
-        }
-      };
-    }
-  }, [state.web3Provider, disconnect]);
+  //     // Subscription Cleanup
+  //     return () => {
+  //       if (provider.removeListener) {
+  //         provider.removeListener("accountsChanged", handleAccountsChanged);
+  //         provider.removeListener("chainChanged", handleChainChanged);
+  //         provider.removeListener("disconnect", handleDisconnect);
+  //       }
+  //     };
+  //   }
+  // }, [web3Modal, state.web3Provider, disconnect]);
   return { ...state, connect, disconnect };
 }
 

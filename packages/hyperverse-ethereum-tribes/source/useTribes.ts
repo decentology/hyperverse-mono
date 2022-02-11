@@ -11,7 +11,6 @@ import { ContractABI, CONTRACT_ADDRESS } from "./Provider";
 import { useEvent } from "react-use";
 import { useStorage } from "@decentology/hyperverse-storage-skynet";
 import { createContainer, useContainer } from "unstated-next";
-import { SkynetClient } from "skynet-js";
 
 type ContractState = ethers.Contract;
 
@@ -24,7 +23,7 @@ type MetaData = {
 function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const { tenantId } = initialState;
   const queryClient = useQueryClient();
-  const { address, web3Provider, provider, connect } = useEthereum();
+  const { address, web3Provider, provider } = useEthereum();
   const { clientUrl } = useStorage();
   const [contract, setTribesContract] = useState<ContractState>(
     new ethers.Contract(
@@ -34,21 +33,13 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     ) as ContractState
   );
   const { uploadFile } = useStorage();
-  const setup = async () => {
+  const setup = useCallback(async () => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {
       const ctr = contract.connect(signer) as ContractState;
       setTribesContract(ctr);
-    } else {
-      setTribesContract(
-        new ethers.Contract(
-          CONTRACT_ADDRESS,
-          ContractABI,
-          provider
-        ) as ContractState
-      );
     }
-  };
+  }, [web3Provider]);
 
   const formatTribeResultFromTribeId = useCallback(
     async (tribeId: number) => {
@@ -86,6 +77,15 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   useEffect(() => {
     if (web3Provider) {
       setup();
+    } else {
+      console.log("Ensure this is happening");
+      setTribesContract(
+        new ethers.Contract(
+          CONTRACT_ADDRESS,
+          ContractABI,
+          provider
+        ) as ContractState
+      );
     }
   }, [web3Provider]);
 
