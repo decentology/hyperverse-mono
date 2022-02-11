@@ -53,7 +53,7 @@ const AllTribes = () => {
                         width={200}
                         height={250}
                         className={styles.cards}
-                        src={item.image}
+                        src={item.imageUrl}
                         alt={item.name}
                       />
                     </div>
