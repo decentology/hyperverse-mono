@@ -134,6 +134,7 @@ function EthereumState() {
       chainId: null,
       error: null,
     }));
+    window.location.reload();
   }, [state.web3Provider]);
 
   useEffect(() => {
