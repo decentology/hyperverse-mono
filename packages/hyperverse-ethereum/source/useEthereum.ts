@@ -5,7 +5,6 @@ import { providers, ethers } from "ethers";
 import { createContainer, useContainer } from "unstated-next";
 import Network from "@decentology/hyperverse/source/constants/networks";
 import { useHyperverse } from "@decentology/hyperverse";
-import { BaseProvider } from "@ethersproject/providers";
 
 const INFURA_ID =
   process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! ||
