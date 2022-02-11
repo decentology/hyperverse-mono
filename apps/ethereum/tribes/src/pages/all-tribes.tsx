@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 import styles from "../styles/Home.module.css";
 import Nav from "../components/Nav";
 import Loader from "../components/Loader";

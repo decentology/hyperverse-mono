@@ -1,51 +1,60 @@
-import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
-import { useEffect } from 'react'
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import { useEffect } from "react";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
-import { useTribes } from '@decentology/hyperverse-ethereum-tribes'
-import styles from '../styles/Home.module.css'
-import Nav from '../components/Nav'
-import Loader from '../components/Loader'
-import { toast } from 'react-toastify';
-import Image from 'next/image';
-
-const getTribeData = async (data: string) => {
-  const json = JSON.parse(
-    // eslint-disable-next-line no-await-in-loop
-    await (await fetch(`https://siasky.net/${data}`)).text(),
-  )
-  return json
-}
+import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
+import styles from "../styles/Home.module.css";
+import Nav from "../components/Nav";
+import Loader from "../components/Loader";
+import { toast } from "react-toastify";
+import Image from "next/image";
+import { useStorage } from "@decentology/hyperverse-storage-skynet";
 
 const TribesPage = () => {
-  const router = useRouter()
+  const router = useRouter();
   const { address: account } = useEthereum();
-  const { Tribe, Leave } = useTribes()
-  const { data: tribeHash, isLoading: tribeDataLoading, error:tribeErr } = Tribe()
-  const { mutate, isLoading: leaveTribeLoading, error: leaveErr } = Leave({
-    onSuccess: () => router.push('/'),
-  })
+  const { Tribe, Leave } = useTribes();
+  const { clientUrl } = useStorage();
+  const {
+    data: tribeHash,
+    isLoading: tribeDataLoading,
+    error: tribeErr,
+  } = Tribe();
+  const {
+    mutate,
+    isLoading: leaveTribeLoading,
+    error: leaveErr,
+  } = Leave({
+    onSuccess: () => router.push("/"),
+  });
 
+  const getTribeData = async (data: string) => {
+    const json = JSON.parse(
+      // eslint-disable-next-line no-await-in-loop
+      await (await fetch(`${clientUrl}/${data}`)).text()
+    );
+    return json;
+  };
 
   const { data, isLoading: tribeDataSiaLoading } = useQuery(
-    ['tribeData', tribeHash],
+    ["tribeData", tribeHash],
     () => getTribeData(tribeHash!),
     {
       enabled: !!tribeHash,
-    },
-  )
-  const isLoading = tribeDataLoading || leaveTribeLoading || tribeDataSiaLoading
-  
-  const error = tribeErr || leaveErr
+    }
+  );
+  const isLoading =
+    tribeDataLoading || leaveTribeLoading || tribeDataSiaLoading;
+
+  const error = tribeErr || leaveErr;
   useEffect(() => {
-  
     if (error) {
       //@ts-ignore
       toast.error(error.message, {
         position: toast.POSITION.BOTTOM_CENTER,
-      })
+      });
     }
-  }, [error])
+  }, [error]);
   return (
     <main>
       <Nav />
@@ -54,7 +63,7 @@ const TribesPage = () => {
       ) : account && !tribeErr && data ? (
         <div className={styles.container2}>
           <div className={styles.container3}>
-            {data.image === 'N/A' ? (
+            {data.image === "N/A" ? (
               <div className={styles.tribeCard}>
                 <h2>{data.name}</h2>
               </div>
@@ -62,7 +71,7 @@ const TribesPage = () => {
               <Image
                 width={300}
                 height={400}
-                src={`https://siasky.net/${data.image}/`}
+                src={`${clientUrl}/${data.image}/`}
                 alt={data.name}
                 className={styles.tribe}
               />
@@ -78,11 +87,12 @@ const TribesPage = () => {
           </button>
         </div>
       ) : (
-        account && !tribeErr && (
+        account &&
+        !tribeErr && (
           <div className={styles.container2}>
             <button
               className={styles.join}
-              onClick={() => router.push('/all-tribes')}
+              onClick={() => router.push("/all-tribes")}
             >
               Join a Tribe
             </button>
@@ -96,7 +106,7 @@ const TribesPage = () => {
         </div>
       )}
     </main>
-  )
-}
+  );
+};
 
-export default TribesPage
+export default TribesPage;

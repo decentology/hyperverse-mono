@@ -1,6 +1,5 @@
-import { createContext, createElement, FC, useEffect, useState } from "react";
+import { createElement, FC } from "react";
 import { Provider as SkyNetProvider } from "@decentology/hyperverse-storage-skynet";
-import { DeviceDetectProvider } from "./components";
 import Network from "./constants/networks";
 import Storage from "./constants/storage";
 import { Hyperverse } from "./types";

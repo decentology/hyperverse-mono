@@ -25,6 +25,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const { tenantId } = initialState;
   const queryClient = useQueryClient();
   const { address, web3Provider, provider, connect } = useEthereum();
+  const { clientUrl } = useStorage();
   const [contract, setTribesContract] = useState<ContractState>(
     new ethers.Contract(
       CONTRACT_ADDRESS,
@@ -71,7 +72,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     if (web3Provider) {
       setup();
     }
-  }, [ web3Provider]);
+  }, [web3Provider]);
   // useEffect(() => {
   //   const ctr = new ethers.Contract(
   //     CONTRACT_ADDRESS,
@@ -155,7 +156,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
           "metadata.json"
         );
         const { skylink: metadataFileLink } = await uploadFile(metadataFile);
-        
+
         const addTxn = await contract.addNewTribe(
           metadataFileLink.replace("sia:", "")
         );
@@ -230,11 +231,11 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         const link = txn.replace("sia:", "");
         const json = JSON.parse(
           // eslint-disable-next-line no-await-in-loop
-          await (await fetch(`https://siasky.net/${link}`)).text()
+          await (await fetch(`${clientUrl}/${link}`)).text()
         );
 
         json.id = i;
-        json.image = `https://siasky.net/${json.image.replace("sia:", "")}/`;
+        json.imageUrl = `${clientUrl}/${json.image.replace("sia:", "")}`;
 
         tribes.push(json);
       }
@@ -251,7 +252,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         if (!contract) {
           return;
         }
-
 
         const joinTxn = await contract.joinTribe(tenantId, id);
         return joinTxn.wait();
