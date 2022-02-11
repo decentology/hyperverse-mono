@@ -5,6 +5,7 @@ import { providers, ethers } from "ethers";
 import { createContainer, useContainer } from "unstated-next";
 import Network from "@decentology/hyperverse/source/constants/networks";
 import { useHyperverse } from "@decentology/hyperverse";
+import { BaseProvider } from "@ethersproject/providers";
 
 const INFURA_ID =
   process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! ||
@@ -92,7 +93,7 @@ function EthereumState() {
       setState((prev) => ({
         ...prev,
         provider,
-        web3Provider : web3Provider,
+        web3Provider: web3Provider,
         address,
         chainId: userNetwork.chainId,
       }));
@@ -102,8 +103,7 @@ function EthereumState() {
           ...prev,
           error: new Error(err),
         }));
-      }
-      else if (
+      } else if (
         err.message.includes("User Rejected") ||
         err.message.includes("Already processing")
       ) {
@@ -120,36 +120,34 @@ function EthereumState() {
     }
   }, []);
 
-  const disconnect = useCallback(
-    async function () {
-      await web3Modal.clearCachedProvider();
-      // @ts-ignore
-      if (state.web3Provider?.provider?.disconnect && typeof state.web3Provider?.provider?.disconnect === "function") {
-        // @ts-ignore
-        await state.web3Provider?.provider?.disconnect();
-      }
+  const disconnect = useCallback(async () => {
+    await web3Modal.clearCachedProvider();
+    const web3InnerProvider = state.web3Provider?.provider as any;
+    if (typeof web3InnerProvider?.disconnect === "function") {
+      await web3InnerProvider.disconnect();
+    }
 
-      setState({
-        provider: state.provider,
-        web3Provider: null,
-        address: null,
-        chainId: null,
-        error: null,
-      });
-    },
-    [provider, state.web3Provider?.provider]
-  );
+    setState((prevState) => ({
+      ...prevState,
+      web3Provider: null,
+      address: null,
+      chainId: null,
+      error: null,
+    }));
+  }, [state.web3Provider]);
 
   useEffect(() => {
     if (web3Modal) {
       // @ts-ignore - Using private method to override click event handler
-      const web3ModalUserOptions = web3Modal.userOptions.find(x => x.name === 'MetaMask');
+      const web3ModalUserOptions = web3Modal.userOptions.find(
+        (x: any) => x.name === "MetaMask"
+      );
       if (web3ModalUserOptions) {
         const click = web3ModalUserOptions.onClick;
         web3ModalUserOptions.onClick = () => {
           let flagTripped = false;
           const timeout = setTimeout(() => {
-            // If not triggered in 2 seconds show alert to user
+            // If not triggered in second(s) show alert to user
             (window as Window).removeEventListener("blur", blur);
             if (!addressRef.current) {
               setState((prev) => ({
@@ -168,8 +166,8 @@ function EthereumState() {
           (window as Window).addEventListener("blur", blur);
           // Call original click event handler to trigger metamask
           click();
-        }
-      };
+        };
+      }
     }
   }, [web3Modal]);
 
