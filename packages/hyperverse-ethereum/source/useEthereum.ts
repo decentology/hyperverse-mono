@@ -145,7 +145,6 @@ function EthereumState() {
       if (web3ModalUserOptions) {
         const click = web3ModalUserOptions.onClick;
         web3ModalUserOptions.onClick = () => {
-          let flagTripped = false;
           const timeout = setTimeout(() => {
             // If not triggered in 2 seconds show alert to user
             (window as Window).removeEventListener("blur", blur);
@@ -159,7 +158,6 @@ function EthereumState() {
             }
           }, 500);
           const blur = () => {
-            flagTripped = true;
             clearTimeout(timeout);
             (window as Window).removeEventListener("blur", blur);
           };

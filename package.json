@@ -20,7 +20,6 @@
     "@parcel/transformer-typescript-types": "^2.2.1",
     "@types/fs-extra": "^9.0.13",
     "chalk": "4",
-    "fast-glob": "^3.2.11",
     "fs-extra": "^10.0.0",
     "prettier": "^2.5.1",
     "tiny-glob": "^0.2.9",
