@@ -7,7 +7,7 @@ import {
 } from "react-query";
 import { ethers } from "ethers";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
-import { ContractABI, TENANT_ADDRESS, CONTRACT_ADDRESS } from "./Provider";
+import { ContractABI, CONTRACT_ADDRESS } from "./Provider";
 import { useEvent } from "react-use";
 import { useStorage } from "@decentology/hyperverse-storage-skynet";
 import { createContainer, useContainer } from "unstated-next";
@@ -22,6 +22,7 @@ type MetaData = {
 };
 
 function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
+  const { tenantId } = initialState;
   const queryClient = useQueryClient();
   const { address, web3Provider, provider, connect } = useEthereum();
   const [contract, setTribesContract] = useState<ContractState>(
@@ -173,7 +174,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         return;
       }
       try {
-        const id = await contract.getUserTribe(TENANT_ADDRESS, account);
+        const id = await contract.getUserTribe(tenantId, account);
         return id.toNumber();
       } catch (err) {
         if (err instanceof Error) {
@@ -193,7 +194,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         if (!contract) {
           return;
         }
-        const userTribeTxn = await contract.getTribeData(TENANT_ADDRESS, id);
+        const userTribeTxn = await contract.getTribeData(tenantId, id);
         return userTribeTxn;
       } catch (err) {
         errors(err);
@@ -208,7 +209,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         return;
       }
 
-      const leaveTxn = await contract.leaveTribe(TENANT_ADDRESS);
+      const leaveTxn = await contract.leaveTribe(tenantId);
       await leaveTxn.wait();
       return leaveTxn.hash;
     } catch (err) {
@@ -221,11 +222,11 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
       if (!contract) {
         return;
       }
-      const tribesData = await contract.totalTribes(TENANT_ADDRESS);
+      const tribesData = await contract.totalTribes(tenantId);
       const tribes = [];
       for (let i = 1; i <= tribesData.toNumber(); ++i) {
         // eslint-disable-next-line no-await-in-loop
-        const txn = await contract.getTribeData(TENANT_ADDRESS, i);
+        const txn = await contract.getTribeData(tenantId, i);
         const link = txn.replace("sia:", "");
         const json = JSON.parse(
           // eslint-disable-next-line no-await-in-loop
@@ -252,7 +253,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         }
 
 
-        const joinTxn = await contract.joinTribe(TENANT_ADDRESS, id);
+        const joinTxn = await contract.joinTribe(tenantId, id);
         return joinTxn.wait();
       } catch (err) {
         errors(err);
@@ -267,6 +268,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   };
 
   return {
+    tenantId,
     contract,
     useTribeEvents,
     CheckInstance: () =>
