@@ -1,3 +1,5 @@
+//Contract Address : 0xf8CEc073d08e42cdDC1bF1fd8d44ce3252ab7352
+
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { initialize, Provider} from "@decentology/hyperverse";
