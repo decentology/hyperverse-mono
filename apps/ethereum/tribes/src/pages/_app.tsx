@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const hyperverse = initialize({
     blockchain: Ethereum,
     network: networks.Testnet,
-    modules: [{ bundle: Tribes, tenantId: "tribes" }],
+    modules: [{ bundle: Tribes, tenantId: "0xD847C7408c48b6b6720CCa75eB30a93acbF5163D" }],
   });
   return (
     <Provider initialState={hyperverse}>

@@ -54,10 +54,7 @@ const AllTribes = () => {
                         width={200}
                         height={250}
                         className={styles.cards}
-                        src={`https://fileportal.org/${item.image.replace(
-                          "sia:",
-                          ""
-                        )}/`}
+                        src={item.image}
                         alt={item.name}
                       />
                     </div>

@@ -23,6 +23,7 @@ type MetaData = {
 
 function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const queryClient = useQueryClient();
+  const { tenantId } = initialState
   const { address, web3Provider, provider, connect } = useEthereum();
   const [contract, setTribesContract] = useState<ContractState>(
     new ethers.Contract(
@@ -32,7 +33,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     ) as ContractState
   );
   const { uploadFile } = useStorage();
-
   const setup = async () => {
     const signer = await web3Provider?.getSigner();
     if (signer && contract) {
@@ -173,7 +173,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         return;
       }
       try {
-        const id = await contract.getUserTribe(TENANT_ADDRESS, account);
+        const id = await contract.getUserTribe(tenantId, account);
         return id.toNumber();
       } catch (err) {
         if (err instanceof Error) {
@@ -193,7 +193,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         if (!contract) {
           return;
         }
-        const userTribeTxn = await contract.getTribeData(TENANT_ADDRESS, id);
+        const userTribeTxn = await contract.getTribeData(tenantId, id);
         return userTribeTxn;
       } catch (err) {
         errors(err);
@@ -208,7 +208,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
         return;
       }
 
-      const leaveTxn = await contract.leaveTribe(TENANT_ADDRESS);
+      const leaveTxn = await contract.leaveTribe(tenantId);
       await leaveTxn.wait();
       return leaveTxn.hash;
     } catch (err) {
@@ -221,19 +221,19 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
       if (!contract) {
         return;
       }
-      const tribesData = await contract.totalTribes(TENANT_ADDRESS);
+      const tribesData = await contract.totalTribes(tenantId);
       const tribes = [];
       for (let i = 1; i <= tribesData.toNumber(); ++i) {
         // eslint-disable-next-line no-await-in-loop
-        const txn = await contract.getTribeData(TENANT_ADDRESS, i);
+        const txn = await contract.getTribeData(tenantId, i);
         const link = txn.replace("sia:", "");
         const json = JSON.parse(
           // eslint-disable-next-line no-await-in-loop
-          await (await fetch(`https://siasky.net/${link}`)).text()
+          await (await fetch(`https://fileportal.org/${link}`)).text()
         );
 
         json.id = i;
-        json.image = `https://siasky.net/${json.image.replace("sia:", "")}/`;
+        json.image = `https://fileportal.org/${json.image.replace("sia:", "")}/`;
 
         tribes.push(json);
       }
