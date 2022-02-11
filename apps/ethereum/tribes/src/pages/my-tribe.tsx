@@ -15,11 +15,7 @@ const TribesPage = () => {
   const { address: account } = useEthereum();
   const { Tribe, Leave } = useTribes();
   const { clientUrl } = useStorage();
-  const {
-    data: tribeHash,
-    isLoading: tribeDataLoading,
-    error: tribeErr,
-  } = Tribe();
+  const { data, isLoading: tribeDataLoading, error: tribeErr } = Tribe();
   const {
     mutate,
     isLoading: leaveTribeLoading,
@@ -28,23 +24,7 @@ const TribesPage = () => {
     onSuccess: () => router.push("/"),
   });
 
-  const getTribeData = async (data: string) => {
-    const json = JSON.parse(
-      // eslint-disable-next-line no-await-in-loop
-      await (await fetch(`${clientUrl}/${data}`)).text()
-    );
-    return json;
-  };
-
-  const { data, isLoading: tribeDataSiaLoading } = useQuery(
-    ["tribeData", tribeHash],
-    () => getTribeData(tribeHash!),
-    {
-      enabled: !!tribeHash,
-    }
-  );
-  const isLoading =
-    tribeDataLoading || leaveTribeLoading || tribeDataSiaLoading;
+  const isLoading = tribeDataLoading || leaveTribeLoading;
 
   const error = tribeErr || leaveErr;
   useEffect(() => {

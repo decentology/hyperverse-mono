@@ -13,7 +13,7 @@ import { useStorage } from "@decentology/hyperverse-storage-skynet";
 import { createContainer, useContainer } from "unstated-next";
 import { SkynetClient } from "skynet-js";
 
-type ContractState = ethers.Contract | null;
+type ContractState = ethers.Contract;
 
 type MetaData = {
   name: string;
@@ -50,6 +50,22 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
     }
   };
 
+  const formatTribeResultFromTribeId = useCallback(
+    async (tribeId: number) => {
+      const txn = await contract.getTribeData(tenantId, tribeId);
+      const link = txn.replace("sia:", "");
+      const json = JSON.parse(
+        // eslint-disable-next-line no-await-in-loop
+        await (await fetch(`${clientUrl}/${link}`)).text()
+      );
+
+      json.id = tribeId;
+      json.imageUrl = `${clientUrl}/${json.image.replace("sia:", "")}`;
+      return json;
+    },
+    [contract]
+  );
+
   const errors = (err: any) => {
     if (!contract?.signer) {
       throw new Error("Please connect your wallet!");
@@ -72,31 +88,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
       setup();
     }
   }, [web3Provider]);
-  // useEffect(() => {
-  //   const ctr = new ethers.Contract(
-  //     CONTRACT_ADDRESS,
-  //     ContractABI,
-  //     provider
-  //   ) as ContractState;
-  //   setTribesContract(ctr);
-  //   console.log("load", ctr, contract)
-  // }, []);
-
-  // useEffect(() => {
-
-  //   console.log("web3Provider", web3Provider);
-  //   if (!web3Provider) {
-  //     return;
-  //   }
-  //   setup();
-  // }, [web3Provider]);
 
   const checkInstance = useCallback(
     async (account: any) => {
       try {
-        if (!contract) {
-          return;
-        }
         const instance = await contract.instance(account);
         return instance;
       } catch (err) {
@@ -108,10 +103,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
 
   const createInstance = useCallback(async () => {
     try {
-      if (!contract) {
-        return;
-      }
-
       const createTxn = await contract.createInstance();
       return createTxn.wait();
     } catch (err) {
@@ -122,9 +113,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
 
   const getTotalTenants = useCallback(async () => {
     try {
-      if (!contract) {
-        return;
-      }
       const tenantCount = await contract.tenantCount();
 
       return tenantCount.toNumber();
@@ -136,10 +124,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const addTribe = useCallback(
     async (metadata: Omit<MetaData, "image">, image: File) => {
       try {
-        if (!contract) {
-          return;
-        }
-
         // TODO: Add progress indicator notices for steps
         // 1. Upload file notification
         // 2. Upload metadata information
@@ -170,9 +154,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
 
   const getTribeId = useCallback(
     async (account) => {
-      if (!contract) {
-        return;
-      }
       try {
         const id = await contract.getUserTribe(tenantId, account);
         return id.toNumber();
@@ -191,11 +172,9 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const getTribe = useCallback(
     async (id) => {
       try {
-        if (!contract) {
-          return;
-        }
         const userTribeTxn = await contract.getTribeData(tenantId, id);
-        return userTribeTxn;
+        // return userTribeTxn;
+        return formatTribeResultFromTribeId(id);
       } catch (err) {
         errors(err);
       }
@@ -205,10 +184,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
 
   const leaveTribe = useCallback(async () => {
     try {
-      if (!contract) {
-        return;
-      }
-
       const leaveTxn = await contract.leaveTribe(tenantId);
       await leaveTxn.wait();
       return leaveTxn.hash;
@@ -219,23 +194,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
 
   const getAllTribes = useCallback(async () => {
     try {
-      if (!contract) {
-        return;
-      }
       const tribesData = await contract.totalTribes(tenantId);
       const tribes = [];
-      for (let i = 1; i <= tribesData.toNumber(); ++i) {
-        // eslint-disable-next-line no-await-in-loop
-        const txn = await contract.getTribeData(tenantId, i);
-        const link = txn.replace("sia:", "");
-        const json = JSON.parse(
-          // eslint-disable-next-line no-await-in-loop
-          await (await fetch(`${clientUrl}/${link}`)).text()
-        );
-
-        json.id = i;
-        json.imageUrl = `${clientUrl}/${json.image.replace("sia:", "")}`;
-
+      for (let tribeId = 1; tribeId <= tribesData.toNumber(); ++tribeId) {
+        const json = await formatTribeResultFromTribeId(tribeId);
         tribes.push(json);
       }
 
@@ -248,10 +210,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   const joinTribe = useCallback(
     async (id) => {
       try {
-        if (!contract) {
-          return;
-        }
-
         const joinTxn = await contract.joinTribe(tenantId, id);
         return joinTxn.wait();
       } catch (err) {
@@ -262,7 +220,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: "" }) {
   );
 
   const useTribeEvents = (eventName: string, callback: any) => {
-    // @ts-ignore
     return useEvent(eventName, useCallback(callback, [contract]), contract);
   };
 
