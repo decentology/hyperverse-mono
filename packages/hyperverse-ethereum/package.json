@@ -1,6 +1,6 @@
 {
   "name": "@decentology/hyperverse-ethereum",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
