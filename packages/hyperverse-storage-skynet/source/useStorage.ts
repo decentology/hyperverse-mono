@@ -20,7 +20,7 @@ function StorageState(
     openFile: openFile.bind(client),
     getLink: getLink,
     client,
-    clientUrl
+    clientUrl,
   };
 }
 
