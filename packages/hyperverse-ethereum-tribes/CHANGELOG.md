@@ -1,5 +1,15 @@
 # @decentology/hyperverse-ethereum-tribes
 
+## 1.0.7
+
+### Patch Changes
+
+- SSL error with SiaSky.net vs FilePortal.org
+- Updated dependencies
+  - @decentology/hyperverse@1.0.7
+  - @decentology/hyperverse-ethereum@1.0.7
+  - @decentology/hyperverse-storage-skynet@1.0.6
+
 ## 1.0.6
 
 ### Patch Changes

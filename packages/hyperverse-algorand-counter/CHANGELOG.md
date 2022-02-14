@@ -1,5 +1,14 @@
 # @decentology/hyperverse-algorand-counter
 
+## 0.1.8
+
+### Patch Changes
+
+- SSL error with SiaSky.net vs FilePortal.org
+- Updated dependencies
+  - @decentology/hyperverse@1.0.7
+  - @decentology/hyperverse-algorand@1.0.7
+
 ## 0.1.7
 
 ### Patch Changes

@@ -33,7 +33,9 @@ export type BlockchainFeatures2<T extends {}> = T & {
 export type Hyperverse = {
   blockchain: HyperverseBlockchain<unknown> | null;
   network: Network;
-  storage?: Storage;
+  storage?:
+    | Storage
+    | ({ name?: Storage; options: { clientUrl: string } } | undefined);
   modules: HyperverseModuleBase[];
 };
 export type HyperverseModuleBase = {

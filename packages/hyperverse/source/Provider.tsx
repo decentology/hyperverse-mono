@@ -36,10 +36,20 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({
       );
     }
 
-    children = createElement(SkyNetProvider, null, children);
-    children = createElement(initialState.blockchain.Provider, null, children);
     return (
-      <HyperverseContainer.Provider>{children}</HyperverseContainer.Provider>
+      <HyperverseContainer.Provider>
+        <SkyNetProvider
+          initialState={
+            typeof initialState.storage === "object"
+              ? { ...initialState.storage.options }
+              : undefined 
+          }
+        >
+          <initialState.blockchain.Provider>
+            {children}
+          </initialState.blockchain.Provider>
+        </SkyNetProvider>
+      </HyperverseContainer.Provider>
     );
   }
   return null;
