@@ -79,7 +79,6 @@ function MetisState() {
         await switchNetwork(network, web3Provider.provider);
 
         setTimeout(() => {
-          window.location.reload();
         }, 1000);
       }
 
@@ -211,6 +210,6 @@ function MetisState() {
 
 const Metis = createContainer(MetisState);
 export const Provider = Metis.Provider;
-export function useEthereum() {
+export function useMetis() {
   return useContainer(Metis);
 }

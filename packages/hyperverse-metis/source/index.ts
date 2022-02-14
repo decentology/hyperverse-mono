@@ -1,13 +1,13 @@
 export * from 'web3modal'
-import { Provider, useEthereum } from "./useMetis";
+import { Provider, useMetis } from "./useMetis";
 import {
   blockchains,
   makeHyperverseBlockchain,
 } from "@decentology/hyperverse";
 
-export const Ethereum = makeHyperverseBlockchain({
+export const Metis = makeHyperverseBlockchain({
   name: blockchains.Ethereum,
   Provider: Provider
 });
 
-export { Provider, useEthereum };
+export { Provider, useMetis };
