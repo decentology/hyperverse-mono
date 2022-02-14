@@ -75,10 +75,11 @@ function MetisState() {
 
       const userNetwork = await web3Provider.getNetwork();
 
-      if (userNetwork.chainId !== 4) {
+      if (userNetwork.chainId !== 588) {
         await switchNetwork(network, web3Provider.provider);
 
         setTimeout(() => {
+          window.location.reload();
         }, 1000);
       }
 
