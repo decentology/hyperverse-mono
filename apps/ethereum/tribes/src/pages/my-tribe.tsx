@@ -29,10 +29,11 @@ const TribesPage = () => {
   const error = tribeErr || leaveErr;
   useEffect(() => {
     if (error) {
-      //@ts-ignore
-      toast.error(error.message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      });
+      if (error instanceof Error) {
+        toast.error(error.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
     }
   }, [error]);
   return (

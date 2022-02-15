@@ -8,23 +8,21 @@ import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { toast } from "react-toastify";
 
-
 const Home: NextPage = () => {
   const router = useRouter();
   const { address } = useEthereum();
   const { TribeId } = useTribes();
   const { data, error } = TribeId();
 
-
   useEffect(() => {
-       //@ts-ignore
     if (error) {
-         //@ts-ignore
-      toast.error(error.message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      })
+      if (error instanceof Error) {
+        toast.error(error.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
     }
-  }, [error])
+  }, [error]);
   return (
     <>
       <Head>
@@ -40,7 +38,11 @@ const Home: NextPage = () => {
         <div className={styles.hero}>
           <div className={styles.header}>
             <h1> Tribes</h1>
-            <p className={styles.about}>An example dapp utilizing the tribes module built on the hyperverse. Tribes allows you to build communities that people can join, leave, or create.</p>
+            <p className={styles.about}>
+              An example dapp utilizing the tribes module built on the
+              hyperverse. Tribes allows you to build communities that people can
+              join, leave, or create.
+            </p>
             {address ? (
               !data ? (
                 <button

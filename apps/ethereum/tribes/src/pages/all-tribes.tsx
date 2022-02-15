@@ -5,29 +5,34 @@ import Loader from "../components/Loader";
 import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import Image from "next/image";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 import { useEffect } from "react";
 
 const AllTribes = () => {
-  const { address } = useEthereum()
-  const { Tribes, Join } = useTribes()
-  const router = useRouter()
-  const { data, isLoading: allTribesLoading } = Tribes()
+  const { address } = useEthereum();
+  const { Tribes, Join } = useTribes();
+  const router = useRouter();
+  const { data, isLoading: allTribesLoading } = Tribes();
 
-  const { mutate, isLoading: joinTribeLoading, error } = Join({
-    onSuccess: () => router.push('/my-tribe'),
-  })
+  const {
+    mutate,
+    isLoading: joinTribeLoading,
+    error,
+  } = Join({
+    onSuccess: () => router.push("/my-tribe"),
+  });
 
-  const isLoading = allTribesLoading || joinTribeLoading
+  const isLoading = allTribesLoading || joinTribeLoading;
 
   useEffect(() => {
     if (error) {
-      //@ts-ignore
-      toast.error(error.message, {
-        position: toast.POSITION.BOTTOM_CENTER,
-      })
+      if (error instanceof Error) {
+        toast.error(error.message, {
+          position: toast.POSITION.BOTTOM_CENTER,
+        });
+      }
     }
-  }, [error])
+  }, [error]);
 
   return (
     <main>
@@ -69,7 +74,7 @@ const AllTribes = () => {
         </div>
       )}
     </main>
-  )
-}
+  );
+};
 
-export default AllTribes
+export default AllTribes;
