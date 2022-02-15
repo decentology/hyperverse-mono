@@ -1,7 +1,7 @@
-import { Hyperverse, HyperverseModuleBase } from ".";
+import { Hyperverse, HyperverseModuleBase } from '.';
 
 function initialize(options: Hyperverse) {
-  return options;
+	return options;
 }
 
 export default initialize;

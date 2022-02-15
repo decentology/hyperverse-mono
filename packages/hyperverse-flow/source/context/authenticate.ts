@@ -1,6 +1,6 @@
 const fcl = require('@onflow/fcl');
 const authenticate = async () => {
-  await fcl.logIn();
+	await fcl.logIn();
 };
 
 export default authenticate;

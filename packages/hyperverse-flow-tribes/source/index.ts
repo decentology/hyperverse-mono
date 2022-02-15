@@ -1,3 +1,3 @@
-export { useTribes } from "./useTribes";
-export { Provider } from "./Provider";
-export * from "./types";
+export { useTribes } from './useTribes';
+export { Provider } from './Provider';
+export * from './types';

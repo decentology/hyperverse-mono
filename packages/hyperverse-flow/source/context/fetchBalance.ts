@@ -1,9 +1,10 @@
-const fcl = require("@onflow/fcl");
-const FlowTypes = require('@onflow/types')
+const fcl = require('@onflow/fcl');
+const FlowTypes = require('@onflow/types');
 
 const fetchBalance = async (address: string) => {
-  const balance = await fcl.send([
-    fcl.script`
+	const balance = await fcl
+		.send([
+			fcl.script`
       import FungibleToken from 0xFungibleToken
       import FlowToken from 0xFlowToken
 
@@ -16,12 +17,11 @@ const fetchBalance = async (address: string) => {
         return vaultRef.balance
       }
     `,
-    fcl.args([
-      fcl.arg(address, FlowTypes.Address)
-    ])
-  ]).then(fcl.decode);
+			fcl.args([fcl.arg(address, FlowTypes.Address)]),
+		])
+		.then(fcl.decode);
 
-  return balance;
+	return balance;
 };
 
 export default fetchBalance;

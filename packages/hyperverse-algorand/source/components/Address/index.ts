@@ -1,5 +1,3 @@
 import Address from './Address';
 
-export {
-  Address
-};
+export { Address };

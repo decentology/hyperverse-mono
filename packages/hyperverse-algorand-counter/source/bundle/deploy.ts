@@ -1,8 +1,7 @@
 import algosdk from 'algosdk';
 import { ActionProps } from '../types';
 
-const approvalProgramSource = (
-  `#pragma version 4
+const approvalProgramSource = `#pragma version 4
   txn ApplicationID
   int 0
   ==
@@ -92,38 +91,35 @@ const approvalProgramSource = (
   int 0
   app_global_put
   int 1
-  return`
-);
-const clearStateProgramSource = (
-  `#pragma version 4
+  return`;
+const clearStateProgramSource = `#pragma version 4
   int 1
-  return`
-);
+  return`;
 
 async function deploy(props: ActionProps) {
-  const {environment, algorand, account} = props;
-  console.log(algorand.client);
+	const { environment, algorand, account } = props;
+	console.log(algorand.client);
 
-  const suggestedParams = await algorand.client.getTransactionParams().do();
-  const approvalProgram = await algorand.actions.compileProgram(approvalProgramSource);
-  const clearProgram = await algorand.actions.compileProgram(clearStateProgramSource);
+	const suggestedParams = await algorand.client.getTransactionParams().do();
+	const approvalProgram = await algorand.actions.compileProgram(approvalProgramSource);
+	const clearProgram = await algorand.actions.compileProgram(clearStateProgramSource);
 
-  const transaction = await algosdk.makeApplicationCreateTxnFromObject({
-    from: account,
-    suggestedParams: {
-      ...suggestedParams,
-      lastRound: suggestedParams.firstRound + 10
-    },
-    onComplete: algosdk.OnApplicationComplete.NoOpOC,
-    approvalProgram,
-    clearProgram,
-    numLocalInts: 0,
-    numLocalByteSlices: 0,
-    numGlobalInts: 1,
-    numGlobalByteSlices: 0
-  });
+	const transaction = await algosdk.makeApplicationCreateTxnFromObject({
+		from: account,
+		suggestedParams: {
+			...suggestedParams,
+			lastRound: suggestedParams.firstRound + 10,
+		},
+		onComplete: algosdk.OnApplicationComplete.NoOpOC,
+		approvalProgram,
+		clearProgram,
+		numLocalInts: 0,
+		numLocalByteSlices: 0,
+		numGlobalInts: 1,
+		numGlobalByteSlices: 0,
+	});
 
-  algorand.requestSignature(transaction);
+	algorand.requestSignature(transaction);
 }
 
-export {deploy};
+export { deploy };

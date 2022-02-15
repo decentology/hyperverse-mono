@@ -4,51 +4,51 @@
 
 ### Patch Changes
 
-- SSL error with SiaSky.net vs FilePortal.org
-- Updated dependencies
-  - @decentology/hyperverse@1.0.7
-  - @decentology/hyperverse-flow@1.0.7
+-   SSL error with SiaSky.net vs FilePortal.org
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.7
+    -   @decentology/hyperverse-flow@1.0.7
 
 ## 1.0.6
 
 ### Patch Changes
 
-- Updated dependencies
-  - @decentology/hyperverse@1.0.6
-  - @decentology/hyperverse-flow@1.0.6
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.6
+    -   @decentology/hyperverse-flow@1.0.6
 
 ## 1.0.5
 
 ### Patch Changes
 
-- 8183269: Bug fixes for login/logout workflow
-- Updated dependencies [8183269]
-  - @decentology/hyperverse@1.0.5
-  - @decentology/hyperverse-flow@1.0.5
+-   8183269: Bug fixes for login/logout workflow
+-   Updated dependencies [8183269]
+    -   @decentology/hyperverse@1.0.5
+    -   @decentology/hyperverse-flow@1.0.5
 
 ## 1.0.4
 
 ### Patch Changes
 
-- Handle metamask workflow and stablizing platform
-- Updated dependencies
-  - @decentology/hyperverse@1.0.4
-  - @decentology/hyperverse-flow@1.0.4
+-   Handle metamask workflow and stablizing platform
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.4
+    -   @decentology/hyperverse-flow@1.0.4
 
 ## 1.0.3
 
 ### Patch Changes
 
-- Version bump after changeset and build
-- Updated dependencies
-  - @decentology/hyperverse@1.0.3
-  - @decentology/hyperverse-flow@1.0.3
+-   Version bump after changeset and build
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.3
+    -   @decentology/hyperverse-flow@1.0.3
 
 ## 1.0.2
 
 ### Patch Changes
 
-- Milestone change of state management
-- Updated dependencies
-  - @decentology/hyperverse@1.0.2
-  - @decentology/hyperverse-flow@1.0.2
+-   Milestone change of state management
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.2
+    -   @decentology/hyperverse-flow@1.0.2

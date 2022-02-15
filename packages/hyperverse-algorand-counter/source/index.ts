@@ -1,8 +1,3 @@
-export {
-  default as useCounter
-} from './useCounter';
+export { default as useCounter } from './useCounter';
 
-export {
-  Context,
-  Provider
-} from './Provider';
+export { Context, Provider } from './Provider';
