@@ -42,7 +42,7 @@ contract RandomPick is VRFConsumerBase {
      * Requests randomness
      * Everything set in here is done on the first transaction
      */
-    function getRandomNumber(int256[] memory numbers) public returns (bytes32) {
+    function startRandomPick(int256[] memory numbers) public returns (bytes32) {
         require(
             LINK.balanceOf(address(this)) >= fee,
             "Not enough LINK - fill contract with faucet"
