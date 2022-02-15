@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import {
+  useMutation,
+  UseMutationOptions,
   useQuery
 } from "react-query";
 import { ethers } from "ethers";
@@ -29,18 +31,6 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
   }, [web3Provider]);
 
   const errors = (err: any) => {
-    if (!contract?.signer) {
-      throw new Error("Please connect your wallet!");
-    }
-
-    if (err.code === 4001) {
-      throw new Error("You rejected the transaction!");
-    }
-
-    if (err.message.includes("User is already in a Tribe!")) {
-      throw new Error("You are already in a tribe!");
-    }
-
     throw err;
     // throw new Error("Something went wrong!");
   };
@@ -53,8 +43,14 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
 
   const startRandomPick = useCallback(async (numbers: Number[]) => {
     try {
-      const tx = await contract.startRandomPick(numbers);
-      return tx.wait();
+      const tx = await contract.startRandomPick(numbers, {
+        gasPrice: 100,
+        gasLimit: 9000000
+      });
+      console.log("Sending...")
+      let data = await tx.wait();
+      console.log(data);
+      return data;
     } catch (err) {
       errors(err);
       throw err;
@@ -74,13 +70,13 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
   return {
     tenantId,
     contract,
-    StartRandomPick: (numbers: Number[]) =>
-      useQuery(
-        ["startRandomPick"],
-        () => startRandomPick(numbers),
-        {
-          enabled: !!address && !!contract?.address,
-        }
+    StartRandomPick: (
+      options?: Omit<
+        UseMutationOptions<unknown, unknown, void, unknown>,
+        "mutationFn"
+      >) =>
+      useMutation(
+        (numbers: Number[]) => startRandomPick(numbers)
       ),
     GetRandomPick: () =>
       useQuery(

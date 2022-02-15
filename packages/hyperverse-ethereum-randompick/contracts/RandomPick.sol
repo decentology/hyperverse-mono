@@ -10,8 +10,8 @@ contract RandomPick is VRFConsumerBase {
     bytes32 internal keyHash;
     uint256 internal fee;
     // Where you can access your results
-    // Tenant address => result
-    mapping(address => int256) public results;
+    // requestId => result
+    mapping(bytes32 => int256) public results;
     /* Helpers along the way */
     // requestId => input
     mapping(bytes32 => int256[]) public randomList;
@@ -63,6 +63,6 @@ contract RandomPick is VRFConsumerBase {
     {
         uint256 length = randomList[requestId].length;
         uint256 index = randomness % length;
-        results[requestIdToAddress[requestId]] = randomList[requestId][index];
+        results[requestId] = randomList[requestId][index];
     }
 }

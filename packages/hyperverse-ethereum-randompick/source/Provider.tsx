@@ -6,7 +6,7 @@ import { RandomPick } from "./useRandomPick";
 const client = new QueryClient();
 
 export const ContractABI = ABI.abi;
-export const CONTRACT_ADDRESS = "0x2A8EC05BE61e18663BD2125880872e7CB92ec696";
+export const CONTRACT_ADDRESS = "0x4AdCd27fdAe4647ccD5EdC31B68De74f2D342c1a";
 export const TENANT_ADDRESS = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
