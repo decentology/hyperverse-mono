@@ -13,8 +13,6 @@ describe('Token', function () {
   let alice;
   let bob;
   let cara;
-  let aliceInstance;
-  let bobInstance;
   let aliceProxyContract;
 
   beforeEach(async () => {
@@ -28,8 +26,7 @@ describe('Token', function () {
     tokenFactoryCtr = await TokenFactory.deploy(tokenMainCtr.address);
     await tokenFactoryCtr.deployed();
 
-    aliceInstance = await tokenFactoryCtr.connect(alice).createInstance(alice.address, 'ALICE', 'ALC', '6');
-    // bobInstance = await tokenFactoryCtr.connect(bob).createInstance(bob.address, "BOB", "BOC", "6");
+   await tokenFactoryCtr.connect(alice).createInstance(alice.address, 'ALICE', 'ALC', '6');
 
     const main = await ethers.getContractFactory('Token');
     aliceProxyContract = await main.attach(await tokenFactoryCtr.getProxy(alice.address));
