@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import {
-  useQuery,
-  useMutation,
-  UseMutationOptions,
+  useQuery
 } from "react-query";
 import { ethers } from "ethers";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
@@ -53,7 +51,7 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
     }
   }, [web3Provider]);
 
-  const startRandomPick = useCallback(async (numbers) => {
+  const startRandomPick = useCallback(async (numbers: Number[]) => {
     try {
       const tx = await contract.startRandomPick(numbers);
       return tx.wait();
@@ -63,11 +61,11 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
     }
   }, [contract]);
 
-  const getRandomPick = useCallback(async (tenant) => {
+  const getRandomPick = useCallback(async (tenantId: string) => {
     try {
-      const randomPick = await contract.results(tenant);
+      const randomPick = await contract.results(tenantId) as Number;
 
-      return randomPick.toNumber();
+      return randomPick;
     } catch (err) {
       throw err;
     }
@@ -76,18 +74,22 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
   return {
     tenantId,
     contract,
-    StartRandomPick: () =>
+    StartRandomPick: (numbers: Number[]) =>
       useQuery(
         ["startRandomPick"],
-        () => startRandomPick(),
+        () => startRandomPick(numbers),
         {
           enabled: !!address && !!contract?.address,
         }
       ),
     GetRandomPick: () =>
-      useQuery(["getRandomPick", address], () => getRandomPick(address), {
-        enabled: !!contract?.address,
-      })
+      useQuery(
+        ["getRandomPick", address],
+        () => getRandomPick(address!),
+        {
+          enabled: !!contract?.address,
+        }
+      )
   };
 }
 

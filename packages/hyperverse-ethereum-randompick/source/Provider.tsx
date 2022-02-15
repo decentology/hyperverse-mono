@@ -1,5 +1,4 @@
-import { createContext, FC } from "react";
-import { useEthereum } from "@decentology/hyperverse-ethereum";
+import { FC } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
 import ABI from "../utils/RandomPick.json";
 import { HyperverseModuleInstance } from "@decentology/hyperverse";
@@ -7,8 +6,8 @@ import { RandomPick } from "./useRandomPick";
 const client = new QueryClient();
 
 export const ContractABI = ABI.abi;
-export const CONTRACT_ADDRESS = "0xf8CEc073d08e42cdDC1bF1fd8d44ce3252ab7352";
-export const TENANT_ADDRESS = "0xD847C7408c48b6b6720CCa75eB30a93acbF5163D";
+export const CONTRACT_ADDRESS = "0x2A8EC05BE61e18663BD2125880872e7CB92ec696";
+export const TENANT_ADDRESS = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
   return (
