@@ -6,11 +6,10 @@ import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { toast } from "react-toastify";
 
-const TENANT_ADDRESS = "0xD847C7408c48b6b6720CCa75eB30a93acbF5163D";
 const Setup = () => {
   const router = useRouter();
   const { address: account, connect } = useEthereum();
-  const { CheckInstance, NewInstance, AddTribe } = useTribes();
+  const { CheckInstance, NewInstance, AddTribe, tenantId } = useTribes();
   const [isLoadingAddTribe, setIsLoadingAddTribe] = useState(false);
   const [loaderMessage, setLoaderMessage] = useState("Processing...");
   const [imageFile, setImageFile] = useState<File>();
@@ -20,9 +19,13 @@ const Setup = () => {
   });
 
   const { data, error: instanceErr } = CheckInstance();
-  const { mutate, isLoading: isCreateInstanceLoading,  error: newInstanceErr } = NewInstance();
+  const {
+    mutate,
+    isLoading: isCreateInstanceLoading,
+    error: newInstanceErr,
+  } = NewInstance();
   const isLoading = isLoadingAddTribe || isCreateInstanceLoading;
-  const { mutate: addTribe, error:addTribeErr  } = AddTribe({
+  const { mutate: addTribe, error: addTribeErr } = AddTribe({
     onSuccess: () => {
       setIsLoadingAddTribe(false);
     },
@@ -47,15 +50,14 @@ const Setup = () => {
     } catch {}
   };
 
-
   useEffect(() => {
     if (error) {
       //@ts-ignore
       toast.error(error.message, {
         position: toast.POSITION.BOTTOM_CENTER,
-      })
+      });
     }
-  }, [error])
+  }, [error]);
 
   return (
     <main>
@@ -84,7 +86,7 @@ const Setup = () => {
                 Connect Wallet
               </button>
             </div>
-          ) : account.toLowerCase() === TENANT_ADDRESS.toLowerCase() ? (
+          ) : account.toLowerCase() === tenantId.toLowerCase() ? (
             <div className={styles.container2}>
               <input
                 type="text"
