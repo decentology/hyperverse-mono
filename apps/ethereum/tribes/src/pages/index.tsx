@@ -17,9 +17,9 @@ const Home: NextPage = () => {
 
 
   useEffect(() => {
-       //@ts-ignore
+    //@ts-ignore
     if (error) {
-         //@ts-ignore
+      //@ts-ignore
       toast.error(error.message, {
         position: toast.POSITION.BOTTOM_CENTER,
       })

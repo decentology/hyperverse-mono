@@ -12,6 +12,7 @@
     "@decentology/hyperverse": "*",
     "@decentology/hyperverse-ethereum": "*",
     "@decentology/hyperverse-ethereum-tribes": "*",
+    "@decentology/hyperverse-ethereum-randompick": "*",
     "ethers": "^5.5.2",
     "next": "12.0.7",
     "react": "17.0.2",

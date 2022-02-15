@@ -3,6 +3,7 @@ import styles from "../styles/Home.module.css";
 import Nav from "../components/Nav";
 import Loader from "../components/Loader";
 import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
+import { useRandomPick } from "@decentology/hyperverse-ethereum-randompick";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import Image from "next/image";
 import { toast } from 'react-toastify'
@@ -11,6 +12,9 @@ import { useEffect } from "react";
 const AllTribes = () => {
   const { address } = useEthereum()
   const { Tribes, Join } = useTribes()
+  const { StartRandomPick } = useRandomPick();
+  const { mutate: randomMutate, data: resultData } = StartRandomPick();
+  console.log(resultData);
   const router = useRouter()
   const { data, isLoading: allTribesLoading } = Tribes()
 
@@ -29,6 +33,10 @@ const AllTribes = () => {
     }
   }, [error])
 
+  const GetRando = () => {
+    randomMutate([1, 2, 3]);
+  }
+
   return (
     <main>
       <Nav />
@@ -36,6 +44,7 @@ const AllTribes = () => {
         <Loader loaderMessage="processing..." />
       ) : (
         <div className={styles.container}>
+          <button onClick={() => GetRando()}>Here!!!!!</button>
           <h1>Tribes</h1>
           {address ? (
             !data ? (
