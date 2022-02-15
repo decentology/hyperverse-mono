@@ -72,5 +72,4 @@ import "./Token.sol";
         return tenants[_tenant].token;
     }
 
-
  }
