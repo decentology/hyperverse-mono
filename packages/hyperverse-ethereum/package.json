@@ -19,14 +19,14 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "*",
+    "@decentology/hyperverse": "^1.0.0",
     "@walletconnect/web3-provider": "^1.7.1",
     "ethers": "^5.5.3",
     "unstated-next": "^1.1.0",
     "web3modal": "^1.9.5"
   },
   "devDependencies": {
-    "@decentology/config": "*",
+    "@decentology/config": "^1.0.0",
     "parcel": "^2.2.1",
     "rimraf": "^3.0.2"
   }

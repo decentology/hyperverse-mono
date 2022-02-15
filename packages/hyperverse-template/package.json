@@ -24,7 +24,7 @@
     "react": "^17.0.2"
   },
   "devDependencies": {
-    "@decentology/config": "*",
+    "@decentology/config": "^1.0.0",
     "parcel": "^2.2.1",
     "rimraf": "^3.0.2"
   },
