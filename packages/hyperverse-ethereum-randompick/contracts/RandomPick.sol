@@ -17,6 +17,7 @@ contract RandomPick is VRFConsumerBase {
     mapping(bytes32 => int256[]) public randomList;
     // requestId => tenant address
     mapping(bytes32 => address) public requestIdToAddress;
+    event StartedRandomPick(address tenant, bytes32 requestId);
 
     /**
      * Constructor inherits VRFConsumerBase
@@ -50,6 +51,7 @@ contract RandomPick is VRFConsumerBase {
         bytes32 requestId = requestRandomness(keyHash, fee);
         randomList[requestId] = numbers;
         requestIdToAddress[requestId] = msg.sender;
+        emit StartedRandomPick(msg.sender, requestId);
         return requestId;
     }
 

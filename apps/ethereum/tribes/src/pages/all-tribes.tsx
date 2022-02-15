@@ -12,15 +12,18 @@ import { useEffect } from "react";
 const AllTribes = () => {
   const { address } = useEthereum()
   const { Tribes, Join } = useTribes()
-  const { StartRandomPick } = useRandomPick();
+  const { StartRandomPick, GetRandomPick } = useRandomPick();
   const { mutate: randomMutate, data: resultData } = StartRandomPick();
-  console.log(resultData);
+
+  let { data: randomNumberPick } = GetRandomPick(resultData);
+  console.log("The Pick:", randomNumberPick);
+  console.log("RequestId:", resultData);
   const router = useRouter()
   const { data, isLoading: allTribesLoading } = Tribes()
 
   const { mutate, isLoading: joinTribeLoading, error } = Join({
     onSuccess: () => router.push('/my-tribe'),
-  })
+  });
 
   const isLoading = allTribesLoading || joinTribeLoading
 
@@ -36,6 +39,19 @@ const AllTribes = () => {
   const GetRando = () => {
     randomMutate([1, 2, 3]);
   }
+
+  useEffect(() => {
+    if (resultData !== undefined) {
+      setTimeout(async () => {
+        console.log("Searching...")
+
+        console.log(data);
+        if (data) {
+          alert("The tribe that won: " + data);
+        }
+      }, 10000)
+    }
+  }, [resultData])
 
   return (
     <main>

@@ -10,7 +10,7 @@ import { ContractABI, CONTRACT_ADDRESS } from "./Provider";
 import { createContainer, useContainer } from "unstated-next";
 
 type ContractState = ethers.Contract;
-
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) {
   const { tenantId } = initialState;
   const { address, web3Provider, provider, connect } = useEthereum();
@@ -43,28 +43,43 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
 
   const startRandomPick = useCallback(async (numbers: Number[]) => {
     try {
-      const tx = await contract.startRandomPick(numbers, {
-        gasPrice: 100,
-        gasLimit: 9000000
-      });
-      console.log("Sending...")
-      let data = await tx.wait();
-      console.log(data);
-      return data;
+      const tx = await contract.startRandomPick(numbers);
+      console.log("Sending...");
+      const waited = await tx.wait();
+      const event = waited.events.filter((x: any) => (x.event == 'StartedRandomPick'))[0];
+      const requestId = event.args[1];
+      console.log("RequestId:", requestId);
+      return requestId;
     } catch (err) {
       errors(err);
       throw err;
     }
   }, [contract]);
 
-  const getRandomPick = useCallback(async (tenantId: string) => {
-    try {
-      const randomPick = await contract.results(tenantId) as Number;
+  const getRandomPick = useCallback(async (requestId: string) => {
+    console.log("Here");
+    return new Promise<Number>(async (resolve, reject) => {
 
-      return randomPick;
-    } catch (err) {
-      throw err;
-    }
+      try {
+        console.log(requestId);
+        if (!requestId) {
+          return null;
+        }
+        let randomPick = await contract.results(tenantId) as Number;
+        console.log(randomPick)
+        while (randomPick == 0) {
+          await sleep(1000);
+          console.log(randomPick);
+          randomPick = await contract.results(tenantId) as Number;
+        }
+        console.log("Random Pick:", randomPick);
+
+        return resolve(randomPick);
+      } catch (err) {
+        return reject(err);
+      }
+    });
+
   }, [contract]);
 
   return {
@@ -78,12 +93,12 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
       useMutation(
         (numbers: Number[]) => startRandomPick(numbers)
       ),
-    GetRandomPick: () =>
+    GetRandomPick: (requestId: string) =>
       useQuery(
-        ["getRandomPick", address],
-        () => getRandomPick(address!),
+        ["getRandomPick"],
+        () => getRandomPick(requestId),
         {
-          enabled: !!contract?.address,
+          enabled: true,
         }
       )
   };
