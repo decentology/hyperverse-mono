@@ -12,6 +12,10 @@
   font-family: "Press Start 2P";
 }
 
+.rightNav a {
+  margin-left: 1rem;
+}
+
 .connect {
   font-family: 'Press Start 2P';
   cursor: pointer;
@@ -434,4 +438,8 @@
 
 .modalContainer > button {
   margin-bottom: 0.5rem;
+}
+
+.battleStage {
+  display: flex
 }

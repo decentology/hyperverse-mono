@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { useEffect } from 'react'
+import { useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 
 const shortenHash = (
   hash: string = "",
@@ -24,31 +24,27 @@ const shortenHash = (
 const Nav = () => {
   const { address, disconnect, connect, error } = useEthereum();
 
-
   useEffect(() => {
-
- if (error) {
-
-   toast.warn(error.message, {
-     position: toast.POSITION.BOTTOM_CENTER,
-   })
- }
-}, [error])
+    if (error) {
+      toast.warn(error.message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
+    }
+  }, [error]);
   return (
     <nav>
       <Link href="/" passHref>
         <a className={styles.logo}>T</a>
       </Link>
       <div className={styles.rightNav}>
-        <Link
-          href="https://docs.hyperverse.dev/"
-          passHref
-        >
+        <Link href="https://docs.hyperverse.dev/" passHref>
           <a target="_blank" rel="noreferrer">
             About
           </a>
         </Link>
-
+        <Link href="/battle">
+          Battle
+        </Link>
         {!address ? (
           <button className={styles.connect} onClick={connect}>
             Connect Wallet
