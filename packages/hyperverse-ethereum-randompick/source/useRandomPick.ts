@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useMutation, UseMutationOptions, useQuery } from "react-query";
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { ContractABI, CONTRACT_ADDRESS } from "./Provider";
 import { createContainer, useContainer } from "unstated-next";
@@ -61,18 +61,18 @@ function RandomPickState(
 
   const getRandomPick = useCallback(
     async (requestId: string) => {
-      return new Promise<Number>(async (resolve, reject) => {
+      return new Promise<number>(async (resolve, reject) => {
         try {
           if (!requestId) {
             return null;
           }
-          let randomPick = (await contract.results(requestId)) as Number;
-          while (randomPick == 0) {
+          let randomPick = (await contract.results(requestId)) as BigNumber;
+          while (randomPick.toNumber() === 0) {
             await sleep(1000);
-            randomPick = (await contract.results(requestId)) as Number;
+            randomPick = (await contract.results(requestId)) as BigNumber;
           }
 
-          return resolve(randomPick);
+          return resolve(randomPick.toNumber());
         } catch (err) {
           return reject(err);
         }
