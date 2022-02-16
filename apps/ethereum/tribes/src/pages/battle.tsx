@@ -2,9 +2,13 @@ import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick';
 import { useTribes } from '@decentology/hyperverse-ethereum-tribes';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
+import Confetti from 'react-confetti'
+import useWindowSize from 'react-use/lib/useWindowSize';
 import Nav from '../components/Nav';
 import styles from '../styles/Home.module.css';
+
 const Battle = () => {
+	const { width, height } = useWindowSize()
 	const [contestants, setContestants] = useState<any[]>([]);
 	const [winner, setWinner] = useState<any>(null);
 	const { Tribes } = useTribes();
@@ -37,19 +41,23 @@ const Battle = () => {
 
 	const isLoading = randomNumber || loadingWinner;
 
+
+
 	return (
 		<main>
+			
+				{winner && (<Confetti width={width} height={height} />)}
 			<Nav />
-			<div className={styles.hero}>
-				<div className={styles.header}>Tribes Battle Royal</div>
-				{!isLoading ? <button onClick={() => startBattle()}>Start Battle</button> : null}
+			<div className={styles.battleRoyal}>
+				<h1 className={styles.header}>Tribes Battle Royal</h1>
+				{!isLoading ? <button className={styles.battleBtn} onClick={() => startBattle()}>Start Battle</button> : null}
 				{contestants.length > 0 && (
 					<div className={styles.battleStage}>
-						<div className={winner === contestants[0] ? styles.winner : null}>
+						<div className={winner ? winner === contestants[0] ? styles.winner : styles.loser : null }>
 							<Image
 								src={contestants[0].imageUrl}
 								width={256}
-								height={256}
+								height={300}
 								alt="Tribe 1"
 							/>
 						</div>
@@ -61,11 +69,11 @@ const Battle = () => {
 								X
 							</div>
 						)}
-						<div className={winner === contestants[1] ? styles.winner : null}>
+						<div className={winner ? winner === contestants[1] ? styles.winner : styles.loser : null  }>
 							<Image
 								src={contestants[1].imageUrl}
 								width={256}
-								height={256}
+								height={300}
 								alt="Tribe 2"
 							/>
 						</div>
