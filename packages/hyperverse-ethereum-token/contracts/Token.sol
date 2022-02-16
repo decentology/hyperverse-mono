@@ -2,7 +2,6 @@
 pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
-<<<<<<< HEAD
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
@@ -10,79 +9,15 @@ import "./hyperverse/IHyperverseModule.sol";
 
 contract Token is IERC20, IHyperverseModule {
     using SafeMath for uint256;
-=======
-
-interface IDappState {
-    function getContractOwner() external view returns (address); // Example READ function
-
-    function incrementCounter(uint256 increment) external; // Example WRITE function
-
-    function getCounter() external view returns (uint256); // Another example READ function
-}
-
-//hyperverse deployed library?
-//shared library contract
-
-library DappLib {
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        if (a == 0) {
-            return 0;
-        }
-        uint256 c = a * b;
-        assert(c / a == b);
-        return c;
-    }
-
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        // assert(b > 0); // Solidity automatically throws when dividing by 0
-        uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-        return c;
-    }
-
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        assert(b <= a);
-        return a - b;
-    }
-
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        assert(c >= a);
-        return c;
-    }
-}
-
-/********************************************************************************************/
-/* This contract is auto-generated based on your choices in DappStarter. You can make       */
-/* changes, but be aware that generating a new DappStarter project will require you to      */
-/* merge changes. One approach you can take is to make changes in Dapp.sol and have it      */
-/* call into this one. You can maintain all your data in this contract and your app logic   */
-/* in Dapp.sol. This lets you update and deploy Dapp.sol with revised code and still        */
-/* continue using this one.                                                                 */
-/********************************************************************************************/
-
-import "./hyperverse/IHyperverseModule.sol";
-///+interfaces
-contract Token is IDappState, IHyperverseModule {
-    // Allow DappLib(SafeMath) functions to be called for all uint256 types
-    // (similar to "prototype" in Javascript)
-    using DappLib for uint256;
->>>>>>> 89f771f (Contracts added)
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 
     // Account used to deploy contract
-<<<<<<< HEAD
     address public immutable contractOwner;
 
     //stores the tenant owner
     address private tenantOwner;
-=======
-    address private contractOwner;
-    address private tenantOwner;
-    
->>>>>>> 89f771f (Contracts added)
 
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     string public name;
