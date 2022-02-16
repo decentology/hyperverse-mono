@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {Context} from './Provider';
+import { Context } from './Provider';
 
 function useCounter() {
-  const context = React.useContext(Context);
-  return context;
+	const context = React.useContext(Context);
+	return context;
 }
 
 export default useCounter;

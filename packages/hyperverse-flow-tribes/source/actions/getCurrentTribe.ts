@@ -1,11 +1,12 @@
-const fcl = require("@onflow/fcl");
-const t = require("@onflow/types");
+const fcl = require('@onflow/fcl');
+const t = require('@onflow/types');
 import { TribesData } from '..';
 
 async function getCurrentTribe(tenantId: string, accountAddress: string) {
-  try {
-    const allTribes = await fcl.send([
-      fcl.script`
+	try {
+		const allTribes = await fcl
+			.send([
+				fcl.script`
       import Tribes from 0xTribes
           
       pub fun main(tenantID: Address, accountAddress: Address): {String: String}? {
@@ -29,18 +30,14 @@ async function getCurrentTribe(tenantId: string, accountAddress: string) {
           return returnObject
       }
       `,
-      fcl.args([
-        fcl.arg(tenantId, t.Address),
-        fcl.arg(accountAddress, t.Address)
-      ])
-    ]).then(fcl.decode);
+				fcl.args([fcl.arg(tenantId, t.Address), fcl.arg(accountAddress, t.Address)]),
+			])
+			.then(fcl.decode);
 
-    return allTribes as TribesData;
-  } catch (error) {
-    console.error(error);
-  }
+		return allTribes as TribesData;
+	} catch (error) {
+		console.error(error);
+	}
 }
 
-export {
-  getCurrentTribe
-};
+export { getCurrentTribe };

@@ -1,15 +1,16 @@
-const fcl = require('@onflow/fcl')
-const FlowTypes = require('@onflow/types')
+const fcl = require('@onflow/fcl');
+const FlowTypes = require('@onflow/types');
 
 const fixedPoint = new Intl.NumberFormat('en-US', {
-  minimumFractionDigits: 1,
-  useGrouping: false
+	minimumFractionDigits: 1,
+	useGrouping: false,
 });
 
 const sendFlow = async (recipient: string, amount: number) => {
-  try {
-    const transactionId = await fcl.send([
-      fcl.transaction`
+	try {
+		const transactionId = await fcl
+			.send([
+				fcl.transaction`
         import FungibleToken from 0xFungibleToken
         import FlowToken from 0xFlowToken
 
@@ -33,21 +34,22 @@ const sendFlow = async (recipient: string, amount: number) => {
           }
         }
       `,
-      fcl.args([
-        fcl.arg(fixedPoint.format(amount), FlowTypes.UFix64),
-        fcl.arg(recipient, FlowTypes.Address),
-      ]),
-      fcl.payer(fcl.authz),
-      fcl.proposer(fcl.authz),
-      fcl.authorizations([fcl.authz]),
-      fcl.limit(9999)
-    ]).then(fcl.decode);
+				fcl.args([
+					fcl.arg(fixedPoint.format(amount), FlowTypes.UFix64),
+					fcl.arg(recipient, FlowTypes.Address),
+				]),
+				fcl.payer(fcl.authz),
+				fcl.proposer(fcl.authz),
+				fcl.authorizations([fcl.authz]),
+				fcl.limit(9999),
+			])
+			.then(fcl.decode);
 
-    return transactionId;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+		return transactionId;
+	} catch (error) {
+		console.error(error);
+		return null;
+	}
 };
 
 export default sendFlow;

@@ -1,5 +1,3 @@
 import Signature from './Signature';
 
-export {
-  Signature
-};
+export { Signature };

@@ -1,33 +1,26 @@
-type Tail<T extends readonly unknown[]> = T extends readonly [
-  infer _,
-  ...infer Tail
-]
-  ? Tail
-  : [];
+type Tail<T extends readonly unknown[]> = T extends readonly [infer _, ...infer Tail] ? Tail : [];
 
 export type Bind1<Fn extends (...args: any) => any> = (
-  ...args: Tail<Parameters<Fn>>
+	...args: Tail<Parameters<Fn>>
 ) => ReturnType<Fn>;
 
-
 export type TribesData = {
-  name: string,
-  ipfsHash: string,
-  description: string,
-}
-
+	name: string;
+	ipfsHash: string;
+	description: string;
+};
 
 export type FlowTransaction = {
-  errorMessage: string,
-  events: FlowEvent[],
-  status: number
-  statusCode: number
-}
+	errorMessage: string;
+	events: FlowEvent[];
+	status: number;
+	statusCode: number;
+};
 
 export type FlowEvent = {
-  data: any;
-  type: string
-  transactionId: string
-  transactionIndex: number
-  eventIndex: number
-}
+	data: any;
+	type: string;
+	transactionId: string;
+	transactionIndex: number;
+	eventIndex: number;
+};

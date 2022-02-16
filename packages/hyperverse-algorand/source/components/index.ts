@@ -1,3 +1,3 @@
-export {Address} from './Address';
-export {Signature} from './Signature';
-export {Transactions} from './Transactions';
+export { Address } from './Address';
+export { Signature } from './Signature';
+export { Transactions } from './Transactions';
