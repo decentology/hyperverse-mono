@@ -6,52 +6,55 @@ import { useTribes } from "@decentology/hyperverse-ethereum-tribes";
 import { useRandomPick } from "@decentology/hyperverse-ethereum-randompick";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import Image from "next/image";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 import { useEffect } from "react";
 
 const AllTribes = () => {
-  const { address } = useEthereum()
-  const { Tribes, Join } = useTribes()
+  const { address } = useEthereum();
+  const { Tribes, Join } = useTribes();
   const { StartRandomPick, GetRandomPick } = useRandomPick();
   const { mutate: randomMutate, data: resultData } = StartRandomPick();
 
   let { data: randomNumberPick } = GetRandomPick(resultData);
   console.log("The Pick:", randomNumberPick);
-  console.log("RequestId:", resultData);
-  const router = useRouter()
-  const { data, isLoading: allTribesLoading } = Tribes()
+  const router = useRouter();
+  const { data, isLoading: allTribesLoading } = Tribes();
 
-  const { mutate, isLoading: joinTribeLoading, error } = Join({
-    onSuccess: () => router.push('/my-tribe'),
+  const {
+    mutate,
+    isLoading: joinTribeLoading,
+    error,
+  } = Join({
+    onSuccess: () => router.push("/my-tribe"),
   });
 
-  const isLoading = allTribesLoading || joinTribeLoading
+  const isLoading = allTribesLoading || joinTribeLoading;
 
   useEffect(() => {
     if (error) {
       //@ts-ignore
       toast.error(error.message, {
         position: toast.POSITION.BOTTOM_CENTER,
-      })
+      });
     }
-  }, [error])
+  }, [error]);
 
   const GetRando = () => {
     randomMutate([1, 2, 3]);
-  }
+  };
 
   useEffect(() => {
     if (resultData !== undefined) {
       setTimeout(async () => {
-        console.log("Searching...")
+        console.log("Searching...");
 
         console.log(data);
         if (data) {
           alert("The tribe that won: " + data);
         }
-      }, 10000)
+      }, 10000);
     }
-  }, [resultData])
+  }, [resultData]);
 
   return (
     <main>
@@ -60,8 +63,8 @@ const AllTribes = () => {
         <Loader loaderMessage="processing..." />
       ) : (
         <div className={styles.container}>
-          <button onClick={() => GetRando()}>Here!!!!!</button>
           <h1>Tribes</h1>
+          <button onClick={() => GetRando()}>Random Tribe</button>
           {address ? (
             !data ? (
               <>
@@ -94,7 +97,7 @@ const AllTribes = () => {
         </div>
       )}
     </main>
-  )
-}
+  );
+};
 
-export default AllTribes
+export default AllTribes;

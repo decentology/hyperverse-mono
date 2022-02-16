@@ -1,9 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import {
-  useMutation,
-  UseMutationOptions,
-  useQuery
-} from "react-query";
+import { useMutation, UseMutationOptions, useQuery } from "react-query";
 import { ethers } from "ethers";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { ContractABI, CONTRACT_ADDRESS } from "./Provider";
@@ -11,7 +7,9 @@ import { createContainer, useContainer } from "unstated-next";
 
 type ContractState = ethers.Contract;
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) {
+function RandomPickState(
+  initialState: { tenantId: string } = { tenantId: "" }
+) {
   const { tenantId } = initialState;
   const { address, web3Provider, provider, connect } = useEthereum();
   const [contract, setRandomPickContract] = useState<ContractState>(
@@ -41,46 +39,47 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
     }
   }, [web3Provider]);
 
-  const startRandomPick = useCallback(async (numbers: Number[]) => {
-    try {
-      const tx = await contract.startRandomPick(numbers);
-      console.log("Sending...");
-      const waited = await tx.wait();
-      const event = waited.events.filter((x: any) => (x.event == 'StartedRandomPick'))[0];
-      const requestId = event.args[1];
-      console.log("RequestId:", requestId);
-      return requestId;
-    } catch (err) {
-      errors(err);
-      throw err;
-    }
-  }, [contract]);
-
-  const getRandomPick = useCallback(async (requestId: string) => {
-    console.log("Here");
-    return new Promise<Number>(async (resolve, reject) => {
-
+  const startRandomPick = useCallback(
+    async (numbers: Number[]) => {
       try {
-        console.log(requestId);
-        if (!requestId) {
-          return null;
-        }
-        let randomPick = await contract.results(tenantId) as Number;
-        console.log(randomPick)
-        while (randomPick == 0) {
-          await sleep(1000);
-          console.log(randomPick);
-          randomPick = await contract.results(tenantId) as Number;
-        }
-        console.log("Random Pick:", randomPick);
-
-        return resolve(randomPick);
+        const tx = await contract.startRandomPick(numbers);
+        console.log("Sending...");
+        const waited = await tx.wait();
+        const event = waited.events.filter(
+          (x: any) => x.event == "StartedRandomPick"
+        )[0];
+        const requestId = event.args[1];
+        console.log("RequestId:", requestId);
+        return requestId;
       } catch (err) {
-        return reject(err);
+        errors(err);
+        throw err;
       }
-    });
+    },
+    [contract]
+  );
 
-  }, [contract]);
+  const getRandomPick = useCallback(
+    async (requestId: string) => {
+      return new Promise<Number>(async (resolve, reject) => {
+        try {
+          if (!requestId) {
+            return null;
+          }
+          let randomPick = (await contract.results(requestId)) as Number;
+          while (randomPick == 0) {
+            await sleep(1000);
+            randomPick = (await contract.results(requestId)) as Number;
+          }
+
+          return resolve(randomPick);
+        } catch (err) {
+          return reject(err);
+        }
+      });
+    },
+    [contract]
+  );
 
   return {
     tenantId,
@@ -89,18 +88,12 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: "" }) 
       options?: Omit<
         UseMutationOptions<unknown, unknown, void, unknown>,
         "mutationFn"
-      >) =>
-      useMutation(
-        (numbers: Number[]) => startRandomPick(numbers)
-      ),
+      >
+    ) => useMutation((numbers: Number[]) => startRandomPick(numbers)),
     GetRandomPick: (requestId: string) =>
-      useQuery(
-        ["getRandomPick"],
-        () => getRandomPick(requestId),
-        {
-          enabled: true,
-        }
-      )
+      useQuery(["getRandomPick"], () => getRandomPick(requestId), {
+        enabled: !!requestId,
+      }),
   };
 }
 
