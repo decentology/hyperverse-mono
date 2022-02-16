@@ -12,11 +12,6 @@ import { useEffect } from "react";
 const AllTribes = () => {
   const { address } = useEthereum();
   const { Tribes, Join } = useTribes();
-  const { StartRandomPick, GetRandomPick } = useRandomPick();
-  const { mutate: randomMutate, data: resultData } = StartRandomPick();
-
-  let { data: randomNumberPick } = GetRandomPick(resultData);
-  console.log("The Pick:", randomNumberPick);
   const router = useRouter();
   const { data, isLoading: allTribesLoading } = Tribes();
 
@@ -39,23 +34,6 @@ const AllTribes = () => {
     }
   }, [error]);
 
-  const GetRando = () => {
-    randomMutate([1, 2, 3]);
-  };
-
-  useEffect(() => {
-    if (resultData !== undefined) {
-      setTimeout(async () => {
-        console.log("Searching...");
-
-        console.log(data);
-        if (data) {
-          alert("The tribe that won: " + data);
-        }
-      }, 10000);
-    }
-  }, [resultData]);
-
   return (
     <main>
       <Nav />
@@ -64,7 +42,6 @@ const AllTribes = () => {
       ) : (
         <div className={styles.container}>
           <h1>Tribes</h1>
-          <button onClick={() => GetRando()}>Random Tribe</button>
           {address ? (
             !data ? (
               <>

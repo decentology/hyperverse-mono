@@ -1,7 +1,12 @@
+import { useRandomPick } from "@decentology/hyperverse-ethereum-randompick";
 import Image from "next/image";
 import Nav from "../components/Nav";
 import styles from "../styles/Home.module.css";
 const Battle = () => {
+    
+  const { StartRandomPick, GetRandomPick } = useRandomPick();
+  const { mutate: randomMutate, data: resultData } = StartRandomPick();
+  let { data: randomNumberPick } = GetRandomPick(resultData);
   return (
     <main>
       <Nav />
