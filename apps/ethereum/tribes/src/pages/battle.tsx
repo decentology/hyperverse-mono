@@ -13,6 +13,7 @@ const Battle = () => {
 	const { mutate: randomMutate, data: requestId, isLoading: randomNumber } = StartRandomPick();
 	let { data: randomNumberPick, isLoading: loadingWinner } = GetRandomPick(requestId);
 	const startBattle = useCallback(() => {
+		setWinner(null);		
 		randomMutate([1, 2]);
 	}, [randomMutate]);
 
@@ -30,7 +31,6 @@ const Battle = () => {
 
 	useEffect(() => {
 		if (randomNumberPick && randomNumberPick != 0) {
-			console.log('winner', randomNumberPick);
 			setWinner(contestants[randomNumberPick - 1]);
 		}
 	}, [randomNumberPick, setWinner, contestants]);
