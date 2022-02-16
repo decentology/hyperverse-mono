@@ -11,9 +11,6 @@ interface IDappState {
     function getCounter() external view returns (uint256); // Another example READ function
 }
 
-//hyperverse deployed library?
-//shared library contract
-
 library DappLib {
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         if (a == 0) {
@@ -43,20 +40,9 @@ library DappLib {
     }
 }
 
-/********************************************************************************************/
-/* This contract is auto-generated based on your choices in DappStarter. You can make       */
-/* changes, but be aware that generating a new DappStarter project will require you to      */
-/* merge changes. One approach you can take is to make changes in Dapp.sol and have it      */
-/* call into this one. You can maintain all your data in this contract and your app logic   */
-/* in Dapp.sol. This lets you update and deploy Dapp.sol with revised code and still        */
-/* continue using this one.                                                                 */
-/********************************************************************************************/
-
 import "./hyperverse/IHyperverseModule.sol";
 ///+interfaces
 contract Token is IDappState, IHyperverseModule {
-    // Allow DappLib(SafeMath) functions to be called for all uint256 types
-    // (similar to "prototype" in Javascript)
     using DappLib for uint256;
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -64,8 +50,9 @@ contract Token is IDappState, IHyperverseModule {
 
     // Account used to deploy contract
     address private contractOwner;
+
+    //stores the tenant owner
     address private tenantOwner;
-    
 
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
     string public name;
@@ -121,7 +108,8 @@ contract Token is IDappState, IHyperverseModule {
 
      /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TENANT FUNCTIONALITIES  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
      function init(string memory _name, string memory _symbol, uint256 _decimal, address _tenant) external {
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+        /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+        tenantOwner = _tenant;
         name = _name;
         symbol = _symbol;
         decimals = _decimal;
@@ -136,8 +124,7 @@ contract Token is IDappState, IHyperverseModule {
         initialSupply = total;
 
         // Assign entire initial supply to contract owner
-        tenantOwner = _tenant;
-        balances[tenantOwner] = total;
+        balances[_tenant] = total;
        
      }
 
@@ -176,8 +163,8 @@ contract Token is IDappState, IHyperverseModule {
      * @return A bool indicating if the transfer was successful.
      */
     function transfer(address to, uint256 value) public returns (bool) {
-        require(to != address(0));
-        require(to != msg.sender);
+        require(to != address(0), "Transfer to the zero address is not allowed");
+        require(to != msg.sender, "Transfer to yourself is not allowed");
         require(value <= balanceOf(msg.sender), "Not enough balance");
 
         balances[msg.sender] = balances[msg.sender].sub(value);
@@ -199,11 +186,11 @@ contract Token is IDappState, IHyperverseModule {
         address to,
         uint256 value
     ) public returns (bool) {
-        require(from != address(0), "You can't send from the null address");
+        require(from != address(0),  "Transfer to the zero address is not allowed");
         require(value <= allowed[from][msg.sender], "Not enough allowed balance for transfer");
         require(value <= balanceOf(from), "Not enough balance for transfer");
-        require(to != address(0), "You can't send to the null address");
-        require(from != to, "You can't send to yourself");
+        require(to != address(0),  "Transfer to the zero address is not allowed");
+        require(from != to, "Transfer from and to the same address is not allowed");
 
         balances[from] = balances[from].sub(value);
         balances[to] = balances[to].add(value);
