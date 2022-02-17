@@ -71,7 +71,7 @@ const Battle = () => {
 							/>
 						</div>
 						{isLoading ? (
-							<Image src={`/${randomFightImage}`} width={100} height={100} alt="Loading" />
+							<Image src={`/${randomFightImage}`} className={styles.blink_me} width={100} height={100} alt="Loading" />
 						) : !winner  ? <Image src='/VS.png' width={100} height={100} alt="vs" /> : null}
 						<div className={winner ? winner === contestants[1] ? styles.winner : styles.loser : null  }>
 							<Image
