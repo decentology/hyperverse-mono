@@ -4,6 +4,7 @@ import { initialize, Provider } from '@decentology/hyperverse';
 import { networks } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
 import * as Tribes from '@decentology/hyperverse-ethereum-tribes';
+import * as RandomPick from '@decentology/hyperverse-ethereum-randompick';
 import InnerComponent from '../components/InnerComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,6 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 			{
 				bundle: Tribes,
 				tenantId: '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D',
+			},
+			{
+				bundle: RandomPick,
+				tenantId: null,
 			},
 		],
 	});

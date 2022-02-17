@@ -33,6 +33,9 @@ const Nav = () => {
 				<a className={styles.logo}>T</a>
 			</Link>
 			<div className={styles.rightNav}>
+				<Link href="/battle">
+                    Battle
+				</Link>
 				<Link href="https://docs.hyperverse.dev/" passHref>
 					<a target="_blank" rel="noreferrer">
 						About
