@@ -30,7 +30,6 @@ const Battle = () => {
 			const shuffleTribes = tribesList.sort((a, b) => 0.5 - Math.random());
 			// Pick 2 Tribes
 			const randomTribes = shuffleTribes.slice(0, 2);
-			console.log(randomTribes);
 			setContestants(randomTribes);
 		}
 	}, [contestants.length, tribesList]);
