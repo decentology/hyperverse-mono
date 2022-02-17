@@ -2,14 +2,14 @@ import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick';
 import { useTribes } from '@decentology/hyperverse-ethereum-tribes';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-import Confetti from 'react-confetti'
+import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Nav from '../components/Nav';
 import styles from '../styles/Home.module.css';
 
 const Battle = () => {
-	const fightImages = ['BANH.png', 'BOOM.png', 'STARS.png', 'POW.png'];
-	const { width, height } = useWindowSize()
+	const [fightImages] = useState<string[]>(['BANH.png', 'BOOM.png', 'STARS.png', 'POW.png']);
+	const { width, height } = useWindowSize();
 	const [contestants, setContestants] = useState<any[]>([]);
 	const [randomFightImage, setRandomFightImage] = useState<string>(fightImages[0]);
 	const [winner, setWinner] = useState<any>(null);
@@ -19,7 +19,7 @@ const Battle = () => {
 	const { mutate: randomMutate, data: requestId, isLoading: randomNumber } = StartRandomPick();
 	let { data: randomNumberPick, isLoading: loadingWinner } = GetRandomPick(requestId);
 	const startBattle = useCallback(() => {
-		setWinner(null);		
+		setWinner(null);
 		randomMutate([1, 2]);
 	}, [randomMutate]);
 
@@ -30,7 +30,6 @@ const Battle = () => {
 			const shuffleTribes = tribesList.sort((a, b) => 0.5 - Math.random());
 			// Pick 2 Tribes
 			const randomTribes = shuffleTribes.slice(0, 2);
-			console.log(randomTribes);
 			setContestants(randomTribes);
 		}
 	}, [contestants.length, tribesList]);
@@ -54,15 +53,26 @@ const Battle = () => {
 
 	return (
 		<main>
-			
-				{winner && (<Confetti width={width} height={height} />)}
+			{winner && <Confetti width={width} height={height} />}
 			<Nav />
 			<div className={styles.battleRoyal}>
 				<h1 className={styles.header}>Tribes Battle Royale</h1>
-				{!isLoading ? <button className={styles.battleBtn} onClick={() => startBattle()}>Start Battle</button> : null}
+				{!isLoading ? (
+					<button className={styles.battleBtn} onClick={() => startBattle()}>
+						Start Battle
+					</button>
+				) : null}
 				{contestants.length > 0 && (
 					<div className={styles.battleStage}>
-						<div className={winner ? winner === contestants[0] ? styles.winner : styles.loser : null }>
+						<div
+							className={
+								winner
+									? winner === contestants[0]
+										? styles.winner
+										: styles.loser
+									: null
+							}
+						>
 							<Image
 								src={contestants[0].imageUrl}
 								width={270}
@@ -71,11 +81,27 @@ const Battle = () => {
 							/>
 						</div>
 						<div className={styles.container4}>
-						{isLoading ? (
-							<Image src={`/${randomFightImage}`} className={styles.blink_me} width={170} height={170} alt="Loading" />
-							) : !winner  ? <Image src='/VS.png' width={170} height={170} alt="vs" /> : null}
-							</div>
-						<div className={winner ? winner === contestants[1] ? styles.winner : styles.loser : null  }>
+							{isLoading ? (
+								<Image
+									src={`/${randomFightImage}`}
+									className={styles.blink_me}
+									width={170}
+									height={170}
+									alt="Loading"
+								/>
+							) : !winner ? (
+								<Image src="/VS.png" width={170} height={170} alt="vs" />
+							) : null}
+						</div>
+						<div
+							className={
+								winner
+									? winner === contestants[1]
+										? styles.winner
+										: styles.loser
+									: null
+							}
+						>
 							<Image
 								src={contestants[1].imageUrl}
 								width={270}
