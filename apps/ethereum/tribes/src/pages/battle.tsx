@@ -49,7 +49,7 @@ const Battle = () => {
 				{winner && (<Confetti width={width} height={height} />)}
 			<Nav />
 			<div className={styles.battleRoyal}>
-				<h1 className={styles.header}>Tribes Battle Royal</h1>
+				<h1 className={styles.header}>Tribes Battle Royale</h1>
 				{!isLoading ? <button className={styles.battleBtn} onClick={() => startBattle()}>Start Battle</button> : null}
 				{contestants.length > 0 && (
 					<div className={styles.battleStage}>
