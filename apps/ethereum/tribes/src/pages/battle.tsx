@@ -8,8 +8,10 @@ import Nav from '../components/Nav';
 import styles from '../styles/Home.module.css';
 
 const Battle = () => {
+	const fightImages = ['BANH.png', 'BOOM.png', 'STARS.png', 'POW.png'];
 	const { width, height } = useWindowSize()
 	const [contestants, setContestants] = useState<any[]>([]);
+	const [randomFightImage, setRandomFightImage] = useState<string>(fightImages[0]);
 	const [winner, setWinner] = useState<any>(null);
 	const { Tribes } = useTribes();
 	const { data: tribesList } = Tribes();
@@ -41,7 +43,14 @@ const Battle = () => {
 
 	const isLoading = randomNumber || loadingWinner;
 
-
+	// Update fight image every 2 seconds
+	useEffect(() => {
+		const interval = setInterval(() => {
+			const randomFightImageIndex = Math.floor(Math.random() * fightImages.length);
+			setRandomFightImage(fightImages[randomFightImageIndex]);
+		}, 2000);
+		return () => clearInterval(interval);
+	}, [fightImages, setRandomFightImage]);
 
 	return (
 		<main>
@@ -56,24 +65,21 @@ const Battle = () => {
 						<div className={winner ? winner === contestants[0] ? styles.winner : styles.loser : null }>
 							<Image
 								src={contestants[0].imageUrl}
-								width={256}
-								height={300}
+								width={270}
+								height={350}
 								alt="Tribe 1"
 							/>
 						</div>
-						{isLoading && (
-							<div
-								style={{ alignSelf: 'center', color: 'red' }}
-								className={styles.blink_me}
-							>
-								X
+						<div className={styles.container4}>
+						{isLoading ? (
+							<Image src={`/${randomFightImage}`} className={styles.blink_me} width={170} height={170} alt="Loading" />
+							) : !winner  ? <Image src='/VS.png' width={170} height={170} alt="vs" /> : null}
 							</div>
-						)}
 						<div className={winner ? winner === contestants[1] ? styles.winner : styles.loser : null  }>
 							<Image
 								src={contestants[1].imageUrl}
-								width={256}
-								height={300}
+								width={270}
+								height={350}
 								alt="Tribe 2"
 							/>
 						</div>

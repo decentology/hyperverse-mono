@@ -474,9 +474,10 @@
 }
 .battleStage {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 2rem 4rem 5rem;
+  padding: 2rem 4rem 3rem;
 }
 
 .winner {
@@ -488,6 +489,13 @@
   animation: fadeOut 5s;
   opacity: 0;
 }
+
+.container4 {
+  height: 270;
+  width: 350;
+  padding: 0 1rem 3rem;
+}
+
 .blink_me {
   animation: blinker 1s linear infinite;
 }
