@@ -15,7 +15,9 @@
     "react-dom": "17.0.2",
     "@decentology/hyperverse": "^1.0.0",
     "@decentology/hyperverse-flow": "^1.0.0",
-    "@decentology/hyperverse-flow-tribes": "^1.0.0"
+    "@decentology/hyperverse-flow-tribes": "^1.0.0",
+    "@decentology/hyperverse-flow-randompick": "^1.0.0",
+    "react-confetti": "^6.0.1"
   },
   "devDependencies": {
     "@decentology/config": "^1.0.0",
