@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
-import "./interfaces/IHyperverse.sol";
+import "./hyperverse/IHyperverseModule.sol";
 
 contract Module {
-    IHyperverse hyperverse;
+    IHyperverseModule hyperverse;
 }
