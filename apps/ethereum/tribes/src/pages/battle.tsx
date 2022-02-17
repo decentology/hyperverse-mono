@@ -72,7 +72,7 @@ const Battle = () => {
 						</div>
 						{isLoading ? (
 							<Image src={`/${randomFightImage}`} width={100} height={100} alt="Loading" />
-						) : <Image src='/VS.png' width={100} height={100} />}
+						) : !winner  ? <Image src='/VS.png' width={100} height={100} alt="vs" /> : null}
 						<div className={winner ? winner === contestants[1] ? styles.winner : styles.loser : null  }>
 							<Image
 								src={contestants[1].imageUrl}
