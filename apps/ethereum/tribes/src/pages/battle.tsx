@@ -65,19 +65,21 @@ const Battle = () => {
 						<div className={winner ? winner === contestants[0] ? styles.winner : styles.loser : null }>
 							<Image
 								src={contestants[0].imageUrl}
-								width={256}
-								height={300}
+								width={270}
+								height={350}
 								alt="Tribe 1"
 							/>
 						</div>
+						<div className={styles.container4}>
 						{isLoading ? (
-							<Image src={`/${randomFightImage}`} className={styles.blink_me} width={100} height={100} alt="Loading" />
-						) : !winner  ? <Image src='/VS.png' width={100} height={100} alt="vs" /> : null}
+							<Image src={`/${randomFightImage}`} className={styles.blink_me} width={170} height={170} alt="Loading" />
+							) : !winner  ? <Image src='/VS.png' width={170} height={170} alt="vs" /> : null}
+							</div>
 						<div className={winner ? winner === contestants[1] ? styles.winner : styles.loser : null  }>
 							<Image
 								src={contestants[1].imageUrl}
-								width={256}
-								height={300}
+								width={270}
+								height={350}
 								alt="Tribe 2"
 							/>
 						</div>
