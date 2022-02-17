@@ -5,6 +5,7 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.0"
+    "@decentology/hyperverse": "^1.0.0",
+    "@decentology/hyperverse-ethereum": "^1.0.0"
   }
 }
