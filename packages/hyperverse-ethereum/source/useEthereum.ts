@@ -48,8 +48,10 @@ const switchNetwork = async (network: networks, prov: any) => {
 };
 
 function EthereumState() {
+	const { network } = useHyperverse();
+	const infuraNetwork = network === networks.Mainnet ? 'mainnet' : 'rinkeby';
 	const [state, setState] = useState<State>({
-		provider: new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${INFURA_ID}`),
+		provider: new ethers.providers.JsonRpcProvider(`https://${infuraNetwork}}.infura.io/v3/${INFURA_ID}`),
 		web3Provider: null,
 		address: null,
 		chainId: null,
@@ -58,7 +60,6 @@ function EthereumState() {
 	const { provider } = state;
 	const addressRef = useRef(state.address);
 	addressRef.current = state.address;
-	const { network } = useHyperverse();
 
 	const connect = useCallback(async function () {
 		try {
