@@ -24,6 +24,7 @@
   "dependencies": {
     "@decentology/hyperverse": "^1.0.0",
     "@decentology/hyperverse-ethereum": "^1.0.0",
+    "@openzeppelin/contracts": "^4.4.2",
     "ethers": "^5.5.3",
     "react-query": "^3.34.7",
     "react-use": "^17.3.2",
