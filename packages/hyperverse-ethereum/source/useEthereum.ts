@@ -51,7 +51,7 @@ function EthereumState() {
 	const { network } = useHyperverse();
 	const infuraNetwork = network === networks.Mainnet ? 'mainnet' : 'rinkeby';
 	const [state, setState] = useState<State>({
-		provider: new ethers.providers.JsonRpcProvider(`https://${infuraNetwork}}.infura.io/v3/${INFURA_ID}`),
+		provider: new ethers.providers.JsonRpcProvider(`https://${infuraNetwork}.infura.io/v3/${INFURA_ID}`),
 		web3Provider: null,
 		address: null,
 		chainId: null,
