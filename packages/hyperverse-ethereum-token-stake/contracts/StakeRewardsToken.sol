@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
-import "hardhat/console.sol";
+import './hyperverse/IHyperverseModule.sol';
 
 library DappLib {
 	function mul(uint256 a, uint256 b) internal pure returns (uint256) {
@@ -33,7 +33,7 @@ library DappLib {
 	}
 }
 
-contract TokenStake {
+contract StakeRewardsToken is IHyperverseModule {
 	using DappLib for uint256;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -51,42 +51,53 @@ contract TokenStake {
 	mapping(address => uint256) private _balances;
 
 	address immutable owner;
+	address private tenant;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	
-    modifier updatedReward(address _account) {
-        rewardPerTokenStored = rewardPerToken();
-        lastUpdatedTime = block.timestamp;
+	modifier updatedReward(address _account) {
+		rewardPerTokenStored = rewardPerToken();
+		lastUpdatedTime = block.timestamp;
 
-        rewards[_account] = earned(_account);
-        userRewardPerTokenPaid[_account] = rewardPerTokenStored;
-        _;
-    }
+		rewards[_account] = earned(_account);
+		userRewardPerTokenPaid[_account] = rewardPerTokenStored;
+		_;
+	}
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	constructor(
-		address _owner,
+	constructor(address _owner) {
+		metadata = ModuleMetadata(
+			'Stake Rewards Token',
+			Author(_owner, 'https://externallink.net'),
+			'0.0.1',
+			3479831479814,
+			'https://externalLink.net'
+		);
+		owner = _owner;
+	}
+
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+	function init(
+		address _tenant,
 		address _stakingToken,
 		address _rewardsToken
-	) {
-		owner = _owner;
+	) external {
+		tenant = _tenant;
 		stakingToken = IERC20(_stakingToken);
 		rewardsToken = IERC20(_rewardsToken);
 	}
 
-	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-    function totalSupply() external view returns (uint256) {
-        return _totalSupply;
-    }
+	function totalSupply() external view returns (uint256) {
+		return _totalSupply;
+	}
 
-    function balanceOf(address _account) external view returns (uint256) {
-        return _balances[_account];
-    }
-
+	function balanceOf(address _account) external view returns (uint256) {
+		return _balances[_account];
+	}
 
 	function rewardPerToken() public view returns (uint256) {
 		if (_totalSupply == 0) {
@@ -103,21 +114,21 @@ contract TokenStake {
 			rewards[_account];
 	}
 
-    function stake(uint _amount) external updatedReward(msg.sender) {
-        _totalSupply = _totalSupply.add(_amount);
-        _balances[msg.sender] = _balances[msg.sender].add(_amount);
-        stakingToken.transferFrom(msg.sender, address(this), _amount);
-    }
+	function stake(uint256 _amount) external updatedReward(msg.sender) {
+		_totalSupply = _totalSupply.add(_amount);
+		_balances[msg.sender] = _balances[msg.sender].add(_amount);
+		stakingToken.transferFrom(msg.sender, address(this), _amount);
+	}
 
-    function withdraw(uint _amount) external updatedReward(msg.sender) {
-        _totalSupply = _totalSupply.sub(_amount);
-        _balances[msg.sender] = _balances[msg.sender].sub(_amount);
-        stakingToken.transfer(msg.sender, _amount);
-    }
+	function withdraw(uint256 _amount) external updatedReward(msg.sender) {
+		_totalSupply = _totalSupply.sub(_amount);
+		_balances[msg.sender] = _balances[msg.sender].sub(_amount);
+		stakingToken.transfer(msg.sender, _amount);
+	}
 
-    function getReward() external updatedReward(msg.sender) {
-        uint reward = rewards[msg.sender];
-        rewards[msg.sender] = 0;
-        rewardsToken.transfer(msg.sender, reward);
-    }
- }
+	function getReward() external updatedReward(msg.sender) {
+		uint256 reward = rewards[msg.sender];
+		rewards[msg.sender] = 0;
+		rewardsToken.transfer(msg.sender, reward);
+	}
+}
