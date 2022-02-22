@@ -2,9 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient, UseMutationOptions } from 'react-query';
 import { ethers } from 'ethers';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { ContractABI, CONTRACT_ADDRESS } from './Provider';
-import { useEvent } from 'react-use';
-import { useStorage } from '@decentology/hyperverse-storage-skynet';
+import { ContractABI, CONTRACT_ADDRESS } from './constants';
 import { createContainer, useContainer } from 'unstated-next';
 
 type ContractState = ethers.Contract;
@@ -34,12 +32,7 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 			throw new Error('You rejected the transaction!');
 		}
 
-		if (err.message.includes('User is already in a Tribe!')) {
-			throw new Error('You are already in a tribe!');
-		}
-
 		throw err;
-		// throw new Error("Something went wrong!");
 	};
 
 	useEffect(() => {
