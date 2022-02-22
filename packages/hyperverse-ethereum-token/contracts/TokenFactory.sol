@@ -18,7 +18,7 @@ import "./Token.sol";
 
     mapping(address => Tenant) public tenants;
 
-    address public masterContract;
+    address public immutable masterContract;
     address private hyperverseAdmin = 0xD847C7408c48b6b6720CCa75eB30a93acbF5163D;
 
 
@@ -43,7 +43,6 @@ import "./Token.sol";
     }
 
     /******************* TENANT FUNCTIONALITIES *******************/
-    // TO DO: modifier for msg.sender and or a list of admins?
 
     function createInstance(address _tenant, string memory _name, string memory _symbol, uint256 _decimal) 
     isAllowedToCreateInstance(_tenant)
@@ -70,43 +69,5 @@ import "./Token.sol";
         return getProxy(_tenant).totalSupply();
     }
 
-
-    function balance(address _tenant) public view returns (uint256) {
-        return getProxy(_tenant).balance();
-    }
-
-    function balanceOf(address _tenant, address _owner) public view returns (uint256) {
-        return getProxy(_tenant).balanceOf(_owner);
-    }
-
-    function transfer(address _tenant, address _to, uint256 _value) public returns (bool) {
-        return getProxy(_tenant).transfer(_to, _value);
-    }
-
-    function transferFrom(address _tenant, address _from, address _to, uint256 _value) public returns (bool) {
-        return getProxy(_tenant).transferFrom(_from, _to, _value);
-    }
-
-    function allowance(address _tenant, address _owner, address _spender) public view returns (uint256) {
-        return getProxy(_tenant).allowance(_owner, _spender);
-    }
-
-    function approve(address _tenant, address _spender, uint256 _value) public returns (bool) {
-        return getProxy(_tenant).approve(_spender, _value);
-    }
-    //Questionable? contractOwner will be the owner of the contract 
-    // maybe a getInstanceOwner function?
-    function getContractOwner(address _tenant) public view returns (address) {
-        return getProxy(_tenant).getContractOwner();
-    }
-
-
-    function incrementCounter(address _tenant, uint256 _increment) public {
-        getProxy(_tenant).incrementCounter(_increment);
-    }
-
-    function getCounter(address _tenant) public view returns (uint256) {
-        return getProxy(_tenant).getCounter();
-    }
 
  }

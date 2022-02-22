@@ -49,7 +49,7 @@ contract Token is IDappState, IHyperverseModule {
 
 
     // Account used to deploy contract
-    address private contractOwner;
+    address public immutable contractOwner;
 
     //stores the tenant owner
     address private tenantOwner;
