@@ -44,7 +44,7 @@ describe('Token', function () {
 
   it('Should have the coreect supply off tokens using totalSupply()', async function () {
     //old way
-    expect(await tokenFactoryCtr.totalSupply(alice.address)).to.equal(initialSupply);
+    // expect(await tokenFactoryCtr.totalSupply(alice.address)).to.equal(initialSupply);
 
     //new way
     expect(await aliceProxyContract.totalSupply()).to.equal(initialSupply);

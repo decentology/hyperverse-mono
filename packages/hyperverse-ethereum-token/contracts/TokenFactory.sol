@@ -11,6 +11,8 @@ import "./Token.sol";
  */
 
  contract TokenFactory is CloneFactory {
+    
+    /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
    struct Tenant {
      Token token;
      address owner;
@@ -21,7 +23,7 @@ import "./Token.sol";
     address public immutable masterContract;
     address private hyperverseAdmin = 0xD847C7408c48b6b6720CCa75eB30a93acbF5163D;
 
-
+    /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
     modifier isOwner(address _tenant) {
         require(
             tenants[_tenant].owner == msg.sender,
@@ -38,11 +40,14 @@ import "./Token.sol";
         _;
     }
 
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
     constructor(address _masterContract) {
         masterContract = _masterContract;
     }
 
-    /******************* TENANT FUNCTIONALITIES *******************/
+    /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
     function createInstance(address _tenant, string memory _name, string memory _symbol, uint256 _decimal) 
     isAllowedToCreateInstance(_tenant)
@@ -62,11 +67,6 @@ import "./Token.sol";
 
     function getProxy(address _tenant) public view returns (Token) {
         return tenants[_tenant].token;
-    }
-
-    /******************* ERC20 FUNCTIONALITIES *******************/
-    function totalSupply(address _tenant) external view returns (uint256) {
-        return getProxy(_tenant).totalSupply();
     }
 
 

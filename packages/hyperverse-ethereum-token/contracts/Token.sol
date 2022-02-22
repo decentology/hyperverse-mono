@@ -41,7 +41,7 @@ library DappLib {
 }
 
 import "./hyperverse/IHyperverseModule.sol";
-///+interfaces
+
 contract Token is IDappState, IHyperverseModule {
     using DappLib for uint256;
 
@@ -74,19 +74,6 @@ contract Token is IDappState, IHyperverseModule {
     // Multiplier to convert to smallest unit
     uint256 public UNIT_MULTIPLIER;
 
-    /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-
-    constructor() {
-        metadata = ModuleMetadata(
-            "Token",
-            Author(msg.sender, "https://externallink.net"),
-            "0.0.1",
-            3479831479814,
-            "https://externalLink.net"
-        );
-        contractOwner = msg.sender;
-    }
-
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
     /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -103,6 +90,20 @@ contract Token is IDappState, IHyperverseModule {
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
     ///+modifiers
+
+
+    /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+    constructor() {
+        metadata = ModuleMetadata(
+            "Token",
+            Author(msg.sender, "https://externallink.net"),
+            "0.0.1",
+            3479831479814,
+            "https://externalLink.net"
+        );
+        contractOwner = msg.sender;
+    }
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
