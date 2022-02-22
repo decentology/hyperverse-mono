@@ -5,7 +5,7 @@ import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from 'unstated-next';
 import { useHyperverse, networks } from '@decentology/hyperverse';
 
-const INFURA_ID = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
+const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
 const providerOptions = {
 	walletconnect: {
@@ -48,8 +48,10 @@ const switchNetwork = async (network: networks, prov: any) => {
 };
 
 function EthereumState() {
-	const [state, setState] = useState<Omit<State, 'disconnect' | 'connect'>>({
-		provider: new ethers.providers.JsonRpcProvider(`https://rinkeby.infura.io/v3/${INFURA_ID}`),
+	const { network } = useHyperverse();
+	const infuraNetwork = network === networks.Mainnet ? 'mainnet' : 'rinkeby';
+	const [state, setState] = useState<State>({
+		provider: new ethers.providers.JsonRpcProvider(`https://${infuraNetwork}}.infura.io/v3/${INFURA_ID}`),
 		web3Provider: null,
 		address: null,
 		chainId: null,
@@ -58,7 +60,6 @@ function EthereumState() {
 	const { provider } = state;
 	const addressRef = useRef(state.address);
 	addressRef.current = state.address;
-	const { network } = useHyperverse();
 
 	const connect = useCallback(async function () {
 		try {
@@ -76,13 +77,13 @@ function EthereumState() {
 
 			const userNetwork = await web3Provider.getNetwork();
 
-			if (userNetwork.chainId !== 4) {
-				await switchNetwork(network, web3Provider.provider);
+			// if (userNetwork.chainId !== 4) {
+			// 	await switchNetwork(network, web3Provider.provider);
 
-				setTimeout(() => {
-					window.location.reload();
-				}, 1000);
-			}
+			// 	setTimeout(() => {
+			// 		window.location.reload();
+			// 	}, 1000);
+			// }
 
 			setState((prev) => ({
 				...prev,

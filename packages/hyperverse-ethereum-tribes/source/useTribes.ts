@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient, UseMutationOptions } from 'react-query';
 import { ethers } from 'ethers';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { ContractABI, CONTRACT_ADDRESS } from './Provider';
+import { ContractABI, CONTRACT_TESTNET_ADDRESS } from './Provider';
 import { useEvent } from 'react-use';
 import { useStorage } from '@decentology/hyperverse-storage-skynet';
 import { createContainer, useContainer } from 'unstated-next';
@@ -21,7 +21,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { address, web3Provider, provider, connect } = useEthereum();
 	const { clientUrl } = useStorage();
 	const [contract, setTribesContract] = useState<ContractState>(
-		new ethers.Contract(CONTRACT_ADDRESS, ContractABI, provider) as ContractState
+		new ethers.Contract(CONTRACT_TESTNET_ADDRESS, ContractABI, provider) as ContractState
 	);
 	const { uploadFile } = useStorage();
 	const setup = useCallback(async () => {
