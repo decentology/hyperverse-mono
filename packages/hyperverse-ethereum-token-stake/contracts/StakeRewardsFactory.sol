@@ -9,7 +9,7 @@ import './StakeRewardsToken.sol';
  * @dev Clone Factory Implementation for ERC20 Token
  */
 
-contract StakeRewardsTokenFactory is CloneFactory {
+contract StakeRewardsFactory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	struct Tenant {
 		StakeRewardsToken stakeRewards;
@@ -19,6 +19,7 @@ contract StakeRewardsTokenFactory is CloneFactory {
 	mapping(address => Tenant) public tenants;
 
 	address public immutable masterContract;
+	address public immutable owner;
 	address private hyperverseAdmin = 0xD847C7408c48b6b6720CCa75eB30a93acbF5163D;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -41,8 +42,9 @@ contract StakeRewardsTokenFactory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-	constructor(address _masterContract) {
+	constructor(address _masterContract, address _owner) {
 		masterContract = _masterContract;
+		owner = _owner;
 	}
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -50,12 +52,13 @@ contract StakeRewardsTokenFactory is CloneFactory {
 	function createInstance(
 		address _tenant,
 		address _stakingToken,
-		address _rewardsToken
+		address _rewardsToken,
+		uint256 _rewardRate
 	) external isAllowedToCreateInstance(_tenant) {
 		StakeRewardsToken stakeInstance = StakeRewardsToken(createClone(masterContract));
 
 		//initializing tenant state of clone
-		stakeInstance.init(_tenant, _stakingToken, _rewardsToken);
+		stakeInstance.init(_tenant, _stakingToken, _rewardsToken, _rewardRate);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
@@ -67,8 +70,4 @@ contract StakeRewardsTokenFactory is CloneFactory {
 		return tenants[_owner].stakeRewards;
 	}
 
-	/******************* ERC20 FUNCTIONALITIES *******************/
-	function totalSupply(address _tenant) external view returns (uint256) {
-		return getProxy(_tenant).totalSupply();
-	}
 }
