@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import './hyperverse/IHyperverseModule.sol';
+import "hardhat/console.sol";
 
 library DappLib {
 	function mul(uint256 a, uint256 b) internal pure returns (uint256) {
@@ -84,11 +85,13 @@ contract StakeRewardsToken is IHyperverseModule {
 	function init(
 		address _tenant,
 		address _stakingToken,
-		address _rewardsToken
+		address _rewardsToken,
+		uint256 _rewardRate
 	) external {
 		tenant = _tenant;
 		stakingToken = IERC20(_stakingToken);
 		rewardsToken = IERC20(_rewardsToken);
+		rewardRate = _rewardRate;
 	}
 
 	function totalSupply() external view returns (uint256) {
