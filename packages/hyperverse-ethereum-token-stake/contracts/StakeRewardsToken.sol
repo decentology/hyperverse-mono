@@ -48,7 +48,7 @@ contract StakeRewardsToken is IHyperverseModule {
 	mapping(address => uint256) public userRewardPerTokenPaid;
 	mapping(address => uint256) public rewards;
 
-	uint256 private _totalSupply;
+	uint256 public _totalSupply = 0;
 	mapping(address => uint256) private _balances;
 
 	address immutable owner;
@@ -56,7 +56,7 @@ contract StakeRewardsToken is IHyperverseModule {
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	modifier updatedReward(address _account) {
+	modifier updateReward(address _account) {
 		rewardPerTokenStored = rewardPerToken();
 		lastUpdatedTime = block.timestamp;
 
@@ -92,7 +92,6 @@ contract StakeRewardsToken is IHyperverseModule {
 		stakingToken = IERC20(_stakingToken);
 		rewardsToken = IERC20(_rewardsToken);
 		rewardRate = _rewardRate;
-		console.log('init', address(this));
 	}
 
 	function totalSupply() external view returns (uint256) {
@@ -118,19 +117,19 @@ contract StakeRewardsToken is IHyperverseModule {
 			rewards[_account];
 	}
 
-	function stake(uint256 _amount) external updatedReward(msg.sender) {
+	function stake(uint256 _amount) external updateReward(msg.sender) {
 		_totalSupply = _totalSupply.add(_amount);
 		_balances[msg.sender] = _balances[msg.sender].add(_amount);
 		stakingToken.transferFrom(msg.sender, address(this), _amount);
 	}
 
-	function withdraw(uint256 _amount) external updatedReward(msg.sender) {
+	function withdraw(uint256 _amount) external updateReward(msg.sender) {
 		_totalSupply = _totalSupply.sub(_amount);
 		_balances[msg.sender] = _balances[msg.sender].sub(_amount);
 		stakingToken.transfer(msg.sender, _amount);
 	}
 
-	function getReward() external updatedReward(msg.sender) {
+	function getReward() external updateReward(msg.sender) {
 		uint256 reward = rewards[msg.sender];
 		rewards[msg.sender] = 0;
 		rewardsToken.transfer(msg.sender, reward);
