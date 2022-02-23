@@ -92,6 +92,7 @@ contract StakeRewardsToken is IHyperverseModule {
 		stakingToken = IERC20(_stakingToken);
 		rewardsToken = IERC20(_rewardsToken);
 		rewardRate = _rewardRate;
+		console.log('init', address(this));
 	}
 
 	function totalSupply() external view returns (uint256) {

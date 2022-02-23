@@ -1,19 +1,54 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const { deployMockContract } = require("@ethereum-waffle/mock-contract");
+const tokenAbi  = require("./utils/tokenAbi.json");
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe("StakeRewards", function () {
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
+  //Staking Contracts
+  let StakeRewards;
+  let stakeRewardsCtr;
+  let Factory;
+  let factoryCtr;
 
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+  //Mockup Token Contracts for Setup
+  let MockupToken;
 
-    // wait until the transaction is mined
-    await setGreetingTx.wait();
+  let AliceTenant;
+  //Test Accounts
+  let owner;
+  let alice;
+  let bob;
+  let cara;
 
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+  beforeEach(async function () {
+    StakeRewards = await ethers.getContractFactory("StakeRewardsToken");
+    [owner, alice, bob, cara] = await ethers.getSigners();
+    stakeRewardsCtr = await StakeRewards.deploy(owner.address);
+    await stakeRewardsCtr.deployed();
+    
+    Factory = await ethers.getContractFactory("StakeRewardsFactory");
+    factoryCtr = await Factory.deploy(stakeRewardsCtr.address, owner.address);
+    await factoryCtr.deployed();
+
+    MockupToken = await deployMockContract(owner,tokenAbi.abi);
+
+    await factoryCtr.connect(alice).createInstance(alice.address, MockupToken.address, MockupToken.address, 100)
+
+    const stakeMainCtr = await ethers.getContractFactory("StakeRewardsToken");
+    AliceTenant = await stakeMainCtr.attach(await factoryCtr.getProxy(alice.address));
+    console.log(alice.address, AliceTenant.address)
+  })
+
+  it('Master Contract should match stakeRewardsCtr', async function () {
+    expect(await factoryCtr.masterContract()).to.equal(stakeRewardsCtr.address);
   });
-});
+
+  it('Staking', async function () {
+    await MockupToken.mock.transferFrom(bob.address, AliceTenant.address, 100).returns(true);
+    await AliceTenant.connect(bob).stake(100);
+  })
+
+
+})
+
