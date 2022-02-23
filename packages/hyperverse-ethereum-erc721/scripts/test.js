@@ -14,22 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const ERC721 = await hre.ethers.getContractFactory("ERC721");
-  // Gas cost: 1875000000
-  const masterContract = await ERC721.deploy();
-  console.log("Master contract deployment");
-  console.log(masterContract);
+  const Greeter = await hre.ethers.getContractFactory("Greeter");
+  // Gas cost: 
+  const test = await Greeter.deploy("yoooo");
+  console.log(test);
+  await test.deployed();
 
-  const ERC721Factory = await hre.ethers.getContractFactory("ERC721Factory");
-  const factoryContract = await ERC721Factory.deploy(masterContract.address);
-
-  await masterContract.deployed();
-  await factoryContract.deployed();
-
-  // Gas cost: 29022808
-  let tx = await factoryContract.createInstance("Jacob", "JMT");
-  console.log("Clone deployment");
-  console.log(tx);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

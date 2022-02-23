@@ -48,20 +48,17 @@ contract ERC721Factory is CloneFactory {
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	function createInstance(
-		address _tenant,
-		string memory _name,
-		string memory _symbol
-	) external isAllowedToCreateInstance(_tenant) {
+	function createInstance(string memory _name, string memory _symbol) external {
+		address tenant = msg.sender;
 		ERC721 nft = ERC721(createClone(masterContract));
 
 		//initializing tenant state of clone
-		nft.init(_name, _symbol, msg.sender);
+		nft.init(_name, _symbol, tenant);
 
 		//set Tenant data
-		Tenant storage newTenant = tenants[_tenant];
+		Tenant storage newTenant = tenants[tenant];
 		newTenant.nft = nft;
-		newTenant.owner = _tenant;
+		newTenant.owner = tenant;
 	}
 
 	function getProxy(address _tenant) public view returns (ERC721) {
