@@ -31,4 +31,5 @@ const advanceBlockTo = async (blockNumber) => {
 
 module.exports = {
 	advanceBlockTo,
+	toBN,
 };
