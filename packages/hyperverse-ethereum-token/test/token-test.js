@@ -17,13 +17,13 @@ describe('Token', function () {
 
   beforeEach(async () => {
     TokenMain = await ethers.getContractFactory('Token');
-    [alice, bob, cara] = await ethers.getSigners();
+    [owner, alice, bob, cara] = await ethers.getSigners();
 
-    tokenMainCtr = await TokenMain.deploy();
+    tokenMainCtr = await TokenMain.deploy(owner.address);
     await tokenMainCtr.deployed();
 
     TokenFactory = await ethers.getContractFactory('TokenFactory');
-    tokenFactoryCtr = await TokenFactory.deploy(tokenMainCtr.address);
+    tokenFactoryCtr = await TokenFactory.deploy(tokenMainCtr.address, owner.address);
     await tokenFactoryCtr.deployed();
 
    await tokenFactoryCtr.connect(alice).createInstance(alice.address, 'ALICE', 'ALC', '6');

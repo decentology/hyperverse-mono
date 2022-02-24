@@ -21,6 +21,7 @@ import "./Token.sol";
     mapping(address => Tenant) public tenants;
 
     address public immutable masterContract;
+    address public immutable owner;
     address private hyperverseAdmin = 0xD847C7408c48b6b6720CCa75eB30a93acbF5163D;
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -43,8 +44,9 @@ import "./Token.sol";
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-    constructor(address _masterContract) {
+    constructor(address _masterContract, address _owner) {
         masterContract = _masterContract;
+        owner = _owner;
     }
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/

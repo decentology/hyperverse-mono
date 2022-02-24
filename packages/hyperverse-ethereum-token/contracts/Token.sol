@@ -94,15 +94,15 @@ contract Token is IDappState, IHyperverseModule {
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-    constructor() {
+    constructor(address _owner) {
         metadata = ModuleMetadata(
             "Token",
-            Author(msg.sender, "https://externallink.net"),
+            Author(_owner, "https://externallink.net"),
             "0.0.1",
             3479831479814,
             "https://externalLink.net"
         );
-        contractOwner = msg.sender;
+        contractOwner = _owner;
     }
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
