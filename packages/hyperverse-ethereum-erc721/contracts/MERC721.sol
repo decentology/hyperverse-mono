@@ -10,27 +10,23 @@ import '@openzeppelin/contracts/utils/Address.sol';
 import '@openzeppelin/contracts/utils/Context.sol';
 import '@openzeppelin/contracts/utils/Strings.sol';
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
-import './hyperverse/IHyperverseModule.sol';
 
 /**
  * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {ERC721Enumerable}.
  */
-contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IHyperverseModule {
+contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	using Address for address;
 	using Strings for uint256;
-
-	// Account used to deploy contract
-	address public immutable contractOwner;
-	//stores the tenant owner
-	address private tenantOwner;
 
 	// Token name
 	string private _name;
 
 	// Token symbol
 	string private _symbol;
+
+	bool public initialized;
 
 	// Mapping from token ID to owner address
 	mapping(uint256 => address) private _owners;
@@ -47,25 +43,13 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IHyperverseModule 
 	/**
 	 * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
 	 */
-	constructor() {
-		metadata = ModuleMetadata(
-			'ERC721',
-			Author(msg.sender, 'https://externallink.net'),
-			'0.0.1',
-			3479831479814,
-			'https://externalLink.net'
-		);
-		contractOwner = msg.sender;
-	}
+	constructor() {}
 
-	function init(
-		string memory _nameInit,
-		string memory _symbolInit,
-		address _tenant
-	) external {
-		tenantOwner = _tenant;
-		_name = _nameInit;
-		_symbol = _symbolInit;
+	function merc721Init(string memory name_, string memory symbol_) internal {
+		require(!initialized, 'Already initialized the state.');
+		_name = name_;
+		_symbol = symbol_;
+		initialized = true;
 	}
 
 	/**
@@ -129,7 +113,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IHyperverseModule 
 	/**
 	 * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
 	 * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
-	 * by default, can be overridden in child contracts.
+	 * by default, can be overriden in child contracts.
 	 */
 	function _baseURI() internal view virtual returns (string memory) {
 		return '';
@@ -139,7 +123,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IHyperverseModule 
 	 * @dev See {IERC721-approve}.
 	 */
 	function approve(address to, uint256 tokenId) public virtual override {
-		address owner = ERC721.ownerOf(tokenId);
+		address owner = MERC721.ownerOf(tokenId);
 		require(to != owner, 'ERC721: approval to current owner');
 
 		require(
@@ -280,7 +264,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IHyperverseModule 
 		returns (bool)
 	{
 		require(_exists(tokenId), 'ERC721: operator query for nonexistent token');
-		address owner = ERC721.ownerOf(tokenId);
+		address owner = MERC721.ownerOf(tokenId);
 		return (spender == owner ||
 			getApproved(tokenId) == spender ||
 			isApprovedForAll(owner, spender));
@@ -353,7 +337,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IHyperverseModule 
 	 * Emits a {Transfer} event.
 	 */
 	function _burn(uint256 tokenId) internal virtual {
-		address owner = ERC721.ownerOf(tokenId);
+		address owner = MERC721.ownerOf(tokenId);
 
 		_beforeTokenTransfer(owner, address(0), tokenId);
 
@@ -384,7 +368,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IHyperverseModule 
 		address to,
 		uint256 tokenId
 	) internal virtual {
-		require(ERC721.ownerOf(tokenId) == from, 'ERC721: transfer from incorrect owner');
+		require(MERC721.ownerOf(tokenId) == from, 'ERC721: transfer from incorrect owner');
 		require(to != address(0), 'ERC721: transfer to the zero address');
 
 		_beforeTokenTransfer(from, to, tokenId);
@@ -408,7 +392,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata, IHyperverseModule 
 	 */
 	function _approve(address to, uint256 tokenId) internal virtual {
 		_tokenApprovals[tokenId] = to;
-		emit Approval(ERC721.ownerOf(tokenId), to, tokenId);
+		emit Approval(MERC721.ownerOf(tokenId), to, tokenId);
 	}
 
 	/**

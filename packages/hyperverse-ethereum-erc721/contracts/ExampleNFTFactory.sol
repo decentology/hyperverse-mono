@@ -4,16 +4,16 @@ pragma experimental ABIEncoderV2;
 
 import './hyperverse/CloneFactory.sol';
 import './hyperverse/IHyperverseModule.sol';
-import './ERC721.sol';
+import './ExampleNFT.sol';
 
 /**
  * @dev Clone Factory Implementation for ERC20 Token
  */
 
-contract ERC721Factory is CloneFactory {
+contract ExampleNFTFactory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	struct Tenant {
-		ERC721 nft;
+		ExampleNFT nft;
 		address owner;
 	}
 
@@ -48,12 +48,12 @@ contract ERC721Factory is CloneFactory {
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	function createInstance(string memory _name, string memory _symbol) external {
+	function createInstance(string memory name, string memory symbol) external {
 		address tenant = msg.sender;
-		ERC721 nft = ERC721(createClone(masterContract));
+		ExampleNFT nft = ExampleNFT(createClone(masterContract));
 
 		//initializing tenant state of clone
-		nft.init(_name, _symbol, tenant);
+		nft.init(name, symbol, tenant);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[tenant];
@@ -61,7 +61,7 @@ contract ERC721Factory is CloneFactory {
 		newTenant.owner = tenant;
 	}
 
-	function getProxy(address _tenant) public view returns (ERC721) {
+	function getProxy(address _tenant) public view returns (ExampleNFT) {
 		return tenants[_tenant].nft;
 	}
 }

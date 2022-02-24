@@ -20,7 +20,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const queryClient = useQueryClient();
 	const { address, web3Provider, provider, connect } = useEthereum();
 	const { clientUrl } = useStorage();
-	const [contract, setExampleNFTContract] = useState<ContractState>(
+	const [contract, setTribesContract] = useState<ContractState>(
 		new ethers.Contract(CONTRACT_TESTNET_ADDRESS, ContractABI, provider) as ContractState
 	);
 	const { uploadFile } = useStorage();
@@ -28,7 +28,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 		const signer = await web3Provider?.getSigner();
 		if (signer && contract) {
 			const ctr = contract.connect(signer) as ContractState;
-			setExampleNFTContract(ctr);
+			setTribesContract(ctr);
 		}
 	}, [web3Provider]);
 
@@ -55,11 +55,21 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 		}
 	}, [web3Provider]);
 
-	// How do I connect all these calls to the proxy?
+	const checkInstance = useCallback(
+		async (account: any) => {
+			try {
+				const instance = await contract.instance(account);
+				return instance;
+			} catch (err) {
+				return false;
+			}
+		},
+		[contract]
+	);
 
-	const createInstance = useCallback(async (name: string, symbol: string) => {
+	const createInstance = useCallback(async () => {
 		try {
-			const createTxn = await contract.createInstance(name, symbol);
+			const createTxn = await contract.createInstance();
 			return createTxn.wait();
 		} catch (err) {
 			errors(err);
@@ -67,21 +77,11 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 		}
 	}, [contract]);
 
-	const mintNFT = useCallback(async () => {
+	const getTotalTenants = useCallback(async () => {
 		try {
-			const mintNFT = await contract.getProxy(tenantId).createNFT();
-			return mintNFT.wait();
-		} catch (err) {
-			errors(err);
-			throw err;
-		}
-	}, [contract]);
+			const tenantCount = await contract.tenantCount();
 
-	const getBalanceOf = useCallback(async (address) => {
-		try {
-			const balance = await contract.getProxy(tenantId).balanceOf(address);
-
-			return balance.toNumber();
+			return tenantCount.toNumber();
 		} catch (err) {
 			throw err;
 		}
@@ -90,17 +90,13 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	return {
 		tenantId,
 		contract,
-		NewInstance: (
-			options?: Omit<UseMutationOptions<unknown, unknown, unknown, unknown>, 'mutationFn'>
-		) => useMutation((name: string, symbol: string) => createInstance(name, symbol), options),
-		MintNFT: (
-			options?: Omit<UseMutationOptions<unknown, unknown, void, unknown>, 'mutationFn'>
-		) => useMutation(() => mintNFT(), options),
-		BalanceOf: () =>
-			useQuery(['getTribeId', contract?.address], (address) => getBalanceOf(address), {
-				enabled: !!contract?.address,
-				retry: false,
+		CheckInstance: () =>
+			useQuery(['checkInstance', address, contract?.address], () => checkInstance(address), {
+				enabled: !!address && !!contract?.address,
 			}),
+		NewInstance: (
+			options?: Omit<UseMutationOptions<unknown, unknown, void, unknown>, 'mutationFn'>
+		) => useMutation(createInstance, options)
 	};
 }
 
