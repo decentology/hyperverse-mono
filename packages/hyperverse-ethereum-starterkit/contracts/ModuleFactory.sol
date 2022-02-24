@@ -44,7 +44,7 @@ import "./Module.sol";
 
     /******************* TENANT FUNCTIONALITIES *******************/
 
-    function createInstance(address _tenant, string memory _name, string memory _symbol, uint256 _decimal) 
+    function createInstance(address _tenant) 
     isAllowedToCreateInstance(_tenant)
     external 
     {
