@@ -34,7 +34,7 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 		}
 
 		return (
-			<HyperverseContainer.Provider>
+			<HyperverseContainer.Provider initialState={initialState}>
 				<SkyNetProvider
 					initialState={
 						typeof initialState.storage === 'object'
