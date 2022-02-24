@@ -106,11 +106,13 @@ contract StakeRewardsToken is IHyperverseModule {
 		if (_totalSupply == 0) {
 			return 0;
 		}
+
 		return
 			rewardPerTokenStored +
 			(((block.timestamp - lastUpdatedTime) * rewardRate * 1e18) / _totalSupply);
 	}
 
+	
 	function earned(address _account) public view returns (uint256) {
 		return
 			((_balances[_account] * (rewardPerToken() - userRewardPerTokenPaid[_account])) / 1e18) +
