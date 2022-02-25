@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createContainer } from 'unstated-next';
-import { useHyperverse } from '@decentology/hyperverse';
+import { blockchains, useHyperverse } from '@decentology/hyperverse';
 import { FlowUser } from './types';
 import { useAsync } from 'react-async-hook';
 import { Initialize } from './context/initialize';
@@ -8,7 +8,7 @@ import sendFlow from './context/sendFlow';
 import fetchBalance from './context/fetchBalance';
 const fcl = require('@onflow/fcl');
 function FlowState() {
-	const { network } = useHyperverse();
+	const { blockchain, network } = useHyperverse();
 	const [user, setUser] = useState<FlowUser>(null);
 
 	const {
@@ -45,6 +45,12 @@ function FlowState() {
 	useEffect(() => {
 		fcl.currentUser().subscribe(setUser);
 	}, []);
+	
+	useEffect(() => {
+		if(blockchain?.name!== blockchains.Flow) {
+			unauthenticate();
+		}
+	},[blockchain?.name])
 
 	return {
 		user,

@@ -1,0 +1,29 @@
+{
+  "name": "@decentology/samples-multi-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@decentology/hyperverse": "^1.0.0",
+    "@decentology/hyperverse-ethereum": "^1.0.0",
+    "@decentology/hyperverse-ethereum-tribes": "^1.0.0",
+    "@decentology/hyperverse-metis": "^1.0.0",
+    "@decentology/hyperverse-metis-tribes": "^1.0.0",
+    "next": "12.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-use": "^17.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.39",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0",
+    "typescript": "4.5.5"
+  }
+}

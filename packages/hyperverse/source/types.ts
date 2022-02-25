@@ -33,6 +33,9 @@ export type Hyperverse = {
 	network: Network;
 	storage?: Storage | ({ name?: Storage; options: { clientUrl: string } } | undefined);
 	modules: HyperverseModuleBase[];
+	options? :{
+		disableProviderAutoInit?: boolean;
+	}
 };
 export type HyperverseModuleBase = {
 	bundle: {
