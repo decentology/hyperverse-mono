@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				setBlockchain(Ethereum);
 				break;
 			case 'metis':
+				console.log('Setting  metis');
 				setBlockchain(Metis);
 				break;
 			case 'flow':

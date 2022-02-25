@@ -3,7 +3,7 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from 'unstated-next';
-import { useHyperverse, networks } from '@decentology/hyperverse';
+import { useHyperverse, networks, blockchains } from '@decentology/hyperverse';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
@@ -48,10 +48,12 @@ const switchNetwork = async (network: networks, prov: any) => {
 };
 
 function EthereumState() {
-	const { network } = useHyperverse();
+	const { blockchain, network } = useHyperverse();
 	const infuraNetwork = network === networks.Mainnet ? 'mainnet' : 'rinkeby';
 	const [state, setState] = useState<State>({
-		provider: new ethers.providers.JsonRpcProvider(`https://${infuraNetwork}.infura.io/v3/${INFURA_ID}`),
+		provider: new ethers.providers.JsonRpcProvider(
+			`https://${infuraNetwork}.infura.io/v3/${INFURA_ID}`
+		),
 		web3Provider: null,
 		address: null,
 		chainId: null,
@@ -66,7 +68,6 @@ function EthereumState() {
 			// This is the initial `provider` that is returned when
 			// using web3Modal to connect. Can be MetaMask or WalletConnect.
 			const externalProvider = await web3Modal.connect();
-
 			// We plug the initial `provider` into ethers.js and get back
 			// a Web3Provider. This will add on methods from ethers.js and
 			// event listeners such as `.on()` will be different.
@@ -77,13 +78,13 @@ function EthereumState() {
 
 			const userNetwork = await web3Provider.getNetwork();
 
-			// if (userNetwork.chainId !== 4) {
-			// 	await switchNetwork(network, web3Provider.provider);
+			if (blockchain?.name === blockchains.Ethereum && userNetwork.chainId !== 4) {
+				await switchNetwork(network, web3Provider.provider);
 
-			// 	setTimeout(() => {
-			// 		window.location.reload();
-			// 	}, 1000);
-			// }
+				// setTimeout(() => {
+				// 	window.location.reload();
+				// }, 1000);
+			}
 
 			setState((prev) => ({
 				...prev,
@@ -117,11 +118,7 @@ function EthereumState() {
 
 	const disconnect = useCallback(async () => {
 		await web3Modal.clearCachedProvider();
-		const web3InnerProvider = state.web3Provider?.provider as any;
-		if (typeof web3InnerProvider?.disconnect === 'function') {
-			await web3InnerProvider.disconnect();
-		}
-
+		
 		setState((prevState) => ({
 			...prevState,
 			web3Provider: null,
@@ -129,7 +126,7 @@ function EthereumState() {
 			chainId: null,
 			error: null,
 		}));
-		window.location.reload();
+		// window.location.reload();
 	}, [state.web3Provider]);
 
 	useEffect(() => {
@@ -165,10 +162,10 @@ function EthereumState() {
 
 	// Auto connect to the cached provider
 	useEffect(() => {
-		if (web3Modal.cachedProvider) {
+		if (blockchain?.name === blockchains.Ethereum && web3Modal.cachedProvider) {
 			connect();
 		}
-	}, [connect]);
+	}, [blockchain?.name, connect]);
 
 	// A `provider` should come with EIP-1193 events. We'll listen for those events
 	// here so that when a user switches accounts or networks, we can update the
@@ -184,7 +181,7 @@ function EthereumState() {
 
 			// https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
 			const handleChainChanged = (_hexChainId: string) => {
-				window.location.reload();
+				// window.location.reload();
 			};
 
 			const handleDisconnect = (error: { code: number; message: string }) => {

@@ -12,12 +12,11 @@ import styles from '../styles/Home.module.css';
 const Home: NextPage = () => {
 	const { blockchain } = useHyperverse();
 	const { address, connect: EthereumConnect, disconnect: EthereumDisconnect } = useEthereum();
-	const metisAddress = null;
-	// const {
-	// 	address: metisAddress,
-	// 	connect: MetisConnect,
-	// 	disconnect: MetisDisconnect,
-	// } = useMetis();
+	const {
+		address: metisAddress,
+		connect: MetisConnect,
+		disconnect: MetisDisconnect,
+	} = useMetis();
 	const { user, authenticate, unauthenticate } = useFlow();
 	const globalContext = useContext(context);
 	switch (blockchain!.name) {
@@ -25,10 +24,10 @@ const Home: NextPage = () => {
 			var connect = EthereumConnect;
 			var disconnect = EthereumDisconnect;
 			break;
-		// case blockchains.Metis:
-		// 	var connect = MetisConnect;
-		// 	var disconnect = MetisDisconnect;
-		// 	break;
+		case blockchains.Metis:
+			var connect = MetisConnect;
+			var disconnect = MetisDisconnect;
+			break;
 		case blockchains.Flow:
 			var connect = authenticate;
 			var disconnect = unauthenticate;
@@ -45,13 +44,14 @@ const Home: NextPage = () => {
 			</Head>
 
 			<main className={styles.main}>
+				<Image src="/H-LOGO-DARK-BLUE.png" alt="Hyperverse Logo" width={335} height={64} />
 				<h1 className={styles.title}>
-					Hyperverse <span style={{ color: 'teal' }}>Multi Chain</span> Test
+					<span style={{ color: 'teal' }}>Multi Chain</span> Test
 				</h1>
 				<h2>Blockchain</h2>
 				<p>{blockchain?.name}</p>
 				<h2>Address</h2>
-				<p className={styles.description}>{address || metisAddress || user?.addr}</p>
+				<p>{address || metisAddress || user?.addr}</p>
 
 				<div className={styles.grid}>
 					<div onClick={() => connect()} className={styles.card}>
@@ -97,7 +97,12 @@ const Home: NextPage = () => {
 				>
 					Powered by{' '}
 					<span className={styles.logo}>
-						<Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+						<Image
+							src="/H-LOGO-DARK-BLUE.png"
+							alt="Hyperverse Logo"
+							width={84}
+							height={16}
+						/>
 					</span>
 				</a>
 			</footer>
