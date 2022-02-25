@@ -1,5 +1,13 @@
 # @decentology/hyperverse-ethereum-tribes
 
+## 1.0.9
+
+### Patch Changes
+
+-   Fixed version pinning on metis
+-   Updated dependencies
+    -   @decentology/hyperverse-metis@1.0.9
+
 ## 1.0.8
 
 ### Patch Changes
