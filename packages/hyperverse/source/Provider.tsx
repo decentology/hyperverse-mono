@@ -32,20 +32,22 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 				children
 			);
 		}
-
-		return (
-			<HyperverseContainer.Provider initialState={initialState}>
-				<SkyNetProvider
-					initialState={
-						typeof initialState.storage === 'object'
-							? { ...initialState.storage.options }
-							: undefined
-					}
-				>
-					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
-				</SkyNetProvider>
-			</HyperverseContainer.Provider>
-		);
 	}
-	return null;
+	return (
+		<HyperverseContainer.Provider initialState={initialState}>
+			<SkyNetProvider
+				initialState={
+					typeof initialState.storage === 'object'
+						? { ...initialState.storage.options }
+						: undefined
+				}
+			>
+				{initialState.blockchain ? (
+					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
+				) : (
+					children
+				)}
+			</SkyNetProvider>
+		</HyperverseContainer.Provider>
+	);
 };
