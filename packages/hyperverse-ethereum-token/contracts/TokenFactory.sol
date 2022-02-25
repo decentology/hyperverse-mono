@@ -19,6 +19,7 @@ import "./Token.sol";
    }
 
     mapping(address => Tenant) public tenants;
+    mapping(address => bool) public instance;
 
     address public immutable masterContract;
     address public immutable owner;
