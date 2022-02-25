@@ -27,7 +27,6 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 	);
 	useEffect(() => {
 		if (initialState.blockchain?.name && selectedBlockchain !== initialState.blockchain.name) {
-			console.log('Changing blockchain to', initialState.blockchain.name);
 			setSelectedBlockchain(initialState.blockchain.name);
 			// Fire Event to disconect from old blockchain
 		}

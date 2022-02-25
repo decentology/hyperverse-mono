@@ -167,7 +167,6 @@ function EthereumState() {
 				connect();
 			}
 		} else {
-			console.log('Ethereum is blockchain name', blockchain?.name)
 			disconnect();
 		}
 	}, [blockchain?.name, connect]);

@@ -161,7 +161,6 @@ function MetisState() {
 				connect();
 			}
 		} else {
-			console.log('Metis is blockchain name', blockchain?.name, web3Modal.cachedProvider)
 			disconnect();
 		}
 	}, [blockchain?.name, connect]);
