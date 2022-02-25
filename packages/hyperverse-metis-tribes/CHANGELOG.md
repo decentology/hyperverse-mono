@@ -1,5 +1,11 @@
 # @decentology/hyperverse-ethereum-tribes
 
+## 1.0.10
+
+### Patch Changes
+
+-   Version pinning issue with packages
+
 ## 1.0.9
 
 ### Patch Changes
