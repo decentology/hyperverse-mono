@@ -51,8 +51,11 @@ const Home: NextPage = () => {
 				<h2>Blockchain</h2>
 				<p>{blockchain?.name}</p>
 				<h2>Address</h2>
-				<p>{address || metisAddress || user?.addr}</p>
-
+				<ul>
+					<li>Etheruem: {address}</li>
+					<li>Metis: {metisAddress}</li>
+					<li>Flow: {user?.addr}</li>
+				</ul>
 				<div className={styles.grid}>
 					<div onClick={() => connect()} className={styles.card}>
 						<h2>Connect</h2>

@@ -156,8 +156,13 @@ function MetisState() {
 	}, [web3Modal]);
 	// Auto connect to the cached provider
 	useEffect(() => {
-		if (blockchain?.name === blockchains.Metis && web3Modal.cachedProvider) {
-			connect();
+		if (blockchain?.name === blockchains.Metis) {
+			if (web3Modal.cachedProvider) {
+				connect();
+			}
+		} else {
+			console.log('Metis is blockchain name', blockchain?.name, web3Modal.cachedProvider)
+			disconnect();
 		}
 	}, [blockchain?.name, connect]);
 

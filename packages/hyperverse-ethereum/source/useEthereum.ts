@@ -114,11 +114,11 @@ function EthereumState() {
 				}));
 			}
 		}
-	}, []);
+	}, [blockchain?.name]);
 
 	const disconnect = useCallback(async () => {
 		await web3Modal.clearCachedProvider();
-		
+
 		setState((prevState) => ({
 			...prevState,
 			web3Provider: null,
@@ -162,8 +162,13 @@ function EthereumState() {
 
 	// Auto connect to the cached provider
 	useEffect(() => {
-		if (blockchain?.name === blockchains.Ethereum && web3Modal.cachedProvider) {
-			connect();
+		if (blockchain?.name === blockchains.Ethereum) {
+			if (web3Modal.cachedProvider) {
+				connect();
+			}
+		} else {
+			console.log('Ethereum is blockchain name', blockchain?.name)
+			disconnect();
 		}
 	}, [blockchain?.name, connect]);
 
