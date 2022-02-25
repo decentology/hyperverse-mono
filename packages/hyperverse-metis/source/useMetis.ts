@@ -32,9 +32,12 @@ type State = {
 
 
 function MetisState() {
+	const { blockchain, network } = useHyperverse();
+	const networkUrl = network === networks.Mainnet ? 'https://andromeda.metis.io/?owner=1088' : 'https://stardust.metis.io/?owner=588';
+	const explorerUrl = network === networks.Mainnet ? 'https://andromeda-explorer.metis.io/' : 'https://stardust.metis.io/';
 	const [state, setState] = useState<State>({
-		provider: new ethers.providers.JsonRpcProvider(`https://stardust.metis.io/?owner=588`),
-		explorer: 'https://stardust.metis.io/',
+		provider: new ethers.providers.JsonRpcProvider(networkUrl),
+		explorer: explorerUrl,
 		web3Provider: null,
 		address: null,
 		chainId: null,
@@ -43,7 +46,6 @@ function MetisState() {
 	const { provider } = state;
 	const addressRef = useRef(state.address);
 	addressRef.current = state.address;
-	const { blockchain, network } = useHyperverse();
 
 	const switchNetwork = async (network: networks, prov: any) => {
 		if (network === networks.Mainnet) {
