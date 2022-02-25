@@ -1,5 +1,15 @@
 # @decentology/hyperverse-algorand-counter
 
+## 1.0.9
+
+### Patch Changes
+
+-   9df884a: Updated package deps versions for semver
+-   Updated dependencies [9df884a]
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.8
+    -   @decentology/hyperverse-algorand@1.0.8
+
 ## 0.1.8
 
 ### Patch Changes

@@ -4,7 +4,7 @@
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
   "type": "module",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -29,8 +29,8 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.0",
-    "@decentology/hyperverse-algorand": "^1.0.0",
+    "@decentology/hyperverse": "^1.0.8",
+    "@decentology/hyperverse-algorand": "^1.0.8",
     "algosdk": "^1.12.0"
   }
 }
