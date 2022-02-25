@@ -1,4 +1,4 @@
-import { createElement, FC } from 'react';
+import { createElement, FC, useEffect, useState } from 'react';
 import { Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet';
 import Network from './constants/networks';
 import Storage from './constants/storage';
@@ -22,6 +22,16 @@ export function useHyperverse() {
 }
 
 export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialState }) => {
+	const [selectedBlockchain, setSelectedBlockchain] = useState<string | null>(
+		initialState?.blockchain?.name
+	);
+	useEffect(() => {
+		if (initialState.blockchain?.name && selectedBlockchain !== initialState.blockchain.name) {
+			console.log('Changing blockchain to', initialState.blockchain.name);
+			setSelectedBlockchain(initialState.blockchain.name);
+			// Fire Event to disconect from old blockchain
+		}
+	}, [initialState.blockchain]);
 	if (initialState.blockchain) {
 		for (const module of initialState.modules.reverse()) {
 			children = createElement(
@@ -42,7 +52,8 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 						: undefined
 				}
 			>
-				{initialState.blockchain ? (
+				{initialState.blockchain &&
+				initialState.options?.disableProviderAutoInit !== false ? (
 					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
 				) : (
 					children

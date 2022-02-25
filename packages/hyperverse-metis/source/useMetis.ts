@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
@@ -29,19 +29,7 @@ type State = {
 	error: Error | null;
 };
 
-const switchNetwork = async (network: networks, prov: any) => {
-	if (network === networks.Mainnet) {
-		await prov.request({
-			method: 'wallet_switchEthereumChain',
-			params: [{ chainId: '0x440' }],
-		});
-	} else {
-		await prov.request({
-			method: 'wallet_switchEthereumChain',
-			params: [{ chainId: '0x24C' }],
-		});
-	}
-};
+
 
 function MetisState() {
 	const [state, setState] = useState<State>({
@@ -56,6 +44,20 @@ function MetisState() {
 	const addressRef = useRef(state.address);
 	addressRef.current = state.address;
 	const { blockchain, network } = useHyperverse();
+
+	const switchNetwork = async (network: networks, prov: any) => {
+		if (network === networks.Mainnet) {
+			await prov.request({
+				method: 'wallet_switchEthereumChain',
+				params: [{ chainId: '0x440' }],
+			});
+		} else {
+			await prov.request({
+				method: 'wallet_switchEthereumChain',
+				params: [{ chainId: '0x24C' }],
+			});
+		}
+	};
 
 	const connect = useCallback(async function () {
 		try {
@@ -72,7 +74,6 @@ function MetisState() {
 			const address = await signer.getAddress();
 
 			const userNetwork = await web3Provider.getNetwork();
-
 			if (blockchain?.name === blockchains.Metis && userNetwork.chainId !== 588) {
 				await switchNetwork(network, web3Provider.provider);
 
@@ -109,7 +110,7 @@ function MetisState() {
 				}));
 			}
 		}
-	}, []);
+	}, [blockchain?.name]);
 
 	const disconnect = useCallback(async () => {
 		await web3Modal.clearCachedProvider();
@@ -153,7 +154,6 @@ function MetisState() {
 			}
 		}
 	}, [web3Modal]);
-
 	// Auto connect to the cached provider
 	useEffect(() => {
 		if (blockchain?.name === blockchains.Metis && web3Modal.cachedProvider) {

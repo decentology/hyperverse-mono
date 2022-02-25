@@ -12,6 +12,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: blockchain,
 		network: networks.Testnet,
+		options: {
+			disableProviderAutoInit: false,
+		},
 		modules: [],
 	});
 
