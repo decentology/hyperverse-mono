@@ -28,7 +28,6 @@ const CreateInstance = () => {
     }
   }
 
-
   return (
     <Box>
       <h4>New Instance</h4>
@@ -36,22 +35,21 @@ const CreateInstance = () => {
       <Accordion.Root type="single" collapsible>
       <Item value='item-1'>
         <TriggerContainer>
-          <Trigger>
-              New Instance
+        <Trigger disabled={!address}>
+            {!address ? 'Connect Wallet' : 'Transfer Tokens'}
           </Trigger>
         </TriggerContainer>
         <Parameters>
         <Content>
-          <Input disabled={!address} placeholder='Token Name' onChange={(e) => setTokenName(e.target.value)} />
-          <Input disabled={!address} placeholder='Token Symbol' onChange={(e) => setTokenSymbol(e.target.value)} />
-          <Input disabled={!address} type="number" min="0" placeholder='Token Decimal' onChange={(e) => setTokenDecimals(e.currentTarget.valueAsNumber)} />
-          <Button disabled={!address} onClick={createNewInstance}>{!address ? 'Connet Wallet' : 'Create Instance'}</Button>
+          <Input placeholder='Token Name' onChange={(e) => setTokenName(e.target.value)} />
+          <Input placeholder='Token Symbol' onChange={(e) => setTokenSymbol(e.target.value)} />
+          <Input type="number" min="0" placeholder='Token Decimal' onChange={(e) => setTokenDecimals(e.currentTarget.valueAsNumber)} />
+          <Button onClick={createNewInstance}>{!address ? 'Connet Wallet' : 'Create Instance'}</Button>
         </Content>
         </Parameters>
       </Item>
     </Accordion.Root>
     </Box>
-    
   )
 }
 
