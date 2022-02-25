@@ -23,7 +23,7 @@ export function useHyperverse() {
 
 export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialState }) => {
 	const [selectedBlockchain, setSelectedBlockchain] = useState<string | null>(
-		initialState?.blockchain?.name
+		initialState?.blockchain?.name || null
 	);
 	useEffect(() => {
 		if (initialState.blockchain?.name && selectedBlockchain !== initialState.blockchain.name) {
