@@ -1,6 +1,6 @@
-import { styled } from '../../stitches.config';
+import { styled } from '../stitches.config';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '../../source/useToken';
+import { UseQueryResult } from 'react-query';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -15,22 +15,31 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 	return shortendHash;
 };
 
-const GetProxy = () => {
+type Props = {
+  hook: UseQueryResult<any, unknown>,
+  header: string, 
+  description: string,
+  buttonText: string, 
+  isAddress?: boolean
+}
+const ReadComponent = ({hook, header, description, buttonText, isAddress} : Props) => {
   const { address } = useEthereum();
-  const { Proxy } = useToken();
-  const { data, refetch }  = Proxy();
+  const { data }  = hook;
+
+  const dataFetched = isAddress ? shortenHash(data, 5,5) : data;
   
   return (
     <Box>
-      <h4>Get Proxy</h4>
-      <p>Get your Token Instance address</p>
-      <Button disabled={!address}>{!address ? 'Connet Wallet' : !data ? 'Get Proxy' : shortenHash(data, 5,5) }</Button>
+      <h4>{header}</h4>
+      <p>{description}</p>
+      <Button disabled={!address}>{!address ? 'Connect Wallet' : !data ? buttonText : dataFetched }</Button>
     </Box>
     
   )
 }
 
-export default GetProxy ;
+export default ReadComponent ;
+
 const Box = styled('div', {
   maxHeight: '150px',
   maxWidth: '220px',

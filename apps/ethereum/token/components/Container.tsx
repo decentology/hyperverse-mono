@@ -1,22 +1,53 @@
 import { styled } from '../stitches.config';
-import CreateInstance from './functions/CreateInstance';
-import GetProxy from './functions/GetProxy';
-import TotalSupply from './functions/TotalSupply';
-import Transfer from './functions/Transfer';
+import CreateInstance from './WriteFunctions/CreateInstance';
+import Transfer from './WriteFunctions/Transfer';
+import ReadComponent from './ReadComponent';
+import { useToken } from '../source/useToken';
 
 const Container = () => {
+	const { Proxy, Balance, TotalSupply } = useToken();
+
+	const TokenReadFunctions = [
+		{
+			hook: TotalSupply(),
+			header: 'Get Total Supply',
+			description: 'Get the total supply of tokens',
+			buttonText: 'Get Total Supply',
+		},
+		{
+			hook: Balance(),
+			header: 'Get Balance',
+			description: 'Get the balance of the account',
+			buttonText: 'Get Balance',
+		},
+	];
+
 	return (
 		<Box>
 			<h3>Token Tenant Functions</h3>
 			<Section>
 				<CreateInstance />
-        <GetProxy/>
+				<ReadComponent
+					hook={Proxy()}
+					header="Get Proxy"
+					description="Get your proxy contract address"
+					buttonText={'Get Instance'}
+					isAddress={true}
+				/>
 			</Section>
 
-      <h3>Token Functions</h3>
+			<h3>Token Functions</h3>
 			<Section>
-				<TotalSupply />
-        <Transfer/>
+				{TokenReadFunctions.map((item) => (
+					<ReadComponent
+						key={item.header}
+						hook={item.hook}
+						header={item.header}
+						description={item.description}
+						buttonText={item.buttonText}
+					/>
+				))}
+				<Transfer />
 			</Section>
 		</Box>
 	);
@@ -26,7 +57,7 @@ export default Container;
 
 const Box = styled('div', {
 	display: 'flex',
-  overflowY: 'scroll',
+	overflowY: 'scroll',
 	flexDirection: 'column',
 	marginTop: '1rem',
 	borderRadius: '10px',
@@ -34,15 +65,14 @@ const Box = styled('div', {
 	height: '70vh',
 	padding: '0 2rem 2rem',
 	color: '$blue500',
-  '& h3': {
-    marginTop: '2rem',
-  }
+	'& h3': {
+		marginTop: '2rem',
+	},
 });
 
 const Section = styled('div', {
-  marginTop: '1rem',
-  display: 'grid',
-  gridTemplateColumns: '270px 270px 257px',
-  gridGap: '10px',
-  
+	marginTop: '1rem',
+	display: 'grid',
+	gridTemplateColumns: '270px 270px 257px',
+	gridGap: '10px',
 });

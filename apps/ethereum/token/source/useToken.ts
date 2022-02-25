@@ -106,33 +106,37 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const getBalance = useCallback(async (account: string) => {
 		try {
 			const proxyAddress = await contract.getProxy(account)
-			const proxyContract = new ethers.Contract(proxyAddress, Token.abi, provider)
+			const proxyContract = new ethers.Contract(proxyAddress, Token.abi, web3Provider)
+			const signer = await web3Provider?.getSigner();
+			const ctr = proxyContract.connect(signer) as ContractState;
+
 			
-			const balance = await proxyContract.balance();
+			const balance = await ctr.balance();
 			console.log(balance.toNumber());
 			return balance.toNumber();
 		} catch (err) {
 			errors(err);
 			throw err;
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [contract]);
+
+	}, [contract, errors, provider]);
 
 
 	const transfer = useCallback(async (account:string, to: string, value:number) => {
 		try {
 			const proxyAddress = await contract.getProxy(account)
-			const proxyContract = new ethers.Contract(proxyAddress, Token.abi, provider)
+			const proxyContract = new ethers.Contract(proxyAddress, Token.abi, web3Provider)
 			
-			const transfer = await proxyContract.transfer(to, value);
+			const signer = await web3Provider?.getSigner();
+			const ctr = proxyContract.connect(signer) as ContractState;
+			const transfer = await ctr.transfer(to, value);
 			return transfer.wait();
 
 		} catch (err) {
 			errors(err);
 			throw err;
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [contract]);
+	}, [contract, errors, web3Provider]);
 
 
 	return {
@@ -147,7 +151,9 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 		 TotalSupply:() => 	useQuery(['getTotalSupply', address, contract?.address], () => getTotalSupply(address), {
 			enabled: !!address && !!contract?.address,
 		 }),
-
+		 Balance:() => 	useQuery(['getBalance', address, contract?.address], () => getBalance(address), {
+			enabled: !!address && !!contract?.address,
+		 }),
 		 Transfer: (
 			options?: Omit<UseMutationOptions<unknown, unknown, {account: string, to:string, value:number}, unknown>, 'mutationFn'>
 		) => useMutation(({account, to, value}) => transfer(account, to, value), options),
