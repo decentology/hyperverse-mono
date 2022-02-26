@@ -1,6 +1,6 @@
 import { initialize, Provider, networks } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import { QueryClientProvider, QueryClient } from 'react-query';
+import { QueryClient } from 'react-query';
 import * as ERC721 from '@decentology/hyperverse-ethereum-erc721';
 import { globalCss } from '../stitches.config';
 
@@ -42,11 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 	globalStyles()
 	return (
 		<Provider initialState={hyperverse}>
-			<QueryClientProvider client={client}>
-				<ERC721.Provider>
-					<Component {...pageProps} />
-				</ERC721.Provider>
-			</QueryClientProvider>
+			<Component {...pageProps} />
 		</Provider>
 	);
 }

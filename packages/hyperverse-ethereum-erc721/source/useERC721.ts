@@ -1,27 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient, UseMutationOptions } from 'react-query';
 import { ethers } from 'ethers';
-import ERC721FactoryABI from '../artifacts/contracts/ExampleNFTFactory.sol/ExampleNFTFactory.json';
-import ERC721ABI from '../artifacts/contracts/ExampleNFT.sol/ExampleNFT.json';
+import { ABI, FactoryABI, ExampleNFTFactory, TENANT_ADDRESS } from './constants';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useStorage } from '@decentology/hyperverse-storage-skynet';
 import { createContainer, useContainer } from 'unstated-next';
 
 type ContractState = ethers.Contract;
-
-/*
-ExampleNFT deployed to: 0x0af78495a25D77D25F51D4F797F473521f29e07B
-ExampleNFTFactory deployed to: 0xe5d761311212ABF55c9C6eb6d80eAF804F213d72
-*/
-
-const EXAMPLENFT_FACTORY_ADDRESS = '0xe5d761311212ABF55c9C6eb6d80eAF804F213d72';
-const TENANT_ADDRESS = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D';
 
 function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const { address, web3Provider, provider, connect } = useEthereum();
 	const [contract, setContract] = useState<ContractState>(
-		new ethers.Contract(EXAMPLENFT_FACTORY_ADDRESS, ERC721FactoryABI.abi, provider) as ContractState
+		new ethers.Contract(ExampleNFTFactory, FactoryABI, provider) as ContractState
 	);
 
 	const setup = useCallback(async () => {
@@ -84,7 +74,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const getBalance = useCallback(async (address) => {
 		try {
 			const proxyAddress = await contract.getProxy(TENANT_ADDRESS)
-			const proxyContract = new ethers.Contract(proxyAddress, ERC721ABI.abi, provider)
+			const proxyContract = new ethers.Contract(proxyAddress, ABI, provider)
 
 			const balance = await proxyContract.balanceOf(address);
 			return balance.toNumber();
