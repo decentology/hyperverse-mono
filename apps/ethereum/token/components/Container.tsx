@@ -3,7 +3,7 @@ import CreateInstance from './WriteFunctions/CreateInstance';
 import Transfer from './WriteFunctions/Transfer';
 import ReadComponent from './ReadComponent';
 import BalanceOf from './BalanceOf';
-import { useToken } from '../source/useToken';
+import { useToken } from '@decentology/hyperverse-ethereum-token';
 
 const Container = () => {
 	const { Proxy, Balance, TotalSupply } = useToken();
