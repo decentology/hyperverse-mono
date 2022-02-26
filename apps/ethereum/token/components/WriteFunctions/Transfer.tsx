@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { styled } from '../../stitches.config';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useToken } from '../../source/useToken';
@@ -24,7 +23,6 @@ const Transfer = () => {
 	const createNewInstance = async () => {
 		try {
 			const instanceData = {
-				account: address,
 				to: receiver,
 				value: amount,
 			};

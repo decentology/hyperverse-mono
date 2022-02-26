@@ -2,6 +2,7 @@ import { styled } from '../stitches.config';
 import CreateInstance from './WriteFunctions/CreateInstance';
 import Transfer from './WriteFunctions/Transfer';
 import ReadComponent from './ReadComponent';
+import BalanceOf from './BalanceOf';
 import { useToken } from '../source/useToken';
 
 const Container = () => {
@@ -17,7 +18,7 @@ const Container = () => {
 		{
 			hook: Balance(),
 			header: 'Get Balance',
-			description: 'Get the balance of the account',
+			description: 'Get the balance of your account',
 			buttonText: 'Get Balance',
 		},
 	];
@@ -47,7 +48,9 @@ const Container = () => {
 						buttonText={item.buttonText}
 					/>
 				))}
+				<BalanceOf />
 				<Transfer />
+
 			</Section>
 		</Box>
 	);
@@ -73,6 +76,6 @@ const Box = styled('div', {
 const Section = styled('div', {
 	marginTop: '1rem',
 	display: 'grid',
-	gridTemplateColumns: '270px 270px 257px',
+	gridTemplateColumns: '270px 270px 270px 257px',
 	gridGap: '10px',
 });
