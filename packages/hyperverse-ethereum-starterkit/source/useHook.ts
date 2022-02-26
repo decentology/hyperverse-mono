@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient, UseMutationOptions } from 'react
 import { ethers } from 'ethers';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { ContractABI, CONTRACT_ADDRESS } from './constants';
-import { createContainer, useContainer } from 'unstated-next';
+import { createContainer, useContainer } from '@decentology/unstated-next';
 
 type ContractState = ethers.Contract;
 

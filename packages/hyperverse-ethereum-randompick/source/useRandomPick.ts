@@ -3,7 +3,7 @@ import { useMutation, UseMutationOptions, useQuery } from "react-query";
 import { BigNumber, ethers } from "ethers";
 import { useEthereum } from "@decentology/hyperverse-ethereum";
 import { ContractABI, CONTRACT_ADDRESS } from "./Provider";
-import { createContainer, useContainer } from "unstated-next";
+import { createContainer, useContainer } from "@decentology/unstated-next";
 
 type ContractState = ethers.Contract;
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

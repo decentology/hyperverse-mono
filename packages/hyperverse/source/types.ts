@@ -1,5 +1,5 @@
 import { FC, Context } from 'react';
-import { ContainerProviderProps } from 'unstated-next';
+import { ContainerProviderProps } from '@decentology/unstated-next';
 import Blockchain from './constants/blockchains';
 import Network from './constants/networks';
 import Storage from './constants/storage';

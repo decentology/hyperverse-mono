@@ -1,4 +1,4 @@
-export * from 'web3modal';
+export * from '@decentology/web3modal';
 import { Provider, useEthereum } from './useEthereum';
 import { blockchains, makeHyperverseBlockchain } from '@decentology/hyperverse';
 

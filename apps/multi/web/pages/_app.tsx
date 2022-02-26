@@ -39,7 +39,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 				setStorageChain('ethereum');
 				break;
 			case 'metis':
-				console.log('Setting  metis');
 				setBlockchain(Metis);
 				setStorageChain('metis');
 				break;

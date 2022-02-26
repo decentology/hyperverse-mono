@@ -3,7 +3,7 @@ import { Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skyn
 import Network from './constants/networks';
 import Storage from './constants/storage';
 import { Hyperverse } from './types';
-import { createContainer } from 'unstated-next';
+import { createContainer } from '@decentology/unstated-next';
 
 function HyperverseState(
 	initialState: Hyperverse = {
