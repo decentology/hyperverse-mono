@@ -11,8 +11,8 @@ const environment = {
 };
 
 function useEnvironment() {
-	const hyperverse = useHyperverse();
-	return hyperverse.network === networks.Mainnet
+	const {network} = useHyperverse();
+	return network === networks.Mainnet
 		? environment[networks.Mainnet]
 		: environment[networks.Testnet];
 }

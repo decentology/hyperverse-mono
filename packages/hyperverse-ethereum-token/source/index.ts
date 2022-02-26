@@ -1,2 +1,2 @@
-export { default as useModuleName } from './useHook';
-export { Context, Provider } from './Provider';
+export { useToken } from './useToken';
+export { Provider } from './Provider';
