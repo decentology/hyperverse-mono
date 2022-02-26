@@ -1,6 +1,6 @@
 {
   "name": "@decentology/hyperverse-metis",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
@@ -19,7 +19,7 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "*",
+    "@decentology/hyperverse": "^1.0.0",
     "@walletconnect/web3-provider": "^1.7.1",
     "ethers": "^5.5.3",
     "unstated-next": "^1.1.0",

@@ -1,5 +1,15 @@
 # @decentology/hyperverse
 
+## 1.0.8
+
+### Patch Changes
+
+-   9df884a: Updated package deps versions for semver
+-   Milestone update. Added support for multi chain swapping
+-   Updated dependencies [9df884a]
+-   Updated dependencies
+    -   @decentology/hyperverse-storage-skynet@1.0.7
+
 ## 1.0.7
 
 ### Patch Changes

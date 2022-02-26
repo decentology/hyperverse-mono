@@ -2,6 +2,7 @@ enum Blockchain {
 	Algorand = 'algorand',
 	Flow = 'flow',
 	Ethereum = 'ethereum',
+	Metis = 'metis',
 	Avalanche = 'avalanche',
 }
 

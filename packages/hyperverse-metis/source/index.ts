@@ -3,7 +3,7 @@ import { Provider, useMetis } from './useMetis';
 import { blockchains, makeHyperverseBlockchain } from '@decentology/hyperverse';
 
 export const Metis = makeHyperverseBlockchain({
-	name: blockchains.Ethereum,
+	name: blockchains.Metis,
 	Provider: Provider,
 });
 

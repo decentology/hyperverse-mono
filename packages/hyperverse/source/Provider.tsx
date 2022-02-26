@@ -1,4 +1,4 @@
-import { createElement, FC } from 'react';
+import { createElement, FC, useEffect, useState } from 'react';
 import { Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet';
 import Network from './constants/networks';
 import Storage from './constants/storage';
@@ -22,6 +22,15 @@ export function useHyperverse() {
 }
 
 export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialState }) => {
+	const [selectedBlockchain, setSelectedBlockchain] = useState<string | null>(
+		initialState?.blockchain?.name || null
+	);
+	useEffect(() => {
+		if (initialState.blockchain?.name && selectedBlockchain !== initialState.blockchain.name) {
+			setSelectedBlockchain(initialState.blockchain.name);
+			// Fire Event to disconect from old blockchain
+		}
+	}, [initialState.blockchain]);
 	if (initialState.blockchain) {
 		for (const module of initialState.modules.reverse()) {
 			children = createElement(
@@ -32,20 +41,23 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 				children
 			);
 		}
-
-		return (
-			<HyperverseContainer.Provider>
-				<SkyNetProvider
-					initialState={
-						typeof initialState.storage === 'object'
-							? { ...initialState.storage.options }
-							: undefined
-					}
-				>
-					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
-				</SkyNetProvider>
-			</HyperverseContainer.Provider>
-		);
 	}
-	return null;
+	return (
+		<HyperverseContainer.Provider initialState={initialState}>
+			<SkyNetProvider
+				initialState={
+					typeof initialState.storage === 'object'
+						? { ...initialState.storage.options }
+						: undefined
+				}
+			>
+				{initialState.blockchain &&
+				initialState.options?.disableProviderAutoInit !== false ? (
+					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
+				) : (
+					children
+				)}
+			</SkyNetProvider>
+		</HyperverseContainer.Provider>
+	);
 };

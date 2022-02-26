@@ -1,5 +1,23 @@
 # @decentology/samples-web-tribes
 
+## 1.0.7
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse-metis@1.0.9
+    -   @decentology/hyperverse-metis-tribes@1.0.9
+
+## 1.0.6
+
+### Patch Changes
+
+-   Updated dependencies [9df884a]
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.8
+    -   @decentology/hyperverse-metis@1.0.8
+    -   @decentology/hyperverse-metis-tribes@1.0.8
+
 ## 1.0.5
 
 ### Patch Changes

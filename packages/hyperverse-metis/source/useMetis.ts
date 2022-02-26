@@ -3,7 +3,7 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from 'unstated-next';
-import { useHyperverse, networks } from '@decentology/hyperverse';
+import { useHyperverse, networks, blockchains } from '@decentology/hyperverse';
 
 const providerOptions = {
 	walletconnect: {
@@ -29,24 +29,15 @@ type State = {
 	error: Error | null;
 };
 
-const switchNetwork = async (network: networks, prov: any) => {
-	if (network === networks.Mainnet) {
-		await prov.request({
-			method: 'wallet_switchEthereumChain',
-			params: [{ chainId: '0x440' }],
-		});
-	} else {
-		await prov.request({
-			method: 'wallet_switchEthereumChain',
-			params: [{ chainId: '0x24C' }],
-		});
-	}
-};
+
 
 function MetisState() {
+	const { blockchain, network } = useHyperverse();
+	const networkUrl = network === networks.Mainnet ? 'https://andromeda.metis.io/?owner=1088' : 'https://stardust.metis.io/?owner=588';
+	const explorerUrl = network === networks.Mainnet ? 'https://andromeda-explorer.metis.io/' : 'https://stardust.metis.io/';
 	const [state, setState] = useState<State>({
-		provider: new ethers.providers.JsonRpcProvider(`https://stardust.metis.io/?owner=588`),
-		explorer: 'https://stardust.metis.io/',
+		provider: new ethers.providers.JsonRpcProvider(networkUrl),
+		explorer: explorerUrl,
 		web3Provider: null,
 		address: null,
 		chainId: null,
@@ -55,7 +46,20 @@ function MetisState() {
 	const { provider } = state;
 	const addressRef = useRef(state.address);
 	addressRef.current = state.address;
-	const { network } = useHyperverse();
+
+	const switchNetwork = async (network: networks, prov: any) => {
+		if (network === networks.Mainnet) {
+			await prov.request({
+				method: 'wallet_switchEthereumChain',
+				params: [{ chainId: '0x440' }],
+			});
+		} else {
+			await prov.request({
+				method: 'wallet_switchEthereumChain',
+				params: [{ chainId: '0x24C' }],
+			});
+		}
+	};
 
 	const connect = useCallback(async function () {
 		try {
@@ -72,13 +76,12 @@ function MetisState() {
 			const address = await signer.getAddress();
 
 			const userNetwork = await web3Provider.getNetwork();
-
-			if (userNetwork.chainId !== 588) {
+			if (blockchain?.name === blockchains.Metis && userNetwork.chainId !== 588) {
 				await switchNetwork(network, web3Provider.provider);
 
-				setTimeout(() => {
-					window.location.reload();
-				}, 1000);
+				// setTimeout(() => {
+				// 	window.location.reload();
+				// }, 1000);
 			}
 
 			setState((prev) => ({
@@ -109,14 +112,10 @@ function MetisState() {
 				}));
 			}
 		}
-	}, []);
+	}, [blockchain?.name]);
 
 	const disconnect = useCallback(async () => {
 		await web3Modal.clearCachedProvider();
-		const web3InnerProvider = state.web3Provider?.provider as any;
-		if (typeof web3InnerProvider?.disconnect === 'function') {
-			await web3InnerProvider.disconnect();
-		}
 
 		setState((prevState) => ({
 			...prevState,
@@ -125,7 +124,6 @@ function MetisState() {
 			chainId: null,
 			error: null,
 		}));
-		window.location.reload();
 	}, [state.web3Provider]);
 
 	useEffect(() => {
@@ -158,13 +156,16 @@ function MetisState() {
 			}
 		}
 	}, [web3Modal]);
-
 	// Auto connect to the cached provider
 	useEffect(() => {
-		if (web3Modal.cachedProvider) {
-			connect();
+		if (blockchain?.name === blockchains.Metis) {
+			if (web3Modal.cachedProvider) {
+				connect();
+			}
+		} else {
+			disconnect();
 		}
-	}, [connect]);
+	}, [blockchain?.name, connect]);
 
 	// A `provider` should come with EIP-1193 events. We'll listen for those events
 	// here so that when a user switches accounts or networks, we can update the
@@ -180,11 +181,10 @@ function MetisState() {
 
 			// https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
 			const handleChainChanged = (_hexChainId: string) => {
-				window.location.reload();
+				// window.location.reload();
 			};
 
 			const handleDisconnect = (error: { code: number; message: string }) => {
-				web3Modal.clearCachedProvider();
 				disconnect();
 			};
 

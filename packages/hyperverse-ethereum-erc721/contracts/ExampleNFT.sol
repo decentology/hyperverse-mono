@@ -38,6 +38,7 @@ contract ExampleNFT is MERC721 {
 
 	function createNFT(address to) public returns (uint256) {
 		require(msg.sender == tenantOwner, 'Only the Tenant owner can mint an NFT');
+
 		uint256 newNFTTokenId = tokenCounter;
 		//safely mint token for the person that called the function
 		_safeMint(to, newNFTTokenId);
