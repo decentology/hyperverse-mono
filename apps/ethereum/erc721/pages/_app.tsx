@@ -1,10 +1,7 @@
 import { initialize, Provider, networks } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import { QueryClient } from 'react-query';
 import * as ERC721 from '@decentology/hyperverse-ethereum-erc721';
 import { globalCss } from '../stitches.config';
-
-const client = new QueryClient();
 
 import type { AppProps } from 'next/app';
 
@@ -33,7 +30,7 @@ const hyperverse = initialize({
 	modules: [
 		{
 			bundle: ERC721,
-			tenantId: '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D',
+			tenantId: '0x45e4c90801b1a17c178bB9855aA181A886DAA603',
 		}
 	],
 });

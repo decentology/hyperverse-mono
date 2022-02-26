@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { styled } from '../stitches.config';
 import Nav from '../components/Nav';
-// import Container from '../components/Container';
+import Container from '../components/Container';
 
 export default function Home() {
 	return (
@@ -12,8 +12,8 @@ export default function Home() {
 			</Head>
 			<Main>
 				<Nav />
-				<h1>Hyperverse ERC721 Package</h1>
-				{/* <Container /> */}
+				<h1>Hyperverse Token Package</h1>
+				<Container />
 			</Main>
 		</>
 	);

@@ -1,6 +1,7 @@
 import { styled } from '../stitches.config';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { UseQueryResult } from 'react-query';
+import { useState } from 'react'
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -24,6 +25,7 @@ type Props = {
 };
 const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Props) => {
 	const { address } = useEthereum();
+	const [hidden, setHidden] = useState(false);
 	const { data } = hook;
 
 	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
@@ -32,8 +34,8 @@ const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Pro
 		<Box>
 			<h4>{header}</h4>
 			<p>{description}</p>
-			<Button disabled={!address}>
-				{!address ? 'Connect Wallet' : !data ? buttonText : dataFetched}
+			<Button disabled={!address} onClick={() => setHidden(p => !p)}>
+				{!address ? 'Connect Wallet' : !hidden ? buttonText : dataFetched}
 			</Button>
 		</Box>
 	);
