@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { toast } from 'react-toastify';
 import {
 	Box,
 	Item,
@@ -16,9 +17,11 @@ import {
 const Transfer = () => {
 	const { address } = useEthereum();
 	const { Transfer } = useToken();
-	const { mutate } = Transfer();
+	const { mutate, error } = Transfer();
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);
+
+	const [err, setErr] = useState('');
 
 	const createNewInstance = async () => {
 		try {
@@ -29,9 +32,22 @@ const Transfer = () => {
 
 			mutate(instanceData);
 		} catch (error) {
+			console.log('e', error);
 			throw error;
+
 		}
 	};
+
+	useEffect(() => {
+		if (error) {
+			console.log(error);
+			if (error instanceof Error) {
+				toast.error(error.message, {
+					position: toast.POSITION.BOTTOM_CENTER,
+				});
+			}
+		}
+	}, [err]);
 
 	return (
 		<Box>

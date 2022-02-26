@@ -1,7 +1,7 @@
 import { TokenABI, TokenFactoryABI, TOKEN_FACTORY_ADDRESS } from './constants';
 import { ethers } from 'ethers';
 import { createContainer, useContainer } from 'unstated-next';
-import { useQuery, useMutation, useQueryClient, UseMutationOptions } from 'react-query';
+import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { TENANT_ADDRESS } from './constants';
@@ -10,7 +10,6 @@ type ContractState = ethers.Contract;
 
 function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDRESS }) {
 	const { tenantId } = initialState;
-	const queryClient = useQueryClient();
 	const { address, web3Provider, provider } = useEthereum();
 
 	const [contract, setContract] = useState<ContractState>(
@@ -127,6 +126,9 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 			const transfer = await proxyContract?.transfer(to, value);
 			return transfer.wait();
 		} catch (err) {
+			if(err.includes('Not enough balance')) {
+				throw new Error('Not enough balance');
+			}
 			errors(err);
 			throw err;
 		}

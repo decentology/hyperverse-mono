@@ -1,6 +1,7 @@
 import { styled } from '../stitches.config';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -25,9 +26,20 @@ type Props = {
 const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Props) => {
 	const { address } = useEthereum();
 	const [hidden, setHidden] = useState(false);
-	const { data } = hook;
+	const { data, error } = hook;
 
 	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
+
+
+	useEffect(() => {
+		if (error) {
+			if (error instanceof Error) {
+				toast.error(error.message, {
+					position: toast.POSITION.BOTTOM_CENTER,
+				});
+			}
+		}
+	}, [error]);
 
 	return (
 		<Box>
