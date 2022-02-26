@@ -142,6 +142,69 @@ function $654d6d0c1768f0e1$var$TokenState(initialState = {
             throw err;
         }
     };
+    const transferFrom = async (from, to, value)=>{
+        try {
+            const transfer = await proxyContract?.transferFrom(from, to, value);
+            return transfer.wait();
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
+    const allowance1 = async (owner, spender)=>{
+        try {
+            const allowance = await proxyContract?.allowance(owner, spender);
+            return allowance.toNumber();
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
+    const approve1 = async (spender, amount)=>{
+        try {
+            const approve = await proxyContract?.approve(spender, amount);
+            return approve.wait();
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
+    const mint1 = async (amount)=>{
+        try {
+            const mint = await proxyContract?.mint(amount);
+            return mint.wait();
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
+    const burn1 = async (amount)=>{
+        try {
+            const burn = await proxyContract?.burn(amount);
+            return burn.wait();
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
+    const getTokenName = async ()=>{
+        try {
+            const name = await proxyContract?.name();
+            return name;
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
+    const getTokenSymbol = async ()=>{
+        try {
+            const name = await proxyContract?.symbol();
+            return name;
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
     return {
         tenantId: tenantId,
         contract: contract,
@@ -185,6 +248,46 @@ function $654d6d0c1768f0e1$var$TokenState(initialState = {
             })
         ,
         Transfer: (options)=>$iEhLH$reactquery.useMutation(({ to: to , value: value  })=>transfer1(to, value)
+            , options)
+        ,
+        TransferFrom: (options)=>$iEhLH$reactquery.useMutation(({ from: from , to: to , value: value  })=>transferFrom(from, to, value)
+            , options)
+        ,
+        Allowance: (owner, spender)=>$iEhLH$reactquery.useQuery([
+                'allowance',
+                address,
+                {
+                    owner: owner,
+                    spender: spender
+                }
+            ], ()=>allowance1(owner, spender)
+            , {
+                enabled: !!proxyContract?.signer && !!address
+            })
+        ,
+        Mint: (options)=>$iEhLH$reactquery.useMutation(({ amount: amount  })=>mint1(amount)
+            , options)
+        ,
+        Burn: (options)=>$iEhLH$reactquery.useMutation(({ amount: amount  })=>burn1(amount)
+            , options)
+        ,
+        TokenName: ()=>$iEhLH$reactquery.useQuery([
+                'getTokenName',
+                address
+            ], ()=>getTokenName()
+            , {
+                enabled: !!proxyContract?.signer && !!address
+            })
+        ,
+        TokenSymbol: ()=>$iEhLH$reactquery.useQuery([
+                'getTokenSymbol',
+                address
+            ], ()=>getTokenSymbol()
+            , {
+                enabled: !!proxyContract?.signer && !!address
+            })
+        ,
+        Approve: (options)=>$iEhLH$reactquery.useMutation(({ spender: spender , amount: amount  })=>approve1(spender, amount)
             , options)
     };
 }

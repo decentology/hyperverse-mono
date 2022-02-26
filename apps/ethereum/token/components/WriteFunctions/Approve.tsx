@@ -13,18 +13,18 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const Transfer = () => {
+const Approve = () => {
 	const { address } = useEthereum();
-	const { Transfer } = useToken();
-	const { mutate } = Transfer();
-	const [receiver, setReceiver] = useState('');
+	const { Approve } = useToken();
+	const { mutate } = Approve();
+	const [spender, setSpender] = useState('');
 	const [amount, setAmount] = useState(0);
 
-	const createNewInstance = async () => {
+	const approve = async () => {
 		try {
 			const instanceData = {
-				to: receiver,
-				value: amount,
+        spender: spender,
+        amount: amount,
 			};
 
 			mutate(instanceData);
@@ -35,20 +35,20 @@ const Transfer = () => {
 
 	return (
 		<Box>
-			<h4>Transfer Tokens</h4>
-			<p>Transfer your tokens to the provided address</p>
+			<h4>Approve</h4>
+			<p> Approve address to spend the given amount of token on your behalf</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer Tokens'}
+							{!address ? 'Connect Wallet' : 'Approve'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
-								placeholder="Receiver"
-								onChange={(e) => setReceiver(e.target.value)}
+								placeholder="Spender"
+								onChange={(e) => setSpender(e.target.value)}
 							/>
 							<Input
 								type="number"
@@ -56,8 +56,8 @@ const Transfer = () => {
 								placeholder="Amount to transfer"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Transfer'}
+							<Button onClick={approve}>
+								{!address ? 'Connet Wallet' : 'Approve'}
 							</Button>
 						</Content>
 					</Parameters>
@@ -67,4 +67,4 @@ const Transfer = () => {
 	);
 };
 
-export default Transfer;
+export default Approve;

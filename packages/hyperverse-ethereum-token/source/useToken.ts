@@ -1,15 +1,10 @@
 import { TokenABI, TokenFactoryABI, TOKEN_FACTORY_ADDRESS } from './constants';
 import { ethers } from 'ethers';
-import { createContainer,  useContainer } from 'unstated-next';
-import {
-	 useQuery,
-	 useMutation,
-	 useQueryClient,
-	 UseMutationOptions
-} from 'react-query';
-import {  useMemo, useState,  useEffect,  useCallback } from 'react';
-import {  useEthereum } from '@decentology/hyperverse-ethereum';
-import { TENANT_ADDRESS }from './constants'
+import { createContainer, useContainer } from 'unstated-next';
+import { useQuery, useMutation, useQueryClient, UseMutationOptions } from 'react-query';
+import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { TENANT_ADDRESS } from './constants';
 
 type ContractState = ethers.Contract;
 
@@ -32,10 +27,9 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 			const proxyAddress = await contract.getProxy(tenantId);
 			const proxyCtr = new ethers.Contract(proxyAddress, TokenABI, provider);
 			const accountSigner = await signer;
-			if(accountSigner) {
+			if (accountSigner) {
 				setProxyContract(proxyCtr.connect(accountSigner));
-			}else{
-
+			} else {
 				setProxyContract(proxyCtr);
 			}
 		};
@@ -73,25 +67,30 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 		}
 	}, [setup, web3Provider]);
 
-	const createInstance = async (account: string, name: string, symbol: string, decimal: number) => {
-			try {
-				const createTxn = await contract.createInstance(account, name, symbol, decimal);
-				return createTxn.wait();
-			} catch (err) {
-				errors(err);
-				throw err;
-			}
+	const createInstance = async (
+		account: string,
+		name: string,
+		symbol: string,
+		decimal: number
+	) => {
+		try {
+			const createTxn = await contract.createInstance(account, name, symbol, decimal);
+			return createTxn.wait();
+		} catch (err) {
+			errors(err);
+			throw err;
 		}
+	};
 
 	const getProxy = async (account: string | null) => {
-			try {
-				const proxyAccount = await contract.getProxy(account);
-				return proxyAccount;
-			} catch (err) {
-				errors(err);
-				throw err;
-			}
+		try {
+			const proxyAccount = await contract.getProxy(account);
+			return proxyAccount;
+		} catch (err) {
+			errors(err);
+			throw err;
 		}
+	};
 
 	const getTotalSupply = async () => {
 		try {
@@ -104,14 +103,14 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 	};
 
 	const getBalanceOf = async (account: string) => {
-			try {
-				const balance = await proxyContract?.balanceOf(account);
-				return balance.toNumber();
-			} catch (err) {
-				errors(err);
-				throw err;
-			}
+		try {
+			const balance = await proxyContract?.balanceOf(account);
+			return balance.toNumber();
+		} catch (err) {
+			errors(err);
+			throw err;
 		}
+	};
 
 	const getBalance = async () => {
 		try {
@@ -124,15 +123,85 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 	};
 
 	const transfer = async (to: string, value: number) => {
-			try {
-				const transfer = await proxyContract?.transfer(to, value);
-				return transfer.wait();
-			} catch (err) {
-				errors(err);
-				throw err;
-			}
-	}
+		try {
+			const transfer = await proxyContract?.transfer(to, value);
+			return transfer.wait();
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	};
 
+	const transferFrom = useCallback(async (from: string, to: string, value: number) => {
+		try {
+			const transfer = await proxyContract?.transferFrom(from, to, value);
+			return transfer.wait();
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	} , [address]);
+
+	const allowance = async (owner: string, spender: string) => {
+		try {
+			const allowance = await proxyContract?.allowance(owner, spender);
+			return allowance.toNumber();
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	};
+	// 0xD847C7408c48b6b6720CCa75eB30a93acbF5163D
+	// 0x9809ABAfe657533F4Fd409a4DDf442B093A8AEAe
+	const approve = useCallback (async (spender: string, amount: number) => {
+		try {
+			const approve = await proxyContract?.approve(spender, amount);
+			return approve.wait();
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	}, [address]);
+
+	const mint = async (amount: number) => {
+		try {
+			const mint = await proxyContract?.mint(amount);
+			return mint.wait();
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	};
+
+	const burn = async (amount: number) => {
+		try {
+			const burn = await proxyContract?.burn(amount);
+			return burn.wait();
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	};
+
+	const getTokenName = async () => {
+		try {
+			const name = await proxyContract?.name();
+			return name;
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	};
+
+	const getTokenSymbol = async () => {
+		try {
+			const name = await proxyContract?.symbol();
+			return name;
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	};
 	return {
 		tenantId,
 		contract,
@@ -154,31 +223,72 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 			),
 		Proxy: () =>
 			useQuery(['getProxy', address, contract?.address], () => getProxy(address), {
-				enabled: !!address && !!contract?.address
+				enabled: !!address && !!contract?.address,
 			}),
 		TotalSupply: () =>
 			useQuery(['getTotalSupply', address], () => getTotalSupply(), {
-				enabled: !!proxyContract?.signer && !!address
+				enabled: !!proxyContract?.signer && !!address,
 			}),
 		Balance: () =>
 			useQuery(['getBalance', address], () => getBalance(), {
-				enabled: !!proxyContract?.signer && !!address
+				enabled: !!proxyContract?.signer && !!address,
 			}),
-			BalanceOf: (account: string) =>
-			useQuery(['getBalanceOf', address,  {account}], () => getBalanceOf(account), {
-				enabled: !!proxyContract?.signer && !!address
+		BalanceOf: (account: string) =>
+			useQuery(['getBalanceOf', address, { account }], () => getBalanceOf(account), {
+				enabled: !!proxyContract?.signer && !!address,
 			}),
 		Transfer: (
+			options?: Omit<
+				UseMutationOptions<unknown, unknown, { to: string; value: number }, unknown>,
+				'mutationFn'
+			>
+		) => useMutation(({ to, value }) => transfer(to, value), options),
+		TransferFrom: (
 			options?: Omit<
 				UseMutationOptions<
 					unknown,
 					unknown,
-					{ to: string; value: number },
+					{ from: string; to: string; value: number },
 					unknown
 				>,
 				'mutationFn'
 			>
-		) => useMutation(({ to, value }) => transfer(to, value), options)
+		) => useMutation(({ from, to, value }) => transferFrom(from, to, value), options),
+		Allowance: (owner: string, spender: string) =>
+			useQuery(['allowance', address, { owner, spender }], () => allowance(owner, spender), {
+				enabled: !!proxyContract?.signer && !!address,
+			}),
+
+		Mint: (
+			options?: Omit<
+				UseMutationOptions<unknown, unknown, { amount: number }, unknown>,
+				'mutationFn'
+			>
+		) => useMutation(({ amount }) => mint(amount), options),
+
+		Burn: (
+			options?: Omit<
+				UseMutationOptions<unknown, unknown, { amount: number }, unknown>,
+				'mutationFn'
+			>
+		) => useMutation(({ amount }) => burn(amount), options),
+
+		TokenName: () =>
+			useQuery(['getTokenName', address], () => getTokenName(), {
+				enabled: !!proxyContract?.signer && !!address,
+			}),
+
+		TokenSymbol: () =>
+			useQuery(['getTokenSymbol', address], () => getTokenSymbol(), {
+				enabled: !!proxyContract?.signer && !!address,
+			}),
+
+		Approve: (
+			options?: Omit<
+				UseMutationOptions<unknown, unknown, { spender: string; amount: number }, unknown>,
+				'mutationFn'
+			>
+		) => useMutation(({ spender, amount }) => approve(spender, amount), options),
 	};
 }
 
@@ -187,4 +297,3 @@ export const Token = createContainer(TokenState);
 export function useToken() {
 	return useContainer(Token);
 }
-

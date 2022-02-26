@@ -11,19 +11,19 @@ import {
 	Input,
 	Content,
 	Button,
-} from './WriteFunctions/WriteComponents';
+} from '../ComponentStyles';
 
 const BalanceOf = () => {
 	const { address } = useEthereum();
 	const { BalanceOf } = useToken();
 	const [account, setAccount] = useState(address);
-	const { data } = BalanceOf(account);
+	const { data } = BalanceOf(account!);
 	const [hidden, setHidden] = useState(false);
 
 	return (
 		<Box>
-			<h4>Get Balance Of</h4>
-			<p>Get the balance of an account</p>
+			<h4>Balance Of</h4>
+			<p>Get the balance of a provided address</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useToken } from '@decentology/hyperverse-ethereum-token';
-import { Box, Item, TriggerContainer, Trigger, Parameters, Input, Content, Button} from './WriteComponents'
+import { Box, Item, TriggerContainer, Trigger, Parameters, Input, Content, Button} from '../ComponentStyles'
  
 const CreateInstance = () => {
   const { address } = useEthereum();
@@ -36,7 +36,7 @@ const CreateInstance = () => {
       <Item value='item-1'>
         <TriggerContainer>
         <Trigger disabled={!address}>
-            {!address ? 'Connect Wallet' : 'Transfer Tokens'}
+            {!address ? 'Connect Wallet' : 'Create Instance'}
           </Trigger>
         </TriggerContainer>
         <Parameters>

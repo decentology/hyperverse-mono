@@ -1,6 +1,12 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+const withTM = require("next-transpile-modules")([
+  "@decentology/hyperverse",
+  "@decentology/hyperverse-ethereum",
+  "@decentology/hyperverse-ethereum-token",
+]);
 
-module.exports = nextConfig
+module.exports = withTM({
+  reactStrictMode: true,
+  images: {
+    domains: ["siasky.net", "fileportal.org"],
+  },
+});

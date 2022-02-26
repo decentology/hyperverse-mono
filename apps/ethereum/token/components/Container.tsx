@@ -2,22 +2,38 @@ import { styled } from '../stitches.config';
 import CreateInstance from './WriteFunctions/CreateInstance';
 import Transfer from './WriteFunctions/Transfer';
 import ReadComponent from './ReadComponent';
-import BalanceOf from './BalanceOf';
+import BalanceOf from './ReadFunctions/BalanceOf';
+import Allowance from './ReadFunctions/Allowance';
+import TransferFrom from './WriteFunctions/TransferFrom';
+import Approve from './WriteFunctions/Approve';
+import Mint from './WriteFunctions/Mint';
 import { useToken } from '@decentology/hyperverse-ethereum-token';
 
 const Container = () => {
-	const { Proxy, Balance, TotalSupply } = useToken();
+	const { Proxy, TokenName, TokenSymbol, Balance, TotalSupply } = useToken();
 
 	const TokenReadFunctions = [
+			{
+			hook: TokenName(),
+			header: 'Token Name',
+			description: 'Get the Token Name',
+			buttonText: 'Get Token Name',
+		},
+		{
+			hook: TokenSymbol(),
+			header: 'Token Symbol',
+			description: 'Get the token symbol',
+			buttonText: 'Get Token Symbol',
+		},
 		{
 			hook: TotalSupply(),
-			header: 'Get Total Supply',
-			description: 'Get the total supply of tokens',
+			header: 'Total Supply',
+			description: 'Total supply in circulation',
 			buttonText: 'Get Total Supply',
 		},
 		{
 			hook: Balance(),
-			header: 'Get Balance',
+			header: 'Balance',
 			description: 'Get the balance of your account',
 			buttonText: 'Get Balance',
 		},
@@ -25,7 +41,7 @@ const Container = () => {
 
 	return (
 		<Box>
-			<h3>Token Tenant Functions</h3>
+			<h3>Token Factory Functions</h3>
 			<Section>
 				<CreateInstance />
 				<ReadComponent
@@ -50,7 +66,14 @@ const Container = () => {
 				))}
 				<BalanceOf />
 				<Transfer />
+				<TransferFrom />
+				<Approve />
+				<Allowance />
+			</Section>
 
+			<h3>Tenant Owner Functions</h3>
+			<Section>
+				<Mint />
 			</Section>
 		</Box>
 	);

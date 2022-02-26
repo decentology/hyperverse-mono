@@ -13,18 +13,16 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const Transfer = () => {
+const Mint = () => {
 	const { address } = useEthereum();
-	const { Transfer } = useToken();
-	const { mutate } = Transfer();
-	const [receiver, setReceiver] = useState('');
+	const { Mint } = useToken();
+	const { mutate } = Mint();
 	const [amount, setAmount] = useState(0);
 
-	const createNewInstance = async () => {
+	const mint = async () => {
 		try {
 			const instanceData = {
-				to: receiver,
-				value: amount,
+        amount: amount,
 			};
 
 			mutate(instanceData);
@@ -35,29 +33,25 @@ const Transfer = () => {
 
 	return (
 		<Box>
-			<h4>Transfer Tokens</h4>
-			<p>Transfer your tokens to the provided address</p>
+			<h4>Mint</h4>
+			<p>Mint more tokens</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer Tokens'}
+							{!address ? 'Connect Wallet' : 'Mint'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
-								placeholder="Receiver"
-								onChange={(e) => setReceiver(e.target.value)}
-							/>
-							<Input
 								type="number"
 								min="0"
-								placeholder="Amount to transfer"
+								placeholder="Amount"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Transfer'}
+							<Button onClick={mint}>
+								{!address ? 'Connet Wallet' : 'Mint'}
 							</Button>
 						</Content>
 					</Parameters>
@@ -67,4 +61,4 @@ const Transfer = () => {
 	);
 };
 
-export default Transfer;
+export default Mint;

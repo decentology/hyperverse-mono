@@ -1,4 +1,4 @@
-import { styled } from '../../stitches.config';
+import { styled } from '../stitches.config';
 import * as Accordion from '@radix-ui/react-accordion';
 
 export const Box = styled('div', {
@@ -11,6 +11,7 @@ export const Box = styled('div', {
   color: 'white',
   padding: '30px 20px',
   alignItems: 'center',
+  textAlign: 'center',
   '& h4': {
     marginTop: '10px',
     fontSize: '1.2rem',
@@ -19,6 +20,14 @@ export const Box = styled('div', {
   '& p' : {
     margin: '10px 0 30px',
     fontSize: '0.8rem',
+  },
+
+  variant : {
+    active : {
+     true : {
+      maxHeight: '150px',
+     }
+    }
   }
 })
 
