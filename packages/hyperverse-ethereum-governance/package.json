@@ -1,5 +1,5 @@
 {
-  "name": "@decentology/hyperverse-ethereum-erc721",
+  "name": "@decentology/hyperverse-ethereum-governance",
   "version": "1.0.7",
   "source": "./source/index.ts",
   "types": "./distribution/index.d.ts",
