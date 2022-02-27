@@ -128,10 +128,31 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 		}
 	}
 
+	const getOwnerOf = async (tokenId: number) => {
+		try {
+			console.log("ownerOf:", tokenId);
+			const owner = await proxyContract?.ownerOf(tokenId);
+			return owner;
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	}
+
 	const mintNFT = async (to: string) => {
 		try {
 			const mint = await proxyContract?.createNFT(to);
 			return mint.wait();
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	}
+
+	const transfer = async (from: string, to: string, tokenId: number) => {
+		try {
+			const transfer = await proxyContract?.transferFrom(from, to, tokenId);
+			return transfer.wait();
 		} catch (err) {
 			errors(err);
 			throw err;
@@ -173,6 +194,10 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 			useQuery(['getBalanceOf', address, { account }], () => getBalanceOf(account), {
 				enabled: !!proxyContract?.signer && !!address
 			}),
+		OwnerOf: (tokenId: number) =>
+			useQuery(['getBalanceOf', address, { tokenId }], () => getOwnerOf(tokenId), {
+				enabled: !!proxyContract?.signer && !!address
+			}),
 		MintNFT: (
 			options?: Omit<
 				UseMutationOptions<
@@ -183,7 +208,18 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 				>,
 				'mutationFn'
 			>
-		) => useMutation(({ to }) => mintNFT(to), options)
+		) => useMutation(({ to }) => mintNFT(to), options),
+		Transfer: (
+			options?: Omit<
+				UseMutationOptions<
+					unknown,
+					unknown,
+					{ from: string, to: string; tokenId: number },
+					unknown
+				>,
+				'mutationFn'
+			>
+		) => useMutation(({ from, to, tokenId }) => transfer(from, to, tokenId), options)
 	};
 }
 

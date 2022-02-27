@@ -138,10 +138,29 @@ function $d8687040f2aee6ff$var$ERC721State(initialState = {
             throw err;
         }
     };
+    const getOwnerOf = async (tokenId)=>{
+        try {
+            console.log("ownerOf:", tokenId);
+            const owner = await proxyContract?.ownerOf(tokenId);
+            return owner;
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
     const mintNFT = async (to)=>{
         try {
             const mint = await proxyContract?.createNFT(to);
             return mint.wait();
+        } catch (err) {
+            errors(err);
+            throw err;
+        }
+    };
+    const transfer1 = async (from, to, tokenId)=>{
+        try {
+            const transfer = await proxyContract?.transferFrom(from, to, tokenId);
+            return transfer.wait();
         } catch (err) {
             errors(err);
             throw err;
@@ -189,7 +208,21 @@ function $d8687040f2aee6ff$var$ERC721State(initialState = {
                 enabled: !!proxyContract?.signer && !!address
             })
         ,
+        OwnerOf: (tokenId)=>$4vTrQ$reactquery.useQuery([
+                'getBalanceOf',
+                address,
+                {
+                    tokenId: tokenId
+                }
+            ], ()=>getOwnerOf(tokenId)
+            , {
+                enabled: !!proxyContract?.signer && !!address
+            })
+        ,
         MintNFT: (options)=>$4vTrQ$reactquery.useMutation(({ to: to  })=>mintNFT(to)
+            , options)
+        ,
+        Transfer: (options)=>$4vTrQ$reactquery.useMutation(({ from: from , to: to , tokenId: tokenId  })=>transfer1(from, to, tokenId)
             , options)
     };
 }

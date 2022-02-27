@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC721 } from '@decentology/hyperverse-ethereum-erc721';
 import {
 	Box,
 	Item,
@@ -15,16 +15,18 @@ import {
 
 const Transfer = () => {
 	const { address } = useEthereum();
-	const { Transfer } = useToken();
+	const { Transfer } = useERC721();
 	const { mutate } = Transfer();
+	const [from, setFrom] = useState('');
 	const [receiver, setReceiver] = useState('');
-	const [amount, setAmount] = useState(0);
+	const [tokenId, setTokenId] = useState(0);
 
 	const createNewInstance = async () => {
 		try {
 			const instanceData = {
+				from: address,
 				to: receiver,
-				value: amount,
+				tokenId: tokenId,
 			};
 
 			mutate(instanceData);
@@ -53,8 +55,8 @@ const Transfer = () => {
 							<Input
 								type="number"
 								min="0"
-								placeholder="Amount to transfer"
-								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
+								placeholder="TokenId to transfer"
+								onChange={(e) => setTokenId(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
 								{!address ? 'Connet Wallet' : 'Transfer'}

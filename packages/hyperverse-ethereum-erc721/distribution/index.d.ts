@@ -16,10 +16,20 @@ export function useERC721(): {
     TotalSupply: () => import("react-query").UseQueryResult<any, unknown>;
     Balance: () => import("react-query").UseQueryResult<any, unknown>;
     BalanceOf: (account: string) => import("react-query").UseQueryResult<any, unknown>;
+    OwnerOf: (tokenId: number) => import("react-query").UseQueryResult<any, unknown>;
     MintNFT: (options?: Omit<UseMutationOptions<unknown, unknown, {
         to: string;
     }, unknown>, "mutationFn"> | undefined) => import("react-query").UseMutationResult<any, unknown, {
         to: string;
+    }, unknown>;
+    Transfer: (options?: Omit<UseMutationOptions<unknown, unknown, {
+        from: string;
+        to: string;
+        tokenId: number;
+    }, unknown>, "mutationFn"> | undefined) => import("react-query").UseMutationResult<any, unknown, {
+        from: string;
+        to: string;
+        tokenId: number;
     }, unknown>;
 };
 export const Provider: FC<HyperverseModuleInstance>;

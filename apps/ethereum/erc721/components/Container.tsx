@@ -1,8 +1,10 @@
 import { styled } from '../stitches.config';
 import CreateInstance from './WriteFunctions/CreateInstance';
 import MintNFT from './WriteFunctions/MintNFT';
+import Transfer from './WriteFunctions/Transfer';
 import ReadComponent from './ReadComponent';
 import BalanceOf from './BalanceOf';
+import OwnerOf from './OwnerOf';
 import { useERC721 } from '@decentology/hyperverse-ethereum-erc721';
 
 const Container = () => {
@@ -20,7 +22,7 @@ const Container = () => {
 			header: 'Get Balance',
 			description: 'Get the balance of your account',
 			buttonText: 'Get Balance',
-		},
+		}
 	];
 
 	return (
@@ -49,7 +51,9 @@ const Container = () => {
 					/>
 				))}
 				<BalanceOf />
+				<OwnerOf />
 				<MintNFT />
+				<Transfer />
 
 			</Section>
 		</Box>
