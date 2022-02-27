@@ -1,6 +1,6 @@
 {
   "name": "@decentology/hyperverse-ethereum-erc721",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "source": "./source/index.ts",
   "types": "./distribution/index.d.ts",
   "main": "./distribution/index.js",
@@ -21,15 +21,15 @@
     "utils"
   ],
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.0",
-    "@decentology/hyperverse-ethereum": "^1.0.0",
-    "@decentology/hyperverse-storage-skynet": "^1.0.0",
+    "@decentology/hyperverse": "^1.0.9",
+    "@decentology/hyperverse-ethereum": "^1.0.9",
+    "@decentology/hyperverse-storage-skynet": "^1.0.8",
     "@openzeppelin/contracts": "^4.5.0",
     "ethers": "^5.5.3",
     "react-query": "^3.34.7",
     "react-use": "^17.3.2",
     "skynet-js": "^4.0.23-beta",
-    "@decentology/unstated-next": "^1.1.0"
+    "@decentology/unstated-next": "^1.1.1"
   },
   "devDependencies": {
     "@decentology/config": "^1.0.0",
@@ -42,4 +42,3 @@
     "rimraf": "^3.0.2"
   }
 }
-

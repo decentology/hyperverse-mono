@@ -7,7 +7,7 @@
 		"packages/*"
 	],
 	"scripts": {
-		"build": "turbo run build --no-deps --scope=@decentology/hyperverse-metis --scope=@decentology/hyperverse-metis-tribes --scope=@decentology/hyperverse --scope=@decentology/hyperverse-algorand --scope=@decentology/hyperverse-algorand-counter --scope=@decentology/hyperverse-ethereum --scope=@decentology/hyperverse-ethereum-tribes --scope=@decentology/hyperverse-flow --scope=@decentology/hyperverse-flow-tribes --scope=@decentology/hyperverse-storage-skynet",
+		"build": "turbo run build --no-deps --scope=@decentology/hyperverse-ethereum-erc721 --scope=@decentology/hyperverse-token --scope=@decentology/hyperverse-metis --scope=@decentology/hyperverse-metis-tribes --scope=@decentology/hyperverse --scope=@decentology/hyperverse-algorand --scope=@decentology/hyperverse-algorand-counter --scope=@decentology/hyperverse-ethereum --scope=@decentology/hyperverse-ethereum-tribes --scope=@decentology/hyperverse-flow --scope=@decentology/hyperverse-flow-tribes --scope=@decentology/hyperverse-storage-skynet",
 		"dev": "turbo run dev --parallel",
 		"clean": "turbo run clean --parallel",
 		"dev:algorand": "turbo run dev --cwd=./apps/algorand --parallel ",

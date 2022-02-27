@@ -1,5 +1,13 @@
 # @decentology/hyperverse-storage-skynet
 
+## 1.0.8
+
+### Patch Changes
+
+-   Milestone update. Added token and er721 modules
+-   Updated dependencies
+    -   @decentology/unstated-next@1.1.1
+
 ## 1.0.7
 
 ### Patch Changes

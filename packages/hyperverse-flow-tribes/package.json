@@ -3,7 +3,7 @@
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "scripts": {
     "build": "parcel build",
@@ -23,11 +23,11 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.8",
-    "@decentology/hyperverse-flow": "^1.0.8",
+    "@decentology/hyperverse": "^1.0.9",
+    "@decentology/hyperverse-flow": "^1.0.9",
     "@onflow/fcl": "^0.0.78",
     "@onflow/types": "^0.0.6",
-    "@decentology/unstated-next": "^1.1.0"
+    "@decentology/unstated-next": "^1.1.1"
   },
   "devDependencies": {
     "@decentology/config": "^1.0.0",
