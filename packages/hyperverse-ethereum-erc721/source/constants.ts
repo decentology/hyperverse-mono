@@ -1,5 +1,5 @@
-import ERC721FactoryABI from '../artifacts/contracts/ExampleNFTFactory.sol/ExampleNFTFactory.json';
-import ERC721ABI from '../artifacts/contracts/ExampleNFT.sol/ExampleNFT.json';
+import ERC721FactoryABI from '../utils/ExampleNFTFactory.json';
+import ERC721ABI from '../utils/ExampleNFT.json';
 
 export const FactoryABI = ERC721FactoryABI.abi;
 export const ABI = ERC721ABI.abi;
