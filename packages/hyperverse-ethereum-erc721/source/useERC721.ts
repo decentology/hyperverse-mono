@@ -1,6 +1,6 @@
 import { ABI, FactoryABI, ExampleNFTFactory } from './constants';
 import { ethers } from 'ethers';
-import { createContainer, useContainer } from 'unstated-next';
+import { createContainer, useContainer } from '@decentology/unstated-next';
 import {
 	useQuery,
 	useMutation,
