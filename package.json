@@ -24,10 +24,9 @@
     "prettier": "^2.5.1",
     "tiny-glob": "^0.2.9",
     "ts-node": "^10.5.0",
-    "turbo": "latest",
+    "turbo": "^1.1.4",
     "typescript": ">=3.0.0"
   },
-  "packageManager": "yarn",
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"

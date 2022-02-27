@@ -1,0 +1,14 @@
+# node modules
+node_modules
+
+# ignore transpiled files
+dist
+lib
+
+.env
+
+#misc
+.DS_Store
+
+yarn.lock
+.eslintcache
