@@ -1,6 +1,6 @@
 {
   "name": "erc721",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.7",
-    "@decentology/hyperverse-ethereum": "^1.0.7",
-    "@decentology/hyperverse-ethereum-erc721": "1.0.0",
+    "@decentology/hyperverse": "^1.0.9",
+    "@decentology/hyperverse-ethereum": "^1.0.9",
+    "@decentology/hyperverse-ethereum-erc721": "1.0.1",
     "@radix-ui/react-accordion": "^0.1.6",
     "@stitches/react": "^1.2.6",
     "ethers": "^5.5.4",
@@ -20,7 +20,7 @@
     "react-dom": "17.0.2",
     "react-query": "^3.34.16",
     "react-toastify": "^8.2.0",
-    "unstated-next": "^1.1.0"
+    "@decentology/unstated-next": "^1.1.1"
   },
   "devDependencies": {
     "eslint": "8.9.0",

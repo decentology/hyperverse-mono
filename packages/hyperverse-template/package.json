@@ -29,6 +29,6 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "unstated-next": "^1.1.0"
+    "@decentology/unstated-next": "^1.1.0"
   }
 }

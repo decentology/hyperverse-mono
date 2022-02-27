@@ -1,5 +1,15 @@
 # @decentology/hyperverse-metis
 
+## 1.0.10
+
+### Patch Changes
+
+-   Milestone update. Added token and er721 modules
+-   Updated dependencies
+    -   @decentology/unstated-next@1.1.1
+    -   @decentology/web3modal@1.9.6
+    -   @decentology/hyperverse@1.0.9
+
 ## 1.0.9
 
 ### Patch Changes

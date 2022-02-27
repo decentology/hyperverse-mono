@@ -1,6 +1,6 @@
 import { networks, useHyperverse } from '@decentology/hyperverse';
 import { useEffect, useState } from 'react';
-import { createContainer } from 'unstated-next';
+import { createContainer } from '@decentology/unstated-next';
 import * as actions from './actions';
 const fcl = require('@onflow/fcl');
 

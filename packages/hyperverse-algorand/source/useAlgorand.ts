@@ -7,7 +7,7 @@ import { useCallback, useEffect, useReducer } from 'react';
 import { useAsync } from 'react-async-hook';
 import { Initialize } from './context/initialize';
 import reducer from './context/reducer';
-import { createContainer } from 'unstated-next';
+import { createContainer } from '@decentology/unstated-next';
 
 const constants = {
 	walletConnectOptions: {

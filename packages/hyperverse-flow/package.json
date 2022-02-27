@@ -3,7 +3,7 @@
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -28,13 +28,13 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.8",
-    "@decentology/hyperverse-storage-skynet": "^1.0.7",
+    "@decentology/hyperverse": "^1.0.9",
+    "@decentology/hyperverse-storage-skynet": "^1.0.8",
     "@onflow/fcl": "^0.0.77",
     "@onflow/types": "^0.0.5",
     "aphrodite": "^2.4.0",
     "classnames": "^2.3.1",
     "react-async-hook": "^4.0.0",
-    "unstated-next": "^1.1.0"
+    "@decentology/unstated-next": "^1.1.1"
   }
 }

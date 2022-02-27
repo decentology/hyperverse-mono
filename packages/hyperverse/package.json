@@ -3,7 +3,7 @@
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "files": [
     "distribution"
@@ -23,8 +23,8 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse-storage-skynet": "^1.0.7",
-    "unstated-next": "^1.1.0"
+    "@decentology/hyperverse-storage-skynet": "^1.0.8",
+    "@decentology/unstated-next": "^1.1.1"
   },
   "devDependencies": {
     "@decentology/config": "^1.0.0",
