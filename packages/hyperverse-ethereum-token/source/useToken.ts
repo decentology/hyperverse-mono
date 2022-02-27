@@ -1,6 +1,6 @@
 import { TokenABI, TokenFactoryABI, TOKEN_FACTORY_ADDRESS } from './constants';
 import { ethers } from 'ethers';
-import { createContainer, useContainer } from 'unstated-next';
+import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
