@@ -7,9 +7,8 @@ import { Ethereum, Provider as EthereumProvider } from '@decentology/hyperverse-
 import { Flow, Provider as FlowProvider } from '@decentology/hyperverse-flow';
 import { useState } from 'react';
 import context from '../context/globalContext';
-import { useLocalStorage } from 'react-use';
 function MyApp({ Component, pageProps }: AppProps) {
-	const [storageChain, setStorageChain] = useLocalStorage('selected-blockchain', 'ethereum');
+	const [storageChain, setStorageChain] = useState('ethereum');
 	let initialStorageChain: HyperverseBlockchain<unknown> = Ethereum;
 	switch (storageChain) {
 		case 'ethereum':
