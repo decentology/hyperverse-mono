@@ -27,6 +27,7 @@
 		"turbo": "latest",
 		"typescript": ">=3.0.0"
 	},
+	"packageManager": "yarn",
 	"turbo": {
 		"pipeline": {
 			"build": {
