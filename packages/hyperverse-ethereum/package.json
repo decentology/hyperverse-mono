@@ -20,10 +20,10 @@
   },
   "dependencies": {
     "@decentology/hyperverse": "^1.0.8",
+    "@decentology/web3modal": "^1.9.5",
     "@walletconnect/web3-provider": "^1.7.1",
     "ethers": "^5.5.3",
-    "unstated-next": "^1.1.0",
-    "web3modal": "^1.9.5"
+    "@decentology/unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@decentology/config": "^1.0.0",

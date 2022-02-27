@@ -5,7 +5,7 @@ import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { ContractABI, CONTRACT_TESTNET_ADDRESS } from './Provider';
 import { useEvent } from 'react-use';
 import { useStorage } from '@decentology/hyperverse-storage-skynet';
-import { createContainer, useContainer } from 'unstated-next';
+import { createContainer, useContainer } from '@decentology/unstated-next';
 
 type ContractState = ethers.Contract;
 

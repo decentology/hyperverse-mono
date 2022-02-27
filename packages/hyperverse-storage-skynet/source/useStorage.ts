@@ -1,6 +1,6 @@
 import { FC, useMemo, useState } from 'react';
 import { SkynetClient } from 'skynet-js';
-import { createContainer } from 'unstated-next';
+import { createContainer } from '@decentology/unstated-next';
 
 type StorageProps = {
 	clientUrl: string;

@@ -29,7 +29,7 @@
     "react-query": "^3.34.7",
     "react-use": "^17.3.2",
     "skynet-js": "^4.0.23-beta",
-    "unstated-next": "^1.1.0"
+    "@decentology/unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@decentology/config": "^1.0.0",

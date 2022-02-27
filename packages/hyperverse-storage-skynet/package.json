@@ -29,6 +29,6 @@
   },
   "dependencies": {
     "skynet-js": "^4.0.23-beta",
-    "unstated-next": "^1.1.0"
+    "@decentology/unstated-next": "^1.1.0"
   }
 }

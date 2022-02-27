@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Web3Modal from 'web3modal';
+import Web3Modal from '@decentology/web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
-import { createContainer, useContainer } from 'unstated-next';
+import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse, networks, blockchains } from '@decentology/hyperverse';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
