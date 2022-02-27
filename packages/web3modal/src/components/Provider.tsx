@@ -116,7 +116,7 @@ export function Provider(props: IProviderProps) {
         className={PROVIDER_CONTAINER_CLASSNAME}
       >
         <SIcon className={PROVIDER_ICON_CLASSNAME}>
-          <img src={logo.src} alt={name} />
+          <img src={logo} alt={name} />
         </SIcon>
         <SName themeColors={themeColors} className={PROVIDER_NAME_CLASSNAME}>
           {name}
