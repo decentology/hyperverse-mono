@@ -23,6 +23,9 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 	useEffect(() => {
 		const fetchContract = async () => {
 			const proxyAddress = await factoryContract.getProxy(tenantId);
+			if(proxyAddress === '0x0000000000000000000000000000000000000000') {
+				return;
+			}
 			const proxyCtr = new ethers.Contract(proxyAddress, STAKE_ABI, provider);
 			const accountSigner = await signer;
 			if (accountSigner) {
@@ -58,6 +61,8 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 		},
 		[factoryContract?.signer]
 	);
+
+const zeroAddress = proxyContract?.address !== '0x0000000000000000000000000000000000000000';
 
 	useEffect(() => {
 		if (web3Provider) {
@@ -221,7 +226,7 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 
 		TotalSupply: () =>
 			useQuery(['getTotalSupply', address], () => getTotalSupply(), {
-				enabled: !!proxyContract?.signer && !!address ,
+				enabled: !!proxyContract?.signer && !!address,
 			}),
 
 		Balance: () =>
@@ -269,7 +274,7 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 
 		RewardTokenContract: () =>
 			useQuery(['getTokenSymbol', address], () => getStakeToken(), {
-				enabled: !!proxyContract?.signer && !!address,
+				enabled: !!proxyContract?.signer && !!address ,
 			}),
 	};
 }

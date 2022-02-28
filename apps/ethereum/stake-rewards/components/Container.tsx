@@ -35,14 +35,14 @@ const Container = () => {
 			hook: TokenContract(),
 			header: 'Stake Token Contract',
 			description: 'Get the stake token contract',
-			buttonText: 'Get Contarct',
+			buttonText: 'Get Contract',
 			isAddress: true,
 		},
 		{
 			hook: RewardTokenContract(),
 			header: 'Reward Token Contract',
 			description: 'Get the reward token contract',
-			buttonText: 'Get Contarct',
+			buttonText: 'Get Contract',
 			isAddress: true,
 		},
 	];
