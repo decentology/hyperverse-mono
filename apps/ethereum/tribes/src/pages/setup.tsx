@@ -42,8 +42,8 @@ const Setup = () => {
 				// addTribe({metadata: data, image: imageFile});
 				addTribe({ metadata, image: imageFile! });
 				setLoaderMessage('Processing Transaction...');
-			} catch {}
-		} catch {}
+			} catch { }
+		} catch { }
 	};
 
 	useEffect(() => {
@@ -67,7 +67,7 @@ const Setup = () => {
 								Create Instance
 							</button>
 							<p className={styles.error}>
-								If you already created an instance, change the Tenant in setup.tsx
+								If you already created an instance, change the `tenantId` in ./src/pages/_app.tsx
 								to the signer address.
 							</p>
 						</>
