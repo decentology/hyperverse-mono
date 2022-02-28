@@ -17,10 +17,11 @@ contract StakeRewardsFactory is CloneFactory {
 	}
 
 	mapping(address => Tenant) public tenants;
+	mapping(address => bool) private instance;
 
 	address public immutable masterContract;
 	address public immutable owner;
-	address private hyperverseAdmin = 0xD847C7408c48b6b6720CCa75eB30a93acbF5163D;
+	address private hyperverseAdmin = 0x87DAD25225CaB96E1C9492CB43c41d70c85E6022;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	modifier isOwner(address _tenant) {
@@ -33,8 +34,16 @@ contract StakeRewardsFactory is CloneFactory {
 
 	modifier isAllowedToCreateInstance(address _tenant) {
 		require(
-			msg.sender == _tenant || msg.sender == hyperverseAdmin,
+			msg.sender == _tenant || msg.sender == hyperverseAdmin ,
 			'Please use a valid address to create an instance'
+		);
+		_;
+	}
+
+	modifier hasAnInstance(address _tenant) {
+		require(
+			instance[_tenant] == false,
+			'The tenant already has an instance'
 		);
 		_;
 	}
@@ -54,7 +63,7 @@ contract StakeRewardsFactory is CloneFactory {
 		address _stakingToken,
 		address _rewardsToken,
 		uint256 _rewardRate
-	) external isAllowedToCreateInstance(_tenant) {
+	) external isAllowedToCreateInstance(_tenant) hasAnInstance(_tenant) {
 		StakeRewardsToken stakeInstance = StakeRewardsToken(createClone(masterContract));
 
 		//initializing tenant state of clone
@@ -64,6 +73,7 @@ contract StakeRewardsFactory is CloneFactory {
 		Tenant storage newTenant = tenants[_tenant];
 		newTenant.stakeRewards = stakeInstance;
 		newTenant.owner = _tenant;
+		instance[_tenant] = true;
 	}
 
 	function getProxy(address _owner) public view returns (StakeRewardsToken) {

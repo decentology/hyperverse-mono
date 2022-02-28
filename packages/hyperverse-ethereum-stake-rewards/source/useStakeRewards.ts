@@ -1,6 +1,6 @@
 import { STAKE_ABI, FACTORY_ABI, STAKE_FACTORY_ADDRESS, TENANT_ADDRESS } from './constants';
 import { ethers } from 'ethers';
-import { createContainer, useContainer } from 'unstated-next';
+import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
@@ -203,15 +203,15 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 				UseMutationOptions<
 					unknown,
 					unknown,
-					{ account: string; name: string; symbol: string; decimal: number },
+					{ account: string; stakingToken: string; rewardsToken: string; rewardRate: number },
 					unknown
 				>,
 				'mutationFn'
 			>
 		) =>
 			useMutation(
-				({ account, name, symbol, decimal }) =>
-					createInstance(account, name, symbol, decimal),
+				({ account, stakingToken, rewardsToken, rewardRate }) =>
+					createInstance(account, stakingToken, rewardsToken, rewardRate),
 				options
 			),
 		Proxy: () =>
