@@ -19,7 +19,7 @@ const MintNFT = () => {
 	const { mutate } = MintNFT();
 	const [receiver, setReceiver] = useState('');
 
-	const createNewInstance = async () => {
+	const mintAnNFT = async () => {
 		try {
 			const instanceData = {
 				to: receiver
@@ -48,7 +48,7 @@ const MintNFT = () => {
 								placeholder="Receiver"
 								onChange={(e) => setReceiver(e.target.value)}
 							/>
-							<Button onClick={createNewInstance}>
+							<Button onClick={mintAnNFT}>
 								{!address ? 'Connet Wallet' : 'Mint'}
 							</Button>
 						</Content>
