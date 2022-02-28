@@ -15,7 +15,7 @@ contract Token is IERC20, IHyperverseModule {
 
 
     // Account used to deploy contract
-    address public contractOwner;
+    address public immutable contractOwner;
 
     //stores the tenant owner
     address private tenantOwner;
