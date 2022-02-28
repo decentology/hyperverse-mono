@@ -126,10 +126,12 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 			const transfer = await proxyContract?.transfer(to, value);
 			return transfer.wait();
 		} catch (err) {
-			if(err.includes('Not enough balance')) {
-				throw new Error('Not enough balance');
+			if (err instanceof String) {
+				if (err.includes('Not enough balance')) {
+					throw new Error('Not enough balance');
+				}
+				errors(err);
 			}
-			errors(err);
 			throw err;
 		}
 	};
