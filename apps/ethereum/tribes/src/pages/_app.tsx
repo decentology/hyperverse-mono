@@ -8,6 +8,10 @@ import * as RandomPick from '@decentology/hyperverse-ethereum-randompick';
 import InnerComponent from '../components/InnerComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+// Change your Tenant ID here.
+const TENANT_ID = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D';
+
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: Ethereum,
@@ -18,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		modules: [
 			{
 				bundle: Tribes,
-				tenantId: '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D',
+				tenantId: TENANT_ID,
 			},
 			{
 				bundle: RandomPick,

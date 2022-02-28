@@ -67,7 +67,7 @@ const Setup = () => {
 								Create Instance
 							</button>
 							<p className={styles.error}>
-								If you already created an instance, change the `tenantId` in ./src/pages/_app.tsx
+								If you already created an instance, change the `TENANT_ID` in ./src/pages/_app.tsx
 								to the signer address.
 							</p>
 						</>
