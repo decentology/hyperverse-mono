@@ -221,7 +221,7 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 
 		TotalSupply: () =>
 			useQuery(['getTotalSupply', address], () => getTotalSupply(), {
-				enabled: !!proxyContract?.signer && !!address,
+				enabled: !!proxyContract?.signer && !!address ,
 			}),
 
 		Balance: () =>

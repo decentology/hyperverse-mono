@@ -2,9 +2,8 @@
 pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import './hyperverse/IHyperverseModule.sol';
-
 
 contract StakeRewardsToken is IHyperverseModule {
 	using SafeMath for uint256;
@@ -34,6 +33,16 @@ contract StakeRewardsToken is IHyperverseModule {
 
 		rewards[_account] = earned(_account);
 		userRewardPerTokenPaid[_account] = rewardPerTokenStored;
+		_;
+	}
+
+	modifier hasStakeBalance(address _account, uint256 _amount) {
+		require(_balances[_account] >= _amount, "Insufficient balance");
+		_;
+	}
+
+	modifier hasRewardBalance(address _account) {
+		require(rewards[_account] > 0, "Insufficient balance");
 		_;
 	}
 
@@ -88,7 +97,6 @@ contract StakeRewardsToken is IHyperverseModule {
 			(((block.timestamp - lastUpdatedTime) * rewardRate * 1e18) / _totalSupply);
 	}
 
-	
 	function earned(address _account) public view returns (uint256) {
 		return
 			((_balances[_account] * (rewardPerToken() - userRewardPerTokenPaid[_account])) / 1e18) +
@@ -101,13 +109,13 @@ contract StakeRewardsToken is IHyperverseModule {
 		stakingToken.transferFrom(msg.sender, address(this), _amount);
 	}
 
-	function withdraw(uint256 _amount) external updateReward(msg.sender) {
+	function withdraw(uint256 _amount) external hasStakeBalance(msg.sender, _amount) updateReward(msg.sender) {
 		_totalSupply = _totalSupply.sub(_amount);
 		_balances[msg.sender] = _balances[msg.sender].sub(_amount);
 		stakingToken.transfer(msg.sender, _amount);
 	}
 
-	function getReward() external updateReward(msg.sender) {
+	function getReward() external hasRewardBalance(msg.sender)  updateReward(msg.sender) {
 		uint256 reward = rewards[msg.sender];
 		rewards[msg.sender] = 0;
 		rewardsToken.transfer(msg.sender, reward);
