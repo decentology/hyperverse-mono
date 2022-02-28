@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network rinkeby ",
     "test": "hardhat test",
     "build": "parcel build",
     "clean": "rimraf ./distribution"
