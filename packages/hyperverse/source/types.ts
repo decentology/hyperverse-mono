@@ -15,7 +15,7 @@ export type HyperverseBlockchainInit<T> = (
 
 export type HyperverseBlockchain<T> = {
 	name: Blockchain;
-	Provider: ContainerProvider<unknown>;
+	Provider: FC<HyperverseModuleInstance> | ContainerProvider<unknown>;
 };
 
 export type BlockchainFeatures<T> = {
@@ -50,7 +50,7 @@ export type HyperverseModule = {
 } & HyperverseModuleBase;
 
 export type HyperverseModuleInstance = {
-	tenantId: string;
+	tenantId?: string;
 	// network: Network;
 	// blockchain: Blockchain;
 };
