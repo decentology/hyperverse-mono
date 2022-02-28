@@ -1,5 +1,5 @@
-import { FC, Context } from 'react';
-import { ContainerProvider, ContainerProviderProps } from '@decentology/unstated-next';
+import { FC } from 'react';
+import { ContainerProvider } from '@decentology/unstated-next';
 import Blockchain from './constants/blockchains';
 import Network from './constants/networks';
 import Storage from './constants/storage';
@@ -15,7 +15,7 @@ export type HyperverseBlockchainInit<T> = (
 
 export type HyperverseBlockchain<T> = {
 	name: Blockchain;
-	Provider: FC<HyperverseModuleInstance> | ContainerProvider<unknown>;
+	Provider: FC<unknown> | ContainerProvider<unknown> | ContainerProvider<any>
 };
 
 export type BlockchainFeatures<T> = {
