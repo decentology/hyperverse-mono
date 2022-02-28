@@ -70,7 +70,7 @@ const Battle = () => {
 									? winner === contestants[0]
 										? styles.winner
 										: styles.loser
-									: null
+									: undefined
 							}
 						>
 							<Image
