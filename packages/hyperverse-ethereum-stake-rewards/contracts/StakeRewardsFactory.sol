@@ -21,7 +21,7 @@ contract StakeRewardsFactory is CloneFactory {
 
 	address public immutable masterContract;
 	address public immutable owner;
-	address private hyperverseAdmin = 0x9809ABAfe657533F4Fd409a4DDf442B093A8AEAe;
+	address private hyperverseAdmin = 0x05DF0a749F733779aa2FA5706C7552b094A7E8B0;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	modifier isOwner(address _tenant) {
@@ -63,7 +63,7 @@ contract StakeRewardsFactory is CloneFactory {
 		address _stakingToken,
 		address _rewardsToken,
 		uint256 _rewardRate
-	) external isAllowedToCreateInstance(_tenant) hasAnInstance(_tenant) {
+	) external hasAnInstance(_tenant) isAllowedToCreateInstance(_tenant) {
 		StakeRewardsToken stakeInstance = StakeRewardsToken(createClone(masterContract));
 
 		//initializing tenant state of clone

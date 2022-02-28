@@ -23,7 +23,7 @@ contract StakeRewardsToken is IHyperverseModule {
 	mapping(address => uint256) private _balances;
 
 	address immutable owner;
-	address private tenant;
+	address private tenantOwner;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
@@ -69,7 +69,8 @@ contract StakeRewardsToken is IHyperverseModule {
 		address _rewardsToken,
 		uint256 _rewardRate
 	) external {
-		tenant = _tenant;
+		require(tenantOwner == address(0), "Contract is already initialized");
+		tenantOwner = _tenant;
 		stakingToken = IERC20(_stakingToken);
 		rewardsToken = IERC20(_rewardsToken);
 		rewardRate = _rewardRate;

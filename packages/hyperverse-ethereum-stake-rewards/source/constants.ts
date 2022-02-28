@@ -2,6 +2,6 @@ import Stake from '../artifacts/contracts/StakeRewardsToken.sol/StakeRewardsToke
 import StakeFactory from '../artifacts/contracts/StakeRewardsFactory.sol/StakeRewardsFactory.json';
 export const STAKE_ABI = Stake.abi;
 export const FACTORY_ABI = StakeFactory.abi;
-export const STAKE_MAIN_ADDRESS = '0x3f25E18CBD329986f340F43Ad2def9F874353d9E';
-export const STAKE_FACTORY_ADDRESS = '0x63d9a02bb2C13774A47eac751bCBf33EadC3f28C';
-export const TENANT_ADDRESS = '0x87DAD25225CaB96E1C9492CB43c41d70c85E6022';
+export const STAKE_MAIN_ADDRESS = '0xeda3a17D1601d0C02efEc6d943dc7898F8D8fE06';
+export const STAKE_FACTORY_ADDRESS = '0x398F5E7c875CE1649f23efAE3083dB2206265D80';
+export const TENANT_ADDRESS = '0xDf61226090C2475D9ec7c494684d2715b61F130c';
