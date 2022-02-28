@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "hardhat/console.sol";
 
 import "./hyperverse/IHyperverseModule.sol";
 
@@ -14,7 +15,7 @@ contract Token is IERC20, IHyperverseModule {
 
 
     // Account used to deploy contract
-    address public immutable contractOwner;
+    address public contractOwner;
 
     //stores the tenant owner
     address private tenantOwner;
@@ -62,6 +63,7 @@ contract Token is IERC20, IHyperverseModule {
             "https://externalLink.net"
         );
         contractOwner = _owner;
+
     }
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -78,6 +80,7 @@ contract Token is IERC20, IHyperverseModule {
      * @param _tenant The address of the instance owner
      */
      function init(string memory _name, string memory _symbol, uint256 _decimal, address _tenant) external {
+        require(tenantOwner == address(0), "Contract is already initialized");
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         tenantOwner = _tenant;
         name = _name;
