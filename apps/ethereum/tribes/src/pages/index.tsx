@@ -7,15 +7,12 @@ import Nav from '../components/Nav';
 import { useTribes } from '@decentology/hyperverse-ethereum-tribes';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { toast } from 'react-toastify';
-import { useHyperverse } from '@decentology/hyperverse';
 
 const Home: NextPage = () => {
 	const router = useRouter();
-	const { blockchain } = useHyperverse();
 	const { address } = useEthereum();
 	const { TribeId } = useTribes();
 	const { data, error } = TribeId();
-	console.log('Blockchian:', blockchain);
 	useEffect(() => {
 		if (error) {
 			if (error instanceof Error) {

@@ -1,5 +1,5 @@
 {
-  "name": "@decentology/hyperverse-ethereum",
+  "name": "@decentology/hyperverse-evm",
   "version": "1.0.9",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "@decentology/hyperverse": "^1.0.9",
-    "@decentology/hyperverse-evm": "^1.0.0",
     "@decentology/web3modal": "^1.9.6",
     "@walletconnect/web3-provider": "^1.7.1",
     "ethers": "^5.5.3",
