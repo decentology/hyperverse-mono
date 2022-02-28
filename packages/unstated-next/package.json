@@ -12,7 +12,9 @@
 	"scripts": {
 		"format": "prettier --write '**'",
 		"example": "parcel example/index.html --out-dir example/dist",
-		"build": "rm -rf dist && microbundle --external react --globals react=React --strict --no-compress",
+		"clean": "rimraf dist",
+		"prebuild": "rimraf dist",
+		"build": "microbundle --external react --globals react=React --strict --no-compress",
 		"test": "ava"
 	},
 	"keywords": [],
@@ -31,7 +33,8 @@
 		"parcel": "^1.12.3",
 		"prettier": "^1.17.0",
 		"ts-node": "^8.1.0",
-		"typescript": "^3.4.5"
+		"typescript": "^3.4.5",
+    	"rimraf": "^3.0.2"
 	},
 	"husky": {
 		"hooks": {
