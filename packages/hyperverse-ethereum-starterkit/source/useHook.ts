@@ -87,6 +87,7 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	return {
 		tenantId,
 		factoryContract,
+		proxyContract,
 		CheckInstance: () =>
 			useQuery(['checkInstance', address, factoryContract?.address], () => checkInstance(address), {
 				enabled: !!address && !!factoryContract?.address,
