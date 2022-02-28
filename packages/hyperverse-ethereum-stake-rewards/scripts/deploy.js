@@ -1,6 +1,6 @@
 const hre = require('hardhat');
 const main = async () => {
-  const hyperverseAdmin = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D';
+  const hyperverseAdmin = '0x87DAD25225CaB96E1C9492CB43c41d70c85E6022';
   const StakeRewards = await hre.ethers.getContractFactory('StakeRewardsToken');
   const stakeRewards = await StakeRewards.deploy(hyperverseAdmin);
   await stakeRewards.deployed();
