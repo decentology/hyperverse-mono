@@ -19,7 +19,6 @@ const providerOptions = {
 let web3Modal: Web3Modal;
 if (typeof window !== 'undefined') {
 	web3Modal = new Web3Modal({
-		network: 'mainnet', // optional
 		cacheProvider: true,
 		providerOptions, // required
 	});
@@ -38,6 +37,7 @@ type State = {
 type Network = {
 	name: string,
 	chainId: number,
+	networkUrl: string,
 	explorerUrl?: string
 }
 
@@ -52,20 +52,20 @@ function EvmState(initialState: EvmStateState = {
 	networks: {
 		mainnet: {
 			name: '',
+			networkUrl: '',
 			chainId: 0,
 		},
 		testnet: {
 			name: '',
+			networkUrl: '',
 			chainId: 0,
 		},
 	}
 }) {
 	const { blockchain, network } = useHyperverse();
-	const infuraNetwork = network === networks.Mainnet ? initialState.networks[networks.Mainnet].name : initialState.networks[networks.Testnet].name;
+	const networkUrl = network === networks.Mainnet ? initialState.networks[networks.Mainnet].networkUrl : initialState.networks[networks.Testnet].networkUrl;
 	const [state, setState] = useState<State>({
-		provider: new ethers.providers.JsonRpcProvider(
-			`https://${infuraNetwork}.infura.io/v3/${INFURA_ID}`
-		),
+		provider: new ethers.providers.JsonRpcProvider(networkUrl),
 		web3Provider: null,
 		address: null,
 		chainId: null,
