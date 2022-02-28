@@ -23,7 +23,7 @@ import "./Token.sol";
 
     address public immutable masterContract;
     address public immutable owner;
-    address private hyperverseAdmin = 0xD847C7408c48b6b6720CCa75eB30a93acbF5163D;
+    address private hyperverseAdmin = 0x9809ABAfe657533F4Fd409a4DDf442B093A8AEAe;
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
     modifier isOwner(address _tenant) {
@@ -42,6 +42,14 @@ import "./Token.sol";
         _;
     }
 
+
+	modifier hasAnInstance(address _tenant) {
+		require(
+			instance[_tenant] == false,
+			'The tenant already has an instance'
+		);
+		_;
+	}
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -65,7 +73,7 @@ import "./Token.sol";
       Tenant storage newTenant = tenants[_tenant];
       newTenant.token = token;
       newTenant.owner = _tenant;
-
+      instance[_tenant] = true;
     }
 
     function getProxy(address _tenant) public view returns (Token) {
