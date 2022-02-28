@@ -2,6 +2,6 @@ import TokenFactory from '../artifacts/contracts/TokenFactory.sol/TokenFactory.j
 import Token from '../artifacts/contracts/Token.sol/Token.json';
 export const TokenABI = Token.abi;
 export const TokenFactoryABI = TokenFactory.abi;
-export const TOKEN_MAIN_ADDRESS = '0xcffEC56Cfc4420C8Ff8141e5ED97aE7c5611705d';
-export const TOKEN_FACTORY_ADDRESS = '0xcAea960d0c47458dBDdA5666DBb8dF6008528Ac0';
-export const TENANT_ADDRESS = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D';
+export const TOKEN_MAIN_ADDRESS = '0xDae5770EDdba196d7dAA716475A5703A68200bc8';
+export const TOKEN_FACTORY_ADDRESS = '0x1fdb160Ebee5C3374078D59A721413B1566c1B0B';
+export const TENANT_ADDRESS = '0xDf61226090C2475D9ec7c494684d2715b61F130c';

@@ -1,5 +1,5 @@
 import { TokenABI, TokenFactoryABI, TOKEN_FACTORY_ADDRESS } from './constants';
-import { ethers } from 'ethers';
+import { ethers, constants } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useMemo, useState, useEffect, useCallback } from 'react';
@@ -24,6 +24,9 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 	useEffect(() => {
 		const fetchContract = async () => {
 			const proxyAddress = await contract.getProxy(tenantId);
+			if(proxyAddress == constants.AddressZero) {
+				return;
+			}
 			const proxyCtr = new ethers.Contract(proxyAddress, TokenABI, provider);
 			const accountSigner = await signer;
 			if (accountSigner) {
@@ -155,8 +158,7 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 			throw err;
 		}
 	};
-	// 0xD847C7408c48b6b6720CCa75eB30a93acbF5163D
-	// 0x9809ABAfe657533F4Fd409a4DDf442B093A8AEAe
+
 	const approve = useCallback (async (spender: string, amount: number) => {
 		try {
 			const approve = await proxyContract?.approve(spender, amount);
