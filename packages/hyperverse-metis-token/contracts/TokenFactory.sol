@@ -42,6 +42,14 @@ import "./Token.sol";
         _;
     }
 
+    modifier hasAnInstance(address _tenant) {
+		require(
+			instance[_tenant] == false,
+			'The tenant already has an instance'
+		);
+		_;
+	}
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -65,7 +73,7 @@ import "./Token.sol";
       Tenant storage newTenant = tenants[_tenant];
       newTenant.token = token;
       newTenant.owner = _tenant;
-
+      instance[_tenant] = true;
     }
 
     function getProxy(address _tenant) public view returns (Token) {
