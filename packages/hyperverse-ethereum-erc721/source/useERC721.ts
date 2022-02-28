@@ -134,8 +134,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 			const owner = await proxyContract?.ownerOf(tokenId);
 			return owner;
 		} catch (err) {
-			errors(err);
-			throw err;
+			return "0x000";
 		}
 	}
 
