@@ -89,7 +89,7 @@ const SProviderWrapper = styled.div<IStyedThemeColorOptions>`
 
 interface IProviderProps {
   name: string;
-  logo: string;
+  logo: string | { src: string; };
   description: string;
   themeColors: ThemeColors;
   onClick: () => void;
@@ -116,7 +116,7 @@ export function Provider(props: IProviderProps) {
         className={PROVIDER_CONTAINER_CLASSNAME}
       >
         <SIcon className={PROVIDER_ICON_CLASSNAME}>
-          <img src={logo} alt={name} />
+          <img src={(typeof logo ==='string') ? logo : logo.src} alt={name} />
         </SIcon>
         <SName themeColors={themeColors} className={PROVIDER_NAME_CLASSNAME}>
           {name}
