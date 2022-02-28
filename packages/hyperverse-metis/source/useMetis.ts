@@ -143,7 +143,7 @@ function MetisState() {
 			);
 			if (web3ModalUserOptions) {
 				const click = web3ModalUserOptions.onClick;
-				web3ModalUserOptions.onClick = () => {
+				web3ModalUserOptions.onClick = async () => {
 					const timeout = setTimeout(() => {
 						// If not triggered in second(s) show alert to user
 						(window as Window).removeEventListener('blur', blur);

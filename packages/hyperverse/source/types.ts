@@ -1,5 +1,5 @@
 import { FC, Context } from 'react';
-import { ContainerProviderProps } from '@decentology/unstated-next';
+import { ContainerProvider, ContainerProviderProps } from '@decentology/unstated-next';
 import Blockchain from './constants/blockchains';
 import Network from './constants/networks';
 import Storage from './constants/storage';
@@ -15,7 +15,7 @@ export type HyperverseBlockchainInit<T> = (
 
 export type HyperverseBlockchain<T> = {
 	name: Blockchain;
-	Provider: FC<any> | React.ComponentType<ContainerProviderProps<void>>;
+	Provider: ContainerProvider<unknown>;
 };
 
 export type BlockchainFeatures<T> = {
@@ -33,9 +33,9 @@ export type Hyperverse = {
 	network: Network;
 	storage?: Storage | ({ name?: Storage; options: { clientUrl: string } } | undefined);
 	modules: HyperverseModuleBase[];
-	options? :{
+	options?: {
 		disableProviderAutoInit?: boolean;
-	}
+	};
 };
 export type HyperverseModuleBase = {
 	bundle: {
