@@ -1,7 +1,7 @@
 import { styled } from '../stitches.config';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -28,9 +28,17 @@ const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Pro
 	const [hidden, setHidden] = useState(false);
 	const { data, error } = hook;
 
+	
 	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
+	const zeroAddress = dataFetched === shortenHash('0x0000000000000000000000000000000000000000', 5, 5) ;
+	
+	// const showInfo = !zeroAddress ? shortenHash(data, 5, 5) : 'You need an instance';
 
+	const showInfo = data ? !zeroAddress ? dataFetched : 'You need an instance' : dataFetched;
 
+	//gn: 0x3647F15288Fc87abff3b2622c50c795b0503294b
+	//0x25cEB1f4090b3bdD37bb246c07A61CBF41Fe31D3
+	
 	useEffect(() => {
 		if (error) {
 			if (error instanceof Error) {
@@ -45,8 +53,14 @@ const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Pro
 		<Box>
 			<h4>{header}</h4>
 			<p>{description}</p>
-			<Button disabled={!address} onClick={() => setHidden(p => !p)}>
-				{!address ? 'Connect Wallet' : !hidden ? buttonText : dataFetched}
+			<Button disabled={!address} onClick={() => setHidden((p) => !p)}>
+				{!address ? 
+					'Connect Wallet'
+				: !hidden ? (
+					buttonText
+				) : (
+					showInfo
+				)}
 			</Button>
 		</Box>
 	);
@@ -88,4 +102,9 @@ const Button = styled('button', {
 	'&:hover': {
 		opacity: 0.8,
 	},
+});
+
+const Link = styled('a', {
+	textDecoration: 'none',
+	zIndex: '1',
 });

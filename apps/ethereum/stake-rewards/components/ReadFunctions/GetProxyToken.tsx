@@ -33,6 +33,9 @@ const ProxyToken = () => {
 	const { data, refetch } = Proxy();
 	const [hidden, setHidden] = useState(false);
 
+	const zeroAddress = data === '0x0000000000000000000000000000000000000000';
+	
+	const showInfo = !zeroAddress ? shortenHash(data, 5, 5) : 'You need an instance';
 
   useEffect(() => {
     if (addressCopied === true) {
@@ -63,10 +66,10 @@ const ProxyToken = () => {
 									? 'Connect Wallet'
 									: !hidden
 									? 'Get Proxy '
-									: shortenHash(data, 5, 5)}
+									: showInfo}
 				
 							</Button>
-              {hidden && (
+              {hidden && !zeroAddress &&(
 									<CopyButton
 										onClick={() => {
 											navigator.clipboard.writeText(data);
