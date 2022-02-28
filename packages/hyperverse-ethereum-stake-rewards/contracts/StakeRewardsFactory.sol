@@ -21,7 +21,7 @@ contract StakeRewardsFactory is CloneFactory {
 
 	address public immutable masterContract;
 	address public immutable owner;
-	address private hyperverseAdmin = 0x87DAD25225CaB96E1C9492CB43c41d70c85E6022;
+	address private hyperverseAdmin = 0x9809ABAfe657533F4Fd409a4DDf442B093A8AEAe;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	modifier isOwner(address _tenant) {
