@@ -41,14 +41,14 @@ type Network = {
 	explorerUrl?: string
 }
 
-type EvmStateState = {
+type EvmState = {
 	networks: {
 		[networks.Mainnet]: Network
 		[networks.Testnet]: Network
 	}
 }
 
-function EvmState(initialState: EvmStateState = {
+function EvmState(initialState: EvmState = {
 	networks: {
 		mainnet: {
 			name: '',
