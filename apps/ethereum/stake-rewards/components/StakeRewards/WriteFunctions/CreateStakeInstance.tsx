@@ -11,7 +11,7 @@ import {
 	Input,
 	Content,
 	Button,
-} from '../ComponentStyles';
+} from '../../ComponentStyles';
 
 const CreateStakeInstance = () => {
 	const { address } = useEthereum();

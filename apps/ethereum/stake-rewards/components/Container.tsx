@@ -1,97 +1,24 @@
 import { styled } from '../stitches.config';
-import { useStakeRewards } from '@decentology/hyperverse-ethereum-stake-rewards';
-import CreateInstance from './WriteFunctions/CreateTokenInstance';
-import CreateStakeInstance from './WriteFunctions/CreateStakeInstance';
-import ReadComponent from './ReadComponent';
-import BalanceOf from './ReadFunctions/BalanceOf';
-import Stake from './WriteFunctions/Stake';
-import Withdraw from './WriteFunctions/Withdraw';
-import Earned from './ReadFunctions/Earned';
-import GetReward from './WriteFunctions/GetReward';
-import GetProxyToken from './ReadFunctions/GetProxyToken';
+import * as Tabs from '@radix-ui/react-tabs';
+import TokenTab from './Token/TokenTab';
+import StakeRewardsTab from './StakeRewards/StakeRewardsTab';
 
 const Container = () => {
-	const { Proxy, TotalSupply, Balance, RewardPerToken ,TokenContract, RewardTokenContract } = useStakeRewards();
-	const StakeReadFunctions = [
-		{
-			hook: TotalSupply(),
-			header: 'Total Supply',
-			description: 'Get the Total Supply of Stake Tokens that is currently staked',
-			buttonText: 'Get Total Supply',
-		},
-		{
-			hook: Balance(),
-			header: 'Balance',
-			description: 'Get the stake token balance of your account',
-			buttonText: 'Get Balance',
-		},
-		{
-			hook: RewardPerToken(),
-			header: 'Reward Per Token',
-			description: 'Get the current reward rate per token staked',
-			buttonText: 'Get Rate',
-		},
-		{
-			hook: TokenContract(),
-			header: 'Stake Token Contract',
-			description: 'Get the stake token contract',
-			buttonText: 'Get Contract',
-			isAddress: true,
-		},
-		{
-			hook: RewardTokenContract(),
-			header: 'Reward Token Contract',
-			description: 'Get the reward token contract',
-			buttonText: 'Get Contract',
-			isAddress: true,
-		},
-	];
-
-
-
 	return (
 		<Box>
-			<Info>To test the Stake Rewards Module, you will need the contract address of 2 ERC20 Tokens.
-			The Stake Token  <br />  can be an existing ERC20 that is on the Rinkeby Chain but the Stake Token must be your own.</Info>
-			<h3>Token Factory Functions</h3>
-			<Section>
-				<CreateInstance />
-				<GetProxyToken />
-			</Section>
+			<StyledTabs defaultValue="tab1" orientation="vertical">
+				<StyledList aria-label="tabs example">
+					<StyledTrigger value="tab1">Stake Rewards Module</StyledTrigger>
+					<StyledTrigger value="tab2">Token Module</StyledTrigger>
+				</StyledList>
+				<StyledContent value="tab1">
+					<StakeRewardsTab />
+				</StyledContent>
+				<StyledContent value="tab2">
+					<TokenTab />
+				</StyledContent>
 
-			<h3>Stake Rewards Factory Functions</h3>
-			<Section>
-				<CreateStakeInstance />
-				<ReadComponent
-					hook={Proxy()}
-					header="Get Proxy"
-					description="Get your proxy contract address"
-					buttonText={'Get Instance'}
-					isAddress={true}
-				/>
-			
-			</Section>
-
-
-			<h3>Stake Rewards Functions</h3>
-			<Section>
-				{StakeReadFunctions.map((item) => (
-					<ReadComponent
-						key={item.header}
-						hook={item.hook}
-						header={item.header}
-						description={item.description}
-						buttonText={item.buttonText}
-						isAddress={item.isAddress}
-					/>
-				))}
-				<BalanceOf />
-				<Earned/>
-				<Stake />
-				<Withdraw />
-				<GetReward />
-			</Section>
-\
+			</StyledTabs>
 		</Box>
 	);
 };
@@ -123,4 +50,50 @@ const Section = styled('div', {
 const Info = styled('div', {
 	marginTop: '2rem',
 	color: '$gray200',
-})
+});
+
+const StyledTabs = styled(Tabs.Root, {
+	display: 'flex',
+	flexDirection: 'column',
+	background: '$gray100',
+	width: '100%',
+	boxShadow: `0 2px 10px $blue200`,
+});
+
+const StyledList = styled(Tabs.List, {
+	marginTop: '1rem',
+	flexShrink: 0,
+	display: 'flex',
+	borderBottom: `1px solid $blue500`,
+	backgroundColor: '$white100',
+	borderRadius: '10px 10px 0 0 ',
+});
+
+const StyledTrigger = styled(Tabs.Trigger, {
+	all: 'unset',
+	fontFamily: 'inherit',
+	cursor: 'pointer',
+	padding: '0 20px',
+	height: 45,
+	flex: 1,
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	fontSize: 15,
+	lineHeight: 1,
+	color: '$gray600',
+	userSelect: 'none',
+	'&:first-child': { borderTopLeftRadius: 6 },
+	'&:last-child': { borderTopRightRadius: 6 },
+	'&:hover': { color: '$blue500' },
+	'&[data-state="active"]': {
+		color: '$blue500',
+		boxShadow: 'inset 0 -1px 0 0 currentColor, 0 1px 0 0 currentColor',
+	},
+});
+
+const StyledContent = styled(Tabs.Content, {
+	backgroundColor: '$white100',
+	padding: '0 1rem 1rem',
+	borderRadius: '0 0 10px 10px',
+});

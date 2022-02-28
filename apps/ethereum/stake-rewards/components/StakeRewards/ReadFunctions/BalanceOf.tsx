@@ -11,47 +11,35 @@ import {
 	Input,
 	Content,
 	Button,
-} from '../ComponentStyles';
+} from '../../ComponentStyles';
 
-const Withdraw = () => {
+const BalanceOf = () => {
 	const { address } = useEthereum();
-	const { WithdrawTokens } = useStakeRewards();
-	const { mutate } = WithdrawTokens();
-	const [amount, setAmount] = useState(0);
-
-	const withdraw = async () => {
-		try {
-			const instanceData = {
-        amount: amount,
-			};
-
-			mutate(instanceData);
-		} catch (error) {
-			throw error;
-		}
-	};
+	const { BalanceOf } = useStakeRewards();
+	const [account, setAccount] = useState(address);
+	const { data } = BalanceOf(account!);
+	const [hidden, setHidden] = useState(false);
 
 	return (
 		<Box>
-			<h4>Withdraw</h4>
-			<p>Withdraw your staked tokens</p>
+			<h4>Balance Of</h4>
+			<p>Get the balance of staking token of a provided address</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Withdraw'}
+							{!address ? 'Connect Wallet' : 'Get Balance Of'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
-								type="number"
-								min="0"
-								placeholder="Amount"
-								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
+								placeholder="Account"
+								onChange={(e) => setAccount(e.target.value)}
 							/>
-							<Button onClick={withdraw}>
-								{!address ? 'Connet Wallet' : 'Withdraw'}
+
+							<Button onClick={() => setHidden((p) => !p)}>
+								{!address ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
 							</Button>
 						</Content>
 					</Parameters>
@@ -61,4 +49,4 @@ const Withdraw = () => {
 	);
 };
 
-export default Withdraw;
+export default BalanceOf;

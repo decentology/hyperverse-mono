@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useStakeRewards } from '@decentology/hyperverse-ethereum-stake-rewards';
+import { useToken } from '@decentology/hyperverse-ethereum-token';
 import {
 	Box,
 	Item,
@@ -11,24 +11,23 @@ import {
 	Input,
 	Content,
 	Button,
-} from '../ComponentStyles';
-
-const Earned = () => {
+} from '../../ComponentStyles';
+const BalanceOf = () => {
 	const { address } = useEthereum();
-	const { Earned } = useStakeRewards();
+	const { BalanceOf } = useToken();
 	const [account, setAccount] = useState(address);
-	const { data } = Earned(account!);
+	const { data } = BalanceOf(account!);
 	const [hidden, setHidden] = useState(false);
 
 	return (
 		<Box>
-			<h4>Earned</h4>
-			<p>Get the earned rewards of an address</p>
+			<h4>Balance Of</h4>
+			<p>Get the balance of a provided address</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Earned Rewards'}
+							{!address ? 'Connect Wallet' : 'Get Balance Of'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -39,7 +38,7 @@ const Earned = () => {
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Earned Rewards' : data}
+								{!address ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
 							</Button>
 						</Content>
 					</Parameters>
@@ -49,4 +48,4 @@ const Earned = () => {
 	);
 };
 
-export default Earned;
+export default BalanceOf;

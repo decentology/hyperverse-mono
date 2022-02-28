@@ -5,9 +5,9 @@ import { useStakeRewards } from '@decentology/hyperverse-ethereum-stake-rewards'
 import {
 	Box,
 	Button,
-} from '../ComponentStyles';
+} from '../../ComponentStyles';
 
-const WithdrawReward = () => {
+const GetReward = () => {
 	const { address } = useEthereum();
 	const { WithdrawReward } = useStakeRewards();
 	const { mutate } = WithdrawReward();
@@ -24,4 +24,4 @@ const WithdrawReward = () => {
 	);
 };
 
-export default WithdrawReward;
+export default GetReward;

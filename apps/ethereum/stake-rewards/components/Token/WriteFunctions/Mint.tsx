@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useStakeRewards } from '@decentology/hyperverse-ethereum-stake-rewards';
+import { useToken } from '@decentology/hyperverse-ethereum-token';
 import {
 	Box,
 	Item,
@@ -11,15 +11,15 @@ import {
 	Input,
 	Content,
 	Button,
-} from '../ComponentStyles';
+} from '../../ComponentStyles';
 
-const Stake = () => {
+const Mint = () => {
 	const { address } = useEthereum();
-	const { StakeTokens } = useStakeRewards();
-	const { mutate } = StakeTokens();
+	const { Mint } = useToken();
+	const { mutate } = Mint();
 	const [amount, setAmount] = useState(0);
 
-	const stake = async () => {
+	const mint = async () => {
 		try {
 			const instanceData = {
         amount: amount,
@@ -33,13 +33,13 @@ const Stake = () => {
 
 	return (
 		<Box>
-			<h4>Stake</h4>
-			<p>Stake some tokens, make sure you have tokens from the staking contract</p>
+			<h4>Mint</h4>
+			<p>Mint more tokens</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Stake'}
+							{!address ? 'Connect Wallet' : 'Mint'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -50,8 +50,8 @@ const Stake = () => {
 								placeholder="Amount"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={stake}>
-								{!address ? 'Connet Wallet' : 'Stake'}
+							<Button onClick={mint}>
+								{!address ? 'Connet Wallet' : 'Mint'}
 							</Button>
 						</Content>
 					</Parameters>
@@ -61,4 +61,4 @@ const Stake = () => {
 	);
 };
 
-export default Stake;
+export default Mint;

@@ -10,7 +10,7 @@ import {
 	Trigger,
 	Parameters,
 	Button,
-} from '../ComponentStyles';
+} from '../../ComponentStyles';
 import { styled } from '@stitches/react';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {

@@ -3,9 +3,9 @@ import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useToken } from '@decentology/hyperverse-ethereum-token';
-import { Box, Item, TriggerContainer, Trigger, Parameters, Input, Content, Button} from '../ComponentStyles'
+import { Box, Item, TriggerContainer, Trigger, Parameters, Input, Content, Button} from '../../ComponentStyles';
  
-const CreateInstance = () => {
+const CreateTokenInstance = () => {
   const { address } = useEthereum();
   const { NewInstance } = useToken();
   const { mutate } = NewInstance();
@@ -53,4 +53,4 @@ const CreateInstance = () => {
   )
 }
 
-export default CreateInstance;
+export default CreateTokenInstance;

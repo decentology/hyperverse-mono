@@ -11,24 +11,24 @@ import {
 	Input,
 	Content,
 	Button,
-} from '../ComponentStyles';
+} from '../../ComponentStyles';
 
-const BalanceOf = () => {
+const Earned = () => {
 	const { address } = useEthereum();
-	const { BalanceOf } = useStakeRewards();
+	const { Earned } = useStakeRewards();
 	const [account, setAccount] = useState(address);
-	const { data } = BalanceOf(account!);
+	const { data } = Earned(account!);
 	const [hidden, setHidden] = useState(false);
 
 	return (
 		<Box>
-			<h4>Balance Of</h4>
-			<p>Get the balance of staking token of a provided address</p>
+			<h4>Earned</h4>
+			<p>Get the earned rewards of an address</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Balance Of'}
+							{!address ? 'Connect Wallet' : 'Get Earned Rewards'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -39,7 +39,7 @@ const BalanceOf = () => {
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
+								{!address ? 'Connect Wallet' : !hidden ? 'Get Earned Rewards' : data}
 							</Button>
 						</Content>
 					</Parameters>
@@ -49,4 +49,4 @@ const BalanceOf = () => {
 	);
 };
 
-export default BalanceOf;
+export default Earned;
