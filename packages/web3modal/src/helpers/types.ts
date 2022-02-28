@@ -15,8 +15,8 @@ export interface IAbstractConnectorOptions {
 }
 
 export interface IInjectedProvidersMap {
-  injectedAvailable: boolean;
-  [isProviderName: string]: boolean;
+  injectedAvailable?: boolean | undefined;
+  [isProviderName: string]: boolean | undefined;
 }
 
 export interface IProviderDisplay {
