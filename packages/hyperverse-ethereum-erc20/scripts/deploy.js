@@ -1,13 +1,13 @@
 const hre = require('hardhat');
 const main = async () => {
-  const hyperverseAdmin = '0x05DF0a749F733779aa2FA5706C7552b094A7E8B0';
-  // const Token = await hre.ethers.getContractFactory('ERC20');
-  // const token = await Token.deploy(hyperverseAdmin);
-  // await token.deployed();
-  // console.log(`Token deployed to: ${token.address}`);
+  const hyperverseAdmin = '0x62a7aa79a52591Ccc62B71729329A80a666fA50f';
+  const Token = await hre.ethers.getContractFactory('ERC20');
+  const token = await Token.deploy(hyperverseAdmin);
+  await token.deployed();
+  console.log(`Token deployed to: ${token.address}`);
 
   const TokenFactory = await hre.ethers.getContractFactory('ERC20Factory');
-  const tokenFactory = await TokenFactory.deploy('0x97DECc530f9ff4798Bfdc4f766AA0Ec428145B08', hyperverseAdmin);
+  const tokenFactory = await TokenFactory.deploy(token.address, hyperverseAdmin);
   await tokenFactory.deployed();
   console.log('Token Factory deployed to: ', tokenFactory.address);
 

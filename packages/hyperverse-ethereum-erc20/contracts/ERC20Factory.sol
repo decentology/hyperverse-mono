@@ -23,7 +23,7 @@ import "./ERC20.sol";
 
     address public immutable masterContract;
     address public immutable owner;
-    address private hyperverseAdmin = 0x05DF0a749F733779aa2FA5706C7552b094A7E8B0;
+    address private hyperverseAdmin = 0x62a7aa79a52591Ccc62B71729329A80a666fA50f;
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
     modifier isOwner(address _tenant) {

@@ -5,8 +5,8 @@ const environment = {
 		appID: null,
 	},
 	[networks.Testnet]: {
-		erc20Address: '0x97DECc530f9ff4798Bfdc4f766AA0Ec428145B08',
-		erc20FactoryAddress: '0x898ee1817b534C64f768D9832D3ddAd8aA353222'
+		erc20Address: '0x5075a0259b418fbD46211B81AfA766157e7DD135',
+		erc20FactoryAddress: '0x4330f8f04490d09852e6916777e15259dF195F6A'
 	},
 };
 
