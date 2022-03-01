@@ -1309,6 +1309,21 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
+"@decentology/hyperverse-metis-tribes@*", "@decentology/hyperverse-metis-tribes@^1.0.0":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@decentology/hyperverse-metis-tribes/-/hyperverse-metis-tribes-1.0.11.tgz#976106b88c26e2b7b34881a8a212794c8255a9eb"
+  integrity sha512-fpUGdcoWRe2hs0A2L8rzmhTCC+So1gOtxn9hOakhHqAjss7eSBIYeXZysh0gPKHL7VaK8HUtrNUlPXzXZEAPZg==
+  dependencies:
+    "@decentology/hyperverse" "^1.0.9"
+    "@decentology/hyperverse-metis" "^1.0.10"
+    "@decentology/hyperverse-storage-skynet" "^1.0.8"
+    "@decentology/unstated-next" "^1.1.1"
+    "@openzeppelin/contracts" "^4.4.2"
+    ethers "^5.5.3"
+    react-query "^3.34.7"
+    react-use "^17.3.2"
+    skynet-js "^4.0.23-beta"
+
 "@emotion/is-prop-valid@^0.7.3":
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-0.7.3.tgz#a6bf4fa5387cbba59d44e698a4680f481a8da6cc"
