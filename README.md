@@ -21,7 +21,7 @@ To run this project locally:
    clone the repository
 
     ```bash
-    git clone https://github.com/decentology/hyperverse-mono
+    git clone https://github.com/aura-glitch/team-skechers
     ```
 
 2. Download all the dependencies needed to run the project by running `yarn`.
