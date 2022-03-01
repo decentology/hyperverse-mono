@@ -33,11 +33,11 @@ const hyperverse = initialize({
 	modules: [
 		{
 			bundle: Token,
-			tenantId: '0xDf61226090C2475D9ec7c494684d2715b61F130c',
+			tenantId: '0xb872D781f558DE58bCa5F66929db52A8b5EA6380',
 		},
 		{
 			bundle: StakeRewards,
-			tenantId: '0xDf61226090C2475D9ec7c494684d2715b61F130c',
+			tenantId: '0xb872D781f558DE58bCa5F66929db52A8b5EA6380',
 		},
 	],
 });

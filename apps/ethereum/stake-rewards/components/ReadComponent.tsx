@@ -32,13 +32,8 @@ const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Pro
 	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
 	const zeroAddress = dataFetched === shortenHash('0x0000000000000000000000000000000000000000', 5, 5) ;
 	
-	// const showInfo = !zeroAddress ? shortenHash(data, 5, 5) : 'You need an instance';
-
 	const showInfo = data ? !zeroAddress ? dataFetched : 'You need an instance' : dataFetched;
 
-	//gn: 0x3647F15288Fc87abff3b2622c50c795b0503294b
-	//0x25cEB1f4090b3bdD37bb246c07A61CBF41Fe31D3
-	
 	useEffect(() => {
 		if (error) {
 			if (error instanceof Error) {

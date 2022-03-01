@@ -9,6 +9,7 @@ import Earned from './ReadFunctions/Earned';
 import GetReward from './WriteFunctions/GetReward';
 import * as Accordion from '@radix-ui/react-accordion';
 import { BsExclamationCircleFill } from 'react-icons/bs';
+import Approve from '../Token/WriteFunctions/Approve';
 
 const StakeRewardsTab = () => {
 	const {
@@ -79,6 +80,8 @@ const StakeRewardsTab = () => {
               and a reward rate of your choosing.
               <br />
               4. Make sure you pass in the address of the account you used to create the Stake Rewards Instance in _app.tsx.
+							<br />
+							5. To allow people to withdraw their rewards, you need to transfer tokens from your token proxy to your stake rewards proxy.
    
 						</Info>
 					</Content>
@@ -95,6 +98,7 @@ const StakeRewardsTab = () => {
 					buttonText={'Get Instance'}
 					isAddress={true}
 				/>
+				<Approve/>
 			</Section>
 			<h3>Stake Rewards Functions</h3>
 			<Section>
