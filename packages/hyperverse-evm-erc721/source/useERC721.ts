@@ -1,25 +1,22 @@
-import { ABI, FactoryABI, ExampleNFTFactory } from './constants';
 import { ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import {
 	useQuery,
 	useMutation,
-	useQueryClient,
 	UseMutationOptions
 } from 'react-query';
 import { useMemo, useState, useEffect, useCallback } from 'react';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { TENANT_ADDRESS } from './constants'
+import { useEvm } from '@decentology/hyperverse-evm';
+import { useEnvironment } from './environment';
 
 type ContractState = ethers.Contract;
 
-function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADDRESS }) {
+function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 	const { tenantId } = initialState;
-	const queryClient = useQueryClient();
-	const { address, web3Provider, provider } = useEthereum();
-
+	const { address, web3Provider, provider } = useEvm();
+	const {contractAddress, ABI, FactoryABI} = useEnvironment()
 	const [contract, setContract] = useState<ContractState>(
-		new ethers.Contract(ExampleNFTFactory, FactoryABI, provider) as ContractState
+		new ethers.Contract(contractAddress!, FactoryABI, provider) as ContractState
 	);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 

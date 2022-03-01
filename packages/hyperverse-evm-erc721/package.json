@@ -1,6 +1,6 @@
 {
-  "name": "@decentology/hyperverse-ethereum-tribes",
-  "version": "1.0.9",
+  "name": "@decentology/hyperverse-evm-erc721",
+  "version": "1.0.1",
   "source": "./source/index.ts",
   "types": "./distribution/index.d.ts",
   "main": "./distribution/index.js",
@@ -22,9 +22,9 @@
   ],
   "dependencies": {
     "@decentology/hyperverse": "^1.0.9",
-    "@decentology/hyperverse-ethereum": "^1.0.9",
+    "@decentology/hyperverse-evm": "^1.0.9",
     "@decentology/hyperverse-storage-skynet": "^1.0.8",
-    "@openzeppelin/contracts": "^4.4.2",
+    "@openzeppelin/contracts": "^4.5.0",
     "ethers": "^5.5.3",
     "react-query": "^3.34.7",
     "react-use": "^17.3.2",

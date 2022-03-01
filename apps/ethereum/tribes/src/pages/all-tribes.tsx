@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
 import Loader from '../components/Loader';
-import { useTribes } from '@decentology/hyperverse-ethereum-tribes';
+import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import Image from 'next/image';
 import { toast } from 'react-toastify';

@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import { initialize, Provider } from '@decentology/hyperverse';
 import { networks } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as Tribes from '@decentology/hyperverse-ethereum-tribes';
+import * as Tribes from '@decentology/hyperverse-evm-tribes';
 import * as RandomPick from '@decentology/hyperverse-ethereum-randompick';
 import InnerComponent from '../components/InnerComponent';
 import { ToastContainer } from 'react-toastify';

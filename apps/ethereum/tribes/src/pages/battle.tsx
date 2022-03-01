@@ -1,5 +1,5 @@
 import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick';
-import { useTribes } from '@decentology/hyperverse-ethereum-tribes';
+import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
