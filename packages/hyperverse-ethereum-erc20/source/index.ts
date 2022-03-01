@@ -1,2 +1,2 @@
-export { useToken } from './useToken';
+export { useERC20 } from './useERC20';
 export { Provider } from './Provider';

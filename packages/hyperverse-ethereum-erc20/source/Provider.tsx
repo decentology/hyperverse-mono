@@ -1,5 +1,5 @@
 import { HyperverseModuleInstance, useHyperverse, networks } from '@decentology/hyperverse';
-import { Token }  from './useToken'
+import { ERC20 }  from './useERC20'
 import { FC } from 'react';
 import { QueryClientProvider, QueryClient } from 'react-query';
 const client = new QueryClient();
@@ -13,7 +13,7 @@ const Provider: FC<HyperverseModuleInstance> = ({children, tenantId}) => {
 	}
 	return (
 		<QueryClientProvider client={client}>
-			<Token.Provider initialState={{tenantId: tenantId || TENANT_ADDRESS}}>{children}</Token.Provider>
+			<ERC20.Provider initialState={{tenantId: tenantId || TENANT_ADDRESS}}>{children}</ERC20.Provider>
 		</QueryClientProvider>
 	);
 };

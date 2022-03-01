@@ -4,17 +4,17 @@ pragma experimental ABIEncoderV2;
 
 import "./hyperverse/CloneFactory.sol";
 import "./hyperverse/IHyperverseModule.sol";
-import "./Token.sol";
+import "./ERC20.sol";
 
 /**
   * @dev Clone Factory Implementation for ERC20 Token
  */
 
- contract TokenFactory is CloneFactory {
+ contract ERC20Factory is CloneFactory {
     
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
    struct Tenant {
-     Token token;
+     ERC20 erc20;
      address owner;
    }
 
@@ -65,20 +65,20 @@ import "./Token.sol";
     isAllowedToCreateInstance(_tenant)
     external 
     {
-      Token token =  Token(createClone(masterContract));
+      ERC20 token =  ERC20(createClone(masterContract));
 
       //initializing tenant state of clone 
       token.init(_name, _symbol, _decimal, msg.sender);
 
       //set Tenant data
       Tenant storage newTenant = tenants[_tenant];
-      newTenant.token = token;
+      newTenant.erc20 = token;
       newTenant.owner = _tenant;
       instance[_tenant] = true;
     }
 
-    function getProxy(address _tenant) public view returns (Token) {
-        return tenants[_tenant].token;
+    function getProxy(address _tenant) public view returns (ERC20) {
+        return tenants[_tenant].erc20;
     }
 
  }
