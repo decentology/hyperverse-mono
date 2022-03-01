@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/unstated-next",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "200 bytes to never think about React state management libraries ever again",
 	"source": "src/unstated-next.tsx",
 	"main": "dist/unstated-next.js",
@@ -32,9 +32,9 @@
 		"microbundle": "^0.11.0",
 		"parcel": "^1.12.3",
 		"prettier": "^1.17.0",
+		"rimraf": "^3.0.2",
 		"ts-node": "^8.1.0",
-		"typescript": "^3.4.5",
-    	"rimraf": "^3.0.2"
+		"typescript": "^3.4.5"
 	},
 	"husky": {
 		"hooks": {
