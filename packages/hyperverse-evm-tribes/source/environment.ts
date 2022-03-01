@@ -1,5 +1,4 @@
-import { networks, useHyperverse, blockchains, } from '@decentology/hyperverse';
-import Blockchain, { isEvm } from '@decentology/hyperverse/source/constants/blockchains';
+import { networks, useHyperverse, blockchains, isEvm, BlockchainEvm } from '@decentology/hyperverse';
 
 const environment = {
 	[blockchains.Ethereum]: {
@@ -38,7 +37,7 @@ function useEnvironment() {
 	if (!isEvm(blockchain?.name)) {
 		throw new Error("Blockchain is not EVM compatible")
 	}
-	return environment[blockchain.name][network];
+	return environment[blockchain.name as BlockchainEvm][network];
 
 }
 
