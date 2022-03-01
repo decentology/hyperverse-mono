@@ -1,4 +1,5 @@
 import { networks, useHyperverse, blockchains, } from '@decentology/hyperverse';
+import Blockchain, { isEvm } from '@decentology/hyperverse/source/constants/blockchains';
 
 const environment = {
 	[blockchains.Ethereum]: {
@@ -34,8 +35,11 @@ function useEnvironment() {
 	if (blockchain == null) {
 		throw new Error('Blockchain is not set');
 	}
-	// @ts-ignore -- TODO: Properly type this index lookup
+	if (!isEvm(blockchain?.name)) {
+		throw new Error("Blockchain is not EVM compatible")
+	}
 	return environment[blockchain.name][network];
+
 }
 
 export { environment, useEnvironment };
