@@ -1,3 +1,5 @@
+const { config } = require("dotenv");
+config();
 require("@nomiclabs/hardhat-waffle");
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -18,10 +20,10 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: "0.8.4",
-  // networks: {
-  //   rinkeby: {
-  //     url: `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
-  //     accounts: [`${PRIVATE_KEY}`],
-  //   },
-  // },
+  networks: {
+    rinkeby: {
+      url: `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts: [process.env.ACCOUNT_KEY],
+    },
+  },
 };
