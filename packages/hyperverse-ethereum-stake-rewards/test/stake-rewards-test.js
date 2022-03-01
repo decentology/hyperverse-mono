@@ -2,7 +2,6 @@ const { expect } = require('chai');
 const { ethers } = require('hardhat');
 const { deployMockContract } = require('@ethereum-waffle/mock-contract');
 const { advanceBlockTo, toBN} = require('./helpers')
-const tokenAbi = require('./utils/tokenAbi.json');
 
 
 describe('StakeRewards Testing', function () {

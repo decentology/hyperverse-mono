@@ -1,5 +1,5 @@
 import { STAKE_ABI, FACTORY_ABI, STAKE_FACTORY_ADDRESS, TENANT_ADDRESS } from './constants';
-import { ethers } from 'ethers';
+import { ethers, constants } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useMemo, useState, useEffect, useCallback } from 'react';
@@ -23,7 +23,7 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 	useEffect(() => {
 		const fetchContract = async () => {
 			const proxyAddress = await factoryContract.getProxy(tenantId);
-			if(proxyAddress === '0x0000000000000000000000000000000000000000') {
+			if(proxyAddress === constants.AddressZero) {
 				return;
 			}
 			const proxyCtr = new ethers.Contract(proxyAddress, STAKE_ABI, provider);
@@ -61,16 +61,13 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 		},
 		[factoryContract?.signer]
 	);
-
-const zeroAddress = proxyContract?.address !== '0x0000000000000000000000000000000000000000';
-
 	useEffect(() => {
 		if (web3Provider) {
 			setup();
 		}
 	}, [setup, web3Provider]);
 
-	const createInstance = async (
+	const createInstance = useCallback (async (
 		account: string,
 		stakingToken: string,
 		rewardsToken: string,
@@ -88,7 +85,7 @@ const zeroAddress = proxyContract?.address !== '0x000000000000000000000000000000
 			errors(err);
 			throw err;
 		}
-	};
+	}, [factoryContract?.signer]);
 
 	const getProxy = async (account: string | null) => {
 		try {
@@ -133,7 +130,7 @@ const zeroAddress = proxyContract?.address !== '0x000000000000000000000000000000
 	const rewardPerToken = async () => {
 		try {
 			const reward = await proxyContract?.rewardPerToken();
-			return reward.toNumber();
+			return reward.toString();
 		} catch (err) {
 			errors(err);
 			throw err;
@@ -150,7 +147,7 @@ const zeroAddress = proxyContract?.address !== '0x000000000000000000000000000000
 		}
 	};
 
-	const stake = async (amount: number) => {
+	const stake = useCallback(async (amount: number) => {
 		try {
 			const stake = await proxyContract?.stake(amount);
 			return stake.wait();
@@ -158,9 +155,10 @@ const zeroAddress = proxyContract?.address !== '0x000000000000000000000000000000
 			errors(err);
 			throw err;
 		}
-	};
+	}, [proxyContract?.signer]);
 
-	const withdraw = async (amount: number) => {
+
+	const withdraw = useCallback(async (amount: number) => {
 		try {
 			const withdraw = await proxyContract?.withdraw(amount);
 			return withdraw.wait();
@@ -168,12 +166,23 @@ const zeroAddress = proxyContract?.address !== '0x000000000000000000000000000000
 			errors(err);
 			throw err;
 		}
-	};
+	}, [proxyContract?.signer]);
 
-	const getReward = async () => {
+	const getReward = useCallback(async () => {
 		try {
 			const getReward = await proxyContract?.getReward();
 			return getReward.wait();
+		} catch (err) {
+			errors(err);
+			throw err;
+		}
+	}, [proxyContract?.signer]);
+
+
+	const getStakeToken = async () => {
+		try {
+			const stakeToken = await proxyContract?.stakingToken();
+			return stakeToken;
 		} catch (err) {
 			errors(err);
 			throw err;
@@ -182,23 +191,14 @@ const zeroAddress = proxyContract?.address !== '0x000000000000000000000000000000
 
 	const getRewardToken = async () => {
 		try {
-			const name = await proxyContract?.rewardsToken();
-			return name;
+			const rewardToken = await proxyContract?.rewardsToken();
+			return rewardToken;
 		} catch (err) {
 			errors(err);
 			throw err;
 		}
 	};
 
-	const getStakeToken = async () => {
-		try {
-			const name = await proxyContract?.stakingToken();
-			return name;
-		} catch (err) {
-			errors(err);
-			throw err;
-		}
-	};
 	return {
 		tenantId,
 		factoryContract,
@@ -268,12 +268,12 @@ const zeroAddress = proxyContract?.address !== '0x000000000000000000000000000000
 		) => useMutation(() => getReward(), options),
 
 		TokenContract: () =>
-			useQuery(['getTokenName', address], () => getRewardToken(), {
+			useQuery(['getStakeToken', address], () => getStakeToken(), {
 				enabled: !!proxyContract?.signer && !!address,
 			}),
 
 		RewardTokenContract: () =>
-			useQuery(['getTokenSymbol', address], () => getStakeToken(), {
+			useQuery(['getRewardToken', address], () => getRewardToken(), {
 				enabled: !!proxyContract?.signer && !!address ,
 			}),
 	};

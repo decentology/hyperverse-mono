@@ -37,7 +37,7 @@ contract StakeRewardsToken is IHyperverseModule {
 	}
 
 	modifier hasStakeBalance(address _account, uint256 _amount) {
-		require(_balances[_account] >= _amount, "Insufficient balance");
+		require(_balances[_account] >= _amount || _balances[_account] > 0, "Insufficient balance");
 		_;
 	}
 

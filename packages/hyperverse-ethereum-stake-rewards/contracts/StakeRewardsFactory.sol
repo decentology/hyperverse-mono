@@ -6,7 +6,7 @@ import './hyperverse/CloneFactory.sol';
 import './StakeRewardsToken.sol';
 
 /**
- * @dev Clone Factory Implementation for ERC20 Token
+ * @dev Clone Factory Implementation for Stake Rewards Module
  */
 
 contract StakeRewardsFactory is CloneFactory {
