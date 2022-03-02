@@ -10,7 +10,7 @@ import './MERC721.sol';
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {ERC721Enumerable}.
  */
-contract ExampleNFT is MERC721 {
+contract NFT is MERC721 {
 	uint256 public tokenCounter;
 
 	// Account used to deploy contract
