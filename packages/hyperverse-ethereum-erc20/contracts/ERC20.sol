@@ -8,7 +8,7 @@ import "hardhat/console.sol";
 
 import "./hyperverse/IHyperverseModule.sol";
 
-contract Token is IERC20, IHyperverseModule {
+contract ERC20 is IERC20, IHyperverseModule {
     using SafeMath for uint256;
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/

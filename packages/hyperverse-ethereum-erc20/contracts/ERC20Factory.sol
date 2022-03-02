@@ -4,17 +4,17 @@ pragma experimental ABIEncoderV2;
 
 import "./hyperverse/CloneFactory.sol";
 import "./hyperverse/IHyperverseModule.sol";
-import "./Token.sol";
+import "./ERC20.sol";
 
 /**
   * @dev Clone Factory Implementation for ERC20 Token
  */
 
- contract TokenFactory is CloneFactory {
+ contract ERC20Factory is CloneFactory {
     
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
    struct Tenant {
-     Token token;
+     ERC20 erc20;
      address owner;
    }
 
@@ -23,7 +23,7 @@ import "./Token.sol";
 
     address public immutable masterContract;
     address public immutable owner;
-    address private hyperverseAdmin = 0x05DF0a749F733779aa2FA5706C7552b094A7E8B0;
+    address private hyperverseAdmin = 0x62a7aa79a52591Ccc62B71729329A80a666fA50f;
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
     modifier isOwner(address _tenant) {
@@ -65,20 +65,20 @@ import "./Token.sol";
     isAllowedToCreateInstance(_tenant)
     external 
     {
-      Token token =  Token(createClone(masterContract));
+      ERC20 token =  ERC20(createClone(masterContract));
 
       //initializing tenant state of clone 
       token.init(_name, _symbol, _decimal, msg.sender);
 
       //set Tenant data
       Tenant storage newTenant = tenants[_tenant];
-      newTenant.token = token;
+      newTenant.erc20 = token;
       newTenant.owner = _tenant;
       instance[_tenant] = true;
     }
 
-    function getProxy(address _tenant) public view returns (Token) {
-        return tenants[_tenant].token;
+    function getProxy(address _tenant) public view returns (ERC20) {
+        return tenants[_tenant].erc20;
     }
 
  }
