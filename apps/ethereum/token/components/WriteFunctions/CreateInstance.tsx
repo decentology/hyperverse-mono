@@ -2,12 +2,12 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import { Box, Item, TriggerContainer, Trigger, Parameters, Input, Content, Button} from '../ComponentStyles'
  
 const CreateInstance = () => {
   const { address } = useEthereum();
-  const { NewInstance } = useToken();
+  const { NewInstance } = useERC20();
   const { mutate } = NewInstance();
   const [tokenName, setTokenName] = useState('');
   const [tokenSymbol, setTokenSymbol] = useState('');
