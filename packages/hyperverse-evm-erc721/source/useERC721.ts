@@ -14,7 +14,7 @@ type ContractState = ethers.Contract;
 function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 	const { tenantId } = initialState;
 	const { address, web3Provider, provider } = useEvm();
-	const {contractAddress, ABI, FactoryABI} = useEnvironment()
+	const {contractAddress, ContractABI, FactoryABI} = useEnvironment()
 	const [contract, setContract] = useState<ContractState>(
 		new ethers.Contract(contractAddress!, FactoryABI, provider) as ContractState
 	);
@@ -27,7 +27,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 	useEffect(() => {
 		const fetchContract = async () => {
 			const proxyAddress = await contract.getProxy(tenantId);
-			const proxyCtr = new ethers.Contract(proxyAddress, ABI, provider);
+			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, provider);
 			const accountSigner = await signer;
 			if (accountSigner) {
 				setProxyContract(proxyCtr.connect(accountSigner));

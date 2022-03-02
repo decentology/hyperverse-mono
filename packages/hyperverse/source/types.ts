@@ -58,6 +58,7 @@ export type EvmEnvironment = {
 		[key in Network]: {
 			[key: string]: any;
 			contractAddress: string | null;
+			factoryAddress: string | null;
 			tenantAddress: string | null;
 		};
 	};
