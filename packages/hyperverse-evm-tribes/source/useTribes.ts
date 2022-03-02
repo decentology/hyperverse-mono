@@ -196,6 +196,25 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		[contract]
 	);
 
+
+	const getTribeMembers = useCallback(async (tribeId:number) => {
+		try {
+			const events = await contract.queryFilter(contract.filters.JoinedTribe(), 0)
+			const members = events.map(e => {
+				if (e.args){
+					return {
+						tribeId: e.args[0].toNumber(),
+						account: e.args[1],
+					}
+				}
+			}).filter(e => e?.tribeId === tribeId)
+			return members
+		} catch (err) {
+			errors(err);
+		}
+	}, [contract]);
+
+
 	const useTribeEvents = (eventName: string, callback: any) => {
 		return useEvent(eventName, useCallback(callback, [contract]), contract);
 	};
@@ -259,6 +278,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				enabled: !!tribeId,
 			});
 		},
+		TribeMembers: (tribeId: number) =>
+		useQuery(['getTribeMembers', contract?.address], () => getTribeMembers(tribeId), {
+			enabled: !!contract?.address,
+		}),
 	};
 }
 
