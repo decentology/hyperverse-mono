@@ -1,6 +1,6 @@
 import { initialize, Provider, networks } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as Token from '@decentology/hyperverse-ethereum-token';
+import * as Token from '@decentology/hyperverse-evm-erc20';
 import { globalCss } from '../stitches.config';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -1,5 +1,5 @@
 {
-  "name": "@decentology/hyperverse-ethereum-erc20",
+  "name": "@decentology/hyperverse-evm-erc20",
   "version": "1.0.1",
   "source": "./source/index.ts",
   "types": "./distribution/index.d.ts",
