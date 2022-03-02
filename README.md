@@ -23,8 +23,15 @@ To run this project locally:
     ```bash
     git clone https://github.com/aura-glitch/team-skechers
     ```
+    
+2. Navigate to your Preferred module
 
-2. Download all the dependencies needed to run the project by running `yarn`.
+   **Ethereum Example**
+   ```bash
+   cd team-skechers/apps/ethereum
+   ```
+   
+3. Download all the dependencies needed to run the project by running `yarn`.
 
     ```bash
     yarn
