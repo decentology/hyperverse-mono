@@ -61,7 +61,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	const formatTribeResultFromTribeId = useCallback(
 		async (tribeId: number) => {
-			const txn = await proxyContract?.getTribeData(tenantId, tribeId);
+			const txn = await proxyContract?.getTribeData(tribeId);
 			const link = txn.replace('sia:', '');
 			const json = JSON.parse(
 				// eslint-disable-next-line no-await-in-loop
@@ -75,9 +75,9 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		[proxyContract?.signer]
 	);
 
-	const errors = useCallback(
+	const factoryErrors = useCallback(
 		(err: any) => {
-			if (!proxyContract?.signer) {
+			if (!factoryContract?.signer) {
 				throw new Error('Please connect your wallet!');
 			}
 
@@ -85,13 +85,9 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				throw new Error('You rejected the transaction!');
 			}
 
-			if (err.message.includes('User is already in a Tribe!')) {
-				throw new Error('You are already in a tribe!');
-			}
-
 			throw err;
 		},
-		[proxyContract?.signer]
+		[factoryContract?.signer]
 	);
 
 	useEffect(() => {
@@ -105,19 +101,23 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 			const instance = await factoryContract.instance(account);
 			return instance;
 		} catch (err) {
-			return false;
+			factoryErrors(err);
+			throw err;
 		}
 	};
 
-	const createInstance = useCallback(async () => {
-		try {
-			const createTxn = await factoryContract.createInstance();
-			return createTxn.wait();
-		} catch (err) {
-			errors(err);
-			throw err;
-		}
-	}, [factoryContract?.signer]);
+	const createInstance = useCallback(
+		async (account: string) => {
+			try {
+				const createTxn = await factoryContract.createInstance(account);
+				return createTxn.wait();
+			} catch (err) {
+				factoryErrors(err);
+				throw err;
+			}
+		},
+		[factoryContract?.signer]
+	);
 
 	const getTotalTenants = async () => {
 		try {
@@ -125,6 +125,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 			return tenantCount.toNumber();
 		} catch (err) {
+			factoryErrors(err);
 			throw err;
 		}
 	};
@@ -150,7 +151,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				);
 				return addTxn.wait();
 			} catch (err) {
-				errors(err);
 				throw err;
 			}
 		},
@@ -167,16 +167,15 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 					return null;
 				}
 			}
-			errors(err);
 		}
 	};
+
 	const getTribe = async (id: number) => {
 		try {
-			const userTribeTxn = await proxyContract?.getTribeData(id);
-			// return userTribeTxn;
+			await proxyContract?.getTribeData(id);
 			return formatTribeResultFromTribeId(id);
 		} catch (err) {
-			errors(err);
+			throw err;
 		}
 	};
 
@@ -186,22 +185,22 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 			await leaveTxn.wait();
 			return leaveTxn.hash;
 		} catch (err) {
-			errors(err);
+			throw err;
 		}
 	}, [address, proxyContract?.signer]);
 
 	const getAllTribes = useCallback(async () => {
 		try {
-			const tribesData = await proxyContract?.tribeCounter();
+			const tribeCount = await proxyContract?.tribeCounter();
 			const tribes = [];
-			for (let tribeId = 1; tribeId <= tribesData.toNumber(); ++tribeId) {
+			for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
 				const json = await formatTribeResultFromTribeId(tribeId);
 				tribes.push(json);
 			}
 
 			return tribes;
 		} catch (err) {
-			errors(err);
+			throw err;
 		}
 	}, [address, proxyContract?.address]);
 
@@ -211,7 +210,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				const joinTxn = await proxyContract?.joinTribe(id);
 				return joinTxn.wait();
 			} catch (err) {
-				errors(err);
+				throw err;
 			}
 		},
 		[address, proxyContract?.signer]
@@ -235,7 +234,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				.filter((e) => e?.tribeId === tribeId);
 			return members;
 		} catch (err) {
-			errors(err);
+			throw err;
 		}
 	};
 
@@ -257,8 +256,11 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				}
 			),
 		NewInstance: (
-			options?: Omit<UseMutationOptions<unknown, unknown, void, unknown>, 'mutationFn'>
-		) => useMutation(createInstance, options),
+			options?: Omit<
+				UseMutationOptions<unknown, unknown, { account: string }, unknown>,
+				'mutationFn'
+			>
+		) => useMutation(({ account }) => createInstance(account), options),
 		TotalTenants: () =>
 			useQuery(['totalTenants', factoryContract?.address], () => getTotalTenants(), {
 				enabled: !!factoryContract?.address,

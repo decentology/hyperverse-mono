@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Change your Tenant ID here.
-const TENANT_ID = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D';
+const TENANT_ID = '0xDf61226090C2475D9ec7c494684d2715b61F130c';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({

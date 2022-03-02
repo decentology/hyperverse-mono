@@ -51,7 +51,7 @@ const TribesPage = () => {
 						) : (
 							<Image
 								width={300}
-								height={400}
+								height={380}
 								src={`${clientUrl}/${data.image}/`}
 								alt={data.name}
 								className={styles.tribe}
