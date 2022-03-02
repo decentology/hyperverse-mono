@@ -1,119 +1,113 @@
-//SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+pragma experimental ABIEncoderV2;
 
-import "./hyperverse/IHyperverseModule.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+import './hyperverse/IHyperverseModule.sol';
+import '@openzeppelin/contracts/utils/Counters.sol';
+import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 
 contract Tribes is IHyperverseModule {
-    using Counters for Counters.Counter;
+	using Counters for Counters.Counter;
+	using SafeMath for uint256;
 
-    address public owner;
-    Counters.Counter public tenantCount;
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	address public immutable contractOwner;
+	address private tenantOwner;
 
-    struct Tenant {
-        mapping(uint256 => TribeData) tribes;
-        mapping(address => uint256) participants;
-        Counters.Counter tribeIds;
-    }
+	mapping(uint256 => TribeData) public allTribes;
+	mapping(address => uint256) public participants;
+	Counters.Counter public tribeCounter;
 
-    struct TribeData {
-        string metadata;
-        mapping(address => bool) members;
-        uint256 numOfMembers;
-        uint256 tribeId;
-    }
+	struct TribeData {
+		string metadata;
+		mapping(address => bool) members;
+		uint256 numOfMembers;
+		uint256 tribeId;
+	}
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-    mapping(address => Tenant) public tenants;
-    mapping(address => bool) public instance;
+	///+events
+	event JoinedTribe(uint256 indexed tribeId, address newMember);
+	event LeftTribe(uint256 indexed tribeId, address member);
+	event NewTribeCreated(string metadata);
 
-    modifier hasAnInstance(address tenant) {
-        require(instance[tenant], "Tenant does not have an instance");
-        _;
-    }
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-    event NewTenantInstance(address tenant);
-    event JoinedTribe(uint256 tribeId, address newMember);
-    event LeftTribe(uint256 tribeId, address member);
-    event NewTribeCreated(string metadata);
+	///+modifiers
+	modifier isTenantOwner() {
+		require(msg.sender == tenantOwner, 'You are not the tenant owner');
+		_;
+	}
 
-    constructor() {
-        metadata = ModuleMetadata(
-            "Tribes",
-            Author(msg.sender, "https://externallink.net"),
-            "0.0.1",
-            3479831479814,
-            "https://externalLink.net"
-        );
-        owner = msg.sender;
-    }
+	modifier isNotInATribe(address _user) {
+		require(participants[_user] != 0, 'This member is not in a Tribe!');
+		_;
+	}
 
-    function createInstance() public virtual {
-        require(instance[msg.sender] == false, "You already have an instance");
-        tenants[msg.sender];
-        instance[msg.sender] = true;
-        tenantCount.increment();
-        emit NewTenantInstance(msg.sender);
-    }
+  modifier tribeExists(uint256 _tribeId) {
+    require(tribeCounter.current() >= _tribeId, 'Tribe does not exist!');
+    _;
+  }
 
-    function getState(address tenant) private view hasAnInstance(tenant) returns (Tenant storage) {
-        return tenants[tenant];
-    }
+	constructor(address _owner) {
+		metadata = ModuleMetadata(
+			'Tribe Module',
+			Author(_owner, 'https://externallink.net'),
+			'1.0.0',
+			3479831479814,
+			'https://externallink.net'
+		);
+		contractOwner = _owner;
+	}
 
-    function addNewTribe(string memory metadata) public virtual hasAnInstance(msg.sender) {
-        Tenant storage state = getState(msg.sender);
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TENANT FUNCTIONALITIES  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	function init(address _tenant) external {
+		require(tenantOwner == address(0), 'Contract is already initialized');
+		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+		tenantOwner = _tenant;
+	}
 
-        state.tribeIds.increment();
-        uint256 newTribeId = state.tribeIds.current();
+	function addNewTribe(string memory _metadata) public isTenantOwner {
+		tribeCounter.increment();
+		uint256 newTribeId = tribeCounter.current();
 
-        TribeData storage newTribe = state.tribes[newTribeId];
-        newTribe.metadata = metadata;
-        newTribe.tribeId = newTribeId;
-        emit NewTribeCreated(metadata);
-    }
+		TribeData storage newTribe = allTribes[newTribeId];
+		newTribe.metadata = _metadata;
+		newTribe.tribeId = newTribeId;
+		emit NewTribeCreated(_metadata);
+	}
 
-    function joinTribe(address tenant, uint256 tribeId) public virtual {
-        address user = msg.sender;
-        Tenant storage state = getState(tenant);
-        require(state.participants[user] == 0, "User is already in a Tribe!");
-        require(state.tribeIds.current() >= tribeId, "Tribe does not exist");
+	function joinTribe(uint256 _tribeId) external tribeExists(_tribeId) {
+		require(participants[msg.sender] == 0, 'User is already in a Tribe!');
 
-        state.participants[user] = tribeId;
-        TribeData storage tribeData = state.tribes[tribeId];
-        tribeData.members[user] = true;
-        tribeData.numOfMembers += 1;
+		TribeData storage tribe = allTribes[_tribeId];
+		tribe.members[msg.sender] = true;
+		tribe.numOfMembers += 1;
+		participants[msg.sender] = _tribeId;
 
-        emit JoinedTribe(tribeId, user);
-    }
+		emit JoinedTribe(_tribeId, msg.sender);
+	}
 
-    function leaveTribe(address tenant) public virtual {
-        Tenant storage state = getState(tenant);
-        require(state.participants[msg.sender] != 0, "This member is not in a Tribe!");
+	function leaveTribe() external isNotInATribe(msg.sender) {
+		uint256 tribeId = participants[msg.sender];
+		TribeData storage tribe = allTribes[tribeId];
+		tribe.members[msg.sender] = false;
+		tribe.numOfMembers -= 1;
+		participants[msg.sender] = 0;
 
-        TribeData storage tribeData = state.tribes[state.participants[msg.sender]];
-        uint256 tribeId = state.participants[msg.sender];
-        state.participants[msg.sender] = 0;
-        tribeData.members[msg.sender] = false;
-        tribeData.numOfMembers -= 1;
+		emit LeftTribe(tribeId, msg.sender);
+	}
 
-        emit LeftTribe(tribeId, msg.sender);
-    }
+	function getUserTribe(address _user)
+		public
+		view
+		isNotInATribe(_user)
+		returns (uint256 tribeId)
+	{
+		return participants[_user];
+	}
 
-    function getUserTribe(address tenant, address user) public view virtual returns (uint256) {
-        Tenant storage state = getState(tenant);
-
-        require(state.participants[user] != 0, "This member is not in a Tribe!");
-
-        uint256 tribeId = state.participants[user];
-        return tribeId;
-    }
-
-    function getTribeData(address tenant, uint256 tribeId) public view virtual returns (string memory) {
-        Tenant storage state = getState(tenant);
-        TribeData storage tribeData = state.tribes[tribeId];
-        return (tribeData.metadata);
-    }
-
-    function totalTribes(address tenant) public view virtual returns (uint256) {
-        return getState(tenant).tribeIds.current();
-    }
+  function getTribeData(uint256 _tribeId) public view tribeExists(_tribeId) returns (string memory) {
+    return allTribes[_tribeId].metadata;
+  }
 }

@@ -6,7 +6,10 @@
   "main": "./distribution/index.js",
   "license": "MIT",
   "scripts": {
+    "compile": "hardhat compile",
     "test": "hardhat test",
+    "deploy-rinkeby": "hardhat run scripts/deploy.js --network rinkeby ",
+    "deploy-metis": "hardhat run scripts/deploy.js --network metis",
     "build": "parcel build",
     "clean": "rimraf ./distribution"
   },
@@ -24,12 +27,13 @@
     "@decentology/hyperverse": "^1.0.9",
     "@decentology/hyperverse-evm": "^1.0.9",
     "@decentology/hyperverse-storage-skynet": "^1.0.8",
+    "@decentology/unstated-next": "^1.1.1",
     "@openzeppelin/contracts": "^4.4.2",
+    "dotenv": "^16.0.0",
     "ethers": "^5.5.3",
     "react-query": "^3.34.7",
     "react-use": "^17.3.2",
-    "skynet-js": "^4.0.23-beta",
-    "@decentology/unstated-next": "^1.1.1"
+    "skynet-js": "^4.0.23-beta"
   },
   "devDependencies": {
     "@decentology/config": "^1.0.0",
