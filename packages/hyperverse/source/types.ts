@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { ContainerProvider } from '@decentology/unstated-next';
-import Blockchain from './constants/blockchains';
+import Blockchain, { BlockchainEvm } from './constants/blockchains';
 import Network from './constants/networks';
 import Storage from './constants/storage';
 type Exact<A, B> = A extends B ? (B extends A ? A : never) : never;
@@ -51,6 +51,14 @@ export type HyperverseModule = {
 
 export type HyperverseModuleInstance = {
 	tenantId?: string;
-	// network: Network;
-	// blockchain: Blockchain;
+};
+
+export type EvmEnvironment = {
+	[key in BlockchainEvm]: {
+		[key in Network]: {
+			[key: string]: any;
+			contractAddress: string | null;
+			tenantAddress: string | null;
+		};
+	};
 };
