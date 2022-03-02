@@ -67,6 +67,18 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 		}
 	}, [setup, web3Provider]);
 
+	const checkInstance = useCallback(
+		async (account: any) => {
+			try {
+				const instance = await factoryContract.instance(account);
+				return instance;
+			} catch (err) {
+				return false;
+			}
+		},
+		[factoryContract]
+	);
+
 	const createInstance = useCallback (async (
 		account: string,
 		stakingToken: string,
@@ -130,7 +142,7 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 	const rewardPerToken = async () => {
 		try {
 			const reward = await proxyContract?.rewardPerToken();
-			return reward.toString();
+			return reward.toNumber();
 		} catch (err) {
 			errors(err);
 			throw err;
@@ -203,6 +215,10 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 		tenantId,
 		factoryContract,
 		proxyContract,
+		CheckInstance: () =>
+		useQuery(['checkInstance', address, factoryContract?.address], () => checkInstance(address), {
+			enabled: !!address && !!factoryContract?.address,
+		}),
 		NewInstance: (
 			options?: Omit<
 				UseMutationOptions<
@@ -267,7 +283,7 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: TENA
 			options?: Omit<UseMutationOptions<unknown, unknown, unknown, unknown>, 'mutationFn'>
 		) => useMutation(() => getReward(), options),
 
-		TokenContract: () =>
+		StakeTokenContract: () =>
 			useQuery(['getStakeToken', address], () => getStakeToken(), {
 				enabled: !!proxyContract?.signer && !!address,
 			}),
