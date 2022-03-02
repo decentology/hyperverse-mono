@@ -11,6 +11,7 @@ import {
 	Input,
 	Content,
 	Button,
+	Module
 } from '../../ComponentStyles';
 
 const CreateStakeInstance = () => {
@@ -35,8 +36,7 @@ const CreateStakeInstance = () => {
 			throw error;
 		}
 	};
-//0xa843d9fFC048722A57eC8f1aD1EaCfeC5b39c6AC
-//0x05E278067cd38aa818D25b040E3743Ea2cfbED39
+
 	return (
 		<Box id="createInstance">
 			<h4>New Instance</h4>
@@ -71,6 +71,7 @@ const CreateStakeInstance = () => {
 					</Parameters>
 				</Item>
 			</Accordion.Root>
+			<Module>(Stake Rewards Module)</Module>
 		</Box>
 	);
 };

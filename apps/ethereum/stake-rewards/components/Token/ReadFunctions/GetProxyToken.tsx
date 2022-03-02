@@ -10,6 +10,7 @@ import {
 	Trigger,
 	Parameters,
 	Button,
+	Module
 } from '../../ComponentStyles';
 import { styled } from '@stitches/react';
 
@@ -83,6 +84,7 @@ const ProxyToken = () => {
 					</Parameters>
 				</Item>
 			</Accordion.Root>
+			<Module>(Token Module)</Module>
 		</Box>
 	);
 };

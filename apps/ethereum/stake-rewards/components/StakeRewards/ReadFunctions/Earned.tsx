@@ -11,11 +11,13 @@ import {
 	Input,
 	Content,
 	Button,
+	Module,
 } from '../../ComponentStyles';
 
 const Earned = () => {
 	const { address } = useEthereum();
-	const { Earned } = useStakeRewards();
+	const { CheckInstance, Earned } = useStakeRewards();
+	const {data: instance} = CheckInstance();
 	const [account, setAccount] = useState(address);
 	const { data } = Earned(account!);
 	const [hidden, setHidden] = useState(false);
@@ -27,8 +29,8 @@ const Earned = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Earned Rewards'}
+						<Trigger disabled={!address || !instance}>
+							{!address ? 'Connect Wallet': !instance ? 'Create an Instance' : 'Get Earned Rewards'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -45,6 +47,7 @@ const Earned = () => {
 					</Parameters>
 				</Item>
 			</Accordion.Root>
+			<Module>(Stake Rewards Module)</Module>
 		</Box>
 	);
 };

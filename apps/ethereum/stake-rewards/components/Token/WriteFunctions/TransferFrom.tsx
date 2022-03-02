@@ -11,6 +11,7 @@ import {
 	Input,
 	Content,
 	Button,
+	Module,
 } from '../../ComponentStyles';
 
 const TransferFrom = () => {
@@ -69,6 +70,7 @@ const TransferFrom = () => {
 					</Parameters>
 				</Item>
 			</Accordion.Root>
+			<Module>(Token Module)</Module>
 		</Box>
 	);
 };

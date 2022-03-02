@@ -92,3 +92,9 @@ export const Item = styled(Accordion.Item, {
   alignItems: 'center',
   
 })
+
+
+export const Module = styled('p', {
+  margin: '5px 0 -8px !important',
+  padding: 0,
+})

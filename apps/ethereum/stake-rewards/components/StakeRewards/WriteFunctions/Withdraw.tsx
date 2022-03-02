@@ -11,11 +11,13 @@ import {
 	Input,
 	Content,
 	Button,
+	Module,
 } from '../../ComponentStyles';
 
 const Withdraw = () => {
 	const { address } = useEthereum();
-	const { WithdrawTokens } = useStakeRewards();
+	const { CheckInstance, WithdrawTokens } = useStakeRewards();
+	const {data: instance} = CheckInstance();
 	const { mutate } = WithdrawTokens();
 	const [amount, setAmount] = useState(0);
 
@@ -38,8 +40,8 @@ const Withdraw = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Withdraw'}
+						<Trigger disabled={!address || !instance}>
+							{!address ? 'Connect Wallet' : !instance ? 'Create an Instance': 'Withdraw'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -57,6 +59,7 @@ const Withdraw = () => {
 					</Parameters>
 				</Item>
 			</Accordion.Root>
+			<Module>(Stake Rewards Module)</Module>
 		</Box>
 	);
 };

@@ -9,7 +9,8 @@ import {
 
 const GetReward = () => {
 	const { address } = useEthereum();
-	const { WithdrawReward } = useStakeRewards();
+	const { CheckInstance, WithdrawReward } = useStakeRewards();
+	const {data: instance} = CheckInstance();
 	const { mutate } = WithdrawReward();
 
 
@@ -17,8 +18,8 @@ const GetReward = () => {
 		<Box>
 			<h4>Get Rewards</h4>
 			<p>Withdraw your reward tokens</p>
-			<Button disabled={!address} onClick={mutate}>
-				{!address ? 'Connect Wallet' : 'Withdraw Rewards'}
+			<Button disabled={!address || !instance} onClick={mutate}>
+				{!address ? 'Connect Wallet' : !instance ? 'Create an Instance' : 'Withdraw Rewards'}
 			</Button>
 		</Box>
 	);

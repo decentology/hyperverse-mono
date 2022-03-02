@@ -11,6 +11,7 @@ import {
 	Input,
 	Content,
 	Button,
+	Module
 } from '../../ComponentStyles';
 
 const Approve = () => {
@@ -63,6 +64,7 @@ const Approve = () => {
 					</Parameters>
 				</Item>
 			</Accordion.Root>
+			<Module>(Token Module)</Module>
 		</Box>
 	);
 };

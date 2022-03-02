@@ -2,6 +2,7 @@ import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useStakeRewards } from '@decentology/hyperverse-ethereum-stake-rewards';
+import { Module } from '../../ComponentStyles';
 import {
 	Box,
 	Item,
@@ -15,7 +16,8 @@ import {
 
 const Stake = () => {
 	const { address } = useEthereum();
-	const { StakeTokens } = useStakeRewards();
+	const { CheckInstance, StakeTokens } = useStakeRewards();
+	const {data: instance} = CheckInstance();
 	const { mutate } = StakeTokens();
 	const [amount, setAmount] = useState(0);
 
@@ -38,8 +40,8 @@ const Stake = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Stake'}
+						<Trigger disabled={!address || !instance}>
+							{!address ? 'Connect Wallet' : !instance ? 'Create an Instance'  : 'Stake'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -57,6 +59,7 @@ const Stake = () => {
 					</Parameters>
 				</Item>
 			</Accordion.Root>
+			<Module>(Stake Rewards Module)</Module>
 		</Box>
 	);
 };

@@ -9,6 +9,7 @@ import Approve from './WriteFunctions/Approve';
 import Mint from './WriteFunctions/Mint';
 import GetProxyToken from './ReadFunctions/GetProxyToken';
 import { useToken } from '@decentology/hyperverse-ethereum-token';
+import {BsExclamationTriangleFill} from 'react-icons/bs';
 
 const TokenTab = () => {
 	const { TokenName, TokenSymbol, Balance, TotalSupply } = useToken();
@@ -42,6 +43,8 @@ const TokenTab = () => {
 
 	return (
 		<>
+			<Reminder><BsExclamationTriangleFill/>If you want to use the Token Instances from the once you created in the Stake Rewards Tabs, make sure to change the tenantID in _app.tsx 
+				<br />to the account you used to create the instance</Reminder>
 			<h3>Token Factory Functions</h3>
 			<Section>
 				<CreateTokenInstance />
@@ -57,6 +60,7 @@ const TokenTab = () => {
 						header={item.header}
 						description={item.description}
 						buttonText={item.buttonText}
+						module={'(Token Module)'}
 					/>
 				))}
 				<BalanceOf />
@@ -81,4 +85,20 @@ const Section = styled('div', {
 	display: 'grid',
 	gridTemplateColumns: '270px 270px 270px 257px',
 	gridGap: '10px',
+});
+
+const Reminder = styled('div', {
+	display: 'flex',
+	alignItems: 'center',
+	backgroundColor: '$blue300',
+	width: '97%',
+	padding: '1rem',
+	marginTop: '1rem',
+	fontSize: '12px',
+	borderRadius: '5px',
+	'& > svg': {
+		color: '$yellow100',
+		fontSize: '1.3rem',
+		marginRight: '1rem',
+	}
 });

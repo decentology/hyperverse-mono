@@ -1,18 +1,18 @@
 import { styled } from '../stitches.config';
 import * as Tabs from '@radix-ui/react-tabs';
 import TokenTab from './Token/TokenTab';
-import StakeRewardsTab from './StakeRewards/StakeRewardsTab';
+import StakeContainer from './StakeContainer';
 
 const Container = () => {
 	return (
 		<Box>
 			<StyledTabs defaultValue="tab1" orientation="vertical">
 				<StyledList aria-label="tabs example">
-					<StyledTrigger value="tab1">Stake Rewards Module</StyledTrigger>
+				<StyledTrigger value="tab1">Stake Rewards Module</StyledTrigger>
 					<StyledTrigger value="tab2">Token Module</StyledTrigger>
 				</StyledList>
 				<StyledContent value="tab1">
-					<StakeRewardsTab />
+					<StakeContainer />
 				</StyledContent>
 				<StyledContent value="tab2">
 					<TokenTab />

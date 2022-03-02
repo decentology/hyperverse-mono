@@ -11,6 +11,7 @@ import {
 	Input,
 	Content,
 	Button,
+	Module,
 } from '../../ComponentStyles';
 const BalanceOf = () => {
 	const { address } = useEthereum();
@@ -44,6 +45,7 @@ const BalanceOf = () => {
 					</Parameters>
 				</Item>
 			</Accordion.Root>
+			<Module>(Token Module)</Module>
 		</Box>
 	);
 };
