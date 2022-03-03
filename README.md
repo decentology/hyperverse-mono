@@ -21,7 +21,7 @@ To run this project locally:
    clone the repository
 
     ```bash
-    git clone https://github.com/aura-glitch/team-skechers
+    git clone https://github.com/decentrology/hyperverse-mono
     ```
     
 2. Navigate to your Preferred module
