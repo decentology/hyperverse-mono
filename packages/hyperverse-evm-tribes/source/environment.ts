@@ -1,30 +1,44 @@
-import { networks, useHyperverse, blockchains, isEvm, BlockchainEvm } from '@decentology/hyperverse';
-
-const environment = {
+import { networks, useHyperverse, blockchains, isEvm, BlockchainEvm, EvmEnvironment } from '@decentology/hyperverse';
+import TribesFactory from '../artifacts/contracts/TribesFactory.sol/TribesFactory.json';
+import Tribes from '../artifacts/contracts/Tribes.sol/Tribes.json';
+export const ContractABI = Tribes.abi;
+export const FactoryABI = TribesFactory.abi;
+const environment: EvmEnvironment = {
 	[blockchains.Ethereum]: {
 		[networks.Mainnet]: {
 			contractAddress: null,
+			factoryAddress: null,
+			tenantAddress: null,
 		},
 		[networks.Testnet]: {
-			contractAddress: '0xf8CEc073d08e42cdDC1bF1fd8d44ce3252ab7352',
-			tenantAddress: '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D'
+			contractAddress: '0x995d701c0CaAeDA88DBF21727202F3a61AF01177',
+			factoryAddress: '0xACec20ad889Ba58Ec9d65AB0aA7C0e0D151222e0',
+			tenantAddress: '0xDf61226090C2475D9ec7c494684d2715b61F130c'
 		},
 	},
 	[blockchains.Metis]: {
 		[networks.Mainnet]: {
 			contractAddress: null,
+			factoryAddress: null,
+			tenantAddress: null,
 		},
 		[networks.Testnet]: {
-			contractAddress: 'x07F3062D51C9A6CA568C8135656054FA88D5b646',
-			tenantAdress: '0x8f8B8BE836fbe857c65E892dBb261F249f9b0adb'
+			contractAddress: '',
+			factoryAddress: '',
+			tenantAddress: ''
 		},
 	},
 	[blockchains.Avalanche]: {
 		[networks.Mainnet]: {
 			contractAddress: null,
+			factoryAddress: null,
+			tenantAddress: null
 		},
 		[networks.Testnet]: {
-			contractAddress: ''
+			contractAddress: '',
+			factoryAddress: '',
+			tenantAddress: ''
+
 		}
 	}
 }
@@ -37,7 +51,13 @@ function useEnvironment() {
 	if (!isEvm(blockchain?.name)) {
 		throw new Error("Blockchain is not EVM compatible")
 	}
-	return environment[blockchain.name as BlockchainEvm][network];
+
+	const env = environment[blockchain.name as BlockchainEvm][network];
+	return {
+		...env,
+		ContractABI,
+		FactoryABI,
+	};
 
 }
 

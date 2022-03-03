@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient, UseMutationOptions } from 'react-query';
 import { ethers, constants } from 'ethers';
-import { TribesABI, TribesFactoryABI, TRIBES_FACTORY_ADDRESS } from './constants';
 import { useEvent } from 'react-use';
 import { useStorage } from '@decentology/hyperverse-storage-skynet';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm';
+import { useEnvironment } from './environment';
 
 type ContractState = ethers.Contract;
 
@@ -18,12 +18,12 @@ type MetaData = {
 function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const queryClient = useQueryClient();
-	const { address, web3Provider, provider, connect } = useEvm();
+	const { address, web3Provider, provider } = useEvm();
 	const { clientUrl } = useStorage();
 	const { uploadFile } = useStorage();
-
+	const { ContractABI, FactoryABI, factoryAddress } = useEnvironment();
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
-		new ethers.Contract(TRIBES_FACTORY_ADDRESS, TribesFactoryABI, provider) as ContractState
+		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
 	);
 
 	const [proxyContract, setProxyContract] = useState<ContractState>();
@@ -38,7 +38,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 			if (proxyAddress == constants.AddressZero) {
 				return;
 			}
-			const proxyCtr = new ethers.Contract(proxyAddress, TribesABI, provider);
+			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, provider);
 			const accountSigner = await signer;
 			if (accountSigner) {
 				setProxyContract(proxyCtr.connect(accountSigner));
