@@ -4,6 +4,7 @@ enum Blockchain {
 	Ethereum = 'ethereum',
 	Metis = 'metis',
 	Avalanche = 'avalanche',
+	Polygon = 'polygon'
 }
 
 export default Blockchain;
