@@ -13,7 +13,7 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const Allowance = () => {
+const Allowance = ({ instance }: { instance: boolean }) => {
 	const { address } = useEthereum();
 	const { Allowance } = useToken();
 	const [owner, setOwner] = useState('');
@@ -28,8 +28,12 @@ const Allowance = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Allowance'}
+						<Trigger disabled={!address || !instance}>
+							{!address
+								? 'Connect Wallet'
+								: !instance
+								? 'You need an instance'
+								: 'Get Allowance'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>

@@ -13,7 +13,7 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const Approve = () => {
+const Approve = ({ instance }: { instance: boolean }) => {
 	const { address } = useEthereum();
 	const { Approve } = useToken();
 	const { mutate } = Approve();
@@ -23,8 +23,8 @@ const Approve = () => {
 	const approve = async () => {
 		try {
 			const instanceData = {
-        spender: spender,
-        amount: amount,
+				spender: spender,
+				amount: amount,
 			};
 
 			mutate(instanceData);
@@ -40,8 +40,12 @@ const Approve = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Approve'}
+						<Trigger disabled={!address || !instance}>
+							{!address
+								? 'Connect Wallet'
+								: !instance
+								? 'You need an instance'
+								: 'Approve'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>

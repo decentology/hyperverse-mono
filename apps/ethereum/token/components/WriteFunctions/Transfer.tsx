@@ -14,7 +14,7 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const Transfer = () => {
+const Transfer = ({ instance }: { instance: boolean }) => {
 	const { address } = useEthereum();
 	const { Transfer } = useToken();
 	const { mutate, error } = Transfer();
@@ -34,7 +34,6 @@ const Transfer = () => {
 		} catch (error) {
 			console.log('e', error);
 			throw error;
-
 		}
 	};
 
@@ -56,8 +55,12 @@ const Transfer = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer Tokens'}
+						<Trigger disabled={!address || !instance}>
+							{!address
+								? 'Connect Wallet'
+								: !instance
+								? 'You need an instance'
+								: 'Transfer Tokens'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>

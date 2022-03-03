@@ -32,7 +32,7 @@ const hyperverse = initialize({
 	modules: [
 		{
 			bundle: Token,
-			tenantId: '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D',
+			tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
 		},
 	],
 });

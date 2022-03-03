@@ -13,18 +13,18 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const TransferFrom = () => {
+const TransferFrom = ({ instance }: { instance: boolean }) => {
 	const { address } = useEthereum();
 	const { TransferFrom } = useToken();
 	const { mutate } = TransferFrom();
-  const [from, setFrom] = useState('');
+	const [from, setFrom] = useState('');
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);
 
 	const createNewInstance = async () => {
 		try {
 			const instanceData = {
-        from: from,
+				from: from,
 				to: receiver,
 				value: amount,
 			};
@@ -42,20 +42,18 @@ const TransferFrom = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer From'}
+						<Trigger disabled={!address || !instance}>
+							{!address
+								? 'Connect Wallet'
+								: !instance
+								? 'You need an instance'
+								: 'Transfer From'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
-            <Input
-								placeholder="From"
-								onChange={(e) => setFrom(e.target.value)}
-							/>
-							<Input
-								placeholder="To"
-								onChange={(e) => setReceiver(e.target.value)}
-							/>
+							<Input placeholder="From" onChange={(e) => setFrom(e.target.value)} />
+							<Input placeholder="To" onChange={(e) => setReceiver(e.target.value)} />
 							<Input
 								type="number"
 								min="0"
