@@ -68,26 +68,20 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 	}, [setup, web3Provider]);
 
 	const createInstance = async (
-		tenantAddress: string,
 		name: string,
 		symbol: string,
 		hostAddress: string,
 		cfaAddress: string,
-		acceptedToken: string,
-		receiverAddress: string
+		acceptedToken: string
 	) => {
 		try {
-			console.log('from: ' + tenantAddress);
-			console.log('to: ' + receiverAddress);
-			console.log('name: ' + name + ' symbol: ' + symbol);
+			console.log('name' + name + 'symbol' + symbol);
 			const createTxn = await contract.createInstance(
-				tenantAddress,
 				name,
 				symbol,
 				hostAddress,
 				cfaAddress,
-				acceptedToken,
-				receiverAddress
+				acceptedToken
 			);
 			return createTxn.wait();
 		} catch (err) {
@@ -100,7 +94,6 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 		try {
 			console.log('getProxy:', account);
 			const proxyAccount = await contract.getProxy(account);
-			console.log('proxyAccount:', proxyAccount);
 			return proxyAccount;
 		} catch (err) {
 			errors(err);
@@ -123,7 +116,6 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 		try {
 			console.log('getBalance:', address);
 			const balance = await proxyContract?.balanceOf(address);
-			console.log('balance:', balance);
 			return balance.toNumber();
 		} catch (err) {
 			errors(err);
@@ -135,7 +127,6 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 		try {
 			console.log('balanceOf:', account);
 			const balance = await proxyContract?.balanceOf(account);
-			console.log('balance:', balance);
 			return balance.toNumber();
 		} catch (err) {
 			errors(err);
@@ -153,11 +144,9 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 		}
 	};
 
-	const mintNFT = async (to: string) => {
+	const mintNFT = async (to: string, flowRate: string) => {
 		try {
-			console.log('proxyContract', proxyContract);
-			console.log('minting to', to);
-			const mint = await proxyContract?.createNFT(to);
+			const mint = await proxyContract?.issueNFT(to, flowRate);
 			return mint.wait();
 		} catch (err) {
 			errors(err);
@@ -184,13 +173,11 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 					unknown,
 					unknown,
 					{
-						tenantAddress: string;
 						name: string;
 						symbol: string;
 						hostAddress: string;
 						cfaAddress: string;
 						acceptedToken: string;
-						receiverAddress: string;
 					},
 					unknown
 				>,
@@ -198,24 +185,8 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 			>
 		) =>
 			useMutation(
-				({
-					tenantAddress,
-					name,
-					symbol,
-					hostAddress,
-					cfaAddress,
-					acceptedToken,
-					receiverAddress,
-				}) =>
-					createInstance(
-						tenantAddress,
-						name,
-						symbol,
-						hostAddress,
-						cfaAddress,
-						acceptedToken,
-						receiverAddress
-					),
+				({ name, symbol, hostAddress, cfaAddress, acceptedToken }) =>
+					createInstance(name, symbol, hostAddress, cfaAddress, acceptedToken),
 				options
 			),
 		Proxy: () =>
@@ -240,10 +211,10 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: TENANT_ADD
 			}),
 		MintNFT: (
 			options?: Omit<
-				UseMutationOptions<unknown, unknown, { to: string }, unknown>,
+				UseMutationOptions<unknown, unknown, { to: string; flowRate: string }, unknown>,
 				'mutationFn'
 			>
-		) => useMutation(({ to }) => mintNFT(to), options),
+		) => useMutation(({ to, flowRate }) => mintNFT(to, flowRate), options),
 		Transfer: (
 			options?: Omit<
 				UseMutationOptions<

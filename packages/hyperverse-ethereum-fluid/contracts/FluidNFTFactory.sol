@@ -49,19 +49,17 @@ contract FluidNFTFactory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	function createInstance(
-		address tenant_,
-		string memory name_,
-		string memory symbol_,
-		ISuperfluid host_,
-		IConstantFlowAgreementV1 cfa_,
-		ISuperToken acceptedToken_,
-		address receiver_
+		string memory name,
+		string memory symbol,
+		ISuperfluid host,
+		IConstantFlowAgreementV1 cfa,
+		ISuperToken acceptedToken
 	) external {
 		address tenant = msg.sender;
 		FluidNFT nft = FluidNFT(createClone(masterContract));
 
 		//initializing tenant state of clone
-		nft.init(tenant_, name_, symbol_, host_, cfa_, acceptedToken_, receiver_);
+		nft.init(name, symbol, tenant, host, cfa, acceptedToken);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[tenant];

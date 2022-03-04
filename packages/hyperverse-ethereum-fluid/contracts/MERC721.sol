@@ -40,6 +40,9 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	// Mapping from owner to operator approvals
 	mapping(address => mapping(address => bool)) private _operatorApprovals;
 
+	// Base URI
+	string private _baseURI;
+
 	/**
 	 * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
 	 */
@@ -105,7 +108,7 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
 		require(_exists(tokenId), 'ERC721Metadata: URI query for nonexistent token');
 
-		string memory baseURI = _baseURI();
+		string memory baseURI = _baseURI;
 		return
 			bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : '';
 	}
@@ -115,8 +118,26 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	 * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
 	 * by default, can be overriden in child contracts.
 	 */
-	function _baseURI() internal view virtual returns (string memory) {
-		return '';
+	// function _baseURI() internal view virtual returns (string memory) {
+	// 	return '';
+	// }
+
+	/**
+	 * @dev Internal function to set the base URI for all token IDs. It is
+	 * automatically added as a prefix to the value returned in {tokenURI},
+	 * or to the token ID if {tokenURI} is empty.
+	 */
+	function _setBaseURI(string memory baseURI_) internal virtual {
+		_baseURI = baseURI_;
+	}
+
+	/**
+	 * @dev Returns the base URI set via {_setBaseURI}. This will be
+	 * automatically added as a prefix in {tokenURI} to each token's URI, or
+	 * to the token ID if no specific URI is set for that token ID.
+	 */
+	function baseURI() public view virtual returns (string memory) {
+		return _baseURI;
 	}
 
 	/**

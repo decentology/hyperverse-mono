@@ -20,18 +20,16 @@ const CreateInstance = () => {
 	const { mutate } = NewInstance();
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
-	const [receiverAddress, setReceiverAddress] = useState('');
 
 	const createNewInstance = async () => {
 		try {
 			const instanceData = {
-				tenantAddress: address,
+				// tenantAddress: address,
 				name: tokenName,
 				symbol: tokenSymbol,
 				hostAddress: HOST_ADDRESS,
 				cfaAddress: CFA_ADDRESS,
 				acceptedToken: FDAIX_ADDRESS,
-				receiverAddress: receiverAddress,
 			};
 
 			mutate(instanceData);
@@ -60,10 +58,6 @@ const CreateInstance = () => {
 							<Input
 								placeholder="Token Symbol"
 								onChange={(e) => setTokenSymbol(e.target.value)}
-							/>
-							<Input
-								placeholder="Receiver Address"
-								onChange={(e) => setReceiverAddress(e.target.value)}
 							/>
 							<Button onClick={createNewInstance}>
 								{!address ? 'Connet Wallet' : 'Create Instance'}

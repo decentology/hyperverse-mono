@@ -1,7 +1,7 @@
 require('@nomiclabs/hardhat-waffle');
 require('dotenv').config();
 
-console.log(process.env.RINKEBY_RPC_URL);
+console.log('RPC URL', process.env.RINKEBY_RPC_URL);
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -40,15 +40,6 @@ module.exports = {
 					},
 				},
 			},
-			{
-				version: '0.6.7',
-				settings: {
-					optimizer: {
-						enabled: true,
-						runs: 200,
-					},
-				},
-			},
 		],
 	},
 	networks: {
@@ -58,7 +49,6 @@ module.exports = {
 		rinkeby: {
 			url: process.env.RINKEBY_RPC_URL,
 			accounts: [process.env.PRIVATE_KEY],
-			saveDeployments: true,
 		},
 	},
 };

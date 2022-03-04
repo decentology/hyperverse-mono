@@ -5,7 +5,6 @@
 // Runtime Environment's members available in the global scope.
 const hre = require('hardhat');
 async function main() {
-	console.log('process.env', process.env.RINKEBY_RPC_URL);
 	const [deployer] = await ethers.getSigners();
 	console.log('Deploying contracts with the account:', deployer.address);
 	console.log('Account balance:', (await deployer.getBalance()).toString());

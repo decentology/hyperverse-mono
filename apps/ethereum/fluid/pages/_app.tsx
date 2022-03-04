@@ -30,7 +30,7 @@ const hyperverse = initialize({
 	modules: [
 		{
 			bundle: ERC721,
-			tenantId: '0x87339e5940F02DD64EFf21203244f2D61cdF5f44',
+			tenantId: '0x6D2764652aD25c3194617d904C7a5a065056ca8B',
 		},
 	],
 });
