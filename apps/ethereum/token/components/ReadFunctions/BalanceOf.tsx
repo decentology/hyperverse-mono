@@ -13,11 +13,11 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const BalanceOf = ({ instance }: { instance: boolean }) => {
+const BalanceOf = () => {
 	const { address } = useEthereum();
 	const { BalanceOf } = useToken();
 	const [account, setAccount] = useState(address);
-	const { data } = BalanceOf(account!);
+	const { data, isLoading } = BalanceOf(account!);
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -27,11 +27,9 @@ const BalanceOf = ({ instance }: { instance: boolean }) => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address || !instance}>
+						<Trigger disabled={!address }>
 							{!address
 								? 'Connect Wallet'
-								: !instance
-								? 'You need an instance'
 								: 'Get Balance Of'}
 						</Trigger>
 					</TriggerContainer>
@@ -43,7 +41,7 @@ const BalanceOf = ({ instance }: { instance: boolean }) => {
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
+								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Balance Of' : data.toString()}
 							</Button>
 						</Content>
 					</Parameters>

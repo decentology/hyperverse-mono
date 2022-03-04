@@ -22,9 +22,8 @@ type Props = {
 	description: string;
 	buttonText: string;
 	isAddress?: boolean;
-	instance?: boolean
 };
-const ReadComponent = ({ hook, header, description, buttonText, isAddress, instance }: Props) => {
+const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Props) => {
 	const { address } = useEthereum();
 	const [hidden, setHidden] = useState(false);
 	const { data, isLoading, error } = hook;
@@ -45,8 +44,8 @@ const ReadComponent = ({ hook, header, description, buttonText, isAddress, insta
 		<Box>
 			<h4>{header}</h4>
 			<p>{description}</p>
-			<Button disabled={!address || !instance} onClick={() => setHidden(p => !p)}>
-				{!address ? 'Connect Wallet' : !instance ? 'You need an instance' : isLoading ? 'fetching ...' : !hidden ? buttonText : dataFetched}
+			<Button disabled={!address} onClick={() => setHidden(p => !p)}>
+				{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? buttonText : dataFetched.toString()}
 			</Button>
 		</Box>
 	);

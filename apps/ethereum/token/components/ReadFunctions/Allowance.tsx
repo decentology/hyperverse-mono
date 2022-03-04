@@ -13,12 +13,12 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const Allowance = ({ instance }: { instance: boolean }) => {
+const Allowance = () => {
 	const { address } = useEthereum();
 	const { Allowance } = useToken();
 	const [owner, setOwner] = useState('');
 	const [spender, setSpender] = useState('');
-	const { data, refetch } = Allowance(owner!, spender!);
+	const { data, isLoading, refetch } = Allowance(owner!, spender!);
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -28,11 +28,9 @@ const Allowance = ({ instance }: { instance: boolean }) => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address || !instance}>
+						<Trigger disabled={!address}>
 							{!address
 								? 'Connect Wallet'
-								: !instance
-								? 'You need an instance'
 								: 'Get Allowance'}
 						</Trigger>
 					</TriggerContainer>
@@ -53,7 +51,7 @@ const Allowance = ({ instance }: { instance: boolean }) => {
 									setHidden((p) => !p);
 								}}
 							>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Allowance' : data}
+								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Allowance' : data.toString()}
 							</Button>
 						</Content>
 					</Parameters>

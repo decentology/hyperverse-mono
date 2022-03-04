@@ -19,11 +19,12 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 	return shortendHash;
 };
 
-const ProxyToken = ({ instance }: { instance: boolean }) => {
+const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
 	const { address } = useEthereum();
-	const { Proxy } = useToken();
-	const { data, refetch } = Proxy();
+	const { Proxy, CheckInstance } = useToken();
+	const { data: instance } = CheckInstance(address);
+	const { data, isLoading, refetch } = Proxy();
 	const [hidden, setHidden] = useState(false);
 
 	const zeroAddress = data === '0x0000000000000000000000000000000000000000';
@@ -46,6 +47,8 @@ const ProxyToken = ({ instance }: { instance: boolean }) => {
 						? 'Connect Wallet'
 						: !instance
 						? 'You need an instance'
+						: isLoading
+						? 'fetching ...'
 						: !hidden
 						? 'Get Proxy'
 						: showInfo}
@@ -68,21 +71,21 @@ const ProxyToken = ({ instance }: { instance: boolean }) => {
 export default ProxyToken;
 
 export const Button = styled('button', {
-  minWidth: '150px',
+	minWidth: '150px',
 	backgroundColor: '$yellow100',
 	outline: 'none',
 	border: 'none',
 	padding: '10px 15px',
 	borderRadius: '90px',
 	cursor: 'pointer',
-  '&:hover': {
-    opacity: 0.8,
-  }
-})
+	'&:hover': {
+		opacity: 0.8,
+	},
+});
 
 const CopyButton = styled('button', {
-  backgroundColor: 'transparent',
-  marginLeft: '5px',
+	backgroundColor: 'transparent',
+	marginLeft: '5px',
 	outline: 'none',
 	border: 'none',
 	color: '$yellow100',
@@ -93,7 +96,7 @@ const CopyButton = styled('button', {
 });
 
 const Content = styled('div', {
-  margin: '10px auto -5px',
+	margin: '10px auto -5px',
 	display: 'flex',
 	flexDirection: 'row',
 	width: '100%',

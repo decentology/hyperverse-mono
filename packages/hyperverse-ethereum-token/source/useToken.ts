@@ -1,5 +1,5 @@
 import { TokenABI, TokenFactoryABI, TOKEN_FACTORY_ADDRESS } from './constants';
-import { ethers, constants } from 'ethers';
+import { ethers, constants, BigNumber } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useMemo, useState, useEffect, useCallback } from 'react';
@@ -108,9 +108,8 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 
 	const getTotalSupply = async () => {
 		try {
-			const decimals = await proxyContract?.decimals();
 			const totalSupply = await proxyContract?.totalSupply();
-			return totalSupply.div(10 ** decimals).toNumber();
+			return BigNumber.from(totalSupply);
 		} catch (err) {
 			errors(err);
 			throw err;
@@ -120,7 +119,7 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 	const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await proxyContract?.balanceOf(account);
-			return balance.toNumber();
+			return BigNumber.from(balance);
 		} catch (err) {
 			errors(err);
 			throw err;
@@ -130,7 +129,7 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 	const getBalance = async () => {
 		try {
 			const balance = await proxyContract?.balance();
-			return balance.toNumber();
+			return BigNumber.from(balance);
 		} catch (err) {
 			errors(err);
 			throw err;
@@ -168,7 +167,7 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 	const allowance = async (owner: string, spender: string) => {
 		try {
 			const allowance = await proxyContract?.allowance(owner, spender);
-			return allowance.toNumber();
+			return BigNumber.from(allowance);
 		} catch (err) {
 			errors(err);
 			throw err;
@@ -231,12 +230,12 @@ function TokenState(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 		tenantId,
 		factoryContract,
 		proxyContract,
-		CheckInstance: () =>
+		CheckInstance: (account:string) =>
 			useQuery(
-				['checkInstance', address, factoryContract?.address],
-				() => checkInstance(address),
+				['checkInstance', address, factoryContract?.address, { account }],
+				() => checkInstance(account),
 				{
-					enabled: !!address && !!factoryContract?.address,
+					enabled: !!address && !!factoryContract?.address && !!account,
 				}
 			),
 		NewInstance: (

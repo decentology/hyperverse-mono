@@ -8,14 +8,17 @@ import TransferFrom from './WriteFunctions/TransferFrom';
 import Approve from './WriteFunctions/Approve';
 import Mint from './WriteFunctions/Mint';
 import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import {BsFillExclamationDiamondFill} from 'react-icons/bs'
 import GetProxy from './ReadFunctions/GetProxy'
 
 const Container = () => {
+	const { address } = useEthereum();
 	const { TokenName, TokenSymbol, Balance, TotalSupply, CheckInstance } = useToken();
-	const {data: instance} = CheckInstance()
+
+	const {data:instance} = CheckInstance(address)
 
 	const toastId = 'instance'
 	useEffect(() => {
@@ -61,7 +64,7 @@ const Container = () => {
 			<h3>Token Factory Functions</h3>
 			<Section>
 				<CreateInstance />
-				<GetProxy instance={instance}/>
+				<GetProxy />
 			</Section>
 
 			<h3>Token Functions</h3>
@@ -73,14 +76,13 @@ const Container = () => {
 						header={item.header}
 						description={item.description}
 						buttonText={item.buttonText}
-						instance={instance}
 					/>
 				))}
-				<BalanceOf instance={instance}/>
-				<Transfer instance={instance}/>
-				<TransferFrom instance={instance}/>
-				<Approve instance={instance}/>
-				<Allowance instance={instance}/>
+				<BalanceOf />
+				<Transfer/>
+				<TransferFrom />
+				<Approve />
+				<Allowance />
 			</Section>
 
 			<h3>Tenant Owner Functions</h3>

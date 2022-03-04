@@ -13,10 +13,10 @@ import {
 	Button,
 } from '../ComponentStyles';
 
-const Mint = ({ instance }: { instance: boolean }) => {
+const Mint = () => {
 	const { address } = useEthereum();
 	const { Mint } = useToken();
-	const { mutate } = Mint();
+	const { mutate, isLoading } = Mint();
 	const [amount, setAmount] = useState(0);
 
 	const mint = async () => {
@@ -38,12 +38,8 @@ const Mint = ({ instance }: { instance: boolean }) => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address || !instance}>
-							{!address
-								? 'Connect Wallet'
-								: !instance
-								? 'You need an instance'
-								: 'Mint'}
+						<Trigger disabled={!address}>
+							{!address ? 'Connect Wallet' : 'Mint'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -54,7 +50,13 @@ const Mint = ({ instance }: { instance: boolean }) => {
 								placeholder="Amount"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={mint}>{!address ? 'Connet Wallet' : 'Mint'}</Button>
+							<Button onClick={mint}>
+								{!address
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Mint'}
+							</Button>
 						</Content>
 					</Parameters>
 				</Item>
