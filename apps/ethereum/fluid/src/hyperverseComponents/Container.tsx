@@ -1,4 +1,4 @@
-import { styled } from '../stitches.config';
+import { styled } from '../../stitches.config';
 import CreateInstance from './WriteFunctions/CreateInstance';
 import MintNFT from './WriteFunctions/MintNFT';
 import Transfer from './WriteFunctions/Transfer';

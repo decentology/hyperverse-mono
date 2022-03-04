@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
-import { styled } from '../stitches.config';
+import { styled } from '../../stitches.config';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -35,7 +35,7 @@ const Nav = () => {
 					<Image src="/Hyperverse.png" width={250} height={47} />
 				</a>
 			</Link>
-			<NavItems >
+			<NavItems>
 				<Link href="https://docs.hyperverse.dev/" passHref>
 					<About target="_blank" rel="noreferrer">
 						About
@@ -43,11 +43,9 @@ const Nav = () => {
 				</Link>
 
 				{!address ? (
-					<ConnectButton  onClick={connect}>
-						Connect Wallet
-					</ConnectButton>
+					<ConnectButton onClick={connect}>Connect Wallet</ConnectButton>
 				) : (
-					<ConnectButton color='green'  onClick={disconnect}>
+					<ConnectButton color="green" onClick={disconnect}>
 						<span>{shortenHash(address, 5, 5)}</span>
 					</ConnectButton>
 				)}
@@ -63,15 +61,15 @@ const Header = styled('nav', {
 	flexDirection: 'row',
 	justifyContent: 'space-between',
 	alignItems: 'center',
-})
+});
 
 const NavItems = styled('div', {
 	display: 'flex',
 	alignItems: 'center',
-	'& button' : {
+	'& button': {
 		margin: '0 0 0 20px',
-	}
-})
+	},
+});
 
 const About = styled('a', {
 	color: 'white',
@@ -79,7 +77,7 @@ const About = styled('a', {
 	'&:hover': {
 		opacity: 0.8,
 	},
-})
+});
 const ConnectButton = styled('button', {
 	minWidth: '130px',
 	backgroundColor: '$blue200',
@@ -89,10 +87,9 @@ const ConnectButton = styled('button', {
 	borderRadius: '90px',
 	cursor: 'pointer',
 
-	
 	variants: {
 		color: {
-			green : {
+			green: {
 				backgroundColor: '$green200',
 				color: 'white',
 				'&:hover span': {
@@ -101,8 +98,8 @@ const ConnectButton = styled('button', {
 				'&:hover:before': {
 					content: '"disconnect" !important',
 					opacity: 0.9,
-				}
-			}
-		}
-	}
-})
+				},
+			},
+		},
+	},
+});
