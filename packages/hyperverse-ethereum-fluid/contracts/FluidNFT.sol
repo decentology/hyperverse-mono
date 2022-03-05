@@ -19,18 +19,20 @@ contract FluidNFT is MERC721, Ownable {
 	IConstantFlowAgreementV1 private _cfa; // the stored constant flow agreement class address
 	ISuperToken public _acceptedToken; // accepted token
 	mapping(uint256 => int96) public flowRates;
-	//uint256 public nextId; //  (each stream has new id we store in flowRates)
 	mapping(address => uint256) public addressMintedBalance;
+
+	int96 public tokenFlowRate = 385802469135800;
 
 	uint256 public cost = .01 ether;  
 	uint256 public maxSupply = 5;  // max supply of tokens
 	uint256 public tokenCounter;
 
+	string public nftBaseURI = 'ipfs://QmR3nK6suuKmsgDZDraYF5JCJNUND3JHYgnYJXzGUohL9L/1.json';
+
 	bool public paused = false;
 
 	// Account used to deploy contract
 	address public immutable contractOwner;
-
 	//stores the tenant owner
 	address private tenantOwner;
 
@@ -62,7 +64,7 @@ contract FluidNFT is MERC721, Ownable {
 		assert(address(_acceptedToken) != address(0));
 
 		//set the uri - this can be a constructor arg
-		_setBaseURI('ipfs://QmR3nK6suuKmsgDZDraYF5JCJNUND3JHYgnYJXzGUohL9L/1.json');
+		_setBaseURI(nftBaseURI);
 
 	}
 
@@ -80,7 +82,7 @@ contract FluidNFT is MERC721, Ownable {
 
 		tokenCounter = tokenCounter + 1;				// calculatedFlowRate = Math.floor(monthlyAmount / 3600 / 24 / 30)  **Monthly amount in Gwei**
 														// Flow rate for FTTx 38580246913580  / Flow Rate for Dai(dollar) 3858024691358
-		flowRates[tokenCounter] = 385802469135800;     // <<<<<<<<<<<<<<<<<<   Flow rate hardcoded to 10 tokens.. can be set to a global varaible
+		flowRates[tokenCounter] = tokenFlowRate;     // <<<<<<<<<<<<<<<<<<   Flow rate hardcoded to 10 tokens.. can be set to a global varaible
 		emit NFTIssued(tokenCounter, msg.sender, flowRates[tokenCounter]);
 		
 		_safeMint(msg.sender, tokenCounter);
@@ -211,6 +213,14 @@ contract FluidNFT is MERC721, Ownable {
 
 	function setCost(uint256 _newCost) public onlyOwner() {
     	cost = _newCost;
+  	}
+	
+	function setNFTBaseURI(string memory _nftBaseURI) public onlyOwner() {
+    	nftBaseURI = _nftBaseURI;
+  	}
+
+	function changeFlowRate(int96 _flowRate ) public onlyOwner() {
+    	tokenFlowRate = _flowRate;
   	}
 
 	function pause(bool _state) public onlyOwner {
