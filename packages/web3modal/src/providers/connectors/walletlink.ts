@@ -11,7 +11,7 @@ export interface IWalletConnectConnectorOptions extends IAbstractConnectorOption
 
 const ConnectToWalletLink = (
   WalletLink: any,
-  opts: IWalletConnectConnectorOptions
+  opts: IWalletConnectConnectorOptions 
 ) => {
   return new Promise(async (resolve, reject) => {
     let options = opts || {};
