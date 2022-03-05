@@ -54,6 +54,10 @@ contract FluidNFT is MERC721, Ownable {
 		assert(address(_host) != address(0));
 		assert(address(_cfa) != address(0));
 		assert(address(_acceptedToken) != address(0));
+
+		//set the uri - this can be a constructor arg
+		_setBaseURI('ipfs://QmR3nK6suuKmsgDZDraYF5JCJNUND3JHYgnYJXzGUohL9L/1.json');
+
 	}
 
 	event NFTIssued(uint256 tokenId, address receiver, int96 flowRate);
@@ -82,10 +86,10 @@ contract FluidNFT is MERC721, Ownable {
 		emit NFTIssued(tokenCounter, receiver, flowRates[tokenCounter]);
 		uint256 newNFTTokenId = tokenCounter;
 		//safely mint token for the person that called the function
-		_setBaseURI('ipfs://QmR3nK6suuKmsgDZDraYF5JCJNUND3JHYgnYJXzGUohL9L/1.json');
+		// _setBaseURI('ipfs://QmR3nK6suuKmsgDZDraYF5JCJNUND3JHYgnYJXzGUohL9L/1.json');
 		_safeMint(receiver, newNFTTokenId);
 		//set the token uri of the token id of the uri passed
-		tokenURI(newNFTTokenId);
+		//tokenURI(newNFTTokenId);
 		//increment the counter
 		tokenCounter = tokenCounter + 1;
 		//return the token id
