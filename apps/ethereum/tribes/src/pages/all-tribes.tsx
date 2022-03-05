@@ -7,6 +7,7 @@ import { useEthereum } from '@decentology/hyperverse-ethereum';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 const AllTribes = () => {
 	const { address } = useEthereum();
@@ -46,7 +47,7 @@ const AllTribes = () => {
 						!data ? (
 							<>
 								<h5>There are currently no existing tribes.</h5>
-								<a href="/">Go back home</a>
+								<Link href="/">Go back home</Link>
 							</>
 						) : (
 							<>
