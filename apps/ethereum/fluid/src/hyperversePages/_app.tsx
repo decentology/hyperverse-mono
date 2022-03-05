@@ -1,7 +1,7 @@
 import { initialize, Provider, networks } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
 import * as ERC721 from '@decentology/hyperverse-ethereum-fluid';
-import { globalCss } from '../stitches.config';
+import { globalCss } from '../../stitches.config';
 
 import type { AppProps } from 'next/app';
 

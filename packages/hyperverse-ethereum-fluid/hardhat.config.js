@@ -1,6 +1,6 @@
 require('@nomiclabs/hardhat-waffle');
 require('dotenv').config();
-require("@nomiclabs/hardhat-etherscan");
+require('@nomiclabs/hardhat-etherscan');
 
 //console.log('RPC URL', process.env.RINKEBY_RPC_URL);
 
@@ -53,7 +53,6 @@ module.exports = {
 		},
 	},
 	etherscan: {
-
-		apiKey: process.env.ETHERSCAN_API_KEY
-	  }
+		apiKey: process.env.ETHERSCAN_API_KEY,
+	},
 };

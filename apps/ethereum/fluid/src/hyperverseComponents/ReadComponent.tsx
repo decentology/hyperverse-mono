@@ -1,4 +1,4 @@
-import { styled } from '../stitches.config';
+import { styled } from '../../stitches.config';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { UseQueryResult } from 'react-query';
 import { useState } from 'react';
