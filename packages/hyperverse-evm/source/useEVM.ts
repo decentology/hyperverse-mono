@@ -3,8 +3,7 @@ import Web3Modal from '@decentology/web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { useHyperverse, Network, Blockchain } from '@decentology/hyperverse';
-import { NetworkConfig } from '@decentology/hyperverse/source/constants/networks';
+import { useHyperverse, Network, Blockchain, NetworkConfig } from '@decentology/hyperverse';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
@@ -77,14 +76,14 @@ function EvmState(
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
 					params: [
-						{ chainId: initialState.networks[Network.Mainnet].chainId!.toString(16) }
+						{ chainId: initialState.networks[Network.Mainnet].chainId! }
 					]
 				});
 			} else {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
 					params: [
-						{ chainId: initialState.networks[Network.Testnet].chainId!.toString(16) }
+						{ chainId: initialState.networks[Network.Testnet].chainId! }
 					]
 				});
 			}
