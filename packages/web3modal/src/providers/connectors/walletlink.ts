@@ -14,7 +14,7 @@ const ConnectToWalletLink = (
   opts: IWalletLinkConnectorOptions
 ) => {
   return new Promise(async (resolve, reject) => {
-    const options = opts || {};
+    const options = opts || {} as IWalletLinkConnectorOptions;
     const infuraId = options.infuraId || "";
     const chainId = options.chainId || 1;
     const appName = options.appName || "";
