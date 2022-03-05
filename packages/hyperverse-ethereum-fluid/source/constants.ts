@@ -3,6 +3,6 @@ import ERC721ABI from '../artifacts/contracts/FluidNFT.sol/FluidNFT.json';
 
 export const FactoryABI = ERC721FactoryABI.abi;
 export const ABI = ERC721ABI.abi;
-export const FluidNFT = `0x98b5D9DA9De334A01904BAFA0234e9FAF8DCFc43`;
-export const FluidNFTFactory = `0xF07Ea3CF927c80D720D3e4F266B24De32C812D6D`;
+export const FluidNFT = `0x546b40c25dE514f23f53e13bf1883638381Fe6B7`;
+export const FluidNFTFactory = `0x1F78F6eCd65192B32942c398D3aA931376A03784`;
 export const TENANT_ADDRESS = `0x6D2764652aD25c3194617d904C7a5a065056ca8B`;

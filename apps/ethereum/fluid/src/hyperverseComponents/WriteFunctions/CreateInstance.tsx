@@ -12,7 +12,7 @@ import {
 	Content,
 	Button,
 } from './WriteComponents';
-import { CFA_ADDRESS, FDAIX_ADDRESS, HOST_ADDRESS } from '../../utils/constants';
+import { CFA_ADDRESS, FDAIX_ADDRESS, HOST_ADDRESS } from '../../constants';
 
 const CreateInstance = () => {
 	const { address } = useEthereum();
