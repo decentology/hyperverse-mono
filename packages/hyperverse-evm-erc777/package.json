@@ -1,0 +1,48 @@
+{
+  "name": "@decentology/hyperverse-evm-erc777",
+  "version": "1.0.9",
+  "source": "./source/index.ts",
+  "types": "./distribution/index.d.ts",
+  "main": "./distribution/index.js",
+  "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy-rinkeby": "hardhat run scripts/deploy.js --network rinkeby ",
+    "deploy-metis": "hardhat run scripts/deploy.js --network metis",
+    "build": "parcel build",
+    "clean": "rimraf ./distribution"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2"
+  },
+  "files": [
+    "distribution",
+    "utils"
+  ],
+  "dependencies": {
+    "@decentology/hyperverse": "^1.0.9",
+    "@decentology/hyperverse-evm": "^1.0.9",
+    "@decentology/unstated-next": "^1.1.1",
+    "@openzeppelin/contracts": "^4.4.2",
+    "dotenv": "^16.0.0",
+    "ethers": "^5.5.3",
+    "hardhat": "^2.9.0",
+    "react-query": "^3.34.7",
+    "react-use": "^17.3.2",
+    "skynet-js": "^4.0.23-beta"
+  },
+  "devDependencies": {
+    "@decentology/config": "^1.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.0.4",
+    "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "chai": "^4.3.4",
+    "ethereum-waffle": "^3.4.0",
+    "hardhat": "^2.8.3",
+    "parcel": "^2.2.1",
+    "rimraf": "^3.0.2"
+  }
+}
