@@ -23,7 +23,7 @@ contract FluidNFT is MERC721, Ownable {
 	mapping(address => uint256) public addressMintedBalance;
 
 	uint256 public cost = .01 ether;  
-	uint256 public maxSupply = 2;  // max supply of tokens
+	uint256 public maxSupply = 5;  // max supply of tokens
 	uint256 public tokenCounter;
 
 	bool public paused = false;
@@ -78,9 +78,9 @@ contract FluidNFT is MERC721, Ownable {
 		require(tokenCounter <=  maxSupply, "max NFT limit exceeded");
 		require(msg.value >= cost, "insufficient funds");
 
-		tokenCounter = tokenCounter + 1;
-
-		flowRates[tokenCounter] = 3858024691358;     // <<<<<<<<<<<<<<<<<<   Flow rate hardcoded to 10 tokens.. can be set to a global varaible
+		tokenCounter = tokenCounter + 1;				// calculatedFlowRate = Math.floor(monthlyAmount / 3600 / 24 / 30)  **Monthly amount in Gwei**
+														// Flow rate for FTTx 38580246913580  / Flow Rate for Dai(dollar) 3858024691358
+		flowRates[tokenCounter] = 38580246913580;     // <<<<<<<<<<<<<<<<<<   Flow rate hardcoded to 10 tokens.. can be set to a global varaible
 		emit NFTIssued(tokenCounter, msg.sender, flowRates[tokenCounter]);
 		
 		_safeMint(msg.sender, tokenCounter);
@@ -210,15 +210,15 @@ contract FluidNFT is MERC721, Ownable {
 	}
 
 	function setCost(uint256 _newCost) public onlyOwner() {
-    cost = _newCost;
+    	cost = _newCost;
   	}
 
 	function pause(bool _state) public onlyOwner {
-    paused = _state;
+    	paused = _state;
   	}
 
 	function changeMaxSupply(uint256 _newmaxSupplyAmount) public onlyOwner() {
-    maxSupply = _newmaxSupplyAmount;
+    	maxSupply = _newmaxSupplyAmount;
   	}
 	
 	function transferERC20 (IERC20 token, address _to, uint256 _amount ) public onlyOwner {
