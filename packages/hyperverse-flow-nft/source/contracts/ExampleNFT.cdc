@@ -9,8 +9,8 @@ pub contract ExampleNFT {
     pub var totalSupply: {Address: UInt64}
 
     pub event ContractInitialized()
-    pub event Withdraw(id: UInt64, from: Address?)
-    pub event Deposit(id: UInt64, to: Address?)
+    pub event Withdraw(_ tenant: Address, id: UInt64, from: Address?)
+    pub event Deposit(_ tenant: Address, id: UInt64, to: Address?)
 
     pub let CollectionStoragePath: StoragePath
     pub let CollectionPublicPath: PublicPath
@@ -86,7 +86,7 @@ pub contract ExampleNFT {
             let collection = &self.ownedNFTs[tenant] as &{UInt64: NFT}
             let token <- collection.remove(key: withdrawID) ?? panic("missing NFT")
 
-            emit Withdraw(id: token.id, from: self.owner?.address)
+            emit Withdraw(tenant, id: token.id, from: self.owner?.address)
 
             return <-token
         }
@@ -103,7 +103,7 @@ pub contract ExampleNFT {
             // add the new token to the dictionary which removes the old one
             let oldToken <- collection[id] <- token
 
-            emit Deposit(id: id, to: self.owner?.address)
+            emit Deposit(tenant, id: id, to: self.owner?.address)
 
             destroy oldToken
         }
