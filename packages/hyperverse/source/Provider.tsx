@@ -24,7 +24,6 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 			);
 		}
 	}
-
 	const hyperverseConfig: HyperverseConfig = {
 		...initialState,
 		network:

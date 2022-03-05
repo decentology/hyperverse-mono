@@ -4,6 +4,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse, Network, Blockchain, NetworkConfig } from '@decentology/hyperverse';
+import { BlockchainEvm } from '@decentology/hyperverse/source';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
@@ -57,7 +58,11 @@ function EvmState(
 		}
 	}
 ) {
-	const { blockchain, network } = useHyperverse();
+	const { blockchain, network: hyperverseNetwork } = useHyperverse();
+	let network = {
+		...initialState.networks[hyperverseNetwork.type],
+		...hyperverseNetwork
+	};
 
 	const [state, setState] = useState<State>({
 		provider: new ethers.providers.JsonRpcProvider(network.networkUrl),
@@ -75,16 +80,12 @@ function EvmState(
 			if (network === Network.Mainnet) {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [
-						{ chainId: initialState.networks[Network.Mainnet].chainId! }
-					]
+					params: [{ chainId: initialState.networks[Network.Mainnet].chainId! }]
 				});
 			} else {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [
-						{ chainId: initialState.networks[Network.Testnet].chainId! }
-					]
+					params: [{ chainId: initialState.networks[Network.Testnet].chainId! }]
 				});
 			}
 		},
@@ -126,9 +127,9 @@ function EvmState(
 						error: innerError
 					}));
 				} else if (
-					err instanceof  Error && 
+					err instanceof Error &&
 					(err.message.includes('User Rejected') ||
-					err.message.includes('Already processing'))
+						err.message.includes('Already processing'))
 				) {
 					setState(prev => ({
 						...prev,

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Evm } from '@decentology/hyperverse-evm';
 import { Metis } from './useMetis';
-import { Network } from '@decentology/hyperverse/source';
+import { Network } from '@decentology/hyperverse';
 const Provider: FC<any> = ({ children }) => {
 	return (
 		<Evm.Provider
