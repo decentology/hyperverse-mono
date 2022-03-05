@@ -6,7 +6,7 @@ import AlgoTest from '../components/AlgoTest';
 export default function Web() {
 	const hyperverse = Hyperverse.initialize({
 		blockchain: Algorand,
-		network: Hyperverse.networks.Testnet,
+		network: Hyperverse.Network.Testnet,
 		modules: [{ bundle: Counter, tenantId: '123' }],
 	});
 

@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 			},
 			{
 				bundle: RandomPick,
-				tenantId: null,
+				tenantId: '0x45e4c90801b1a17c178bB9855aA181A886DAA603',
 			},
 		],
 	});

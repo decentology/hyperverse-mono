@@ -99,7 +99,7 @@ const Battle = () => {
 									? winner === contestants[1]
 										? styles.winner
 										: styles.loser
-									: null
+									: ''
 							}
 						>
 							<Image
