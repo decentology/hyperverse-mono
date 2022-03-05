@@ -1,7 +1,6 @@
 import { IAbstractConnectorOptions, getChainId } from "../../helpers";
 
-export interface IWalletConnectConnectorOptions
-  extends IAbstractConnectorOptions {
+export interface IWalletConnectConnectorOptions extends IAbstractConnectorOptions {
   infuraId?: string;
   rpc?: { [chainId: number]: string };
   bridge?: string;

@@ -14,12 +14,12 @@ const ConnectToWalletLink = (
   opts: IWalletConnectConnectorOptions
 ) => {
   return new Promise(async (resolve, reject) => {
-    const options = opts || {};
-    const infuraId = options.infuraId || "";
-    const chainId = options.chainId || 1;
-    const appName = options.appName || "";
-    const appLogoUrl = options.appLogoUrl;
-    const darkMode = options.darkMode || false;
+    let options = opts || {};
+    let infuraId = options.infuraId || "";
+    let chainId = options.chainId || 1;
+    let appName = options.appName || "";
+    let appLogoUrl = options.appLogoUrl;
+    let darkMode = options.darkMode || false;
 
     let rpc = options.rpc || undefined;
     if (options.infuraId && !options.rpc) {
