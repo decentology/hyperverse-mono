@@ -80,7 +80,7 @@ contract FluidNFT is MERC721, Ownable {
 
 		tokenCounter = tokenCounter + 1;				// calculatedFlowRate = Math.floor(monthlyAmount / 3600 / 24 / 30)  **Monthly amount in Gwei**
 														// Flow rate for FTTx 38580246913580  / Flow Rate for Dai(dollar) 3858024691358
-		flowRates[tokenCounter] = 38580246913580;     // <<<<<<<<<<<<<<<<<<   Flow rate hardcoded to 10 tokens.. can be set to a global varaible
+		flowRates[tokenCounter] = 385802469135800;     // <<<<<<<<<<<<<<<<<<   Flow rate hardcoded to 10 tokens.. can be set to a global varaible
 		emit NFTIssued(tokenCounter, msg.sender, flowRates[tokenCounter]);
 		
 		_safeMint(msg.sender, tokenCounter);
