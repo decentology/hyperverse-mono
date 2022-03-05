@@ -1,19 +1,18 @@
-import { ERC20ABI, ERC20FactoryABI, ERC20_FACTORY_ADDRESS } from './constants';
 import { ethers, constants } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { TENANT_ADDRESS } from './constants';
+import { useEnvironment } from './environment';
 
 type ContractState = ethers.Contract;
 
-function ERC20State(initialState: { tenantId: string } = { tenantId: TENANT_ADDRESS }) {
+function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const { address, web3Provider, provider } = useEthereum();
-
+	const {FactoryABI, factoryAddress, ContractABI, contractAddress } = useEnvironment();
 	const [contract, setContract] = useState<ContractState>(
-		new ethers.Contract(ERC20_FACTORY_ADDRESS, ERC20FactoryABI, provider) as ContractState
+		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
 	);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 
@@ -27,7 +26,7 @@ function ERC20State(initialState: { tenantId: string } = { tenantId: TENANT_ADDR
 			if(proxyAddress == constants.AddressZero) {
 				return;
 			}
-			const proxyCtr = new ethers.Contract(proxyAddress, ERC20ABI, provider);
+			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, provider);
 			const accountSigner = await signer;
 			if (accountSigner) {
 				setProxyContract(proxyCtr.connect(accountSigner));

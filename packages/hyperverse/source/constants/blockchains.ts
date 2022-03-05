@@ -1,4 +1,4 @@
-enum Blockchain {
+export enum Blockchain {
 	Algorand = 'algorand',
 	Flow = 'flow',
 	Ethereum = 'ethereum',
@@ -18,7 +18,6 @@ export function isEvm(blockchain: Blockchain | Exclude<Blockchain, BlockchainEvm
 	return !!EVM[blockchain as BlockchainEvm]
 }
 
-export default Blockchain;
 export const BlockchainList: string[] = Object.values(Blockchain).filter(
 	(v) => typeof v === 'string'
 );

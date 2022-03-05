@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ContainerProvider } from '@decentology/unstated-next';
-import Blockchain, { BlockchainEvm } from './constants/blockchains';
-import Network, { NetworkConfig } from './constants/networks';
+import { Blockchain, BlockchainEvm } from './constants/blockchains';
+import { Network, NetworkConfig } from './constants/networks';
 import Storage from './constants/storage';
 type Exact<A, B> = A extends B ? (B extends A ? A : never) : never;
 
@@ -15,7 +15,7 @@ export type HyperverseBlockchainInit<T> = (
 
 export type HyperverseBlockchain<T> = {
 	name: Blockchain;
-	Provider: FC<unknown> | ContainerProvider<unknown> | ContainerProvider<any>
+	Provider: FC<unknown> | ContainerProvider<unknown> | ContainerProvider<any>;
 };
 
 export type BlockchainFeatures<T> = {
@@ -37,6 +37,11 @@ export type Hyperverse = {
 		disableProviderAutoInit?: boolean;
 	};
 };
+
+export type HyperverseConfig = {
+	network: NetworkConfig;
+} & Omit<Hyperverse, 'network'>;
+
 export type HyperverseModuleBase = {
 	bundle: {
 		Provider: FC<HyperverseModuleInstance>;
@@ -59,7 +64,7 @@ export type EvmEnvironment = {
 			[key: string]: any;
 			contractAddress: string | null;
 			factoryAddress: string | null;
-			tenantAddress: string | null;
+			tenantAddress?: string | null;
 		};
 	};
 };

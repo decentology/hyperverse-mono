@@ -1,16 +1,18 @@
 import { createElement, FC, useEffect, useState } from 'react';
 import { Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet';
-import Network from './constants/networks';
+import { Network, NetworkConfig } from './constants/networks';
 import Storage from './constants/storage';
-import { Hyperverse } from './types';
+import { Hyperverse, HyperverseConfig } from './types';
 import { createContainer } from '@decentology/unstated-next';
 
 function HyperverseState(
-	initialState: Hyperverse = {
+	initialState: HyperverseConfig = {
 		blockchain: null,
-		network: Network.Testnet,
+		network: {
+			type: Network.Testnet
+		},
 		storage: Storage.Skynet,
-		modules: [],
+		modules: []
 	}
 ) {
 	return initialState;
@@ -36,14 +38,23 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 			children = createElement(
 				module.bundle.Provider,
 				{
-					tenantId: module.tenantId,
+					tenantId: module.tenantId
 				},
 				children
 			);
 		}
 	}
+
+	const hyperverseConfig: HyperverseConfig = {
+		...initialState,
+		network:
+			typeof initialState.network === 'string'
+				? { type: initialState.network }
+				: initialState.network
+	};
+
 	return (
-		<HyperverseContainer.Provider initialState={initialState}>
+		<HyperverseContainer.Provider initialState={hyperverseConfig}>
 			<SkyNetProvider
 				initialState={
 					typeof initialState.storage === 'object'

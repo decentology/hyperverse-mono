@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { HyperverseBlockchain, initialize, Provider } from '@decentology/hyperverse';
-import { networks } from '@decentology/hyperverse';
+import { Network } from '@decentology/hyperverse';
 import { Metis, Provider as MetisProvider } from '@decentology/hyperverse-metis';
 import { Ethereum, Provider as EthereumProvider } from '@decentology/hyperverse-ethereum';
 import { Flow, Provider as FlowProvider } from '@decentology/hyperverse-flow';
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		useState<HyperverseBlockchain<unknown>>(initialStorageChain);
 	const hyperverse = initialize({
 		blockchain: blockchain,
-		network: networks.Testnet,
+		network: Network.Testnet,
 		options: {
 			disableProviderAutoInit: false,
 		},

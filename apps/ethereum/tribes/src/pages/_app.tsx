@@ -1,7 +1,7 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { initialize, Provider } from '@decentology/hyperverse';
-import { networks } from '@decentology/hyperverse';
+import { Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
 import * as Tribes from '@decentology/hyperverse-evm-tribes';
 import * as RandomPick from '@decentology/hyperverse-ethereum-randompick';
@@ -15,7 +15,7 @@ const TENANT_ID = '0xDf61226090C2475D9ec7c494684d2715b61F130c';
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: Ethereum,
-		network: networks.Testnet,
+		network: Network.Testnet,
 		storage: {
 			options: { clientUrl: 'https://fileportal.org' }, // Updated to fileportal due to SSL error issues with SiaSky.net
 		},

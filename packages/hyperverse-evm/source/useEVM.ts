@@ -3,7 +3,7 @@ import Web3Modal from '@decentology/web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { useHyperverse, networks, blockchains } from '@decentology/hyperverse';
+import { useHyperverse, Network, Blockchain } from '@decentology/hyperverse';
 import { NetworkConfig } from '@decentology/hyperverse/source/constants/networks';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
@@ -12,16 +12,16 @@ const providerOptions = {
 	walletconnect: {
 		package: WalletConnectProvider, // required
 		options: {
-			infuraId: INFURA_ID, // required
-		},
-	},
+			infuraId: INFURA_ID // required
+		}
+	}
 };
 
 let web3Modal: Web3Modal;
 if (typeof window !== 'undefined') {
 	web3Modal = new Web3Modal({
 		cacheProvider: true,
-		providerOptions, // required
+		providerOptions // required
 	});
 }
 
@@ -33,138 +33,128 @@ type State = {
 	error: Error | null;
 };
 
-
-
-type Network = {
-	name: string,
-	chainId: number,
-	networkUrl: string,
-	explorerUrl?: string
-}
-
 type InitialEvmState = {
 	networks: {
-		[networks.Mainnet]: Network
-		[networks.Testnet]: Network
-	}
-}
+		[Network.Mainnet]: NetworkConfig;
+		[Network.Testnet]: NetworkConfig;
+	};
+};
 
-function EvmState(initialState: InitialEvmState = {
-	networks: {
-		mainnet: {
-			name: '',
-			networkUrl: '',
-			chainId: 0,
-		},
-		testnet: {
-			name: '',
-			networkUrl: '',
-			chainId: 0,
-		},
-	}
-}) {
-	const { blockchain, network } = useHyperverse();
-	let networkConfig: NetworkConfig = {
-		type: typeof network === 'object' ? network.type : network,
-		networkUrl: typeof network === 'object' ? network.networkUrl : initialState.networks[network].networkUrl,
-	}
-	if (typeof network === 'object') {
-		initialState.networks[network.type] = {
-			...initialState.networks[network.type],
-			...network
+function EvmState(
+	initialState: InitialEvmState = {
+		networks: {
+			mainnet: {
+				type: Network.Mainnet,
+				name: '',
+				networkUrl: '',
+				chainId: 1
+			},
+			testnet: {
+				type: Network.Testnet,
+				name: '',
+				networkUrl: '',
+				chainId: 4
+			}
 		}
 	}
-
-	const networkUrl = networkConfig.networkUrl;
-	console.log(networkConfig);
+) {
+	const { blockchain, network } = useHyperverse();
 
 	const [state, setState] = useState<State>({
-		provider: new ethers.providers.JsonRpcProvider(networkUrl),
+		provider: new ethers.providers.JsonRpcProvider(network.networkUrl),
 		web3Provider: null,
 		address: null,
 		chainId: null,
-		error: null,
+		error: null
 	});
 	const { provider } = state;
 	const addressRef = useRef(state.address);
 	addressRef.current = state.address;
 
-	const switchNetwork = useCallback(async (network: networks, prov: any) => {
-		if (network === networks.Mainnet) {
-			await prov.request({
-				method: 'wallet_switchEthereumChain',
-				params: [{ chainId: initialState.networks[networks.Mainnet].chainId.toString(16) }],
-			});
-		} else {
-			await prov.request({
-				method: 'wallet_switchEthereumChain',
-				params: [{ chainId: initialState.networks[networks.Testnet].chainId.toString(16) }],
-			});
-		}
-	}, [initialState.networks]);
-
-	const connect = useCallback(async function () {
-		try {
-			// This is the initial `provider` that is returned when
-			// using web3Modal to connect. Can be MetaMask or WalletConnect.
-			const externalProvider = await web3Modal.connect();
-			// We plug the initial `provider` into ethers.js and get back
-			// a Web3Provider. This will add on methods from ethers.js and
-			// event listeners such as `.on()` will be different.
-			const web3Provider = new providers.Web3Provider(externalProvider);
-
-			const signer = web3Provider.getSigner();
-			const address = await signer.getAddress();
-
-			const userNetwork = await web3Provider.getNetwork();
-
-			if (blockchain?.name === blockchains.Ethereum && userNetwork.chainId !== 4) {
-				await switchNetwork(networkConfig.type, web3Provider.provider);
-
-				// setTimeout(() => {
-				// 	window.location.reload();
-				// }, 1000);
-			}
-
-			setState((prev) => ({
-				...prev,
-				provider,
-				web3Provider: web3Provider,
-				address,
-				chainId: userNetwork.chainId,
-			}));
-		} catch (err: any) {
-			if (typeof err === 'string') {
-				setState((prev) => ({
-					...prev,
-					error: new Error(err),
-				}));
-			} else if (
-				err.message.includes('User Rejected') ||
-				err.message.includes('Already processing')
-			) {
-				setState((prev) => ({
-					...prev,
-					error: new Error('Please click the metamask extension to sign in!'),
-				}));
+	const switchNetwork = useCallback(
+		async (network: Network, prov: any) => {
+			if (network === Network.Mainnet) {
+				await prov.request({
+					method: 'wallet_switchEthereumChain',
+					params: [
+						{ chainId: initialState.networks[Network.Mainnet].chainId!.toString(16) }
+					]
+				});
 			} else {
-				setState((prev) => ({
-					...prev,
-					error: new Error('Something went wrong!'),
-				}));
+				await prov.request({
+					method: 'wallet_switchEthereumChain',
+					params: [
+						{ chainId: initialState.networks[Network.Testnet].chainId!.toString(16) }
+					]
+				});
 			}
-		}
-	}, [blockchain?.name]);
+		},
+		[initialState.networks]
+	);
+
+	const connect = useCallback(
+		async function() {
+			try {
+				// This is the initial `provider` that is returned when
+				// using web3Modal to connect. Can be MetaMask or WalletConnect.
+				const externalProvider = await web3Modal.connect();
+				// We plug the initial `provider` into ethers.js and get back
+				// a Web3Provider. This will add on methods from ethers.js and
+				// event listeners such as `.on()` will be different.
+				const web3Provider = new providers.Web3Provider(externalProvider);
+
+				const signer = web3Provider.getSigner();
+				const address = await signer.getAddress();
+
+				const userNetwork = await web3Provider.getNetwork();
+
+				if (blockchain?.name === Blockchain.Ethereum && userNetwork.chainId !== 4) {
+					await switchNetwork(network.type, web3Provider.provider);
+				}
+
+				setState(prev => ({
+					...prev,
+					provider,
+					web3Provider: web3Provider,
+					address,
+					chainId: userNetwork.chainId
+				}));
+			} catch (err) {
+				if (typeof err === 'string') {
+					const innerError = new Error(err);
+					setState(prev => ({
+						...prev,
+						error: innerError
+					}));
+				} else if (
+					err instanceof  Error && 
+					(err.message.includes('User Rejected') ||
+					err.message.includes('Already processing'))
+				) {
+					setState(prev => ({
+						...prev,
+						error: new Error('Please click the metamask extension to sign in!')
+					}));
+				} else {
+					setState(prev => ({
+						...prev,
+						error: new Error('Something went wrong!')
+					}));
+				}
+			}
+		},
+		[blockchain?.name]
+	);
 
 	const disconnect = useCallback(async () => {
 		await web3Modal.clearCachedProvider();
 
-		setState((prevState) => ({
+		setState(prevState => ({
 			...prevState,
 			web3Provider: null,
 			address: null,
 			chainId: null,
-			error: null,
+			error: null
 		}));
 		// window.location.reload();
 	}, [state.web3Provider]);
@@ -182,9 +172,9 @@ function EvmState(initialState: InitialEvmState = {
 						// If not triggered in second(s) show alert to user
 						(window as Window).removeEventListener('blur', blur);
 						if (!addressRef.current) {
-							setState((prev) => ({
+							setState(prev => ({
 								...prev,
-								error: new Error('Please click the metamask extension to sign in!'),
+								error: new Error('Please click the metamask extension to sign in!')
 							}));
 						}
 					}, 500);
@@ -202,7 +192,7 @@ function EvmState(initialState: InitialEvmState = {
 
 	// Auto connect to the cached provider
 	useEffect(() => {
-		if (blockchain?.name === blockchains.Ethereum) {
+		if (blockchain?.name === Blockchain.Ethereum) {
 			if (web3Modal.cachedProvider) {
 				connect();
 			}
@@ -219,7 +209,7 @@ function EvmState(initialState: InitialEvmState = {
 		const provider = state.web3Provider?.provider as any;
 		if (provider?.on) {
 			const handleAccountsChanged = (accounts: string[]) => {
-				setState((prev) => ({ ...prev, address: accounts[0] }));
+				setState(prev => ({ ...prev, address: accounts[0] }));
 				// disconnect();
 			};
 

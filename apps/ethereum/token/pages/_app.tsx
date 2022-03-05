@@ -1,4 +1,4 @@
-import { initialize, Provider, networks } from '@decentology/hyperverse';
+import { initialize, Provider, Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
 import * as Token from '@decentology/hyperverse-evm-erc20';
 import { globalCss } from '../stitches.config';
@@ -28,7 +28,7 @@ const globalStyles = globalCss({
 
 const hyperverse = initialize({
 	blockchain: Ethereum,
-	network: networks.Testnet,
+	network: Network.Testnet,
 	modules: [
 		{
 			bundle: Token,

@@ -1,15 +1,14 @@
 import { FC } from 'react';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { HyperverseModuleInstance, networks, useHyperverse } from '@decentology/hyperverse';
+import { HyperverseModuleInstance, Network, useHyperverse } from '@decentology/hyperverse';
 import { Tribes } from './useTribes';
 import { useEnvironment } from './environment';
 const client = new QueryClient();
 
-
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
 	const { network } = useHyperverse();
-	const {tenantAddress} = useEnvironment();
-	if (network === networks.Mainnet && tenantId == null) {
+	const { tenantAddress } = useEnvironment();
+	if (network.type === Network.Mainnet && tenantId == null) {
 		throw new Error('Tenant ID is required for Mainnet');
 	}
 	return (
