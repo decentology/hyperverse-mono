@@ -2,7 +2,7 @@ require('@nomiclabs/hardhat-waffle');
 require('dotenv').config();
 require("@nomiclabs/hardhat-etherscan");
 
-console.log('RPC URL', process.env.RINKEBY_RPC_URL);
+//console.log('RPC URL', process.env.RINKEBY_RPC_URL);
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html

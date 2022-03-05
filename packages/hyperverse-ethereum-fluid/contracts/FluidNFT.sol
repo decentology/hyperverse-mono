@@ -3,6 +3,7 @@
 pragma solidity ^0.7.1;
 pragma experimental ABIEncoderV2;
 
+import '@openzeppelin/contracts/token/ERC20/SafeERC20.sol';
 import {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';
 import {ISuperfluid, ISuperToken, ISuperApp} from '@superfluid-finance/ethereum-contracts/contracts/interfaces/superfluid/ISuperfluid.sol';
 import {IConstantFlowAgreementV1} from '@superfluid-finance/ethereum-contracts/contracts/interfaces/agreements/IConstantFlowAgreementV1.sol';
@@ -18,9 +19,14 @@ contract FluidNFT is MERC721, Ownable {
 	IConstantFlowAgreementV1 private _cfa; // the stored constant flow agreement class address
 	ISuperToken public _acceptedToken; // accepted token
 	mapping(uint256 => int96) public flowRates;
-	uint256 public nextId; //  (each stream has new id we store in flowRates)
+	//uint256 public nextId; //  (each stream has new id we store in flowRates)
+	mapping(address => uint256) public addressMintedBalance;
 
+	uint256 public cost = .01 ether;  
+	uint256 public maxSupply = 2;  // max supply of tokens
 	uint256 public tokenCounter;
+
+	bool public paused = false;
 
 	// Account used to deploy contract
 	address public immutable contractOwner;
@@ -62,38 +68,23 @@ contract FluidNFT is MERC721, Ownable {
 
 	event NFTIssued(uint256 tokenId, address receiver, int96 flowRate);
 
-	// function createNFT(address to) public returns (uint256) {
-	// 	require(msg.sender == tenantOwner, 'Only the Tenant owner can mint an NFT');
-
-	// 	uint256 newNFTTokenId = tokenCounter;
-	// 	//safely mint token for the person that called the function
-	// 	_safeMint(to, newNFTTokenId);
-	// 	//set the token uri of the token id of the uri passed
-	// 	tokenURI(newNFTTokenId);
-	// 	//increment the counter
-	// 	tokenCounter = tokenCounter + 1;
-	// 	//return the token id
-	// 	return newNFTTokenId;
-	// }
+	event TransferSent(address _from, address _destAddr, uint _amount);
 
 	// Example flow rate: 3858024691358
 
-	function issueNFT(address receiver, int96 flowRate) public returns (uint256) {
-		require(msg.sender == tenantOwner, 'Only the Tenant owner can mint an NFT');
-		require(receiver != address(this), 'Issue to a new address');
-		require(flowRate > 0, 'flowRate must be positive!');
-		flowRates[tokenCounter] = flowRate;
-		emit NFTIssued(tokenCounter, receiver, flowRates[tokenCounter]);
-		uint256 newNFTTokenId = tokenCounter;
-		//safely mint token for the person that called the function
-		// _setBaseURI('ipfs://QmR3nK6suuKmsgDZDraYF5JCJNUND3JHYgnYJXzGUohL9L/1.json');
-		_safeMint(receiver, newNFTTokenId);
-		//set the token uri of the token id of the uri passed
-		//tokenURI(newNFTTokenId);
-		//increment the counter
+	function issueNFT() public payable {
+		require(!paused, "the contract is paused");
+		require(msg.sender != address(this), 'Issue to a new address');
+		require(tokenCounter <=  maxSupply, "max NFT limit exceeded");
+		require(msg.value >= cost, "insufficient funds");
+
 		tokenCounter = tokenCounter + 1;
-		//return the token id
-		return newNFTTokenId;
+
+		flowRates[tokenCounter] = 3858024691358;     // <<<<<<<<<<<<<<<<<<   Flow rate hardcoded to 10 tokens.. can be set to a global varaible
+		emit NFTIssued(tokenCounter, msg.sender, flowRates[tokenCounter]);
+		
+		_safeMint(msg.sender, tokenCounter);
+	
 	}
 
 	function burnNFT(uint256 tokenId) external onlyOwner exists(tokenId) {
@@ -216,6 +207,25 @@ contract FluidNFT is MERC721, Ownable {
 
 		string memory currentBaseURI = baseURI();
 		return bytes(currentBaseURI).length > 0 ? string(abi.encodePacked(currentBaseURI)) : '';
+	}
+
+	function setCost(uint256 _newCost) public onlyOwner() {
+    cost = _newCost;
+  	}
+
+	function pause(bool _state) public onlyOwner {
+    paused = _state;
+  	}
+
+	function changeMaxSupply(uint256 _newmaxSupplyAmount) public onlyOwner() {
+    maxSupply = _newmaxSupplyAmount;
+  	}
+	
+	function transferERC20 (IERC20 token, address _to, uint256 _amount ) public onlyOwner {
+		uint256 erc20Balance = token.balanceOf(address(this));
+		require(_amount <= erc20Balance, "Balance too low");
+		token.transfer(_to, _amount);
+		emit TransferSent(msg.sender, _to, _amount);
 	}
 
 	function withdraw() public payable onlyOwner {
