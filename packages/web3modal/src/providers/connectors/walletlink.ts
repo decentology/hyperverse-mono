@@ -1,12 +1,12 @@
 import { IAbstractConnectorOptions } from "../../helpers";
 
 export interface IWalletLinkConnectorOptions extends IAbstractConnectorOptions {
-  infuraId?: string;
-  rpc?: { [chainId: number]: string };
-  chainId?: number;
-  appName?: string;
-  appLogoUrl?: string;
-  darkMode?: boolean;
+  infuraId: string;
+  rpc: { [chainId: number]: string };
+  chainId: number;
+  appName: string;
+  appLogoUrl: string;
+  darkMode: boolean;
 }
 
 const ConnectToWalletLink = (
