@@ -4,6 +4,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse, networks, blockchains } from '@decentology/hyperverse';
+import { NetworkConfig } from '@decentology/hyperverse/source/constants/networks';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
@@ -63,7 +64,20 @@ function EvmState(initialState: InitialEvmState = {
 	}
 }) {
 	const { blockchain, network } = useHyperverse();
-	const networkUrl = network === networks.Mainnet ? initialState.networks[networks.Mainnet].networkUrl : initialState.networks[networks.Testnet].networkUrl;
+	let networkConfig: NetworkConfig = {
+		type: typeof network === 'object' ? network.type : network,
+		networkUrl: typeof network === 'object' ? network.networkUrl : initialState.networks[network].networkUrl,
+	}
+	if (typeof network === 'object') {
+		initialState.networks[network.type] = {
+			...initialState.networks[network.type],
+			...network
+		}
+	}
+
+	const networkUrl = networkConfig.networkUrl;
+	console.log(networkConfig);
+
 	const [state, setState] = useState<State>({
 		provider: new ethers.providers.JsonRpcProvider(networkUrl),
 		web3Provider: null,
@@ -105,7 +119,7 @@ function EvmState(initialState: InitialEvmState = {
 			const userNetwork = await web3Provider.getNetwork();
 
 			if (blockchain?.name === blockchains.Ethereum && userNetwork.chainId !== 4) {
-				await switchNetwork(network, web3Provider.provider);
+				await switchNetwork(networkConfig.type, web3Provider.provider);
 
 				// setTimeout(() => {
 				// 	window.location.reload();
