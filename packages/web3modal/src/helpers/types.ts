@@ -21,7 +21,7 @@ export interface IInjectedProvidersMap {
 
 export interface IProviderDisplay {
   name: string;
-  logo: string;
+  logo: string | any;
   description?: string;
 }
 
