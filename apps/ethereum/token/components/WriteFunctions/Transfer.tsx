@@ -17,13 +17,13 @@ import {
 const Transfer = () => {
 	const { address } = useEthereum();
 	const { Transfer } = useToken();
-	const { mutate, error } = Transfer();
+	const { mutate, error, isLoading } = Transfer();
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);
 
 	const [err, setErr] = useState('');
 
-	const createNewInstance = async () => {
+	const transfer = async () => {
 		try {
 			const instanceData = {
 				to: receiver,
@@ -34,7 +34,6 @@ const Transfer = () => {
 		} catch (error) {
 			console.log('e', error);
 			throw error;
-
 		}
 	};
 
@@ -47,7 +46,7 @@ const Transfer = () => {
 				});
 			}
 		}
-	}, [err]);
+	}, [error]);
 
 	return (
 		<Box>
@@ -72,8 +71,12 @@ const Transfer = () => {
 								placeholder="Amount to transfer"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Transfer'}
+							<Button onClick={transfer}>
+								{!address
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Transfer'}
 							</Button>
 						</Content>
 					</Parameters>

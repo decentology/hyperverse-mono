@@ -12,15 +12,16 @@
     "@decentology/hyperverse": "^1.0.9",
     "@decentology/hyperverse-ethereum": "^1.0.9",
     "@decentology/hyperverse-ethereum-token": "^1.0.0",
+    "@decentology/unstated-next": "^1.1.1",
     "@radix-ui/react-accordion": "^0.1.6",
     "@stitches/react": "^1.2.6",
     "ethers": "^5.5.4",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
     "react-query": "^3.34.16",
-    "react-toastify": "^8.2.0",
-    "@decentology/unstated-next": "^1.1.1"
+    "react-toastify": "^8.2.0"
   },
   "devDependencies": {
     "eslint": "8.9.0",

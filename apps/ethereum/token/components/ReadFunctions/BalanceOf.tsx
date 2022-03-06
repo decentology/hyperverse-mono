@@ -17,7 +17,7 @@ const BalanceOf = () => {
 	const { address } = useEthereum();
 	const { BalanceOf } = useToken();
 	const [account, setAccount] = useState(address);
-	const { data } = BalanceOf(account!);
+	const { data, isLoading } = BalanceOf(account!);
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -27,8 +27,10 @@ const BalanceOf = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Balance Of'}
+						<Trigger disabled={!address }>
+							{!address
+								? 'Connect Wallet'
+								: 'Get Balance Of'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -39,7 +41,7 @@ const BalanceOf = () => {
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
+								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Balance Of' : data.toString()}
 							</Button>
 						</Content>
 					</Parameters>

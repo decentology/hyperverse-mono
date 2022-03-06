@@ -16,13 +16,13 @@ import {
 const Mint = () => {
 	const { address } = useEthereum();
 	const { Mint } = useToken();
-	const { mutate } = Mint();
+	const { mutate, isLoading } = Mint();
 	const [amount, setAmount] = useState(0);
 
 	const mint = async () => {
 		try {
 			const instanceData = {
-        amount: amount,
+				amount: amount,
 			};
 
 			mutate(instanceData);
@@ -51,7 +51,11 @@ const Mint = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={mint}>
-								{!address ? 'Connet Wallet' : 'Mint'}
+								{!address
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Mint'}
 							</Button>
 						</Content>
 					</Parameters>

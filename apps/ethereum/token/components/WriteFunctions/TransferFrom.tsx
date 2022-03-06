@@ -16,15 +16,15 @@ import {
 const TransferFrom = () => {
 	const { address } = useEthereum();
 	const { TransferFrom } = useToken();
-	const { mutate } = TransferFrom();
-  const [from, setFrom] = useState('');
+	const { mutate, isLoading } = TransferFrom();
+	const [from, setFrom] = useState('');
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);
 
-	const createNewInstance = async () => {
+	const transferFrom = async () => {
 		try {
 			const instanceData = {
-        from: from,
+				from: from,
 				to: receiver,
 				value: amount,
 			};
@@ -48,22 +48,20 @@ const TransferFrom = () => {
 					</TriggerContainer>
 					<Parameters>
 						<Content>
-            <Input
-								placeholder="From"
-								onChange={(e) => setFrom(e.target.value)}
-							/>
-							<Input
-								placeholder="To"
-								onChange={(e) => setReceiver(e.target.value)}
-							/>
+							<Input placeholder="From" onChange={(e) => setFrom(e.target.value)} />
+							<Input placeholder="To" onChange={(e) => setReceiver(e.target.value)} />
 							<Input
 								type="number"
 								min="0"
 								placeholder="Amount to transfer"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Transfer '}
+							<Button onClick={transferFrom}>
+								{!address
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Transfer '}
 							</Button>
 						</Content>
 					</Parameters>

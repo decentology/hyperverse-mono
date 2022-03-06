@@ -16,15 +16,15 @@ import {
 const Approve = () => {
 	const { address } = useEthereum();
 	const { Approve } = useToken();
-	const { mutate } = Approve();
+	const { mutate, isLoading } = Approve();
 	const [spender, setSpender] = useState('');
 	const [amount, setAmount] = useState(0);
 
 	const approve = async () => {
 		try {
 			const instanceData = {
-        spender: spender,
-        amount: amount,
+				spender: spender,
+				amount: amount,
 			};
 
 			mutate(instanceData);
@@ -57,7 +57,11 @@ const Approve = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={approve}>
-								{!address ? 'Connet Wallet' : 'Approve'}
+								{!address
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Approve'}
 							</Button>
 						</Content>
 					</Parameters>

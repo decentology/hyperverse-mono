@@ -18,7 +18,7 @@ const Allowance = () => {
 	const { Allowance } = useToken();
 	const [owner, setOwner] = useState('');
 	const [spender, setSpender] = useState('');
-	const { data, refetch } = Allowance(owner!, spender!);
+	const { data, isLoading, refetch } = Allowance(owner!, spender!);
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -29,7 +29,9 @@ const Allowance = () => {
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Allowance'}
+							{!address
+								? 'Connect Wallet'
+								: 'Get Allowance'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -49,7 +51,7 @@ const Allowance = () => {
 									setHidden((p) => !p);
 								}}
 							>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Allowance' : data}
+								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Allowance' : data.toString()}
 							</Button>
 						</Content>
 					</Parameters>

@@ -8,9 +8,28 @@ import TransferFrom from './WriteFunctions/TransferFrom';
 import Approve from './WriteFunctions/Approve';
 import Mint from './WriteFunctions/Mint';
 import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEffect } from 'react'
+import { toast } from 'react-toastify'
+import {BsFillExclamationDiamondFill} from 'react-icons/bs'
+import GetProxy from './ReadFunctions/GetProxy'
 
 const Container = () => {
-	const { Proxy, TokenName, TokenSymbol, Balance, TotalSupply } = useToken();
+	const { address } = useEthereum();
+	const { TokenName, TokenSymbol, Balance, TotalSupply, CheckInstance } = useToken();
+
+	const {data:instance} = CheckInstance(address)
+
+	const toastId = 'instance'
+	useEffect(() => {
+		if (!instance && !toast.isActive(toastId)) {
+			toast.info('Make sure you have an instance. If you already have one change the tenant ID in _app.tsx to test this app', {
+				position: toast.POSITION.BOTTOM_CENTER,
+				toastId: 'instance',
+			})
+		}
+
+	}, [])
 
 	const TokenReadFunctions = [
 			{
@@ -41,16 +60,11 @@ const Container = () => {
 
 	return (
 		<Box>
+				<Reminder> <BsFillExclamationDiamondFill/>Don't forget to change the tenantID in&nbsp;<b> pages/_app.tsx </b>&nbsp;to test this app.</Reminder>
 			<h3>Token Factory Functions</h3>
 			<Section>
 				<CreateInstance />
-				<ReadComponent
-					hook={Proxy()}
-					header="Get Proxy"
-					description="Get your proxy contract address"
-					buttonText={'Get Instance'}
-					isAddress={true}
-				/>
+				<GetProxy />
 			</Section>
 
 			<h3>Token Functions</h3>
@@ -65,7 +79,7 @@ const Container = () => {
 					/>
 				))}
 				<BalanceOf />
-				<Transfer />
+				<Transfer/>
 				<TransferFrom />
 				<Approve />
 				<Allowance />
@@ -73,7 +87,7 @@ const Container = () => {
 
 			<h3>Tenant Owner Functions</h3>
 			<Section>
-				<Mint />
+				<Mint instance={instance}/>
 			</Section>
 		</Box>
 	);
@@ -92,7 +106,7 @@ const Box = styled('div', {
 	padding: '0 2rem 2rem',
 	color: '$blue500',
 	'& h3': {
-		marginTop: '2rem',
+		marginTop: '1rem',
 	},
 });
 
@@ -101,4 +115,20 @@ const Section = styled('div', {
 	display: 'grid',
 	gridTemplateColumns: '270px 270px 270px 257px',
 	gridGap: '10px',
+});
+
+const Reminder = styled('div', {
+	display: 'flex',
+	alignItems: 'center',
+	backgroundColor: 'rgba(243, 225, 107, 0.5)',
+	width: '99%',
+	padding: '0.5rem',
+	marginTop: '1rem',
+	color: '$blue500',
+	fontSize: '12px',
+	borderRadius: '5px',
+	'& svg': {
+		marginRight: '0.5rem',
+		fontSize: '1rem',
+	}
 });
