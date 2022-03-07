@@ -15,7 +15,7 @@ contract ERC777Factory is CloneFactory {
 	using Counters for Counters.Counter;
 
 	Counters.Counter public tenantCounter;
-	
+
 	struct Tenant {
 		ERC777 token;
 		address owner;
@@ -23,7 +23,6 @@ contract ERC777Factory is CloneFactory {
 
 	mapping(address => Tenant) public tenants;
 	mapping(address => bool) public instance;
-
 
 	address public immutable owner;
 	address public immutable masterContract;
@@ -46,10 +45,7 @@ contract ERC777Factory is CloneFactory {
 	}
 
 	modifier hasAnInstance(address _tenant) {
-		require(
-			instance[_tenant] == false,
-			'The tenant already has an instance'
-		);
+		require(instance[_tenant] == false, 'The tenant already has an instance');
 		_;
 	}
 
@@ -60,11 +56,17 @@ contract ERC777Factory is CloneFactory {
 
 	/******************* TENANT FUNCTIONALITIES *******************/
 
-	function createInstance(address _tenant) external   hasAnInstance(_tenant) isAllowedToCreateInstance(_tenant) {
+	function createInstance(
+		string memory _name,
+		string memory _symbol,
+		address[] memory _defaultOperatorsArr,
+		uint256 _initialSupply,
+		address _tenant
+	) external hasAnInstance(_tenant) isAllowedToCreateInstance(_tenant) {
 		ERC777 token = ERC777(createClone(masterContract));
 
 		//initializing tenant state of clone
-		token.init(msg.sender);
+		token.init(_name, _symbol, _defaultOperatorsArr, _initialSupply, _tenant);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
@@ -77,5 +79,4 @@ contract ERC777Factory is CloneFactory {
 	function getProxy(address _tenant) public view returns (ERC777) {
 		return tenants[_tenant].token;
 	}
-	
 }
