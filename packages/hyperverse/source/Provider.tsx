@@ -1,6 +1,6 @@
-import { createElement, FC, useEffect, useState } from "react";
-import { Hyperverse, HyperverseConfig } from "./types";
-import { HyperverseContainer } from "./useHyperverse";
+import { createElement, FC, useEffect, useState } from 'react';
+import { Hyperverse, HyperverseConfig } from './types';
+import { HyperverseContainer } from './useHyperverse';
 import { Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet';
 
 export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialState }) => {

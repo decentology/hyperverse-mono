@@ -2,6 +2,7 @@
   "name": "@decentology/hyperverse-storage-skynet",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
+  "module": "./distribution/index.es.js",
   "types": "./distribution/index.d.ts",
   "version": "1.0.8",
   "license": "MIT",

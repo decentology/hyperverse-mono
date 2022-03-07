@@ -1,15 +1,16 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "React Library",
-  "extends": "./base.json",
-  "include": ["source/**/*"],
-  "exclude": ["node_modules"],
-  "compilerOptions": {
-    "lib": ["ES2015", "DOM"],
-    "module": "ESNext",
-    "rootDir": "../",
-    "outDir": "distribution",
-    "moduleResolution": "Node",
-    "jsx": "react-jsx"
-  }
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"display": "React Library",
+	"extends": "./base.json",
+	"include": ["source/**/*"],
+	"exclude": ["node_modules"],
+	"compilerOptions": {
+		"lib": ["ES2015", "DOM"],
+		"module": "ES6",
+		"rootDir": "../",
+		"outDir": "distribution",
+		"importHelpers": false,
+		"moduleResolution": "Node",
+		"jsx": "react-jsx"
+	}
 }

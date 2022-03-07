@@ -185,8 +185,8 @@ export class Core {
 	private updateState = async (state: any) => {
 		Object.keys(state).forEach(key => {
 			this[key] = state[key];
-    	});
-    	this.renderModal();
+		});
+		this.renderModal();
 	};
 
 	private resetState = () => this.updateState({ ...INITIAL_STATE });

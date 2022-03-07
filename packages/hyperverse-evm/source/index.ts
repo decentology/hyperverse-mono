@@ -4,7 +4,7 @@ import { Blockchain, makeHyperverseBlockchain } from '@decentology/hyperverse';
 
 export const Ethereum = makeHyperverseBlockchain({
 	name: Blockchain.Ethereum,
-	Provider: Provider,
+	Provider: Provider
 });
 
 export { Provider, useEvm, Evm };
