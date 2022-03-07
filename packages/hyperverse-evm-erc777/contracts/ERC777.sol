@@ -32,8 +32,8 @@ contract ERC777 is IHyperverseModule, IERC777, IERC20 {
 	address private tenantOwner;
 
 	mapping(address => bool) private _defaultOperators;
-    mapping(address => mapping(address => bool)) private _operators;
-    mapping(address => mapping(address => bool)) private _revokedOperators;
+	mapping(address => mapping(address => bool)) private _operators;
+	mapping(address => mapping(address => bool)) private _revokedOperators;
 
 	mapping(address => mapping(address => uint256)) private _allowances;
 
@@ -104,9 +104,12 @@ contract ERC777 is IHyperverseModule, IERC777, IERC20 {
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> IERC777 IMPLEMENTATION  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
-    function totalSupply() public view virtual override(IERC20, IERC777) returns (uint256) {
-        return total;
-    }
+	/**
+	 * @dev Returns the amount of tokens in existence.
+	 */
+	function totalSupply() public view virtual override(IERC20, IERC777) returns (uint256) {
+		return total;
+	}
 
 	/**
 	 * @dev See {ERC20-decimals}.
@@ -168,6 +171,7 @@ contract ERC777 is IHyperverseModule, IERC777, IERC20 {
 	 *
 	 * Emits a {Transfer} event with `from` set to the zero address.
 	 *
+	 * @param _account The address of the account where the minted tokens will be stored
 	 * @param _amount The address which will spend the funds.
 	 */
 	function mint(
@@ -245,9 +249,6 @@ contract ERC777 is IHyperverseModule, IERC777, IERC20 {
 	 *
 	 * Emits a {RevokedOperator} event.
 	 *
-	 * Requirements
-	 *
-	 * - `operator` cannot be calling address.
 	 */
 	function revokeOperator(address _operator) public virtual override {
 		require(_operator != msg.sender, 'ERC777: revoking self as operator');
@@ -555,39 +556,39 @@ contract ERC777 is IHyperverseModule, IERC777, IERC20 {
 	/**
 	 * @dev Call to.tokensReceived() if the interface is registered. Reverts if the recipient is a contract but
 	 * tokensReceived() was not registered for the recipient
-	 * @param operator address operator requesting the transfer
-	 * @param from address token holder address
-	 * @param to address recipient address
-	 * @param amount uint256 amount of tokens to transfer
-	 * @param userData bytes extra information provided by the token holder (if any)
-	 * @param operatorData bytes extra information provided by the operator (if any)
-	 * @param requireReceptionAck if true, contract recipients are required to implement ERC777TokensRecipient
+	 * @param _operator address operator requesting the transfer
+	 * @param _from address token holder address
+	 * @param _to address recipient address
+	 * @param _amount uint256 amount of tokens to transfer
+	 * @param _userData bytes extra information provided by the token holder (if any)
+	 * @param _operatorData bytes extra information provided by the operator (if any)
+	 * @param _requireReceptionAck if true, contract recipients are required to implement ERC777TokensRecipient
 	 */
 	function _callTokensReceived(
-		address operator,
-		address from,
-		address to,
-		uint256 amount,
-		bytes memory userData,
-		bytes memory operatorData,
-		bool requireReceptionAck
+		address _operator,
+		address _from,
+		address _to,
+		uint256 _amount,
+		bytes memory _userData,
+		bytes memory _operatorData,
+		bool _requireReceptionAck
 	) private {
 		address implementer = _ERC1820_REGISTRY.getInterfaceImplementer(
-			to,
+			_to,
 			_TOKENS_RECIPIENT_INTERFACE_HASH
 		);
 		if (implementer != address(0)) {
 			IERC777Recipient(implementer).tokensReceived(
-				operator,
-				from,
-				to,
-				amount,
-				userData,
-				operatorData
+				_operator,
+				_from,
+				_to,
+				_amount,
+				_userData,
+				_operatorData
 			);
-		} else if (requireReceptionAck) {
+		} else if (_requireReceptionAck) {
 			require(
-				!to.isContract(),
+				!_to.isContract(),
 				'ERC777: token recipient contract has no implementer for ERC777TokensRecipient'
 			);
 		}
@@ -597,17 +598,21 @@ contract ERC777 is IHyperverseModule, IERC777, IERC20 {
 	 * @dev See {ERC20-_approve}.
 	 *
 	 * Note that accounts cannot have allowance issued by their operators.
+	 *
+	 * @param _holder The address approving the allowance
+	 * @param _spender The address of the spender
+	 * @param _amount The amount of tokens to approve
 	 */
 	function _approve(
-		address holder,
-		address spender,
-		uint256 value
+		address _holder,
+		address _spender,
+		uint256 _amount
 	) internal virtual {
-		require(holder != address(0), 'ERC777: approve from the zero address');
-		require(spender != address(0), 'ERC777: approve to the zero address');
+		require(_holder != address(0), 'ERC777: approve from the zero address');
+		require(_spender != address(0), 'ERC777: approve to the zero address');
 
-		_allowances[holder][spender] = value;
-		emit Approval(holder, spender, value);
+		_allowances[_holder][_spender] = _amount;
+		emit Approval(_holder, _spender, _amount);
 	}
 
 	/**
@@ -617,17 +622,21 @@ contract ERC777 is IHyperverseModule, IERC777, IERC20 {
 	 * Revert if not enough allowance is available.
 	 *
 	 * Might emit an {Approval} event.
+	 *
+	 * @param _owner The address of the owner
+	 * @param _spender The address of the spender
+	 * @param _amount The amount of tokens to be spent
 	 */
 	function _spendAllowance(
-		address owner,
-		address spender,
-		uint256 amount
+		address _owner,
+		address _spender,
+		uint256 _amount
 	) internal virtual {
-		uint256 currentAllowance = allowance(owner, spender);
+		uint256 currentAllowance = allowance(_owner, _spender);
 		if (currentAllowance != type(uint256).max) {
-			require(currentAllowance >= amount, 'ERC777: insufficient allowance');
+			require(currentAllowance >= _amount, 'ERC777: insufficient allowance');
 			unchecked {
-				_approve(owner, spender, currentAllowance - amount);
+				_approve(_owner, _spender, currentAllowance - _amount);
 			}
 		}
 	}
