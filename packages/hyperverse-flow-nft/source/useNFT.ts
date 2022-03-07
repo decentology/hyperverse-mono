@@ -14,7 +14,7 @@ function NFTState(initialState: { tenantId: string } = { tenantId: '' }) {
 		if (network === networks.Mainnet) {
 			// TODO: Deploy to Flow Mainnet.
 		} else if (network === networks.Testnet) {
-			fcl.config().put('0xNFT', 'FILL THIS IN');
+			fcl.config().put('0xNFT', '0x3f55c5f48f39b076');
 		}
 
 		const NFTAddress = await fcl.config().get('0xNFT');
@@ -31,12 +31,11 @@ function NFTState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	return {
 		isInitialized,
-		// leaveTribe: actions.leaveTribe.bind(null, tenantId),
-		// getAllTribes: actions.getAllTribes.bind(null, tenantId),
-		// getCurrentTribe: actions.getCurrentTribe.bind(null, tenantId),
-		// joinTribe: actions.joinTribe.bind(null, tenantId),
-		// createTenant: actions.createTenant,
-		// addTribe: actions.addTribe,
+		transferNFT: actions.transferNFT.bind(null, tenantId),
+		setup: actions.setup,
+		mintNFT: actions.mintNFT,
+		getNFTIDs: actions.getNFTIDs.bind(null, tenantId),
+		getNFTMetadata: actions.getNFTMetadata.bind(null, tenantId)
 	};
 }
 

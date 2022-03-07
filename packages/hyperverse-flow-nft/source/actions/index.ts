@@ -1,6 +1,5 @@
-export { leaveTribe } from './leaveTribe';
-export { getAllTribes } from './getAllTribes';
-export { joinTribe } from './joinTribe';
-export { getCurrentTribe } from './getCurrentTribe';
-export { createTenant } from './createTenant';
-export { addTribe } from './addTribe';
+export { getNFTIDs } from './getNFTIDs';
+export { getNFTMetadata } from './getNFTMetadata';
+export { mintNFT } from './mintNFT';
+export { setup } from './setup';
+export { transferNFT } from './transferNFT';

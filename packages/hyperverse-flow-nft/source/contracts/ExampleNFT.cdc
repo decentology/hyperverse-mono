@@ -24,18 +24,26 @@ pub contract ExampleNFT {
         pub let description: String
         pub let thumbnail: String
 
+        access(account) let metadata: {String: String}
+
+        pub fun getMetadata(): {String: String} {
+            return self.metadata
+        }
+
         init(
             _ tenant: Address,
             id: UInt64,
             name: String,
             description: String,
             thumbnail: String,
+            metadata: {String: String}
         ) {
             self.tenant = tenant
             self.id = id
             self.name = name
             self.description = description
             self.thumbnail = thumbnail
+            self.metadata = metadata
         }
     
         pub fun getViews(): [Type] {
@@ -161,6 +169,7 @@ pub contract ExampleNFT {
             name: String,
             description: String,
             thumbnail: String,
+            metadata: {String: String}
         ) {
             let tenant = self.owner!.address
             if ExampleNFT.totalSupply[tenant] == nil {
@@ -173,6 +182,7 @@ pub contract ExampleNFT {
                 name: name,
                 description: description,
                 thumbnail: thumbnail,
+                metadata: metadata
             )
 
             // deposit it in the recipient's account using their reference
@@ -182,28 +192,18 @@ pub contract ExampleNFT {
         }
     }
 
+    pub fun createMinter(): @NFTMinter {
+        return <- create NFTMinter()
+    }
+
     init() {
         // Initialize the total supply
         self.totalSupply = {}
 
         // Set the named paths
-        self.CollectionStoragePath = /storage/exampleNFTCollection
-        self.CollectionPublicPath = /public/exampleNFTCollection
-        self.MinterStoragePath = /storage/exampleNFTMinter
-
-        // Create a Collection resource and save it to storage
-        let collection <- create Collection()
-        self.account.save(<-collection, to: self.CollectionStoragePath)
-
-        // create a public capability for the collection
-        self.account.link<&ExampleNFT.Collection{ExampleNFT.ExampleNFTCollectionPublic}>(
-            self.CollectionPublicPath,
-            target: self.CollectionStoragePath
-        )
-
-        // Create a Minter resource and save it to storage
-        let minter <- create NFTMinter()
-        self.account.save(<-minter, to: self.MinterStoragePath)
+        self.CollectionStoragePath = /storage/exampleNFTCollection002
+        self.CollectionPublicPath = /public/exampleNFTCollection002
+        self.MinterStoragePath = /storage/exampleNFTMinter002
 
         emit ContractInitialized()
     }
