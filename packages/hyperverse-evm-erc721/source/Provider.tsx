@@ -7,13 +7,12 @@ const client = new QueryClient();
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
 	const { network } = useHyperverse();
-	const { tenantAddress } = useEnvironment();
-	if (network.type === Network.Mainnet && tenantId == null) {
-		throw new Error('Tenant ID is required for Mainnet');
+	if (tenantId == null) {
+		throw new Error('Tenant ID is required');
 	}
 	return (
 		<QueryClientProvider client={client}>
-			<ERC721.Provider initialState={{ tenantId: tenantId || tenantAddress! }}>
+			<ERC721.Provider initialState={{ tenantId: tenantId }}>
 				{children}
 			</ERC721.Provider>
 		</QueryClientProvider>

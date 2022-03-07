@@ -6,14 +6,12 @@ import { useEnvironment } from './environment';
 const client = new QueryClient();
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
-	const { network } = useHyperverse();
-	const { tenantAddress } = useEnvironment();
-	if (network.type === Network.Mainnet && tenantId == null) {
-		throw new Error('Tenant ID is required for Mainnet');
+	if (tenantId == null) {
+		throw new Error('Tenant ID is required');
 	}
 	return (
 		<QueryClientProvider client={client}>
-			<Tribes.Provider initialState={{ tenantId: tenantId || tenantAddress! }}>
+			<Tribes.Provider initialState={{ tenantId: tenantId }}>
 				{children}
 			</Tribes.Provider>
 		</QueryClientProvider>

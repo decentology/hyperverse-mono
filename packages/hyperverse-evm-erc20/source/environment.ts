@@ -19,7 +19,6 @@ const environment: EvmEnvironment = {
 		[Network.Testnet]: {
 			contractAddress: '0x5075a0259b418fbD46211B81AfA766157e7DD135',
 			factoryAddress: '0x4330f8f04490d09852e6916777e15259dF195F6A',
-			tenantAddress: '0xDf61226090C2475D9ec7c494684d2715b61F130c'
 		}
 	},
 	[Blockchain.Metis]: {

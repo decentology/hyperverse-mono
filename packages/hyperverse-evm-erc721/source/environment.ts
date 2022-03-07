@@ -17,36 +17,30 @@ const environment: EvmEnvironment = {
 		[Network.Mainnet]: {
 			contractAddress: null,
 			factoryAddress: null,
-			tenantAddress: null
 		},
 		[Network.Testnet]: {
 			factoryAddress: null,
 			contractAddress: '0xe5d761311212ABF55c9C6eb6d80eAF804F213d72',
-			tenantAddress: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'
 		}
 	},
 	[Blockchain.Metis]: {
 		[Network.Mainnet]: {
 			factoryAddress: null,
 			contractAddress: null,
-			tenantAddress: null
 		},
 		[Network.Testnet]: {
 			factoryAddress: null,
 			contractAddress: 'x07F3062D51C9A6CA568C8135656054FA88D5b646',
-			tenantAddress: '0x8f8B8BE836fbe857c65E892dBb261F249f9b0adb'
 		}
 	},
 	[Blockchain.Avalanche]: {
 		[Network.Mainnet]: {
 			factoryAddress: null,
 			contractAddress: null,
-			tenantAddress: null
 		},
 		[Network.Testnet]: {
 			factoryAddress: null,
 			contractAddress: null,
-			tenantAddress: null
 		}
 	}
 };
