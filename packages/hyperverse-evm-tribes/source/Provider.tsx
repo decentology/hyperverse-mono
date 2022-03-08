@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { QueryClientProvider, QueryClient } from 'react-query';
-import { HyperverseModuleInstance, Network, useHyperverse } from '@decentology/hyperverse';
+import { HyperverseModuleInstance } from '@decentology/hyperverse';
 import { Tribes } from './useTribes';
 const client = new QueryClient();
 

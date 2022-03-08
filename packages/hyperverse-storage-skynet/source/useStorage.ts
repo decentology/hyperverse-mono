@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { SkynetClient } from 'skynet-js';
 import { createContainer } from '@decentology/unstated-next';
 

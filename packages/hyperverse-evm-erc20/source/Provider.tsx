@@ -1,4 +1,4 @@
-import { HyperverseModuleInstance, useHyperverse, Network } from '@decentology/hyperverse';
+import { HyperverseModuleInstance } from '@decentology/hyperverse';
 import { ERC20 } from './useERC20';
 import { FC } from 'react';
 import { QueryClientProvider, QueryClient } from 'react-query';
