@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { initialize, Network } from '@decentology/hyperverse';
+import { initialize, Network, Provider } from '@decentology/hyperverse';
+import { Ethereum } from '@decentology/hyperverse-ethereum';
 
 const hyperverse = initialize({
-	blockchain: null,
+	blockchain: Ethereum,
 	network: Network.Testnet,
 	modules: []
 });
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<Provider initialState={hyperverse}>
+			<App />
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
