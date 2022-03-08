@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { HyperverseModuleInstance, Network, useHyperverse } from '@decentology/hyperverse';
 import { Tribes } from './useTribes';
-import { useEnvironment } from './environment';
 const client = new QueryClient();
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
