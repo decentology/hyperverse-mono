@@ -1,9 +1,9 @@
 {
-  "name": "@decentology/hyperverse-flow-tribes",
+  "name": "@decentology/hyperverse-flow-nft",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
-  "version": "1.0.9",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "build": "parcel build",

@@ -35,7 +35,9 @@ function NFTState(initialState: { tenantId: string } = { tenantId: '' }) {
 		setup: actions.setup,
 		mintNFT: actions.mintNFT,
 		getNFTIDs: actions.getNFTIDs.bind(null, tenantId),
-		getNFTMetadata: actions.getNFTMetadata.bind(null, tenantId)
+		getNFTMetadata: actions.getNFTMetadata.bind(null, tenantId),
+		getTotalSupply: actions.getTotalSupply.bind(null, tenantId),
+		getBalance: actions.getBalance.bind(null, tenantId)
 	};
 }
 

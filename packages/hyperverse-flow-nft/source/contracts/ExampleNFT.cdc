@@ -107,19 +107,24 @@ pub contract ExampleNFT {
             let tenant: Address = token.tenant
             let id: UInt64 = token.id
 
-            let collection = &self.ownedNFTs[tenant] as &{UInt64: NFT}
-            // add the new token to the dictionary which removes the old one
-            let oldToken <- collection[id] <- token
+            if self.ownedNFTs[tenant] != nil {
+                let collection = &self.ownedNFTs[tenant] as &{UInt64: NFT}
+                // add the new token to the dictionary which removes the old one
+                collection[id] <-! token
+            } else {
+                self.ownedNFTs[tenant] <-! {id: <- token}
+            }
 
             emit Deposit(tenant, id: id, to: self.owner?.address)
-
-            destroy oldToken
         }
 
         // getIDs returns an array of the IDs that are in the collection
         pub fun getIDs(_ tenant: Address): [UInt64] {
-            let collection = &self.ownedNFTs[tenant] as &{UInt64: NFT}
-            return collection.keys
+            if self.ownedNFTs[tenant] != nil {
+                let collection = &self.ownedNFTs[tenant] as &{UInt64: NFT}
+                return collection.keys
+            }
+            return []
         }
 
         // borrowNFT gets a reference to an NFT in the collection
@@ -201,9 +206,9 @@ pub contract ExampleNFT {
         self.totalSupply = {}
 
         // Set the named paths
-        self.CollectionStoragePath = /storage/exampleNFTCollection002
-        self.CollectionPublicPath = /public/exampleNFTCollection002
-        self.MinterStoragePath = /storage/exampleNFTMinter002
+        self.CollectionStoragePath = /storage/exampleNFTCollection004
+        self.CollectionPublicPath = /public/exampleNFTCollection004
+        self.MinterStoragePath = /storage/exampleNFTMinter004
 
         emit ContractInitialized()
     }

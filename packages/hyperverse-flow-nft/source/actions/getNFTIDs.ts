@@ -1,28 +1,26 @@
 const fcl = require('@onflow/fcl');
 const t = require('@onflow/types');
 
-async function getNFTIDs(tenantId: string, id: number, account: string) {
+async function getNFTIDs(tenantId: string, account: string) {
 	try {
 		const ids = await fcl.send([
 			fcl.script`
 				import ExampleNFT from 0xNFT
 						
-				pub fun main(tenantID: Address, id: UInt64, account: Address): [UInt64] {
+				pub fun main(tenantID: Address, account: Address): [UInt64] {
 																
-						let collection = getAccount(recipient).getCapability(ExampleNFT.CollectionPublicPath)
+						let collection = getAccount(account).getCapability(ExampleNFT.CollectionPublicPath)
 																.borrow<&ExampleNFT.Collection{ExampleNFT.ExampleNFTCollectionPublic}>()
 																?? panic("Could not borrow the ExampleNFT.Collection{ExampleNFT.ExampleNFTCollectionPublic}")
 				
-						return collection.getIDs()
+						return collection.getIDs(tenantID)
 				}
       `,
 			fcl.args([
 				fcl.arg(tenantId, t.Address),
-				fcl.arg(id, t.UInt64),
-				fcl.arg(account, t.String)
+				fcl.arg(account, t.Address)
 			]),
-		])
-			.then(fcl.decode);
+		]).then(fcl.decode);
 
 		return ids;
 	} catch (error) {

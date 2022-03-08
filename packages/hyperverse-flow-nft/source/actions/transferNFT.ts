@@ -9,7 +9,7 @@ async function transferNFT(tenantId: string, recipient: string, withdrawID: numb
             import ExampleNFT from 0xNFT
             
             transaction(tenantId: Address, recipient: Address, withdrawID: UInt64) {
-                let Collection: ExampleNFT.Collection
+                let Collection: &ExampleNFT.Collection
                 let Recipient: &ExampleNFT.Collection{ExampleNFT.ExampleNFTCollectionPublic}
                 prepare(signer: AuthAccount) {
                     self.Collection = signer.borrow<&ExampleNFT.Collection>(from: ExampleNFT.CollectionStoragePath)

@@ -7,16 +7,15 @@ async function setup() {
 		const transactionID = await fcl.send([
 			fcl.transaction`
 				import ExampleNFT from 0xNFT
-				import MetadataViews from 0x631e88ae7f1d7c20
 				
 				transaction() {
 						prepare(signer: AuthAccount) {
 								if signer.borrow<&ExampleNFT.Collection>(from: ExampleNFT.CollectionStoragePath) == nil {
 									signer.save(<- ExampleNFT.createEmptyCollection(), to: ExampleNFT.CollectionStoragePath)
-								  signer.link<&ExampleNFT.Collection{ExampleNFT.ExampleNFTCollectionPublic, MetadataViews.ResolverCollection}>(ExampleNFT.CollectionPublicPath, target: ExampleNFT.CollectionStoragePath)
+								  signer.link<&ExampleNFT.Collection{ExampleNFT.ExampleNFTCollectionPublic}>(ExampleNFT.CollectionPublicPath, target: ExampleNFT.CollectionStoragePath)
 								}
 
-								if signer.borrow<&ExampleNFT.Minter>(from: ExampleNFT.MinterStoragePath) == nil {
+								if signer.borrow<&ExampleNFT.NFTMinter>(from: ExampleNFT.MinterStoragePath) == nil {
 									signer.save(<- ExampleNFT.createMinter(), to: ExampleNFT.MinterStoragePath)
 								}
 						}

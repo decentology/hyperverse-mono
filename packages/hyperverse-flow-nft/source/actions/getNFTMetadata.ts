@@ -11,8 +11,8 @@ async function getNFTMetadata(tenantId: string, id: number, account: string) {
             pub fun main(tenantID: Address, id: UInt64, account: Address): MetadataViews.Display? {
                                     
                 let collection = getAccount(recipient).getCapability(ExampleNFT.CollectionPublicPath)
-                                    .borrow<&ExampleNFT.Collection{MetadataViews.ResolverCollection}>()
-                                    ?? panic("Could not borrow the ExampleNFT.Collection{MetadataViews.ResolverCollection}")
+                                    .borrow<&ExampleNFT.Collection{ExampleNFT.ExampleNFTCollectionPublic}>()
+                                    ?? panic("Could not borrow the ExampleNFT.Collection{ExampleNFT.ExampleNFTCollectionPublic}")
             
                 if let resolver = collection.borrowViewResolver(id: id) {
                     if let view = resolver.resolveView(Type<MetadataViews.Display>()) {
@@ -26,7 +26,7 @@ async function getNFTMetadata(tenantId: string, id: number, account: string) {
             fcl.args([
                 fcl.arg(tenantId, t.Address),
                 fcl.arg(id, t.UInt64),
-                fcl.arg(account, t.String)
+                fcl.arg(account, t.Address)
             ]),
         ]).then(fcl.decode);
 
