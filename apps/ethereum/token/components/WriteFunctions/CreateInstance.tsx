@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import {
 	Box,
 	Item,
@@ -10,28 +10,26 @@ import {
 	Parameters,
 	Input,
 	Content,
-	Button,
+	Button
 } from '../ComponentStyles';
 
 const CreateInstance = () => {
 	const { address } = useEthereum();
-	const { NewInstance, CheckInstance } = useToken();
+	const { NewInstance, CheckInstance } = useERC20();
 	const { data: instance } = CheckInstance(address);
-	const { mutate, isLoading } = NewInstance();
+	const { mutate } = NewInstance();
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
 	const [tokenDecimals, setTokenDecimals] = useState(0);
 
 	const createNewInstance = async () => {
 		try {
-			const instanceData = {
-				account: address,
+			mutate({
+				account: address!,
 				name: tokenName,
 				symbol: tokenSymbol,
-				decimal: tokenDecimals,
-			};
-
-			mutate(instanceData);
+				decimal: tokenDecimals
+			});
 		} catch (error) {
 			throw error;
 		}

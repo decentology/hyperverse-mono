@@ -7,16 +7,16 @@ import Allowance from './ReadFunctions/Allowance';
 import TransferFrom from './WriteFunctions/TransferFrom';
 import Approve from './WriteFunctions/Approve';
 import Mint from './WriteFunctions/Mint';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import {BsFillExclamationDiamondFill} from 'react-icons/bs'
 import GetProxy from './ReadFunctions/GetProxy'
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 
 const Container = () => {
 	const { address } = useEthereum();
-	const { TokenName, TokenSymbol, Balance, TotalSupply, CheckInstance } = useToken();
+	const { TokenName, TokenSymbol, Balance, TotalSupply, CheckInstance } = useERC20();
 
 	const {data:instance} = CheckInstance(address)
 
@@ -30,6 +30,7 @@ const Container = () => {
 		}
 
 	}, [])
+
 
 	const TokenReadFunctions = [
 			{

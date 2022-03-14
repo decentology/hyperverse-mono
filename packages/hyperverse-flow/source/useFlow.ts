@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createContainer } from '@decentology/unstated-next';
-import { blockchains, useHyperverse } from '@decentology/hyperverse';
+import { Blockchain, useHyperverse } from '@decentology/hyperverse';
 import { FlowUser } from './types';
 import { useAsync } from 'react-async-hook';
 import { Initialize } from './context/initialize';
@@ -11,24 +11,23 @@ function FlowState() {
 	const { blockchain, network } = useHyperverse();
 	const [user, setUser] = useState<FlowUser>(null);
 
-	const {
-		result: { client, explorer } = {},
-		status,
-		error,
-		loading,
-	} = useAsync(Initialize, [network], {
-		initialState: () => {
-			return {
-				error: undefined,
-				loading: true,
-				status: 'loading',
-				result: {
-					client: null,
-					explorer: null,
-				},
-			};
-		},
-	});
+	const { result: { client, explorer } = {}, status, error, loading } = useAsync(
+		Initialize,
+		[network],
+		{
+			initialState: () => {
+				return {
+					error: undefined,
+					loading: true,
+					status: 'loading',
+					result: {
+						client: null,
+						explorer: null
+					}
+				};
+			}
+		}
+	);
 
 	const isInitialized = user !== null;
 
@@ -45,12 +44,12 @@ function FlowState() {
 	useEffect(() => {
 		fcl.currentUser().subscribe(setUser);
 	}, []);
-	
+
 	useEffect(() => {
-		if(blockchain?.name!== blockchains.Flow) {
+		if (blockchain?.name !== Blockchain.Flow) {
 			unauthenticate();
 		}
-	},[blockchain?.name])
+	}, [blockchain?.name]);
 
 	return {
 		user,
@@ -61,7 +60,7 @@ function FlowState() {
 		sendFlow,
 		client,
 		explorer,
-		loggedIn,
+		loggedIn
 	};
 }
 

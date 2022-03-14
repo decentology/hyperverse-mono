@@ -23,7 +23,7 @@ function AlgorandState() {
 		status,
 		error,
 		loading,
-	} = useAsync(Initialize, [network], {
+	} = useAsync(Initialize, [network.type], {
 		initialState: () => {
 			return {
 				error: undefined,

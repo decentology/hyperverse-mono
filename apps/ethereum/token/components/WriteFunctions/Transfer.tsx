@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import { toast } from 'react-toastify';
 import {
 	Box,
@@ -16,7 +16,7 @@ import {
 
 const Transfer = () => {
 	const { address } = useEthereum();
-	const { Transfer } = useToken();
+	const { Transfer } = useERC20();
 	const { mutate, error, isLoading } = Transfer();
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);

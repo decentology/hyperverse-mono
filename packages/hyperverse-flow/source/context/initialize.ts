@@ -1,9 +1,9 @@
 const fcl = require('@onflow/fcl');
-import { networks } from '@decentology/hyperverse';
-export const Initialize = async (network: string) => {
+import { NetworkConfig, Network } from '@decentology/hyperverse';
+export const Initialize = async (network: NetworkConfig) => {
 	if (network != null) {
 		let explorer: string;
-		if (network == networks.Mainnet) {
+		if (network.type == Network.Mainnet) {
 			explorer = 'https://flowscan.org';
 			fcl.config()
 				.put('accessNode.api', 'https://flow-access-mainnet.portto.io')
@@ -20,11 +20,11 @@ export const Initialize = async (network: string) => {
 		}
 		return {
 			client: fcl,
-			explorer,
+			explorer
 		};
 	}
 	return {
 		client: null,
-		explorer: null,
+		explorer: null
 	};
 };

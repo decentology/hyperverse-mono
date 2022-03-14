@@ -1,9 +1,9 @@
 import { Algodv2, Indexer } from 'algosdk';
-import { networks } from '@decentology/hyperverse';
-export const Initialize = async (network: networks) => {
+import { Network } from '@decentology/hyperverse';
+export const Initialize = async (network: Network) => {
 	if (network != null) {
 		let client, explorer, indexer;
-		if (network == networks.Mainnet) {
+		if (network == Network.Mainnet) {
 			client = new Algodv2('', 'https://algoexplorerapi.io/', '');
 			indexer = new Indexer('', 'https://algoexplorerapi.io/idx2', '');
 			explorer = 'https://algoexplorer.io';
@@ -18,8 +18,8 @@ export const Initialize = async (network: networks) => {
 				client,
 				explorer,
 				extra: {
-					indexer,
-				},
+					indexer
+				}
 			};
 		}
 	}
@@ -27,7 +27,7 @@ export const Initialize = async (network: networks) => {
 		client: null,
 		explorer: null,
 		extra: {
-			indexer: null,
-		},
+			indexer: null
+		}
 	};
 };

@@ -33,3 +33,4 @@ yarn-error.log*
 .turbo
 .parcel-cache
 apps/hyperverse.dev
+.idea

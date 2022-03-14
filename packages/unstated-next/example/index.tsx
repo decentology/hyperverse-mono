@@ -41,13 +41,13 @@ function RequiredCounterDisplay() {
 
 function App() {
 	return (
-		<Counter.Provider initialState={[]}>
+		<Counter.Provider initialState={0}>
 			<CounterDisplay />
-			<Counter.Provider initialState={[2]}>
+			<Counter.Provider initialState={2}>
 				<div>
 					<div>
 						<CounterDisplay />
-						<RequiredCounter.Provider initialState={[2]}>
+						<RequiredCounter.Provider initialState={2}>
 							<RequiredCounterDisplay />
 						</RequiredCounter.Provider>
 					</div>

@@ -10,7 +10,7 @@ import {
 	Parameters,
 	Input,
 	Content,
-	Button,
+	Button
 } from './WriteComponents';
 
 const Transfer = () => {
@@ -23,13 +23,11 @@ const Transfer = () => {
 
 	const createNewInstance = async () => {
 		try {
-			const instanceData = {
-				from: address,
+			mutate({
+				from: address!,
 				to: receiver,
-				tokenId: tokenId,
-			};
-
-			mutate(instanceData);
+				tokenId: tokenId
+			});
 		} catch (error) {
 			throw error;
 		}
@@ -50,13 +48,13 @@ const Transfer = () => {
 						<Content>
 							<Input
 								placeholder="Receiver"
-								onChange={(e) => setReceiver(e.target.value)}
+								onChange={e => setReceiver(e.target.value)}
 							/>
 							<Input
 								type="number"
 								min="0"
 								placeholder="TokenId to transfer"
-								onChange={(e) => setTokenId(e.currentTarget.valueAsNumber)}
+								onChange={e => setTokenId(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
 								{!address ? 'Connet Wallet' : 'Transfer'}

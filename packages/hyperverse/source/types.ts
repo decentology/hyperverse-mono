@@ -1,7 +1,7 @@
-import { FC, Context } from 'react';
-import { ContainerProvider, ContainerProviderProps } from '@decentology/unstated-next';
-import Blockchain from './constants/blockchains';
-import Network from './constants/networks';
+import { FC } from 'react';
+import { ContainerProvider } from '@decentology/unstated-next';
+import { Blockchain, BlockchainEvm } from './constants/blockchains';
+import { Network, NetworkConfig } from './constants/networks';
 import Storage from './constants/storage';
 type Exact<A, B> = A extends B ? (B extends A ? A : never) : never;
 
@@ -15,7 +15,7 @@ export type HyperverseBlockchainInit<T> = (
 
 export type HyperverseBlockchain<T> = {
 	name: Blockchain;
-	Provider: FC<HyperverseModuleInstance> | ContainerProvider<unknown>;
+	Provider: FC<unknown> | ContainerProvider<unknown> | ContainerProvider<any>;
 };
 
 export type BlockchainFeatures<T> = {
@@ -30,13 +30,18 @@ export type BlockchainFeatures2<T extends {}> = T & {
 
 export type Hyperverse = {
 	blockchain: HyperverseBlockchain<unknown> | null;
-	network: Network;
+	network: Network | NetworkConfig;
 	storage?: Storage | ({ name?: Storage; options: { clientUrl: string } } | undefined);
 	modules: HyperverseModuleBase[];
 	options?: {
 		disableProviderAutoInit?: boolean;
 	};
 };
+
+export type HyperverseConfig = {
+	network: NetworkConfig;
+} & Omit<Hyperverse, 'network'>;
+
 export type HyperverseModuleBase = {
 	bundle: {
 		Provider: FC<HyperverseModuleInstance>;
@@ -51,6 +56,15 @@ export type HyperverseModule = {
 
 export type HyperverseModuleInstance = {
 	tenantId?: string;
-	// network: Network;
-	// blockchain: Blockchain;
+};
+
+export type EvmEnvironment = {
+	[key in BlockchainEvm]: {
+		[key in Network]: {
+			[key: string]: any;
+			contractAddress: string | null;
+			factoryAddress: string | null;
+			tenantAddress?: string | null;
+		};
+	};
 };

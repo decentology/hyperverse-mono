@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import {
 	Box,
 	Item,
@@ -15,7 +15,7 @@ import {
 
 const Mint = () => {
 	const { address } = useEthereum();
-	const { Mint } = useToken();
+	const { Mint } = useERC20();
 	const { mutate, isLoading } = Mint();
 	const [amount, setAmount] = useState(0);
 

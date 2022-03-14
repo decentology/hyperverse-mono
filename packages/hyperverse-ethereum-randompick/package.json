@@ -3,6 +3,7 @@
   "version": "1.0.11",
   "source": "./source/index.ts",
   "types": "./distribution/index.d.ts",
+  "module": "./distribution/index.es.js",
   "main": "./distribution/index.js",
   "license": "MIT",
   "scripts": {

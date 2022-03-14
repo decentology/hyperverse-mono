@@ -2,16 +2,17 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { ethers } from 'ethers';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { FACTORY_ABI, MODULE_ABI, FACTORY_ADDRESS, MODULE_ADDRESS } from './constants';
 import { createContainer, useContainer } from '@decentology/unstated-next';
+import { useEnvironment } from './environment';
 
 type ContractState = ethers.Contract;
 
 function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const { address, web3Provider, provider } = useEthereum();
+	const { factoryAddress, FactoryABI, ContractABI } = useEnvironment();
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
-		new ethers.Contract(FACTORY_ADDRESS, FACTORY_ABI, provider) as ContractState
+		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
 	);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 
@@ -22,7 +23,7 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	useEffect(() => {
 		const fetchContract = async () => {
 			const proxyAddress = await factoryContract.getProxy(tenantId);
-			const proxyCtr = new ethers.Contract(proxyAddress, MODULE_ABI, provider);
+			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, provider);
 			const accountSigner = await signer;
 			if (accountSigner) {
 				setProxyContract(proxyCtr.connect(accountSigner));
@@ -42,7 +43,6 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 		// We have a defualt contract that has no signer. Which will work for read-only operations.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [signer]);
-
 
 	const errors = (err: any) => {
 		if (!factoryContract?.signer) {
@@ -89,13 +89,17 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 		factoryContract,
 		proxyContract,
 		CheckInstance: () =>
-			useQuery(['checkInstance', address, factoryContract?.address], () => checkInstance(address), {
-				enabled: !!address && !!factoryContract?.address,
-			}),
+			useQuery(
+				['checkInstance', address, factoryContract?.address],
+				() => checkInstance(address),
+				{
+					enabled: !!address && !!factoryContract?.address
+				}
+			),
 		NewInstance: (
 			options?: Omit<UseMutationOptions<unknown, unknown, void, unknown>, 'mutationFn'>
-		) => useMutation(createInstance, options),
-	}
+		) => useMutation(createInstance, options)
+	};
 }
 
 export const Module = createContainer(ModuleState);

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { useEffect } from 'react';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useTribes } from '@decentology/hyperverse-ethereum-tribes';
+import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
 import Loader from '../components/Loader';
@@ -51,7 +51,7 @@ const TribesPage = () => {
 						) : (
 							<Image
 								width={300}
-								height={400}
+								height={380}
 								src={`${clientUrl}/${data.image}/`}
 								alt={data.name}
 								className={styles.tribe}

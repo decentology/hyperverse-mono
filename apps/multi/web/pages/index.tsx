@@ -1,4 +1,4 @@
-import { blockchains, useHyperverse } from '@decentology/hyperverse';
+import { Blockchain, useHyperverse } from '@decentology/hyperverse';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useFlow } from '@decentology/hyperverse-flow';
 import { useMetis } from '@decentology/hyperverse-metis';
@@ -20,15 +20,15 @@ const Home: NextPage = () => {
 	const { user, authenticate, unauthenticate } = useFlow();
 	const globalContext = useContext(context);
 	switch (blockchain!.name) {
-		case blockchains.Ethereum:
+		case Blockchain.Ethereum:
 			var connect = EthereumConnect;
 			var disconnect = EthereumDisconnect;
 			break;
-		case blockchains.Metis:
+		case Blockchain.Metis:
 			var connect = MetisConnect;
 			var disconnect = MetisDisconnect;
 			break;
-		case blockchains.Flow:
+		case Blockchain.Flow:
 			var connect = authenticate;
 			var disconnect = unauthenticate;
 			break;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTribes } from '@decentology/hyperverse-ethereum-tribes';
+import { useTribes } from '@decentology/hyperverse-evm-tribes';
 
 const InnerComponent: React.FunctionComponent<any> = ({ children }) => {
 	const { useTribeEvents } = useTribes();

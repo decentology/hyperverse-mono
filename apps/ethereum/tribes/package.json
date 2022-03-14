@@ -11,8 +11,8 @@
   "dependencies": {
     "@decentology/hyperverse": "^1.0.0",
     "@decentology/hyperverse-ethereum": "^1.0.0",
-    "@decentology/hyperverse-ethereum-randompick": "^1.0.11",
-    "@decentology/hyperverse-ethereum-tribes": "^1.0.0",
+    "@decentology/hyperverse-ethereum-randompick": "^1.0.0",
+    "@decentology/hyperverse-evm-tribes": "^1.0.0",
     "ethers": "^5.5.2",
     "next": "12.0.7",
     "react": "17.0.2",

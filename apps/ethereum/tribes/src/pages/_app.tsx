@@ -1,21 +1,21 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { initialize, Provider } from '@decentology/hyperverse';
-import { networks } from '@decentology/hyperverse';
+import { Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as Tribes from '@decentology/hyperverse-ethereum-tribes';
+import * as Tribes from '@decentology/hyperverse-evm-tribes';
 import * as RandomPick from '@decentology/hyperverse-ethereum-randompick';
 import InnerComponent from '../components/InnerComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Change your Tenant ID here.
-const TENANT_ID = '0xD847C7408c48b6b6720CCa75eB30a93acbF5163D';
+const TENANT_ID = '0xDf61226090C2475D9ec7c494684d2715b61F130c';
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: Ethereum,
-		network: networks.Testnet,
+		network: Network.Testnet,
 		storage: {
 			options: { clientUrl: 'https://fileportal.org' }, // Updated to fileportal due to SSL error issues with SiaSky.net
 		},
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 			},
 			{
 				bundle: RandomPick,
-				tenantId: null,
+				tenantId: '0x45e4c90801b1a17c178bB9855aA181A886DAA603',
 			},
 		],
 	});

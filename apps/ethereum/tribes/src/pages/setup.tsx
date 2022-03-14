@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Loader from '../components/Loader';
-import { useTribes } from '@decentology/hyperverse-ethereum-tribes';
+import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { toast } from 'react-toastify';
 
@@ -63,7 +63,7 @@ const Setup = () => {
 				<div className={styles.hero}>
 					{account && !data && (
 						<>
-							<button className={styles.join} type="submit" onClick={() => mutate()}>
+							<button className={styles.join} type="submit" onClick={() => mutate({account: account})}>
 								Create Instance
 							</button>
 							<p className={styles.error}>

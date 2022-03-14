@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Loader from '../components/Loader';
 import { useTribes } from '@decentology/hyperverse-flow-tribes';
 import { useFlow } from '@decentology/hyperverse-flow';
-import { toast } from 'react-toastify';
 import { create } from 'ipfs-http-client';
 import { TENANT_ADDRESS } from './shared';
 
+// @ts-ignore
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
 const Setup = () => {
@@ -58,7 +58,7 @@ const Setup = () => {
 									<input
 										type="text"
 										placeholder="Name"
-										onChange={(e) =>
+										onChange={e =>
 											updateInput({ ...formInput, name: e.target.value })
 										}
 									/>
@@ -67,15 +67,15 @@ const Setup = () => {
 										id="tribe-image"
 										name="tribe image"
 										accept="image/*, .jpg"
-										onChange={(e) => uploadToIPFS(e)}
+										onChange={e => uploadToIPFS(e)}
 									/>
 									<input
 										type="text"
 										placeholder="Description"
-										onChange={(e) =>
+										onChange={e =>
 											updateInput({
 												...formInput,
-												description: e.target.value,
+												description: e.target.value
 											})
 										}
 									/>
@@ -95,7 +95,7 @@ const Setup = () => {
 									<h4 className={styles.error}>
 										If you are, please use the right tenant address for this
 										project. You can change it in /pages/shared.tsx to be the
-										address you're logged in to.
+										address you&#39;re logged in to.
 									</h4>
 								</div>
 							)}

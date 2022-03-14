@@ -47,7 +47,7 @@
 		"clean:all": "npm run clean && npm run clean:example && npm run clean:node_modules",
 		"bootstrap": "npm install && cd example && npm install",
 		"start": "npm run check && cd example && npm run start",
-		"build": "webpack",
+		"build": "tsc",
 		"build:example": "npm run bootstrap && npm run build && cd example && npm run build",
 		"test": "mocha --require ./babel-polyfill.js test/**/*.spec.js",
 		"lint": "tslint ./src/*.ts ./src/**/*.ts",

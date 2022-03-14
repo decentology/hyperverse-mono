@@ -1,4 +1,4 @@
-import { Hyperverse, HyperverseModuleBase } from '.';
+import { Hyperverse } from './types';
 
 function initialize(options: Hyperverse) {
 	return options;

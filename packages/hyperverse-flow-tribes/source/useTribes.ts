@@ -1,4 +1,4 @@
-import { networks, useHyperverse } from '@decentology/hyperverse';
+import { Network, useHyperverse } from '@decentology/hyperverse';
 import { useEffect, useState } from 'react';
 import { createContainer } from '@decentology/unstated-next';
 import * as actions from './actions';
@@ -11,9 +11,9 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	const tenantId = initialState.tenantId;
 	const initialize = async () => {
-		if (network === networks.Mainnet) {
+		if (network.type === Network.Mainnet) {
 			// TODO: Deploy to Flow Mainnet.
-		} else if (network === networks.Testnet) {
+		} else if (network.type === Network.Testnet) {
 			fcl.config().put('0xTribes', '0x1960ff14acc51991');
 		}
 
@@ -36,7 +36,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		getCurrentTribe: actions.getCurrentTribe.bind(null, tenantId),
 		joinTribe: actions.joinTribe.bind(null, tenantId),
 		createTenant: actions.createTenant,
-		addTribe: actions.addTribe,
+		addTribe: actions.addTribe
 	};
 }
 
