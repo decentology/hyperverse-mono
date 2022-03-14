@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import { MdFileCopy } from 'react-icons/md';
 import { Box } from '../ComponentStyles';
 import { styled } from '@stitches/react';
@@ -22,7 +22,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
 	const { address } = useEthereum();
-	const { Proxy, CheckInstance } = useToken();
+	const { Proxy, CheckInstance } = useERC20();
 	const { data: instance } = CheckInstance(address);
 	const { data, isLoading, refetch } = Proxy();
 	const [hidden, setHidden] = useState(false);
