@@ -45,7 +45,7 @@ const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Pro
 			<h4>{header}</h4>
 			<p>{description}</p>
 			<Button disabled={!address} onClick={() => setHidden(p => !p)}>
-				{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? buttonText : dataFetched.toString()}
+				{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? buttonText : dataFetched?.toString() || "N/A"}
 			</Button>
 		</Box>
 	);
