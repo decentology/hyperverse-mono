@@ -1,4 +1,4 @@
-import { initialize, Provider, networks } from '@decentology/hyperverse';
+import { initialize, Provider, Network } from '@decentology/hyperverse';
 import { Flow } from '@decentology/hyperverse-flow';
 import * as NFT from '@decentology/hyperverse-flow-nft';
 import { globalCss } from '../stitches.config';
@@ -26,7 +26,7 @@ const globalStyles = globalCss({
 
 const hyperverse = initialize({
 	blockchain: Flow,
-	network: networks.Testnet,
+	network: Network.Testnet,
 	modules: [
 		{
 			bundle: NFT,

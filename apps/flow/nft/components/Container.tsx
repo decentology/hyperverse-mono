@@ -38,6 +38,7 @@ const Container = () => {
 				{TokenReadFunctions.map((item) => (
 					<ReadComponent
 						key={item.header}
+						isAddress={!!flow.user?.addr}
 						hook={item.hook}
 						header={item.header}
 						description={item.description}

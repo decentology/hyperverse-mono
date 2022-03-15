@@ -16,7 +16,7 @@ const Setup = () => {
 	const { createTenant, addTribe } = useTribes();
 	const [isLoading, setIsLoading] = useState(false);
 	const [loaderMessage, setLoaderMessage] = useState('Processing...');
-	const [hash, setHash] = useState<string>();
+	const [hash, setHash] = useState<string>("");
 	const [formInput, updateInput] = useState({
 		name: '',
 		description: '',
