@@ -1,6 +1,6 @@
 {
-  "name": "@decentology/hyperverse-metis",
-  "version": "1.0.10",
+  "name": "@decentology/hyperverse-polygon",
+  "version": "1.0.0",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "@decentology/hyperverse": "^1.0.9",
-    "@decentology/hyperverse-evm": "^1.0.0",
     "@decentology/web3modal": "^1.9.6",
     "@walletconnect/web3-provider": "^1.7.1",
     "ethers": "^5.5.3",

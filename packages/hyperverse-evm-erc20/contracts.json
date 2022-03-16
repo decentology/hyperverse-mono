@@ -16,5 +16,11 @@
       "contractAddress": "0xE325f4102DCDe3bc011DA13484D33Ee70a3aC969",
       "factoryAddress": "0x57B39674DFf991AaeB1EdF83615bF8f44f62E46B"
     }
+  },
+  "polygon": {
+    "testnet": {
+      "contractAddress": "0x1cf66D41C3f0f2a83b814C6014E9c2a8bDc45a75",
+      "factoryAddress": "0x63C3E07a1538727901B23fa0d91Ca9d69B979Aab"
+    }
   }
 }
