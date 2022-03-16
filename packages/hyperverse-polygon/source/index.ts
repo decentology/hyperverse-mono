@@ -1,9 +1,9 @@
 export * from '@decentology/web3modal';
 import { Provider, usePolygon } from './usePolygon';
-import { blockchains, makeHyperverseBlockchain } from '@decentology/hyperverse';
+import { Blockchain, makeHyperverseBlockchain } from '@decentology/hyperverse';
 
 export const Polygon = makeHyperverseBlockchain({
-	name: blockchains.Polygon,
+	name: Blockchain.Polygon,
 	Provider: Provider,
 });
 

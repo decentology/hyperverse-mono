@@ -27,7 +27,7 @@
     "@decentology/unstated-next": "^1.1.1"
   },
   "devDependencies": {
-    "@decentology/config": "*",
+    "@decentology/config": "^1.0.0",
     "parcel": "^2.2.1",
     "rimraf": "^3.0.2"
   }
