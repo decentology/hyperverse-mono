@@ -1,5 +1,5 @@
+require('dotenv').config();
 require('@nomiclabs/hardhat-waffle');
-
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
@@ -21,7 +21,7 @@ module.exports = {
 	defaultNetwork: 'hardhat',
 	networks: {
 		hardhat: {},
-		rinkeby: {
+		ethereum: {
 			url: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
 			accounts:
 				process.env.NEXT_PRIVATE_KEY !== undefined ? [process.env.NEXT_PRIVATE_KEY] : [],
@@ -32,7 +32,7 @@ module.exports = {
 				process.env.NEXT_PRIVATE_KEY !== undefined ? [process.env.NEXT_PRIVATE_KEY] : [],
 		},
 		avalanche: {
-			url: '',
+			url: 'https://api.avax-test.network/ext/bc/C/rpc',
 			accounts:
 				process.env.NEXT_PRIVATE_KEY !== undefined ? [process.env.NEXT_PRIVATE_KEY] : [],
 		},

@@ -4,44 +4,16 @@ import {
 	isEvm,
 	BlockchainEvm,
 	EvmEnvironment,
-	useHyperverse
+	useHyperverse,
 } from '@decentology/hyperverse';
 import ERC20Factory from '../artifacts/contracts/ERC20Factory.sol/ERC20Factory.json';
 import ERC20 from '../artifacts/contracts/ERC20.sol/ERC20.json';
 export const ContractABI = ERC20.abi;
 export const FactoryABI = ERC20Factory.abi;
-const environment: EvmEnvironment = {
-	[Blockchain.Ethereum]: {
-		[Network.Mainnet]: {
-			contractAddress: null,
-			factoryAddress: null
-		},
-		[Network.Testnet]: {
-			contractAddress: '0x5075a0259b418fbD46211B81AfA766157e7DD135',
-			factoryAddress: '0x4330f8f04490d09852e6916777e15259dF195F6A',
-		}
-	},
-	[Blockchain.Metis]: {
-		[Network.Mainnet]: {
-			contractAddress: null,
-			factoryAddress: null
-		},
-		[Network.Testnet]: {
-			contractAddress: null,
-			factoryAddress: null
-		}
-	},
-	[Blockchain.Avalanche]: {
-		[Network.Mainnet]: {
-			contractAddress: null,
-			factoryAddress: null
-		},
-		[Network.Testnet]: {
-			contractAddress: null,
-			factoryAddress: null
-		}
-	}
-};
+import Contracts from '../contracts.json';
+
+const environment = Contracts as EvmEnvironment;
+
 
 function useEnvironment() {
 	const { blockchain, network } = useHyperverse();
@@ -56,7 +28,7 @@ function useEnvironment() {
 	return {
 		...env,
 		ContractABI,
-		FactoryABI
+		FactoryABI,
 	};
 }
 

@@ -1,0 +1,20 @@
+{
+  "metis": {
+    "testnet": {
+      "contractAddress": "0x23f2bb35bAfBc7FD5eF42e0E98087F7C095aA384",
+      "factoryAddress": "0x1beDD95D2C174d5857Cd3591561fDB149AB5Ba09"
+    }
+  },
+  "avalanche": {
+    "testnet": {
+      "contractAddress": "0x85dFf53a4dD7871d94CbE6119fC93e9b8c67265b",
+      "factoryAddress": "0xbf57261377741cf355A68F9F14aD648fB806bC90"
+    }
+  },
+  "ethereum": {
+    "testnet": {
+      "contractAddress": "0xE325f4102DCDe3bc011DA13484D33Ee70a3aC969",
+      "factoryAddress": "0x57B39674DFf991AaeB1EdF83615bF8f44f62E46B"
+    }
+  }
+}
