@@ -4,6 +4,7 @@ export enum Blockchain {
 	Ethereum = 'ethereum',
 	Metis = 'metis',
 	Avalanche = 'avalanche',
+	Polygon = 'polygon'
 }
 
 export type BlockchainEvm = Blockchain.Ethereum | Blockchain.Metis | Blockchain.Avalanche;
