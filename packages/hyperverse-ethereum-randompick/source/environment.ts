@@ -17,7 +17,7 @@ function useEnvironment() {
 	if (blockchain == null) {
 		throw new Error('Blockchain is not set');
 	}
-	if (blockchain?.name !== Blockchain.Ethereum) {
+	if (blockchain?.name !== Blockchain.Ethereum && blockchain?.name !== Blockchain.Polygon) {
 		throw new Error('Blockchain is not EVM compatible');
 	}
 

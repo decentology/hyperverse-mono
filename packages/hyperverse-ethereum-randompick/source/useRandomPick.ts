@@ -7,8 +7,7 @@ import { useEnvironment } from './environment';
 
 type ContractState = ethers.Contract;
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) {
-	const { tenantId } = initialState;
+function RandomPickState() {
 	const { address, web3Provider, provider, connect } = useEthereum();
 	const { ContractABI, contractAddress } = useEnvironment();
 	const [contract, setRandomPickContract] = useState<ContractState>(
@@ -75,7 +74,6 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) 
 	);
 
 	return {
-		tenantId,
 		contract,
 		StartRandomPick: (
 			options?: Omit<UseMutationOptions<unknown, unknown, void, unknown>, 'mutationFn'>
