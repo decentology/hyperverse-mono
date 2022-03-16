@@ -4,15 +4,10 @@ import { HyperverseModuleInstance } from '@decentology/hyperverse';
 import { RandomPick } from './useRandomPick';
 const client = new QueryClient();
 
-const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
-	if (tenantId == null) {
-		throw new Error('Tenant ID is required');
-	}
+const Provider: FC<HyperverseModuleInstance> = ({ children }) => {
 	return (
 		<QueryClientProvider client={client}>
-			<RandomPick.Provider initialState={{ tenantId: tenantId }}>
-				{children}
-			</RandomPick.Provider>
+			<RandomPick.Provider>{children}</RandomPick.Provider>
 		</QueryClientProvider>
 	);
 };

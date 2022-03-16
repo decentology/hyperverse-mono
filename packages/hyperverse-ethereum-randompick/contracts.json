@@ -1,17 +1,26 @@
 {
-  "metis": {
-    "testnet": {
-      "contractAddress": "0x5536B64dA409349E3Feb5d7e949B28716506e937"
-    }
-  },
-  "ethereum": {
-    "testnet": {
-      "contractAddress": "0xeed9846eD6E8525eB9866835ED67b1913a5361CF"
-    }
-  },
-  "avalanche": {
-    "testnet": {
-      "contractAddress": "0xC7ca00A24da99Eb8AFD3eE1511801eBAFc49C368"
-    }
-  }
+	"metis": {
+		"testnet": {
+			"contractAddress": "0x5536B64dA409349E3Feb5d7e949B28716506e937"
+		},
+		"mainnet": {}
+	},
+	"ethereum": {
+		"testnet": {
+			"contractAddress": "0x340554DDb594ccce941709Eb976f86ed5E241F3c"
+		},
+		"mainnet": {}
+	},
+	"avalanche": {
+		"testnet": {
+			"contractAddress": "0xC7ca00A24da99Eb8AFD3eE1511801eBAFc49C368"
+		},
+		"mainnet": {}
+	},
+	"polygon": {
+		"testnet": {
+			"contractAddress": "0x995d701c0CaAeDA88DBF21727202F3a61AF01177"
+		},
+		"mainnet": {}
+	}
 }
