@@ -1,5 +1,16 @@
 # @decentology/hyperverse-ethereum-tribes
 
+## 1.0.10
+
+### Patch Changes
+
+-   Milestone. Version bump
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.10
+    -   @decentology/hyperverse-evm@1.0.10
+    -   @decentology/hyperverse-storage-skynet@1.0.9
+    -   @decentology/unstated-next@1.1.3
+
 ## 1.0.9
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@decentology/hyperverse-metis",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "source": "./source/index.ts",
   "main": "./distribution/index.js",
   "types": "./distribution/index.d.ts",
@@ -19,15 +19,15 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.9",
-    "@decentology/hyperverse-evm": "^1.0.0",
-    "@decentology/web3modal": "^1.9.6",
+    "@decentology/hyperverse": "^1.0.10",
+    "@decentology/hyperverse-evm": "^1.0.10",
+    "@decentology/web3modal": "^1.9.8",
     "@walletconnect/web3-provider": "^1.7.1",
     "ethers": "^5.5.3",
-    "@decentology/unstated-next": "^1.1.1"
+    "@decentology/unstated-next": "^1.1.3"
   },
   "devDependencies": {
-    "@decentology/config": "^1.0.0",
+    "@decentology/config": "^1.0.1",
     "parcel": "^2.2.1",
     "rimraf": "^3.0.2"
   }

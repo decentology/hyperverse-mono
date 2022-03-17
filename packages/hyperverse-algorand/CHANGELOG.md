@@ -1,5 +1,14 @@
 # @decentology/hyperverse-algorand
 
+## 1.0.10
+
+### Patch Changes
+
+-   Milestone. Version bump
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.10
+    -   @decentology/unstated-next@1.1.3
+
 ## 1.0.9
 
 ### Patch Changes
