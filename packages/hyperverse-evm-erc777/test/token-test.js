@@ -31,18 +31,16 @@ describe('Token', function () {
 		TokenFactory = await ethers.getContractFactory('ERC777Factory');
 		tokenFactoryCtr = await TokenFactory.deploy(erc777ctr.address, owner.address);
 		await tokenFactoryCtr.deployed();
-	
-	
-		await tokenFactoryCtr
-		.connect(alice)
-		.createInstance(
-			aliceInstance.name,
-			aliceInstance.symbol,
-			[],
-			aliceInstance.initialSupply,
-			alice.address
-		);
 
+		await tokenFactoryCtr
+			.connect(alice)
+			.createInstance(
+				aliceInstance.name,
+				aliceInstance.symbol,
+				[cara.address],
+				aliceInstance.initialSupply,
+				alice.address
+			);
 
 		const main = await ethers.getContractFactory('ERC777');
 		aliceProxyContract = await main.attach(await tokenFactoryCtr.getProxy(alice.address));
@@ -60,18 +58,66 @@ describe('Token', function () {
 			expect(await aliceProxyContract.granularity()).to.equal(1);
 		});
 
-		it("Should assign all initial token to Alice", async function () {
+		it('Should assign all initial token to Alice', async function () {
 			const aliceTotal = await aliceProxyContract.balanceOf(alice.address);
 			expect(await aliceProxyContract.totalSupply()).to.equal(aliceTotal);
-		})
+		});
 
 		it("Should have Alice's proxy contract as a default operator", async function () {
-			const defualtOps = await aliceProxyContract.defaultOperators();
-			expect(defualtOps[0]).to.equal(aliceProxyContract.address);
-		})
+			const defaultOps = await aliceProxyContract.defaultOperators();
+			expect(defaultOps[0]).to.equal(cara.address);
+			expect(defaultOps[1]).to.equal(aliceProxyContract.address);
+		});
 	});
 
+
+	describe('ERC20 Functionality', function () {
+
+		/* 
+		TO DO : 
+		- transfer function
+		- transferFrom function
+		- approve function
+		- allowance function
+		*/
+
+		describe('Approve and allowance', async function () {
+			it('Should be able to approve cara to spend alices tokens', async function () {
+				const amount = new BigNumber.from(100);
+				const approveTxn = await aliceProxyContract.connect(alice).approve(cara.address, amount);
+
+				const allowance = await aliceProxyContract.allowance(alice.address, cara.address);
+				expect(allowance).to.equal(amount);
+			})
+		})
+	})
+
+
+	describe('ERC777 Functionality', function () {
+		describe('Send() ERC777 Tokens', async function () {
+			it('Should be able to transfer funds using transfer()', async function () {
+				const sourceAccount = alice.address;
+				const tragetAccount = cara.address;
+				const amount = new BigNumber.from(1000);
+				const data = ethers.utils.formatBytes32String('0x')
 	
+				const sourceOldBal = await aliceProxyContract.balanceOf(sourceAccount);
+				const targetOldBal = await aliceProxyContract.balanceOf(tragetAccount);
+	
+				const sendTxn = await aliceProxyContract
+					.connect(alice)
+					.send(tragetAccount, amount, data);
+	
+				const sourceNewBal = await aliceProxyContract.balanceOf(sourceAccount);
+				const targetNewBal = await aliceProxyContract.balanceOf(tragetAccount);
+	
+				expect(sourceNewBal).to.not.equal(sourceOldBal);
+				expect(targetOldBal).to.not.equal(targetNewBal);
+				expect(sourceNewBal).to.equal(sourceOldBal.sub(amount));
+			});
+		});
+	})
+
 
 
 });
