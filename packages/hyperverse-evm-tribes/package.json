@@ -31,6 +31,7 @@
 		"@decentology/hyperverse": "^1.0.9",
 		"@decentology/hyperverse-evm": "^1.0.9",
 		"@decentology/hyperverse-storage-skynet": "^1.0.8",
+		"@decentology/hyperverse-storage-ipfs": "^1.0.8",
 		"@decentology/unstated-next": "^1.1.1",
 		"@openzeppelin/contracts": "^4.4.2",
 		"dotenv": "^16.0.0",

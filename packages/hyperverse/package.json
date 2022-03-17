@@ -1,37 +1,38 @@
 {
-  "name": "@decentology/hyperverse",
-  "source": "./source/index.ts",
-  "main": "./distribution/index.js",
-  "module": "./distribution/index.es.js",
-  "types": "./distribution/index.d.ts",
-  "version": "1.0.9",
-  "license": "MIT",
-  "files": [
-    "distribution"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/decentology/hyperverse-mono"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "build": "parcel build",
-    "clean": "rimraf ./distribution"
-  },
-  "peerDependencies": {
-    "react": "^17.0.2"
-  },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
-  "dependencies": {
-    "@decentology/hyperverse-storage-skynet": "^1.0.8",
-    "@decentology/unstated-next": "^1.1.1",
-    "@swc/helpers": "^0.3.6"
-  },
-  "devDependencies": {
-    "@decentology/config": "^1.0.0",
-    "parcel": "^2.3.2",
-    "rimraf": "^3.0.2"
-  }
+	"name": "@decentology/hyperverse",
+	"source": "./source/index.ts",
+	"main": "./distribution/index.js",
+	"module": "./distribution/index.es.js",
+	"types": "./distribution/index.d.ts",
+	"version": "1.0.9",
+	"license": "MIT",
+	"files": [
+		"distribution"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/decentology/hyperverse-mono"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "parcel build",
+		"clean": "rimraf ./distribution"
+	},
+	"peerDependencies": {
+		"react": "^17.0.2"
+	},
+	"browserslist": "> 0.5%, last 2 versions, not dead",
+	"dependencies": {
+		"@decentology/hyperverse-storage-skynet": "^1.0.8",
+		"@decentology/hyperverse-storage-ipfs": "^1.0.8",
+		"@decentology/unstated-next": "^1.1.1",
+		"@swc/helpers": "^0.3.6"
+	},
+	"devDependencies": {
+		"@decentology/config": "^1.0.0",
+		"parcel": "^2.3.2",
+		"rimraf": "^3.0.2"
+	}
 }

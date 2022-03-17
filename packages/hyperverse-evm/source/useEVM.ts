@@ -11,16 +11,16 @@ const providerOptions = {
 	walletconnect: {
 		package: WalletConnectProvider, // required
 		options: {
-			infuraId: INFURA_ID // required
-		}
-	}
+			infuraId: INFURA_ID, // required
+		},
+	},
 };
 
 let web3Modal: Web3Modal;
 if (typeof window !== 'undefined') {
 	web3Modal = new Web3Modal({
 		cacheProvider: true,
-		providerOptions // required
+		providerOptions, // required
 	});
 }
 
@@ -46,21 +46,21 @@ function EvmState(
 				type: Network.Mainnet,
 				name: '',
 				networkUrl: '',
-				chainId: 1
+				chainId: 1,
 			},
 			testnet: {
 				type: Network.Testnet,
 				name: '',
 				networkUrl: '',
-				chainId: 4
-			}
-		}
+				chainId: 4,
+			},
+		},
 	}
 ) {
 	const { blockchain, network: hyperverseNetwork } = useHyperverse();
 	let network = {
 		...initialState.networks[hyperverseNetwork.type],
-		...hyperverseNetwork
+		...hyperverseNetwork,
 	};
 
 	const [state, setState] = useState<State>({
@@ -68,7 +68,7 @@ function EvmState(
 		web3Provider: null,
 		address: null,
 		chainId: null,
-		error: null
+		error: null,
 	});
 	const { provider } = state;
 	const addressRef = useRef(state.address);
@@ -79,12 +79,12 @@ function EvmState(
 			if (network === Network.Mainnet) {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [{ chainId: initialState.networks[Network.Mainnet].chainId! }]
+					params: [{ chainId: initialState.networks[Network.Mainnet].chainId! }],
 				});
 			} else {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [{ chainId: initialState.networks[Network.Testnet].chainId! }]
+					params: [{ chainId: initialState.networks[Network.Testnet].chainId! }],
 				});
 			}
 		},
@@ -92,7 +92,7 @@ function EvmState(
 	);
 
 	const connect = useCallback(
-		async function() {
+		async function () {
 			try {
 				// This is the initial `provider` that is returned when
 				// using web3Modal to connect. Can be MetaMask or WalletConnect.
@@ -111,33 +111,33 @@ function EvmState(
 					await switchNetwork(network.type, web3Provider.provider);
 				}
 
-				setState(prev => ({
+				setState((prev) => ({
 					...prev,
 					provider,
 					web3Provider: web3Provider,
 					address,
-					chainId: userNetwork.chainId
+					chainId: userNetwork.chainId,
 				}));
 			} catch (err) {
 				if (typeof err === 'string') {
 					const innerError = new Error(err);
-					setState(prev => ({
+					setState((prev) => ({
 						...prev,
-						error: innerError
+						error: innerError,
 					}));
 				} else if (
 					err instanceof Error &&
 					(err.message.includes('User Rejected') ||
 						err.message.includes('Already processing'))
 				) {
-					setState(prev => ({
+					setState((prev) => ({
 						...prev,
-						error: new Error('Please click the metamask extension to sign in!')
+						error: new Error('Please click the metamask extension to sign in!'),
 					}));
 				} else {
-					setState(prev => ({
+					setState((prev) => ({
 						...prev,
-						error: new Error('Something went wrong!')
+						error: new Error('Something went wrong!'),
 					}));
 				}
 			}
@@ -148,12 +148,12 @@ function EvmState(
 	const disconnect = useCallback(async () => {
 		await web3Modal.clearCachedProvider();
 
-		setState(prevState => ({
+		setState((prevState) => ({
 			...prevState,
 			web3Provider: null,
 			address: null,
 			chainId: null,
-			error: null
+			error: null,
 		}));
 		// window.location.reload();
 	}, [state.web3Provider]);
@@ -171,9 +171,9 @@ function EvmState(
 						// If not triggered in second(s) show alert to user
 						(window as Window).removeEventListener('blur', blur);
 						if (!addressRef.current) {
-							setState(prev => ({
+							setState((prev) => ({
 								...prev,
-								error: new Error('Please click the metamask extension to sign in!')
+								error: new Error('Please click the metamask extension to sign in!'),
 							}));
 						}
 					}, 500);
@@ -208,7 +208,7 @@ function EvmState(
 		const provider = state.web3Provider?.provider as any;
 		if (provider?.on) {
 			const handleAccountsChanged = (accounts: string[]) => {
-				setState(prev => ({ ...prev, address: accounts[0] }));
+				setState((prev) => ({ ...prev, address: accounts[0] }));
 				// disconnect();
 			};
 

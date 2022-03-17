@@ -1,11 +1,11 @@
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { useEvm } from '@decentology/hyperverse-evm'
+import { useEvm } from '@decentology/hyperverse-evm';
 
 function MetisState() {
 	const state = useEvm();
 	return {
-		...state
-	}
+		...state,
+	};
 }
 
 export const Metis = createContainer(MetisState);

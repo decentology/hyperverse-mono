@@ -1,23 +1,33 @@
 import { useState } from 'react';
 import { SkynetClient } from 'skynet-js';
 import { createContainer } from '@decentology/unstated-next';
-
+import { IHyperverseStorage } from '@decentology/hyperverse/source';
 type StorageProps = {
 	clientUrl: string;
 };
 
-function StorageState({ clientUrl }: StorageProps = { clientUrl: 'https://siasky.net' }) {
+function StorageState(
+	{ clientUrl }: StorageProps = { clientUrl: 'https://siasky.net' }
+): IHyperverseStorage {
 	const [client] = useState<SkynetClient>(new SkynetClient(clientUrl));
 	const { uploadFile, uploadDirectory, downloadFile, openFile } = client;
 	const getLink = (siaLink: string) => `${clientUrl}/${siaLink.replace('sia:', '')}`;
 	return {
-		uploadFile: uploadFile.bind(client),
-		uploadDirectory: uploadDirectory.bind(client),
-		downloadFile: downloadFile.bind(client),
+		uploadFile: async file => {
+			const result = await uploadFile.bind(client)(file);
+			return result.skylink;
+		},
+		// uploadDirectory: async (files: File[]) => {
+		// 	const result = await uploadDirectory.bind(client)(files);
+		// 	return [result.skylink];
+		// },
+		downloadFile: async link => {
+			await downloadFile.bind(client)(link);
+		},
 		openFile: openFile.bind(client),
-		getLink: getLink,
+		getLink,
 		client,
-		clientUrl,
+		clientUrl
 	};
 }
 

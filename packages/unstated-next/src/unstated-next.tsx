@@ -36,7 +36,7 @@ export function createContainer<Value, State extends any>(
 	function useContainer(): Value {
 		const value = React.useContext(Context)
 		if (value === EMPTY) {
-			throw new Error("Component must be wrapped with <Container.Provider>")
+			throw new Error(`Component must be wrapped with <${Context.displayName}.Provider>`)
 		}
 		return value
 	}

@@ -67,3 +67,14 @@ export type EvmEnvironment = {
 		};
 	};
 };
+
+export interface IHyperverseStorage {
+	[key: string]: any;
+	uploadFile: (file: File) => Promise<string>;
+	// uploadDirectory: (directory: File[]) => Promise<string[]>;
+	downloadFile: (link: string) => Promise<void> | void;
+	openFile: (link: string) => Promise<string>;
+	getLink: (link: string) => string;
+	client: any;
+	clientUrl: string;
+}

@@ -2,6 +2,7 @@ import { createElement, FC, useEffect, useState } from 'react';
 import { Hyperverse, HyperverseConfig } from './types';
 import { HyperverseContainer } from './useHyperverse';
 import { Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet';
+import { Provider as IPFSProvider } from '@decentology/hyperverse-storage-ipfs';
 
 export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialState }) => {
 	const [selectedBlockchain, setSelectedBlockchain] = useState<string | null>(
@@ -18,7 +19,7 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 			children = createElement(
 				module.bundle.Provider,
 				{
-					tenantId: module.tenantId
+					tenantId: module.tenantId,
 				},
 				children
 			);
@@ -29,25 +30,28 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 		network:
 			typeof initialState.network === 'string'
 				? { type: initialState.network }
-				: initialState.network
+				: initialState.network,
 	};
-
 	return (
 		<HyperverseContainer.Provider initialState={hyperverseConfig}>
-			<SkyNetProvider
-				initialState={
-					typeof initialState.storage === 'object'
-						? { ...initialState.storage.options }
-						: undefined
-				}
-			>
-				{initialState.blockchain &&
-				initialState.options?.disableProviderAutoInit !== false ? (
-					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
-				) : (
-					children
-				)}
-			</SkyNetProvider>
+			<IPFSProvider>
+				<SkyNetProvider
+					initialState={
+						typeof initialState.storage === 'object'
+							? { ...initialState.storage.options }
+							: undefined
+					}
+				>
+					{initialState.blockchain &&
+					initialState.options?.disableProviderAutoInit !== false ? (
+						<initialState.blockchain.Provider>
+							{children}
+						</initialState.blockchain.Provider>
+					) : (
+						children
+					)}
+				</SkyNetProvider>
+			</IPFSProvider>
 		</HyperverseContainer.Provider>
 	);
 };
