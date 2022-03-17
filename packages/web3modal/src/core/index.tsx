@@ -25,6 +25,7 @@ const defaultOpts: ICoreOptions = {
 };
 
 export class Core {
+	[key: string]: any;
 	private show: boolean = INITIAL_STATE.show;
 	private themeColors: ThemeColors;
 	private eventController: EventController = new EventController();

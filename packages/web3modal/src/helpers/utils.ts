@@ -12,7 +12,7 @@ import {
 } from "./types";
 
 export function checkInjectedProviders(): IInjectedProvidersMap {
-  const result = {
+  const result: IInjectedProvidersMap = {
     injectedAvailable: !!window.ethereum || !!window.web3
   };
   if (result.injectedAvailable) {

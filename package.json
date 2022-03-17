@@ -7,7 +7,8 @@
 		"packages/*"
 	],
 	"scripts": {
-		"build": "turbo run build --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-ethereum-starterkit --force",
+		"build": "turbo run build --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-starterkit --force",
+		"deploy": "turbo run deploy --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-starterkit --force",
 		"dev": "turbo run dev --parallel",
 		"clean": "turbo run clean --parallel",
 		"dev:algorand": "turbo run dev --cwd=./apps/algorand --parallel ",

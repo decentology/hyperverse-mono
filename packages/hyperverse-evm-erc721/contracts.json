@@ -24,6 +24,7 @@
     "testnet": {
       "contractAddress": "0x1f6c0449EA114c4A5A542d20801650066Ef8767D",
       "factoryAddress": "0x17f32a93376C24b4EFdAaeA72a1173606e7A2d1C"
-    }
+    },
+    "mainnet": {}
   }
 }

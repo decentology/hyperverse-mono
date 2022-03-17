@@ -63,6 +63,7 @@ export class ProviderController {
       }
       return {
         ...providerInfo,
+        // @ts-ignore
         connector: list.connectors[id],
         package: providerInfo.package
       };

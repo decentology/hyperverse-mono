@@ -26,6 +26,7 @@ export interface IProviderDisplay {
 }
 
 export interface IProviderInfo extends IProviderDisplay {
+  [key: string]: any;
   id: string;
   type: string;
   check: string;
@@ -40,6 +41,7 @@ export interface IProviderPackageOptions {
 
 export interface IProviderOptions {
   [id: string]: {
+    [key: string]: any;
     package: any;
     options?: any;
     connector?: Connector;

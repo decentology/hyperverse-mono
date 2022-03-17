@@ -1,9 +1,4 @@
-import {
-	Network,
-	useHyperverse,
-	isEvm,
-	EvmEnvironment,
-} from '@decentology/hyperverse';
+import { useHyperverse, isEvm, EvmEnvironment, BlockchainEvm } from '@decentology/hyperverse';
 import ERC721FactoryABI from '../artifacts/contracts/NFTFactory.sol/NFTFactory.json';
 import ERC721ABI from '../artifacts/contracts/NFT.sol/NFT.json';
 import Contracts from '../contracts.json';
@@ -23,7 +18,7 @@ function useEnvironment() {
 	return {
 		...env,
 		ContractABI,
-		FactoryABI,
+		FactoryABI
 	};
 }
 

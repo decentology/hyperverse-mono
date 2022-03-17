@@ -7,12 +7,13 @@ export enum Blockchain {
 	Polygon = 'polygon'
 }
 
-export type BlockchainEvm = Blockchain.Ethereum | Blockchain.Metis | Blockchain.Avalanche;
+export type BlockchainEvm = Blockchain.Ethereum | Blockchain.Metis | Blockchain.Avalanche | Blockchain.Polygon;
 
 export const EVM: Record<BlockchainEvm, string> = {
 	[Blockchain.Ethereum]: Blockchain.Ethereum,
 	[Blockchain.Avalanche]: Blockchain.Avalanche,
-	[Blockchain.Metis]: Blockchain.Metis
+	[Blockchain.Metis]: Blockchain.Metis,
+	[Blockchain.Polygon]: Blockchain.Polygon
 }
 
 export function isEvm(blockchain: Blockchain | Exclude<Blockchain, BlockchainEvm>): blockchain is Blockchain {
