@@ -1,5 +1,6 @@
 export * from '@decentology/web3modal';
-import { Provider, useMetis } from './useMetis';
+import { useMetis } from './useMetis';
+import Provider from './Provider';
 import { Blockchain, makeHyperverseBlockchain } from '@decentology/hyperverse';
 
 export const Metis = makeHyperverseBlockchain({
