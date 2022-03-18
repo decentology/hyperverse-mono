@@ -99,6 +99,66 @@ describe('Token', function () {
 				expect(targetNewBal).to.not.equal(targetOldBal);
 				expect(sourceNewBal).to.equal(sourceOldBal.sub(amount));
 			});
+			it('Should approve funds tranfer using approve() and check spend amount using allowance()', async function () {
+				const sourceAccount = alice.address;
+				const tragetAccount = cara.address;
+				const amount = new BigNumber.from(200).mul(unitMultiple);
+
+				await aliceProxyContract.connect(alice).approve(tragetAccount, amount);
+
+				const allowance = await aliceProxyContract.allowance(sourceAccount, tragetAccount);
+
+				expect(allowance).to.equal(amount);
+			});
+
+			it('Should transfer allowance funds between accounts using tranferFrom()', async function () {
+				const sourceAccount = alice.address;
+				const tragetAccount = cara.address;
+				const authorizedAccount = bob.address;
+				const amount = new BigNumber.from(500).mul(unitMultiple);
+
+				const sourceOldBal = await aliceProxyContract.balanceOf(sourceAccount);
+				const targetOldBal = await aliceProxyContract.balanceOf(tragetAccount);
+
+				await aliceProxyContract.connect(alice).approve(authorizedAccount, amount);
+
+				let oldAllowance = await aliceProxyContract.allowance(
+					sourceAccount,
+					authorizedAccount
+				);
+
+				await aliceProxyContract
+					.connect(bob)
+					.transferFrom(sourceAccount, tragetAccount, amount);
+
+				let sourceNewBal = await aliceProxyContract.balanceOf(sourceAccount);
+				let targetNewBal = await aliceProxyContract.balanceOf(tragetAccount);
+
+				let newAllowance = await aliceProxyContract.allowance(
+					sourceAccount,
+					authorizedAccount
+				);
+
+				expect(sourceNewBal).to.not.equal(sourceOldBal);
+				expect(targetOldBal).to.not.equal(targetNewBal);
+				expect(oldAllowance).to.not.equal(newAllowance);
+				expect(sourceNewBal).to.equal(sourceOldBal.sub(amount));
+				expect(newAllowance).to.equal(oldAllowance.sub(amount));
+				expect(newAllowance).to.equal(0);
+			});
+			// it('Should not transfer funds between accounts using transferFrom() unless authorized', async function () {
+			// 	const sourceAccount = alice.address;
+			// 	const tragetAccount = cara.address;
+			// 	const authorizedAccount = bob.address;
+			// 	const amount = new BigNumber.from(2).mul(unitMultiple);
+
+			// 	const transferTxn = await aliceProxyContract.connect(bob).transferFrom(sourceAccount, tragetAccount, amount);
+			// 	await expect(
+			// 		aliceProxyContract
+			// 			.connect(bob)
+			// 			.transferFrom(sourceAccount, tragetAccount, amount)
+			// 	).to.be.revertedWith('Not enough allowed balance for transfer');
+			// });
 		});
 
 		describe('Approve and allowance', async function () {
