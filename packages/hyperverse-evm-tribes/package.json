@@ -15,7 +15,8 @@
 		"deploy-avalanche": "hardhat run scripts/deploy.js --network avalanche",
 		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
 		"build": "parcel build",
-		"clean": "rimraf ./distribution"
+		"clean": "rimraf ./distribution",
+		"lint": "tsc --noEmit"
 	},
 	"publishConfig": {
 		"access": "public"

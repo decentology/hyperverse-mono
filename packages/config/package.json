@@ -1,15 +1,18 @@
 {
-  "name": "@decentology/config",
-  "version": "1.0.1",
-  "license": "MIT",
-  "files": [
-    "eslint-preset.js",
-    "base.json",
-    "nextjs.json",
-    "react-library.json"
-  ],
-  "dependencies": {
-    "eslint-config-next": "^12.0.3",
-    "eslint-config-prettier": "^8.3.0"
-  }
+	"name": "@decentology/config",
+	"version": "1.0.1",
+	"license": "MIT",
+	"files": [
+		"eslint-preset.js",
+		"base.json",
+		"nextjs.json",
+		"react-library.json"
+	],
+	"dependencies": {
+		"eslint-config-next": "^12.0.3",
+		"eslint-config-prettier": "^8.3.0"
+	},
+	"scripts": {
+		"lint": "tsc --noEmit"
+	}
 }

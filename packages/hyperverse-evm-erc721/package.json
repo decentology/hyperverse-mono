@@ -14,7 +14,8 @@
 		"deploy-ethereum": "hardhat run scripts/deploy.js --network ethereum ",
 		"deploy-metis": "hardhat run scripts/deploy.js --network metis",
 		"deploy-avalanche": "hardhat run scripts/deploy.js --network avalanche",
-		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon"
+		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
+		"lint": "tsc --noEmit"
 	},
 	"publishConfig": {
 		"access": "public"

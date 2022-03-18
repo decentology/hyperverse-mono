@@ -49,7 +49,7 @@
 		"build": "tsc",
 		"build:example": "npm run bootstrap && npm run build && cd example && npm run build",
 		"test": "mocha --require ./babel-polyfill.js test/**/*.spec.js",
-		"lint": "tslint ./src/*.ts ./src/**/*.ts",
+		"lint": "tsc --noEmit",
 		"format": "prettier ./src/*.ts ./src/**/*.ts --write",
 		"check": "npm run clean && npm run lint && npm run format && npm run build && npm run test",
 		"reset": "npm run clean:all && npm run bootstrap && npm run check"

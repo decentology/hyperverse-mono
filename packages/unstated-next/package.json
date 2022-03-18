@@ -15,7 +15,8 @@
 		"clean": "rimraf dist",
 		"prebuild": "rimraf dist",
 		"build": "microbundle --external react --globals react=React --strict --no-compress",
-		"test": "ava"
+		"test": "ava",
+		"lint": "tsc --noEmit"
 	},
 	"keywords": [],
 	"author": "",

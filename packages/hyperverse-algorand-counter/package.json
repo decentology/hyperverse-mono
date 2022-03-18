@@ -1,36 +1,37 @@
 {
-  "name": "@decentology/hyperverse-algorand-counter",
-  "source": "./source/index.ts",
-  "main": "./distribution/index.js",
-  "types": "./distribution/index.d.ts",
-  "type": "module",
-  "version": "1.0.11",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/decentology/hyperverse-mono"
-  },
-  "scripts": {
-    "build": "parcel build",
-    "clean": "rimraf ./distribution"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "distribution"
-  ],
-  "peerDependencies": {
-    "react": "^17.0.2"
-  },
-  "devDependencies": {
-    "@decentology/config": "^1.0.1",
-    "parcel": "^2.2.1",
-    "rimraf": "^3.0.2"
-  },
-  "dependencies": {
-    "@decentology/hyperverse": "^1.0.10",
-    "@decentology/hyperverse-algorand": "^1.0.10",
-    "algosdk": "^1.12.0"
-  }
+	"name": "@decentology/hyperverse-algorand-counter",
+	"source": "./source/index.ts",
+	"main": "./distribution/index.js",
+	"types": "./distribution/index.d.ts",
+	"type": "module",
+	"version": "1.0.11",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/decentology/hyperverse-mono"
+	},
+	"scripts": {
+		"build": "parcel build",
+		"clean": "rimraf ./distribution",
+		"lint": "tsc --noEmit"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"distribution"
+	],
+	"peerDependencies": {
+		"react": "^17.0.2"
+	},
+	"devDependencies": {
+		"@decentology/config": "^1.0.1",
+		"parcel": "^2.2.1",
+		"rimraf": "^3.0.2"
+	},
+	"dependencies": {
+		"@decentology/hyperverse": "^1.0.10",
+		"@decentology/hyperverse-algorand": "^1.0.10",
+		"algosdk": "^1.12.0"
+	}
 }

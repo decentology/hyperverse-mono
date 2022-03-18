@@ -1,40 +1,41 @@
 {
-  "name": "@decentology/hyperverse-flow",
-  "source": "./source/index.ts",
-  "main": "./distribution/index.js",
-  "types": "./distribution/index.d.ts",
-  "version": "1.0.10",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/decentology/hyperverse-mono"
-  },
-  "files": [
-    "distribution"
-  ],
-  "scripts": {
-    "build": "parcel build",
-    "clean": "rimraf ./distribution"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "peerDependencies": {
-    "react": "^17.0.2"
-  },
-  "devDependencies": {
-    "@decentology/config": "^1.0.1",
-    "parcel": "^2.2.1",
-    "rimraf": "^3.0.2"
-  },
-  "dependencies": {
-    "@decentology/hyperverse": "^1.0.10",
-    "@decentology/hyperverse-storage-skynet": "^1.0.9",
-    "@onflow/fcl": "^0.0.77",
-    "@onflow/types": "^0.0.5",
-    "aphrodite": "^2.4.0",
-    "classnames": "^2.3.1",
-    "react-async-hook": "^4.0.0",
-    "@decentology/unstated-next": "^1.1.3"
-  }
+	"name": "@decentology/hyperverse-flow",
+	"source": "./source/index.ts",
+	"main": "./distribution/index.js",
+	"types": "./distribution/index.d.ts",
+	"version": "1.0.10",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/decentology/hyperverse-mono"
+	},
+	"files": [
+		"distribution"
+	],
+	"scripts": {
+		"build": "parcel build",
+		"clean": "rimraf ./distribution",
+		"lint": "tsc --noEmit"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"peerDependencies": {
+		"react": "^17.0.2"
+	},
+	"devDependencies": {
+		"@decentology/config": "^1.0.1",
+		"parcel": "^2.2.1",
+		"rimraf": "^3.0.2"
+	},
+	"dependencies": {
+		"@decentology/hyperverse": "^1.0.10",
+		"@decentology/hyperverse-storage-skynet": "^1.0.9",
+		"@onflow/fcl": "^0.0.77",
+		"@onflow/types": "^0.0.5",
+		"aphrodite": "^2.4.0",
+		"classnames": "^2.3.1",
+		"react-async-hook": "^4.0.0",
+		"@decentology/unstated-next": "^1.1.3"
+	}
 }

@@ -14,7 +14,8 @@
 		"deploy-metis": "hardhat run scripts/deploy.js --network metis",
 		"deploy-avalanche": "hardhat run scripts/deploy.js --network avalanche",
 		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
-		"clean": "rimraf ./distribution"
+		"clean": "rimraf ./distribution",
+		"lint": "tsc --noEmit"
 	},
 	"publishConfig": {
 		"access": "public"
