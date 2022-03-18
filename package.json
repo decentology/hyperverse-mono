@@ -1,5 +1,5 @@
 {
-	"name": "turborepo-basic-shared",
+	"name": "hyperverse",
 	"version": "0.0.0",
 	"private": true,
 	"workspaces": [
@@ -7,12 +7,12 @@
 		"packages/*"
 	],
 	"scripts": {
-		"build": "turbo run build --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-starterkit --force",
+		"build": "turbo run build --no-deps --scope=@decentology* --scope=!@decentology/samples* --scope=!@decentology/hyperverse-*-starterkit --force",
 		"deploy": "turbo run deploy --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-starterkit --force",
+		"lint": "turbo run lint --no-deps --scope=@decentology/hyperverse*",
 		"dev": "turbo run dev --parallel",
 		"clean": "turbo run clean --parallel",
 		"dev:algorand": "turbo run dev --cwd=./apps/algorand --parallel ",
-		"lint": "turbo run lint",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\""
 	},
 	"devDependencies": {
