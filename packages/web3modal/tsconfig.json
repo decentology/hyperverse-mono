@@ -4,8 +4,8 @@
 		"rootDir": "src",
 		"baseUrl": ".",
 		"module": "ES6",
+		"target": "ES6",
 		"moduleResolution": "node",
-		"target": "ESNext",
 		"lib": ["es7", "dom"],
 		"jsx": "react",
 		"incremental": false,
@@ -26,7 +26,8 @@
 		"sourceMap": true,
 		"strict": true,
 		"strictNullChecks": true,
-		"suppressImplicitAnyIndexErrors": true
+		"suppressImplicitAnyIndexErrors": true,
+    "types": []
 	},
 	"files": ["index.d.ts"],
 	"include": ["./src/**/*", "index.d.ts"],
