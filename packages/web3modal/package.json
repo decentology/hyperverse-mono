@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/web3modal",
-	"version": "1.9.8",
+	"version": "1.9.10",
 	"description": "A single Web3 / Ethereum provider solution for all Wallets",
 	"keywords": [
 		"web3",
@@ -47,7 +47,7 @@
 		"clean:all": "npm run clean && npm run clean:example && npm run clean:node_modules",
 		"bootstrap": "npm install && cd example && npm install",
 		"start": "npm run check && cd example && npm run start",
-		"build": "tsc",
+		"build": "webpack",
 		"build:example": "npm run bootstrap && npm run build && cd example && npm run build",
 		"test": "mocha --require ./babel-polyfill.js test/**/*.spec.js",
 		"lint": "tslint ./src/*.ts ./src/**/*.ts",
