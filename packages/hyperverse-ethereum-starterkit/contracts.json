@@ -1,0 +1,31 @@
+{
+	"ethereum": {
+	  "testnet": {
+		"contractAddress": "",
+		"factoryAddress": ""
+	  },
+	  "mainnet": {}
+	},
+	"metis": {
+	  "testnet": {
+		"contractAddress": "",
+		"factoryAddress": ""
+	  },
+	  "mainnet": {}
+	},
+	"avalanche": {
+	  "testnet": {
+		"contractAddress": "",
+		"factoryAddress": ""
+	  },
+	  "mainnet": {}
+	},
+	"polygon": {
+	  "testnet": {
+		"contractAddress": "",
+		"factoryAddress": ""
+	  },
+	  "mainnet": {}
+	}
+  }
+  

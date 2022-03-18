@@ -1,16 +1,18 @@
-import { Network, isEvm, EvmEnvironment, useHyperverse } from '@decentology/hyperverse';
-export const ContractABI = '';
-export const FactoryABI = '';
-const environment: EvmEnvironment = {
-	[Network.Mainnet]: {
-		contractAddress: null,
-		factoryAddress: null,
-	},
-	[Network.Testnet]: {
-		contractAddress: null,
-		factoryAddress: null,
-	},
-};
+import {
+	Network,
+	Blockchain,
+	useHyperverse,
+	isEvm,
+	BlockchainEvm,
+	EvmEnvironment,
+} from '@decentology/hyperverse';
+import Factory from '../artifacts/contracts/ModuleFactory.sol/ModuleFactory.json';
+import Contract from '../artifacts/contracts/Module.sol/Module.json';
+import Contracts from '../contracts.json';
+export const ContractABI = Contract.abi;
+export const FactoryABI = Factory.abi;
+
+const environment = Contracts as EvmEnvironment;
 
 function useEnvironment() {
 	const { blockchain, network } = useHyperverse();
@@ -21,7 +23,7 @@ function useEnvironment() {
 		throw new Error('Blockchain is not EVM compatible');
 	}
 
-	const env = environment[network.type];
+	const env = environment[blockchain.name as BlockchainEvm][network.type];
 	return {
 		...env,
 		ContractABI,
