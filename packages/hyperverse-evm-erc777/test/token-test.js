@@ -70,9 +70,7 @@ describe('Token', function () {
 		});
 	});
 
-
 	describe('ERC20 Functionality', function () {
-
 		/* 
 		TO DO : 
 		- transfer function
@@ -81,17 +79,40 @@ describe('Token', function () {
 		- allowance function
 		*/
 
+		describe('Transfer', function () {
+			it('Should be able to transfer funds using transfer()', async function () {
+				const sourceAccount = alice.address;
+				const tragetAccount = cara.address;
+				const amount = new BigNumber.from(2000);
+
+				const sourceOldBal = await aliceProxyContract.balanceOf(sourceAccount);
+				const targetOldBal = await aliceProxyContract.balanceOf(tragetAccount);
+
+				const transferTxn = await aliceProxyContract
+					.connect(alice)
+					.transfer(tragetAccount, amount);
+
+				const sourceNewBal = await aliceProxyContract.balanceOf(sourceAccount);
+				const targetNewBal = await aliceProxyContract.balanceOf(tragetAccount);
+
+				expect(sourceNewBal).to.not.equal(sourceOldBal);
+				expect(targetNewBal).to.not.equal(targetOldBal);
+				expect(sourceNewBal).to.equal(sourceOldBal.sub(amount));
+			});
+		});
+
 		describe('Approve and allowance', async function () {
 			it('Should be able to approve cara to spend alices tokens', async function () {
 				const amount = new BigNumber.from(100);
-				const approveTxn = await aliceProxyContract.connect(alice).approve(cara.address, amount);
+				const approveTxn = await aliceProxyContract
+					.connect(alice)
+					.approve(cara.address, amount);
 
 				const allowance = await aliceProxyContract.allowance(alice.address, cara.address);
 				expect(allowance).to.equal(amount);
-			})
-		})
-	})
-
+			});
+		});
+	});
 
 	describe('ERC777 Functionality', function () {
 		describe('Send() ERC777 Tokens', async function () {
@@ -99,25 +120,22 @@ describe('Token', function () {
 				const sourceAccount = alice.address;
 				const tragetAccount = cara.address;
 				const amount = new BigNumber.from(1000);
-				const data = ethers.utils.formatBytes32String('0x')
-	
+				const data = ethers.utils.formatBytes32String('0x');
+
 				const sourceOldBal = await aliceProxyContract.balanceOf(sourceAccount);
 				const targetOldBal = await aliceProxyContract.balanceOf(tragetAccount);
-	
+
 				const sendTxn = await aliceProxyContract
 					.connect(alice)
 					.send(tragetAccount, amount, data);
-	
+
 				const sourceNewBal = await aliceProxyContract.balanceOf(sourceAccount);
 				const targetNewBal = await aliceProxyContract.balanceOf(tragetAccount);
-	
+
 				expect(sourceNewBal).to.not.equal(sourceOldBal);
 				expect(targetOldBal).to.not.equal(targetNewBal);
 				expect(sourceNewBal).to.equal(sourceOldBal.sub(amount));
 			});
 		});
-	})
-
-
-
+	});
 });
