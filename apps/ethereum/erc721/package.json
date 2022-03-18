@@ -1,5 +1,5 @@
 {
-  "name": "erc721",
+  "name": "@decentology/samples-erc721",
   "version": "0.1.1",
   "private": true,
   "scripts": {
