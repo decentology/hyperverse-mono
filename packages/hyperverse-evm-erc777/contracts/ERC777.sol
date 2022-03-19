@@ -37,10 +37,10 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 
 	mapping(address => uint256) private _balances;
 
-	uint256 private _totalSupply;
+	uint256 public override(IERC20, IERC777) totalSupply;
 
-	string private _name;
-	string private _symbol;
+	string public override name;
+	string public override symbol;
 
 	bytes32 private constant _TOKENS_SENDER_INTERFACE_HASH = keccak256('ERC777TokensSender');
 	bytes32 private constant _TOKENS_RECIPIENT_INTERFACE_HASH = keccak256('ERC777TokensRecipient');
@@ -67,7 +67,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 			'https://externalLink.net'
 		);
 		contractOwner = _owner;
-		// TO DO: Not sure if I should register the master ERC777 
+		// TO DO: Not sure if I should register the master ERC777
 		_ERC1820_REGISTRY.setInterfaceImplementer(
 			address(this),
 			keccak256('ERC777Token'),
@@ -92,8 +92,8 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	) external {
 		require(tenantOwner == address(0), 'Contract is already initialized');
 
-		_name = name_;
-		_symbol = symbol_;
+		name = name_;
+		symbol = symbol_;
 		_defaultOperatorsArray = defaultOperators_;
 		for (uint256 i = 0; i < defaultOperators_.length; i++) {
 			_defaultOperators[defaultOperators_[i]] = true;
@@ -118,20 +118,6 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	}
 
 	/**
-	 * @dev See {IERC777-name}.
-	 */
-	function name() public view virtual override returns (string memory) {
-		return _name;
-	}
-
-	/**
-	 * @dev See {IERC777-symbol}.
-	 */
-	function symbol() public view virtual override returns (string memory) {
-		return _symbol;
-	}
-
-	/**
 	 * @dev See {ERC20-decimals}.
 	 *
 	 * Always returns 18, as per the
@@ -148,13 +134,6 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	 */
 	function granularity() public view virtual override returns (uint256) {
 		return 1;
-	}
-
-	/**
-	 * @dev See {IERC777-totalSupply}.
-	 */
-	function totalSupply() public view virtual override(IERC20, IERC777) returns (uint256) {
-		return _totalSupply;
 	}
 
 	/**
@@ -206,12 +185,70 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	}
 
 	/**
-	 * @dev See {IERC777-burn}.
+	 * @dev See {IERC20-transferFrom}.
 	 *
-	 * Also emits a {IERC20-Transfer} event for ERC20 compatibility.
+	 * Note that operator and allowance concepts are orthogonal: operators cannot
+	 * call `transferFrom` (unless they have allowance), and accounts with
+	 * allowance cannot call `operatorSend` (unless they are operators).
+	 *
+	 * Emits {Sent}, {IERC20-Transfer} and {IERC20-Approval} events.
 	 */
-	function burn(uint256 amount, bytes memory data) public virtual override {
-		_burn(_msgSender(), amount, data, '');
+	function transferFrom(
+		address holder,
+		address recipient,
+		uint256 amount
+	) public virtual override returns (bool) {
+		require(recipient != address(0), 'ERC777: transfer to the zero address');
+		require(holder != address(0), 'ERC777: transfer from the zero address');
+
+		address spender = _msgSender();
+
+		_callTokensToSend(spender, holder, recipient, amount, '', '');
+
+		_move(spender, holder, recipient, amount, '', '');
+
+		uint256 currentAllowance = _allowances[holder][spender];
+		require(currentAllowance >= amount, 'ERC777: transfer amount exceeds allowance');
+		_approve(holder, spender, currentAllowance - amount);
+
+		_callTokensReceived(spender, holder, recipient, amount, '', '', false);
+
+		return true;
+	}
+
+	/**
+	 * @dev See {IERC20-allowance}.
+	 *
+	 * Note that operator and allowance concepts are orthogonal: operators may
+	 * not have allowance, and accounts with allowance may not be operators
+	 * themselves.
+	 */
+	function allowance(address holder, address spender)
+		public
+		view
+		virtual
+		override
+		returns (uint256)
+	{
+		return _allowances[holder][spender];
+	}
+
+	/**
+	 * @dev See {IERC20-approve}.
+	 *
+	 * Note that accounts cannot have allowance issued by their operators.
+	 */
+	function approve(address spender, uint256 value) public virtual override returns (bool) {
+		address holder = _msgSender();
+		_approve(holder, spender, value);
+		return true;
+	}
+
+	/**
+	 * @dev See {IERC777-defaultOperators}.
+	 */
+	function defaultOperators() public view virtual override returns (address[] memory) {
+		return _defaultOperatorsArray;
 	}
 
 	/**
@@ -261,13 +298,6 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	}
 
 	/**
-	 * @dev See {IERC777-defaultOperators}.
-	 */
-	function defaultOperators() public view virtual override returns (address[] memory) {
-		return _defaultOperatorsArray;
-	}
-
-	/**
 	 * @dev See {IERC777-operatorSend}.
 	 *
 	 * Emits {Sent} and {IERC20-Transfer} events.
@@ -305,63 +335,25 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	}
 
 	/**
-	 * @dev See {IERC20-allowance}.
+	 * @dev See {IERC777-burn}.
 	 *
-	 * Note that operator and allowance concepts are orthogonal: operators may
-	 * not have allowance, and accounts with allowance may not be operators
-	 * themselves.
+	 * Also emits a {IERC20-Transfer} event for ERC20 compatibility.
 	 */
-	function allowance(address holder, address spender)
-		public
-		view
-		virtual
-		override
-		returns (uint256)
-	{
-		return _allowances[holder][spender];
+	function burn(uint256 amount, bytes memory data) public virtual override {
+		_burn(_msgSender(), amount, data, '');
 	}
 
-	/**
-	 * @dev See {IERC20-approve}.
+	/** @dev Creates `amount` tokens and assigns them to tenantOwner, increasing
+	 * the total supply.
 	 *
-	 * Note that accounts cannot have allowance issued by their operators.
+	 * Emits a {Transfer} event with `from` set to the zero address.
+	 *
+	 * @param _amount The address which will spend the funds.
 	 */
-	function approve(address spender, uint256 value) public virtual override returns (bool) {
-		address holder = _msgSender();
-		_approve(holder, spender, value);
-		return true;
-	}
+	function mint(uint256 _amount) external {
+		require(msg.sender == tenantOwner, 'You are not the tenant owner');
 
-	/**
-	 * @dev See {IERC20-transferFrom}.
-	 *
-	 * Note that operator and allowance concepts are orthogonal: operators cannot
-	 * call `transferFrom` (unless they have allowance), and accounts with
-	 * allowance cannot call `operatorSend` (unless they are operators).
-	 *
-	 * Emits {Sent}, {IERC20-Transfer} and {IERC20-Approval} events.
-	 */
-	function transferFrom(
-		address holder,
-		address recipient,
-		uint256 amount
-	) public virtual override returns (bool) {
-		require(recipient != address(0), 'ERC777: transfer to the zero address');
-		require(holder != address(0), 'ERC777: transfer from the zero address');
-
-		address spender = _msgSender();
-
-		_callTokensToSend(spender, holder, recipient, amount, '', '');
-
-		_move(spender, holder, recipient, amount, '', '');
-
-		uint256 currentAllowance = _allowances[holder][spender];
-		require(currentAllowance >= amount, 'ERC777: transfer amount exceeds allowance');
-		_approve(holder, spender, currentAllowance - amount);
-
-		_callTokensReceived(spender, holder, recipient, amount, '', '', false);
-
-		return true;
+		_mint(msg.sender, _amount * 10**18, '', '');
 	}
 
 	/**
@@ -422,7 +414,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 		_beforeTokenTransfer(operator, address(0), account, amount);
 
 		// Update state variables
-		_totalSupply += amount;
+		totalSupply += amount;
 		_balances[account] += amount;
 
 		_callTokensReceived(
@@ -503,7 +495,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 		unchecked {
 			_balances[from] = fromBalance - amount;
 		}
-		_totalSupply -= amount;
+		totalSupply -= amount;
 
 		emit Burned(operator, from, amount, data, operatorData);
 		emit Transfer(from, address(0), amount);
