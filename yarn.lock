@@ -4640,7 +4640,7 @@
     prop-types "^15.7.2"
     regenerator-runtime "^0.13.7"
 
-"@storybook/addons@6.4.19":
+"@storybook/addons@6.4.19", "@storybook/addons@^6.3.6":
   version "6.4.19"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-6.4.19.tgz#797d912b8b5a86cd6e0d31fa4c42d1f80808a432"
   integrity sha512-QNyRYhpqmHV8oJxxTBdkRlLSbDFhpBvfvMfIrIT1UXb/eemdBZTaCGVvXZ9UixoEEI7f8VwAQ44IvkU5B1509w==
@@ -16647,7 +16647,7 @@ is-plain-obj@^3.0.0:
   resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-3.0.0.tgz#af6f2ea14ac5a646183a5bbdb5baabbc156ad9d7"
   integrity sha512-gwsOE28k+23GP1B6vFl1oVh/WOzmawBrKwo5Ev6wMKzPkaXaCDIQKzLnvsA42DRlbVTWorkgTKIviAKCWkfUwA==
 
-is-plain-object@5.0.0:
+is-plain-object@5.0.0, is-plain-object@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-5.0.0.tgz#4427f50ab3429e9025ea7d52e9043a9ef4159344"
   integrity sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==
@@ -25777,6 +25777,15 @@ store2@^2.12.0:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.13.2.tgz#01ad8802ca5b445b9c316b55e72645c13a3cd7e3"
   integrity sha512-CMtO2Uneg3SAz/d6fZ/6qbqqQHi2ynq6/KzMD/26gTkiEShCcpqFfTHgOxsE0egAq6SX3FmN4CeSqn8BzXQkJg==
+
+storybook-react-context@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/storybook-react-context/-/storybook-react-context-0.6.0.tgz#06c7b48dc95f4619cf12e59429305fbd6f2b1373"
+  integrity sha512-6IOUbSoC1WW68x8zQBEh8tZsVXjEvOBSJSOhkaD9o8IF9caIg/o1jnwuGibdyAd47ARN6g95O0N0vFBjXcB7pA==
+  dependencies:
+    "@storybook/addons" "^6.3.6"
+    is-plain-object "^5.0.0"
+    react "^17.0.2"
 
 stream-browserify@3.0.0, stream-browserify@^3.0.0:
   version "3.0.0"
