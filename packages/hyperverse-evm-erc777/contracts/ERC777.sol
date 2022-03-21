@@ -9,6 +9,7 @@ import './utils/Address.sol';
 import './utils/Context.sol';
 import './interfaces/IERC1820Registry.sol';
 import './hyperverse/IHyperverseModule.sol';
+import 'hardhat/console.sol';
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -34,7 +35,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	address public immutable contractOwner;
 
 	//stores the tenant owner
-	address private tenantOwner;
+	address private _tenantOwner;
 	IERC1820Registry internal constant _ERC1820_REGISTRY =
 		IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
@@ -68,13 +69,17 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	modifier isTenantOwner() {
-		require(msg.sender == tenantOwner, 'You are not the tenant owner');
+		require(msg.sender == _tenantOwner, 'You are not the tenant owner');
 		_;
 	}
 
-	modifier transferAllowed(address _recipient, uint256 _amount) {
+	modifier transferAllowed(
+		address _recipient,
+		uint256 _amount,
+		address _caller
+	) {
 		require(_recipient != address(0), 'Transfer to the zero address is not allowed');
-		require(_amount <= balanceOf(msg.sender), 'Not enough balance');
+		require(_amount <= balanceOf(_caller), 'Not enough balance');
 		_;
 	}
 
@@ -114,11 +119,12 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 		uint256 initialSupply_,
 		address tenant_
 	) external {
-		require(tenantOwner == address(0), 'Contract is already initialized');
+		require(_tenantOwner == address(0), 'Contract is already initialized');
 
 		name = name_;
 		symbol = symbol_;
 		_defaultOperatorsArray = defaultOperators_;
+		_tenantOwner = tenant_;
 		for (uint256 i = 0; i < defaultOperators_.length; i++) {
 			_defaultOperators[defaultOperators_[i]] = true;
 		}
@@ -138,7 +144,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 			address(this)
 		);
 
-		_mint(tenant_, initialSupply_ * 10**18, '', '');
+		_mint(tenant_, initialSupply_, '', '');
 	}
 
 	/**
@@ -182,7 +188,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 		address _recipient,
 		uint256 _amount,
 		bytes memory _data
-	) public virtual override transferAllowed(_recipient, _amount) {
+	) public virtual override transferAllowed(_recipient, _amount, msg.sender) {
 		require(_recipient != msg.sender, 'Sending to yourself is not allowed');
 		_send(_msgSender(), _recipient, _amount, _data, '', true);
 	}
@@ -199,7 +205,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 		public
 		virtual
 		override
-		transferAllowed(_recipient, _amount)
+		transferAllowed(_recipient, _amount, msg.sender)
 		returns (bool)
 	{
 		require(_recipient != msg.sender, 'Transfer to yourself is not allowed');
@@ -227,8 +233,12 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 		address _holder,
 		address _recipient,
 		uint256 _amount
-	) public virtual override transferAllowed(_recipient, _amount) returns (bool) {
+	) public virtual override transferAllowed(_recipient, _amount, _holder) returns (bool) {
 		require(_holder != address(0), 'ERC777: cannot transfer from the zero address');
+		require(
+			_amount <= _allowances[_holder][msg.sender],
+			'Not enough allowed balance for transfer'
+		);
 
 		address spender = _msgSender();
 
@@ -369,12 +379,25 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	 *
 	 * Also emits a {IERC20-Transfer} event for ERC20 compatibility.
 	 */
-	function burn(uint256 _amount, bytes memory _data) public virtual override isTenantOwner {
-		require(balanceOf(msg.sender)  >= _amount, 'Not enough balance');
+	function burn(uint256 _amount, bytes memory _data) public virtual override {
+		require(balanceOf(msg.sender) >= _amount, 'Not enough balance');
 		_burn(_msgSender(), _amount, _data, '');
 	}
 
-	/** @dev Creates `amount` tokens and assigns them to tenantOwner, increasing
+	function operatorMint(
+		address account,
+		uint256 amount,
+		bytes memory data,
+		bytes memory operatorData
+	) public virtual {
+		require(
+			isOperatorFor(_msgSender(), account),
+			'ERC777: caller is not an operator for holder'
+		);
+		_mint(account, amount, data, operatorData);
+	}
+
+	/** @dev Creates `amount` tokens and assigns them to _tenantOwner, increasing
 	 * the total supply.
 	 *
 	 * Emits a {Transfer} event with `from` set to the zero address.
@@ -382,7 +405,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	 * @param _amount The address which will spend the funds.
 	 */
 	function mint(uint256 _amount) external isTenantOwner {
-		_mint(msg.sender, _amount * 10**18, '', '');
+		_mint(msg.sender, _amount, '', '');
 	}
 
 	/**
