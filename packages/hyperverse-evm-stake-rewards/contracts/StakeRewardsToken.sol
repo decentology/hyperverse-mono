@@ -1,6 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+//TO DO: switch this to our ERC777
 import '@openzeppelin/contracts/token/ERC777/ERC777.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import './hyperverse/IHyperverseModule.sol';
@@ -71,6 +72,12 @@ contract StakeRewardsToken is IHyperverseModule {
 	) external {
 		require(tenantOwner == address(0), "Contract is already initialized");
 		tenantOwner = _tenant;
+
+		// TO DO: we need to check that the contract they sent in is registered in the ERC1820 registry
+		// NEEDS TO BE CHECKED: 
+		// since in the ERC777 module, we are also registering the ERC20 instance in the ERC1820 registry
+		// https://github.com/decentology/hyperverse-mono/blob/7f386f95de2b472ccf00a3cf799a124b8fd0c47e/packages/hyperverse-evm-erc777/contracts/ERC777.sol#L100
+		// does our staking and rewards token need to be an erc777 or can we keep it as erc20? 
 		stakingToken = ERC777(_stakingToken);
 		rewardsToken = ERC777(_rewardsToken);
 		rewardRate = _rewardRate;
