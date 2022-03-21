@@ -28,7 +28,10 @@ export function createContainer<Value, State extends any>(
 		: "UnstatedNext"
 	Context.displayName = hookName
 
-	function Provider({ initialState, children }: ContainerProviderProps<State>) {
+	function Provider({
+		initialState,
+		children,
+	}: ContainerProviderProps<State>) {
 		const value = useHook(initialState!)
 		return <Context.Provider value={value}>{children}</Context.Provider>
 	}
@@ -36,7 +39,9 @@ export function createContainer<Value, State extends any>(
 	function useContainer(): Value {
 		const value = React.useContext(Context)
 		if (value === EMPTY) {
-			throw new Error("Component must be wrapped with <Container.Provider>")
+			throw new Error(
+				`Component must be wrapped with <${Context.displayName}.Provider>`,
+			)
 		}
 		return value
 	}
@@ -44,7 +49,7 @@ export function createContainer<Value, State extends any>(
 	return {
 		Provider,
 		useContainer,
-		Context
+		Context,
 	}
 }
 
