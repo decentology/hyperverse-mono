@@ -5,7 +5,7 @@ import Transfer from './WriteFunctions/Transfer';
 import ReadComponent from './ReadComponent';
 import BalanceOf from './BalanceOf';
 import OwnerOf from './OwnerOf';
-import { useERC721 } from '@decentology/hyperverse-ethereum-erc721';
+import { useERC721 } from '@decentology/hyperverse-evm-erc721';
 
 const Container = () => {
 	const { Proxy, TotalSupply, Balance } = useERC721()

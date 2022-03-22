@@ -1,6 +1,6 @@
 import { initialize, Provider, Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as ERC721 from '@decentology/hyperverse-ethereum-erc721';
+import * as ERC721 from '@decentology/hyperverse-evm-erc721';
 import { globalCss } from '../stitches.config';
 
 import type { AppProps } from 'next/app';
@@ -24,18 +24,18 @@ const globalStyles = globalCss({
 	}
 })
 
-const hyperverse = initialize({
-	blockchain: Ethereum,
-	network: Network.Testnet,
-	modules: [
-		{
-			bundle: ERC721,
-			tenantId: '0x87339e5940F02DD64EFf21203244f2D61cdF5f44',
-		}
-	],
-});
 
 function MyApp({ Component, pageProps }: AppProps) {
+	const hyperverse = initialize({
+		blockchain: Ethereum,
+		network: Network.Testnet,
+		modules: [
+			{
+				bundle: ERC721,
+				tenantId: '0x87339e5940F02DD64EFf21203244f2D61cdF5f44',
+			}
+		],
+	});
 	globalStyles()
 	return (
 		<Provider initialState={hyperverse}>
