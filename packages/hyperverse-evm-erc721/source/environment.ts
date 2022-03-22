@@ -1,8 +1,8 @@
 import {
-	Network,
 	useHyperverse,
 	isEvm,
 	EvmEnvironment,
+	BlockchainEvm,
 } from '@decentology/hyperverse';
 import ERC721FactoryABI from '../artifacts/contracts/NFTFactory.sol/NFTFactory.json';
 import ERC721ABI from '../artifacts/contracts/NFT.sol/NFT.json';

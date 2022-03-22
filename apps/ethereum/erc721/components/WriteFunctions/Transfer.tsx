@@ -17,7 +17,6 @@ const Transfer = () => {
 	const { address } = useEthereum();
 	const { Transfer } = useERC721();
 	const { mutate } = Transfer();
-	const [from, setFrom] = useState('');
 	const [receiver, setReceiver] = useState('');
 	const [tokenId, setTokenId] = useState(0);
 

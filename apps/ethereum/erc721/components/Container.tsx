@@ -12,13 +12,13 @@ const Container = () => {
 
 	const TokenReadFunctions = [
 		{
-			hook: TotalSupply(),
+			hook: TotalSupply,
 			header: 'Get Total Supply',
 			description: 'Get the total supply of NFTs',
 			buttonText: 'Get Total Supply',
 		},
 		{
-			hook: Balance(),
+			hook: Balance,
 			header: 'Get Balance',
 			description: 'Get the balance of your account',
 			buttonText: 'Get Balance',
@@ -31,7 +31,7 @@ const Container = () => {
 			<Section>
 				<CreateInstance />
 				<ReadComponent
-					hook={Proxy()}
+					hook={Proxy}
 					header="Get Proxy"
 					description="Get your proxy contract address"
 					buttonText={'Get Instance'}

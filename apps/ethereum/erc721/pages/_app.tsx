@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		modules: [
 			{
 				bundle: ERC721,
-				tenantId: '0x87339e5940F02DD64EFf21203244f2D61cdF5f44',
+				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
 			}
 		],
 	});
