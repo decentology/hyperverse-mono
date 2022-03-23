@@ -1492,21 +1492,6 @@
   dependencies:
     postcss-value-parser "^4.2.0"
 
-"@decentology/hyperverse-ethereum-erc721@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@decentology/hyperverse-ethereum-erc721/-/hyperverse-ethereum-erc721-1.0.1.tgz#bb112d18147778b3dbefc6adacb1521cd994ab4e"
-  integrity sha512-9enVw/cyK4+14xDG3c2e81nyYTQtNt5CbtvBwcMOtQ4jjbHfxu/KSHqPNjmKNiGEaUkILPiewoHdtLvTZjXLeQ==
-  dependencies:
-    "@decentology/hyperverse" "^1.0.9"
-    "@decentology/hyperverse-ethereum" "^1.0.9"
-    "@decentology/hyperverse-storage-skynet" "^1.0.8"
-    "@decentology/unstated-next" "^1.1.1"
-    "@openzeppelin/contracts" "^4.5.0"
-    ethers "^5.5.3"
-    react-query "^3.34.7"
-    react-use "^17.3.2"
-    skynet-js "^4.0.23-beta"
-
 "@decentology/hyperverse-ethereum-tribes@^1.0.0":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@decentology/hyperverse-ethereum-tribes/-/hyperverse-ethereum-tribes-1.0.9.tgz#79b1e76d3a48935bc3b0050ba8d16652b6ac1eea"

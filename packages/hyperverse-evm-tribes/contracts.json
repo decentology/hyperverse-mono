@@ -1,8 +1,8 @@
 {
   "ethereum": {
     "testnet": {
-      "contractAddress": "0x9045C0E6caf6803fa0D9b8dE79738D1827D4Dd15",
-      "factoryAddress": "0x0D630E4977bbDBbA7BF8c18721358eC5Ce9cbf38"
+      "contractAddress": "0xbaE361D54d1eb6cdad653F18fEE4fBF16E442502",
+      "factoryAddress": "0xB31063c7734CBE7f4140e8C70D630f80EF0314bd"
     },
     "mainnet": {}
   },
@@ -26,5 +26,11 @@
       "factoryAddress": "0x4330f8f04490d09852e6916777e15259dF195F6A"
     },
     "mainnet": {}
+  },
+  "hardhat": {
+    "testnet": {
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "factoryAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+    }
   }
 }
