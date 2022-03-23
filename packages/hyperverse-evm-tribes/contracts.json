@@ -1,30 +1,36 @@
 {
-	"ethereum": {
-		"testnet": {
-			"contractAddress": "0xbaE361D54d1eb6cdad653F18fEE4fBF16E442502",
-			"factoryAddress": "0xB31063c7734CBE7f4140e8C70D630f80EF0314bd"
-		},
-		"mainnet": {}
-	},
-	"metis": {
-		"testnet": {
-			"contractAddress": "0x17f32a93376C24b4EFdAaeA72a1173606e7A2d1C",
-			"factoryAddress": "0x995d701c0CaAeDA88DBF21727202F3a61AF01177"
-		},
-		"mainnet": {}
-	},
-	"avalanche": {
-		"testnet": {
-			"contractAddress": "0x1f6c0449EA114c4A5A542d20801650066Ef8767D",
-			"factoryAddress": "0x17f32a93376C24b4EFdAaeA72a1173606e7A2d1C"
-		},
-		"mainnet": {}
-	},
-	"polygon": {
-		"testnet": {
-			"contractAddress": "0x5075a0259b418fbD46211B81AfA766157e7DD135",
-			"factoryAddress": "0x4330f8f04490d09852e6916777e15259dF195F6A"
-		},
-		"mainnet": {}
-	}
+  "ethereum": {
+    "testnet": {
+      "contractAddress": "0x61e7E67cdD68D880bb8B0829BA23591b0A1DFFA8",
+      "factoryAddress": "0x33b9a56268D5E4D8D3BEF66038f3184B52789C65"
+    },
+    "mainnet": {}
+  },
+  "metis": {
+    "testnet": {
+      "contractAddress": "0x17f32a93376C24b4EFdAaeA72a1173606e7A2d1C",
+      "factoryAddress": "0x995d701c0CaAeDA88DBF21727202F3a61AF01177"
+    },
+    "mainnet": {}
+  },
+  "avalanche": {
+    "testnet": {
+      "contractAddress": "0x1f6c0449EA114c4A5A542d20801650066Ef8767D",
+      "factoryAddress": "0x17f32a93376C24b4EFdAaeA72a1173606e7A2d1C"
+    },
+    "mainnet": {}
+  },
+  "polygon": {
+    "testnet": {
+      "contractAddress": "0x5075a0259b418fbD46211B81AfA766157e7DD135",
+      "factoryAddress": "0x4330f8f04490d09852e6916777e15259dF195F6A"
+    },
+    "mainnet": {}
+  },
+  "hardhat": {
+    "testnet": {
+      "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "factoryAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+    }
+  }
 }

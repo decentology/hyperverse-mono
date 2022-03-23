@@ -5,7 +5,7 @@ import { ERC721 } from './useERC721';
 const client = new QueryClient();
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
-	if (tenantId == null) {
+	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
 	return (

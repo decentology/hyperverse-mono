@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import { ethers, constants } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import {
 	useQuery,
@@ -11,12 +11,12 @@ import { useEnvironment } from './environment';
 
 type ContractState = ethers.Contract;
 
-function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
+function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const { address, web3Provider, provider } = useEvm();
-	const {contractAddress, ContractABI, FactoryABI} = useEnvironment()
-	const [contract, setContract] = useState<ContractState>(
-		new ethers.Contract(contractAddress!, FactoryABI, provider) as ContractState
+	const { factoryAddress, ContractABI, FactoryABI } = useEnvironment()
+	const [factoryContract, setFactoryContract] = useState<ContractState>(
+		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
 	);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 
@@ -26,7 +26,10 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 
 	useEffect(() => {
 		const fetchContract = async () => {
-			const proxyAddress = await contract.getProxy(tenantId);
+			const proxyAddress = await factoryContract.getProxy(tenantId);
+			if (proxyAddress == constants.AddressZero) {
+				return;
+			}
 			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, provider);
 			const accountSigner = await signer;
 			if (accountSigner) {
@@ -37,13 +40,13 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 			}
 		};
 		fetchContract();
-	}, [contract, tenantId, provider, signer]);
+	}, [factoryContract, tenantId, provider, signer]);
 
 	const setup = useCallback(async () => {
 		const accountSigner = await signer;
 		if (accountSigner) {
-			const ctr = contract.connect(accountSigner) as ContractState;
-			setContract(ctr);
+			const ctr = factoryContract.connect(accountSigner) as ContractState;
+			setFactoryContract(ctr);
 		}
 		// We have a defualt contract that has no signer. Which will work for read-only operations.
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +54,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 
 	const errors = useCallback(
 		(err: any) => {
-			if (!contract?.signer) {
+			if (!factoryContract?.signer) {
 				throw new Error('Please connect your wallet!');
 			}
 
@@ -61,7 +64,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 
 			throw err;
 		},
-		[contract?.signer]
+		[factoryContract?.signer]
 	);
 
 	useEffect(() => {
@@ -73,7 +76,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 	const createInstance = async (name: string, symbol: string) => {
 		try {
 			console.log("name" + name + "symbol" + symbol)
-			const createTxn = await contract.createInstance(name, symbol);
+			const createTxn = await factoryContract.createInstance(name, symbol);
 			return createTxn.wait();
 		} catch (err) {
 			errors(err);
@@ -84,7 +87,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 	const getProxy = async (account: string | null) => {
 		try {
 			console.log("getProxy:", account);
-			const proxyAccount = await contract.getProxy(account);
+			const proxyAccount = await factoryContract.getProxy(account);
 			return proxyAccount;
 		} catch (err) {
 			errors(err);
@@ -157,7 +160,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 
 	return {
 		tenantId,
-		contract,
+		contract: factoryContract,
 		NewInstance: (
 			options?: Omit<
 				UseMutationOptions<
@@ -175,8 +178,8 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: ''}) {
 				options
 			),
 		Proxy: () =>
-			useQuery(['getProxy', address, contract?.address], () => getProxy(address), {
-				enabled: !!address && !!contract?.address
+			useQuery(['getProxy', address, factoryContract?.address], () => getProxy(address), {
+				enabled: !!address && !!factoryContract?.address
 			}),
 		TotalSupply: () =>
 			useQuery(['getTotalSupply', address], () => getTotalSupply(), {
