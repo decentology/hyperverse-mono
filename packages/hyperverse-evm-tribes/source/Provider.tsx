@@ -5,14 +5,12 @@ import { Tribes } from './useTribes';
 const client = new QueryClient();
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
-	if (tenantId == null) {
+	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
 	return (
 		<QueryClientProvider client={client}>
-			<Tribes.Provider initialState={{ tenantId: tenantId }}>
-				{children}
-			</Tribes.Provider>
+			<Tribes.Provider initialState={{ tenantId: tenantId }}>{children}</Tribes.Provider>
 		</QueryClientProvider>
 	);
 };

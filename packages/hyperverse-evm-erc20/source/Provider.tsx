@@ -5,7 +5,7 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 const client = new QueryClient();
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
-	if (tenantId == null) {
+	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
 	return (
