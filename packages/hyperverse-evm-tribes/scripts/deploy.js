@@ -1,9 +1,11 @@
 const hre = require('hardhat');
 const fs = require('fs-extra');
+const { constants } = require('ethers');
 
 const main = async () => {
 	const [deployer] = await ethers.getSigners();
-	const hyperverseAdmin = '0x62a7aa79a52591Ccc62B71729329A80a666fA50f';
+	console.log('Deployer Address: ', deployer.address);
+	const hyperverseAdmin = deployer.address;
 	const Tribes = await hre.ethers.getContractFactory('Tribes');
 	const tribes = await Tribes.deploy(hyperverseAdmin);
 	await tribes.deployed();
@@ -24,16 +26,20 @@ const main = async () => {
 
 	// Save contract addresses back to file
 	fs.writeJsonSync('contracts.json', env, { spaces: 2 });
-	
+
 	// Setup Default Tenant
+	let proxyAddress = constants.AddressZero;
 	await tribesFactory.createInstance(deployer.address);
-	const proxyAddress = await tribesFactory.getProxy(deployer.address);
+	while (proxyAddress === constants.AddressZero) {
+		proxyAddress = await tribesFactory.getProxy(deployer.address);
+	}
 	const tribesProxy = await Tribes.attach(proxyAddress);
-	await tribesProxy.addNewTribe("AABfrc40kgAcsJtNBxhR9nXBwRJGEek56bcigT5VofglIg");
-	await tribesProxy.addNewTribe("AAAKk52tJJCHPVlTTn-pHLBNaj0gfel64u0CTbqm95uuvA");
-	await tribesProxy.addNewTribe("AACGqB25a8vWbskwRO8YIoyvSoXR9poTz7DVEcl1RKdGbw");
-	await tribesProxy.addNewTribe("AABfNxBgYBQlGM2FAxiaguJM4dcS3bFJAtXGFE2LAc98yA");
-	await tribesProxy.addNewTribe("AABsBeuaExyLT-3ujU6pL-_o9l5oQYeaq24zvMAU7aiYSQ");
+	console.log('Proxy Contract', tribesProxy.address);
+	await tribesProxy.addNewTribe('AABfrc40kgAcsJtNBxhR9nXBwRJGEek56bcigT5VofglIg');
+	await tribesProxy.addNewTribe('AAAKk52tJJCHPVlTTn-pHLBNaj0gfel64u0CTbqm95uuvA');
+	await tribesProxy.addNewTribe('AACGqB25a8vWbskwRO8YIoyvSoXR9poTz7DVEcl1RKdGbw');
+	await tribesProxy.addNewTribe('AABfNxBgYBQlGM2FAxiaguJM4dcS3bFJAtXGFE2LAc98yA');
+	await tribesProxy.addNewTribe('AABsBeuaExyLT-3ujU6pL-_o9l5oQYeaq24zvMAU7aiYSQ');
 };
 
 const runMain = async () => {
