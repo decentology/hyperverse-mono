@@ -4,6 +4,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse, Network, Blockchain, NetworkConfig } from '@decentology/hyperverse';
+import { hexlify } from 'ethers/lib/utils';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
@@ -79,12 +80,12 @@ function EvmState(
 			if (network === Network.Mainnet) {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [{ chainId: initialState.networks[Network.Mainnet].chainId! }]
+					params: [{ chainId: hexlify(initialState.networks[Network.Mainnet].chainId!) }]
 				});
 			} else {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [{ chainId: initialState.networks[Network.Testnet].chainId! }]
+					params: [{ chainId: hexlify(initialState.networks[Network.Testnet].chainId!) }]
 				});
 			}
 		},
@@ -107,8 +108,8 @@ function EvmState(
 
 				const userNetwork = await web3Provider.getNetwork();
 
-				if (blockchain?.name === Blockchain.Ethereum && userNetwork.chainId !== 4) {
-					await switchNetwork(network.type, web3Provider.provider);
+				if (blockchain?.name === Blockchain.Ethereum && userNetwork.chainId !== network.chainId) {
+					// await switchNetwork(network.type, web3Provider.provider);
 				}
 
 				setState(prev => ({

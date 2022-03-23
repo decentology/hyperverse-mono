@@ -2,24 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './button.css';
 import { useTribes } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
 
 /**
  * Primary UI component for user interaction
  */
 export const GetTotalTenants = ({ ...props }) => {
 	const { TotalTenants } = useTribes();
-	const { address, connect } = useEvm();
-	const { data } = TotalTenants();
+	const { data: totalTenants } = TotalTenants();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
+		<div
 		>
-			{data}
-		</button>
+			{totalTenants}
+		</div>
 	);
 };
 

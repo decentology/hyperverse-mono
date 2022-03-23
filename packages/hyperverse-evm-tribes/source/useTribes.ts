@@ -25,7 +25,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
 		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
 	);
-
+console.log('Factory Address', factoryAddress)
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 
 	const signer = useMemo(async () => {
@@ -35,6 +35,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	useEffect(() => {
 		const fetchContract = async () => {
 			const proxyAddress = await factoryContract.getProxy(tenantId);
+			debugger;
 			if (proxyAddress == constants.AddressZero) {
 				return;
 			}
