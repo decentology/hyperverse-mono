@@ -7,4 +7,8 @@ export const Ethereum = makeHyperverseBlockchain({
 	Provider: Provider
 });
 
+export const Localhost = makeHyperverseBlockchain({
+	name: Blockchain.Localhost,
+	Provider: Provider
+});
 export { Provider, useEvm, Evm };

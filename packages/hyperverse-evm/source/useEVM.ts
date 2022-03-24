@@ -58,14 +58,20 @@ function EvmState(
 		}
 	}
 ) {
+	console.log('Why is initail state anything but what was passed in?', initialState);
 	const { blockchain, network: hyperverseNetwork } = useHyperverse();
 	let network = {
 		...initialState.networks[hyperverseNetwork.type],
 		...hyperverseNetwork
 	};
+	// console.log('What is the network URL', network);
+	// if(network.chainId === 4) {
+	// 	debugger;
+	// }
+
 
 	const [state, setState] = useState<State>({
-		provider: new ethers.providers.JsonRpcProvider(network.networkUrl),
+		provider: network.networkUrl != "" ? new ethers.providers.JsonRpcProvider(network.networkUrl) : null,
 		web3Provider: null,
 		address: null,
 		chainId: null,
@@ -74,6 +80,13 @@ function EvmState(
 	const { provider } = state;
 	const addressRef = useRef(state.address);
 	addressRef.current = state.address;
+
+	// useEffect(() => {
+	// 	setState((prevState) => ({
+	// 		...prevState,
+	// 		provider: new ethers.providers.JsonRpcProvider(network.networkUrl)
+	// 	}))
+	// }, [network.networkUrl]);
 
 	const switchNetwork = useCallback(
 		async (network: Network, prov: any) => {
@@ -93,7 +106,7 @@ function EvmState(
 	);
 
 	const connect = useCallback(
-		async function() {
+		async function () {
 			try {
 				// This is the initial `provider` that is returned when
 				// using web3Modal to connect. Can be MetaMask or WalletConnect.
