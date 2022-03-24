@@ -29,6 +29,7 @@ type State = {
 	provider: any | null;
 	web3Provider: providers.Web3Provider | null;
 	address: string | null;
+	ens: string | null;
 	chainId: number | null;
 	error: Error | null;
 };
@@ -58,35 +59,23 @@ function EvmState(
 		}
 	}
 ) {
-	console.log('Why is initail state anything but what was passed in?', initialState);
 	const { blockchain, network: hyperverseNetwork } = useHyperverse();
 	let network = {
 		...initialState.networks[hyperverseNetwork.type],
 		...hyperverseNetwork
 	};
-	// console.log('What is the network URL', network);
-	// if(network.chainId === 4) {
-	// 	debugger;
-	// }
-
 
 	const [state, setState] = useState<State>({
 		provider: network.networkUrl != "" ? new ethers.providers.JsonRpcProvider(network.networkUrl) : null,
 		web3Provider: null,
 		address: null,
+		ens: null,
 		chainId: null,
 		error: null
 	});
 	const { provider } = state;
 	const addressRef = useRef(state.address);
 	addressRef.current = state.address;
-
-	// useEffect(() => {
-	// 	setState((prevState) => ({
-	// 		...prevState,
-	// 		provider: new ethers.providers.JsonRpcProvider(network.networkUrl)
-	// 	}))
-	// }, [network.networkUrl]);
 
 	const switchNetwork = useCallback(
 		async (network: Network, prov: any) => {
@@ -118,11 +107,12 @@ function EvmState(
 
 				const signer = web3Provider.getSigner();
 				const address = await signer.getAddress();
+				const ens = await web3Provider.lookupAddress(address);
 
 				const userNetwork = await web3Provider.getNetwork();
 
 				if (blockchain?.name === Blockchain.Ethereum && userNetwork.chainId !== network.chainId) {
-					// await switchNetwork(network.type, web3Provider.provider);
+					await switchNetwork(network.type, web3Provider.provider);
 				}
 
 				setState(prev => ({
@@ -130,9 +120,11 @@ function EvmState(
 					provider,
 					web3Provider: web3Provider,
 					address,
+					ens,
 					chainId: userNetwork.chainId
 				}));
 			} catch (err) {
+				console.error(err);
 				if (typeof err === 'string') {
 					const innerError = new Error(err);
 					setState(prev => ({
