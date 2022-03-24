@@ -3,8 +3,8 @@ const withTM = require('next-transpile-modules')([
 	'@decentology/unstated-next',
 	'@decentology/hyperverse',
 	'@decentology/hyperverse-ethereum',
-	'@decentology/hyperverse-ethereum-token',
-	'@decentology/hyperverse-ethereum-stake-rewards',
+	'@decentology/hyperverse-evm-erc20',
+	'@decentology/hyperverse-evm-stake-rewards',
 ]);
 
 module.exports = withTM({
