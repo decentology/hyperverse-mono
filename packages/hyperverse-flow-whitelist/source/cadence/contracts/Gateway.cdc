@@ -1,4 +1,4 @@
-pub contract WhitelistContract {
+pub contract Gateway {
 
     /***********************************************/
     /******************** PATHS ********************/
@@ -30,7 +30,7 @@ pub contract WhitelistContract {
         pub var active: Bool
         pub let dateCreated: UFix64
         pub let description: String 
-        pub let eventId: UInt64
+        pub let whitelistId: UInt64
         pub let host: Address
         pub let image: String 
         pub let name: String
@@ -51,7 +51,7 @@ pub contract WhitelistContract {
         access(account) var registered: {Address: Bool}
         pub let dateCreated: UFix64
         pub let description: String 
-        pub let eventId: UInt64
+        pub let whitelistId: UInt64
         access(account) var extraMetadata: {String: String}
         pub let host: Address
         pub let image: String 
@@ -60,7 +60,7 @@ pub contract WhitelistContract {
         pub let url: String
         pub let modules: [{IModule}]
 
-        /***************** Setters for the Event Owner *****************/
+        /***************** Setters for the Whitelist Owner *****************/
 
         // Toggles claiming on/off
         pub fun toggleActive(): Bool {
@@ -70,7 +70,7 @@ pub contract WhitelistContract {
 
         // Updates the metadata in case you want
         // to add something. Not currently used for anything
-        // on FLOAT, so it's empty.
+        // on Whitelist, so it's empty.
         pub fun updateMetadata(newExtraMetadata: {String: String}) {
             self.extraMetadata = newExtraMetadata
         }
@@ -98,7 +98,7 @@ pub contract WhitelistContract {
         pub fun register(registrant: Address, params: {String: AnyStruct}) {
             pre {
                 self.active: 
-                    "This FLOATEvent is not claimable, and thus not currently active."
+                    "This Whitelist is not registerable, and thus not currently active."
             }
 
             params["whitelist"] = &self as &Whitelist{WhitelistPublic}
@@ -124,7 +124,7 @@ pub contract WhitelistContract {
             self.active = _active
             self.dateCreated = getCurrentBlock().timestamp
             self.description = _description
-            self.eventId = self.uuid
+            self.whitelistId = self.uuid
             self.extraMetadata = _extraMetadata
             self.host = _host
             self.image = _image
@@ -141,20 +141,19 @@ pub contract WhitelistContract {
     }
  
     // 
-    // FLOATEvents
+    // Registry
     //
     pub resource interface RegistryPublic {
         // Public Getters
-        pub fun borrowPublicEventRef(eventId: UInt64): &Whitelist{WhitelistPublic}
+        pub fun borrowPublicWhitelistRef(whitelistId: UInt64): &Whitelist{WhitelistPublic}
         pub fun getIDs(): [UInt64]
     }
 
     pub resource Registry: RegistryPublic {
-        access(account) var events: @{UInt64: Whitelist}
+        access(account) var whitelists: @{UInt64: Whitelist}
 
-        // ACCESSIBLE BY: Owner
         // Create a new Whitelist.
-        pub fun createEvent(
+        pub fun createWhitelist(
             active: Bool,
             description: String,
             image: String, 
@@ -163,7 +162,7 @@ pub contract WhitelistContract {
             modules: [{IModule}],
             _ extraMetadata: {String: String}
         ): UInt64 {
-            let FLOATEvent <- create Whitelist(
+            let Whitelist <- create Whitelist(
                 _active: active,
                 _description: description, 
                 _extraMetadata: extraMetadata,
@@ -173,47 +172,44 @@ pub contract WhitelistContract {
                 _url: url,
                 _modules: modules
             )
-            let eventId = FLOATEvent.eventId
-            self.events[FLOATEvent.eventId] <-! FLOATEvent
-            return eventId
+            let whitelistId = Whitelist.whitelistId
+            self.whitelists[Whitelist.whitelistId] <-! Whitelist
+            return whitelistId
         }
 
-        // ACCESSIBLE BY: Owner
-        pub fun deleteWhitelist(eventId: UInt64) {
-            let whitelist <- self.events.remove(key: eventId) ?? panic("This event does not exist")
+        pub fun deleteWhitelist(whitelistId: UInt64) {
+            let whitelist <- self.whitelists.remove(key: whitelistId) ?? panic("This whitelist does not exist")
             destroy whitelist
         }
 
-        // ACCESSIBLE BY: Owner, Contract
-        pub fun borrowEventRef(eventId: UInt64): &Whitelist {
-            return &self.events[eventId] as &Whitelist
+        pub fun borrowWhitelistRef(whitelistId: UInt64): &Whitelist {
+            return &self.whitelists[whitelistId] as &Whitelist
         }
 
         /************* Getters (for anyone) *************/
 
-        // Get a public reference to the FLOATEvent
+        // Get a public reference to the Whitelist
         // so you can call some helpful getters
-        pub fun borrowPublicEventRef(eventId: UInt64): &Whitelist{WhitelistPublic} {
-            return &self.events[eventId] as &Whitelist{WhitelistPublic}
+        pub fun borrowPublicWhitelistRef(whitelistId: UInt64): &Whitelist{WhitelistPublic} {
+            return &self.whitelists[whitelistId] as &Whitelist{WhitelistPublic}
         }
 
         pub fun getIDs(): [UInt64] {
-            return self.events.keys
+            return self.whitelists.keys
         }
 
         pub fun register(whitelist: &Whitelist{WhitelistPublic}, params: {String: AnyStruct}) {
             let registrant = self.owner!.address
             params["registrant"] = registrant
-            params["registrantId"] = self.uuid
             whitelist.register(registrant: registrant, params: params)
         }
 
         init() {
-            self.events <- {}
+            self.whitelists <- {}
         }
 
         destroy() {
-            destroy self.events
+            destroy self.whitelists
         }
     }
 
@@ -224,7 +220,7 @@ pub contract WhitelistContract {
     init() {
         emit ContractInitialized()
 
-        self.RegistryStoragePath = /storage/WhitelistRegistryStoragePath002
-        self.RegistryPublicPath = /public/WhitelistRegistryPublicPath002
+        self.RegistryStoragePath = /storage/GatewayRegistryStoragePath002
+        self.RegistryPublicPath = /public/GatewayRegistryPublicPath002
     }
 }

@@ -1,10 +1,12 @@
-import WhitelistContract from "./WhitelistContract.cdc"
+import Gateway from "./Gateway.cdc"
 import FungibleToken from "./core-contracts/FungibleToken.cdc"
 import NonFungibleToken from "./core-contracts/NonFungibleToken.cdc"
+import ZayVerifierV2 from "./core-contracts/ZayVerifierV2.cdc"
+import EmeraldIdentity from "./core-contracts/EmeraldIdentity.cdc"
 
-pub contract WhitelistModules {
+pub contract GatewayModules {
 
-  pub struct OwnsToken: WhitelistContract.IModule {
+  pub struct OwnsToken: Gateway.IModule {
     pub let path: PublicPath
     pub let amount: UFix64
     pub let identifier: String
@@ -42,7 +44,7 @@ pub contract WhitelistModules {
     }
   }
 
-  pub struct OwnsNFT: WhitelistContract.IModule {
+  pub struct OwnsNFT: Gateway.IModule {
     pub let path: PublicPath
     pub let identifier: String 
 
@@ -74,7 +76,7 @@ pub contract WhitelistModules {
     }
   }
 
-  pub struct Timelock: WhitelistContract.IModule {
+  pub struct Timelock: Gateway.IModule {
         pub let dateStart: UFix64
         pub let dateEnding: UFix64
 
@@ -95,11 +97,11 @@ pub contract WhitelistModules {
         }
     }
 
-    pub struct Limited: WhitelistContract.IModule {
+    pub struct Limited: Gateway.IModule {
         pub var capacity: UInt64
 
         pub fun verify(_ params: {String: AnyStruct}) {
-            let whitelist = params["whitelist"]! as! &WhitelistContract.Whitelist{WhitelistContract.WhitelistPublic}
+            let whitelist = params["whitelist"]! as! &Gateway.Whitelist{Gateway.WhitelistPublic}
             let currentCapacity = whitelist.getRegistered().length
             assert(
                 currentCapacity < Int(self.capacity),
