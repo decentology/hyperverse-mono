@@ -66,7 +66,7 @@ function EvmState(
 	};
 
 	const [state, setState] = useState<State>({
-		provider: network.networkUrl != "" ? new ethers.providers.JsonRpcProvider(network.networkUrl) : null,
+		provider: new ethers.providers.JsonRpcProvider(network.networkUrl),
 		web3Provider: null,
 		address: null,
 		ens: null,

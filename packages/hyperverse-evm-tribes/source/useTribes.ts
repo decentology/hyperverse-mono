@@ -25,7 +25,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
 		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
 	);
-	console.log('factoryAddress', factoryAddress);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 
 	const signer = useMemo(async () => {
@@ -36,7 +35,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		const fetchContract = async () => {
 			let proxyAddress;
 			try {
-			console.log('Factory Contract Address', factoryContract.address);	
 				proxyAddress = await factoryContract.getProxy(tenantId);
 			} catch (error) {
 				throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
