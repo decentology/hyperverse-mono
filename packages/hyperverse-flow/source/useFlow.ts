@@ -7,9 +7,11 @@ import { Initialize } from './context/initialize';
 import sendFlow from './context/sendFlow';
 import fetchBalance from './context/fetchBalance';
 const fcl = require('@onflow/fcl');
+const t = require('@onflow/types');
 function FlowState() {
 	const { blockchain, network } = useHyperverse();
 	const [user, setUser] = useState<FlowUser>(null);
+	const [find, setFind] = useState<string>('');
 
 	const { result: { client, explorer } = {}, status, error, loading } = useAsync(
 		Initialize,
@@ -41,9 +43,33 @@ function FlowState() {
 		fcl.unauthenticate();
 	};
 
+	const resolveFind = async () => {
+		if (user && user.addr) {
+			const result = await fcl.send([
+				fcl.script`
+				import FIND from 0xa16ab1d0abde3625
+	
+				pub fun main(address: Address) :  String? {
+					return FIND.reverseLookup(address)
+				}
+				`,
+				fcl.args([
+					fcl.arg(user.addr, t.Address)
+				])
+			]).then(fcl.decode);
+			console.log(result);
+			setFind(result);
+		}
+	}
+
 	useEffect(() => {
 		fcl.currentUser().subscribe(setUser);
 	}, []);
+
+	useEffect(() => {
+		console.log(user);
+		resolveFind();
+	}, [user])
 
 	useEffect(() => {
 		if (blockchain?.name !== Blockchain.Flow) {
@@ -53,6 +79,7 @@ function FlowState() {
 
 	return {
 		user,
+		find,
 		isInitialized,
 		authenticate,
 		unauthenticate,
