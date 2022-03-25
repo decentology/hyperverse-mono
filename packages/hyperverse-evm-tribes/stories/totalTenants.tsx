@@ -13,13 +13,9 @@ export const GetTotalTenants = ({ ...props }) => {
 	const { data } = TotalTenants();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-		>
-			{data}
-		</button>
+			<div className="totalTenants">
+				Total Tenants: <b>{data}</b>
+			</div>
 	);
 };
 
