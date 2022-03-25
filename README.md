@@ -44,13 +44,9 @@ To run this project locally:
 If you were successful following the Installation application, you should be greeted with the tribes home page that looks like this:
 <img src="./apps/ethereum/tribes/public/tribes-home.png" alt="tribes"/>
 
-#PROJECT IDEA.
+# PROJECT IDEA.
 ## token presale dapp
 it is a simple dapp that allow investors early access in other to help the token owner raise fund for liquidity.s
-
-T IDEA.
-
-
 
 ### Prerequisities
 
