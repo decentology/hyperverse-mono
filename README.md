@@ -47,10 +47,10 @@ If you were successful following the Installation application, you should be gre
 
 # Project Idea
 
-##Airdrop
+## Airdrop
 The Airdrop Dapp will be able to distribute airdrop token to connected wallet only once until the Airdrop period is over.
 
-##Pre-sale Dapp
+## Pre-sale Dapp
 
 
 
