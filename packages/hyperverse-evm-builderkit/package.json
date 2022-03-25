@@ -1,40 +1,50 @@
 {
-	"name": "@decentology/hyperverse-ethereum-starterkit",
-	"version": "1.0.0",
-	"source": "./source/index.ts",
-	"types": "./distribution/index.d.ts",
-	"main": "./distribution/index.js",
-	"private": true,
-	"license": "MIT",
-	"scripts": {
-		"compile": "hardhat compile",
-		"test": "hardhat test",
-		"deploy": "run-p deploy-ethereum deploy-metis deploy-avalanche deploy-polygon",
-		"deploy-ethereum": "hardhat run scripts/deploy.js --network ethereum ",
-		"deploy-metis": "hardhat run scripts/deploy.js --network metis",
-		"deploy-avalanche": "hardhat run scripts/deploy.js --network avalanche",
-		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
-		"build": "parcel build",
-		"clean": "rimraf ./distribution",
-		"lint": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@decentology/hyperverse": "^1.0.0",
-		"@decentology/hyperverse-ethereum": "^1.0.0",
-		"@decentology/unstated-next": "^1.1.0",
-		"ethers": "^5.5.3",
-		"react-query": "^3.34.7",
-		"react-use": "^17.3.2"
-	},
-	"devDependencies": {
-		"@decentology/config": "^1.0.0",
-		"@nomiclabs/hardhat-ethers": "^2.0.4",
-		"@nomiclabs/hardhat-waffle": "^2.0.2",
-		"chai": "^4.3.4",
-		"dotenv": "^16.0.0",
-		"hardhat": "^2.8.3",
-		"parcel": "^2.2.1",
-		"rimraf": "^3.0.2",
-		"typescript": "^4.6.2"
-	}
+  "name": "@decentology/hyperverse-ethereum-starterkit",
+  "version": "1.0.0",
+  "source": "./source/index.ts",
+  "types": "./distribution/index.d.ts",
+  "main": "./distribution/index.js",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "run-p deploy-ethereum deploy-metis deploy-avalanche deploy-polygon",
+    "deploy-ethereum": "hardhat run scripts/deploy.js --network ethereum ",
+    "deploy-metis": "hardhat run scripts/deploy.js --network metis",
+    "deploy-avalanche": "hardhat run scripts/deploy.js --network avalanche",
+    "deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
+    "build": "parcel build",
+    "clean": "rimraf ./distribution",
+    "lint": "tsc --noEmit",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "@decentology/hyperverse": "^1.0.0",
+    "@decentology/hyperverse-ethereum": "^1.0.0",
+    "@decentology/unstated-next": "^1.1.0",
+    "ethers": "^5.5.3",
+    "react-query": "^3.34.7",
+    "react-use": "^17.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@decentology/config": "^1.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.0.4",
+    "@nomiclabs/hardhat-waffle": "^2.0.2",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
+    "babel-loader": "^8.2.4",
+    "chai": "^4.3.4",
+    "dotenv": "^16.0.0",
+    "hardhat": "^2.8.3",
+    "parcel": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.2"
+  }
 }
