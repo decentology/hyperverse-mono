@@ -13,7 +13,7 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 			// Fire Event to disconect from old blockchain
 		}
 	}, [initialState.blockchain]);
-	if (initialState.blockchain) {
+	if (initialState.blockchain && !initialState.options?.disableProviderAutoInit) {
 		for (const module of initialState.modules.reverse()) {
 			children = createElement(
 				module.bundle.Provider,
@@ -42,7 +42,7 @@ export const Provider: FC<{ initialState: Hyperverse }> = ({ children, initialSt
 				}
 			>
 				{initialState.blockchain &&
-				initialState.options?.disableProviderAutoInit !== false ? (
+				initialState.options?.disableProviderAutoInit !== true ? (
 					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
 				) : (
 					children

@@ -24,24 +24,22 @@ module.exports = {
 	solidity: '0.8.4',
 	defaultNetwork: 'hardhat',
 	networks: {
-		hardhat: {
-			chainId: 4
-		},
+		hardhat: {},
 		ethereum: {
 			url: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
-			accounts
+			accounts,
 		},
 		metis: {
 			url: 'https://stardust.metis.io/?owner=588',
-			accounts
+			accounts,
 		},
 		avalanche: {
 			url: 'https://api.avax-test.network/ext/bc/C/rpc',
-			accounts
+			accounts,
 		},
 		polygon: {
 			url: 'https://rpc-mumbai.maticvigil.com',
-			accounts
-		}
-	}
+			accounts,
+		},
+	},
 };

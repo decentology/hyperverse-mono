@@ -59,7 +59,7 @@ export type HyperverseModuleInstance = {
 };
 
 export type EvmEnvironment = {
-	[key in BlockchainEvm]: {
+	[key in BlockchainEvm]?: {
 		[key in Network]: {
 			[key: string]: any;
 			contractAddress: string | null;

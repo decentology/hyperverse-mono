@@ -3,5 +3,8 @@ import { FC } from 'react';
 import { Provider as TribesProvider } from './useTribes';
 
 export const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
-	return <TribesProvider initialState={{ tenantId: tenantId || '' }}>{children}</TribesProvider>;
+	if (!tenantId) {
+		throw new Error('Tenant ID is required');
+	}
+	return <TribesProvider initialState={{ tenantId: tenantId }}>{children}</TribesProvider>;
 };

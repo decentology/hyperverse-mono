@@ -17,7 +17,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 type Props = {
-	hook: UseQueryResult<any, unknown>;
+	hook: () => UseQueryResult<any, unknown>;
 	header: string;
 	description: string;
 	buttonText: string;
@@ -26,7 +26,7 @@ type Props = {
 const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Props) => {
 	const { address } = useEthereum();
 	const [hidden, setHidden] = useState(false);
-	const { data } = hook;
+	const { data } = hook();
 
 	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
 
