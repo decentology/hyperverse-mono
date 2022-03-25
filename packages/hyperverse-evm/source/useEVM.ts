@@ -4,6 +4,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse, Network, Blockchain, NetworkConfig } from '@decentology/hyperverse';
+import { hexlify } from 'ethers/lib/utils';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
@@ -28,6 +29,7 @@ type State = {
 	provider: any | null;
 	web3Provider: providers.Web3Provider | null;
 	address: string | null;
+	ens: string | null;
 	chainId: number | null;
 	error: Error | null;
 };
@@ -67,6 +69,7 @@ function EvmState(
 		provider: new ethers.providers.JsonRpcProvider(network.networkUrl),
 		web3Provider: null,
 		address: null,
+		ens: null,
 		chainId: null,
 		error: null
 	});
@@ -79,12 +82,12 @@ function EvmState(
 			if (network === Network.Mainnet) {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [{ chainId: initialState.networks[Network.Mainnet].chainId! }]
+					params: [{ chainId: hexlify(initialState.networks[Network.Mainnet].chainId!) }]
 				});
 			} else {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [{ chainId: initialState.networks[Network.Testnet].chainId! }]
+					params: [{ chainId: hexlify(initialState.networks[Network.Testnet].chainId!) }]
 				});
 			}
 		},
@@ -92,7 +95,7 @@ function EvmState(
 	);
 
 	const connect = useCallback(
-		async function() {
+		async function () {
 			try {
 				// This is the initial `provider` that is returned when
 				// using web3Modal to connect. Can be MetaMask or WalletConnect.
@@ -104,10 +107,11 @@ function EvmState(
 
 				const signer = web3Provider.getSigner();
 				const address = await signer.getAddress();
+				const ens = await web3Provider.lookupAddress(address);
 
 				const userNetwork = await web3Provider.getNetwork();
 
-				if (blockchain?.name === Blockchain.Ethereum && userNetwork.chainId !== 4) {
+				if (blockchain?.name === Blockchain.Ethereum && userNetwork.chainId !== network.chainId) {
 					await switchNetwork(network.type, web3Provider.provider);
 				}
 
@@ -116,9 +120,11 @@ function EvmState(
 					provider,
 					web3Provider: web3Provider,
 					address,
+					ens,
 					chainId: userNetwork.chainId
 				}));
 			} catch (err) {
+				console.error(err);
 				if (typeof err === 'string') {
 					const innerError = new Error(err);
 					setState(prev => ({

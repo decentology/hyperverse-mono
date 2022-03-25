@@ -18,7 +18,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 const Nav = () => {
-	const { address, disconnect, connect, error } = useEthereum();
+	const { ens, address, disconnect, connect, error } = useEthereum();
 
 	useEffect(() => {
 		if (error) {
@@ -33,9 +33,7 @@ const Nav = () => {
 				<a className={styles.logo}>T</a>
 			</Link>
 			<div className={styles.rightNav}>
-				<Link href="/battle">
-                    Battle
-				</Link>
+				<Link href="/battle">Battle</Link>
 				<Link href="https://docs.hyperverse.dev/" passHref>
 					<a target="_blank" rel="noreferrer">
 						About
@@ -48,7 +46,7 @@ const Nav = () => {
 					</button>
 				) : (
 					<button className={styles.logout} onClick={disconnect}>
-						<span>{shortenHash(address, 5, 5)}</span>
+						<span>{ens || shortenHash(address, 5, 5)}</span>
 					</button>
 				)}
 			</div>
