@@ -1,8 +1,4 @@
-import React from 'react';
-import { initialize, Network, Provider } from '@decentology/hyperverse';
 import { GetTotalTenants } from './totalTenants';
-import { Ethereum, Evm } from '@decentology/hyperverse-evm';
-import * as Tribes from '../source';
 import { HyperverseProvider } from './utils/Provider';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
