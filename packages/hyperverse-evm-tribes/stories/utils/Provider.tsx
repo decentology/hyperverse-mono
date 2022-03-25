@@ -7,32 +7,13 @@ import { hexlify } from 'ethers/lib/utils';
 export const HyperverseProvider = ({ children }) => {
 	const hyperverse = initialize({
 		blockchain: Localhost,
-		network: Network.Testnet,
-		modules: [{ bundle: Tribes, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }],
-		// modules: [],
-		options: {
-			disableProviderAutoInit: true,
+		network: {
+			type: Network.Testnet,
+			chainId: 1337,
+			name: 'localhost',
+			networkUrl: 'http://localhost:6006/hyperchain',
 		},
+		modules: [{ bundle: Tribes, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }],
 	});
-	return (
-		<Provider initialState={hyperverse}>
-			<Evm.Provider
-				initialState={{
-					networks: {
-						testnet: {
-							networkUrl: 'http://localhost:6006/hyperchain',
-							chainId: hexlify(1337),
-							type: Network.Testnet,
-							name: 'localhost',
-						},
-					},
-				}}
-			>
-				<Tribes.Provider tenantId={hyperverse.modules[0].tenantId}>
-				{children}
-
-				</Tribes.Provider>
-			</Evm.Provider>
-		</Provider>
-	);
+	return <Provider initialState={hyperverse}>{children}</Provider>;
 };
