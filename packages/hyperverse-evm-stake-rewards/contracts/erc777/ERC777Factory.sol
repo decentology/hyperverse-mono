@@ -2,30 +2,27 @@
 pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
-import './hyperverse/CloneFactory.sol';
-import './StakeRewardsToken.sol';
-import './interfaces/IERC1820Registry.sol';
+import '../hyperverse/CloneFactory.sol';
+import '../hyperverse/IHyperverseModule.sol';
+import './ERC777.sol';
 
 /**
- * @dev Clone Factory Implementation for Stake Rewards Module
+ * @dev Clone Factory Implementation for ERC777 Token
  */
 
-contract StakeRewardsFactory is CloneFactory {
+contract ERC777Factory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	struct Tenant {
-		StakeRewardsToken stakeRewards;
+		ERC777 erc777;
 		address owner;
 	}
 
 	mapping(address => Tenant) public tenants;
-	mapping(address => bool) private instance;
+	mapping(address => bool) public instance;
 
 	address public immutable masterContract;
 	address public immutable owner;
 	address private hyperverseAdmin = 0x62a7aa79a52591Ccc62B71729329A80a666fA50f;
-
-	IERC1820Registry internal constant _ERC1820_REGISTRY =
-		IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	modifier isOwner(address _tenant) {
@@ -38,17 +35,14 @@ contract StakeRewardsFactory is CloneFactory {
 
 	modifier isAllowedToCreateInstance(address _tenant) {
 		require(
-			msg.sender == _tenant || msg.sender == hyperverseAdmin ,
+			msg.sender == _tenant || msg.sender == hyperverseAdmin,
 			'Please use a valid address to create an instance'
 		);
 		_;
 	}
 
 	modifier hasAnInstance(address _tenant) {
-		require(
-			instance[_tenant] == false,
-			'The tenant already has an instance'
-		);
+		require(instance[_tenant] == false, 'The tenant already has an instance');
 		_;
 	}
 
@@ -63,25 +57,24 @@ contract StakeRewardsFactory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	function createInstance(
-		address _tenant,
-		address _stakingToken,
-		address _rewardsToken,
-		uint256 _rewardRate
+		string memory _name,
+		string memory _symbol,
+		address[] memory _defaultOperators,
+		uint256 _initialSupply,
+		address _tenant
 	) external hasAnInstance(_tenant) isAllowedToCreateInstance(_tenant) {
-		StakeRewardsToken stakeInstance = StakeRewardsToken(createClone(masterContract));
-
+		ERC777 token = ERC777(createClone(masterContract));
 		//initializing tenant state of clone
-		stakeInstance.init(_tenant, _stakingToken, _rewardsToken, _rewardRate);
+		token.init(_name, _symbol, _defaultOperators, _initialSupply, msg.sender);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
-		newTenant.stakeRewards = stakeInstance;
+		newTenant.erc777 = token;
 		newTenant.owner = _tenant;
 		instance[_tenant] = true;
 	}
 
-	function getProxy(address _owner) public view returns (StakeRewardsToken) {
-		return tenants[_owner].stakeRewards;
+	function getProxy(address _tenant) public view returns (ERC777) {
+		return tenants[_tenant].erc777;
 	}
-
 }

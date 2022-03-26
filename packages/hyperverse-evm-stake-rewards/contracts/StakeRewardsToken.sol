@@ -2,9 +2,9 @@
 pragma solidity ^0.8.0;
 
 //TO DO: switch this to our ERC777
-import '@openzeppelin/contracts/token/ERC777/ERC777.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import './hyperverse/IHyperverseModule.sol';
+import './erc777/ERC777.sol';
 
 contract StakeRewardsToken is IHyperverseModule {
 	using SafeMath for uint256;
@@ -43,7 +43,7 @@ contract StakeRewardsToken is IHyperverseModule {
 	}
 
 	modifier hasRewardBalance(address _account) {
-		require(rewards[_account] > 0, "Insufficient balance");
+		require(rewards[_account] > 0, "Insufficient Reward balance");
 		_;
 	}
 
@@ -72,12 +72,6 @@ contract StakeRewardsToken is IHyperverseModule {
 	) external {
 		require(tenantOwner == address(0), "Contract is already initialized");
 		tenantOwner = _tenant;
-
-		// TO DO: we need to check that the contract they sent in is registered in the ERC1820 registry
-		// NEEDS TO BE CHECKED: 
-		// since in the ERC777 module, we are also registering the ERC20 instance in the ERC1820 registry
-		// https://github.com/decentology/hyperverse-mono/blob/7f386f95de2b472ccf00a3cf799a124b8fd0c47e/packages/hyperverse-evm-erc777/contracts/ERC777.sol#L100
-		// does our staking and rewards token need to be an erc777 or can we keep it as erc20? 
 		stakingToken = ERC777(_stakingToken);
 		rewardsToken = ERC777(_rewardsToken);
 		rewardRate = _rewardRate;
@@ -114,18 +108,18 @@ contract StakeRewardsToken is IHyperverseModule {
 	function stake(uint256 _amount) external updateReward(msg.sender) {
 		_totalSupply = _totalSupply.add(_amount);
 		_balances[msg.sender] = _balances[msg.sender].add(_amount);
-		stakingToken.transferFrom(msg.sender, address(this), _amount);
+		stakingToken.operatorSend(msg.sender, address(this), _amount, '', '');
 	}
 
 	function withdraw(uint256 _amount) external hasStakeBalance(msg.sender, _amount) updateReward(msg.sender) {
 		_totalSupply = _totalSupply.sub(_amount);
 		_balances[msg.sender] = _balances[msg.sender].sub(_amount);
-		stakingToken.transfer(msg.sender, _amount);
+		stakingToken.send(msg.sender, _amount, '');
 	}
 
-	function getReward() external hasRewardBalance(msg.sender)  updateReward(msg.sender) {
+	function getReward() external  updateReward(msg.sender) hasRewardBalance(msg.sender)  {
 		uint256 reward = rewards[msg.sender];
 		rewards[msg.sender] = 0;
-		rewardsToken.transfer(msg.sender, reward);
+		rewardsToken.operatorSend(tenantOwner, msg.sender, reward, '', '');
 	}
 }
