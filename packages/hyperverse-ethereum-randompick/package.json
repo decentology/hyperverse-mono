@@ -1,6 +1,11 @@
 {
 	"name": "@decentology/hyperverse-ethereum-randompick",
 	"version": "1.0.12",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"module": "./distribution/index.es.js",

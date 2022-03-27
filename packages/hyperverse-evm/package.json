@@ -1,6 +1,11 @@
 {
 	"name": "@decentology/hyperverse-evm",
 	"version": "1.0.10",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"source": "./source/index.ts",
 	"module": "./distribution/index.es.js",
 	"main": "./distribution/index.js",
