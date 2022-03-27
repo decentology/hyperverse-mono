@@ -4,25 +4,9 @@ import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill';
 import polyfillNode from 'rollup-plugin-polyfill-node';
 import * as React from 'react';
 export default defineConfig({
-	plugins: [
-		polyfillNode(),
-		react(),
-	],
-	build: {
-		commonjsOptions: {
-			include: [/@decentology/,],
-		},
-	},
+	plugins: [polyfillNode(), react()],
 	optimizeDeps: {
-		// entries: ['../../../packages/**/*'],
-		include: [
-			// '@decentology/hyperverse',
-			// '@decentology/hyperverse-ethereum',
-			// '@decentology/hyperverse-ethereum-randompick',
-			// '@decentology/unstated-next',
-			// '@decentology/hyperverse-evm',
-		],
-		// exclude: ['react', 'react-dom'],
+		include: [],
 		esbuildOptions: {
 			define: {
 				global: 'globalThis',
@@ -37,13 +21,12 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'react/jsx-runtime': 'react/jsx-runtime.js',
-			React: 'react',
 		},
 	},
 	define: {
-		process : {
-			env: {}
+		process: {
+			env: {},
 		},
-		React: React
-	}
+		React: React,
+	},
 });
