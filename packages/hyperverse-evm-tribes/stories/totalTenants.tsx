@@ -11,7 +11,7 @@ export const GetTotalTenants = ({ ...props }) => {
 
 	return (
 			<div className="totalTenants">
-				Total Tenants: <b>{TotalTenants}</b>
+				Total Tenants: <b>{totalTenants}</b>
 			</div>
 	);
 };
