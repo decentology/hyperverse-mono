@@ -68,6 +68,8 @@ contract StakeRewardsFactory is CloneFactory {
 		address _rewardsToken,
 		uint256 _rewardRate
 	) external hasAnInstance(_tenant) isAllowedToCreateInstance(_tenant) {
+		require( _ERC1820_REGISTRY.getInterfaceImplementer(_stakingToken,keccak256('ERC777Token')) != address(0), 'The staking token is not an ERC777Token' );
+			require( _ERC1820_REGISTRY.getInterfaceImplementer(_rewardsToken,keccak256('ERC777Token')) != address(0), 'The reward token is not an ERC777Token' );
 		StakeRewardsToken stakeInstance = StakeRewardsToken(createClone(masterContract));
 
 		//initializing tenant state of clone
