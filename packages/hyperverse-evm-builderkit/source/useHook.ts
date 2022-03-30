@@ -1,15 +1,15 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation, UseMutationOptions } from 'react-query';
-import { ethers } from 'ethers';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { constants, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEnvironment } from './environment';
+import { useEvm } from '@decentology/hyperverse-evm';
 
 type ContractState = ethers.Contract;
 
 function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, web3Provider, provider } = useEthereum();
+	const { address, web3Provider, provider } = useEvm();
 	const { factoryAddress, FactoryABI, ContractABI } = useEnvironment();
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
 		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
@@ -22,7 +22,15 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	useEffect(() => {
 		const fetchContract = async () => {
-			const proxyAddress = await factoryContract.getProxy(tenantId);
+			let proxyAddress;
+			try {
+				proxyAddress = await factoryContract.getProxy(tenantId);
+			} catch (error) {
+				throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
+			}
+			if (proxyAddress == constants.AddressZero) {
+				return;
+			}
 			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, provider);
 			const accountSigner = await signer;
 			if (accountSigner) {

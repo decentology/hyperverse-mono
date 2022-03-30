@@ -7,16 +7,14 @@ const path = require('path');
 hardhat.hardhatArguments.network = 'localhost';
 const node = hardhat.run('node');
 
-waitOn({ resources: [hardhat.config.networks['localhost'].url] }).then(() => {
+waitOn({ resources: [hardhat.config.networks['localhost'].url] }).then(deploy);
+watch(path.join(__dirname, '../contracts'), { recursive: true }, deploy);
+
+function deploy() {
 	hardhat.run('run', {
 		script: join(__dirname, '../scripts/deploy.js'),
 	});
-});
-watch(path.join(__dirname, '../contracts'), { recursive: true }, () => {
-	hardhat.run('run', {
-		script: join(__dirname, '../scripts/deploy.js'),
-	});
-});
+}
 
 module.exports = (router) => {
 	router.use(

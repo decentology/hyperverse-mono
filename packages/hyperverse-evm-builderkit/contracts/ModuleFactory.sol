@@ -7,7 +7,7 @@ import './hyperverse/IHyperverseModule.sol';
 import './Module.sol';
 
 /**
- * @dev Clone Factory Implementation for ERC20 Token
+ * @dev Clone Factory Implementation for ERC20 Token.
  */
 
 contract ModuleFactory is CloneFactory {

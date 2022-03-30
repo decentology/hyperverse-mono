@@ -1,6 +1,9 @@
 import { HyperverseProvider } from './utils/Provider';
-
-const Button = () => <button>Sample</button>
+import { useModule } from '../source';
+const Button = () => {
+	const {factoryContract } = useModule();
+	return <button>{ factoryContract.address}</button>;
+}
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
