@@ -353,7 +353,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 			isOperatorFor(_msgSender(), sender),
 			'ERC777: caller is not an operator for holder'
 		);
-		_send(sender, recipient, amount, data, operatorData, false);
+		_send(sender, recipient, amount, data, operatorData, true);
 	}
 
 	/**
