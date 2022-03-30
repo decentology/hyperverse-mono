@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import { initialize, Provider } from '@decentology/hyperverse';
 import { Network } from '@decentology/hyperverse';
 import { Metis } from '@decentology/hyperverse-metis';
-import * as Tribes from '@decentology/hyperverse-metis-tribes';
+import * as Tribes from '@decentology/hyperverse-evm-tribes';
 import InnerComponent from '../components/InnerComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

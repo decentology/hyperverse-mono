@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Loader from '../components/Loader';
-import { useTribes } from '@decentology/hyperverse-metis-tribes';
+import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import { useMetis } from '@decentology/hyperverse-metis';
 import { toast } from 'react-toastify';
 
