@@ -8,8 +8,8 @@
   },
   "metis": {
     "testnet": {
-      "contractAddress": "0x17f32a93376C24b4EFdAaeA72a1173606e7A2d1C",
-      "factoryAddress": "0x995d701c0CaAeDA88DBF21727202F3a61AF01177"
+      "contractAddress": "0x6d4bC836ec7478bB06A77dbEB8AbE783e8c21537",
+      "factoryAddress": "0xb0E8abAB7F986Af846C85AB7d327E67fA96f4609"
     },
     "mainnet": {}
   },

@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		modules: [
 			{
 				bundle: Tribes,
-				tenantId: '0x8f8B8BE836fbe857c65E892dBb261F249f9b0adb',
+				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
 			},
 		],
 	});
