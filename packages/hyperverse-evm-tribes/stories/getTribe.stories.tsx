@@ -1,46 +1,26 @@
-import React from 'react';
-import { initialize, Network, Provider } from '@decentology/hyperverse';
 import { GetTribe } from './getTribe';
-import { Ethereum, Evm } from '@decentology/hyperverse-evm';
-import * as Tribes from '../source';
+import { HyperverseProvider } from './utils/Provider';
+import React from 'react';
+import { Doc } from '../docs/gettribe.mdx';
 
-const hyperverse = initialize({
-	blockchain: Ethereum,
-	network: Network.Testnet,
-	modules: [{ bundle: Tribes, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }],
-	options: {
-		disableProviderAutoInit: true
-	}
-});
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-	title: 'Example/GetTribe',
-	component: GetTribe
-	// More on argTypes: https://storybook.js.org/docs/react/api/argtypes
+	title: 'Components/GetTribe',
+	component: GetTribe,
+	parameters: {
+		docs: {
+			page: Doc,
+		},
+	},
 };
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template = args => (
-	<Provider initialState={hyperverse}>
-		<Evm.Provider
-			initialState={{
-				networks: {
-					testnet: {
-						networkUrl: 'http://localhost:6006/hyperchain',
-						chainId: 4,
-						type: Network.Testnet,
-						name: 'localhost'
-					}
-				}
-			}}
-		>
-			<GetTribe {...args} />
-		</Evm.Provider>
-	</Provider>
+const Template = (args) => (
+	<HyperverseProvider>
+		<GetTribe {...args} />
+	</HyperverseProvider>
 );
 
-export const Account = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Account.args = {
-    id: null
+export const Demo = Template.bind({});
+
+Demo.args = {
+	id: 1,
 };

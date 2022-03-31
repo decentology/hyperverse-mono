@@ -1,5 +1,4 @@
 import * as PropTypes from 'prop-types';
-import './button.css';
 import { useTribes } from '../source';
 
 /**

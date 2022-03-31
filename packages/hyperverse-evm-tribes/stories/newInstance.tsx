@@ -6,7 +6,7 @@ import { useEvm } from '@decentology/hyperverse-evm/source';
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ ...props }) => {
+export const NewInstance = ({ ...props }) => {
 	const { NewInstance } = useTribes();
 	const { address, connect } = useEvm();
 	const { mutate } = NewInstance();
@@ -30,7 +30,7 @@ export const Button = ({ ...props }) => {
 	);
 };
 
-Button.propTypes = {
+NewInstance.propTypes = {
 	/**
 	 * Is this the principal call to action on the page?
 	 */
@@ -40,4 +40,4 @@ Button.propTypes = {
 	 */
 };
 
-Button.defaultProps = {};
+NewInstance.defaultProps = {};

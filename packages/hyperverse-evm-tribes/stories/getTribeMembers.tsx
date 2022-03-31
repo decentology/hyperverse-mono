@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
 
-/**
- * Primary UI component for user interaction
- */
 export const GetTribeMembers = ({ ...props }) => {
 	const { TribeMembers } = useTribes();
-	const { address, connect } = useEvm();
-	const { data } = TribeMembers();
+	const { data: tribeMembers } = TribeMembers(1);
+	console.log('Tribe Members:', tribeMembers);
 
 	return (
 		<div className="tribeMembers">
-			Tribe Members: <b>{data}</b>
+			Tribe Members: <b>{tribeMembers}</b>
 		</div>
 	);
 };

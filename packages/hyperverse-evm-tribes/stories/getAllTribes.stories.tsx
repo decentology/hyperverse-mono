@@ -1,11 +1,11 @@
-import { GetTotalTenants } from './totalTenants';
+import { GetAllTribes } from './getAllTribes';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/totalTenants.mdx';
+import { Doc } from '../docs/getalltribes.mdx';
 
 export default {
-	title: 'Components/GetTotalTenants',
-	component: GetTotalTenants,
+	title: 'Components/GetAllTribes',
+	component: GetAllTribes,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,7 +15,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetTotalTenants {...args} />
+		<GetAllTribes {...args} />
 	</HyperverseProvider>
 );
 

@@ -36,6 +36,7 @@
     "@decentology/hyperverse-storage-skynet": "^1.0.9",
     "@decentology/unstated-next": "^1.1.3",
     "@openzeppelin/contracts": "^4.4.2",
+    "@storybook/addon-docs": "^6.4.19",
     "dotenv": "^16.0.0",
     "esbuild": "^0.14.27",
     "ethers": "^5.5.3",

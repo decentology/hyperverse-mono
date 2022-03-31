@@ -1,11 +1,11 @@
-import { GetTotalTenants } from './totalTenants';
+import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/totalTenants.mdx';
+import { Doc } from '../docs/newInstance.mdx';
 
 export default {
-	title: 'Components/GetTotalTenants',
-	component: GetTotalTenants,
+	title: 'Components/NewInstance',
+	component: NewInstance,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,10 +15,12 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetTotalTenants {...args} />
+		<NewInstance {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
-Demo.args = {};
+Demo.args = {
+	account: null,
+};
