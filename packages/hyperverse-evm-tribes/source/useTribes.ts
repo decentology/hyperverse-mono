@@ -6,21 +6,17 @@ import { useStorage } from '@decentology/hyperverse-storage-skynet';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEnvironment } from './environment';
+import { MetaData } from './types';
 
 type ContractState = ethers.Contract;
 
-type MetaData = {
-	name: string;
-	description: string;
-	image: string;
-};
+
 
 function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const queryClient = useQueryClient();
 	const { address, web3Provider, provider } = useEvm();
-	const { clientUrl } = useStorage();
-	const { uploadFile } = useStorage();
+	const { clientUrl, uploadFile } = useStorage();
 	const { ContractABI, FactoryABI, factoryAddress } = useEnvironment();
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
 		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
