@@ -26,7 +26,7 @@ if (typeof window !== 'undefined') {
 }
 
 type State = {
-	readOnlyProvider: any | null;
+	readOnlyProvider: ethers.providers.JsonRpcProvider;
 	connectedProvider: providers.Web3Provider | null;
 	address: string | null;
 	ens: string | null;

@@ -1,6 +1,6 @@
 import { HyperverseBlockchain, NetworkConfig, Blockchain } from '@decentology/hyperverse';
 import { getProvider } from '@decentology/hyperverse-evm';
-import { constants, Contract, ethers } from 'ethers';
+import { constants, Contract, ethers, VoidSigner } from 'ethers';
 import { getEnvironment } from '../environment';
 import { MetaData, Storage } from '../types';
 
@@ -9,24 +9,25 @@ export class TribesLibrary {
 	proxyContract: Contract | null = null;
 	storage: Storage;
 	constructor({
-		provider,
+		providerOrSigner,
 		blockchainName,
 		network,
 		storage,
 		tenantId,
 	}: {
-		provider: ethers.providers.Provider;
+		providerOrSigner: ethers.providers.Provider | ethers.Signer;
 		blockchainName: Blockchain;
 		network: NetworkConfig;
 		storage: Storage;
 		tenantId: string;
-		}) {
+	}) {
+
 		const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(blockchainName, network);
 
 		this.factoryContract = new ethers.Contract(
 			factoryAddress!,
 			FactoryABI,
-			provider
+			providerOrSigner
 		) as Contract;
 		this.storage = storage;
 
@@ -39,12 +40,15 @@ export class TribesLibrary {
 		if (proxyAddress == constants.AddressZero) {
 			return;
 		}
-		this.proxyContract = new ethers.Contract(proxyAddress, ContractABI, provider) as Contract;
+		this.proxyContract = new ethers.Contract(proxyAddress, ContractABI, providerOrSigner) as Contract;
 	}
 
-	connectSigner = async (signer: ethers.Signer) => {
-		this.factoryContract = this.factoryContract.connect(signer);
-	};
+	// disconnectSigner = () => {
+	// 	this.factoryContract = this.factoryContract.connect(new VoidSigner(constants.AddressZero));
+	// 	if (this.proxyContract) {
+	// 		this.proxyContract = this.proxyContract.connect(new VoidSigner(constants.AddressZero));
+	// 	}
+	// }
 
 	checkInstance = async (account: any) => {
 		try {
@@ -55,6 +59,7 @@ export class TribesLibrary {
 			throw err;
 		}
 	};
+
 	createInstance = async (account: string) => {
 		try {
 			const createTxn = await this.factoryContract.createInstance(account);
@@ -134,6 +139,7 @@ export class TribesLibrary {
 	};
 
 	joinTribe = async (id: number) => {
+		debugger;
 		try {
 			const joinTxn = await this.proxyContract?.joinTribe(id);
 			return joinTxn.wait();
