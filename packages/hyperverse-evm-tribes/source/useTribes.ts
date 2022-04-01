@@ -7,25 +7,38 @@ import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEnvironment } from './environment';
 import { MetaData } from './types';
+import { TribesLibrary } from './lib/TribesLibrary';
+import { useHyperverse } from '@decentology/hyperverse';
 
 type ContractState = ethers.Contract;
-
-
 
 function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const queryClient = useQueryClient();
-	const { address, web3Provider, provider } = useEvm();
+	const { address, connectedProvider, readOnlyProvider } = useEvm();
+	const { blockchain, network } = useHyperverse();
 	const { clientUrl, uploadFile } = useStorage();
 	const { ContractABI, FactoryABI, factoryAddress } = useEnvironment();
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
-		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
+		new ethers.Contract(factoryAddress!, FactoryABI, readOnlyProvider) as ContractState
 	);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
+	const [tribesLibrary, setTribesLibrary] = useState<TribesLibrary>(
+		new TribesLibrary({
+			provider: readOnlyProvider,
+			blockchainName: blockchain?.name!,
+			network: network,
+			tenantId: tenantId,
+			storage: {
+				clientUrl,
+				uploadFile,
+			},
+		})
+	);
 
 	const signer = useMemo(async () => {
-		return web3Provider?.getSigner();
-	}, [web3Provider]);
+		return connectedProvider?.getSigner();
+	}, [connectedProvider]);
 
 	useEffect(() => {
 		const fetchContract = async () => {
@@ -38,7 +51,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 			if (proxyAddress == constants.AddressZero) {
 				return;
 			}
-			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, provider);
+			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, readOnlyProvider);
 			const accountSigner = await signer;
 			if (accountSigner) {
 				setProxyContract(proxyCtr.connect(accountSigner));
@@ -48,11 +61,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		};
 		try {
 			fetchContract();
-			
 		} catch (error) {
 			console.error('Failing to get proxy', error);
 		}
-	}, [factoryContract, tenantId, provider, signer]);
+	}, [factoryContract, tenantId, readOnlyProvider, signer]);
 
 	const setup = useCallback(async () => {
 		const accountSigner = await signer;
@@ -64,184 +76,11 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [signer]);
 
-	const formatTribeResultFromTribeId = useCallback(
-		async (tribeId: number) => {
-			const txn = await proxyContract?.getTribeData(tribeId);
-			const link = txn.replace('sia:', '');
-			const json = JSON.parse(
-				// eslint-disable-next-line no-await-in-loop
-				await (await fetch(`${clientUrl}/${link}`)).text()
-			);
-
-			json.id = tribeId;
-			json.imageUrl = `${clientUrl}/${json.image.replace('sia:', '')}`;
-			return json;
-		},
-		[proxyContract?.signer]
-	);
-
-	const factoryErrors = useCallback(
-		(err: any) => {
-			if (!factoryContract?.signer) {
-				throw new Error('Please connect your wallet!');
-			}
-
-			if (err.code === 4001) {
-				throw new Error('You rejected the transaction!');
-			}
-
-			throw err;
-		},
-		[factoryContract?.signer]
-	);
-
 	useEffect(() => {
-		if (web3Provider) {
+		if (connectedProvider) {
 			setup();
 		}
-	}, [web3Provider]);
-
-	const checkInstance = async (account: any) => {
-		try {
-			const instance = await factoryContract.instance(account);
-			return instance;
-		} catch (err) {
-			factoryErrors(err);
-			throw err;
-		}
-	};
-
-	const createInstance = useCallback(
-		async (account: string) => {
-			try {
-				const createTxn = await factoryContract.createInstance(account);
-				return createTxn.wait();
-			} catch (err) {
-				factoryErrors(err);
-				throw err;
-			}
-		},
-		[factoryContract?.signer]
-	);
-
-	const getTotalTenants = async () => {
-		try {
-			const tenantCount = await factoryContract.tenantCounter();
-
-			return tenantCount.toNumber();
-		} catch (err) {
-			factoryErrors(err);
-			throw err;
-		}
-	};
-
-	const addTribe = useCallback(
-		async (metadata: Omit<MetaData, 'image'>, image: File) => {
-			try {
-				// TODO: Add progress indicator notices for steps
-				// 1. Upload file notification
-				// 2. Upload metadata information
-				// 3. Success notification
-
-				const { skylink: imageLink } = await uploadFile(image);
-				const fullMetaData: MetaData = {
-					...metadata,
-					image: imageLink.replace('sia:', ''),
-				};
-				const metadataFile = new File([JSON.stringify(fullMetaData)], 'metadata.json');
-				const { skylink: metadataFileLink } = await uploadFile(metadataFile);
-
-				const addTxn = await proxyContract?.addNewTribe(
-					metadataFileLink.replace('sia:', '')
-				);
-				return addTxn.wait();
-			} catch (err) {
-				throw err;
-			}
-		},
-		[address, proxyContract?.signer]
-	);
-
-	const getTribeId = async (account: string) => {
-		try {
-			const id = await proxyContract?.getUserTribe(account);
-			return id.toNumber();
-		} catch (err) {
-			if (err instanceof Error) {
-				if (err.message.includes('This member is not in a Tribe!')) {
-					return null;
-				}
-			}
-		}
-	};
-
-	const getTribe = async (id: number) => {
-		try {
-			await proxyContract?.getTribeData(id);
-			return formatTribeResultFromTribeId(id);
-		} catch (err) {
-			throw err;
-		}
-	};
-
-	const leaveTribe = useCallback(async () => {
-		try {
-			const leaveTxn = await proxyContract?.leaveTribe();
-			await leaveTxn.wait();
-			return leaveTxn.hash;
-		} catch (err) {
-			throw err;
-		}
-	}, [address, proxyContract?.signer]);
-
-	const getAllTribes = useCallback(async () => {
-		try {
-			const tribeCount = await proxyContract?.tribeCounter();
-			const tribes = [];
-			for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
-				const json = await formatTribeResultFromTribeId(tribeId);
-				tribes.push(json);
-			}
-
-			return tribes;
-		} catch (err) {
-			throw err;
-		}
-	}, [address, proxyContract?.address]);
-
-	const joinTribe = useCallback(
-		async (id) => {
-			try {
-				const joinTxn = await proxyContract?.joinTribe(id);
-				return joinTxn.wait();
-			} catch (err) {
-				throw err;
-			}
-		},
-		[address, proxyContract?.signer]
-	);
-
-	const getTribeMembers = async (tribeId: number) => {
-		try {
-			const events = await proxyContract?.queryFilter(
-				proxyContract?.filters.JoinedTribe(),
-				0
-			);
-			const members = events
-				?.map((e) => {
-					if (e.args) {
-						return {
-							tribeId: e.args[0].toNumber(),
-							account: e.args[1],
-						};
-					}
-				})
-				.filter((e) => e?.tribeId === tribeId);
-			return members;
-		} catch (err) {
-			throw err;
-		}
-	};
+	}, [connectedProvider]);
 
 	const useTribeEvents = (eventName: string, callback: any) => {
 		return useEvent(eventName, useCallback(callback, [proxyContract]), proxyContract);
@@ -255,7 +94,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		CheckInstance: () =>
 			useQuery(
 				['checkInstance', address, factoryContract?.address],
-				() => checkInstance(address),
+				() => tribesLibrary.checkInstance(address),
 				{
 					enabled: !!address && !!factoryContract?.signer,
 				}
@@ -265,11 +104,15 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				UseMutationOptions<unknown, unknown, { account: string }, unknown>,
 				'mutationFn'
 			>
-		) => useMutation(({ account }) => createInstance(account), options),
+		) => useMutation(({ account }) => tribesLibrary.createInstance(account), options),
 		TotalTenants: () =>
-			useQuery(['totalTenants', factoryContract?.address], () => getTotalTenants(), {
-				enabled: !!factoryContract?.address,
-			}),
+			useQuery(
+				['totalTenants', factoryContract?.address],
+				() => tribesLibrary.getTotalTenants(),
+				{
+					enabled: !!factoryContract?.address,
+				}
+			),
 		AddTribe: (
 			options?: Omit<
 				UseMutationOptions<
@@ -280,18 +123,22 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				>,
 				'mutationFn'
 			>
-		) => useMutation((payload) => addTribe(payload.metadata, payload.image), options),
+		) =>
+			useMutation(
+				(payload) => tribesLibrary.addTribe(payload.metadata, payload.image),
+				options
+			),
 		Tribes: () =>
-			useQuery(['tribes', proxyContract?.address], () => getAllTribes(), {
+			useQuery(['tribes', proxyContract?.address], () => tribesLibrary.getAllTribes(), {
 				enabled: !!proxyContract?.address,
 			}),
 		Join: (
 			options?: Omit<UseMutationOptions<unknown, unknown, unknown, unknown>, 'mutationFn'>
-		) => useMutation((id) => joinTribe(id), options),
+		) => useMutation((id: number) => tribesLibrary.joinTribe(id), options),
 		Leave: (
 			options?: Omit<UseMutationOptions<unknown, unknown, void, unknown>, 'mutationFn'>
 		) =>
-			useMutation(() => leaveTribe(), {
+			useMutation(() => tribesLibrary.leaveTribe(), {
 				...options,
 				onSuccess: (...args) => {
 					queryClient.clear();
@@ -300,24 +147,32 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				},
 			}),
 		TribeId: () =>
-			useQuery(['getTribeId', address, proxyContract?.address], () => getTribeId(address!), {
-				enabled: !!address && !!proxyContract?.address,
-				retry: false,
-			}),
+			useQuery(
+				['getTribeId', address, proxyContract?.address],
+				() => tribesLibrary.getTribeId(address!),
+				{
+					enabled: !!address && !!proxyContract?.address,
+					retry: false,
+				}
+			),
 		Tribe: () => {
 			const { data: tribeId } = useQuery(
 				['getTribeId', address, proxyContract?.address],
-				() => getTribeId(address!),
+				() => tribesLibrary.getTribeId(address!),
 				{ enabled: !!address && !!proxyContract?.address }
 			);
-			return useQuery(['getTribeData', tribeId], () => getTribe(tribeId), {
+			return useQuery(['getTribeData', tribeId], () => tribesLibrary.getTribe(tribeId), {
 				enabled: !!tribeId,
 			});
 		},
 		TribeMembers: (tribeId: number) =>
-			useQuery(['getTribeMembers', proxyContract?.address], () => getTribeMembers(tribeId), {
-				enabled: !!proxyContract?.address && !!tribeId,
-			}),
+			useQuery(
+				['getTribeMembers', proxyContract?.address],
+				() => tribesLibrary.getTribeMembers(tribeId),
+				{
+					enabled: !!proxyContract?.address && !!tribeId,
+				}
+			),
 	};
 }
 

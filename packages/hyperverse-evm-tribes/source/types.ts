@@ -6,4 +6,5 @@ export type MetaData = {
 
 export type Storage = {
 	uploadFile: (image: File) => Promise<{skylink: string}>;
+	clientUrl: string
 }

@@ -1,21 +1,34 @@
-import { HyperverseBlockchain, NetworkConfig } from "@decentology/hyperverse";
-import { getProvider } from "@decentology/hyperverse-evm";
-import { constants, Contract, ethers } from "ethers";
-import { getEnvironment } from "../environment";
-import { MetaData, Storage } from "../types";
+import { HyperverseBlockchain, NetworkConfig, Blockchain } from '@decentology/hyperverse';
+import { getProvider } from '@decentology/hyperverse-evm';
+import { constants, Contract, ethers } from 'ethers';
+import { getEnvironment } from '../environment';
+import { MetaData, Storage } from '../types';
 
 export class TribesLibrary {
 	factoryContract: Contract;
 	proxyContract: Contract | null = null;
 	storage: Storage;
-	constructor(blockchain: HyperverseBlockchain<unknown>, network: NetworkConfig, storage: Storage, tenantId: string) {
-		const provider = getProvider(network.networkUrl!);
-		const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(blockchain, network);
+	constructor({
+		provider,
+		blockchainName,
+		network,
+		storage,
+		tenantId,
+	}: {
+		provider: ethers.providers.Provider;
+		blockchainName: Blockchain;
+		network: NetworkConfig;
+		storage: Storage;
+		tenantId: string;
+		}) {
+		const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(blockchainName, network);
 
-
-		this.factoryContract = new ethers.Contract(factoryAddress!, FactoryABI, provider) as Contract;
+		this.factoryContract = new ethers.Contract(
+			factoryAddress!,
+			FactoryABI,
+			provider
+		) as Contract;
 		this.storage = storage;
-
 
 		let proxyAddress;
 		try {
@@ -27,8 +40,11 @@ export class TribesLibrary {
 			return;
 		}
 		this.proxyContract = new ethers.Contract(proxyAddress, ContractABI, provider) as Contract;
-
 	}
+
+	connectSigner = async (signer: ethers.Signer) => {
+		this.factoryContract = this.factoryContract.connect(signer);
+	};
 
 	checkInstance = async (account: any) => {
 		try {
@@ -38,7 +54,16 @@ export class TribesLibrary {
 			this.factoryErrors(err);
 			throw err;
 		}
-	}
+	};
+	createInstance = async (account: string) => {
+		try {
+			const createTxn = await this.factoryContract.createInstance(account);
+			return createTxn.wait();
+		} catch (err) {
+			this.factoryErrors(err);
+			throw err;
+		}
+	};
 	getTribeId = async (account: string) => {
 		try {
 			const id = await this.proxyContract?.getUserTribe(account);
@@ -52,6 +77,15 @@ export class TribesLibrary {
 		}
 	};
 
+	getTribe = async (id: number) => {
+		try {
+			await this.proxyContract?.getTribeData(id);
+			return this.formatTribeResultFromTribeId(id);
+		} catch (err) {
+			throw err;
+		}
+	};
+
 	leaveTribe = async () => {
 		try {
 			const leaveTxn = await this.proxyContract?.leaveTribe();
@@ -60,7 +94,44 @@ export class TribesLibrary {
 		} catch (err) {
 			throw err;
 		}
-	}
+	};
+
+	getAllTribes = async () => {
+		try {
+			const tribeCount = await this.proxyContract?.tribeCounter();
+			const tribes = [];
+			for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
+				const json = await this.formatTribeResultFromTribeId(tribeId);
+				tribes.push(json);
+			}
+
+			return tribes;
+		} catch (err) {
+			throw err;
+		}
+	};
+
+	getTribeMembers = async (tribeId: number) => {
+		try {
+			const events = await this.proxyContract?.queryFilter(
+				this.proxyContract?.filters.JoinedTribe(),
+				0
+			);
+			const members = events
+				?.map((e) => {
+					if (e.args) {
+						return {
+							tribeId: e.args[0].toNumber(),
+							account: e.args[1],
+						};
+					}
+				})
+				.filter((e) => e?.tribeId === tribeId);
+			return members;
+		} catch (err) {
+			throw err;
+		}
+	};
 
 	joinTribe = async (id: number) => {
 		try {
@@ -69,8 +140,7 @@ export class TribesLibrary {
 		} catch (err) {
 			throw err;
 		}
-	}
-
+	};
 
 	getTotalTenants = async () => {
 		try {
@@ -83,42 +153,48 @@ export class TribesLibrary {
 		}
 	};
 
-	addTribe =
-		async (metadata: Omit<MetaData, 'image'>, image: File) => {
-			try {
-				const { skylink: imageLink } = await this.storage.uploadFile(image);
-				const fullMetaData: MetaData = {
-					...metadata,
-					image: imageLink
-				};
-				const metadataFile = new File([JSON.stringify(fullMetaData)], 'metadata.json');
-				const { skylink: metadataFileLink } = await this.storage.uploadFile(metadataFile);
+	addTribe = async (metadata: Omit<MetaData, 'image'>, image: File) => {
+		try {
+			const { skylink: imageLink } = await this.storage.uploadFile(image);
+			const fullMetaData: MetaData = {
+				...metadata,
+				image: imageLink,
+			};
+			const metadataFile = new File([JSON.stringify(fullMetaData)], 'metadata.json');
+			const { skylink: metadataFileLink } = await this.storage.uploadFile(metadataFile);
 
-				const addTxn = await this.proxyContract?.addNewTribe(
-					metadataFileLink
-				);
-				return addTxn.wait();
-			} catch (err) {
-				throw err;
-			}
+			const addTxn = await this.proxyContract?.addNewTribe(metadataFileLink);
+			return addTxn.wait();
+		} catch (err) {
+			throw err;
+		}
+	};
+
+	useTribeEvents = (eventName: string, callback: any) => {
+		// return useEvent(eventName, useCallback(callback, [proxyContract]), proxyContract);
+	};
+
+	private factoryErrors = (err: any) => {
+		if (!this.factoryContract?.signer) {
+			throw new Error('Please connect your wallet!');
 		}
 
-	private factoryErrors =
-		(err: any) => {
-			if (!this.factoryContract?.signer) {
-				throw new Error('Please connect your wallet!');
-			}
+		if (err.code === 4001) {
+			throw new Error('You rejected the transaction!');
+		}
 
-			if (err.code === 4001) {
-				throw new Error('You rejected the transaction!');
-			}
+		throw err;
+	};
+	private formatTribeResultFromTribeId = async (tribeId: number) => {
+		const txn = await this.proxyContract?.getTribeData(tribeId);
+		const link = txn.replace('sia:', '');
+		const json = JSON.parse(
+			// eslint-disable-next-line no-await-in-loop
+			await (await fetch(`${this.storage.clientUrl}/${link}`)).text()
+		);
 
-			throw err;
-		};
+		json.id = tribeId;
+		json.imageUrl = `${this.storage.clientUrl}/${json.image.replace('sia:', '')}`;
+		return json;
+	};
 }
-
-
-
-
-
-

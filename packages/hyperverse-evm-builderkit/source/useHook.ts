@@ -9,7 +9,7 @@ type ContractState = ethers.Contract;
 
 function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, web3Provider, provider } = useEvm();
+	const { address, connectedProvider: web3Provider, readOnlyProvider: provider } = useEvm();
 	const { factoryAddress, FactoryABI, ContractABI } = useEnvironment();
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
 		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
