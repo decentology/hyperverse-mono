@@ -14,7 +14,7 @@ function TokenState(initialState: { tenantId: string } = { tenantId: '' }) {
 		if (network.type === Network.Mainnet) {
 			// TODO: Deploy to Flow Mainnet.
 		} else if (network.type === Network.Testnet) {
-			fcl.config().put('0xToken', 'FILL THIS IN');
+			fcl.config().put('0xToken', '0x3f55c5f48f39b076');
 		}
 
 		const TokenAddress = await fcl.config().get('0xToken');
@@ -31,12 +31,11 @@ function TokenState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	return {
 		isInitialized,
-		// leaveTribe: actions.leaveTribe.bind(null, tenantId),
-		// getAllTribes: actions.getAllTribes.bind(null, tenantId),
-		// getCurrentTribe: actions.getCurrentTribe.bind(null, tenantId),
-		// joinTribe: actions.joinTribe.bind(null, tenantId),
-		// createTenant: actions.createTenant,
-		// addTribe: actions.addTribe,
+		transferToken: actions.transferToken.bind(null, tenantId),
+		setup: actions.setup,
+		mintToken: actions.mintToken,
+		getTotalSupply: actions.getTotalSupply.bind(null, tenantId),
+		getBalance: actions.getBalance.bind(null, tenantId)
 	};
 }
 

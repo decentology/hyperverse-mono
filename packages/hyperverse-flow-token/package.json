@@ -1,5 +1,5 @@
 {
-	"name": "@decentology/hyperverse-flow-ft",
+	"name": "@decentology/hyperverse-flow-token",
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",

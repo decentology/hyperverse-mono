@@ -1,6 +1,6 @@
 # macOS
 .DS_Store
-
+flow.json
 # Node
 node_modules
 distribution

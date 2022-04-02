@@ -1,7 +1,11 @@
 pub contract ExampleToken {
 
+    pub let VaultPublicPath: PublicPath
+    pub let VaultStoragePath: StoragePath
+    pub let MinterStoragePath: StoragePath
+
     /// Total supply of ExampleTokens in existence
-    pub var totalSupply: {Address: UFix64}
+    access(contract) var totalSupply: {Address: UFix64}
 
     /// TokensInitialized
     ///
@@ -75,6 +79,10 @@ pub contract ExampleToken {
         /// elsewhere.
         ///
         pub fun withdraw(_ tenant: Address, amount: UFix64): @TransferVault {
+            pre {
+                self.balances[tenant] != nil:
+                    "You do not own anything from this tenant."
+            }
             self.balances[tenant] = self.balances[tenant]! - amount
             emit TokensWithdrawn(tenant, amount: amount, from: self.owner?.address)
             return <-create TransferVault(tenant, _balance: amount)
@@ -91,7 +99,11 @@ pub contract ExampleToken {
         ///
         pub fun deposit(vault: @TransferVault) {
             let tenant = vault.tenant
-            self.balances[tenant] = self.balances[tenant]! + vault.balance
+            if self.balances[tenant] == nil {
+                self.balances[tenant] = vault.balance
+            } else {
+                self.balances[tenant] = self.balances[tenant]! + vault.balance
+            }
             emit TokensDeposited(tenant, amount: vault.balance, to: self.owner?.address)
             vault.reset()
             destroy vault
@@ -139,11 +151,6 @@ pub contract ExampleToken {
     ///
     pub resource Minter {
 
-        pub let tenant: Address
-
-        /// The amount of tokens that the minter is allowed to mint
-        pub var allowedAmount: UFix64
-
         /// mintTokens
         ///
         /// Function that mints new tokens, adds them to the total supply,
@@ -152,33 +159,32 @@ pub contract ExampleToken {
         pub fun mintTokens(amount: UFix64): @TransferVault {
             pre {
                 amount > 0.0: "Amount minted must be greater than zero"
-                amount <= self.allowedAmount: "Amount minted must be less than the allowed amount"
             }
-            ExampleToken.totalSupply[self.tenant] = ExampleToken.totalSupply[self.tenant]! + amount
-            self.allowedAmount = self.allowedAmount - amount
-            emit TokensMinted(self.tenant, amount: amount)
-            return <-create TransferVault(self.tenant, _balance: amount)
+            let tenant = self.owner!.address
+            if ExampleToken.totalSupply[tenant] == nil {
+                ExampleToken.totalSupply[tenant] = amount 
+            } else {
+                ExampleToken.totalSupply[tenant] = ExampleToken.totalSupply[tenant]! + amount
+            }
+            emit TokensMinted(tenant, amount: amount)
+            return <-create TransferVault(tenant, _balance: amount)
         }
 
-        init(_ tenant: Address, allowedAmount: UFix64) {
-            self.tenant = tenant
-            self.allowedAmount = allowedAmount
-        }
+    }
+
+    pub fun createMinter(): @Minter {
+        return <- create Minter()
+    }
+
+    pub fun getTotalSupply(_ tenant: Address): UFix64? {
+        return self.totalSupply[tenant]
     }
 
     init() {
         self.totalSupply = {}
-
-        let vault <- create Vault()
-        self.account.save(<-vault, to: /storage/exampleTokenVault)
-
-        self.account.link<&Vault{VaultPublic}>(
-            /public/exampleTokenPublic,
-            target: /storage/exampleTokenVault
-        )
-
-        let minter <- create Minter(self.account.address, allowedAmount: 1000.0)
-        self.account.save(<-minter, to: /storage/exampleTokenMinter)
+        self.VaultPublicPath = /public/ExampleTokenVault
+        self.VaultStoragePath = /storage/ExampleTokenVault
+        self.MinterStoragePath = /storage/ExampleTokenMinter
 
         emit TokensInitialized()
     }
