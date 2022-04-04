@@ -15,7 +15,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<NewInstance {...args} />
+		<NewInstance {...args} onClick={() => console.log('You created a new instance')}/>
 	</HyperverseProvider>
 );
 

@@ -16,12 +16,6 @@ export const GetTotalTenants = ({ ...props }) => {
 };
 
 GetTotalTenants.propTypes = {
-	/**
-	 * Is this the principal call to action on the page?
-	 */
-	/**
-	 * Optional click handler
-	 */
 };
 
 GetTotalTenants.defaultProps = {};
