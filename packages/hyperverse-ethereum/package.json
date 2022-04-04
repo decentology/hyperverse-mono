@@ -8,6 +8,7 @@
 	},
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
+	"main:src": "./source/index.ts",
 	"module": "./distribution/index.es.js",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",

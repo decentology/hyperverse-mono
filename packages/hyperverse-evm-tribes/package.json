@@ -5,6 +5,7 @@
   "types": "./distribution/index.d.ts",
   "module": "./distribution/index.es.js",
   "main": "./distribution/index.js",
+  "main:src": "./source/index.ts",
   "license": "MIT",
   "scripts": {
     "compile": "hardhat compile",

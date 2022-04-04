@@ -9,6 +9,7 @@
 	"source": "./source/index.ts",
 	"module": "./distribution/index.es.js",
 	"main": "./distribution/index.js",
+	"main:src": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
 	"scripts": {
