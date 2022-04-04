@@ -8,12 +8,12 @@ export default {
 	component: NewInstance,
 	parameters: {
 		docs: {
-			page: Doc,
-		},
-	},
+			page: Doc
+		}
+	}
 };
 
-const Template = (args) => (
+const Template = args => (
 	<HyperverseProvider>
 		<NewInstance {...args} />
 	</HyperverseProvider>
@@ -22,5 +22,6 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	account: null,
+	name: '',
+	symbol: ''
 };
