@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import { initialize, Provider } from '@decentology/hyperverse';
 import { Network } from '@decentology/hyperverse';
 import { Metis } from '@decentology/hyperverse-metis';
-import * as Tribes from '@decentology/hyperverse-metis-tribes';
+import * as Tribes from '@decentology/hyperverse-evm-tribes';
 import InnerComponent from '../components/InnerComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		modules: [
 			{
 				bundle: Tribes,
-				tenantId: '0x8f8B8BE836fbe857c65E892dBb261F249f9b0adb',
+				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
 			},
 		],
 	});

@@ -20,8 +20,6 @@ const ReadComponent = ({ hook, header, description, buttonText, isAddress }) => 
 	const [hidden, setHidden] = useState(false);
 	const [data, setData] = useState();
 
-	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
-
 	useEffect(() => {
 		if (flow.user && flow.user.loggedIn) {
 			fetchData();
