@@ -1,6 +1,4 @@
-import HyperverseModule from "./HyperverseModule.cdc"
-
-pub contract RandomPick {
+pub contract HelloWorld {
 
     pub let TenantStoragePath: StoragePath
 
@@ -8,7 +6,7 @@ pub contract RandomPick {
 
     pub resource Tenant {
         pub fun changeHello(newHello: String) {
-            self.hellos[self.owner!.address] = newHello
+            HelloWorld.hellos[self.owner!.address] = newHello
         }
     }
 
@@ -25,3 +23,4 @@ pub contract RandomPick {
         self.TenantStoragePath = /storage/HelloWorldTenant
     }
 }
+ 
