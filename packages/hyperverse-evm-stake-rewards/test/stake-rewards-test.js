@@ -107,7 +107,7 @@ describe('StakeRewards Testing', function () {
 
 	describe('Stake, Withdraw, and Collect Rewards', function () {
 		beforeEach(async function () {
-			await erc777SenderRecipientCtr.connect(bob).recipientFor(bob.address);
+			await erc777SenderRecipientCtr.recipientFor(bob.address);
 
 
 			// console.log(await ERC1820.getManager(bob.address), bob.address);
@@ -122,75 +122,75 @@ describe('StakeRewards Testing', function () {
 		});
 
 		describe('Staking', function () {
-			it("Bob staking 100 should yield a total supply of 100 on Alice's Tenant Instance", async function () {
+			it("Staking 100 should yield a total supply of 100 on Alice's Tenant Instance", async function () {
 				expect(await AliceStakeTenant.totalSupply()).to.equal(100);
 			});
 
-			// 	it("Bob's balance should be 100", async function () {
-			// 		expect(await AliceStakeTenant.balanceOf(bob.address)).to.equal(100);
-			// 	});
+				it("Bob's balance should be 100", async function () {
+					expect(await AliceStakeTenant.balanceOf(bob.address)).to.equal(100);
+				});
 
-			// 	it("RewardToken should yield an amount based on Bob's stake and an advance to the block time", async function () {
-			// 		const rewardPerTokenStored = await AliceStakeTenant.rewardPerTokenStored();
-			// 		const blockBefore = await ethers.provider.getBlock(
-			// 			await ethers.provider.getBlockNumber()
-			// 		);
-			// 		const lastUpdatedTime = await AliceStakeTenant.lastUpdatedTime();
-			// 		const totalSupply = await AliceStakeTenant.totalSupply();
+				it("RewardToken should yield an amount based on Bob's stake and an advance to the block time", async function () {
+					const rewardPerTokenStored = await AliceStakeTenant.rewardPerTokenStored();
+					const blockBefore = await ethers.provider.getBlock(
+						await ethers.provider.getBlockNumber()
+					);
+					const lastUpdatedTime = await AliceStakeTenant.lastUpdatedTime();
+					const totalSupply = await AliceStakeTenant.totalSupply();
 
-			// 		const expectedRewardPerToken = toBN(
-			// 			rewardPerTokenStored +
-			// 				((blockBefore.timestamp - lastUpdatedTime) * rewardRate * 1e18) /
-			// 					totalSupply
-			// 		);
+					const expectedRewardPerToken = toBN(
+						rewardPerTokenStored +
+							((blockBefore.timestamp - lastUpdatedTime) * rewardRate * 1e18) /
+								totalSupply
+					);
 
-			// 		expect(await AliceStakeTenant.rewardPerToken()).to.equal(expectedRewardPerToken);
-			// 	});
+					expect(await AliceStakeTenant.rewardPerToken()).to.equal(expectedRewardPerToken);
+				});
 
-			// 	it('Should return the right amount of rewards for Bob based on his stake and how long its been staked', async function () {
-			// 		const balance = await AliceStakeTenant.balanceOf(bob.address);
-			// 		const rewardPerToken = await AliceStakeTenant.rewardPerToken();
-			// 		const userRewardPaid = await AliceStakeTenant.userRewardPerTokenPaid(bob.address);
-			// 		const userReward = await AliceStakeTenant.rewards(bob.address);
+				it('Should return the right amount of rewards for Bob based on his stake and how long its been staked', async function () {
+					const balance = await AliceStakeTenant.balanceOf(bob.address);
+					const rewardPerToken = await AliceStakeTenant.rewardPerToken();
+					const userRewardPaid = await AliceStakeTenant.userRewardPerTokenPaid(bob.address);
+					const userReward = await AliceStakeTenant.rewards(bob.address);
 
-			// 		const expectedEarned =
-			// 			parseInt((balance * (rewardPerToken - userRewardPaid)) / 1e18) +
-			// 			parseInt(userReward);
+					const expectedEarned =
+						parseInt((balance * (rewardPerToken - userRewardPaid)) / 1e18) +
+						parseInt(userReward);
 
-			// 		expect(await AliceStakeTenant.earned(bob.address)).to.equal(expectedEarned);
-			// 	});
-			// });
+					expect(await AliceStakeTenant.earned(bob.address)).to.equal(expectedEarned);
+				});
+			});
 
-			// describe('Withdrawing', function () {
-			// 	beforeEach(async function () {
-			// 		await AliceStakeTenant.connect(bob).withdraw(50);
-			// 	});
+			describe('Withdrawing', function () {
+				beforeEach(async function () {
+					await AliceStakeTenant.connect(bob).withdraw(50);
+				});
 
-			// 	it("Bob's ERC20 balance should be 50", async function () {
-			// 		expect(await bob777.balanceOf(bob.address)).to.equal(initialSupply.sub(50));
-			// 	});
+				it("Bob's ERC20 balance should be 50", async function () {
+					expect(await bob777.balanceOf(bob.address)).to.equal(initialSupply.sub(50));
+				});
 
-			// 	it("Total Supply of Alice's Instance should decrease ", async function () {
-			// 		expect(await AliceStakeTenant.totalSupply()).to.equal(50);
-			// 	});
+				it("Total Supply of Alice's Instance should decrease ", async function () {
+					expect(await AliceStakeTenant.totalSupply()).to.equal(50);
+				});
 
-			// 	it("Should update Bob's recorded balance in Alice's Instance", async function () {
-			// 		expect(await AliceStakeTenant.balanceOf(bob.address)).to.equal(50);
-			// 	});
+				it("Should update Bob's recorded balance in Alice's Instance", async function () {
+					expect(await AliceStakeTenant.balanceOf(bob.address)).to.equal(50);
+				});
 		});
 
-		// describe('Collect Rewards', function () {
-		// 	beforeEach(async function () {
-		// 		await AliceStakeTenant.connect(bob).getReward();
-		// 	});
+		describe('Collect Rewards', function () {
+			beforeEach(async function () {
+				await AliceStakeTenant.connect(bob).getReward();
+			});
 
-		// 	it('Should be able to transfer rewards to Bob', async function () {
-		// 		expect(await alice777.balanceOf(bob.address)).to.equal(20);
-		// 	});
+			it('Should be able to transfer rewards to Bob', async function () {
+				expect(await alice777.balanceOf(bob.address)).to.equal(20);
+			});
 
-		// 	it("Should update Bob's reward in Alice's Instance to 0", async function () {
-		// 		expect(await AliceStakeTenant.rewards(bob.address)).to.equal(0);
-		// 	});
-		// });
+			it("Should update Bob's reward in Alice's Instance to 0", async function () {
+				expect(await AliceStakeTenant.rewards(bob.address)).to.equal(0);
+			});
+		});
 	});
 });

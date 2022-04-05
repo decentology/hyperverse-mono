@@ -1,12 +1,13 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-//TO DO: switch this to our ERC777
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import './hyperverse/IHyperverseModule.sol';
 import './erc777/ERC777.sol';
+import './erc777/interfaces/IERC777Recipient.sol';
+import './interfaces/IERC1820Registry.sol';
 
-contract StakeRewardsToken is IHyperverseModule {
+contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 	using SafeMath for uint256;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -26,6 +27,9 @@ contract StakeRewardsToken is IHyperverseModule {
 	address immutable owner;
 	address private tenantOwner;
 
+	IERC1820Registry internal constant _ERC1820_REGISTRY =
+		IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	modifier updateReward(address _account) {
@@ -38,17 +42,25 @@ contract StakeRewardsToken is IHyperverseModule {
 	}
 
 	modifier hasStakeBalance(address _account, uint256 _amount) {
-		require(_balances[_account] >= _amount || _balances[_account] > 0, "Insufficient balance");
+		require(_balances[_account] >= _amount || _balances[_account] > 0, 'Insufficient balance');
 		_;
 	}
 
 	modifier hasRewardBalance(address _account) {
-		require(rewards[_account] > 0, "Insufficient Reward balance");
+		require(rewards[_account] > 0, 'Insufficient Reward balance');
 		_;
 	}
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
+	event TokensRecieved (
+		address indexed _operator,
+		address indexed _from,
+		address indexed _to,
+		uint256 _amount,
+		bytes _userData,
+		bytes _operatorData
+	);
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	constructor(address _owner) {
@@ -70,11 +82,17 @@ contract StakeRewardsToken is IHyperverseModule {
 		address _rewardsToken,
 		uint256 _rewardRate
 	) external {
-		require(tenantOwner == address(0), "Contract is already initialized");
+		require(tenantOwner == address(0), 'Contract is already initialized');
 		tenantOwner = _tenant;
 		stakingToken = ERC777(_stakingToken);
 		rewardsToken = ERC777(_rewardsToken);
 		rewardRate = _rewardRate;
+
+		_ERC1820_REGISTRY.setInterfaceImplementer(
+			address(this),
+			keccak256('ERC777TokensRecipient'),
+			address(this)
+		);
 	}
 
 	function totalSupply() external view returns (uint256) {
@@ -111,15 +129,30 @@ contract StakeRewardsToken is IHyperverseModule {
 		stakingToken.operatorSend(msg.sender, address(this), _amount, '', '');
 	}
 
-	function withdraw(uint256 _amount) external hasStakeBalance(msg.sender, _amount) updateReward(msg.sender) {
+	function withdraw(uint256 _amount)
+		external
+		hasStakeBalance(msg.sender, _amount)
+		updateReward(msg.sender)
+	{
 		_totalSupply = _totalSupply.sub(_amount);
 		_balances[msg.sender] = _balances[msg.sender].sub(_amount);
 		stakingToken.send(msg.sender, _amount, '');
 	}
 
-	function getReward() external  updateReward(msg.sender) hasRewardBalance(msg.sender)  {
+	function getReward() external updateReward(msg.sender) hasRewardBalance(msg.sender) {
 		uint256 reward = rewards[msg.sender];
 		rewards[msg.sender] = 0;
 		rewardsToken.operatorSend(tenantOwner, msg.sender, reward, '', '');
+	}
+
+	function tokensReceived(
+		address _operator,
+		address _from,
+		address _to,
+		uint256 _amount,
+		bytes calldata _userData,
+		bytes calldata _operatorData
+	) external override {
+		emit TokensRecieved(_operator, _from, _to, _amount, _userData, _operatorData);
 	}
 }

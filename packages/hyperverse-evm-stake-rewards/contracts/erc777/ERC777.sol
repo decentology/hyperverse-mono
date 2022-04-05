@@ -11,6 +11,7 @@ import '../interfaces/IERC1820Registry.sol';
 import '../hyperverse/IHyperverseModule.sol';
 import 'hardhat/console.sol';
 
+
 /**
  * @dev Implementation of the {IERC777} interface.
  *
@@ -310,7 +311,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	/**
 	 * @dev See {IERC777-authorizeOperator}.
 	 */
-	function authorizeOperator(address _operator) public virtual override  {
+	function authorizeOperator(address _operator) public virtual override isTenantOwner {
 		require(_msgSender() != _operator, 'ERC777: authorizing self as operator');
 
 		if (_defaultOperators[_operator]) {
@@ -325,7 +326,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	/**
 	 * @dev See {IERC777-revokeOperator}.
 	 */
-	function revokeOperator(address _operator) public virtual override  {
+	function revokeOperator(address _operator) public virtual override isTenantOwner {
 		require(_operator != _msgSender(), 'ERC777: revoking self as operator');
 
 		if (_defaultOperators[_operator]) {
