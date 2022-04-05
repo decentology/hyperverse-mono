@@ -21,7 +21,6 @@ export class TribesLibrary {
 		storage: Storage;
 		tenantId: string;
 	}) {
-
 		const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(blockchainName, network);
 
 		this.factoryContract = new ethers.Contract(
@@ -103,6 +102,7 @@ export class TribesLibrary {
 
 	getAllTribes = async () => {
 		try {
+			console.log('Got here', this.proxyContract);
 			const tribeCount = await this.proxyContract?.tribeCounter();
 			const tribes = [];
 			for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {

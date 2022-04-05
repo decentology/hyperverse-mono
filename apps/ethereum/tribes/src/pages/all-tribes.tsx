@@ -17,7 +17,7 @@ const AllTribes = () => {
 
 	const {
 		mutate,
-		isLoading: joinTribeLoading,
+		isLoading: joinTribeLoading,		
 		error,
 	} = Join({
 		onSuccess: () => router.push('/my-tribe'),

@@ -20,7 +20,21 @@
 		"resolveJsonModule": true,
 		"jsx": "react-jsx",
 		"noFallthroughCasesInSwitch": false,
-		"paths": {}
-	},
-	"exclude": ["node_modules","test"]
+		"paths": {
+			"@decentology/hyperverse": [
+				"../../../packages/hyperverse"
+			],
+
+			"@decentology/hyperverse-ethereum": [
+				"../../../packages/hyperverse-ethereum"
+			],
+
+			"@decentology/hyperverse-storage-skynet": [
+				"../../../packages/hyperverse-storage-skynet"
+			],
+			"@decentology/hyperverse-evm": [
+				"../../../packages/hyperverse-evm"
+			]
+		}
+	}
 }

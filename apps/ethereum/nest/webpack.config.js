@@ -1,9 +1,10 @@
-const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
 
 module.exports = function (options, webpack) {
+	
+	// console.log(JSON.stringify(new webpack.HotModuleReplacementPlugin(), null, 2));
 	const config = {
 		...options,
 		entry: ['webpack/hot/poll?100', options.entry],
@@ -21,13 +22,43 @@ module.exports = function (options, webpack) {
 			new RunScriptWebpackPlugin({ name: options.output.filename }),
 		],
 	};
-	console.log(path.join(__dirname, '../../../packages/hyperverse'));
+	config.module.rules.push(
+		{
+			test: /\.(png|svg|jpg|gif)$/,
+			use: [
+				{
+					loader: 'url-loader',
+					options: {
+						limit: 65535,
+						name: 'static/media/[name].[hash:8].[ext]'
+					}
+				}
+			]
+		}
+	)
 	config.module.rules[0].include = [
+		path.join(__dirname, './src'),
 		path.join(__dirname, '../../../packages/hyperverse'),
 		path.join(__dirname, '../../../packages/hyperverse-evm'),
 		path.join(__dirname, '../../../packages/hyperverse-evm-tribes'),
+		path.join(__dirname, '../../../packages/hyperverse-storage-skynet'),
+		path.join(__dirname, '../../../packages/unstated-next'),
+		path.join(__dirname, '../../../packages/web3modal'),
 	];
 
+	config.resolve.alias = {
+		...options.resolve.alias,
+		"@decentology/hyperverse": path.resolve(__dirname, "../../../packages/hyperverse"),
+		"@decentology/unstated-next": path.resolve(__dirname, "../../../packages/unstated-next"),
+		"@decentology/web3modal": path.resolve(__dirname, "../../../packages/web3modal"),
+	}
+
+	// config.module.rules[0].include = [
+	// 	path.join(__dirname, '../../../packages/hyperverse'),
+	// 	path.join(__dirname, '../../../packages/hyperverse-evm'),
+	// 	path.join(__dirname, '../../../packages/hyperverse-evm-tribes'),
+	// 	path.join(__dirname, '../../../packages/hyperverse-storage-skynet'),
+	// ];
 	return config;
 };
 
