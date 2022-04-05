@@ -9,8 +9,6 @@ import './utils/Address.sol';
 import './utils/Context.sol';
 import '../interfaces/IERC1820Registry.sol';
 import '../hyperverse/IHyperverseModule.sol';
-import 'hardhat/console.sol';
-
 
 /**
  * @dev Implementation of the {IERC777} interface.

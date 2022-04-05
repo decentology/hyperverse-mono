@@ -1,10 +1,7 @@
 const { expect } = require('chai');
 const { ethers,  } = require('hardhat');
-const Web3 = require('web3');
 const { advanceBlockTo, toBN } = require('./helpers');
 const { BigNumber } = require('ethers');
-const ERC1820Registry = require('../artifacts/contracts/erc777/mocks/ERC1820.sol/ERC1820Registry.json');
-const { keccak256 } = require('ethers/lib/utils');
 let unitMultiple = new BigNumber.from(10).pow(new BigNumber.from(18));
 let initialSupply = new BigNumber.from(1000000).mul(unitMultiple);
 
@@ -14,9 +11,6 @@ describe('StakeRewards Testing', function () {
 	let erc777ctr;
 	let TokenFactory;
 	let tokenFactoryCtr;
-	let ERC1820Ctr;
-	let ERC777SenderRecipient;
-	let erc777SenderRecipientCtr;
 	let alice777;
 	let bob777;
 
@@ -46,16 +40,6 @@ describe('StakeRewards Testing', function () {
 		TokenFactory = await ethers.getContractFactory('ERC777Factory');
 		tokenFactoryCtr = await TokenFactory.deploy(erc777ctr.address, owner.address);
 		await tokenFactoryCtr.deployed();
-
-		ERC777SenderRecipient = await ethers.getContractFactory('ERC777SenderRecipientMock');
-		erc777SenderRecipientCtr = await ERC777SenderRecipient.deploy();
-		await erc777SenderRecipientCtr.deployed();
-
-		ERC1820 = new ethers.Contract(
-			'0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24',
-			ERC1820Registry.abi,
-			alice
-		);
 
 		await tokenFactoryCtr
 			.connect(alice)
@@ -107,12 +91,6 @@ describe('StakeRewards Testing', function () {
 
 	describe('Stake, Withdraw, and Collect Rewards', function () {
 		beforeEach(async function () {
-			await erc777SenderRecipientCtr.recipientFor(bob.address);
-
-
-			// console.log(await ERC1820.getManager(bob.address), bob.address);
-			// await ERC1820.connect(bob).setInterfaceImplementer(bob.address, Web3.utils.soliditySha3('ERC777TokensRecipient'), erc777SenderRecipientCtr.address);
-			// await erc777SenderRecipientCtr.connect(bob).registerRecipient(bob.address);
 
 			//user step: allow the stake instance to be a default operator
 			await bob777.connect(bob).authorizeOperator(AliceStakeTenant.address);

@@ -35,8 +35,7 @@
 		"ethers": "^5.5.3",
 		"hardhat-erc1820": "^0.1.0",
 		"react-query": "^3.34.7",
-		"react-use": "^17.3.2",
-		"web3": "^1.7.1"
+		"react-use": "^17.3.2"
 	},
 	"devDependencies": {
 		"@decentology/config": "^1.0.1",
