@@ -8,7 +8,7 @@
 
 ### mintNFT
 
-<p> The `mintNFT` function takes in a ... </p>
+<p> The `mintNFT` function takes in a target address. </p>
 
 ```jsx
 	const mintNFT = async (to: string) => {
