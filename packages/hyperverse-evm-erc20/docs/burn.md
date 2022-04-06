@@ -1,6 +1,6 @@
 # Burn
 
-<p> The `burn` function from `useERC20` allows ... </p>
+<p> The `burn` function from `useERC20` allows a user to remove a token from circulation. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### burn
 
-<p> The `burn` function takes ... </p>
+<p> The `burn` function takes in an amount of tokens to remove. </p>
 
 ```jsx
 	const burn = async (amount: number) => {

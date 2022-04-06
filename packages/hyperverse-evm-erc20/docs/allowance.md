@@ -1,6 +1,6 @@
 # Allowance
 
-<p> The `allowance` function from `useERC20`... </p>
+<p> The `allowance` function from `useERC20` returns the amount a spender is allocated to utilize. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### allowance
 
-<p> The `allowance` function takes ... </p>
+<p> The `allowance` function takes in the owner and the spender. </p>
 
 ```jsx
 	const allowance = async (owner: string, spender: string) => {

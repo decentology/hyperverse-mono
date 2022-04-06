@@ -1,6 +1,6 @@
 # Transfer From
 
-<p> The `transferFrom` function from `useERC20` ... </p>
+<p> The `transferFrom` function from `useERC20` allows ... </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### transferFrom
 
-<p> The `transferFrom` function takes ... </p>
+<p> The `transferFrom` function takes in ... </p>
 
 ```jsx
 	const transferFrom = useCallback(

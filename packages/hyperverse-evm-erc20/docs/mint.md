@@ -1,6 +1,6 @@
 # Mint
 
-<p> The `mint` function from `useERC720` ... </p>
+<p> The `mint` function from `useERC720` allows a user to mint a new token. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### mint
 
-<p> The `mint` function takes ... </p>
+<p> The `mint` function takes an amount to represent the total supply. </p>
 
 ```jsx
 	const mint = async (amount: number) => {

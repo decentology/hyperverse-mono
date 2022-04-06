@@ -1,6 +1,6 @@
 # Approve
 
-<p> The `approve` function from `useERC20` allows ... </p>
+<p> The `approve` function from `useERC20` sets the amount the spender is allowed and indicates whether the transaction was successful. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### approve
 
-<p> The `approve` function takes ... </p>
+<p> The `approve` function takes in the spender and the amount allowed for the transaction. </p>
 
 ```jsx
 	const approve = useCallback(

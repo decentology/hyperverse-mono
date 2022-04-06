@@ -1,14 +1,12 @@
 # Get Balance
 
-<p> The `getBalance` function from `useERC721` ... </p>
+<p> The `getBalance` function from `useERC721` returns the available balance of the sender. </p>
 
 ---
 
 <br>
 
 ### getBalance
-
-<p> The `getBalance` function takes in a ... </p>
 
 ```jsx
 	const getBalance = async () => {
@@ -42,3 +40,4 @@
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)
+2121

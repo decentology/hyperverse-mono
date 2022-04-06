@@ -1,14 +1,12 @@
 # Get Token Name
 
-<p> The `getTokenName` function from `useERC20` allows ... </p>
+<p> The `getTokenName` function from `useERC20` returns the name of a token. </p>
 
 ---
 
 <br>
 
 ### getTokenName
-
-<p> The `getTokenName` function takes ... </p>
 
 ```jsx
 	const getTokenName = async () => {

@@ -1,6 +1,6 @@
 # Get Balance Of
 
-<p> The `getBalanceOf` function from `useERC721` ... </p>
+<p> The `getBalanceOf` function from `useERC721` returns the amount of tokens owned by another account. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### getBalanceOf
 
-<p> The `getBalanceOf` function takes in a ... </p>
+<p> The `getBalanceOf` function takes in an account the user wishes to check the balance of. </p>
 
 ```jsx
 	const getBalanceOf = async (account: string) => {

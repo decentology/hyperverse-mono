@@ -1,6 +1,6 @@
 # Get Owner Of
 
-<p> The `getOwnerOf` function from `useERC721` ... </p>
+<p> The `getOwnerOf` function from `useERC721` returns the address of a token ID owner. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### getOwnerOf
 
-<p> The `getOwnerOf` function takes in a ... </p>
+<p> The `getOwnerOf` function takes in a token ID. </p>
 
 ```jsx
 	const getOwnerOf = async (tokenId: number) => {

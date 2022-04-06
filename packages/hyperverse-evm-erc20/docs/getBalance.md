@@ -1,14 +1,12 @@
 # Get Balance
 
-<p> The `getBalance` function from `useERC20` allows ... </p>
+<p> The `getBalance` function from `useERC20` returns the available balance of the sender. </p>
 
 ---
 
 <br>
 
 ### getBalance
-
-<p> The `getBalance` function takes ... </p>
 
 ```jsx
 	const getBalance = async () => {

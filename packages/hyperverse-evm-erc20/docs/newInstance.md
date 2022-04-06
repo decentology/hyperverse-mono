@@ -1,6 +1,6 @@
-# New Instance
+# Create Instance
 
-<p> The `createInstance` function from `useERC20` allows ... </p>
+<p> The `createInstance` function from `useERC20` allows a user to connect their wallet where they can create a new instance. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### createInstance
 
-<p> The `createInstance` function takes ... </p>
+<p> The `createInstance` function takes in the account, the name of the token, the symbol representing that token, and it's value. </p>
 
 ```jsx
 	const createInstance = useCallback(

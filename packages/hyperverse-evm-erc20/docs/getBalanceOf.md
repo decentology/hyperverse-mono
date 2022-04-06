@@ -1,6 +1,6 @@
 # Get Balance Of
 
-<p> The `getBalanceOf` function from `useERC20` ... </p>
+<p> The `getBalanceOf` function from `useERC20` returns the amount of tokens owned by another account. </p>
 
 ---
 

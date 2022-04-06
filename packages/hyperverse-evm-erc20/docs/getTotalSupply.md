@@ -1,14 +1,12 @@
 # Get Total Supply
 
-<p> The `getTotalSupply` function from `useERC20` ... </p>
+<p> The `getTotalSupply` function from `useERC20` returns the number of tokens you have. </p>
 
 ---
 
 <br>
 
 ### getTotalSupply
-
-<p> The `getTotalSupply` function takes ... </p>
 
 ```jsx
 	const getTotalSupply = async () => {

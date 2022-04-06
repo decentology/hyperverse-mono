@@ -8,7 +8,7 @@
 
 ### transfer
 
-<p> The `transfer` function takes in a ... </p>
+<p> The `transfer` function takes in the address of the sender, the address of the recipient, and the token ID of the NFT being transferred. </p>
 
 ```jsx
 	const transfer = async (from: string, to: string, tokenId: number) => {

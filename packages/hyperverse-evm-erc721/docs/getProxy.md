@@ -8,7 +8,7 @@
 
 ### getProxy
 
-<p> The `getProxy` function takes in a ... </p>
+<p> The `getProxy` function takes in an account address. </p>
 
 ```jsx
 	const getProxy = async (account: string | null) => {

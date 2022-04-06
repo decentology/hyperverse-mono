@@ -1,14 +1,12 @@
 # Get Token Symbol
 
-<p> The `getTokenSymbol` function from `useERC20` ... </p>
+<p> The `getTokenSymbol` function from `useERC20` returns the symbol of a token. </p>
 
 ---
 
 <br>
 
 ### getTokenSymbol
-
-<p> The `getTokenSymbol` function takes ... </p>
 
 ```jsx
 	const getTokenSymbol = async () => {
