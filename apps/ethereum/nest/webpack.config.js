@@ -3,39 +3,35 @@ const nodeExternals = require('webpack-node-externals');
 const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
 
 module.exports = function (options, webpack) {
-	
-	// console.log(JSON.stringify(new webpack.HotModuleReplacementPlugin(), null, 2));
 	const config = {
 		...options,
-		entry: ['webpack/hot/poll?100', options.entry],
-		externals: [
-			nodeExternals({
-				allowlist: ['webpack/hot/poll?100'],
-			}),
-		],
+		// entry: ['webpack/hot/poll?100', options.entry],
+		// externals: [
+		// 	nodeExternals({
+		// 		allowlist: ['webpack/hot/poll?100'],
+		// 	}),
+		// ],
 		plugins: [
 			...options.plugins,
-			new webpack.HotModuleReplacementPlugin(),
-			new webpack.WatchIgnorePlugin({
-				paths: [/\.js$/, /\.d\.ts$/],
-			}),
-			new RunScriptWebpackPlugin({ name: options.output.filename }),
+			// new webpack.HotModuleReplacementPlugin(),
+			// new webpack.WatchIgnorePlugin({
+			// 	paths: [/\.js$/, /\.d\.ts$/],
+			// }),
+			// new RunScriptWebpackPlugin({ name: options.output.filename }),
 		],
 	};
-	config.module.rules.push(
-		{
-			test: /\.(png|svg|jpg|gif)$/,
-			use: [
-				{
-					loader: 'url-loader',
-					options: {
-						limit: 65535,
-						name: 'static/media/[name].[hash:8].[ext]'
-					}
-				}
-			]
-		}
-	)
+	config.module.rules.push({
+		test: /\.(png|svg|jpg|gif)$/,
+		use: [
+			{
+				loader: 'url-loader',
+				options: {
+					limit: 65535,
+					name: 'static/media/[name].[hash:8].[ext]',
+				},
+			},
+		],
+	});
 	config.module.rules[0].include = [
 		path.join(__dirname, './src'),
 		path.join(__dirname, '../../../packages/hyperverse'),
@@ -48,22 +44,29 @@ module.exports = function (options, webpack) {
 
 	config.resolve.alias = {
 		...options.resolve.alias,
-		"@decentology/hyperverse": path.resolve(__dirname, "../../../packages/hyperverse"),
-		"@decentology/unstated-next": path.resolve(__dirname, "../../../packages/unstated-next"),
-		"@decentology/web3modal": path.resolve(__dirname, "../../../packages/web3modal"),
+		'@decentology/hyperverse': path.resolve(
+			__dirname,
+			'../../../packages/hyperverse',
+		),
+		'@decentology/unstated-next': path.resolve(
+			__dirname,
+			'../../../packages/unstated-next',
+		),
+		'@decentology/web3modal': path.resolve(
+			__dirname,
+			'../../../packages/web3modal',
+		),
+	};
+
+	config.resolve.fallback = {
+		...options.resolve.fallback,
+		fetch: path.resolve('node-fetch')
 	}
 
-	// config.module.rules[0].include = [
-	// 	path.join(__dirname, '../../../packages/hyperverse'),
-	// 	path.join(__dirname, '../../../packages/hyperverse-evm'),
-	// 	path.join(__dirname, '../../../packages/hyperverse-evm-tribes'),
-	// 	path.join(__dirname, '../../../packages/hyperverse-storage-skynet'),
-	// ];
 	return config;
 };
 
 function test(a, b) {
-	console.log('got here');
 	return {
 		entry: ['webpack/hot/poll?100', './src/main.ts'],
 		target: 'node',

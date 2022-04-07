@@ -1,6 +1,5 @@
-import { HyperverseBlockchain, NetworkConfig, Blockchain } from '@decentology/hyperverse';
-import { getProvider } from '@decentology/hyperverse-evm';
-import { constants, Contract, ethers, VoidSigner } from 'ethers';
+import { NetworkConfig, Blockchain } from '@decentology/hyperverse';
+import { constants, Contract, ethers } from 'ethers';
 import { getEnvironment } from '../environment';
 import { MetaData, Storage } from '../types';
 
@@ -22,7 +21,7 @@ export class TribesLibrary {
 		tenantId: string;
 	}) {
 		const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(blockchainName, network);
-
+		console.log('Factory Address', factoryAddress)
 		this.factoryContract = new ethers.Contract(
 			factoryAddress!,
 			FactoryABI,
@@ -30,10 +29,15 @@ export class TribesLibrary {
 		) as Contract;
 		this.storage = storage;
 
+		this.setupProxy(tenantId, ContractABI, providerOrSigner);
+	}
+
+	async setupProxy(tenantId: string, ContractABI: any, providerOrSigner: ethers.providers.Provider | ethers.Signer) {
 		let proxyAddress;
 		try {
-			proxyAddress = this.factoryContract.getProxy(tenantId);
+			proxyAddress = await this.factoryContract.getProxy(tenantId);
 		} catch (error) {
+			console.log('Failure!', error);
 			throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
 		}
 		if (proxyAddress == constants.AddressZero) {
@@ -41,13 +45,6 @@ export class TribesLibrary {
 		}
 		this.proxyContract = new ethers.Contract(proxyAddress, ContractABI, providerOrSigner) as Contract;
 	}
-
-	// disconnectSigner = () => {
-	// 	this.factoryContract = this.factoryContract.connect(new VoidSigner(constants.AddressZero));
-	// 	if (this.proxyContract) {
-	// 		this.proxyContract = this.proxyContract.connect(new VoidSigner(constants.AddressZero));
-	// 	}
-	// }
 
 	checkInstance = async (account: any) => {
 		try {
@@ -102,8 +99,8 @@ export class TribesLibrary {
 
 	getAllTribes = async () => {
 		try {
-			console.log('Got here', this.proxyContract);
 			const tribeCount = await this.proxyContract?.tribeCounter();
+			console.log('Got here?', tribeCount)
 			const tribes = [];
 			for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
 				const json = await this.formatTribeResultFromTribeId(tribeId);
