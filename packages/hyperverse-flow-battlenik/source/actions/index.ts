@@ -1,0 +1,1 @@
+export { battleNik } from './battleNik';
