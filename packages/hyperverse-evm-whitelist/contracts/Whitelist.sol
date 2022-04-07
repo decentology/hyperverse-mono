@@ -3,33 +3,45 @@ pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 import './hyperverse/IHyperverseModule.sol';
+import './utils/Counters.sol';
 
 contract Whitelist is IHyperverseModule {
-	enum WHITELIS_OPTIONS {
-		TIME,
-		QUANTITY,
-		NFT,
-		TOKEN
-	}
+	using Counters for Counters.Counter;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	address public immutable contractOwner;
 	address private tenantOwner;
-	bool public active;
+	mapping (address => bool) public whitelistedAddresses;
+	mapping(address => bool) public addressesClaimed;
 
-	///+state
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	uint256 public startTime;
+	uint256 public endTime;
+	uint256 public units;
+	bool public quantityBased;
+	Counters.Counter public claimedCounter;
+
+	bool public active;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+events
 	event ActivatedWhitelist();
 	event DeactivatedWhitelist();
+	event NewAddressWhitelisted(address _user);
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	error Unathorized();
 	error WhitelistAlreadyActive();
 	error WhitelistIsNotActive();
+	error ZeroAddress();
+	error AlreadyInitialized();
+	error AlreadyClaimedWhitelist();
 
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	error WhitelistingAlreadyEnded();
+	error WhitelistingNotStarted();
+	error NoAvailableUnitsLeft();
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
@@ -37,6 +49,37 @@ contract Whitelist is IHyperverseModule {
 	modifier isTenantOwner() {
 		if (msg.sender != tenantOwner) {
 			revert Unathorized();
+		}
+		_;
+	}
+
+	modifier canInitialize(address _tenant) {
+		if (_tenant == address(0)) {
+			revert ZeroAddress();
+		}
+		if (tenantOwner != address(0)) {
+			revert AlreadyInitialized();
+		}
+		_;
+	}
+
+	modifier claimedWhitelist(address _userAddr) {
+		if (addressesClaimed[_userAddr]) {
+			revert AlreadyClaimedWhitelist();
+		}
+		_;
+	}
+
+	modifier WhitelistStarted() {
+		if (block.timestamp < startTime) {
+			revert WhitelistingNotStarted();
+		}
+		_;
+	}
+
+	modifier WhitelistEnded() {
+		if (block.timestamp > endTime) {
+			revert WhitelistingAlreadyEnded();
 		}
 		_;
 	}
@@ -52,22 +95,65 @@ contract Whitelist is IHyperverseModule {
 		contractOwner = _owner;
 	}
 
-	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TENANT FUNCTIONALITIES  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-	function init(address _tenant) external {
-		require(tenantOwner == address(0), 'Contract is already initialized');
-		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	//tenant funcitonality
+	function initDefault(
+		address _tenant,
+		uint256 _startTime,
+		uint256 _endTime,
+		uint256 _units
+	) external canInitialize(_tenant) {
+		startTime = _startTime;
+		endTime = _endTime;
+		units = _units;
+
+		if (_units != 0) {
+			quantityBased = true;
+		}
+
 		tenantOwner = _tenant;
 	}
 
-	function activateWhitelist() external isTenantOwner{
-		if(active) {
+	//user functionalities
+	function getWhitelisted() public claimedWhitelist(msg.sender) WhitelistStarted WhitelistEnded {
+		if (quantityBased) {
+			if (claimedCounter.current() == units) {
+				revert NoAvailableUnitsLeft();
+			}
+			claimedCounter.increment();
+		}
+
+		whitelistedAddresses[msg.sender] = true;
+		emit NewAddressWhitelisted(msg.sender);
+	}
+
+
+	function checkWhitelist(address _user) public view returns (bool) {
+		return whitelistedAddresses[_user];
+	} 
+
+	function checkClaimed(address _user) public view returns (bool) {
+		return addressesClaimed[_user];
+	}
+
+	function claimWhitelist() public claimedWhitelist(msg.sender) WhitelistStarted WhitelistEnded {
+		if (addressesClaimed[msg.sender]) {
+			revert AlreadyClaimedWhitelist();
+		}
+
+		addressesClaimed[msg.sender] = true;
+	}
+
+
+	function activateWhitelist() external isTenantOwner {
+		if (active) {
 			revert WhitelistAlreadyActive();
 		}
 		active = true;
 	}
 
-	function deactiveWhitelist() external isTenantOwner{
-		if(!active) {
+	function deactiveWhitelist() external isTenantOwner {
+		if (!active) {
 			revert WhitelistIsNotActive();
 		}
 		active = false;
