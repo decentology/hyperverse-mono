@@ -5,25 +5,41 @@ pragma experimental ABIEncoderV2;
 import './hyperverse/IHyperverseModule.sol';
 
 contract Whitelist is IHyperverseModule {
+	enum WHITELIS_OPTIONS {
+		TIME,
+		QUANTITY,
+		NFT,
+		TOKEN
+	}
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	address public immutable contractOwner;
 	address private tenantOwner;
+	bool public active;
 
+	///+state
 
-	
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+events
+	event ActivatedWhitelist();
+	event DeactivatedWhitelist();
+
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	error Unathorized();
+	error WhitelistAlreadyActive();
+	error WhitelistIsNotActive();
+
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+modifiers
 	modifier isTenantOwner() {
-		require(msg.sender == tenantOwner, 'You are not the tenant owner');
+		if (msg.sender != tenantOwner) {
+			revert Unathorized();
+		}
 		_;
 	}
-
 
 	constructor(address _owner) {
 		metadata = ModuleMetadata(
@@ -43,4 +59,17 @@ contract Whitelist is IHyperverseModule {
 		tenantOwner = _tenant;
 	}
 
+	function activateWhitelist() external isTenantOwner{
+		if(active) {
+			revert WhitelistAlreadyActive();
+		}
+		active = true;
+	}
+
+	function deactiveWhitelist() external isTenantOwner{
+		if(!active) {
+			revert WhitelistIsNotActive();
+		}
+		active = false;
+	}
 }
