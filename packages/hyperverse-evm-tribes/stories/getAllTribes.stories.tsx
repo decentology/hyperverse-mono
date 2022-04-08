@@ -1,7 +1,7 @@
 import { GetAllTribes } from './getAllTribes';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getalltribes.mdx';
+import { Doc } from '../docs/getAllTribes.mdx';
 
 export default {
 	title: 'Components/GetAllTribes',

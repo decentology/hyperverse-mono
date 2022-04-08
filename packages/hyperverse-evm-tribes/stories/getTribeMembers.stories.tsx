@@ -1,7 +1,7 @@
 import { GetTribeMembers } from './getTribeMembers';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/tribemembers.mdx';
+import { Doc } from '../docs/tribeMembers.mdx';
 
 export default {
 	title: 'Components/GetTribeMembers',
