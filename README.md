@@ -24,7 +24,13 @@ To run this project locally:
     git clone https://github.com/decentology/hyperverse-mono
     ```
 
-2. Download all the dependencies needed to run the project by running `yarn`.
+2. CD into the repo
+
+    ```bash
+    cd hyperverse-mono
+    ```
+
+3. Download all the dependencies needed to run the project by running `yarn`.
 
     ```bash
     yarn
