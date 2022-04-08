@@ -48,13 +48,13 @@ function EvmState(
 				type: Network.Mainnet,
 				name: '',
 				networkUrl: '',
-				chainId: 1,
+				chainId: -1,
 			},
 			testnet: {
 				type: Network.Testnet,
 				name: '',
 				networkUrl: '',
-				chainId: 4,
+				chainId: -1,
 			},
 		},
 	}

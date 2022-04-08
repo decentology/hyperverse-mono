@@ -15,18 +15,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const queryClient = useQueryClient();
 	const { address, connectedProvider, readOnlyProvider } = useEvm();
 	const { blockchain, network } = useHyperverse();
-	const { clientUrl, uploadFile } = useStorage();
+	const hyperverse = useHyperverse();
+	const storage = useStorage();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibrary>(
-		new TribesLibrary({
-			providerOrSigner: readOnlyProvider,
-			blockchainName: blockchain?.name!,
-			network: network,
-			tenantId: tenantId,
-			storage: {
-				clientUrl,
-				uploadFile,
-			},
-		})
+		new TribesLibrary(hyperverse, connectedProvider || readOnlyProvider)
 	);
 
 
@@ -37,16 +29,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 			signer = provider.getSigner()
 		}
 		setTribesLibrary(
-			new TribesLibrary({
-				providerOrSigner: signer || provider,
-				blockchainName: blockchain?.name!,
-				network: network,
-				tenantId: tenantId,
-				storage: {
-					clientUrl,
-					uploadFile,
-				},
-			})
+			new TribesLibrary(hyperverse, signer || provider)
 
 		)
 	}, [readOnlyProvider, connectedProvider])

@@ -12,4 +12,5 @@ export const Localhost = makeHyperverseBlockchain({
 	name: Blockchain.Localhost,
 	Provider: Provider
 });
+
 export { Provider, useEvm, Evm, getProvider };

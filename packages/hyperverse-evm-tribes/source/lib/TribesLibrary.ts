@@ -1,35 +1,31 @@
-import { NetworkConfig, Blockchain } from '@decentology/hyperverse';
+import { HyperverseConfig } from '@decentology/hyperverse';
+import { getProvider, } from '@decentology/hyperverse-evm';
+import { SkynetStorageLibrary } from '@decentology/hyperverse-storage-skynet';
 import { constants, Contract, ethers } from 'ethers';
 import { getEnvironment } from '../environment';
-import { MetaData, Storage } from '../types';
+import { MetaData } from '../types';
 
 export class TribesLibrary {
 	factoryContract: Contract;
 	proxyContract: Contract | null = null;
-	storage: Storage;
-	constructor({
-		providerOrSigner,
-		blockchainName,
-		network,
-		storage,
-		tenantId,
-	}: {
-		providerOrSigner: ethers.providers.Provider | ethers.Signer;
-		blockchainName: Blockchain;
-		network: NetworkConfig;
-		storage: Storage;
-		tenantId: string;
-	}) {
-		const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(blockchainName, network);
-		console.log('Factory Address', factoryAddress)
+	storage: SkynetStorageLibrary;
+	constructor(hyperverse: HyperverseConfig, providerOrSigner?: ethers.providers.Provider | ethers.Signer) {
+		this.storage = hyperverse.storage!;
+		const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(hyperverse.blockchain?.name!, hyperverse.network);
+		if (!providerOrSigner) {
+			providerOrSigner = getProvider(hyperverse.network);
+		}
 		this.factoryContract = new ethers.Contract(
 			factoryAddress!,
 			FactoryABI,
 			providerOrSigner
 		) as Contract;
-		this.storage = storage;
-
+		const tenantId = hyperverse.modules.find(x => x.bundle.ModuleName === 'Tribes')?.tenantId
+		if (!tenantId) {
+			throw new Error("Tenant ID is required")
+		}
 		this.setupProxy(tenantId, ContractABI, providerOrSigner);
+
 	}
 
 	async setupProxy(tenantId: string, ContractABI: any, providerOrSigner: ethers.providers.Provider | ethers.Signer) {

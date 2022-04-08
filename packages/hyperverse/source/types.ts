@@ -3,6 +3,7 @@ import { ContainerProvider } from '@decentology/unstated-next';
 import { Blockchain, BlockchainEvm } from './constants/blockchains';
 import { Network, NetworkConfig } from './constants/networks';
 import Storage from './constants/storage';
+import { SkynetStorageLibrary } from '@decentology/hyperverse-storage-skynet';
 type Exact<A, B> = A extends B ? (B extends A ? A : never) : never;
 
 export function makeHyperverseBlockchain<T extends HyperverseBlockchain<unknown>>(payload: T): T {
@@ -15,6 +16,7 @@ export type HyperverseBlockchainInit<T> = (
 
 export type HyperverseBlockchain<T> = {
 	name: Blockchain;
+	getNetwork?: (network: Network) => NetworkConfig;
 	Provider: FC<unknown> | ContainerProvider<unknown> | ContainerProvider<any>;
 };
 
@@ -22,10 +24,6 @@ export type BlockchainFeatures<T> = {
 	client: any;
 	explorer: string;
 	extra?: T;
-};
-export type BlockchainFeatures2<T extends {}> = T & {
-	client: any;
-	explorer: string;
 };
 
 export type Hyperverse = {
@@ -40,10 +38,12 @@ export type Hyperverse = {
 
 export type HyperverseConfig = {
 	network: NetworkConfig;
-} & Omit<Hyperverse, 'network'>;
+	storage?: SkynetStorageLibrary,
+} & Omit<Hyperverse, 'network' | 'storage'>;
 
 export type HyperverseModuleBase = {
 	bundle: {
+		ModuleName?: string;
 		Provider: FC<HyperverseModuleInstance>;
 	};
 	tenantId: string;

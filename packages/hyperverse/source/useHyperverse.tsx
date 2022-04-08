@@ -9,7 +9,6 @@ function HyperverseState(
 		network: {
 			type: Network.Testnet
 		},
-		storage: Storage.Skynet,
 		modules: []
 	}
 ) {
