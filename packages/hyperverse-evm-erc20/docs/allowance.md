@@ -1,6 +1,6 @@
 # Allowance
 
-<p> The `allowance` function from `useERC20` returns the amount a spender is allocated to utilize. </p>
+<p> The `allowance` function from `useERC20` returns the amount a spender is allocated to spend. </p>
 
 ---
 
