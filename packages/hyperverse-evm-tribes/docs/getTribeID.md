@@ -6,7 +6,7 @@
 
 <br>
 
-### useTribeId
+### getTribeId
 
 ```jsx
 const getTribeId = async (account: string) => {

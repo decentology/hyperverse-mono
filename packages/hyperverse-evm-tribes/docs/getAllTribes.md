@@ -1,12 +1,12 @@
 # Get All Tribes
 
-<p> The `getAllTribes` function from `useTribes` returns all tribes... </p>
+<p> The `getAllTribes` function from `useTribes` returns all tribes. </p>
 
 ---
 
 <br>
 
-### useTribeId
+### getAllTribes
 
 ```jsx
 const getAllTribes = useCallback(async () => {

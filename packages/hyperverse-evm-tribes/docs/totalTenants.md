@@ -6,7 +6,7 @@
 
 <br>
 
-### useTribes
+### getTotalTenants
 
 ```jsx
 const getTotalTenants = async () => {
