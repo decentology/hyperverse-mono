@@ -6,6 +6,7 @@ import './hyperverse/CloneFactory.sol';
 import './hyperverse/IHyperverseModule.sol';
 import './utils/Counters.sol';
 import './Whitelist.sol';
+import 'hardhat/console.sol';
 
 /**
  * @dev Clone Factory Implementation for ERC20 Token
@@ -16,18 +17,6 @@ contract WhitelistFactory is CloneFactory {
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	Counters.Counter public tenantCounter;
-
-	enum WHITELIST_OPTIONS {
-		MERKLE,
-		REGULAR
-	}
-
-	enum WHITELIST_TYPE {
-		TIME,
-		QUANTITY,
-		NFT,
-		TOKEN
-	}
 
 	struct Tenant {
 		Whitelist proxy;
@@ -44,16 +33,18 @@ contract WhitelistFactory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+events
+	event TenantCreated(address _tenant, address _proxy);
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	error Unathorized();
 	error InstanceAlreadyInitialized();
 	error InvalidTime();
+	error InvalidValuesToCreateInstance();
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	modifier isAuthorized(address _tenant) {
-		if (msg.sender != _tenant || msg.sender != hyperverseAdmin) {
+		if (!(msg.sender == _tenant || msg.sender == hyperverseAdmin)) {
 			revert Unathorized();
 		}
 		_;
@@ -79,10 +70,13 @@ contract WhitelistFactory is CloneFactory {
 		uint256 _endTime,
 		uint256 _units
 	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
-		if(_startTime > _endTime || block.timestamp < _startTime || block.timestamp > _endTime) {
-			revert InvalidTime();
+		if (_startTime == 0 && _endTime == 0 && _units == 0) {
+			revert InvalidValuesToCreateInstance();
 		}
 
+		if (_startTime > _endTime || block.timestamp > _startTime || block.timestamp > _endTime) {
+			revert InvalidTime();
+		}
 
 		Whitelist proxy = Whitelist(createClone(masterContract));
 
@@ -95,6 +89,8 @@ contract WhitelistFactory is CloneFactory {
 		newTenant.owner = _tenant;
 		instance[_tenant] = true;
 		tenantCounter.increment();
+
+		emit TenantCreated(_tenant, address(proxy));
 	}
 
 	function createMerkleInsance(address _tenant)

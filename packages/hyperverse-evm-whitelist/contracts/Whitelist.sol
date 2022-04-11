@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 
 import './hyperverse/IHyperverseModule.sol';
 import './utils/Counters.sol';
+import 'hardhat/console.sol';
 
 contract Whitelist is IHyperverseModule {
 	using Counters for Counters.Counter;
@@ -11,13 +12,14 @@ contract Whitelist is IHyperverseModule {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	address public immutable contractOwner;
 	address private tenantOwner;
-	mapping (address => bool) public whitelistedAddresses;
+	mapping(address => bool) public whitelistedAddresses;
 	mapping(address => bool) public addressesClaimed;
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	uint256 public startTime;
 	uint256 public endTime;
 	uint256 public units;
+	bool public timeBased;
 	bool public quantityBased;
 	Counters.Counter public claimedCounter;
 
@@ -37,6 +39,7 @@ contract Whitelist is IHyperverseModule {
 	error ZeroAddress();
 	error AlreadyInitialized();
 	error AlreadyClaimedWhitelist();
+	error AlreadyInWhitelist();
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	error WhitelistingAlreadyEnded();
@@ -63,6 +66,13 @@ contract Whitelist is IHyperverseModule {
 		_;
 	}
 
+	modifier isWhitelisted(address _user) {
+		if (whitelistedAddresses[_user]) {
+			revert AlreadyInWhitelist();
+		}
+		_;
+	}
+
 	modifier claimedWhitelist(address _userAddr) {
 		if (addressesClaimed[_userAddr]) {
 			revert AlreadyClaimedWhitelist();
@@ -84,6 +94,12 @@ contract Whitelist is IHyperverseModule {
 		_;
 	}
 
+	modifier WhitelistActive() {
+		if(!active) {
+			revert WhitelistIsNotActive();
+		}
+		_;
+	}
 	constructor(address _owner) {
 		metadata = ModuleMetadata(
 			'Whitelist Module',
@@ -103,19 +119,22 @@ contract Whitelist is IHyperverseModule {
 		uint256 _endTime,
 		uint256 _units
 	) external canInitialize(_tenant) {
-		startTime = _startTime;
-		endTime = _endTime;
-		units = _units;
-
 		if (_units != 0) {
+			units = _units;
 			quantityBased = true;
+		}
+
+		if (_startTime != 0) {
+			startTime = _startTime;
+			endTime = _endTime;
+			timeBased = true;
 		}
 
 		tenantOwner = _tenant;
 	}
 
 	//user functionalities
-	function getWhitelisted() public claimedWhitelist(msg.sender) WhitelistStarted WhitelistEnded {
+	function getWhitelisted() public isWhitelisted(msg.sender) WhitelistStarted WhitelistEnded {
 		if (quantityBased) {
 			if (claimedCounter.current() == units) {
 				revert NoAvailableUnitsLeft();
@@ -127,16 +146,7 @@ contract Whitelist is IHyperverseModule {
 		emit NewAddressWhitelisted(msg.sender);
 	}
 
-
-	function checkWhitelist(address _user) public view returns (bool) {
-		return whitelistedAddresses[_user];
-	} 
-
-	function checkClaimed(address _user) public view returns (bool) {
-		return addressesClaimed[_user];
-	}
-
-	function claimWhitelist() public claimedWhitelist(msg.sender) WhitelistStarted WhitelistEnded {
+	function claimWhitelist() public claimedWhitelist(msg.sender) WhitelistActive {
 		if (addressesClaimed[msg.sender]) {
 			revert AlreadyClaimedWhitelist();
 		}
@@ -144,15 +154,14 @@ contract Whitelist is IHyperverseModule {
 		addressesClaimed[msg.sender] = true;
 	}
 
-
-	function activateWhitelist() external isTenantOwner {
+	function activateWhitelistClaiming() external isTenantOwner {
 		if (active) {
 			revert WhitelistAlreadyActive();
 		}
 		active = true;
 	}
 
-	function deactiveWhitelist() external isTenantOwner {
+	function deactivateWhitelistClaiming() external isTenantOwner {
 		if (!active) {
 			revert WhitelistIsNotActive();
 		}
