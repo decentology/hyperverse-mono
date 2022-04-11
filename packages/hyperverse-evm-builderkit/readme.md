@@ -21,6 +21,12 @@ The javascript source connects to the smart module using `ethers` by default. Th
 4. `Environment` - Simple component that will identify which blockchain and network your module is being used under. This allows EVM modules to easily work with any supported EVM module
 
 
+# Documentation
+For more information and learn about Hyperverse checkout the resources below
+
+- 
+- 
+- 
 
 
 
