@@ -29,7 +29,7 @@ export type BlockchainFeatures<T> = {
 export type Hyperverse = {
 	blockchain: HyperverseBlockchain<unknown> | null;
 	network: Network | NetworkConfig;
-	storage?: Storage | ({ name?: Storage; options: { clientUrl: string } } | undefined);
+	storage?: Storage | StorageOptions;
 	modules: HyperverseModuleBase[];
 	options?: {
 		disableProviderAutoInit?: boolean;
@@ -38,7 +38,7 @@ export type Hyperverse = {
 
 export type HyperverseConfig = {
 	network: NetworkConfig;
-	storage?: SkynetStorageLibrary,
+	storage?: SkynetStorageLibrary;
 } & Omit<Hyperverse, 'network' | 'storage'>;
 
 export type HyperverseModuleBase = {
@@ -58,12 +58,16 @@ export type HyperverseModuleInstance = {
 	tenantId?: string;
 };
 
+export type StorageOptions = { name?: Storage; options?: { clientUrl: string } } | undefined;
+
 export type EvmEnvironment = {
 	[key in BlockchainEvm]?: {
-		[key in Network]: {
-			[key: string]: any;
-			contractAddress: string | null;
-			factoryAddress: string | null;
-		} | {};
+		[key in Network]:
+			| {
+					[key: string]: any;
+					contractAddress: string | null;
+					factoryAddress: string | null;
+			  }
+			| {};
 	};
 };

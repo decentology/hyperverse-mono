@@ -96,7 +96,6 @@ export class TribesLibrary {
 	getAllTribes = async () => {
 		try {
 			const tribeCount = await this.proxyContract?.tribeCounter();
-			console.log('Got here?', tribeCount)
 			const tribes = [];
 			for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
 				const json = await this.formatTribeResultFromTribeId(tribeId);
