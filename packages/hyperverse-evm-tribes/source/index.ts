@@ -1,4 +1,4 @@
 export { useTribes } from './useTribes';
 export { Provider } from './Provider';
 export const ModuleName = 'Tribes';
-export { TribesLibrary } from './lib/TribesLibrary'
+export { TribesLibrary } from './library/TribesLibrary'

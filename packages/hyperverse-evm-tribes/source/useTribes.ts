@@ -6,7 +6,7 @@ import { useStorage } from '@decentology/hyperverse-storage-skynet';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { MetaData } from './types';
-import { TribesLibrary } from './lib/TribesLibrary';
+import { TribesLibrary } from './library/TribesLibrary';
 import { useHyperverse } from '@decentology/hyperverse';
 import { Web3Provider } from '@ethersproject/providers';
 
