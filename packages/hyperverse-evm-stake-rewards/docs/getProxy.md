@@ -1,6 +1,6 @@
 # Get Proxy
 
-<p> The `getProxy` function from `getProxy` returns the amount a spender is allocated to spend. </p>
+<p> The `getProxy` function from `getStakeRewards` returns the amount a spender is allocated to spend. </p>
 
 ---
 
