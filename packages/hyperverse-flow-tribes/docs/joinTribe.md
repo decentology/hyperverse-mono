@@ -1,6 +1,6 @@
 # Join Tribe
 
-<p> The `joinTribe` function from **Flow Tribes Module** allows a tenant to join a tribe. </p>
+<p> The `joinTribe` function from **Flow Tribes Module** allows a tenant to join a tribe. Tenants may only join one tribe at a time and must leave their current tribe if they wish to join another. </p>
 
 ---
 
