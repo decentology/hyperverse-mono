@@ -1,6 +1,6 @@
 # Transfer From
 
-<p> The `transferFrom` function from `useERC777` allows a user to transfer tokens from one account to another. </p>
+<p> The `transferFrom` function from `useERC777` transfers tokens from one address to another. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### transferFrom
 
-<p> The `transferFrom` function takes in two accounts (a sender and a receiver) and the amount to be transferred. </p>
+<p> The `transferFrom` function takes in an address for the sender, an address for the recipient, and a number of tokens. </p>
 
 ```jsx
 	const transferFrom = useCallback(

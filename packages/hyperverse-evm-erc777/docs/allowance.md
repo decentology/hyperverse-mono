@@ -1,6 +1,6 @@
 # Allowance
 
-<p> The `allowance` function from `useERC777` returns the amount a spender is allocated to spend. </p>
+<p> The `allowance` function from `useERC777` returns the amount of tokens that an owner allowed to a spender. </p>
 
 ---
 

@@ -8,7 +8,7 @@
 
 ### getTribeMembers
 
-<p> The `getTribeMembers` function takes in a `tribeId` associated with the tribe you are requesting member information from. </p>
+<p> The `getTribeMembers` function takes in a tribeId associated with the tribe you are requesting member information from. </p>
 
 ```jsx
 const getTribeMembers = async (tribeId: number) => {

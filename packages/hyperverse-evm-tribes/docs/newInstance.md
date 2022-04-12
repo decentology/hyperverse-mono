@@ -8,6 +8,8 @@
 
 ### createInstance
 
+<p> The `createInstance` function takes in an account. </p>
+
 ```jsx
 	const createInstance = useCallback(
 		async (account: string) => {

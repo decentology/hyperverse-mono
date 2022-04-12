@@ -8,6 +8,8 @@
 
 ### getTribeId
 
+<p> The `getTribeId` function takes in an account. </p>
+
 ```jsx
 const getTribeId = async (account: string) => {
 	try {

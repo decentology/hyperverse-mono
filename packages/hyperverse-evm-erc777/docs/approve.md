@@ -1,6 +1,6 @@
 # Approve
 
-<p> The `approve` function from `useERC777` sets the amount the spender is allowed and indicates whether the transaction was successful. </p>
+<p> The `approve` function from `useERC777` approves the address to spend the given amount of token(s) on your behalf. </p>
 
 ---
 

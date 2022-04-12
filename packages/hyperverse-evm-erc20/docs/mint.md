@@ -8,7 +8,7 @@
 
 ### mint
 
-<p> The `mint` function takes an amount to represent the total supply. </p>
+<p> The `mint` function takes in an amount of tokens to mint. </p>
 
 ```jsx
 	const mint = async (amount: number) => {

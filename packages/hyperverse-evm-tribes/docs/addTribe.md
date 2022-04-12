@@ -7,7 +7,8 @@
 <br>
 
 ### addTribe
-<p> This function can be found in 'packages/hyperverse-evm-tribes/source/useTribes' </p>
+
+<p> The `addTribes` function takes in metadata and an image file. </p>
 
 ```jsx
 	const addTribe = useCallback(

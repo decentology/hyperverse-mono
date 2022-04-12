@@ -8,7 +8,7 @@
 
 ### transferToken
 
-<p> The `transferToken` function takes in the tenand ID of the sender, the recipient, and the amount of tokens. </p>
+<p> The `transferToken` function takes in the tenant ID of the sender, the recipient, and the amount of tokens. </p>
 
 ```jsx
 const fcl = require('@onflow/fcl');

@@ -1,6 +1,6 @@
 # Transfer
 
-<p> The `transfer` function from `useERC20` allows the owner to transfer their token to another address. </p>
+<p> The `transfer` function from `useERC20` allows the owner to transfer their token(s) to another address. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### transfer
 
-<p> The `transfer` function takes in the address of the recipient and the value of the token being transferred. </p>
+<p> The `transfer` function takes in the address of the recipient and the number of tokens being transferred. </p>
 
 ```jsx
 

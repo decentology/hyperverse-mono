@@ -1,6 +1,6 @@
 # Get Proxy
 
-<p> The `getProxy` function from `useERC20` allows ... </p>
+<p> The `getProxy` function from `useERC20` calls the proxy contract. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### getProxy
 
-<p> The `getProxy` function takes ... </p>
+<p> The `getProxy` function takes in the account. </p>
 
 ```jsx
 	const getProxy = async (account: string | null) => {

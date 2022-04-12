@@ -1,6 +1,6 @@
 # Get Balance
 
-<p> The `getBalance` function from `useToken` eturns the available balance of the sender. </p>
+<p> The `getBalance` function from `useToken` returns the available balance of the sender. </p>
 
 ---
 

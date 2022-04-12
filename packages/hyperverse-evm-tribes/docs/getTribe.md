@@ -1,12 +1,14 @@
 # Get Tribe
 
-<p> The `getTribe` function from `useTribes` returns a tribe. </p>
+<p> The `getTribe` function from `useTribes` returns a tribe's data. </p>
 
 ---
 
 <br>
 
 ### getTribe
+
+<p> The `getTribe` function takes in an Id. </p>
 
 ```jsx
 const getTribe = async (id: number) => {

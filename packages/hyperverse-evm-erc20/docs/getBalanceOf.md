@@ -8,7 +8,7 @@
 
 ### getBalanceOf
 
-<p> The `getBalanceOf` function takes ... </p>
+<p> The `getBalanceOf` function takes in the account. </p>
 
 ```jsx
 	const getBalanceOf = async (account: string) => {

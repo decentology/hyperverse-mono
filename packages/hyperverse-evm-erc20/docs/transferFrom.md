@@ -1,6 +1,6 @@
 # Transfer From
 
-<p> The `transferFrom` function from `useERC20` allows ... </p>
+<p> The `transferFrom` function from `useERC20` transfers tokens from one address to another. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### transferFrom
 
-<p> The `transferFrom` function takes in ... </p>
+<p> The `transferFrom` function takes in an address for the sender, an address for the recipient, and a number of tokens. </p>
 
 ```jsx
 	const transferFrom = useCallback(

@@ -1,6 +1,6 @@
 # Get All Tribes
 
-<p> The `getAllTribes` function from **Flow Tribes Module** returns all tribes a tenant has currently joined. </p>
+<p> The `getAllTribes` function from **Flow Tribes Module** returns all tribes. </p>
 
 ---
 

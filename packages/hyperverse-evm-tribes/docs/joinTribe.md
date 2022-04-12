@@ -1,6 +1,6 @@
 # Join Tribe
 
-<p> The `joinTribe` function from `useTribes` joins a tribe. Tenants may only join one tribe at a time and must leave their current tribe if they wish to join another. </p>
+<p> The `joinTribe` function from `useTribes` joins a tribe. **Tenants may only join one tribe at a time and must leave their current tribe if they wish to join another.** </p>
 
 ---
 
