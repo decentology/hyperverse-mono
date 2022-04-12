@@ -1,6 +1,6 @@
 # Stake
 
-<p> The `stake` function from `useStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `stake` function from `useStakeRewards` stakes an amount of tokens decided by the user. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### stake
 
-<p> The `stake` function takes in the owner and the spender. </p>
+<p> The `stake` function takes in the amount of tokens to stake. </p>
 
 ```jsx
 	const stake = useCallback(async (amount: number) => {

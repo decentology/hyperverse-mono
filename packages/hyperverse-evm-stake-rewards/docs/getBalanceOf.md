@@ -1,6 +1,6 @@
 # Get Balance Of
 
-<p> The `getBalanceOf` function from `useStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `getBalanceOf` function from `useStakeRewards` returns the amount a tokens owned by an account. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### getBalanceOf
 
-<p> The `getBalanceOf` function takes in the owner and the spender. </p>
+<p> The `getBalanceOf` function takes in the account. </p>
 
 ```jsx
 	const getBalanceOf = async (account: string) => {

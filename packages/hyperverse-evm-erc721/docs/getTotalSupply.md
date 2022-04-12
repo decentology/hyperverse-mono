@@ -1,6 +1,6 @@
 # Get Total Supply
 
-<p> The `getTotalSupply` function from `useERC721` returns the number of tokens you have. </p>
+<p> The `getTotalSupply` function from `useERC721` returns the number of tokens the current account has. </p>
 
 ---
 

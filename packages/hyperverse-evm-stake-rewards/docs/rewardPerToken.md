@@ -1,14 +1,12 @@
 # Reward Per Token
 
-<p> The `rewardPerToken` function from `useStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `rewardPerToken` function from `useStakeRewards` calculates the rate of reward. </p>
 
 ---
 
 <br>
 
 ### rewardPerToken
-
-<p> The `rewardPerToken` function takes in the owner and the spender. </p>
 
 ```jsx
 	const rewardPerToken = async () => {

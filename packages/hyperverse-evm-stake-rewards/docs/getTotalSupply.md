@@ -1,14 +1,12 @@
 # Get Total Supply
 
-<p> The `getTotalSupply` function from `useStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `getTotalSupply` function from `useStakeRewards` returns the number of tokens the current account has. </p>
 
 ---
 
 <br>
 
 ### getTotalSupply
-
-<p> The `getTotalSupply` function takes in the owner and the spender. </p>
 
 ```jsx
 	const getTotalSupply = async () => {

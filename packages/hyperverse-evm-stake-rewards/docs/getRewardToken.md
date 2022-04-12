@@ -1,14 +1,12 @@
 # Get Reward Token
 
-<p> The `getRewardToken` function from `useStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `getRewardToken` function from `useStakeRewards` returns the reward token. </p>
 
 ---
 
 <br>
 
 ### getRewardToken
-
-<p> The `getRewardToken` function takes in the owner and the spender. </p>
 
 ```jsx
 	const getRewardToken = async () => {

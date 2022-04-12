@@ -1,6 +1,6 @@
 # Get Proxy
 
-<p> The `getProxy` function from `getStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `getProxy` function from `getStakeRewards` calls the proxy contract. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### getProxy
 
-<p> The `getProxy` function takes in the owner and the spender. </p>
+<p> The `getProxy` function takes in the account. </p>
 
 ```jsx
 	const getProxy = async (account: string | null) => {

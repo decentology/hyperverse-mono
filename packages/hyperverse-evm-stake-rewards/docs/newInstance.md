@@ -1,6 +1,6 @@
 # Create Instance
 
-<p> The `createInstance` function from `useStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `createInstance` function from `useStakeRewards` allows a user to connect their wallet where they can create a new instance. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### createInstance
 
-<p> The `createInstance` function takes in the owner and the spender. </p>
+<p> The `createInstance` function takes in the account, the staking token, the rewards token, and the rewards rate. </p>
 
 ```jsx
 	const createInstance = useCallback (async (

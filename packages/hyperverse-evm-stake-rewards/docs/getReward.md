@@ -1,14 +1,12 @@
 # Get Reward
 
-<p> The `getReward` function from `useStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `getReward` function from `useStakeRewards` returns the amount of tokens awarded to your account. </p>
 
 ---
 
 <br>
 
 ### getReward
-
-<p> The `getReward` function takes in the owner and the spender. </p>
 
 ```jsx
 	const getReward = useCallback(async () => {

@@ -1,6 +1,6 @@
 # Get Earned
 
-<p> The `getEarned` function from `useStakeRewards` returns the amount a spender is allocated to spend. </p>
+<p> The `getEarned` function from `useStakeRewards` returns the amount of tokens earned by an account. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### getEarned
 
-<p> The `getEarned` function takes in the owner and the spender. </p>
+<p> The `getEarned` function takes in the account. </p>
 
 ```jsx
 	const getEarned = async (account: string) => {

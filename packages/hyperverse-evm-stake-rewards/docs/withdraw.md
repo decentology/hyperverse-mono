@@ -1,6 +1,6 @@
 # Withdraw
 
-<p> The `withdraw` function from `useStakeRewards` ... </p>
+<p> The `withdraw` function from `useStakeRewards` withdraws an amount of tokens the user has staked. </p>
 
 ---
 
