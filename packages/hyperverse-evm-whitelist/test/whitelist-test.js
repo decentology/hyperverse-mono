@@ -1,7 +1,5 @@
 const { ethers, solidity } = require('hardhat');
 const { expect } = require('chai');
-const { advanceBlockTo, toBN } = require('./helpers');
-const chai = require('chai');
 
 describe('Whitelist Test', function () {
 	let Module;
