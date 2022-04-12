@@ -81,14 +81,14 @@ contract Whitelist is IHyperverseModule {
 	}
 
 	modifier WhitelistStarted() {
-		if (block.timestamp < startTime) {
+		if (timeBased && block.timestamp < startTime) {
 			revert WhitelistingNotStarted();
 		}
 		_;
 	}
 
 	modifier WhitelistEnded() {
-		if (block.timestamp > endTime) {
+		if (timeBased && block.timestamp > endTime) {
 			revert WhitelistingAlreadyEnded();
 		}
 		_;

@@ -74,8 +74,12 @@ contract WhitelistFactory is CloneFactory {
 			revert InvalidValuesToCreateInstance();
 		}
 
-		if (_startTime > _endTime || block.timestamp > _startTime || block.timestamp > _endTime) {
-			revert InvalidTime();
+		if (_startTime != 0 && _endTime != 0) {
+			if (
+				_startTime > _endTime || block.timestamp > _startTime || block.timestamp > _endTime
+			) {
+				revert InvalidTime();
+			}
 		}
 
 		Whitelist proxy = Whitelist(createClone(masterContract));
