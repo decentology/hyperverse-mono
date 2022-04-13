@@ -78,9 +78,10 @@ contract WhitelistFactory is CloneFactory {
 		uint256 _endTime,
 		uint256 _units,
 		address _ERC721,
-		address _ERC20
+		address _ERC20,
+		bytes32 _merkleRoot
 	) external isAuthorized(_tenant) hasAnInstance(_tenant){
-		if (_startTime == 0 && _endTime == 0 && _units == 0 && _ERC721 == address(0)) {
+		if (_startTime == 0 && _endTime == 0 && _units == 0 && _ERC721 == address(0) && _ERC20 == address(0) && _merkleRoot == bytes32(0)) {
 			revert InvalidValuesToCreateInstance();
 		}
 
@@ -104,10 +105,13 @@ contract WhitelistFactory is CloneFactory {
 			revert NotAnERC20();
 		}
 
+		if (_merkleRoot == bytes32(0)) {
+			revert InvalidMerkelRoot();
+		}
 		Whitelist proxy = Whitelist(createClone(masterContract));
 
 		//initializing tenant state of clone
-		proxy.initDefault(_tenant, _startTime, _endTime, _units, _ERC721, _ERC20);
+		proxy.initDefault(_tenant, _startTime, _endTime, _units, _ERC721, _ERC20, _merkleRoot);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
@@ -119,15 +123,6 @@ contract WhitelistFactory is CloneFactory {
 		emit TenantCreated(_tenant, address(proxy));
 	}
 
-	function createMerkleInstance(address _tenant, bytes32 _merkleRoot)
-		external
-		isAuthorized(_tenant)
-		hasAnInstance(_tenant)
-	{
-		if (_merkleRoot == bytes32(0)) {
-			revert InvalidMerkelRoot();
-		}
-	}
 
 	function getProxy(address _tenant) public view returns (Whitelist) {
 		return tenants[_tenant].proxy;

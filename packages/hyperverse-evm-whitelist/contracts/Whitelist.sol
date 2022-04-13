@@ -153,7 +153,8 @@ contract Whitelist is IHyperverseModule {
 		uint256 _endTime,
 		uint256 _units,
 		address _ERC721,
-		address _ERC20
+		address _ERC20,
+		bytes32 _merkleRoot
 	) external canInitialize(_tenant) {
 		if (_units != 0) {
 			units = _units;
@@ -174,6 +175,11 @@ contract Whitelist is IHyperverseModule {
 		if (_ERC20 != address(0)) {
 			ERC20 = IERC20(_ERC20);
 			tokenBased = true;
+		}
+
+		if (_merkleRoot != bytes32(0)) {
+			merkleRoot = _merkleRoot;
+			merkleBased = true;
 		}
 
 		tenantOwner = _tenant;
@@ -203,15 +209,6 @@ contract Whitelist is IHyperverseModule {
 		whitelistedAddresses[msg.sender] = true;
 		emit NewAddressWhitelisted(msg.sender);
 	}
-
-	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MERKLE TREE BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-	function initMerkle(address _tenant, bytes32 _merkleRoot) public isTenantOwner ValikeMerkleRoot(_merkleRoot) {
-
-		merkleRoot = _merkleRoot;
-		merkleBased = true;
-	}
-
-	// function changeMerkleRoot
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> GENERAL FUCNTIONALITY  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	//TO DO : restrict this + add default operators
