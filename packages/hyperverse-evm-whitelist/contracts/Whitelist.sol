@@ -156,7 +156,7 @@ contract Whitelist is IHyperverseModule {
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEFAULT BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	//tenant funcitonality
-	function initDefault(
+	function init(
 		address _tenant,
 		uint256 _startTime,
 		uint256 _endTime,
@@ -220,8 +220,6 @@ contract Whitelist is IHyperverseModule {
 	}
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> GENERAL FUCNTIONALITY  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-	//TO DO : restrict this + add default operators
-	// Should I do two functions with different parameters?
 	function claimWhitelist(address _user, bytes32[] calldata _merkleProof)
 		public
 		IsOperator(msg.sender)

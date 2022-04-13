@@ -111,7 +111,7 @@ contract WhitelistFactory is CloneFactory {
 		Whitelist proxy = Whitelist(createClone(masterContract));
 
 		//initializing tenant state of clone
-		proxy.initDefault(_tenant, _startTime, _endTime, _units, _ERC721, _ERC20, _merkleRoot);
+		proxy.init(_tenant, _startTime, _endTime, _units, _ERC721, _ERC20, _merkleRoot);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
