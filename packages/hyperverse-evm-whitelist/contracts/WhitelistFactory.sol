@@ -58,7 +58,7 @@ contract WhitelistFactory is CloneFactory {
 	}
 
 	modifier hasAnInstance(address _tenant) {
-		if (!instance[_tenant] && !merkleInstance[_tenant]) {
+		if (instance[_tenant]) {
 			revert InstanceAlreadyInitialized();
 		}
 		_;
@@ -105,9 +105,6 @@ contract WhitelistFactory is CloneFactory {
 			revert NotAnERC20();
 		}
 
-		if (_merkleRoot == bytes32(0)) {
-			revert InvalidMerkelRoot();
-		}
 		Whitelist proxy = Whitelist(createClone(masterContract));
 
 		//initializing tenant state of clone

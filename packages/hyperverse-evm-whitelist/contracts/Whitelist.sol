@@ -137,8 +137,8 @@ contract Whitelist is IHyperverseModule {
 	}
 
 	modifier IsOperator(address _operator) {
-		if (!_operators[_operator] || msg.sender !=tenantOwner) {
-			revert AlreadyAnOperator();
+		if (!_operators[_operator] || _operator == tenantOwner) {
+			revert Unathorized();
 		}
 		_;
 	}
@@ -220,6 +220,19 @@ contract Whitelist is IHyperverseModule {
 	}
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> GENERAL FUCNTIONALITY  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	function checkMerkleWhitelist(address _user, bytes32[] calldata _merkleProof)
+		public
+		view
+		returns (bool)
+	{
+		bytes32 leaf = keccak256(abi.encodePacked(_user));
+		if (MerkleProof.verify(_merkleProof, merkleRoot, leaf)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	function claimWhitelist(address _user, bytes32[] calldata _merkleProof)
 		public
 		IsOperator(msg.sender)
@@ -265,7 +278,7 @@ contract Whitelist is IHyperverseModule {
 	}
 
 	function authorizeOperator(address _operator) public isTenantOwner {
-		if (msg.sender == tenantOwner || _operators[_operator]) {
+		if (_operator == tenantOwner || _operators[_operator]) {
 			revert AlreadyAnOperator();
 		}
 

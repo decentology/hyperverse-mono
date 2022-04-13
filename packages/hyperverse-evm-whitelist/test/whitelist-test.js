@@ -5,8 +5,6 @@ const { MerkleTree } = require('merkletreejs');
 const keccak256 = require('keccak256');
 // const { deploy } = require('@decentology/hyperverse-evm-erc721/scripts/deploy');
 
-
-
 describe('Whitelist Test', function () {
 	let Module;
 	let ModuleFactory;
@@ -17,8 +15,7 @@ describe('Whitelist Test', function () {
 	let quantityInstance;
 	let timeAndQuantityInstance;
 	let merkleInstance;
-	let tempHex = [ethers.utils.formatBytes32String(''), ethers.utils.formatBytes32String('')]
-
+	let tempHex = [ethers.utils.formatBytes32String(''), ethers.utils.formatBytes32String('')];
 
 	let time = parseInt(((new Date().getTime() + 60 * 1000) / 1000).toFixed(0));
 	let time2 = parseInt(((new Date().getTime() + 60 ** 3 * 1000) / 1000).toFixed(0));
@@ -29,7 +26,7 @@ describe('Whitelist Test', function () {
 
 	// before(async  () => {
 	// 	try {
-			
+
 	// 		await deploy();
 	// 	} catch (error) {
 	// 		console.error(error);
@@ -45,7 +42,6 @@ describe('Whitelist Test', function () {
 
 		ModuleFactory = await ethers.getContractFactory('WhitelistFactory');
 		factoryContract = await ModuleFactory.deploy(moduleContract.address, owner.address);
-
 	});
 
 	describe('Initial', function () {
@@ -65,10 +61,12 @@ describe('Whitelist Test', function () {
 						time2,
 						0,
 						constants.AddressZero,
-						constants.AddressZero
+						constants.AddressZero,
+						ethers.utils.formatBytes32String('')
 					);
 
 				timeInstance = await Module.attach(await factoryContract.getProxy(alice.address));
+				await timeInstance.connect(alice).authorizeOperator(cara.address);
 			});
 
 			describe('Initial', function () {
@@ -94,6 +92,7 @@ describe('Whitelist Test', function () {
 				beforeEach(async function () {
 					const extraTime = 1 * 24 * 60 * 60;
 					await ethers.provider.send('evm_increaseTime', [extraTime]);
+		
 				});
 
 				it('Should allow Cara to whitelist', async function () {
@@ -107,9 +106,9 @@ describe('Whitelist Test', function () {
 				});
 
 				it('Should not allow Cara to claim her whitelist', async function () {
-					await expect(timeInstance.connect(cara).claimWhitelist(cara.address, tempHex)).to.be.revertedWith(
-						'WhitelistIsNotActive()'
-					);
+					await expect(
+						timeInstance.connect(cara).claimWhitelist(cara.address, tempHex)
+					).to.be.revertedWith('WhitelistIsNotActive()');
 				});
 
 				it('Alice should be able to active claiming of whitelist', async function () {
@@ -118,14 +117,14 @@ describe('Whitelist Test', function () {
 				});
 
 				it('Should allow Cara to claim her whitelist', async function () {
-					await timeInstance.connect(cara).claimWhitelist(cara.address,tempHex);
+					await timeInstance.connect(cara).claimWhitelist(cara.address, tempHex);
 					expect(await timeInstance.addressesClaimed(cara.address)).to.equal(true);
 				});
 
 				it('Should now allow Cara to claim her again', async function () {
-					await expect(timeInstance.connect(cara).claimWhitelist(cara.address, tempHex)).to.be.revertedWith(
-						'AlreadyClaimedWhitelist()'
-					);
+					await expect(
+						timeInstance.connect(cara).claimWhitelist(cara.address, tempHex)
+					).to.be.revertedWith('AlreadyClaimedWhitelist()');
 				});
 			});
 		});
@@ -140,7 +139,8 @@ describe('Whitelist Test', function () {
 						0,
 						2,
 						constants.AddressZero,
-						constants.AddressZero
+						constants.AddressZero,
+						ethers.utils.formatBytes32String('')
 					);
 
 				quantityInstance = await Module.attach(
@@ -186,7 +186,8 @@ describe('Whitelist Test', function () {
 						time4,
 						2,
 						constants.AddressZero,
-						constants.AddressZero
+						constants.AddressZero,
+						ethers.utils.formatBytes32String('')
 					);
 
 				timeAndQuantityInstance = await Module.attach(
@@ -228,35 +229,59 @@ describe('Whitelist Test', function () {
 
 		describe('NFT Based Whitelist', function () {});
 		describe('FT Based Whitelist', function () {});
-		describe('NFT and FT Based Whitelist', function () {});
 
-		describe('All Categories', function () {
-			describe('NFT Based Whitelist', function () {});
-			describe('FT Based Whitelist', function () {});
-			describe('NFT and FT Based Whitelist', function () {});
-		});
 
 	});
 
 	describe('Merkle Whitelist', function () {
-		let hexProof
+		let hexProof;
+		let tree, root;
+
 		before(async function () {
-			whitelistedAddresses = [alice.address, bob.address, cara.address];
-			const leafNodes = whitelistedAddresses.map(address => keccak256(address));
-			const tree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
-			const root = tree.getRoot();
+			whitelistedAddresses = [cara.address, alice.address, bob.address];
+			const leafNodes = whitelistedAddresses.map((address) => keccak256(address));
+			 tree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
+			await factoryContract
+				.connect(alice)
+				.createInstance(
+					alice.address,
+					0,
+					0,
+					1,
+					constants.AddressZero,
+					constants.AddressZero,
+					`0x${tree.getRoot().toString('hex')}`
+				);
 
-			const cliamingAddr = leafNodes[0];
-			 hexProof = tree.getHexProof(cliamingAddr);
-		
-			 merkleInstance = await Module.attach(await factoryContract.getProxy(alice.address));
-			//  await merkleInstance.initM
+				merkleInstance = await Module.attach(await factoryContract.getProxy(alice.address));
 
+
+				root = `0x${tree.getRoot().toString('hex')}`
+				const claimingCara = leafNodes[0];
+				hexProof = tree.getHexProof(claimingCara);
+
+		});
+
+
+		it('Initial', async function () {
+			expect(await moduleContract.contractOwner()).to.equal(owner.address);
+			expect(await merkleInstance.merkleRoot()).to.equal(root);
+		});
+
+		it('Should return true for Cara being in the Whitelist Merkle', async function () {
+			expect(await merkleInstance.checkMerkleWhitelist(cara.address, hexProof)).to.equal(true);
 		})
 
-		it('Checking owner', async function () {
-			console.log(hexProof)
-			// expect(await moduleContract.contractOwner()).to.equal(owner.address);
-		});
-	})
+		it('Should return false for joe being in the Whitelist Merkle', async function () {
+			expect(await merkleInstance.checkMerkleWhitelist(joe.address, hexProof)).to.equal(false);
+		})
+
+
+		it('Should allow Cara to claim her whitelist', async function () {
+			await merkleInstance.connect(alice).activateWhitelistClaiming()
+			await merkleInstance.connect(alice).authorizeOperator(cara.address)
+			await merkleInstance.connect(cara).claimWhitelist(cara.address, hexProof)
+			expect(await merkleInstance.addressesClaimed(cara.address)).to.equal(true);
+		})
+	});
 });
