@@ -20,6 +20,9 @@ contract Whitelist is IHyperverseModule {
 	bool public active;
 	Counters.Counter public claimedCounter;
 
+	mapping(address => bool) private _operators;
+	mapping(address => bool) private _revokedOperators;
+
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	uint256 public startTime;
 	uint256 public endTime;
@@ -44,6 +47,8 @@ contract Whitelist is IHyperverseModule {
 	event ActivatedWhitelist();
 	event DeactivatedWhitelist();
 	event NewAddressWhitelisted(address _user);
+	event AuthorizedNewOperator(address _operator);
+	event RevokedOperator(address _operator);
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	error Unathorized();
@@ -54,6 +59,8 @@ contract Whitelist is IHyperverseModule {
 	error AlreadyClaimedWhitelist();
 	error AlreadyInWhitelist();
 	error NotInWhitelist();
+	error AlreadyAnOperator();
+	error CannotRevokeOperator();
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	error WhitelistingAlreadyEnded();
@@ -71,11 +78,6 @@ contract Whitelist is IHyperverseModule {
 
 	///+modifiers
 	modifier isTenantOwner() {
-		if(tenantOwner == address(0) ){
-			tenantOwner = msg.sender;
-			return;
-		}
-
 		if (msg.sender != tenantOwner) {
 			revert Unathorized();
 		}
@@ -130,6 +132,13 @@ contract Whitelist is IHyperverseModule {
 	modifier ValikeMerkleRoot(bytes32 _merkleRoot) {
 		if (_merkleRoot == bytes32(0)) {
 			revert InvalidMerkleRoot();
+		}
+		_;
+	}
+
+	modifier IsOperator(address _operator) {
+		if (!_operators[_operator] || msg.sender !=tenantOwner) {
+			revert AlreadyAnOperator();
 		}
 		_;
 	}
@@ -213,8 +222,9 @@ contract Whitelist is IHyperverseModule {
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> GENERAL FUCNTIONALITY  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	//TO DO : restrict this + add default operators
 	// Should I do two functions with different parameters?
-		function claimWhitelist(address _user, bytes32[] calldata _merkleProof)
+	function claimWhitelist(address _user, bytes32[] calldata _merkleProof)
 		public
+		IsOperator(msg.sender)
 		claimedWhitelist(_user)
 		WhitelistActive
 	{
@@ -232,8 +242,13 @@ contract Whitelist is IHyperverseModule {
 		addressesClaimed[_user] = true;
 	}
 
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ADMIN FUCNTIONALITY  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
-	function updateMerkleRoot(bytes32 _merkleRoot) public isTenantOwner ValikeMerkleRoot(_merkleRoot) {
+	function updateMerkleRoot(bytes32 _merkleRoot)
+		public
+		isTenantOwner
+		ValikeMerkleRoot(_merkleRoot)
+	{
 		merkleRoot = _merkleRoot;
 	}
 
@@ -249,5 +264,23 @@ contract Whitelist is IHyperverseModule {
 			revert WhitelistIsNotActive();
 		}
 		active = false;
+	}
+
+	function authorizeOperator(address _operator) public isTenantOwner {
+		if (msg.sender == tenantOwner || _operators[_operator]) {
+			revert AlreadyAnOperator();
+		}
+
+		_operators[_operator] = true;
+		emit AuthorizedNewOperator(_operator);
+	}
+
+	function revokeOperator(address _operator) public isTenantOwner {
+		if (_operator == tenantOwner || !_operators[_operator]) {
+			revert CannotRevokeOperator();
+		}
+
+		_operators[_operator] = false;
+		emit RevokedOperator(_operator);
 	}
 }
