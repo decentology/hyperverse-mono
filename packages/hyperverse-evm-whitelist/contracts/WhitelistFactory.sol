@@ -5,7 +5,9 @@ pragma experimental ABIEncoderV2;
 import './hyperverse/CloneFactory.sol';
 import './hyperverse/IHyperverseModule.sol';
 import './utils/Counters.sol';
+import './utils/Address.sol';
 import './Whitelist.sol';
+import './interfaces/IERC721.sol';
 import 'hardhat/console.sol';
 
 /**
@@ -14,6 +16,7 @@ import 'hardhat/console.sol';
 
 contract WhitelistFactory is CloneFactory {
 	using Counters for Counters.Counter;
+	using Address for address;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	Counters.Counter public tenantCounter;
@@ -25,6 +28,7 @@ contract WhitelistFactory is CloneFactory {
 
 	mapping(address => Tenant) public tenants;
 	mapping(address => bool) public instance;
+	mapping(address => bool) public merkleInstance;
 
 	address public immutable owner;
 	address public immutable masterContract;
@@ -40,6 +44,9 @@ contract WhitelistFactory is CloneFactory {
 	error InstanceAlreadyInitialized();
 	error InvalidTime();
 	error InvalidValuesToCreateInstance();
+	error InvalidMerkelRoot();
+	error NotAnERC71();
+	error NotAnERC20();
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
@@ -51,11 +58,12 @@ contract WhitelistFactory is CloneFactory {
 	}
 
 	modifier hasAnInstance(address _tenant) {
-		if (instance[_tenant]) {
+		if (!instance[_tenant] && !merkleInstance[_tenant]) {
 			revert InstanceAlreadyInitialized();
 		}
 		_;
 	}
+
 
 	constructor(address _masterContract, address _owner) {
 		masterContract = _masterContract;
@@ -68,9 +76,11 @@ contract WhitelistFactory is CloneFactory {
 		address _tenant,
 		uint256 _startTime,
 		uint256 _endTime,
-		uint256 _units
-	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
-		if (_startTime == 0 && _endTime == 0 && _units == 0) {
+		uint256 _units,
+		address _ERC721,
+		address _ERC20
+	) external isAuthorized(_tenant) hasAnInstance(_tenant){
+		if (_startTime == 0 && _endTime == 0 && _units == 0 && _ERC721 == address(0)) {
 			revert InvalidValuesToCreateInstance();
 		}
 
@@ -82,10 +92,22 @@ contract WhitelistFactory is CloneFactory {
 			}
 		}
 
+		if (_ERC721 != address(0) && _ERC721.isContract()) {
+			IERC721 ERC721 = IERC721(_ERC721);
+			bool check = ERC721.supportsInterface(0x80ac58cd);
+			if (!check) {
+				revert NotAnERC71();
+			}
+		}
+
+		if (!_ERC20.isContract() && _ERC20 != address(0)) {
+			revert NotAnERC20();
+		}
+
 		Whitelist proxy = Whitelist(createClone(masterContract));
 
 		//initializing tenant state of clone
-		proxy.initDefault(_tenant, _startTime, _endTime, _units);
+		proxy.initDefault(_tenant, _startTime, _endTime, _units, _ERC721, _ERC20);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
@@ -97,11 +119,15 @@ contract WhitelistFactory is CloneFactory {
 		emit TenantCreated(_tenant, address(proxy));
 	}
 
-	function createMerkleInsance(address _tenant)
+	function createMerkleInstance(address _tenant, bytes32 _merkleRoot)
 		external
 		isAuthorized(_tenant)
 		hasAnInstance(_tenant)
-	{}
+	{
+		if (_merkleRoot == bytes32(0)) {
+			revert InvalidMerkelRoot();
+		}
+	}
 
 	function getProxy(address _tenant) public view returns (Whitelist) {
 		return tenants[_tenant].proxy;

@@ -2,8 +2,11 @@
 pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
+import './interfaces/IERC721.sol';
+import './interfaces/IERC20.sol';
 import './hyperverse/IHyperverseModule.sol';
 import './utils/Counters.sol';
+import './utils/MerkleProof.sol';
 import 'hardhat/console.sol';
 
 contract Whitelist is IHyperverseModule {
@@ -14,6 +17,8 @@ contract Whitelist is IHyperverseModule {
 	address private tenantOwner;
 	mapping(address => bool) public whitelistedAddresses;
 	mapping(address => bool) public addressesClaimed;
+	bool public active;
+	Counters.Counter public claimedCounter;
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	uint256 public startTime;
@@ -21,9 +26,17 @@ contract Whitelist is IHyperverseModule {
 	uint256 public units;
 	bool public timeBased;
 	bool public quantityBased;
-	Counters.Counter public claimedCounter;
 
-	bool public active;
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT AND TOKEN BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	IERC721 public ERC721;
+	bool public nftBased;
+
+	IERC20 public ERC20;
+	bool public tokenBased;
+
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MERKLE BASED WHITELIST  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	bytes32 public merkleRoot;
+	bool public merkleBased;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
@@ -40,16 +53,29 @@ contract Whitelist is IHyperverseModule {
 	error AlreadyInitialized();
 	error AlreadyClaimedWhitelist();
 	error AlreadyInWhitelist();
+	error NotInWhitelist();
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	error WhitelistingAlreadyEnded();
 	error WhitelistingNotStarted();
 	error NoAvailableUnitsLeft();
 
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> NFT AND TOKEN BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	error NotAnNFTOwner();
+	error NoTokensFound();
+
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MERKLE BASED WHITELIST  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	error InvalidMerkleRoot();
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+modifiers
 	modifier isTenantOwner() {
+		if(tenantOwner == address(0) ){
+			tenantOwner = msg.sender;
+			return;
+		}
+
 		if (msg.sender != tenantOwner) {
 			revert Unathorized();
 		}
@@ -95,11 +121,19 @@ contract Whitelist is IHyperverseModule {
 	}
 
 	modifier WhitelistActive() {
-		if(!active) {
+		if (!active) {
 			revert WhitelistIsNotActive();
 		}
 		_;
 	}
+
+	modifier ValikeMerkleRoot(bytes32 _merkleRoot) {
+		if (_merkleRoot == bytes32(0)) {
+			revert InvalidMerkleRoot();
+		}
+		_;
+	}
+
 	constructor(address _owner) {
 		metadata = ModuleMetadata(
 			'Whitelist Module',
@@ -111,13 +145,15 @@ contract Whitelist is IHyperverseModule {
 		contractOwner = _owner;
 	}
 
-	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TIME AND QUANTITY BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEFAULT BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	//tenant funcitonality
 	function initDefault(
 		address _tenant,
 		uint256 _startTime,
 		uint256 _endTime,
-		uint256 _units
+		uint256 _units,
+		address _ERC721,
+		address _ERC20
 	) external canInitialize(_tenant) {
 		if (_units != 0) {
 			units = _units;
@@ -128,6 +164,16 @@ contract Whitelist is IHyperverseModule {
 			startTime = _startTime;
 			endTime = _endTime;
 			timeBased = true;
+		}
+
+		if (_ERC721 != address(0)) {
+			ERC721 = IERC721(_ERC721);
+			nftBased = true;
+		}
+
+		if (_ERC20 != address(0)) {
+			ERC20 = IERC20(_ERC20);
+			tokenBased = true;
 		}
 
 		tenantOwner = _tenant;
@@ -142,16 +188,56 @@ contract Whitelist is IHyperverseModule {
 			claimedCounter.increment();
 		}
 
+		if (nftBased) {
+			if (ERC721.balanceOf(msg.sender) == 0) {
+				revert NotAnNFTOwner();
+			}
+		}
+
+		if (tokenBased) {
+			if (ERC20.balanceOf(msg.sender) == 0) {
+				revert NoTokensFound();
+			}
+		}
+
 		whitelistedAddresses[msg.sender] = true;
 		emit NewAddressWhitelisted(msg.sender);
 	}
 
-	function claimWhitelist() public claimedWhitelist(msg.sender) WhitelistActive {
-		if (addressesClaimed[msg.sender]) {
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MERKLE TREE BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	function initMerkle(address _tenant, bytes32 _merkleRoot) public isTenantOwner ValikeMerkleRoot(_merkleRoot) {
+
+		merkleRoot = _merkleRoot;
+		merkleBased = true;
+	}
+
+	// function changeMerkleRoot
+
+	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> GENERAL FUCNTIONALITY  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+	//TO DO : restrict this + add default operators
+	// Should I do two functions with different parameters?
+		function claimWhitelist(address _user, bytes32[] calldata _merkleProof)
+		public
+		claimedWhitelist(_user)
+		WhitelistActive
+	{
+		if (addressesClaimed[_user]) {
 			revert AlreadyClaimedWhitelist();
 		}
 
-		addressesClaimed[msg.sender] = true;
+		if (merkleBased) {
+			bytes32 leaf = keccak256(abi.encodePacked(_user));
+			if (!MerkleProof.verify(_merkleProof, merkleRoot, leaf)) {
+				revert NotInWhitelist();
+			}
+		}
+
+		addressesClaimed[_user] = true;
+	}
+
+
+	function updateMerkleRoot(bytes32 _merkleRoot) public isTenantOwner ValikeMerkleRoot(_merkleRoot) {
+		merkleRoot = _merkleRoot;
 	}
 
 	function activateWhitelistClaiming() external isTenantOwner {
