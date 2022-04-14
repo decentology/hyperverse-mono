@@ -16,7 +16,7 @@ export const NewInstance = ({ ...props }) => {
 			onClick={() => {
 				console.log('Calling mutate');
 				if (address) {
-					// mutate({ account: address });
+					mutate({ name: '', symbol: '' });
 				} else {
 					connect();
 				}
@@ -28,7 +28,7 @@ export const NewInstance = ({ ...props }) => {
 };
 
 NewInstance.propTypes = {
-	account: PropTypes.string.isRequired
+	account: PropTypes.string.isRequired,
 };
 
 NewInstance.defaultProps = {};

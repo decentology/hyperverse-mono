@@ -6,13 +6,12 @@ export const GetBalance = ({ ...props }) => {
 	const { data: balance } = Balance();
 
 	return (
-			<div className="Balance">
-				Balance: <b>{balance}</b>
-			</div>
+		<div className="Balance">
+			Balance: <b>{balance}</b>
+		</div>
 	);
 };
 
-GetBalance.propTypes = {
-};
+GetBalance.propTypes = {};
 
 GetBalance.defaultProps = {};

@@ -6,13 +6,14 @@ export const GetBalanceOf = ({ ...props }) => {
 	const { data: balanceOf } = BalanceOf(''); // wants an account address
 
 	return (
-			<div className="balanceOf">
-				BalanceOf: <b>{balanceOf}</b>
-			</div>
+		<div className="balanceOf">
+			BalanceOf: <b>{balanceOf}</b>
+		</div>
 	);
 };
 
 GetBalanceOf.propTypes = {
+	account: PropTypes.string.isRequired,
 };
 
 GetBalanceOf.defaultProps = {};
