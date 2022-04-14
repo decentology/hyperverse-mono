@@ -16,7 +16,7 @@ export const NewInstance = ({ ...props }) => {
 			onClick={() => {
 				console.log('Calling mutate');
 				if (address) {
-					// TODO
+					// mutate({ account: address });
 				} else {
 					connect();
 				}
