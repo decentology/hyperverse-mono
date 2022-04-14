@@ -97,11 +97,12 @@ export class TribesLibrary {
 		try {
 			const tribeCount = await this.proxyContract?.tribeCounter();
 			const tribes = [];
-			for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
-				const json = await this.formatTribeResultFromTribeId(tribeId);
-				tribes.push(json);
+			if (tribeCount) {
+				for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
+					const json = await this.formatTribeResultFromTribeId(tribeId);
+					tribes.push(json);
+				}
 			}
-
 			return tribes;
 		} catch (err) {
 			throw err;
@@ -190,7 +191,6 @@ export class TribesLibrary {
 			// eslint-disable-next-line no-await-in-loop
 			await (await fetch(`${this.storage.clientUrl}/${link}`)).text()
 		);
-
 		json.id = tribeId;
 		json.imageUrl = `${this.storage.clientUrl}/${json.image.replace('sia:', '')}`;
 		return json;

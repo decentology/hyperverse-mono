@@ -14,9 +14,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const queryClient = useQueryClient();
 	const { address, connectedProvider, readOnlyProvider } = useEvm();
-	const { blockchain, network } = useHyperverse();
 	const hyperverse = useHyperverse();
-	const storage = useStorage();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibrary>(
 		new TribesLibrary(hyperverse, connectedProvider || readOnlyProvider)
 	);
@@ -44,28 +42,14 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		factoryContract: tribesLibrary.factoryContract,
 		proxyContract: tribesLibrary.proxyContract,
 		useTribeEvents,
-		CheckInstance: () =>
-			useQuery(
-				['checkInstance', address, tribesLibrary.factoryContract?.address],
-				() => tribesLibrary.checkInstance(address),
-				{
-					enabled: !!address && !!tribesLibrary.factoryContract?.signer,
-				}
-			),
+		CheckInstance: () => useQuery(['checkInstance', address,], () => tribesLibrary.checkInstance(address),),
 		NewInstance: (
 			options?: Omit<
 				UseMutationOptions<unknown, unknown, { account: string }, unknown>,
 				'mutationFn'
 			>
 		) => useMutation(({ account }) => tribesLibrary.createInstance(account), options),
-		TotalTenants: () =>
-			useQuery(
-				['totalTenants', tribesLibrary.factoryContract?.address],
-				() => tribesLibrary.getTotalTenants(),
-				{
-					enabled: !!tribesLibrary.factoryContract?.address,
-				}
-			),
+		TotalTenants: () => useQuery(['totalTenants',], () => tribesLibrary.getTotalTenants(),),
 		AddTribe: (
 			options?: Omit<
 				UseMutationOptions<
@@ -81,12 +65,8 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 				(payload) => tribesLibrary.addTribe(payload.metadata, payload.image),
 				options
 			),
-		Tribes: () =>
-			useQuery(['tribes', tribesLibrary.proxyContract?.address], () => tribesLibrary.getAllTribes(), {
-				enabled: !!tribesLibrary.proxyContract?.address,
-			}),
-		Join: (
-			options?: Omit<UseMutationOptions<unknown, unknown, unknown, unknown>, 'mutationFn'>
+		Tribes: () => useQuery(['tribes'], tribesLibrary.getAllTribes,),
+		Join: (options?: Omit<UseMutationOptions<unknown, unknown, unknown, unknown>, 'mutationFn'>
 		) => useMutation((id: number) => tribesLibrary.joinTribe(id), options),
 		Leave: (
 			options?: Omit<UseMutationOptions<unknown, unknown, void, unknown>, 'mutationFn'>
@@ -99,33 +79,14 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 					if (fn) fn(...args);
 				},
 			}),
-		TribeId: () =>
-			useQuery(
-				['getTribeId', address, tribesLibrary.proxyContract?.address],
-				() => tribesLibrary.getTribeId(address!),
-				{
-					enabled: !!address && !!tribesLibrary.proxyContract?.address,
-					retry: false,
-				}
-			),
+		TribeId: () => useQuery(['getTribeId', address,], () => tribesLibrary.getTribeId(address!),),
 		Tribe: () => {
-			const { data: tribeId } = useQuery(
-				['getTribeId', address, tribesLibrary.proxyContract?.address],
-				() => tribesLibrary.getTribeId(address!),
-				{ enabled: !!address && !!tribesLibrary.proxyContract?.address }
+			const { data: tribeId } = useQuery(['getTribeId', address,], () => tribesLibrary.getTribeId(address!),
+
 			);
-			return useQuery(['getTribeData', tribeId], () => tribesLibrary.getTribe(tribeId), {
-				enabled: !!tribeId,
-			});
+			return useQuery(['getTribeData', tribeId], () => tribesLibrary.getTribe(tribeId),);
 		},
-		TribeMembers: (tribeId: number) =>
-			useQuery(
-				['getTribeMembers', tribesLibrary.proxyContract?.address],
-				() => tribesLibrary.getTribeMembers(tribeId),
-				{
-					enabled: !!tribesLibrary.proxyContract?.address && !!tribeId,
-				}
-			),
+		TribeMembers: (tribeId: number) => useQuery(['getTribeMembers',], () => tribesLibrary.getTribeMembers(tribeId),),
 	};
 }
 
