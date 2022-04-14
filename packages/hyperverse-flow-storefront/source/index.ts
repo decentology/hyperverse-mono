@@ -1,3 +1,3 @@
-export { useWhitelist } from './useWhitelist';
+export { useStorefront } from './useStorefront';
 export { Provider } from './Provider';
 export * from './types';

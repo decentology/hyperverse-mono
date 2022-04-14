@@ -1,0 +1,25 @@
+{
+	"emulators": {
+		"default": {
+			"port": 3569,
+			"serviceAccount": "emulator-account"
+		}
+	},
+	"contracts": {
+		"NumberContract": "../contracts/NumberContract.cdc",
+		"ExampleNFT": "../contracts/ExampleNFT.cdc",
+		"MetadataViews": "../contracts/MetadataViews.cdc"
+	},
+	"networks": {
+		"emulator": "127.0.0.1:3569",
+		"mainnet": "access.mainnet.nodes.onflow.org:9000",
+		"testnet": "access.devnet.nodes.onflow.org:9000"
+	},
+	"accounts": {
+		"emulator-account": {
+			"address": "f8d6e0586b0a20c7",
+			"key": "f91864adfa17aee902547756d31f3bacc0154806c2fe690abe4f6bdaa92481a0"
+		}
+	},
+	"deployments": {}
+}
