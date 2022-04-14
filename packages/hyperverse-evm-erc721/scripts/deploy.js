@@ -5,11 +5,14 @@
 // Runtime Environment's members available in the global scope.
 const hre = require('hardhat');
 const fs = require('fs-extra');
+const path = require('path');
+
 require('dotenv').config();
 async function main() {
 	const [deployer] = await ethers.getSigners();
 	console.log('Deploying contracts with the account:', deployer.address);
 	console.log('Account balance:', (await deployer.getBalance()).toString());
+	// console.log(path.join(__dirname, "../../hyperverse-evm-erc721/artifacts/contracts/NFT.sol/NFT.json"));
 
 	const NFT = await ethers.getContractFactory('NFT');
 	const nftContract = await NFT.deploy();
