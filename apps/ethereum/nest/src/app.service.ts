@@ -10,25 +10,21 @@ import { TribesLibrary } from '@decentology/hyperverse-evm-tribes';
 const hyperverse = initialize({
 	blockchain: Ethereum,
 	network: Network.Testnet,
-	// network: {
-	// 	chainId: 4,
-	// 	name: 'rinkeby',
-	// 	networkUrl: 'https://rinkeby.infura.io/v3/fb9f66bab7574d70b281f62e19c27d49',
-	// 	type: Network.Testnet,
-	// },
 	modules: [
 		{ bundle: Tribes, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }
 	]
 });
+
 
 const provider = new ethers.providers.InfuraProvider({
 	chainId: 4,
 	name: 'rinkeby',
 }, 'fb9f66bab7574d70b281f62e19c27d49')
 
+
 const tribes = new TribesLibrary(
 	hyperverse,
-	// provider,
+	provider
 );
 
 Injectable()
