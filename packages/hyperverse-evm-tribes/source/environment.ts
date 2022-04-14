@@ -1,5 +1,4 @@
 import {
-	useHyperverse,
 	isEvm,
 	Blockchain,
 	BlockchainEvm,
@@ -13,12 +12,6 @@ export const ContractABI = Tribes.abi;
 export const FactoryABI = TribesFactory.abi;
 
 const environment = Contracts as EvmEnvironment;
-
-function useEnvironment() {
-	const { blockchain, network } = useHyperverse();
-	console.log(blockchain,network)
-	return getEnvironment(blockchain!.name, network);
-}
 
 function getEnvironment(blockchainName: Blockchain, network: NetworkConfig) {
 	if (blockchainName == null) {
@@ -40,4 +33,4 @@ function getEnvironment(blockchainName: Blockchain, network: NetworkConfig) {
 	};
 }
 
-export { environment, useEnvironment, getEnvironment };
+export { environment, getEnvironment };
