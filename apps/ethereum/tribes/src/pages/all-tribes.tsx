@@ -14,7 +14,6 @@ const AllTribes = () => {
 	const { Tribes, Join, TotalTenants } = useTribes();
 	const router = useRouter();
 	const { data, isLoading: allTribesLoading } = Tribes();
-	const {data: total} = TotalTenants()
 	const {
 		mutate,
 		isLoading: joinTribeLoading,		
@@ -42,7 +41,7 @@ const AllTribes = () => {
 				<Loader loaderMessage="processing..." />
 			) : (
 				<div className={styles.container}>
-					<h1>Tribes {total}</h1>
+					<h1>Tribes</h1>
 					{address ? (
 						!data || data.length === 0 ? (
 							<>
