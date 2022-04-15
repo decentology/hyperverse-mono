@@ -116,7 +116,6 @@ export async function TribesLibrary(
 		},
 
 		joinTribe: async (id: number) => {
-			debugger;
 			try {
 				const joinTxn = await base.proxyContract?.joinTribe(id);
 				return joinTxn.wait();
