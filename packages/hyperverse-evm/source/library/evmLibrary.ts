@@ -1,59 +1,91 @@
-import { NetworkConfig } from "@decentology/hyperverse"
-import { constants, Contract, ethers } from "ethers"
+import { HyperverseConfig, NetworkConfig } from '@decentology/hyperverse';
+import { constants, Contract, ContractInterface, ethers } from 'ethers';
+import { Web3Provider } from '@ethersproject/providers';
+import { Fragment } from 'ethers/lib/utils';
 
 export const getProvider = (network: NetworkConfig) => {
-	return new ethers.providers.JsonRpcProvider(network.networkUrl, { chainId: network.chainId!, name: network.name! })
-}
+	return new ethers.providers.JsonRpcProvider(network.networkUrl, {
+		chainId: network.chainId!,
+		name: network.name!,
+	});
+};
 
 // Not ready for production use yet. Race condition on when factory and proxy need to be initialized
-export class BaseLibrary {
-	factoryContract: Contract;
-	proxyContract: Contract | null = null;
+export async function BaseLibrary(
 
-	constructor(tenantId: string, factoryAddress: string, FactoryABI: string, ContractABI: any, providerOrSigner: ethers.providers.Provider | ethers.Signer) {
-		this.factoryContract = new ethers.Contract(
-			factoryAddress!,
-			FactoryABI,
-			providerOrSigner
-		) as Contract;
-		this.setupProxy(tenantId, ContractABI, providerOrSigner);
+	hyperverse: HyperverseConfig,
+	factoryAddress: string,
+	factoryABI: ContractInterface,
+	contractABI: ContractInterface,
+	providerOrSigner: ethers.providers.Provider | ethers.Signer
+) {
+
+	const factoryContract = new ethers.Contract(
+		factoryAddress!,
+		factoryABI,
+		providerOrSigner
+	) as Contract;
+	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === 'Tribes')?.tenantId;
+	if (!tenantId) {
+		throw new Error('Tenant ID is required');
 	}
 
-	async setupProxy(tenantId: string, ContractABI: any, providerOrSigner: ethers.providers.Provider | ethers.Signer) {
-		let proxyAddress;
-		try {
-			proxyAddress = await this.factoryContract.getProxy(tenantId);
-		} catch (error) {
-			console.log('Failure!', error);
-			throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
-		}
-		if (proxyAddress == constants.AddressZero) {
-			return;
-		}
-		this.proxyContract = new ethers.Contract(proxyAddress, ContractABI, providerOrSigner) as Contract;
-	}
+	// const setProvider = (provider: ethers.providers.Provider) => {
+	// 	let signer: ethers.Signer | undefined;
+	// 	if (provider instanceof Web3Provider) {
+	// 		signer = provider.getSigner();
+	// 	}
+	// 	this.factoryContract = new ethers.Contract(
+	// 		this.factoryAddress!,
+	// 		this.factoryABI,
+	// 		signer || provider
+	// 	) as Contract;
+	// 	if (this.proxyContract) {
+	// 		this.proxyContract = new ethers.Contract(
+	// 			this.proxyContract.address,
+	// 			this.contractABI,
+	// 			signer || provider
+	// 		) as Contract;
+	// 	}
+	// }
 
-	checkInstance = async (account: any) => {
+	let proxyAddress: string
+	let proxyContract: Contract | undefined;
+	try {
+		proxyAddress = await factoryContract.getProxy(tenantId);
+	} catch (error) {
+		console.log('Failure!', error);
+		throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
+	}
+	proxyContract = new ethers.Contract(
+		proxyAddress,
+		contractABI,
+		providerOrSigner
+	) as Contract;
+
+	const ready = true;
+
+	const checkInstance = async (account: any) => {
 		try {
-			const instance = await this.factoryContract.instance(account);
+			const instance = await factoryContract.instance(account);
 			return instance;
 		} catch (err) {
-			this.factoryErrors(err);
+			factoryErrors(err);
 			throw err;
 		}
 	};
 
-	createInstance = async (account: string) => {
+	const createInstance = async (account: string) => {
 		try {
-			const createTxn = await this.factoryContract.createInstance(account);
+			const createTxn = await factoryContract.createInstance(account);
 			return createTxn.wait();
 		} catch (err) {
-			this.factoryErrors(err);
+			factoryErrors(err);
 			throw err;
 		}
 	};
-	private factoryErrors = (err: any) => {
-		if (!this.factoryContract?.signer) {
+	const factoryErrors = (err: any) => {
+		if (!factoryContract?.signer) {
 			throw new Error('Please connect your wallet!');
 		}
 
@@ -63,4 +95,14 @@ export class BaseLibrary {
 
 		throw err;
 	};
+
+	return {
+		ready,
+		checkInstance,
+		createInstance,
+		factoryContract,
+		proxyContract,
+		proxyAddress
+
+	}
 }

@@ -1,180 +1,26 @@
 import { HyperverseConfig } from '@decentology/hyperverse';
-import { getProvider, } from '@decentology/hyperverse-evm';
-import { SkynetStorageLibrary } from '@decentology/hyperverse-storage-skynet';
-import { constants, Contract, ethers } from 'ethers';
+import { BaseLibrary, getProvider } from '@decentology/hyperverse-evm';
+import { ethers } from 'ethers';
 import { getEnvironment } from '../environment';
 import { MetaData } from '../types';
 
-export class TribesLibrary {
-	factoryContract: Contract;
-	proxyContract: Contract | null = null;
-	storage: SkynetStorageLibrary;
-	constructor(hyperverse: HyperverseConfig, providerOrSigner?: ethers.providers.Provider | ethers.Signer) {
-		this.storage = hyperverse.storage!;
-		const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(hyperverse.blockchain?.name!, hyperverse.network);
-		if (!providerOrSigner) {
-			providerOrSigner = getProvider(hyperverse.network);
-		}
-		this.factoryContract = new ethers.Contract(
-			factoryAddress!,
-			FactoryABI,
-			providerOrSigner
-		) as Contract;
-		const tenantId = hyperverse.modules.find(x => x.bundle.ModuleName === 'Tribes')?.tenantId
-		if (!tenantId) {
-			throw new Error("Tenant ID is required")
-		}
-		this.setupProxy(tenantId, ContractABI, providerOrSigner);
+export type TribesLibraryType = Awaited<ReturnType<typeof TribesLibrary>>;
+export async function TribesLibrary(
 
+	hyperverse: HyperverseConfig,
+	providerOrSigner?: ethers.providers.Provider | ethers.Signer
+) {
+	const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(
+		hyperverse.blockchain?.name!,
+		hyperverse.network
+	);
+	if (!providerOrSigner) {
+		providerOrSigner = getProvider(hyperverse.network);
 	}
+	const base = await BaseLibrary(hyperverse, factoryAddress!, FactoryABI, ContractABI, providerOrSigner);
 
-	async setupProxy(tenantId: string, ContractABI: any, providerOrSigner: ethers.providers.Provider | ethers.Signer) {
-		let proxyAddress;
-		try {
-			proxyAddress = await this.factoryContract.getProxy(tenantId);
-		} catch (error) {
-			console.log('Failure!', error);
-			throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
-		}
-		if (proxyAddress == constants.AddressZero) {
-			return;
-		}
-		this.proxyContract = new ethers.Contract(proxyAddress, ContractABI, providerOrSigner) as Contract;
-	}
-
-	checkInstance = async (account: any) => {
-		try {
-			const instance = await this.factoryContract.instance(account);
-			return instance;
-		} catch (err) {
-			this.factoryErrors(err);
-			throw err;
-		}
-	};
-
-	createInstance = async (account: string) => {
-		try {
-			const createTxn = await this.factoryContract.createInstance(account);
-			return createTxn.wait();
-		} catch (err) {
-			this.factoryErrors(err);
-			throw err;
-		}
-	};
-	getTribeId = async (account: string) => {
-		try {
-			const id = await this.proxyContract?.getUserTribe(account);
-			return id.toNumber();
-		} catch (err) {
-			if (err instanceof Error) {
-				if (err.message.includes('This member is not in a Tribe!')) {
-					return null;
-				}
-			}
-		}
-	};
-
-	getTribe = async (id: number) => {
-		try {
-			await this.proxyContract?.getTribeData(id);
-			return this.formatTribeResultFromTribeId(id);
-		} catch (err) {
-			throw err;
-		}
-	};
-
-	leaveTribe = async () => {
-		try {
-			const leaveTxn = await this.proxyContract?.leaveTribe();
-			await leaveTxn.wait();
-			return leaveTxn.hash;
-		} catch (err) {
-			throw err;
-		}
-	};
-
-	getAllTribes = async () => {
-		try {
-			const tribeCount = await this.proxyContract?.tribeCounter();
-			const tribes = [];
-			if (tribeCount) {
-				for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
-					const json = await this.formatTribeResultFromTribeId(tribeId);
-					tribes.push(json);
-				}
-			}
-			return tribes;
-		} catch (err) {
-			throw err;
-		}
-	};
-
-	getTribeMembers = async (tribeId: number) => {
-		try {
-			const events = await this.proxyContract?.queryFilter(
-				this.proxyContract?.filters.JoinedTribe(),
-				0
-			);
-			const members = events
-				?.map((e) => {
-					if (e.args) {
-						return {
-							tribeId: e.args[0].toNumber(),
-							account: e.args[1],
-						};
-					}
-				})
-				.filter((e) => e?.tribeId === tribeId);
-			return members;
-		} catch (err) {
-			throw err;
-		}
-	};
-
-	joinTribe = async (id: number) => {
-		debugger;
-		try {
-			const joinTxn = await this.proxyContract?.joinTribe(id);
-			return joinTxn.wait();
-		} catch (err) {
-			throw err;
-		}
-	};
-
-	getTotalTenants = async () => {
-		try {
-			const tenantCount = await this.factoryContract.tenantCounter();
-
-			return tenantCount.toNumber();
-		} catch (err) {
-			this.factoryErrors(err);
-			throw err;
-		}
-	};
-
-	addTribe = async (metadata: Omit<MetaData, 'image'>, image: File) => {
-		try {
-			const { skylink: imageLink } = await this.storage.uploadFile(image);
-			const fullMetaData: MetaData = {
-				...metadata,
-				image: imageLink,
-			};
-			const metadataFile = new File([JSON.stringify(fullMetaData)], 'metadata.json');
-			const { skylink: metadataFileLink } = await this.storage.uploadFile(metadataFile);
-
-			const addTxn = await this.proxyContract?.addNewTribe(metadataFileLink);
-			return addTxn.wait();
-		} catch (err) {
-			throw err;
-		}
-	};
-
-	useTribeEvents = (eventName: string, callback: any) => {
-		// return useEvent(eventName, useCallback(callback, [proxyContract]), proxyContract);
-	};
-
-	private factoryErrors = (err: any) => {
-		if (!this.factoryContract?.signer) {
+	const factoryErrors = (err: any) => {
+		if (!base.factoryContract?.signer) {
 			throw new Error('Please connect your wallet!');
 		}
 
@@ -184,15 +30,131 @@ export class TribesLibrary {
 
 		throw err;
 	};
-	private formatTribeResultFromTribeId = async (tribeId: number) => {
-		const txn = await this.proxyContract?.getTribeData(tribeId);
+	const formatTribeResultFromTribeId = async (tribeId: number) => {
+		const txn = await base.proxyContract?.getTribeData(tribeId);
 		const link = txn.replace('sia:', '');
 		const json = JSON.parse(
 			// eslint-disable-next-line no-await-in-loop
-			await (await fetch(`${this.storage.clientUrl}/${link}`)).text()
+			await (await fetch(`${hyperverse!.storage!.clientUrl}/${link}`)).text()
 		);
 		json.id = tribeId;
-		json.imageUrl = `${this.storage.clientUrl}/${json.image.replace('sia:', '')}`;
+		json.imageUrl = `${hyperverse!.storage!.clientUrl}/${json.image.replace('sia:', '')}`;
 		return json;
 	};
+
+
+	return {
+		...base,
+		getTribeId: async (account: string) => {
+			try {
+				const id = await base.proxyContract?.getUserTribe(account);
+				return id.toNumber();
+			} catch (err) {
+				if (err instanceof Error) {
+					if (err.message.includes('This member is not in a Tribe!')) {
+						return null;
+					}
+				}
+			}
+		},
+
+		getTribe: async (id: number) => {
+			try {
+				await base.proxyContract?.getTribeData(id);
+				return formatTribeResultFromTribeId(id);
+			} catch (err) {
+				throw err;
+			}
+		},
+
+		leaveTribe: async () => {
+			try {
+				const leaveTxn = await base.proxyContract?.leaveTribe();
+				await leaveTxn.wait();
+				return leaveTxn.hash;
+			} catch (err) {
+				throw err;
+			}
+		},
+
+		getAllTribes: async () => {
+			try {
+				const tribeCount = await base.proxyContract?.tribeCounter();
+				const tribes = [];
+				if (tribeCount) {
+					for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
+						const json = await formatTribeResultFromTribeId(tribeId);
+						tribes.push(json);
+					}
+				}
+				return tribes;
+			} catch (err) {
+				throw err;
+			}
+		},
+
+		getTribeMembers: async (tribeId: number) => {
+			try {
+				const events = await base.proxyContract?.queryFilter(
+					base.proxyContract?.filters.JoinedTribe(),
+					0
+				);
+				const members = events
+					?.map((e) => {
+						if (e.args) {
+							return {
+								tribeId: e.args[0].toNumber(),
+								account: e.args[1],
+							};
+						}
+					})
+					.filter((e) => e?.tribeId === tribeId);
+				return members;
+			} catch (err) {
+				throw err;
+			}
+		},
+
+		joinTribe: async (id: number) => {
+			debugger;
+			try {
+				const joinTxn = await base.proxyContract?.joinTribe(id);
+				return joinTxn.wait();
+			} catch (err) {
+				throw err;
+			}
+		},
+
+		getTotalTenants: async () => {
+			try {
+				const tenantCount = await base.factoryContract.tenantCounter();
+
+				return tenantCount.toNumber();
+			} catch (err) {
+				factoryErrors(err);
+				throw err;
+			}
+		},
+
+		addTribe: async (metadata: Omit<MetaData, 'image'>, image: File) => {
+			try {
+				const { skylink: imageLink } = await hyperverse!.storage!.uploadFile(image);
+				const fullMetaData: MetaData = {
+					...metadata,
+					image: imageLink,
+				};
+				const metadataFile = new File([JSON.stringify(fullMetaData)], 'metadata.json');
+				const { skylink: metadataFileLink } = await hyperverse!.storage!.uploadFile(metadataFile);
+
+				const addTxn = await base.proxyContract?.addNewTribe(metadataFileLink);
+				return addTxn.wait();
+			} catch (err) {
+				throw err;
+			}
+		},
+
+		useTribeEvents: (eventName: string, callback: any) => {
+			// return useEvent(eventName, useCallback(callback, [proxyContract]), proxyContract);
+		},
+	}
 }

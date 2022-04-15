@@ -8,8 +8,9 @@ import {
 import TribesFactory from '../artifacts/contracts/TribesFactory.sol/TribesFactory.json';
 import Tribes from '../artifacts/contracts/Tribes.sol/Tribes.json';
 import Contracts from '../contracts.json';
-export const ContractABI = Tribes.abi;
-export const FactoryABI = TribesFactory.abi;
+import { ContractInterface } from 'ethers';
+export const ContractABI = Tribes.abi as ContractInterface;
+export const FactoryABI = TribesFactory.abi as ContractInterface;
 
 const environment = Contracts as EvmEnvironment;
 
