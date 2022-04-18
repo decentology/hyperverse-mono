@@ -14,15 +14,26 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const hyperverse = useHyperverse();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
-
 	useEffect(() => {
-		TribesLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setTribesLibrary);
-	}, [readOnlyProvider, connectedProvider])
+		let cancel = false;
+		TribesLibrary(hyperverse, connectedProvider || readOnlyProvider).then((result) => {
+			if(!cancel) {
+				setTribesLibrary(result);
+			}
+		});
+		return () => {
+			cancel = true;
+		}
+	}, [ connectedProvider])
 
-
+	if(typeof window !=='undefined') {
+		// @ts-ignore
+		window['tribesLibrary'] = tribesLibrary;
+	}
 	const useTribeEvents = (eventName: string, callback: any) => {
 		return useEvent(eventName, useCallback(callback, [tribesLibrary?.proxyContract]), tribesLibrary?.proxyContract);
 	};
+
 
 
 	return {
@@ -69,10 +80,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 					if (fn) fn(...args);
 				},
 			}),
-		TribeId: () => useQuery(['getTribeId', address,], () => tribesLibrary?.getTribeId(address!),{enabled: !!tribesLibrary}),
+		TribeId: () => useQuery(['getTribeId', address,], () => tribesLibrary?.getTribeId(address!), { enabled: !!tribesLibrary }),
 		Tribe: () => {
 			const { data: tribeId } = useQuery(['getTribeId', address,], () => tribesLibrary?.getTribeId(address!),
-				{ enabled: !!tribesLibrary}
+				{ enabled: !!tribesLibrary }
 			);
 			return useQuery(['getTribeData', tribeId], () => tribesLibrary?.getTribe(tribeId),);
 		},

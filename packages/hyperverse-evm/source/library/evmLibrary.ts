@@ -20,34 +20,36 @@ export async function BaseLibrary(
 	providerOrSigner: ethers.providers.Provider | ethers.Signer
 ) {
 
-	const factoryContract = new ethers.Contract(
+	let signer: ethers.Signer | undefined;
+	console.log('What is the provider?', providerOrSigner);
+	if (providerOrSigner instanceof Web3Provider) {
+		signer = providerOrSigner.getSigner();
+	}
+	
+	let factoryContract = new ethers.Contract(
 		factoryAddress!,
 		factoryABI,
-		providerOrSigner
+		signer || providerOrSigner
 	) as Contract;
 	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === 'Tribes')?.tenantId;
 	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
 
-	// const setProvider = (provider: ethers.providers.Provider) => {
-	// 	let signer: ethers.Signer | undefined;
-	// 	if (provider instanceof Web3Provider) {
-	// 		signer = provider.getSigner();
-	// 	}
-	// 	this.factoryContract = new ethers.Contract(
-	// 		this.factoryAddress!,
-	// 		this.factoryABI,
-	// 		signer || provider
-	// 	) as Contract;
-	// 	if (this.proxyContract) {
-	// 		this.proxyContract = new ethers.Contract(
-	// 			this.proxyContract.address,
-	// 			this.contractABI,
-	// 			signer || provider
-	// 		) as Contract;
-	// 	}
-	// }
+	const setProvider = (provider: ethers.providers.Provider) => {
+		factoryContract = new ethers.Contract(
+			factoryAddress!,
+			factoryABI,
+			signer || provider
+		) as Contract;
+		if (proxyContract) {
+			proxyContract = new ethers.Contract(
+				proxyContract.address,
+				contractABI,
+				signer || provider
+			) as Contract;
+		}
+	}
 
 	let proxyAddress: string
 	let proxyContract: Contract | undefined;
@@ -60,8 +62,10 @@ export async function BaseLibrary(
 	proxyContract = new ethers.Contract(
 		proxyAddress,
 		contractABI,
-		providerOrSigner
+		signer || providerOrSigner
 	) as Contract;
+
+
 
 	const ready = true;
 
@@ -98,6 +102,7 @@ export async function BaseLibrary(
 
 	return {
 		ready,
+		setProvider,
 		checkInstance,
 		createInstance,
 		factoryContract,

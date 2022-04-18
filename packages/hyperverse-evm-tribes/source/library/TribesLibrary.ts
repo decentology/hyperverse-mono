@@ -1,12 +1,18 @@
 import { HyperverseConfig } from '@decentology/hyperverse';
 import { BaseLibrary, getProvider } from '@decentology/hyperverse-evm';
 import { ethers } from 'ethers';
+import { CancellablePromise } from 'real-cancellable-promise';
 import { getEnvironment } from '../environment';
 import { MetaData } from '../types';
 
 export type TribesLibraryType = Awaited<ReturnType<typeof TribesLibrary>>;
+export function TribesLibraryPromise(
+	hyperverse: HyperverseConfig,
+	providerOrSigner?: ethers.providers.Provider | ethers.Signer
+): CancellablePromise<TribesLibraryType> {
+	return new CancellablePromise(TribesLibrary(hyperverse, providerOrSigner), () => {});
+}
 export async function TribesLibrary(
-
 	hyperverse: HyperverseConfig,
 	providerOrSigner?: ethers.providers.Provider | ethers.Signer
 ) {
@@ -17,7 +23,13 @@ export async function TribesLibrary(
 	if (!providerOrSigner) {
 		providerOrSigner = getProvider(hyperverse.network);
 	}
-	const base = await BaseLibrary(hyperverse, factoryAddress!, FactoryABI, ContractABI, providerOrSigner);
+	const base = await BaseLibrary(
+		hyperverse,
+		factoryAddress!,
+		FactoryABI,
+		ContractABI,
+		providerOrSigner
+	);
 
 	const factoryErrors = (err: any) => {
 		if (!base.factoryContract?.signer) {
@@ -41,7 +53,6 @@ export async function TribesLibrary(
 		json.imageUrl = `${hyperverse!.storage!.clientUrl}/${json.image.replace('sia:', '')}`;
 		return json;
 	};
-
 
 	return {
 		...base,
@@ -100,15 +111,15 @@ export async function TribesLibrary(
 					0
 				);
 				const members = events
-					?.map((e) => {
+					?.map(e => {
 						if (e.args) {
 							return {
 								tribeId: e.args[0].toNumber(),
-								account: e.args[1],
+								account: e.args[1]
 							};
 						}
 					})
-					.filter((e) => e?.tribeId === tribeId);
+					.filter(e => e?.tribeId === tribeId);
 				return members;
 			} catch (err) {
 				throw err;
@@ -117,6 +128,12 @@ export async function TribesLibrary(
 
 		joinTribe: async (id: number) => {
 			try {
+				// @ts-ignore
+				console.log(
+					'joinTribe',
+					base.proxyContract.signer,
+					window['tribesLibrary'] === this
+				);
 				const joinTxn = await base.proxyContract?.joinTribe(id);
 				return joinTxn.wait();
 			} catch (err) {
@@ -140,10 +157,12 @@ export async function TribesLibrary(
 				const { skylink: imageLink } = await hyperverse!.storage!.uploadFile(image);
 				const fullMetaData: MetaData = {
 					...metadata,
-					image: imageLink,
+					image: imageLink
 				};
 				const metadataFile = new File([JSON.stringify(fullMetaData)], 'metadata.json');
-				const { skylink: metadataFileLink } = await hyperverse!.storage!.uploadFile(metadataFile);
+				const { skylink: metadataFileLink } = await hyperverse!.storage!.uploadFile(
+					metadataFile
+				);
 
 				const addTxn = await base.proxyContract?.addNewTribe(metadataFileLink);
 				return addTxn.wait();
@@ -154,6 +173,6 @@ export async function TribesLibrary(
 
 		useTribeEvents: (eventName: string, callback: any) => {
 			// return useEvent(eventName, useCallback(callback, [proxyContract]), proxyContract);
-		},
-	}
+		}
+	};
 }
