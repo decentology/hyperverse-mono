@@ -11,25 +11,25 @@ const hyperverse = initialize({
 	blockchain: Ethereum,
 	network: Network.Testnet,
 	modules: [
-		{ bundle: Tribes, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }
-	]
+		{
+			bundle: Tribes,
+			tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
+		},
+	],
 });
 
-
-const provider = new ethers.providers.InfuraProvider({
-	chainId: 4,
-	name: 'rinkeby',
-}, 'fb9f66bab7574d70b281f62e19c27d49')
-
-
-const tribes = new TribesLibrary(
-	hyperverse,
-	provider
+const provider = new ethers.providers.InfuraProvider(
+	{
+		chainId: 4,
+		name: 'rinkeby',
+	},
+	'fb9f66bab7574d70b281f62e19c27d49',
 );
 
-Injectable()
+Injectable();
 export class AppService {
 	async getHello(): Promise<string> {
+		const tribes = await TribesLibrary(hyperverse, provider);
 		const totalTribes = await tribes.getTotalTenants();
 		return renderToStaticMarkup(
 			React.createElement('div', null, `Total Tenants: ${0}`),
