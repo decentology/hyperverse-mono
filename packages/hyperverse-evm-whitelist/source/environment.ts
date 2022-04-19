@@ -2,8 +2,8 @@ import {
 	isEvm,
 	Blockchain,
 	BlockchainEvm,
-	useHyperverse,
 	EvmEnvironment,
+	NetworkConfig,
 } from '@decentology/hyperverse';
 import Whitelist from '../artifacts/contracts/Whitelist.sol/Whitelist.json';
 import WhitelistFactory from '../artifacts/contracts/WhitelistFactory.sol/WhitelistFactory.json';
