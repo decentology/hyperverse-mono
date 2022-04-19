@@ -65,14 +65,6 @@ contract WhitelistFactory is CloneFactory {
 		_;
 	}
 
-	modifier checkInstance(address _tenant) {
-		if (!instance[_tenant]) {
-			revert InstanceDoesNotExist();
-		}
-		_;
-	}
-
-
 	constructor(address _masterContract, address _owner) {
 		masterContract = _masterContract;
 		owner = _owner;
@@ -88,8 +80,15 @@ contract WhitelistFactory is CloneFactory {
 		address _ERC721,
 		address _ERC20,
 		bytes32 _merkleRoot
-	) external isAuthorized(_tenant) hasAnInstance(_tenant){
-		if (_startTime == 0 && _endTime == 0 && _units == 0 && _ERC721 == address(0) && _ERC20 == address(0) && _merkleRoot == bytes32(0)) {
+	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
+		if (
+			_startTime == 0 &&
+			_endTime == 0 &&
+			_units == 0 &&
+			_ERC721 == address(0) &&
+			_ERC20 == address(0) &&
+			_merkleRoot == bytes32(0)
+		) {
 			revert InvalidValuesToCreateInstance();
 		}
 
@@ -128,8 +127,11 @@ contract WhitelistFactory is CloneFactory {
 		emit TenantCreated(_tenant, address(proxy));
 	}
 
-
 	function getProxy(address _tenant) public view checkInstance(_tenant) returns (Whitelist) {
+		if (instance[_tenant]) {
+			revert InstanceAlreadyInitialized();
+		}
+		_;
 		return tenants[_tenant].proxy;
 	}
 }
