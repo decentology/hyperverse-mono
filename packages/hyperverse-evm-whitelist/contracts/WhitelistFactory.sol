@@ -121,7 +121,7 @@ contract WhitelistFactory is CloneFactory {
 	}
 
 
-	function getProxy(address _tenant) public view returns (Whitelist) {
+	function getProxy(address _tenant) public view hasAnInstance(_tenant) returns (Whitelist) {
 		return tenants[_tenant].proxy;
 	}
 }
