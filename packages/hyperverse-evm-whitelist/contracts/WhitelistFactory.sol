@@ -42,6 +42,7 @@ contract WhitelistFactory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	error Unathorized();
 	error InstanceAlreadyInitialized();
+	error InstanceDoesNotExist();
 	error InvalidTime();
 	error InvalidValuesToCreateInstance();
 	error InvalidMerkelRoot();
@@ -60,6 +61,13 @@ contract WhitelistFactory is CloneFactory {
 	modifier hasAnInstance(address _tenant) {
 		if (instance[_tenant]) {
 			revert InstanceAlreadyInitialized();
+		}
+		_;
+	}
+
+	modifier checkInstance(address _tenant) {
+		if (!instance[_tenant]) {
+			revert InstanceDoesNotExist();
 		}
 		_;
 	}
@@ -121,7 +129,7 @@ contract WhitelistFactory is CloneFactory {
 	}
 
 
-	function getProxy(address _tenant) public view hasAnInstance(_tenant) returns (Whitelist) {
+	function getProxy(address _tenant) public view checkInstance(_tenant) returns (Whitelist) {
 		return tenants[_tenant].proxy;
 	}
 }
