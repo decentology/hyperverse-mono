@@ -19,7 +19,11 @@ function useEnvironment() {
 	if (!isEvm(blockchain?.name)) {
 		throw new Error('Blockchain is not EVM compatible');
 	}
-	const env = environment[blockchain.name as BlockchainEvm][network.type];
+	const chain = environment[blockchain.name as BlockchainEvm];
+	if (!chain) {
+		throw new Error('Blockchain is not supported');
+	}
+	const env = chain[network.type];
 	return {
 		...env,
 		ContractABI,

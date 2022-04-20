@@ -1,0 +1,20 @@
+{
+	"collection": "@nestjs/schematics",
+	"sourceRoot": "src",
+	"monorepo": true,
+	"root": ".",
+	"compilerOptions": {
+		"webpack": true,
+		"tsConfigPath": "tsconfig.json"
+	},
+	"projects": {
+		"nest": {
+			"type": "application",
+			"root": "."
+		},
+		"@decentology/hyperverse-evm-tribes": {
+			"type": "library",
+			"root": "../../../hyperverse-evm-tribes"
+		}
+	}
+}

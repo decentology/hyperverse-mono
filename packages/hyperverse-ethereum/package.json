@@ -1,8 +1,14 @@
 {
 	"name": "@decentology/hyperverse-ethereum",
 	"version": "1.0.10",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
+	"main:src": "./source/index.ts",
 	"module": "./distribution/index.es.js",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",

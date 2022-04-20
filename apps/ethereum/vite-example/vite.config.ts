@@ -2,47 +2,31 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill';
 import polyfillNode from 'rollup-plugin-polyfill-node';
-
+import * as React from 'react';
 export default defineConfig({
-	plugins: [
-		polyfillNode(),
-		react(),
-
-	],
+	plugins: [polyfillNode(), react()],
 	optimizeDeps: {
-		include: [
-			// '@decentology/hyperverse',
-			// '@decentology/hyperverse-evm',
-			// '@decentology/web3modal',
-			// '@decentology/hyperverse-ethereum'
-		],
+		include: [],
 		esbuildOptions: {
 			define: {
-				global: "globalThis"
+				global: 'globalThis',
 			},
 			plugins: [
 				NodeGlobalsPolyfillPlugin({
-					buffer: true
-				})
-			]
-		}
-		// exclude: ['@decentology/web3modal']
-	},
-	build: {
-		commonjsOptions: {
-			// include: ['@decentology/web3modal']
-		}
+					buffer: true,
+				}),
+			],
+		},
 	},
 	resolve: {
 		alias: {
 			'react/jsx-runtime': 'react/jsx-runtime.js',
-			// buffer: 'buffer'
-		}
+		},
 	},
 	define: {
-		global: {},
 		process: {
-			env: {}
-		}
-	}
+			env: {},
+		},
+		React: React,
+	},
 });

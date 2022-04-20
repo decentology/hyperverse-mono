@@ -3,7 +3,6 @@ import {useEvm} from '@decentology/hyperverse-evm'
 
 function EthereumState() {
 	const state = useEvm();
-
 	return {
 		...state
 	}

@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "es2017",
+		"sourceMap": true,
+		"outDir": "./dist",
+		"baseUrl": "./",
+		"incremental": true,
+		"skipLibCheck": true,
+		"strictNullChecks": false,
+		"esModuleInterop": true,
+		"noImplicitAny": false,
+		"strictBindCallApply": false,
+		"forceConsistentCasingInFileNames": false,
+		"resolveJsonModule": true,
+		"jsx": "react-jsx",
+		"noFallthroughCasesInSwitch": false,
+		"paths": {
+			"@decentology/hyperverse": [
+				"../../../packages/hyperverse"
+			],
+
+			"@decentology/hyperverse-ethereum": [
+				"../../../packages/hyperverse-ethereum"
+			],
+
+			"@decentology/hyperverse-storage-skynet": [
+				"../../../packages/hyperverse-storage-skynet"
+			],
+			"@decentology/hyperverse-evm": [
+				"../../../packages/hyperverse-evm"
+			]
+		}
+	}
+}

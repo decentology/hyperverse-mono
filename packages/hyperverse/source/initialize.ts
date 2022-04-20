@@ -1,7 +1,34 @@
-import { Hyperverse } from './types';
+import { SkynetStorageLibrary } from '@decentology/hyperverse-storage-skynet';
+import Storage from './constants/storage';
+import { Hyperverse, HyperverseConfig, StorageOptions } from './types';
 
 function initialize(options: Hyperverse) {
-	return options;
+	const network = options.blockchain!.getNetwork!(
+		typeof options.network === 'string' ? options.network : options.network.type
+	);
+	const hyperverseConfig: HyperverseConfig = {
+		...options,
+		storage: setupStorage(options.storage),
+		network
+	};
+	return hyperverseConfig;
+}
+
+function setupStorage(options: Storage | StorageOptions) {
+	const storageOptions: StorageOptions =
+		typeof options === 'string' ? { name: options } : options;
+	if (
+		storageOptions === null ||
+		storageOptions?.name === undefined ||
+		storageOptions?.name === Storage.Skynet
+	) {
+		return new SkynetStorageLibrary(
+			storageOptions?.options?.clientUrl
+				? { clientUrl: storageOptions.options.clientUrl }
+				: undefined
+		);
+	}
+	return undefined;
 }
 
 export default initialize;
