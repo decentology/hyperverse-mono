@@ -8,21 +8,28 @@ import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { useMutation, useQuery } from 'react-query';
 
 const AllTribes = () => {
-	const { address } = useEthereum();
-	const { Tribes, Join, TotalTenants } = useTribes();
 	const router = useRouter();
-	const { data, isLoading: allTribesLoading } = Tribes();
+	const { address } = useEthereum();
+	const tribes = useTribes();
+	const { data, isLoading: allTribesLoading } = useQuery('tribes', () => tribes.getAllTribes(), {
+		enabled: !tribes.loading,
+	});
 	const {
 		mutate,
-		isLoading: joinTribeLoading,		
+		isLoading: joinTribeLoading,
 		error,
-	} = Join({
-		onSuccess: () => router.push('/my-tribe'),
-	});
+		isSuccess,
+	} = useMutation('joinTribe', tribes.joinTribe);
+	useEffect(() => {
+		if (isSuccess) {
+			router.push('/my-tribe');
+		}
+	}, [isSuccess, router]);
 
-	const isLoading = allTribesLoading || joinTribeLoading;
+	const isLoading = tribes.loading || allTribesLoading || joinTribeLoading;
 
 	useEffect(() => {
 		if (error) {

@@ -21,11 +21,10 @@ export async function BaseLibrary(
 ) {
 
 	let signer: ethers.Signer | undefined;
-	console.log('What is the provider?', providerOrSigner);
 	if (providerOrSigner instanceof Web3Provider) {
 		signer = providerOrSigner.getSigner();
 	}
-	
+
 	let factoryContract = new ethers.Contract(
 		factoryAddress!,
 		factoryABI,
@@ -67,7 +66,6 @@ export async function BaseLibrary(
 
 
 
-	const ready = true;
 
 	const checkInstance = async (account: any) => {
 		try {
@@ -78,7 +76,6 @@ export async function BaseLibrary(
 			throw err;
 		}
 	};
-
 	const createInstance = async (account: string) => {
 		try {
 			const createTxn = await factoryContract.createInstance(account);
@@ -99,12 +96,22 @@ export async function BaseLibrary(
 
 		throw err;
 	};
+	const getTotalTenants = async () => {
+		try {
+			const tenantCount = await factoryContract.tenantCounter();
+
+			return tenantCount.toNumber();
+		} catch (err) {
+			factoryErrors(err);
+			throw err;
+		}
+	};
 
 	return {
-		ready,
 		setProvider,
 		checkInstance,
 		createInstance,
+		getTotalTenants,
 		factoryContract,
 		proxyContract,
 		proxyAddress

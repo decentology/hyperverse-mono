@@ -5,14 +5,12 @@ import { CancellablePromise } from 'real-cancellable-promise';
 import { getEnvironment } from '../environment';
 import { MetaData } from '../types';
 
-export type TribesLibraryType = Awaited<ReturnType<typeof TribesLibrary>>;
-export function TribesLibraryPromise(
-	hyperverse: HyperverseConfig,
-	providerOrSigner?: ethers.providers.Provider | ethers.Signer
-): CancellablePromise<TribesLibraryType> {
-	return new CancellablePromise(TribesLibrary(hyperverse, providerOrSigner), () => {});
+export type TribesLibraryType = Awaited<ReturnType<typeof TribesLibraryInternal>>;
+export function TribesLibrary(...args: Parameters<typeof TribesLibraryInternal>): CancellablePromise<TribesLibraryType> {
+	return new CancellablePromise(TribesLibraryInternal(...args), () => {});
 }
-export async function TribesLibrary(
+
+async function TribesLibraryInternal(
 	hyperverse: HyperverseConfig,
 	providerOrSigner?: ethers.providers.Provider | ethers.Signer
 ) {
@@ -31,17 +29,6 @@ export async function TribesLibrary(
 		providerOrSigner
 	);
 
-	const factoryErrors = (err: any) => {
-		if (!base.factoryContract?.signer) {
-			throw new Error('Please connect your wallet!');
-		}
-
-		if (err.code === 4001) {
-			throw new Error('You rejected the transaction!');
-		}
-
-		throw err;
-	};
 	const formatTribeResultFromTribeId = async (tribeId: number) => {
 		const txn = await base.proxyContract?.getTribeData(tribeId);
 		const link = txn.replace('sia:', '');
@@ -59,7 +46,7 @@ export async function TribesLibrary(
 		getTribeId: async (account: string) => {
 			try {
 				const id = await base.proxyContract?.getUserTribe(account);
-				return id.toNumber();
+				return id.toNumber() as number;
 			} catch (err) {
 				if (err instanceof Error) {
 					if (err.message.includes('This member is not in a Tribe!')) {
@@ -128,10 +115,10 @@ export async function TribesLibrary(
 
 		joinTribe: async (id: number) => {
 			try {
-				// @ts-ignore
 				console.log(
 					'joinTribe',
 					base.proxyContract.signer,
+					// @ts-ignore
 					window['tribesLibrary'] === this
 				);
 				const joinTxn = await base.proxyContract?.joinTribe(id);
@@ -141,16 +128,6 @@ export async function TribesLibrary(
 			}
 		},
 
-		getTotalTenants: async () => {
-			try {
-				const tenantCount = await base.factoryContract.tenantCounter();
-
-				return tenantCount.toNumber();
-			} catch (err) {
-				factoryErrors(err);
-				throw err;
-			}
-		},
 
 		addTribe: async (metadata: Omit<MetaData, 'image'>, image: File) => {
 			try {
