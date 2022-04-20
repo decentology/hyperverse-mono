@@ -1,7 +1,3 @@
-// This is an example implementation of a Flow Non-Fungible Token
-// It is not part of the official standard but it assumed to be
-// very similar to how many NFTs would implement the core functionality.
-
 import MetadataViews from "./MetadataViews.cdc"
 
 pub contract ExampleNFT {
@@ -78,6 +74,7 @@ pub contract ExampleNFT {
                     "Cannot borrow ExampleNFT reference: the ID of the returned reference is incorrect"
             }
         }
+        pub fun borrowViewResolver(_ tenant: Address, id: UInt64): &AnyResource{MetadataViews.Resolver}
     }
 
     pub resource Collection: ExampleNFTCollectionPublic {

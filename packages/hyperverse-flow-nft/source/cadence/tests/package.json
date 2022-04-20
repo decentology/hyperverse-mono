@@ -1,0 +1,24 @@
+{
+  "name": "flowjstesting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --runInBand"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@onflow/fcl": "^0.0.78",
+    "@onflow/types": "^0.0.6",
+    "api": "^4.2.0",
+    "babel-jest": "^27.5.1",
+    "flow-js-testing": "^0.2.3-alpha.4",
+    "jest": "^27.5.1",
+    "postcss": "^8.4.8",
+    "prettier": "^2.5.1",
+    "web": "^0.0.2"
+  }
+}
