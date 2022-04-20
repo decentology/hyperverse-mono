@@ -68,7 +68,7 @@ import "./ERC20.sol";
       ERC20 token =  ERC20(createClone(masterContract));
 
       //initializing tenant state of clone 
-      token.init(_name, _symbol, _decimal, msg.sender);
+      token.initialize(_name, _symbol, _decimal, msg.sender);
 
       //set Tenant data
       Tenant storage newTenant = tenants[_tenant];

@@ -16,20 +16,19 @@ describe('Token', function () {
 	let aliceProxyContract;
 
 	beforeEach(async () => {
-		TokenMain = await ethers.getContractFactory('Token');
+		TokenMain = await ethers.getContractFactory('ERC20');
 		[owner, alice, bob, cara] = await ethers.getSigners();
 
 		tokenMainCtr = await TokenMain.deploy(owner.address);
 		await tokenMainCtr.deployed();
 
-		TokenFactory = await ethers.getContractFactory('TokenFactory');
+		TokenFactory = await ethers.getContractFactory('ERC20Factory');
 		tokenFactoryCtr = await TokenFactory.deploy(tokenMainCtr.address, owner.address);
 		await tokenFactoryCtr.deployed();
 
 		await tokenFactoryCtr.connect(alice).createInstance(alice.address, 'ALICE', 'ALC', '6');
 
-		const main = await ethers.getContractFactory('Token');
-		aliceProxyContract = await main.attach(await tokenFactoryCtr.getProxy(alice.address));
+		aliceProxyContract = await TokenMain.attach(await tokenFactoryCtr.getProxy(alice.address));
 	});
 
 	describe('Initial State Variables', function () {

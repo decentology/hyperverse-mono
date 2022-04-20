@@ -2,13 +2,13 @@
 pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "hardhat/console.sol";
+import "./interfaces/IERC20.sol";
+import "./utils/SafeMath.sol";
 
 import "./hyperverse/IHyperverseModule.sol";
+import "./hyperverse/Initializable.sol";
 
-contract ERC20 is IERC20, IHyperverseModule {
+contract ERC20 is IERC20, IHyperverseModule, Initializable {
     using SafeMath for uint256;
 
     /*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -79,7 +79,7 @@ contract ERC20 is IERC20, IHyperverseModule {
      * @param _decimal The number of decimals of the token
      * @param _tenant The address of the instance owner
      */
-     function init(string memory _name, string memory _symbol, uint256 _decimal, address _tenant) external {
+     function initialize(string memory _name, string memory _symbol, uint256 _decimal, address _tenant) external initializer {
         require(tenantOwner == address(0), "Contract is already initialized");
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
         tenantOwner = _tenant;
