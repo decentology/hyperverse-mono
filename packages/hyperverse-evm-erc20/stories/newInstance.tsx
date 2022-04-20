@@ -1,13 +1,10 @@
 import * as PropTypes from 'prop-types';
 import './button.css';
-import { useTribes } from '../source';
+import { useERC20 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
 
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({ ...props }) => {
-	const { NewInstance } = useTribes();
+export const NewInstance = ({ ...props }) => {
+	const { NewInstance } = useERC20();
 	const { address, connect } = useEvm();
 	const { mutate } = NewInstance();
 
@@ -19,7 +16,7 @@ export const Button = ({ ...props }) => {
 			onClick={() => {
 				console.log('Calling mutate');
 				if (address) {
-					mutate({ account: address });
+					mutate({ account: address, name: '', symbol: '', decimal: 0 });
 				} else {
 					connect();
 				}
@@ -30,14 +27,8 @@ export const Button = ({ ...props }) => {
 	);
 };
 
-Button.propTypes = {
-	/**
-	 * Is this the principal call to action on the page?
-	 */
+NewInstance.propTypes = {
 	account: PropTypes.string.isRequired
-	/**
-	 * Optional click handler
-	 */
 };
 
-Button.defaultProps = {};
+NewInstance.defaultProps = {};
