@@ -18,7 +18,7 @@ export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, ini
 			children = createElement(
 				module.bundle.Provider,
 				{
-					tenantId: module.tenantId
+					tenantId: module.tenantId,
 				},
 				children
 			);
