@@ -13,9 +13,11 @@ import { useStorage } from '@decentology/hyperverse-storage-skynet';
 const TribesPage = () => {
 	const router = useRouter();
 	const { address: account } = useMetis();
-	const { Tribe, Leave } = useTribes();
+	// const { Tribe, Leave } = useTribes();
+	const tribes = useTribes();
 	const { clientUrl } = useStorage();
-	const { data, isLoading: tribeDataLoading, error: tribeErr } = Tribe();
+	// const { data, isLoading: tribeDataLoading, error: tribeErr } = Tribe();
+	
 	const {
 		mutate,
 		isLoading: leaveTribeLoading,

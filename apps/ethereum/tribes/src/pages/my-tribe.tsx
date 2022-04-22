@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useEffect } from 'react';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useTribes } from '@decentology/hyperverse-evm-tribes';
@@ -13,15 +13,24 @@ import { useStorage } from '@decentology/hyperverse-storage-skynet';
 const TribesPage = () => {
 	const router = useRouter();
 	const { address: account } = useEthereum();
-	const { Tribe, Leave } = useTribes();
+	const tribes = useTribes();
 	const { clientUrl } = useStorage();
-	const { data, isLoading: tribeDataLoading, error: tribeErr } = Tribe();
+	const {
+		data,
+		isLoading: tribeDataLoading,
+		error: tribeErr,
+	} = useQuery('tribeAccount', () => tribes.getTribeByAccount(account), {
+		enabled: !tribes.loading,
+	});
+
 	const {
 		mutate,
 		isLoading: leaveTribeLoading,
 		error: leaveErr,
-	} = Leave({
-		onSuccess: () => router.push('/'),
+	} = useMutation('leaveTribe', tribes.leaveTribe, {
+		onSuccess: () => {
+			router.push('/');
+		},
 	});
 
 	const isLoading = tribeDataLoading || leaveTribeLoading;

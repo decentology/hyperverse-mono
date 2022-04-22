@@ -6,7 +6,6 @@ import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
 import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { toast } from 'react-toastify';
 import { useState } from 'react';
 
 const Home: NextPage = () => {
@@ -60,7 +59,6 @@ const Home: NextPage = () => {
 						) : null}
 					</div>
 				</div>
-				{/* <Footer /> */}
 			</main>
 		</>
 	);

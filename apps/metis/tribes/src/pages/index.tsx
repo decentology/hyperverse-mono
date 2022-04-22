@@ -1,28 +1,23 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
 import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import { useMetis } from '@decentology/hyperverse-metis';
-import { toast } from 'react-toastify';
 
 const Home: NextPage = () => {
 	const router = useRouter();
 	const { address } = useMetis();
-	const { TribeId } = useTribes();
-	const { data, error } = TribeId();
-
+	const { getTribeId } = useTribes();
+	const [tribeId, setTribeId] = useState<number>(); 
 	useEffect(() => {
-		//@ts-ignore
-		if (error) {
-			//@ts-ignore
-			toast.error(error.message, {
-				position: toast.POSITION.BOTTOM_CENTER,
-			});
+		if (getTribeId != null) {
+			getTribeId(address).then(setTribeId);
 		}
-	}, [error]);
+	},[getTribeId, address]);
+
 	return (
 		<>
 			<Head>
@@ -44,7 +39,7 @@ const Home: NextPage = () => {
 							create.
 						</p>
 						{address ? (
-							!data ? (
+							!tribeId ? (
 								<button
 									className={styles.join}
 									onClick={() => {
@@ -64,7 +59,6 @@ const Home: NextPage = () => {
 						) : null}
 					</div>
 				</div>
-				{/* <Footer /> */}
 			</main>
 		</>
 	);

@@ -3,6 +3,7 @@ import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
+import { useQuery } from 'react-query';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Nav from '../components/Nav';
 import styles from '../styles/Home.module.css';
@@ -13,8 +14,10 @@ const Battle = () => {
 	const [contestants, setContestants] = useState<any[]>([]);
 	const [randomFightImage, setRandomFightImage] = useState<string>(fightImages[0]);
 	const [winner, setWinner] = useState<any>(null);
-	const { Tribes } = useTribes();
-	const { data: tribesList } = Tribes();
+	const tribes = useTribes();
+	const { data: tribesList } = useQuery('tribes', () => tribes.getAllTribes(), {
+		enabled: !tribes.loading,
+	});
 	const { StartRandomPick, GetRandomPick } = useRandomPick();
 	const { mutate: randomMutate, data: requestId, isLoading: randomNumber } = StartRandomPick();
 	let { data: randomNumberPick, isLoading: loadingWinner } = GetRandomPick(requestId);
