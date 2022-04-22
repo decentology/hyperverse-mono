@@ -1,6 +1,7 @@
 import { HyperverseConfig } from '@decentology/hyperverse';
 import { BaseLibrary, getProvider } from '@decentology/hyperverse-evm';
-import { ethers } from 'ethers';
+import { ethers, Transaction } from 'ethers';
+import { TransactionReceipt } from '@ethersproject/abstract-provider'
 import { CancellablePromise } from 'real-cancellable-promise';
 import { getEnvironment } from '../environment';
 import { MetaData } from '../types';
@@ -38,7 +39,7 @@ async function TribesLibraryInternal(
 		);
 		json.id = tribeId;
 		json.imageUrl = `${hyperverse!.storage!.clientUrl}/${json.image.replace('sia:', '')}`;
-		return json;
+		return json as MetaData;
 	};
 
 	const getTribeId = async (account: string) => {
@@ -54,7 +55,7 @@ async function TribesLibraryInternal(
 		};
 	};
 
-	const getTribeByAccount = async (account:string) => {
+	const getTribeByAccount = async (account: string) => {
 		const tribeId = await getTribeId(account);
 		return await getTribe(tribeId!);
 	}
@@ -72,7 +73,7 @@ async function TribesLibraryInternal(
 		try {
 			const leaveTxn = await base.proxyContract?.leaveTribe();
 			await leaveTxn.wait();
-			return leaveTxn.hash;
+			return leaveTxn.hash as string;
 		} catch (err) {
 			throw err;
 		}
@@ -81,7 +82,7 @@ async function TribesLibraryInternal(
 	const getAllTribes = async () => {
 		try {
 			const tribeCount = await base.proxyContract?.tribeCounter();
-			const tribes = [];
+			const tribes: MetaData[] = [];
 			if (tribeCount) {
 				for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
 					const json = await formatTribeResultFromTribeId(tribeId);
@@ -125,14 +126,14 @@ async function TribesLibraryInternal(
 				window['tribesLibrary'] === this
 			);
 			const joinTxn = await base.proxyContract?.joinTribe(id);
-			return joinTxn.wait();
+			return joinTxn.wait() as TransactionReceipt;
 		} catch (err) {
 			throw err;
 		}
 	};
 
 
-	const addTribe = async ({metadata, image}: {metadata: Omit<MetaData, 'image'>, image: File}) => {
+	const addTribe = async ({ metadata, image }: { metadata: Omit<MetaData, 'image'>, image: File }) => {
 		try {
 			const { skylink: imageLink } = await hyperverse!.storage!.uploadFile(image);
 			const fullMetaData: MetaData = {
@@ -145,7 +146,7 @@ async function TribesLibraryInternal(
 			);
 
 			const addTxn = await base.proxyContract?.addNewTribe(metadataFileLink);
-			return addTxn.wait();
+			return addTxn.wait() as TransactionReceipt;
 		} catch (err) {
 			throw err;
 		}
