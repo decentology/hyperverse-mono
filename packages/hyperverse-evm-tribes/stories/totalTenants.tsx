@@ -6,12 +6,13 @@ export const GetTotalTenants = ({ ...props }) => {
 	const { data: totalTenants } = TotalTenants();
 
 	return (
-		<div className="totalTenants">
-			Total Tenants: <b>{totalTenants}</b>
-		</div>
+			<div className="totalTenants">
+				Total Tenants: <b>{totalTenants}</b>
+			</div>
 	);
 };
 
-GetTotalTenants.propTypes = {};
+GetTotalTenants.propTypes = {
+};
 
 GetTotalTenants.defaultProps = {};

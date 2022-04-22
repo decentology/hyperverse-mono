@@ -3,9 +3,6 @@ import './button.css';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
 
-/**
- * Primary UI component for user interaction
- */
 export const NewInstance = ({ ...props }) => {
 	const { NewInstance } = useTribes();
 	const { address, connect } = useEvm();
@@ -31,13 +28,7 @@ export const NewInstance = ({ ...props }) => {
 };
 
 NewInstance.propTypes = {
-	/**
-	 * Is this the principal call to action on the page?
-	 */
 	account: PropTypes.string.isRequired
-	/**
-	 * Optional click handler
-	 */
 };
 
 NewInstance.defaultProps = {};
