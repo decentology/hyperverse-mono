@@ -144,7 +144,7 @@ describe('Token', function () {
 
       await expect(
         aliceProxyContract.connect(bob).mint(amount)
-      ).to.be.revertedWith('You are not the tenant owner');
+      ).to.be.revertedWith('Unauthorized()');
     });
   
   })
