@@ -16,7 +16,7 @@ contract ERC20 is IERC20, IHyperverseModule, Initializable {
 	address public immutable contractOwner;
 
 	//stores the tenant owner
-	address private tenantOwner;
+	address private _tenantOwner;
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	string public name;
@@ -48,37 +48,31 @@ contract ERC20 is IERC20, IHyperverseModule, Initializable {
 	error ZeroAddress();
 	error SameAddress();
 	error InsufficientBalance();
+	error InsufficientAllowance();
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+modifiers
 	modifier isTenantOwner() {
-		if (msg.sender != tenantOwner) {
+		if (msg.sender != _tenantOwner) {
 			revert Unauthorized();
 		}
 		_;
 	}
 
 	modifier canInitialize(address _tenant) {
-		if (tenantOwner != address(0)) {
+		if (_tenantOwner != address(0)) {
 			revert AlreadyInitialized();
 		}
 		_;
 	}
 
-	modifier tranferCheck(
-		address _from,
-		address _to,
-		uint256 _value
-	) {
+	modifier addressCheck(address _from, address _to) {
 		if (_from == _to) {
 			revert SameAddress();
 		}
 		if (_to == address(0) || _from == address(0)) {
 			revert ZeroAddress();
-		}
-		if (balanceOf(_from) <= _value) {
-			revert InsufficientBalance();
 		}
 		_;
 	}
@@ -87,7 +81,7 @@ contract ERC20 is IERC20, IHyperverseModule, Initializable {
 
 	constructor(address _owner) {
 		metadata = ModuleMetadata(
-			'Token',
+			'ERC20',
 			Author(_owner, 'https://externallink.net'),
 			'0.0.1',
 			3479831479814,
@@ -129,7 +123,7 @@ contract ERC20 is IERC20, IHyperverseModule, Initializable {
 		// Assign entire initial supply to contract owner
 		balances[_tenant] = totalSupply;
 
-		tenantOwner = _tenant;
+		_tenantOwner = _tenant;
 	}
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
@@ -162,9 +156,12 @@ contract ERC20 is IERC20, IHyperverseModule, Initializable {
 	function transfer(address _to, uint256 _value)
 		public
 		override
-		tranferCheck(msg.sender, _to, _value)
+		addressCheck(msg.sender, _to)
 		returns (bool)
 	{
+		if (balanceOf(msg.sender) < _value) {
+			revert InsufficientBalance();
+		}
 		balances[msg.sender] = balances[msg.sender].sub(_value);
 		balances[_to] = balances[_to].add(_value);
 		emit Transfer(msg.sender, _to, _value);
@@ -183,8 +180,10 @@ contract ERC20 is IERC20, IHyperverseModule, Initializable {
 		address _from,
 		address _to,
 		uint256 _value
-	) public override tranferCheck(_from, _to, _value) returns (bool) {
-		require(_value <= allowed[_from][msg.sender], 'Not enough allowed balance for transfer');
+	) public override addressCheck(_from, _to) returns (bool) {
+		if (allowed[_from][msg.sender] < _value) {
+			revert InsufficientAllowance();
+		}
 
 		balances[_from] = balances[_from].sub(_value);
 		balances[_to] = balances[_to].add(_value);

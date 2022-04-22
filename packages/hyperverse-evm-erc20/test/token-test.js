@@ -124,7 +124,7 @@ describe('Token', function () {
 			// const transferTxn = await aliceProxyContract.connect(bob).transferFrom(sourceAccount, tragetAccount, amount);
 			await expect(
 				aliceProxyContract.connect(bob).transferFrom(sourceAccount, tragetAccount, amount)
-			).to.be.revertedWith('Not enough allowed balance for transfer');
+			).to.be.revertedWith('InsufficientAllowance()');
 		});
 	});
 
