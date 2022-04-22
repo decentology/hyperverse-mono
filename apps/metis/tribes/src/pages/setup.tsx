@@ -3,13 +3,15 @@ import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Loader from '../components/Loader';
 import { useTribes } from '@decentology/hyperverse-evm-tribes';
-import { useMetis } from '@decentology/hyperverse-metis';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { toast } from 'react-toastify';
+import { useMutation, useQuery } from 'react-query';
 
 const Setup = () => {
 	const router = useRouter();
-	const { address: account, connect } = useMetis();
-	const { CheckInstance, NewInstance, AddTribe, tenantId } = useTribes();
+	const { address: account, connect } = useEthereum();
+	// const { CheckInstance, NewInstance, AddTribe, tenantId } = useTribes();
+	const tribes = useTribes();
 	const [isLoadingAddTribe, setIsLoadingAddTribe] = useState(false);
 	const [loaderMessage, setLoaderMessage] = useState('Processing...');
 	const [imageFile, setImageFile] = useState<File>();
@@ -18,10 +20,18 @@ const Setup = () => {
 		description: '',
 	});
 
-	const { data, error: instanceErr } = CheckInstance();
-	const { mutate, isLoading: isCreateInstanceLoading, error: newInstanceErr } = NewInstance();
+	const { data, error: instanceErr } = useQuery(
+		'checkInstance',
+		() => tribes.checkInstance(account),
+		{ enabled: !tribes.loading }
+	);
+	const {
+		mutate,
+		isLoading: isCreateInstanceLoading,
+		error: newInstanceErr,
+	} = useMutation('createInstance', tribes.createInstance);
 	const isLoading = isLoadingAddTribe || isCreateInstanceLoading;
-	const { mutate: addTribe, error: addTribeErr } = AddTribe({
+	const { mutate: addTribe, error: addTribeErr } = useMutation('addTribe', tribes.addTribe, {
 		onSuccess: () => {
 			setIsLoadingAddTribe(false);
 		},
@@ -63,12 +73,16 @@ const Setup = () => {
 				<div className={styles.hero}>
 					{account && !data && (
 						<>
-							<button className={styles.join} type="submit" onClick={() => mutate()}>
+							<button
+								className={styles.join}
+								type="submit"
+								onClick={() => mutate(account)}
+							>
 								Create Instance
 							</button>
 							<p className={styles.error}>
-								If you already created an instance, change the Tenant in setup.tsx
-								to the signer address.
+								If you already created an instance, change the `TENANT_ID` in
+								./src/pages/_app.tsx to the signer address.
 							</p>
 						</>
 					)}
@@ -78,7 +92,7 @@ const Setup = () => {
 								Connect Wallet
 							</button>
 						</div>
-					) : account.toLowerCase() === tenantId.toLowerCase() ? (
+					) : account.toLowerCase() === tribes.tenantId.toLowerCase() ? (
 						<div className={styles.container2}>
 							<input
 								type="text"
