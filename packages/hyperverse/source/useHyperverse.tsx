@@ -1,5 +1,4 @@
 import { Network } from './constants/networks';
-import Storage from './constants/storage';
 import { HyperverseConfig } from './types';
 import { createContainer } from '@decentology/unstated-next';
 
