@@ -1,7 +1,7 @@
 import { GetRewardToken } from './getRewardToken';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/GetRewardToken.mdx';
+import { Doc } from '../docs/getRewardToken.mdx';
 
 export default {
 	title: 'Components/GetRewardToken',

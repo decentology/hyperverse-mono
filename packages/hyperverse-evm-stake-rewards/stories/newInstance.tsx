@@ -16,7 +16,7 @@ export const NewInstance = ({ ...props }) => {
 			onClick={() => {
 				console.log('Calling mutate');
 				if (address) {
-					mutate({ account: '', stakingToken: '', rewardsToken: '', rewardRate: 0 });
+					mutate({ account: address, stakingToken: 'STK', rewardsToken: 'RTK', rewardRate: 0.2 });
 				} else {
 					connect();
 				}
