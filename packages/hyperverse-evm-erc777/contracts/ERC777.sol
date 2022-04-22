@@ -10,7 +10,7 @@ import './utils/Context.sol';
 import './utils/SafeMath.sol';
 import './interfaces/IERC1820Registry.sol';
 import './hyperverse/IHyperverseModule.sol';
-import 'hardhat/console.sol';
+import './hyperverse/Initializable.sol';
 
 /**
  * @dev Implementation of the {IERC777} interface.
@@ -27,7 +27,7 @@ import 'hardhat/console.sol';
  * are no special restrictions in the amount of tokens that created, moved, or
  * destroyed. This makes integration with ERC20 applications seamless.
  */
-contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
+contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 	using Address for address;
 	using SafeMath for uint256;
 
@@ -89,6 +89,13 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 		_;
 	}
 
+	modifier canInitialize(address _tenant) {
+		if (_tenantOwner != address(0)) {
+			revert AlreadyInitialized();
+		}
+		_;
+	}
+
 	modifier addressCheck(address _from, address _to) {
 		if (_from == _to) {
 			revert SameAddress();
@@ -129,17 +136,17 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 	/**
 	 * @dev `defaultOperators` may be an empty array.
 	 */
-	function init(
-		string memory name_,
-		string memory symbol_,
+	function initialize(
+		string memory _name,
+		string memory _symbol,
 		address[] memory defaultOperators_,
-		uint256 initialSupply_,
-		address tenant_
-	) external {
+		uint256 _initialSupply,
+		address _tenant
+	) external initializer canInitialize(_tenant) {
 		require(_tenantOwner == address(0), 'Contract is already initialized');
 
-		name = name_;
-		symbol = symbol_;
+		name = _name;
+		symbol = _symbol;
 		_defaultOperatorsArray = defaultOperators_;
 		for (uint256 i = 0; i < defaultOperators_.length; i++) {
 			_defaultOperators[defaultOperators_[i]] = true;
@@ -160,8 +167,8 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 			address(this)
 		);
 
-		_mint(tenant_, initialSupply_, '', '');
-		_tenantOwner = tenant_;
+		_mint(_tenant, _initialSupply, '', '');
+		_tenantOwner = _tenant;
 	}
 
 	/**
@@ -699,7 +706,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule {
 				_operatorData
 			);
 		} else if (_requireReceptionAck) {
-			if(_to.isContract()){
+			if (_to.isContract()) {
 				revert MissingERC777TokensRecipient();
 			}
 		}

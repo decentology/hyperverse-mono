@@ -75,7 +75,7 @@ contract ERC777Factory is CloneFactory {
 	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
 		ERC777 token = ERC777(createClone(masterContract));
 		//initializing tenant state of clone
-		token.init(_name, _symbol, _defaultOperators, _initialSupply, msg.sender);
+		token.initialize(_name, _symbol, _defaultOperators, _initialSupply, msg.sender);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
