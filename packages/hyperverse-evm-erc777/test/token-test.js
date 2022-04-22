@@ -151,7 +151,7 @@ describe('Token', function () {
 					aliceProxyContract
 						.connect(bob)
 						.transferFrom(sourceAccount, tragetAccount, amount)
-				).to.be.revertedWith('Not enough allowed balance for transfer');
+				).to.be.revertedWith('InsufficientAllowance()');
 			});
 		});
 	});
@@ -173,7 +173,7 @@ describe('Token', function () {
 				const amount = new BigNumber.from(100);
 
 				await expect(aliceProxyContract.connect(cara).mint(amount)).to.be.revertedWith(
-					'You are not the tenant owner'
+					'Unauthorized()'
 				);
 			});
 
