@@ -1,7 +1,6 @@
 import { HyperverseConfig, NetworkConfig } from '@decentology/hyperverse';
-import { constants, Contract, ContractInterface, ethers } from 'ethers';
+import { Contract, ContractInterface, ethers } from 'ethers';
 import { Web3Provider } from '@ethersproject/providers';
-import { Fragment } from 'ethers/lib/utils';
 
 export const getProvider = (network: NetworkConfig) => {
 	return new ethers.providers.JsonRpcProvider(network.networkUrl, {
