@@ -143,8 +143,6 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 		uint256 _initialSupply,
 		address _tenant
 	) external initializer canInitialize(_tenant) {
-		require(_tenantOwner == address(0), 'Contract is already initialized');
-
 		name = _name;
 		symbol = _symbol;
 		_defaultOperatorsArray = defaultOperators_;
@@ -263,18 +261,17 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 		address _to,
 		uint256 _amount
 	) public virtual override addressCheck(_from, _to) returns (bool) {
+		address spender = _msgSender();
+		uint256 currentAllowance = _allowances[_from][spender];
+
 		if (_allowances[_from][_msgSender()] < _amount) {
 			revert InsufficientAllowance();
 		}
-
-		address spender = _msgSender();
 
 		_callTokensToSend(spender, _from, _to, _amount, '', '');
 
 		_move(spender, _from, _to, _amount, '', '');
 
-		uint256 currentAllowance = _allowances[_from][spender];
-		require(currentAllowance >= _amount, 'ERC777: transfer amount exceeds allowance');
 		_approve(_from, spender, currentAllowance - _amount);
 
 		_callTokensReceived(spender, _from, _to, _amount, '', '', false);
@@ -311,11 +308,12 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 		addressCheck(msg.sender, _spender)
 		returns (bool)
 	{
-		if (balanceOf(msg.sender) < _amount) {
+		address holder = _msgSender();
+		
+		if (balanceOf(holder) < _amount) {
 			revert InsufficientBalance();
 		}
 
-		address holder = _msgSender();
 		_approve(holder, _spender, _amount);
 		return true;
 	}
@@ -509,9 +507,8 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 
 		_beforeTokenTransfer(operator, address(0), _owner, _amount);
 
-		// Update state variables
-		totalSupply += _amount;
-		_balances[_owner] += _amount;
+		totalSupply.add(_amount);
+		_balances[_owner].add(_amount);
 
 		_callTokensReceived(
 			operator,
@@ -577,6 +574,11 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 		if (_from == address(0)) {
 			revert ZeroAddress();
 		}
+		uint256 fromBalance = _balances[_from];
+
+		if (fromBalance < _amount) {
+			revert InsufficientBalance();
+		}
 
 		address operator = _msgSender();
 
@@ -584,17 +586,10 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 
 		_beforeTokenTransfer(operator, _from, address(0), _amount);
 
-		// Update state variables
-		uint256 fromBalance = _balances[_from];
-
-		if (fromBalance < _amount) {
-			revert InsufficientBalance();
-		}
-
 		unchecked {
-			_balances[_from] = fromBalance - _amount;
+			_balances[_from] = fromBalance.sub(_amount);
 		}
-		totalSupply -= _amount;
+		totalSupply.sub(_amount);
 
 		emit Burned(operator, _from, _amount, _data, _operatorData);
 		emit Transfer(_from, address(0), _amount);
@@ -617,9 +612,9 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 		}
 
 		unchecked {
-			_balances[_from] = fromBalance - _amount;
+			_balances[_from] = fromBalance.sub(_amount);
 		}
-		_balances[_to] += _amount;
+		_balances[_to].add(_amount);
 
 		emit Sent(_operator, _from, _to, _amount, _userData, _operatorData);
 		emit Transfer(_from, _to, _amount);
