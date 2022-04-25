@@ -4,7 +4,6 @@ import WalletConnectProvider from '@walletconnect/ethereum-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse, Network, Blockchain, NetworkConfig } from '@decentology/hyperverse';
-import { hexlify } from 'ethers/lib/utils';
 
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
 
@@ -82,12 +81,12 @@ function EvmState(
 			if (network === Network.Mainnet) {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [{ chainId: hexlify(initialState.networks[Network.Mainnet].chainId!) }],
+					params: [{ chainId: '0x' + initialState.networks[Network.Mainnet].chainId!.toString(16) }],
 				});
 			} else {
 				await prov.request({
 					method: 'wallet_switchEthereumChain',
-					params: [{ chainId: hexlify(initialState.networks[Network.Testnet].chainId!) }],
+					params: [{ chainId: '0x' + initialState.networks[Network.Testnet].chainId!.toString(16) }],
 				});
 			}
 		},
@@ -103,7 +102,7 @@ function EvmState(
 				// We plug the initial `provider` into ethers.js and get back
 				// a Web3Provider. This will add on methods from ethers.js and
 				// event listeners such as `.on()` will be different.
-				const web3Provider = new providers.Web3Provider(externalProvider);
+				const web3Provider = new providers.Web3Provider(externalProvider, "any");
 
 				const signer = web3Provider.getSigner();
 				const address = await signer.getAddress();
