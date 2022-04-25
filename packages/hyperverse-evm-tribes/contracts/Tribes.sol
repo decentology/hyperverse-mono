@@ -3,16 +3,17 @@ pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 import './hyperverse/IHyperverseModule.sol';
+import './hyperverse/Initializable.sol';
 import './utils/Counters.sol';
 import './utils/SafeMath.sol';
 
-contract Tribes is IHyperverseModule {
+contract Tribes is IHyperverseModule, Initializable {
 	using Counters for Counters.Counter;
 	using SafeMath for uint256;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	address public immutable contractOwner;
-	address private tenantOwner;
+	address private _tenantOwner;
 
 	mapping(uint256 => TribeData) public allTribes;
 	mapping(address => uint256) public participants;
@@ -31,21 +32,43 @@ contract Tribes is IHyperverseModule {
 	event LeftTribe(uint256 indexed tribeId, address member);
 	event NewTribeCreated(string metadata);
 
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	error Unauthorized();
+	error AlreadyInitialized();
+	error ZeroAddress();
+	error TribeDoesNotExist();
+	error UserNotInATribe();
+	error UserInATribe();
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+modifiers
 	modifier isTenantOwner() {
-		require(msg.sender == tenantOwner, 'You are not the tenant owner');
+		if (msg.sender != _tenantOwner) {
+			revert Unauthorized();
+		}
+		_;
+	}
+
+	modifier canInitialize(address _tenant) {
+		if (_tenantOwner != address(0)) {
+			revert AlreadyInitialized();
+		}
 		_;
 	}
 
 	modifier isNotInATribe(address _user) {
-		require(participants[_user] != 0, 'This member is not in a Tribe!');
+		if(participants[_user] == 0) {
+			revert UserNotInATribe();
+		}
+
 		_;
 	}
 
   modifier tribeExists(uint256 _tribeId) {
-    require(tribeCounter.current() >= _tribeId, 'Tribe does not exist!');
+		if(tribeCounter.current() < _tribeId) {
+			revert TribeDoesNotExist();
+		}
     _;
   }
 
@@ -60,11 +83,10 @@ contract Tribes is IHyperverseModule {
 		contractOwner = _owner;
 	}
 
-	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TENANT FUNCTIONALITIES  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-	function init(address _tenant) external {
-		require(tenantOwner == address(0), 'Contract is already initialized');
-		/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ASSET VALUE TRACKING: TOKEN  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-		tenantOwner = _tenant;
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+	function initialize(address _tenant) external initializer canInitialize(_tenant) {
+		_tenantOwner = _tenant;
 	}
 
 	function addNewTribe(string memory _metadata) public isTenantOwner {
@@ -74,11 +96,14 @@ contract Tribes is IHyperverseModule {
 		TribeData storage newTribe = allTribes[newTribeId];
 		newTribe.metadata = _metadata;
 		newTribe.tribeId = newTribeId;
+
 		emit NewTribeCreated(_metadata);
 	}
 
 	function joinTribe(uint256 _tribeId) external tribeExists(_tribeId) {
-		require(participants[msg.sender] == 0, 'User is already in a Tribe!');
+		if(participants[msg.sender] != 0) {
+			revert UserInATribe();
+		}
 
 		TribeData storage tribe = allTribes[_tribeId];
 		tribe.members[msg.sender] = true;
