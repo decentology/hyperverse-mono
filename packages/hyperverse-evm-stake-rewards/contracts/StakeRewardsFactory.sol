@@ -95,7 +95,7 @@ contract StakeRewardsFactory is CloneFactory {
 		StakeRewardsToken stakeInstance = StakeRewardsToken(createClone(masterContract));
 
 		//initializing tenant state of clone
-		stakeInstance.init(_tenant, _stakingToken, _rewardsToken, _rewardRate);
+		stakeInstance.initialize(_tenant, _stakingToken, _rewardsToken, _rewardRate);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];

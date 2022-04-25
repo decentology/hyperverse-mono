@@ -25,7 +25,7 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient, Initializable
 	uint256 public totalSupply;
 	mapping(address => uint256) private _balances;
 
-	address immutable owner;
+	address immutable contractOwner;
 	address private _tenantOwner;
 
 	IERC1820Registry internal constant _ERC1820_REGISTRY =
@@ -96,12 +96,12 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient, Initializable
 			3479831479814,
 			'https://externalLink.net'
 		);
-		owner = _owner;
+		contractOwner = _owner;
 	}
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	function init(
+	function initialize(
 		address _tenant,
 		address _stakingToken,
 		address _rewardsToken,
