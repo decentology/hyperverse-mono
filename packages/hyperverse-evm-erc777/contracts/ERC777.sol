@@ -391,6 +391,10 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 			revert UnauthorizedOperator();
 		}
 
+		if (balanceOf(_from) < _amount) {
+			revert InsufficientBalance();
+		}
+
 		_send(_from, _to, _amount, _data, _operatorData, true);
 	}
 
@@ -408,6 +412,11 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 		if (!isOperatorFor(_msgSender(), _owner)) {
 			revert UnauthorizedOperator();
 		}
+
+		if (balanceOf(_owner) < _amount) {
+			revert InsufficientBalance();
+		}
+
 		_burn(_owner, _amount, _data, _operatorData);
 	}
 
@@ -507,8 +516,8 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 
 		_beforeTokenTransfer(operator, address(0), _owner, _amount);
 
-		totalSupply.add(_amount);
-		_balances[_owner].add(_amount);
+		totalSupply = totalSupply.add(_amount);
+		_balances[_owner] = _balances[_owner].add(_amount);
 
 		_callTokensReceived(
 			operator,
@@ -576,10 +585,6 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 		}
 		uint256 fromBalance = _balances[_from];
 
-		if (fromBalance < _amount) {
-			revert InsufficientBalance();
-		}
-
 		address operator = _msgSender();
 
 		_callTokensToSend(operator, _from, address(0), _amount, _data, _operatorData);
@@ -589,7 +594,8 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 		unchecked {
 			_balances[_from] = fromBalance.sub(_amount);
 		}
-		totalSupply.sub(_amount);
+		
+		totalSupply = totalSupply.sub(_amount);
 
 		emit Burned(operator, _from, _amount, _data, _operatorData);
 		emit Transfer(_from, address(0), _amount);
@@ -607,14 +613,10 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 
 		uint256 fromBalance = _balances[_from];
 
-		if (fromBalance < _amount) {
-			revert InsufficientBalance();
-		}
-
 		unchecked {
 			_balances[_from] = fromBalance.sub(_amount);
 		}
-		_balances[_to].add(_amount);
+		_balances[_to] = _balances[_to].add(_amount);
 
 		emit Sent(_operator, _from, _to, _amount, _userData, _operatorData);
 		emit Transfer(_from, _to, _amount);
