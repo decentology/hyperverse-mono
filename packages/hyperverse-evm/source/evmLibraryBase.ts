@@ -10,7 +10,7 @@ export const getProvider = (network: NetworkConfig) => {
 };
 
 // Not ready for production use yet. Race condition on when factory and proxy need to be initialized
-export async function BaseLibrary(
+export async function EvmLibraryBase(
 
 	hyperverse: HyperverseConfig,
 	factoryAddress: string,
@@ -54,7 +54,7 @@ export async function BaseLibrary(
 	try {
 		proxyAddress = await factoryContract.getProxy(tenantId);
 	} catch (error) {
-		console.log('Failure!', error);
+		console.log(error)
 		throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
 	}
 	proxyContract = new ethers.Contract(

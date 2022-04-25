@@ -1,10 +1,10 @@
 import { HyperverseConfig } from '@decentology/hyperverse';
-import { BaseLibrary, getProvider } from '@decentology/hyperverse-evm';
-import { ethers, Transaction } from 'ethers';
+import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
+import { ethers } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider'
 import { CancellablePromise } from 'real-cancellable-promise';
-import { getEnvironment } from '../environment';
-import { MetaData } from '../types';
+import { getEnvironment } from './environment';
+import { MetaData, MetaDataFormatted } from './types';
 
 export type TribesLibraryType = Awaited<ReturnType<typeof TribesLibraryInternal>>;
 export function TribesLibrary(...args: Parameters<typeof TribesLibraryInternal>): CancellablePromise<TribesLibraryType> {
@@ -22,7 +22,7 @@ async function TribesLibraryInternal(
 	if (!providerOrSigner) {
 		providerOrSigner = getProvider(hyperverse.network);
 	}
-	const base = await BaseLibrary(
+	const base = await EvmLibraryBase(
 		hyperverse,
 		factoryAddress!,
 		FactoryABI,
@@ -39,7 +39,7 @@ async function TribesLibraryInternal(
 		);
 		json.id = tribeId;
 		json.imageUrl = `${hyperverse!.storage!.clientUrl}/${json.image.replace('sia:', '')}`;
-		return json as MetaData;
+		return json as MetaDataFormatted;
 	};
 
 	const getTribeId = async (account: string) => {
@@ -82,7 +82,7 @@ async function TribesLibraryInternal(
 	const getAllTribes = async () => {
 		try {
 			const tribeCount = await base.proxyContract?.tribeCounter();
-			const tribes: MetaData[] = [];
+			const tribes: MetaDataFormatted[] = [];
 			if (tribeCount) {
 				for (let tribeId = 1; tribeId <= tribeCount.toNumber(); ++tribeId) {
 					const json = await formatTribeResultFromTribeId(tribeId);

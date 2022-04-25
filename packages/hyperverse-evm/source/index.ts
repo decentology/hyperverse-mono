@@ -1,8 +1,8 @@
 export * from '@decentology/web3modal';
 import { Provider, useEvm, Evm } from './useEVM';
 import { Blockchain, makeHyperverseBlockchain } from '@decentology/hyperverse';
-import { getProvider } from './library/evmLibrary';
-export { BaseLibrary } from './library/evmLibrary';
+import { getProvider } from './evmLibraryBase';
+export { EvmLibraryBase } from './evmLibraryBase';
 export const Ethereum = makeHyperverseBlockchain({
 	name: Blockchain.Ethereum,
 	Provider: Provider,

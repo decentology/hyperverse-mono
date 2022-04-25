@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm';
-import { TribesLibrary, TribesLibraryType } from './library/TribesLibrary';
+import { TribesLibrary, TribesLibraryType } from './tribesLibrary';
 import { useHyperverse } from '@decentology/hyperverse';
 
 function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
