@@ -25,14 +25,13 @@ describe('StakeRewards Testing', function () {
 	let owner;
 	let alice;
 	let bob;
-	let cara;
-
+	
 	const rewardRate = 10;
 
 	beforeEach(async function () {
 		//Creates the ERC777 StakeToken and RewardToken
 		ERC777 = await ethers.getContractFactory('ERC777');
-		[owner, alice, bob, cara] = await ethers.getSigners();
+		[owner, alice, bob] = await ethers.getSigners();
 
 		erc777ctr = await ERC777.deploy(owner.address);
 		await erc777ctr.deployed();
