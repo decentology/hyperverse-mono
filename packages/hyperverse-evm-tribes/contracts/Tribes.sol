@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 import './hyperverse/IHyperverseModule.sol';
-import '@openzeppelin/contracts/utils/Counters.sol';
-import '@openzeppelin/contracts/utils/math/SafeMath.sol';
+import './utils/Counters.sol';
+import './utils/SafeMath.sol';
 
 contract Tribes is IHyperverseModule {
 	using Counters for Counters.Counter;

@@ -55,8 +55,6 @@ contract ERC20Factory is CloneFactory {
 		_;
 	}
 
-	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	constructor(address _masterContract, address _owner) {
 		masterContract = _masterContract;

@@ -24,9 +24,9 @@ abstract contract IHyperverseModule {
         Author author;
         bytes version;
         uint64 publishedAt;
-        bytes externalLink;
+        bytes externalLink; 
     }
-
+    
     struct Author {
         address authorAddress;
         string externalLink;

@@ -3,8 +3,7 @@ pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 import './hyperverse/CloneFactory.sol';
-import './hyperverse/IHyperverseModule.sol';
-import '@openzeppelin/contracts/utils/Counters.sol';
+import './utils/Counters.sol';
 import './Tribes.sol';
 
 /**
@@ -14,12 +13,12 @@ import './Tribes.sol';
 contract TribesFactory is CloneFactory {
 	using Counters for Counters.Counter;
 
-	Counters.Counter public tenantCounter;
-	
 	struct Tenant {
 		Tribes tribes;
 		address owner;
 	}
+
+	Counters.Counter public tenantCounter;
 
 	mapping(address => Tenant) public tenants;
 	mapping(address => bool) public instance;
@@ -28,31 +27,34 @@ contract TribesFactory is CloneFactory {
 	address public immutable owner;
 	address public immutable masterContract;
 	address private hyperverseAdmin = 0x62a7aa79a52591Ccc62B71729329A80a666fA50f;
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	modifier isOwner(address _tenant) {
-		require(
-			tenants[_tenant].owner == msg.sender,
-			'The calling address is not an owner of a tenant'
-		);
-		_;
-	}
+	event TenantCreated(address _tenant, address _proxy);
 
-	modifier isAllowedToCreateInstance(address _tenant) {
-		require(
-			msg.sender == _tenant || msg.sender == hyperverseAdmin,
-			'Please use a valid address to create an instance'
-		);
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+	error Unauthorized();
+	error InstanceAlreadyInitialized();
+	error InstanceDoesNotExist();
+	error ZeroAddress();
+
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	modifier isAuthorized(address _tenant) {
+		if(_tenant == address(0)) {
+			revert ZeroAddress();
+		}
+		if (!(msg.sender == _tenant || msg.sender == hyperverseAdmin)) {
+			revert Unauthorized();
+		}
 		_;
 	}
 
 	modifier hasAnInstance(address _tenant) {
-		require(
-			instance[_tenant] == false,
-			'The tenant already has an instance'
-		);
+		if (instance[_tenant]) {
+			revert InstanceAlreadyInitialized();
+		}
 		_;
 	}
-
 	constructor(address _masterContract, address _owner) {
 		masterContract = _masterContract;
 		owner = _owner;
@@ -60,11 +62,11 @@ contract TribesFactory is CloneFactory {
 
 	/******************* TENANT FUNCTIONALITIES *******************/
 
-	function createInstance(address _tenant) external   hasAnInstance(_tenant) isAllowedToCreateInstance(_tenant) {
+	function createInstance(address _tenant) external isAuthorized(_tenant) hasAnInstance(_tenant) {
 		Tribes tribe = Tribes(createClone(masterContract));
 
 		//initializing tenant state of clone
-		tribe.init(msg.sender);
+		tribe.initialize(msg.sender);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
@@ -72,9 +74,14 @@ contract TribesFactory is CloneFactory {
 		newTenant.owner = _tenant;
 		instance[_tenant] = true;
 		tenantCounter.increment();
+
+		emit TenantCreated(_tenant, address(tribe));
 	}
 
 	function getProxy(address _tenant) public view returns (Tribes) {
+			if (!instance[_tenant]) {
+			revert InstanceDoesNotExist();
+		}
 		return tenants[_tenant].tribes;
 	}
 }
