@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm';
-import { ModuleLibrary, ModuleLibraryType } from './library/ModuleLibrary';
+import { ModuleLibrary, ModuleLibraryType } from './moduleLibrary';
 import { useHyperverse } from '@decentology/hyperverse';
 
 function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {

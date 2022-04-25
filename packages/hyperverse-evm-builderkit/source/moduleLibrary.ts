@@ -1,8 +1,8 @@
 import { HyperverseConfig } from "@decentology/hyperverse";
-import { BaseLibrary, getProvider } from "@decentology/hyperverse-evm";
+import { EvmLibraryBase, getProvider } from "@decentology/hyperverse-evm";
 import { ethers } from "ethers";
 import { CancellablePromise } from "real-cancellable-promise";
-import { getEnvironment } from "../environment";
+import { getEnvironment } from "./environment";
 
 export type ModuleLibraryType = Awaited<ReturnType<typeof ModuleLibraryInternal>>;
 export function ModuleLibrary(...args: Parameters<typeof ModuleLibraryInternal>): CancellablePromise<ModuleLibraryType> {
@@ -20,7 +20,7 @@ async function ModuleLibraryInternal(
 	if (!providerOrSigner) {
 		providerOrSigner = getProvider(hyperverse.network);
 	}
-	const base = await BaseLibrary(
+	const base = await EvmLibraryBase(
 		hyperverse,
 		factoryAddress!,
 		FactoryABI,
