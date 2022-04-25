@@ -119,12 +119,6 @@ async function TribesLibraryInternal(
 
 	const joinTribe = async (id: number) => {
 		try {
-			console.log(
-				'joinTribe',
-				base.proxyContract.signer,
-				// @ts-ignore
-				window['tribesLibrary'] === this
-			);
 			const joinTxn = await base.proxyContract?.joinTribe(id);
 			return joinTxn.wait() as TransactionReceipt;
 		} catch (err) {
