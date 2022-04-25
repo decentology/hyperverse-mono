@@ -146,10 +146,6 @@ async function TribesLibraryInternal(
 		}
 	};
 
-	const useTribeEvents = (eventName: string, callback: any) => {
-		// return useEvent(eventName, useCallback(callback, [proxyContract]), proxyContract);
-	}
-
 	return {
 		...base,
 		getTribeId,
