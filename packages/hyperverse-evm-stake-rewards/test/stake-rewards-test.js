@@ -68,11 +68,13 @@ describe('StakeRewards Testing', function () {
 
 		//TENANT OWNER: add the StakeRewardsToken instance to the Reward Token ERC777 default operactor
 		await alice777.connect(alice).authorizeOperator(AliceStakeTenant.address);
+
 	});
 
 	describe('Initial State Variables', function () {
 		it('Master Contract should match stakeRewardsCtr', async function () {
 			expect(await stakeFactoryCtr.masterContract()).to.equal(stakeRewardsCtr.address);
+
 		});
 
 		it('rewardsToken and stakingToken should match MockStakingToken and MockRewardsToken Address', async function () {
@@ -96,6 +98,7 @@ describe('StakeRewards Testing', function () {
 			await bob777.connect(bob).authorizeOperator(AliceStakeTenant.address);
 
 			await AliceStakeTenant.connect(bob).stake(100);
+			// await AliceStakeTenant.connect(bob).stake(100);
 			await advanceBlockTo((await ethers.provider.getBlockNumber()) + 1);
 		});
 
@@ -103,6 +106,7 @@ describe('StakeRewards Testing', function () {
 			it("Staking 100 should yield a total supply of 100 on Alice's Tenant Instance", async function () {
 				expect(await AliceStakeTenant.totalSupply()).to.equal(100);
 			});
+		
 
 				it("Bob's balance should be 100", async function () {
 					expect(await AliceStakeTenant.balanceOf(bob.address)).to.equal(100);
@@ -139,7 +143,7 @@ describe('StakeRewards Testing', function () {
 				});
 			});
 
-			describe('Withdrawing', function () {
+		describe('Withdrawing', function () {
 				beforeEach(async function () {
 					await AliceStakeTenant.connect(bob).withdraw(50);
 				});

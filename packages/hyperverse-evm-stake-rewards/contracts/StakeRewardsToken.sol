@@ -1,11 +1,11 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import './hyperverse/IHyperverseModule.sol';
 import './erc777/ERC777.sol';
 import './erc777/interfaces/IERC777Recipient.sol';
 import './interfaces/IERC1820Registry.sol';
+import './utils/SafeMath.sol';
 
 contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 	using SafeMath for uint256;
