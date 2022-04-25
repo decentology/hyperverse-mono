@@ -33,11 +33,9 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	// Account used to deploy contract
-	address public immutable contractOwner;
-
-	//stores the tenant owner
+	address public immutable owner;
 	address private _tenantOwner;
+	
 	IERC1820Registry internal constant _ERC1820_REGISTRY =
 		IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
@@ -117,7 +115,7 @@ contract ERC777 is Context, IERC777, IERC20, IHyperverseModule, Initializable {
 			3479831479814,
 			'https://externalLink.net'
 		);
-		contractOwner = _owner;
+		owner = _owner;
 		// TO DO: Not sure if I should register the master ERC777
 		_ERC1820_REGISTRY.setInterfaceImplementer(
 			address(this),

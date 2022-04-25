@@ -6,8 +6,9 @@ import './erc777/ERC777.sol';
 import './erc777/interfaces/IERC777Recipient.sol';
 import './interfaces/IERC1820Registry.sol';
 import './utils/SafeMath.sol';
+import './hyperverse/Initializable.sol';
 
-contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
+contract StakeRewardsToken is IHyperverseModule, IERC777Recipient, Initializable {
 	using SafeMath for uint256;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -21,16 +22,46 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 	mapping(address => uint256) public userRewardPerTokenPaid;
 	mapping(address => uint256) public rewards;
 
-	uint256 public _totalSupply = 0;
+	uint256 public totalSupply;
 	mapping(address => uint256) private _balances;
 
 	address immutable owner;
-	address private tenantOwner;
+	address private _tenantOwner;
 
 	IERC1820Registry internal constant _ERC1820_REGISTRY =
 		IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	event TokensRecieved(
+		address indexed _operator,
+		address indexed _from,
+		address indexed _to,
+		uint256 _amount,
+		bytes _userData,
+		bytes _operatorData
+	);
+
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	error Unauthorized();
+	error AlreadyInitialized();
+	error ZeroAddress();
+	error InsufficientBalance();
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+	modifier isTenantOwner() {
+		if (msg.sender != _tenantOwner) {
+			revert Unauthorized();
+		}
+		_;
+	}
+
+	modifier canInitialize(address _tenant) {
+		if (_tenantOwner != address(0)) {
+			revert AlreadyInitialized();
+		}
+		_;
+	}
 
 	modifier updateReward(address _account) {
 		rewardPerTokenStored = rewardPerToken();
@@ -42,25 +73,19 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 	}
 
 	modifier hasStakeBalance(address _account, uint256 _amount) {
-		require(_balances[_account] >= _amount || _balances[_account] > 0, 'Insufficient balance');
+		if(_balances[_account] < _amount || _balances[_account] <= 0) {
+			revert InsufficientBalance();
+		}
 		_;
 	}
 
 	modifier hasRewardBalance(address _account) {
-		require(rewards[_account] > 0, 'Insufficient Reward balance');
+		if(rewards[_account] <= 0) {
+			revert InsufficientBalance();
+		}
 		_;
 	}
 
-	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-
-	event TokensRecieved (
-		address indexed _operator,
-		address indexed _from,
-		address indexed _to,
-		uint256 _amount,
-		bytes _userData,
-		bytes _operatorData
-	);
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	constructor(address _owner) {
@@ -81,9 +106,7 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 		address _stakingToken,
 		address _rewardsToken,
 		uint256 _rewardRate
-	) external {
-		require(tenantOwner == address(0), 'Contract is already initialized');
-		tenantOwner = _tenant;
+	) external initializer canInitialize(_tenant) {
 		stakingToken = ERC777(_stakingToken);
 		rewardsToken = ERC777(_rewardsToken);
 		rewardRate = _rewardRate;
@@ -93,10 +116,8 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 			keccak256('ERC777TokensRecipient'),
 			address(this)
 		);
-	}
 
-	function totalSupply() external view returns (uint256) {
-		return _totalSupply;
+		_tenantOwner = _tenant;
 	}
 
 	function balance() external view returns (uint256) {
@@ -108,13 +129,13 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 	}
 
 	function rewardPerToken() public view returns (uint256) {
-		if (_totalSupply == 0) {
+		if (totalSupply == 0) {
 			return 0;
 		}
 
 		return
 			rewardPerTokenStored +
-			(((block.timestamp - lastUpdatedTime) * rewardRate * 1e18) / _totalSupply);
+			(((block.timestamp - lastUpdatedTime) * rewardRate * 1e18) / totalSupply);
 	}
 
 	function earned(address _account) public view returns (uint256) {
@@ -124,7 +145,7 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 	}
 
 	function stake(uint256 _amount) external updateReward(msg.sender) {
-		_totalSupply = _totalSupply.add(_amount);
+		totalSupply = totalSupply.add(_amount);
 		_balances[msg.sender] = _balances[msg.sender].add(_amount);
 		stakingToken.operatorSend(msg.sender, address(this), _amount, '', '');
 	}
@@ -134,7 +155,7 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 		hasStakeBalance(msg.sender, _amount)
 		updateReward(msg.sender)
 	{
-		_totalSupply = _totalSupply.sub(_amount);
+		totalSupply = totalSupply.sub(_amount);
 		_balances[msg.sender] = _balances[msg.sender].sub(_amount);
 		stakingToken.send(msg.sender, _amount, '');
 	}
@@ -142,7 +163,7 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient {
 	function getReward() external updateReward(msg.sender) hasRewardBalance(msg.sender) {
 		uint256 reward = rewards[msg.sender];
 		rewards[msg.sender] = 0;
-		rewardsToken.operatorSend(tenantOwner, msg.sender, reward, '', '');
+		rewardsToken.operatorSend(_tenantOwner, msg.sender, reward, '', '');
 	}
 
 	function tokensReceived(
