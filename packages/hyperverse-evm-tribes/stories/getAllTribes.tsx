@@ -1,16 +1,14 @@
 import * as PropTypes from 'prop-types';
 import './button.css';
 import { useTribes } from '../source';
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react';
 
 export const GetAllTribes = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState(null);
 	useEffect(() => {
-		return () => {
-			tribes.getAllTribes().then(setData);
-		};
-	}, [])
+		tribes.getAllTribes().then(setData);
+	}, []);
 
 	return (
 		<div className="tribes">

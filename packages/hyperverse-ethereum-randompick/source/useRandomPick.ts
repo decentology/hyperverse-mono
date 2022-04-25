@@ -9,19 +9,19 @@ type ContractState = ethers.Contract;
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, web3Provider, provider, connect } = useEthereum();
+	const { address, connectedProvider, readOnlyProvider, } = useEthereum();
 	const { ContractABI, contractAddress } = useEnvironment();
 	const [contract, setRandomPickContract] = useState<ContractState>(
-		new ethers.Contract(contractAddress!, ContractABI, provider) as ContractState
+		new ethers.Contract(contractAddress!, ContractABI, readOnlyProvider) as ContractState
 	);
 
 	const setup = useCallback(async () => {
-		const signer = await web3Provider?.getSigner();
+		const signer = await connectedProvider?.getSigner();
 		if (signer && contract) {
 			const ctr = contract.connect(signer) as ContractState;
 			setRandomPickContract(ctr);
 		}
-	}, [web3Provider]);
+	}, [connectedProvider]);
 
 	const errors = (err: any) => {
 		throw err;
@@ -29,10 +29,10 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) 
 	};
 
 	useEffect(() => {
-		if (web3Provider) {
+		if (connectedProvider) {
 			setup();
 		}
-	}, [web3Provider]);
+	}, [connectedProvider]);
 
 	const startRandomPick = useCallback(
 		async (numbers: Number[]) => {

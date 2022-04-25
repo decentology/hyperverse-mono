@@ -6,22 +6,18 @@ import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
 import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 const Home: NextPage = () => {
 	const router = useRouter();
 	const { address } = useEthereum();
-	const { TribeId } = useTribes();
-	const { data, error } = TribeId();
+	const { getTribeId } = useTribes();
+	const [tribeId, setTribeId] = useState<number>(); 
 	useEffect(() => {
-		if (error) {
-			if (error instanceof Error) {
-				toast.error(error.message, {
-					position: toast.POSITION.BOTTOM_CENTER,
-				});
-			}
+		if (getTribeId != null) {
+			getTribeId(address).then(setTribeId);
 		}
-	}, [error]);
+	},[getTribeId, address]);
 	return (
 		<>
 			<Head>
@@ -43,7 +39,7 @@ const Home: NextPage = () => {
 							create.
 						</p>
 						{address ? (
-							!data ? (
+							!tribeId ? (
 								<button
 									className={styles.join}
 									onClick={() => {
@@ -63,7 +59,6 @@ const Home: NextPage = () => {
 						) : null}
 					</div>
 				</div>
-				{/* <Footer /> */}
 			</main>
 		</>
 	);

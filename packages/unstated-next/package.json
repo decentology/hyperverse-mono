@@ -2,6 +2,11 @@
 	"name": "@decentology/unstated-next",
 	"version": "1.1.4",
 	"description": "200 bytes to never think about React state management libraries ever again",
+	"exports": {
+		".": {
+			"import": "./index.ts"
+		}
+	},
 	"source": "src/unstated-next.tsx",
 	"main": "dist/unstated-next.js",
 	"module": "dist/unstated-next.mjs",

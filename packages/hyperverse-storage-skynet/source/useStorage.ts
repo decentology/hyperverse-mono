@@ -1,24 +1,13 @@
 import { useState } from 'react';
 import { SkynetClient } from 'skynet-js';
 import { createContainer } from '@decentology/unstated-next';
+import { SkynetStorageLibrary, StorageProps } from './lib/SkynetStorageLibrary';
 
-type StorageProps = {
-	clientUrl: string;
-};
 
 function StorageState({ clientUrl }: StorageProps = { clientUrl: 'https://siasky.net' }) {
-	const [client] = useState<SkynetClient>(new SkynetClient(clientUrl));
-	const { uploadFile, uploadDirectory, downloadFile, openFile } = client;
-	const getLink = (siaLink: string) => `${clientUrl}/${siaLink.replace('sia:', '')}`;
-	return {
-		uploadFile: uploadFile.bind(client),
-		uploadDirectory: uploadDirectory.bind(client),
-		downloadFile: downloadFile.bind(client),
-		openFile: openFile.bind(client),
-		getLink: getLink,
-		client,
-		clientUrl,
-	};
+	const lib = new SkynetStorageLibrary({ clientUrl });
+	const [client] = useState<SkynetClient>(lib.client);
+	return lib;
 }
 
 const Storage = createContainer(StorageState);

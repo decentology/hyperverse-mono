@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useEffect } from 'react';
-import { useMetis } from '@decentology/hyperverse-metis';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
@@ -12,16 +12,25 @@ import { useStorage } from '@decentology/hyperverse-storage-skynet';
 
 const TribesPage = () => {
 	const router = useRouter();
-	const { address: account } = useMetis();
-	const { Tribe, Leave } = useTribes();
+	const { address: account } = useEthereum();
+	const tribes = useTribes();
 	const { clientUrl } = useStorage();
-	const { data, isLoading: tribeDataLoading, error: tribeErr } = Tribe();
+	const {
+		data,
+		isLoading: tribeDataLoading,
+		error: tribeErr,
+	} = useQuery('tribeAccount', () => tribes.getTribeByAccount(account), {
+		enabled: !tribes.loading,
+	});
+
 	const {
 		mutate,
 		isLoading: leaveTribeLoading,
 		error: leaveErr,
-	} = Leave({
-		onSuccess: () => router.push('/'),
+	} = useMutation('leaveTribe', tribes.leaveTribe, {
+		onSuccess: () => {
+			router.push('/');
+		},
 	});
 
 	const isLoading = tribeDataLoading || leaveTribeLoading;
@@ -29,10 +38,11 @@ const TribesPage = () => {
 	const error = tribeErr || leaveErr;
 	useEffect(() => {
 		if (error) {
-			//@ts-ignore
-			toast.error(error.message, {
-				position: toast.POSITION.BOTTOM_CENTER,
-			});
+			if (error instanceof Error) {
+				toast.error(error.message, {
+					position: toast.POSITION.BOTTOM_CENTER,
+				});
+			}
 		}
 	}, [error]);
 	return (
@@ -50,7 +60,7 @@ const TribesPage = () => {
 						) : (
 							<Image
 								width={300}
-								height={400}
+								height={380}
 								src={`${clientUrl}/${data.image}/`}
 								alt={data.name}
 								className={styles.tribe}

@@ -12,7 +12,7 @@ const Provider: FC<any> = ({ children }) => {
 						name: 'andromeda',
 						networkUrl: 'https://andromeda.metis.io/?owner=1088',
 						chainId: 1088,
-						explorerUrl: 'https://andromeda-explorer.metis.io/'
+						explorerUrl: 'https://andromeda-explorer.metis.io/',
 					},
 					testnet: {
 						type: Network.Testnet,

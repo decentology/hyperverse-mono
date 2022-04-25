@@ -13,16 +13,16 @@ type ContractState = ethers.Contract;
 
 function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, web3Provider, provider } = useEvm();
+	const { address,  connectedProvider,  readOnlyProvider } = useEvm();
 	const { factoryAddress, ContractABI, FactoryABI } = useEnvironment()
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
-		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState
+		new ethers.Contract(factoryAddress!, FactoryABI, readOnlyProvider) as ContractState
 	);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 
 	const signer = useMemo(async () => {
-		return web3Provider?.getSigner();
-	}, [web3Provider]);
+		return connectedProvider?.getSigner();
+	}, [connectedProvider]);
 
 	useEffect(() => {
 		const fetchContract = async () => {
@@ -30,7 +30,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 			if (proxyAddress == constants.AddressZero) {
 				return;
 			}
-			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, provider);
+			const proxyCtr = new ethers.Contract(proxyAddress, ContractABI, readOnlyProvider);
 			const accountSigner = await signer;
 			if (accountSigner) {
 				setProxyContract(proxyCtr.connect(accountSigner));
@@ -40,7 +40,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 			}
 		};
 		fetchContract();
-	}, [factoryContract, tenantId, provider, signer]);
+	}, [factoryContract, tenantId, readOnlyProvider, signer]);
 
 	const setup = useCallback(async () => {
 		const accountSigner = await signer;
@@ -68,10 +68,10 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	);
 
 	useEffect(() => {
-		if (web3Provider) {
+		if (connectedProvider) {
 			setup();
 		}
-	}, [setup, web3Provider]);
+	}, [setup, connectedProvider]);
 
 	const createInstance = async (name: string, symbol: string) => {
 		try {

@@ -5,6 +5,7 @@
   "types": "./distribution/index.d.ts",
   "module": "./distribution/index.es.js",
   "main": "./distribution/index.js",
+  "main:src": "./source/index.ts",
   "license": "MIT",
   "scripts": {
     "compile": "hardhat compile",
@@ -42,10 +43,11 @@
     "@storybook/addon-docs": "^6.4.19",
     "dotenv": "^16.0.0",
     "esbuild": "^0.14.27",
-    "ethers": "^5.5.3",
+    "ethers": "^5.6.2",
     "hardhat": "^2.9.1",
     "react-query": "^3.34.7",
     "react-use": "^17.3.2",
+    "real-cancellable-promise": "^1.1.1",
     "skynet-js": "^4.0.23-beta"
   },
   "devDependencies": {
