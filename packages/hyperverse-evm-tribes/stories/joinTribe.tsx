@@ -4,9 +4,9 @@ import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
 
 export const JoinTribe = ({ ...props }) => {
-	const { Join } = useTribes();
+	const tribes = useTribes();
 	const { address, connect } = useEvm();
-	const { mutate } = Join();
+	// const { mutate } = Join();
 
 	return (
 		<div>
@@ -15,7 +15,7 @@ export const JoinTribe = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					mutate({ id: 1 });
+					// mutate({ id: 1 });
 				}}
 			>
 				Join Tribe: Knight
@@ -25,7 +25,7 @@ export const JoinTribe = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'green' }}
 				onClick={() => {
-					mutate({ id: 2 });
+					// mutate({ id: 2 });
 				}}
 			>
 				Join Tribe: Mage

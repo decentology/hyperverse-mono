@@ -4,9 +4,9 @@ import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
 
 export const AddTribe = ({ ...props }) => {
-	const { AddTribe } = useTribes();
+	const tribes = useTribes();
 	const { address } = useEvm();
-	const { mutate } = AddTribe();
+	// const { mutate } = AddTribe();
 
 	return (
 		<button

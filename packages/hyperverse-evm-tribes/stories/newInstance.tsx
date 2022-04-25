@@ -2,11 +2,17 @@ import * as PropTypes from 'prop-types';
 import './button.css';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useState, useEffect } from 'react';
 
 export const NewInstance = ({ ...props }) => {
-	const { NewInstance } = useTribes();
+	const tribes = useTribes();
 	const { address, connect } = useEvm();
-	const { mutate } = NewInstance();
+
+	useEffect(() => {
+		return () => {
+			tribes.NewInstance().then(mutate);
+		};
+	}, []);
 
 	return (
 		<button
@@ -28,7 +34,7 @@ export const NewInstance = ({ ...props }) => {
 };
 
 NewInstance.propTypes = {
-	account: PropTypes.string.isRequired
+	account: PropTypes.string.isRequired,
 };
 
 NewInstance.defaultProps = {};
