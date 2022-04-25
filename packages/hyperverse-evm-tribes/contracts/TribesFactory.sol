@@ -55,6 +55,7 @@ contract TribesFactory is CloneFactory {
 		}
 		_;
 	}
+	
 	constructor(address _masterContract, address _owner) {
 		masterContract = _masterContract;
 		owner = _owner;
