@@ -4,8 +4,18 @@ import WalletConnectProvider from '@walletconnect/ethereum-provider';
 import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse, Network, Blockchain, NetworkConfig } from '@decentology/hyperverse';
+import '@rainbow-me/rainbowkit/styles.css';
 
+import {
+  RainbowKitProvider,
+  Chain,
+  getDefaultWallets,
+  connectorsForWallets,
+} from '@rainbow-me/rainbowkit';
+import {   useAccount} from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 const INFURA_ID = process.env.INFURA_API_KEY! || 'fb9f66bab7574d70b281f62e19c27d49';
+
 
 const providerOptions = {
 	walletconnect: {
@@ -247,8 +257,11 @@ function EvmState(
 	return { ...state, connect, disconnect };
 }
 
-export const Evm = createContainer(EvmState);
-export const Provider = Evm.Provider;
 export function useEvm() {
-	return useContainer(Evm);
+	const [account] = useAccount()
+	return {
+		account: account.data?.address,
+		connect: ConnectButton,
+		error: account.error,
+	}
 }

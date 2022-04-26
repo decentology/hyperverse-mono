@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@decentology/unstated-next": "^1.0.0",
 		"@decentology/web3modal": "^1.0.0",
+		"@decentology/hyperverse-evm": "^1.0.0",
 		"@decentology/hyperverse": "^1.0.0",
 		"@decentology/hyperverse-ethereum": "^1.0.0",
 		"@decentology/hyperverse-ethereum-randompick": "^1.0.0",

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Evm } from '@decentology/hyperverse-evm';
+import { Evm, Provider as EvmProvider, ProviderProps} from '@decentology/hyperverse-evm';
 import { Ethereum } from './useEthereum';
 import { Network } from '@decentology/hyperverse';
 
@@ -19,11 +19,11 @@ export const Networks = {
 		explorerUrl: 'https://rinkeby.etherscan.io',
 	},
 };
-const Provider: FC<any> = ({ children }) => {
+const Provider: FC<ProviderProps> = ({ children, ...props }:ProviderProps) => {
 	return (
-		<Evm.Provider initialState={{ networks: Networks }}>
+		<EvmProvider {...props}>
 			<Ethereum.Provider>{children}</Ethereum.Provider>
-		</Evm.Provider>
+		</EvmProvider>
 	);
 };
 

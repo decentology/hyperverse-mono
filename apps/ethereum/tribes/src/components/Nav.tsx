@@ -40,15 +40,8 @@ const Nav = () => {
 					</a>
 				</Link>
 
-				{!address ? (
-					<button className={styles.connect} onClick={connect}>
-						Connect Wallet
-					</button>
-				) : (
-					<button className={styles.logout} onClick={disconnect}>
-						<span>{ens || shortenHash(address, 5, 5)}</span>
-					</button>
-				)}
+{connect({accountStatus:"full"})}
+		
 			</div>
 		</nav>
 	);
