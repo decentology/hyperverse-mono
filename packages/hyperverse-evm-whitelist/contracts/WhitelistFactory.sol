@@ -43,6 +43,7 @@ contract WhitelistFactory is CloneFactory {
 	error Unathorized();
 	error InstanceAlreadyInitialized();
 	error InstanceDoesNotExist();
+	error ZeroAddress();
 	error InvalidTime();
 	error InvalidValuesToCreateInstance();
 	error InvalidMerkelRoot();
@@ -52,6 +53,9 @@ contract WhitelistFactory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	modifier isAuthorized(address _tenant) {
+		if(_tenant == address(0)) {
+			revert ZeroAddress();
+		}
 		if (!(msg.sender == _tenant || msg.sender == hyperverseAdmin)) {
 			revert Unathorized();
 		}

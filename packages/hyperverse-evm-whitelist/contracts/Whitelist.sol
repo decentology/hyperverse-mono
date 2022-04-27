@@ -15,6 +15,7 @@ contract Whitelist is IHyperverseModule {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	address public immutable contractOwner;
 	address private tenantOwner;
+
 	mapping(address => bool) public whitelistedAddresses;
 	mapping(address => bool) public addressesClaimed;
 	bool public active;
@@ -85,9 +86,6 @@ contract Whitelist is IHyperverseModule {
 	}
 
 	modifier canInitialize(address _tenant) {
-		if (_tenant == address(0)) {
-			revert ZeroAddress();
-		}
 		if (tenantOwner != address(0)) {
 			revert AlreadyInitialized();
 		}
