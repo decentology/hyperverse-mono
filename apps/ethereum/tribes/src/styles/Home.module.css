@@ -10,10 +10,12 @@
   justify-content: center;
   align-items: center;
   font-family: "Press Start 2P";
+  padding: 0 1.25rem ;
+  
 }
 
 .rightNav a {
-  margin-left: 1rem;
+  margin-right: 1.5rem;
 }
 
 .connect {

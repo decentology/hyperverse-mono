@@ -18,7 +18,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 const Nav = () => {
-	const { ens, address, disconnect, connect, error } = useEthereum();
+	const { ens, address, account, Connect, error } = useEthereum();
 
 	useEffect(() => {
 		if (error) {
@@ -40,7 +40,8 @@ const Nav = () => {
 					</a>
 				</Link>
 
-{connect({accountStatus:"full"})}
+			<Connect accountStatus={'full'}/>
+			{/* {connect({accountStatus:"full"})} */}
 		
 			</div>
 		</nav>

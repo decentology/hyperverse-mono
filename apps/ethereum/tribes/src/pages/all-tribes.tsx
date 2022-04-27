@@ -12,7 +12,7 @@ import { useMutation, useQuery } from 'react-query';
 
 const AllTribes = () => {
 	const router = useRouter();
-	const { address } = useEthereum();
+	const { account:address } = useEthereum();
 	const tribes = useTribes();
 	const { data, isLoading: allTribesLoading } = useQuery('tribes', () => tribes.getAllTribes!(), {
 		enabled: !tribes.loading,
@@ -23,6 +23,7 @@ const AllTribes = () => {
 		error,
 		isSuccess,
 	} = useMutation('joinTribe', tribes.joinTribe);
+	
 	useEffect(() => {
 		if (isSuccess) {
 			router.push('/my-tribe');

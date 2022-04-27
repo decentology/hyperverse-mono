@@ -39,7 +39,7 @@ type State = {
 	connectedProvider: providers.Web3Provider | null;
 	address: string | null;
 	ens: string | null;
-	chainId: number | null;
+	chainId: number | null
 	error: Error | null;
 };
 
@@ -261,7 +261,8 @@ export function useEvm() {
 	const [account] = useAccount()
 	return {
 		account: account.data?.address,
-		connect: ConnectButton,
+		Connect: ConnectButton,
 		error: account.error,
+		useAccount,
 	}
 }

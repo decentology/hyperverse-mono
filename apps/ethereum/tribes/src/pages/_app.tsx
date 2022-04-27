@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+import { darkTheme, lightTheme } from '@decentology/hyperverse-evm';
 // Change your Tenant ID here.
 const TENANT_ID = '0x62a7aa79a52591Ccc62B71729329A80a666fA50f';
 const queryClient = new QueryClient();
@@ -31,13 +32,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 			},
 		],
 	});
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Provider initialState={hyperverse}>
-				<InnerComponent>
-					<ToastContainer />
-					<Component {...pageProps} />
-				</InnerComponent>
+				<Ethereum.Provider theme={lightTheme()}>
+					<InnerComponent>
+						<ToastContainer />
+						<Component {...pageProps} />
+					</InnerComponent>
+				</Ethereum.Provider>
 			</Provider>
 		</QueryClientProvider>
 	);

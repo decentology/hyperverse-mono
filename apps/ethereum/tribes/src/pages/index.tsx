@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 const Home: NextPage = () => {
 	const router = useRouter();
-	const { address } = useEthereum();
+	const { account:address } = useEthereum();
 	const { getTribeId } = useTribes();
 	const [tribeId, setTribeId] = useState<number | null>();
 	useEffect(() => {

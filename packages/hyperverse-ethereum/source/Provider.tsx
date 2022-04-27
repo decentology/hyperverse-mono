@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Evm, Provider as EvmProvider, ProviderProps} from '@decentology/hyperverse-evm';
+import { Provider as EvmProvider, ProviderProps} from '@decentology/hyperverse-evm';
 import { Ethereum } from './useEthereum';
 import { Network } from '@decentology/hyperverse';
 
