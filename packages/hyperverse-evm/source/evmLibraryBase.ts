@@ -18,15 +18,10 @@ export async function EvmLibraryBase(
 	providerOrSigner: ethers.providers.Provider | ethers.Signer
 ) {
 
-	let signer: ethers.Signer | undefined;
-	if (providerOrSigner instanceof ethers.providers.Web3Provider) {
-		signer = providerOrSigner.getSigner();
-	}
-
 	let factoryContract = new ethers.Contract(
 		factoryAddress!,
 		factoryABI,
-		signer || providerOrSigner
+		providerOrSigner,
 	) as Contract;
 	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === moduleName)?.tenantId;
 	if (!tenantId) {
@@ -37,19 +32,20 @@ export async function EvmLibraryBase(
 		factoryContract = new ethers.Contract(
 			factoryAddress!,
 			factoryABI,
-			signer || provider
+			provider
 		) as Contract;
 		if (proxyContract) {
 			proxyContract = new ethers.Contract(
 				proxyContract.address,
 				contractABI,
-				signer || provider
+				provider
 			) as Contract;
 		}
 	}
 
 	let proxyAddress: string
 	let proxyContract: Contract | undefined;
+
 	try {
 		proxyAddress = await factoryContract.getProxy(tenantId);
 	} catch (error) {
@@ -63,7 +59,7 @@ export async function EvmLibraryBase(
 	proxyContract = new ethers.Contract(
 		proxyAddress,
 		contractABI,
-		signer || providerOrSigner
+		providerOrSigner
 	) as Contract;
 
 
