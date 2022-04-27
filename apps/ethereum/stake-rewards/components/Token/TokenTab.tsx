@@ -8,11 +8,11 @@ import TransferFrom from './WriteFunctions/TransferFrom';
 import Approve from './WriteFunctions/Approve';
 import Mint from './WriteFunctions/Mint';
 import GetProxyToken from './ReadFunctions/GetProxyToken';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import {BsExclamationTriangleFill} from 'react-icons/bs';
 
 const TokenTab = () => {
-	const { TokenName, TokenSymbol, Balance, TotalSupply } = useToken();
+	const { TokenName, TokenSymbol, Balance, TotalSupply } = useERC20();
 
 	const TokenReadFunctions = [
 			{

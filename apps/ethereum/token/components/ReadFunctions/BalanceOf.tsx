@@ -41,7 +41,7 @@ const BalanceOf = () => {
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Balance Of' : data.toString()}
+								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Balance Of' : data!.toString()}
 							</Button>
 						</Content>
 					</Parameters>

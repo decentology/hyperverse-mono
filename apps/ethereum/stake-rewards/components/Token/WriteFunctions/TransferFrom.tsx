@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import {
 	Box,
 	Item,
@@ -16,7 +16,7 @@ import {
 
 const TransferFrom = () => {
 	const { address } = useEthereum();
-	const { TransferFrom } = useToken();
+	const { TransferFrom } = useERC20();
 	const { mutate } = TransferFrom();
   const [from, setFrom] = useState('');
 	const [receiver, setReceiver] = useState('');

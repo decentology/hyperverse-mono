@@ -9,9 +9,9 @@ export const getProvider = (network: NetworkConfig) => {
 	});
 };
 
-// Not ready for production use yet. Race condition on when factory and proxy need to be initialized
 export async function EvmLibraryBase(
 
+	moduleName: string,
 	hyperverse: HyperverseConfig,
 	factoryAddress: string,
 	factoryABI: ContractInterface,
@@ -29,7 +29,7 @@ export async function EvmLibraryBase(
 		factoryABI,
 		signer || providerOrSigner
 	) as Contract;
-	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === 'Tribes')?.tenantId;
+	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === moduleName)?.tenantId;
 	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
@@ -56,6 +56,10 @@ export async function EvmLibraryBase(
 	} catch (error) {
 		console.log(error)
 		throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
+	}
+
+	if (proxyAddress === ethers.constants.AddressZero) {
+		throw new Error('Tenant ID is not registered');
 	}
 	proxyContract = new ethers.Contract(
 		proxyAddress,

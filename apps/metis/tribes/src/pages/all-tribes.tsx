@@ -13,7 +13,7 @@ const AllTribes = () => {
 	const { address } = useMetis();
 	const tribes = useTribes();
 	const router = useRouter();
-	const { data, isLoading: allTribesLoading } = useQuery('tribes', () => tribes.getAllTribes(), {
+	const { data, isLoading: allTribesLoading } = useQuery('tribes', () => tribes.getAllTribes!(), {
 		enabled: !tribes.loading,
 	});
 

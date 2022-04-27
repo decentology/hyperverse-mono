@@ -14,7 +14,7 @@ const AllTribes = () => {
 	const router = useRouter();
 	const { address } = useEthereum();
 	const tribes = useTribes();
-	const { data, isLoading: allTribesLoading } = useQuery('tribes', () => tribes.getAllTribes(), {
+	const { data, isLoading: allTribesLoading } = useQuery('tribes', () => tribes.getAllTribes!(), {
 		enabled: !tribes.loading,
 	});
 	const {

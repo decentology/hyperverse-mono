@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20  } from '@decentology/hyperverse-evm-erc20';
 import { MdFileCopy } from 'react-icons/md';
 import {
 	Box,
@@ -30,7 +30,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
 	const { address } = useEthereum();
-	const { Proxy } = useToken();
+	const { Proxy } = useERC20();
 	const { data, refetch } = Proxy();
 	const [hidden, setHidden] = useState(false);
 
@@ -120,9 +120,9 @@ const CopyIcon = () => (
 		viewBox="0 0 24 24"
 		fill="none"
 		stroke="currentColor"
-		stroke-width="2"
-		stroke-linecap="round"
-		stroke-linejoin="round"
+		strokeWidth="2"
+		strokeLinecap="round"
+		strokeLinejoin="round"
 	>
 		<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
 		<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>

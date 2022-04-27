@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		blockchain: Metis,
 		network: Network.Testnet,
 		storage: {
-			options: { clientUrl: 'https://fileportal.org' }, // Updated to fileportal due to SSL error issues with SiaSky.net
+			options: { clientUrl: 'https://skynetpro.net' }, // Updated to fileportal due to SSL error issues with SiaSky.net
 		},
 		modules: [
 			{

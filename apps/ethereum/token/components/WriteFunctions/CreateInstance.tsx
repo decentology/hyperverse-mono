@@ -16,7 +16,7 @@ import {
 const CreateInstance = () => {
 	const { address } = useEthereum();
 	const { NewInstance, CheckInstance } = useERC20();
-	const { data: instance } = CheckInstance(address);
+	const { data: instance } = CheckInstance(address!);
 	const { mutate, isLoading } = NewInstance();
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');

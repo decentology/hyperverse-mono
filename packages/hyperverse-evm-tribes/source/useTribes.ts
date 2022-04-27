@@ -4,6 +4,7 @@ import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { TribesLibrary, TribesLibraryType } from './tribesLibrary';
 import { useHyperverse } from '@decentology/hyperverse';
+import { useAsync } from 'react-use';
 
 function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
@@ -11,19 +12,28 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const hyperverse = useHyperverse();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
+	// const { loading, value: tribesLibrary, error } = useAsync(async () => {
+	// 	const lib =  TribesLibrary(hyperverse, connectedProvider || readOnlyProvider);
+	// });
 	useEffect(() => {
-		const lib = TribesLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setTribesLibrary)
+		const lib = TribesLibrary(hyperverse, connectedProvider || readOnlyProvider).then(
+			setTribesLibrary
+		);
 		return lib.cancel;
-	}, [connectedProvider])
+	}, [connectedProvider]);
 
 	const useTribeEvents = (eventName: string, callback: any) => {
-		return useEvent(eventName, useCallback(callback, [tribesLibrary?.proxyContract]), tribesLibrary?.proxyContract);
+		return useEvent(
+			eventName,
+			useCallback(callback, [tribesLibrary?.proxyContract]),
+			tribesLibrary?.proxyContract
+		);
 	};
 
 	return {
 		...tribesLibrary,
-		tenantId,
 		loading: !tribesLibrary,
+		tenantId,
 		useTribeEvents,
 	};
 }

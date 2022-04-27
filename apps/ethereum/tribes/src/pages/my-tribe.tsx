@@ -19,7 +19,7 @@ const TribesPage = () => {
 		data,
 		isLoading: tribeDataLoading,
 		error: tribeErr,
-	} = useQuery('tribeAccount', () => tribes.getTribeByAccount(account), {
+	} = useQuery('tribeAccount', () => tribes.getTribeByAccount!(account!), {
 		enabled: !tribes.loading,
 	});
 

@@ -2,6 +2,7 @@ import { GetAllTribes } from './getAllTribes';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/getAllTribes.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/GetAllTribes',
@@ -13,7 +14,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args) => (
 	<HyperverseProvider>
 		<GetAllTribes {...args} />
 	</HyperverseProvider>

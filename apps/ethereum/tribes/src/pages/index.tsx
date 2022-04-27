@@ -12,12 +12,12 @@ const Home: NextPage = () => {
 	const router = useRouter();
 	const { address } = useEthereum();
 	const { getTribeId } = useTribes();
-	const [tribeId, setTribeId] = useState<number>(); 
+	const [tribeId, setTribeId] = useState<number | null>();
 	useEffect(() => {
-		if (getTribeId != null) {
+		if (getTribeId && address) {
 			getTribeId(address).then(setTribeId);
 		}
-	},[getTribeId, address]);
+	}, [getTribeId, address]);
 	return (
 		<>
 			<Head>

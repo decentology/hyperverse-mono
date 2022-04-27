@@ -51,7 +51,7 @@ const Allowance = () => {
 									setHidden((p) => !p);
 								}}
 							>
-								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Allowance' : data.toString()}
+								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Allowance' : data!.toString()}
 							</Button>
 						</Content>
 					</Parameters>
