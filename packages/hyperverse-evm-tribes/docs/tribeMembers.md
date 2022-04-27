@@ -1,6 +1,6 @@
 # Get Tribe Members
 
-<p> The `getTribeMembers` function from `useTribes` returns all members in a tribe. </p>
+<p> The `getTribeMembers` function from `tribesLibrary` returns all members in a tribe. </p>
 
 ---
 
@@ -11,24 +11,27 @@
 <p> The `getTribeMembers` function takes in a tribeId associated with the tribe you are requesting member information from. </p>
 
 ```jsx
-const getTribeMembers = async (tribeId: number) => {
-	try {
-		const events = await proxyContract?.queryFilter(proxyContract?.filters.JoinedTribe(), 0);
-		const members = events
-			?.map((e) => {
-				if (e.args) {
-					return {
-						tribeId: e.args[0].toNumber(),
-						account: e.args[1],
-					};
-				}
-			})
-			.filter((e) => e?.tribeId === tribeId);
-		return members;
-	} catch (err) {
-		throw err;
-	}
-};
+	const getTribeMembers = async (tribeId: number) => {
+		try {
+			const events = await base.proxyContract?.queryFilter(
+				base.proxyContract?.filters.JoinedTribe(),
+				0
+			);
+			const members = events
+				?.map(e => {
+					if (e.args) {
+						return {
+							tribeId: e.args[0].toNumber(),
+							account: e.args[1]
+						};
+					}
+				})
+				.filter(e => e?.tribeId === tribeId);
+			return members;
+		} catch (err) {
+			throw err;
+		}
+	};
 ```
 
 ### Stories
@@ -37,7 +40,7 @@ const getTribeMembers = async (tribeId: number) => {
 import { GetTribeMembers } from './getTribeMembers';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/tribemembers.mdx';
+import { Doc } from '../docs/tribeMembers.mdx';
 
 export default {
 	title: 'Components/GetTribeMembers',
@@ -57,7 +60,7 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 Demo.args = {
-	tribeId: 1,
+	tribeId: 1
 };
 ```
 
@@ -67,15 +70,20 @@ Demo.args = {
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
+import { useState, useEffect } from 'react';
 
 export const GetTribeMembers = ({ ...props }) => {
-	const { TribeMembers } = useTribes();
-	const { data: tribeMembers } = TribeMembers(1);
-	console.log('Tribe Members:', tribeMembers);
+	const tribes = useTribes();
+	const [data, setData] = useState(null);
+	useEffect(() => {
+		return () => {
+			tribes.getTribeMembers().then(setData);
+		};
+	}, []);
 
 	return (
 		<div className="tribeMembers">
-			Tribe Members: <b>{tribeMembers}</b>
+			Tribe Members: <b>{data}</b>
 		</div>
 	);
 };
