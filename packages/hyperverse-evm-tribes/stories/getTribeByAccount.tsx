@@ -2,23 +2,23 @@ import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useState, useEffect } from 'react';
 
-export const GetTotalTenants = ({ ...props }) => {
+export const GetTribeByAccount = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
 		return () => {
-			tribes.getTotalTenants().then(setData);
+			tribes.getTribeByAccount('').then(setData); // Need to pass an account
 		};
 	}, []);
 
 	return (
-		<div className="totalTenants">
-			Total Tenants: <b>{data}</b>
+		<div className="tribeByAccount">
+			Tribe: <b>{data}</b>
 		</div>
 	);
 };
 
-GetTotalTenants.propTypes = {};
+GetTribeByAccount.propTypes = {};
 
-GetTotalTenants.defaultProps = {};
+GetTribeByAccount.defaultProps = {};

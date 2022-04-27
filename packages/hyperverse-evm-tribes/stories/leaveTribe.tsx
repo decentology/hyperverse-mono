@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useState, useEffect } from 'react';
 
 export const LeaveTribe = ({ ...props }) => {
 	const tribes = useTribes();
 	const { address } = useEvm();
-	// const { mutate } = Leave();
 
 	return (
 		<div>
@@ -15,7 +15,7 @@ export const LeaveTribe = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					// mutate();
+					tribes.leaveTribe();
 				}}
 			>
 				Leave Tribe: Knight
@@ -25,7 +25,7 @@ export const LeaveTribe = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'green' }}
 				onClick={() => {
-					// mutate();
+					tribes.leaveTribe();
 				}}
 			>
 				Leave Tribe: Mage

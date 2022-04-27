@@ -1,11 +1,11 @@
-import { LeaveTribe } from './leaveTribe';
+import { GetTribeByAccount } from './getTribeByAccount';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/leaveTribe.mdx';
+import { Doc } from '../docs/getTribeByAccount.mdx';
 
 export default {
-	title: 'Components/LeaveTribe',
-	component: LeaveTribe,
+	title: 'Components/GetTribeByAccount',
+	component: GetTribeByAccount,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,7 +15,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<LeaveTribe {...args} />
+		<GetTribeByAccount {...args} />
 	</HyperverseProvider>
 );
 

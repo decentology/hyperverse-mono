@@ -10,7 +10,7 @@ export const NewInstance = ({ ...props }) => {
 
 	useEffect(() => {
 		return () => {
-			tribes.NewInstance().then(mutate);
+			tribes.newInstance().then(mutate);
 		};
 	}, []);
 

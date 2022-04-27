@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useState, useEffect } from 'react'
+import { id } from 'ethers/lib/utils';
 
 export const GetTribe = ({ ...props }) => {
 	const tribes = useTribes();
