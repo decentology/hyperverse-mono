@@ -135,7 +135,6 @@ contract WhitelistFactory is CloneFactory {
 		if (instance[_tenant]) {
 			revert InstanceAlreadyInitialized();
 		}
-		_;
 		return tenants[_tenant].proxy;
 	}
 }
