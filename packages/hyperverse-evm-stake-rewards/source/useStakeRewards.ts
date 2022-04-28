@@ -9,7 +9,7 @@ type ContractState = ethers.Contract;
 
 function StakeRewardsState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, web3Provider, provider } = useEthereum();
+	const { address, connectedProvider: web3Provider, readOnlyProvider: provider } = useEthereum();
 	const {FactoryABI, factoryAddress, ContractABI, contractAddress } = useEnvironment();
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
 		new ethers.Contract(factoryAddress!, FactoryABI, provider) as ContractState

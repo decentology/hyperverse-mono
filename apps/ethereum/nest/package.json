@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@decentology/config": "^1.0.0",
     "@decentology/hyperverse": "^1.0.0",
     "@decentology/hyperverse-ethereum": "^1.0.0",
     "@decentology/hyperverse-evm-tribes": "^1.0.0",

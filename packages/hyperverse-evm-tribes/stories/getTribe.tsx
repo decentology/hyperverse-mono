@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
+import { MetaDataFormatted } from '../source/types';
 
 export const GetTribe = ({ ...props }) => {
-	const { Tribe } = useTribes();
-	const { data: tribeData } = Tribe();
-	console.log(props.id, tribeData);
+	const tribes = useTribes();
+	const [data, setData] = useState<MetaDataFormatted | null>(null);
+	useEffect(() => {
+		if (tribes.getTribe) {
+			tribes.getTribe(props.id).then(setData);
+		}
+	}, [tribes.getTribe]);
 
 	return (
 		<div className="tribe">
-			Tribe: <b>{tribeData}</b>
+			Tribe: <b>{data}</b>
 		</div>
 	);
 };

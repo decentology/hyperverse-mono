@@ -23,9 +23,12 @@ function useEnvironment() {
 		throw new Error('Blockchain is not EVM compatible');
 	}
 
-	const env = environment[blockchain.name as BlockchainEvm][network.type];
+	const env = environment[blockchain.name as BlockchainEvm]
+	if(!env) {
+		throw new Error('Blockchain not found');
+	}
 	return {
-		...env,
+		...env[network.type],
 		ContractABI,
 		FactoryABI,
 	};

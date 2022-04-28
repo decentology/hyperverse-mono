@@ -4,7 +4,6 @@ import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { TribesLibrary, TribesLibraryType } from './tribesLibrary';
 import { useHyperverse } from '@decentology/hyperverse';
-import { useAsync } from 'react-use';
 
 function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
@@ -12,9 +11,6 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const hyperverse = useHyperverse();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
-	// const { loading, value: tribesLibrary, error } = useAsync(async () => {
-	// 	const lib =  TribesLibrary(hyperverse, connectedProvider || readOnlyProvider);
-	// });
 	useEffect(() => {
 		const lib = TribesLibrary(hyperverse, connectedProvider || readOnlyProvider).then(
 			setTribesLibrary

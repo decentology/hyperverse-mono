@@ -25,7 +25,7 @@ const CreateTokenInstance = () => {
 	const createNewInstance = async () => {
 		try {
 			const instanceData = {
-				account: address,
+				account: address!,
 				name: tokenName,
 				symbol: tokenSymbol,
 				decimal: tokenDecimals,

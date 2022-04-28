@@ -6,6 +6,8 @@
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
+	"emitDecoratorMetadata": true,
+	"experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
     "isolatedModules": true,
@@ -15,5 +17,5 @@
     "skipLibCheck": true,
     "strict": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "stories"]
 }

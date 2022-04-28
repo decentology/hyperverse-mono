@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Loader from '../components/Loader';
@@ -22,11 +22,12 @@ const Setup = () => {
 		description: '',
 	});
 
-	let uploadToIPFS = async (e) => {
-		let file = e.target.files[0];
-
-		const added = await client.add(file);
-		setHash(added.path);
+	let uploadToIPFS = async (e: ChangeEvent<HTMLInputElement>) => {
+		if(e.target.files) {
+			const file = e.target.files[0];	
+			const added = await client.add(file);
+			setHash(added.path);
+		}
 	};
 
 	const addATribe = async () => {
