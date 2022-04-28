@@ -1,6 +1,6 @@
 # New Instance
 
-<p> The `createInstance` function from `useTribes` allows a user to connect their wallet where they can create a new instance. </p>
+<p> The `createInstance` function from `tribesLibrary` allows a user to connect their wallet where they can create a new instance. </p>
 
 ---
 

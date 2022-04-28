@@ -1,24 +1,39 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import { useTribes } from '../source';
-// import { useEvm } from '@decentology/hyperverse-evm/source';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useTribes } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useState, useEffect } from 'react';
 
-// /**
-//  * Primary UI component for user interaction
-//  */
-// export const LeaveTribe = ({ ...props }) => {
-// 	const { Leave } = useTribes();
-// 	const { address, connect } = useEvm();
-// 	const { data } = Leave();
+export const LeaveTribe = ({ ...props }) => {
+	const tribes = useTribes();
+	const { address } = useEvm();
 
-// 	return (
-// 		<div className="tribe">
-// 			Tribe: <b>{data}</b>
-// 		</div>
-// 	);
-// };
+	return (
+		<div>
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					tribes.leaveTribe();
+				}}
+			>
+				Leave Tribe: Knight
+			</button>
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'green' }}
+				onClick={() => {
+					tribes.leaveTribe();
+				}}
+			>
+				Leave Tribe: Mage
+			</button>
+		</div>
+	);
+};
 
-// LeaveTribe.propTypes = {
-// };
+LeaveTribe.propTypes = {};
 
-// LeaveTribe.defaultProps = {};
+LeaveTribe.defaultProps = {};

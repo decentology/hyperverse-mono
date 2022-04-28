@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import './button.css';
-import { Tribes, useTribes } from '../source';
+import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
 import { MetaDataFormatted } from '../source/types';
 

@@ -405,11 +405,11 @@ function ERC777State(initialState: { tenantId: string } = { tenantId: '' }) {
 			useQuery(['getTokenSymbol'], () => getTokenSymbol(), {
 				enabled: !!proxyContract?.signer,
 			}),
-		Deimals: () =>
+		Decimals: () =>
 			useQuery(['getDecimals'], () => getDecimals(), {
 				enabled: !!proxyContract?.signer,
 			}),
-		Ganularity: () =>
+		Granularity: () =>
 			useQuery(['getGranularity'], () => getGranularity(), {
 				enabled: !!proxyContract?.signer,
 			}),

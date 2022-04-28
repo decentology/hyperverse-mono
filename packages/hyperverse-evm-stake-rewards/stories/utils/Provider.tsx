@@ -1,7 +1,7 @@
 import { initialize, Network, Provider } from '@decentology/hyperverse';
 import { Localhost } from '@decentology/hyperverse-evm';
 import { FC } from 'react';
-import * as Tribes from '../../source';
+import * as Stake from '../../source';
 
 export const HyperverseProvider: FC<{}> = ({ children }) => {
 	const hyperverse = initialize({
@@ -12,7 +12,7 @@ export const HyperverseProvider: FC<{}> = ({ children }) => {
 			name: 'localhost',
 			networkUrl: 'http://localhost:6006/hyperchain'
 		},
-		modules: [{ bundle: Tribes, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }]
+		modules: [{ bundle: Stake, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }]
 	});
 	return <Provider initialState={hyperverse}>{children}</Provider>;
 };

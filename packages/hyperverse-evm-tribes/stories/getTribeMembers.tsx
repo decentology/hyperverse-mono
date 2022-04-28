@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
+import { useState, useEffect } from 'react';
 
 export const GetTribeMembers = ({ ...props }) => {
-	const { TribeMembers } = useTribes();
-	const { data: tribeMembers } = TribeMembers(1);
-	console.log('Tribe Members:', tribeMembers);
+	const tribes = useTribes();
+	const [data, setData] = useState(null);
+	useEffect(() => {
+		return () => {
+			tribes.getTribeMembers().then(setData);
+		};
+	}, []);
 
 	return (
 		<div className="tribeMembers">
-			Tribe Members: <b>{tribeMembers}</b>
+			Tribe Members: <b>{data}</b>
 		</div>
 	);
 };
