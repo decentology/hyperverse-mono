@@ -5,11 +5,11 @@ pragma experimental ABIEncoderV2;
 import './interfaces/IERC721.sol';
 import './interfaces/IERC20.sol';
 import './hyperverse/IHyperverseModule.sol';
+import './hyperverse/Initializable.sol';
 import './utils/Counters.sol';
 import './utils/MerkleProof.sol';
-import 'hardhat/console.sol';
 
-contract Whitelist is IHyperverseModule {
+contract Whitelist is IHyperverseModule, Initializable {
 	using Counters for Counters.Counter;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -154,7 +154,7 @@ contract Whitelist is IHyperverseModule {
 
 	/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> DEFAULT BASED  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 	//tenant funcitonality
-	function init(
+	function initialize(
 		address _tenant,
 		uint256 _startTime,
 		uint256 _endTime,
@@ -162,7 +162,7 @@ contract Whitelist is IHyperverseModule {
 		address _ERC721,
 		address _ERC20,
 		bytes32 _merkleRoot
-	) external canInitialize(_tenant) {
+	) external initializer canInitialize(_tenant) {
 		if (_units != 0) {
 			units = _units;
 			quantityBased = true;
