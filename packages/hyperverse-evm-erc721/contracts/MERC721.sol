@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.5.0) (token/ERC721/ERC721.sol)
 
 pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/token/ERC721/IERC721.sol';
 import '@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol';
 import '@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol';
-import './utils/Address.sol';
 import '@openzeppelin/contracts/utils/Context.sol';
 import '@openzeppelin/contracts/utils/Strings.sol';
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
+import './utils/Address.sol';
 
 /**
  * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including
@@ -21,7 +20,6 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	using Strings for uint256;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-
 	// Token name
 	string public override name;
 
@@ -88,7 +86,7 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	/**
 	 * @dev See {IERC165-supportsInterface}.
 	 */
-	function supportsInterface(bytes4 interfaceId)
+	function supportsInterface(bytes4 _interfaceId)
 		public
 		view
 		virtual
@@ -96,9 +94,9 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 		returns (bool)
 	{
 		return
-			interfaceId == type(IERC721).interfaceId ||
-			interfaceId == type(IERC721Metadata).interfaceId ||
-			super.supportsInterface(interfaceId);
+			_interfaceId == type(IERC721).interfaceId ||
+			_interfaceId == type(IERC721Metadata).interfaceId ||
+			super.supportsInterface(_interfaceId);
 	}
 
 	/**
@@ -449,8 +447,8 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	 * Emits a {ApprovalForAll} event.
 	 */
 	function _setApprovalForAll(
-		address owner,
-		address operator,
+		address _owner,
+		address _operator,
 		bool approved
 	) internal virtual {
 		if(owner == operator) {
