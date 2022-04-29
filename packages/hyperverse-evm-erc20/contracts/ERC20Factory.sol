@@ -72,7 +72,7 @@ contract ERC20Factory is CloneFactory {
 		ERC20 token = ERC20(createClone(masterContract));
 
 		//initializing tenant state of clone
-		token.initialize(_name, _symbol, _decimal, msg.sender);
+		token.initialize(_name, _symbol, _decimal, _tenant);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
