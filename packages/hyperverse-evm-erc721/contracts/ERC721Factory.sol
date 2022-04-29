@@ -73,7 +73,7 @@ contract ERC721Factory is CloneFactory {
 		ERC721 erc721 = ERC721(createClone(masterContract));
 
 		//initializing tenant state of clone
-		erc721.init(_name, _symbol, _tenant);
+		erc721.initialize(_name, _symbol, _tenant);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];

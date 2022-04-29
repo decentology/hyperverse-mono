@@ -1,16 +1,18 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts (last updated v4.5.0) (token/ERC721/ERC721.sol)
 
 pragma solidity ^0.8.0;
 
 import './MERC721.sol';
+import './utils/SafeMath.sol';
+import './hyperverse/IHyperverseModule.sol';
+import './hyperverse/Initializable.sol';
 
 /**
  * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {ERC721Enumerable}.
  */
-contract ERC721 is MERC721 {
+contract ERC721 is MERC721, Initializable {
 	uint256 public tokenCounter;
 
 	// Account used to deploy contract
@@ -26,11 +28,11 @@ contract ERC721 is MERC721 {
 		contractOwner = msg.sender;
 	}
 
-	function init(
+	function initialize(
 		string memory name_,
 		string memory symbol_,
 		address _tenant
-	) external {
+	) external initializer {
 		merc721Init(name_, symbol_);
 		tenantOwner = _tenant;
 		tokenCounter = 0;
