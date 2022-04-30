@@ -1,6 +1,5 @@
 {
-	"extends": "@decentology/config/nextjs.json",
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules"]
-  }
-  
+	"extends": "@decentology/config/react-library.json",
+	"include": ["source/**/*.ts", "source/**/*.tsx", "**/*.json", "**.*.mdx"],
+	"exclude": ["distribution", "node_modules"]
+}

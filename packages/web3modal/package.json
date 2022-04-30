@@ -75,7 +75,6 @@
 		"chai": "^4.1.2",
 		"eslint": "^7.10.0",
 		"file-loader": "^3.0.1",
-		"husky": "^3.0.0",
 		"isomorphic-fetch": "^2.2.1",
 		"mocha": "5.2.0",
 		"prettier": "^1.18.2",

@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { QueryClientProvider, QueryClient } from 'react-query';
 import { HyperverseModuleInstance } from '@decentology/hyperverse';
 import { RandomPick } from './useRandomPick';
 

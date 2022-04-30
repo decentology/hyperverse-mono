@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import NodeGlobalsPolyfillPlugin from '@esbuild-plugins/node-globals-polyfill';
-import polyfillNode from 'rollup-plugin-polyfill-node';
 import * as React from 'react';
 export default defineConfig({
-	plugins: [polyfillNode(), react()],
+	plugins: [react()],
 	optimizeDeps: {
 		include: [],
 		esbuildOptions: {

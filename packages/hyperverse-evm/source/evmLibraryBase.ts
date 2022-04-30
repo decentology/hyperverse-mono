@@ -1,6 +1,5 @@
 import { HyperverseConfig, NetworkConfig } from '@decentology/hyperverse';
 import { Contract, ContractInterface, ethers } from 'ethers';
-import { Web3Provider } from '@ethersproject/providers';
 
 export const getProvider = (network: NetworkConfig) => {
 	return new ethers.providers.JsonRpcProvider(network.networkUrl, {
@@ -20,7 +19,7 @@ export async function EvmLibraryBase(
 ) {
 
 	let signer: ethers.Signer | undefined;
-	if (providerOrSigner instanceof Web3Provider) {
+	if (providerOrSigner instanceof ethers.providers.Web3Provider) {
 		signer = providerOrSigner.getSigner();
 	}
 

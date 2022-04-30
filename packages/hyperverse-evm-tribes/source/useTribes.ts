@@ -17,6 +17,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 		);
 		return lib.cancel;
 	}, [connectedProvider]);
+	console.log('tribesLibrary', tribesLibrary, connectedProvider);
 
 	const useTribeEvents = (eventName: string, callback: any) => {
 		return useEvent(

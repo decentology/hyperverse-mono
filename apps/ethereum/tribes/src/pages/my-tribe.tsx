@@ -8,13 +8,11 @@ import Nav from '../components/Nav';
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
-import { useStorage } from '@decentology/hyperverse-storage-skynet';
 
 const TribesPage = () => {
 	const router = useRouter();
 	const { address: account } = useEthereum();
 	const tribes = useTribes();
-	const { clientUrl } = useStorage();
 	const {
 		data,
 		isLoading: tribeDataLoading,
@@ -61,7 +59,7 @@ const TribesPage = () => {
 							<Image
 								width={300}
 								height={380}
-								src={`${clientUrl}/${data.image}/`}
+								src={`${data.imageUrl}`}
 								alt={data.name}
 								className={styles.tribe}
 							/>

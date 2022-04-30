@@ -33,10 +33,22 @@
 		"node": ">=14.0.0"
 	},
 	"dependencies": {
+		"react": "^17.0.2",
 		"turborepo": "^0.0.1"
 	},
 	"resolutions": {
 		"@types/react": "17.0.2",
 		"@types/react-dom": "17.0.2"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [],
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"react"
+			],
+			"allowedVersions": {
+				"react": "17"
+			}
+		}
 	}
 }

@@ -31,12 +31,12 @@
 	},
 	"browserslist": "> 0.5%, last 2 versions, not dead",
 	"dependencies": {
-		"@decentology/hyperverse-storage-skynet": "^1.0.9",
-		"@decentology/unstated-next": "^1.1.3",
+		"@decentology/hyperverse-storage-skynet": "workspace:*",
+		"@decentology/unstated-next": "workspace:*",
 		"@swc/helpers": "^0.3.6"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1.0.1",
+		"@decentology/config": "workspace:*",
 		"parcel": "^2.3.2",
 		"rimraf": "^3.0.2"
 	}
