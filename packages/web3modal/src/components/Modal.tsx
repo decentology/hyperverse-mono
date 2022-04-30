@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Provider } from './Provider';
@@ -136,12 +135,6 @@ export class Modal extends React.Component<IModalProps, IModalState> {
 	constructor(props: IModalProps) {
 		super(props);
 	}
-	public static propTypes = {
-		userOptions: PropTypes.array.isRequired,
-		onClose: PropTypes.func.isRequired,
-		resetState: PropTypes.func.isRequired,
-		lightboxOpacity: PropTypes.number.isRequired
-	};
 
 	public lightboxRef?: HTMLDivElement | null;
 	public mainModalCard?: HTMLDivElement | null;
@@ -180,7 +173,7 @@ export class Modal extends React.Component<IModalProps, IModalState> {
 				className={MODAL_LIGHTBOX_CLASSNAME}
 				offset={lightboxOffset}
 				opacity={lightboxOpacity}
-				ref={c => (this.lightboxRef = c)}
+				ref={(c: any) => (this.lightboxRef = c)}
 				show={show}
 			>
 				<SModalContainer className={MODAL_CONTAINER_CLASSNAME} show={show}>
@@ -190,7 +183,7 @@ export class Modal extends React.Component<IModalProps, IModalState> {
 						show={show}
 						themeColors={themeColors}
 						maxWidth={userOptions.length < 3 ? 500 : 800}
-						ref={c => (this.mainModalCard = c)}
+						ref={(c: any) => (this.mainModalCard = c)}
 					>
 						{userOptions.map(provider =>
 							!!provider ? (
