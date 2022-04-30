@@ -18,5 +18,5 @@
 		"skipLibCheck": true,
 		"strict": true
 	},
-	"exclude": ["node_modules", "stories"]
+	"exclude": ["**/node_modules", "stories"]
 }
