@@ -9,7 +9,7 @@
 	"scripts": {
 		"build": "NODE_NO_WARNINGS=1 turbo run build --no-deps --scope=@decentology* --scope=!@decentology/samples* --scope=!@decentology/hyperverse-*-starterkit --force",
 		"deploy": "turbo run deploy --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-starterkit --force",
-		"lint": "turbo run lint --no-deps --scope=@decentology/hyperverse*",
+		"lint": "turbo run lint --no-deps --scope=@decentology/hyperverse* --continue",
 		"dev": "turbo run dev --parallel",
 		"clean": "turbo run clean --parallel",
 		"dev:algorand": "turbo run dev --cwd=./apps/algorand --parallel ",

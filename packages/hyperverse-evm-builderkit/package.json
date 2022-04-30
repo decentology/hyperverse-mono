@@ -1,5 +1,5 @@
 {
-	"name": "@decentology/hyperverse-ethereum-starterkit",
+	"name": "@decentology/hyperverse-evm-builderkit",
 	"version": "1.0.0",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
@@ -26,7 +26,7 @@
 	},
 	"dependencies": {
 		"@decentology/hyperverse": "^1.0.0",
-		"@decentology/hyperverse-ethereum": "^1.0.0",
+		"@decentology/hyperverse-evm": "^1.0.0",
 		"@decentology/unstated-next": "^1.1.0",
 		"ethers": "^5.5.3",
 		"react-query": "^3.34.7",
@@ -44,6 +44,7 @@
 		"@storybook/addon-links": "^6.4.19",
 		"@storybook/react": "^6.4.19",
 		"@storybook/testing-library": "^0.0.9",
+		"@types/react": "17.0.2",
 		"@types/wait-on": "^5.3.1",
 		"babel-loader": "^8.2.4",
 		"chai": "^4.3.4",

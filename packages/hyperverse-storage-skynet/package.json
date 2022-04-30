@@ -26,11 +26,12 @@
 	},
 	"devDependencies": {
 		"@decentology/config": "workspace:*",
+		"@types/react": "17.0.2",
 		"parcel": "^2.2.1",
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
-		"skynet-js": "^4.0.23-beta",
-		"@decentology/unstated-next": "workspace:*"
+		"@decentology/unstated-next": "workspace:*",
+		"skynet-js": "^4.0.23-beta"
 	}
 }

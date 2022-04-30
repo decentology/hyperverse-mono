@@ -42,12 +42,14 @@
 		"merkletreejs": "^0.2.31",
 		"react-query": "^3.34.7",
 		"react-use": "^17.3.2",
+		"real-cancellable-promise": "^1.1.1",
 		"skynet-js": "^4.0.23-beta"
 	},
 	"devDependencies": {
 		"@decentology/config": "^1.0.1",
 		"@nomiclabs/hardhat-ethers": "^2.0.4",
 		"@nomiclabs/hardhat-waffle": "^2.0.2",
+		"@types/react": "17.0.2",
 		"chai": "^4.3.4",
 		"dotenv": "^16.0.0",
 		"npm-run-all": "^4.1.5",

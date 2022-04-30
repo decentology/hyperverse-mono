@@ -28,6 +28,7 @@ export async function WhitelistLibraryInternal(
 	}
 
 	const base = await EvmLibraryBase(
+		'Whitelist',
 		hyperverse,
 		factoryAddress!,
 		FactoryABI,
