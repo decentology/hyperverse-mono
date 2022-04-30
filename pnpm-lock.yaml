@@ -71,6 +71,7 @@ importers:
   apps/ethereum/cra-example:
     specifiers:
       '@craco/craco': ^6.4.3
+      '@decentology/config': ^1.0.1
       '@decentology/hyperverse': ^1.0.9
       '@decentology/hyperverse-ethereum': ^1.0.9
       '@decentology/hyperverse-ethereum-randompick': ^1.0.11
@@ -107,16 +108,19 @@ importers:
       web-vitals: 2.1.4
     devDependencies:
       '@craco/craco': 6.4.3_5hw23gytnyyhkkx32q723favka
+      '@decentology/config': link:../../../packages/config
       buffer: 6.0.3
 
   apps/ethereum/erc721:
     specifiers:
+      '@decentology/config': ^1.0.1
       '@decentology/hyperverse': ^1.0.9
       '@decentology/hyperverse-ethereum': ^1.0.9
       '@decentology/hyperverse-evm-erc721': ^1.0.1
       '@decentology/unstated-next': ^1.1.1
       '@radix-ui/react-accordion': ^0.1.6
       '@stitches/react': ^1.2.6
+      '@types/react': 17.0.2
       eslint: 8.9.0
       eslint-config-next: 12.1.0
       ethers: ^5.5.4
@@ -139,6 +143,8 @@ importers:
       react-query: 3.38.0_sfoxds7t5ydpegc3knd667wn6m
       react-toastify: 8.2.0_sfoxds7t5ydpegc3knd667wn6m
     devDependencies:
+      '@decentology/config': link:../../../packages/config
+      '@types/react': 17.0.2
       eslint: 8.9.0
       eslint-config-next: 12.1.0_eslint@8.9.0+next@12.1.0
 
@@ -230,6 +236,7 @@ importers:
       '@radix-ui/react-accordion': ^0.1.6
       '@radix-ui/react-tabs': ^0.1.5
       '@stitches/react': ^1.2.6
+      '@types/react': 17.0.2
       eslint: 8.9.0
       eslint-config-next: 12.1.0
       ethers: ^5.5.4
@@ -257,6 +264,7 @@ importers:
       react-query: 3.38.0_sfoxds7t5ydpegc3knd667wn6m
       react-toastify: 8.2.0_sfoxds7t5ydpegc3knd667wn6m
     devDependencies:
+      '@types/react': 17.0.2
       eslint: 8.9.0
       eslint-config-next: 12.1.0_eslint@8.9.0+next@12.1.0
 
@@ -872,6 +880,7 @@ importers:
       '@decentology/hyperverse': ^1.0.0
       '@decentology/hyperverse-evm': ^1.0.0
       '@decentology/unstated-next': ^1.1.0
+      '@ethersproject/abstract-provider': ^5.6.0
       '@nomiclabs/hardhat-ethers': ^2.0.4
       '@nomiclabs/hardhat-waffle': ^2.0.2
       '@storybook/addon-actions': ^6.4.19
@@ -906,6 +915,7 @@ importers:
     devDependencies:
       '@babel/core': 7.17.9
       '@decentology/config': link:../config
+      '@ethersproject/abstract-provider': 5.6.0
       '@nomiclabs/hardhat-ethers': 2.0.5_ethers@5.6.4+hardhat@2.9.3
       '@nomiclabs/hardhat-waffle': 2.0.3_3yc76uycxwuqr2pfss7kcu3zpu
       '@storybook/addon-actions': 6.4.22_@types+react@17.0.2
@@ -1059,6 +1069,7 @@ importers:
       '@storybook/addon-links': ^6.4.20
       '@storybook/react': ^6.4.20
       '@storybook/testing-library': ^0.0.9
+      '@types/react': 17.0.2
       babel-loader: ^8.2.4
       chai: ^4.3.4
       dotenv: ^16.0.0
@@ -1086,12 +1097,13 @@ importers:
       '@decentology/config': link:../config
       '@nomiclabs/hardhat-ethers': 2.0.5_ethers@5.6.4+hardhat@2.9.3
       '@nomiclabs/hardhat-waffle': 2.0.3_cbs3pfcond775we3meds7ikzfy
-      '@storybook/addon-actions': 6.4.22
-      '@storybook/addon-essentials': 6.4.22_zvuzr5lvsqrjtgycgqb5jav76m
-      '@storybook/addon-interactions': 6.4.22
+      '@storybook/addon-actions': 6.4.22_@types+react@17.0.2
+      '@storybook/addon-essentials': 6.4.22_bqzuxngdqhput6yd7z6xm6on2a
+      '@storybook/addon-interactions': 6.4.22_@types+react@17.0.2
       '@storybook/addon-links': 6.4.22
-      '@storybook/react': 6.4.22_@babel+core@7.17.9
+      '@storybook/react': 6.4.22_sfeklc34kffu6tborkob4ocny4
       '@storybook/testing-library': 0.0.9
+      '@types/react': 17.0.2
       babel-loader: 8.2.5_@babel+core@7.17.9
       chai: 4.3.6
       dotnet: 1.1.4
@@ -1117,6 +1129,7 @@ importers:
       '@storybook/addon-links': ^6.4.21
       '@storybook/react': ^6.4.21
       '@storybook/testing-library': ^0.0.9
+      '@types/react': 17.0.2
       babel-loader: ^8.2.4
       chai: ^4.3.4
       dotenv: ^16.0.0
@@ -1145,12 +1158,13 @@ importers:
       '@decentology/config': link:../config
       '@nomiclabs/hardhat-ethers': 2.0.5_ethers@5.6.4+hardhat@2.9.3
       '@nomiclabs/hardhat-waffle': 2.0.3_cbs3pfcond775we3meds7ikzfy
-      '@storybook/addon-actions': 6.4.22
-      '@storybook/addon-essentials': 6.4.22_zvuzr5lvsqrjtgycgqb5jav76m
-      '@storybook/addon-interactions': 6.4.22
+      '@storybook/addon-actions': 6.4.22_@types+react@17.0.2
+      '@storybook/addon-essentials': 6.4.22_bqzuxngdqhput6yd7z6xm6on2a
+      '@storybook/addon-interactions': 6.4.22_@types+react@17.0.2
       '@storybook/addon-links': 6.4.22
-      '@storybook/react': 6.4.22_@babel+core@7.17.9
+      '@storybook/react': 6.4.22_sfeklc34kffu6tborkob4ocny4
       '@storybook/testing-library': 0.0.9
+      '@types/react': 17.0.2
       babel-loader: 8.2.5_@babel+core@7.17.9
       chai: 4.3.6
       dotnet: 1.1.4
@@ -1168,6 +1182,7 @@ importers:
       '@decentology/hyperverse-evm': ^1.0.10
       '@decentology/hyperverse-storage-skynet': ^1.0.9
       '@decentology/unstated-next': ^1.1.3
+      '@ethersproject/abstract-provider': ^5.6.0
       '@nomiclabs/hardhat-ethers': ^2.0.4
       '@nomiclabs/hardhat-waffle': ^2.0.2
       '@openzeppelin/contracts': ^4.4.2
@@ -1223,6 +1238,7 @@ importers:
     devDependencies:
       '@babel/core': 7.17.9
       '@decentology/config': link:../config
+      '@ethersproject/abstract-provider': 5.6.0
       '@nomiclabs/hardhat-ethers': 2.0.5_ethers@5.6.4+hardhat@2.9.3
       '@nomiclabs/hardhat-waffle': 2.0.3_cbs3pfcond775we3meds7ikzfy
       '@storybook/addon-essentials': 6.4.22_bqzuxngdqhput6yd7z6xm6on2a
