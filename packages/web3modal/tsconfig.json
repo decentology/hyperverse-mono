@@ -6,7 +6,7 @@
 		"module": "ES6",
 		"target": "ES6",
 		"moduleResolution": "node",
-		"lib": ["es7", "dom"],
+		"lib": ["ES2017", "dom"],
 		"jsx": "react",
 		"incremental": false,
 		"allowSyntheticDefaultImports": true,
