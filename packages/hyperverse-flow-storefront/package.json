@@ -23,14 +23,14 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.9",
-    "@decentology/hyperverse-flow": "^1.0.9",
+    "@decentology/hyperverse": "workspace:*",
+    "@decentology/hyperverse-flow": "workspace:*",
     "@onflow/fcl": "^0.0.78",
     "@onflow/types": "^0.0.6",
     "@decentology/unstated-next": "^1.1.1"
   },
   "devDependencies": {
-    "@decentology/config": "^1.0.0",
+    "@decentology/config": "workspace:*",
     "@types/node": "^17.0.16",
     "parcel": "^2.2.1",
     "rimraf": "^3.0.2"

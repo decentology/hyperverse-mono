@@ -25,15 +25,15 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.0",
-    "@decentology/hyperverse-flow": "^1.0.0",
+    "@decentology/hyperverse": "workspace:*",
+    "@decentology/hyperverse-flow": "workspace:*",
     "@onflow/fcl": "^0.0.78",
     "@onflow/types": "^0.0.6",
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
-    "@decentology/config": "^1.0.0",
+    "@decentology/config": "workspace:*",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.4.22",
