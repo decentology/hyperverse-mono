@@ -9,17 +9,19 @@ const path = require('path');
 
 require('dotenv').config();
 async function main() {
+	const hyperverseAdmin = '0x62a7aa79a52591Ccc62B71729329A80a666fA50f';
+
 	const [deployer] = await ethers.getSigners();
 	console.log('Deploying contracts with the account:', deployer.address);
 	console.log('Account balance:', (await deployer.getBalance()).toString());
 	// console.log(path.join(__dirname, "../../hyperverse-evm-erc721/artifacts/contracts/NFT.sol/NFT.json"));
 
-	const NFT = await ethers.getContractFactory('NFT');
-	const nftContract = await NFT.deploy();
+	const NFT = await ethers.getContractFactory('ERC721');
+	const nftContract = await NFT.deploy(hyperverseAdmin);
 	await nftContract.deployed();
 
-	const NFTFactory = await ethers.getContractFactory('NFTFactory');
-	const nftFactoryContract = await NFTFactory.deploy(nftContract.address);
+	const NFTFactory = await ethers.getContractFactory('ERC721Factory');
+	const nftFactoryContract = await NFTFactory.deploy(nftContract.address, hyperverseAdmin);
 	await nftFactoryContract.deployed();
 
 	console.log(`[${hre.network.name}] NFT Contract deployed to: ${nftContract.address}`);
