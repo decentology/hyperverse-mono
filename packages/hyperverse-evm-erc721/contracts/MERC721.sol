@@ -436,9 +436,9 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	 *
 	 * Emits a {Approval} event.
 	 */
-	function _approve(address to, uint256 tokenId) internal virtual {
-		_tokenApprovals[tokenId] = to;
-		emit Approval(MERC721.ownerOf(tokenId), to, tokenId);
+	function _approve(address _to, uint256 _tokenId) internal virtual {
+		_tokenApprovals[_tokenId] = _to;
+		emit Approval(MERC721.ownerOf(_tokenId), _to, _tokenId);
 	}
 
 	/**
@@ -449,34 +449,34 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	function _setApprovalForAll(
 		address _owner,
 		address _operator,
-		bool approved
+		bool _approved
 	) internal virtual {
-		if(owner == operator) {
+		if(_owner == _operator) {
 			revert SameAddress();
 		}
 
-		_operatorApprovals[owner][operator] = approved;
-		emit ApprovalForAll(owner, operator, approved);
+		_operatorApprovals[_owner][_operator] = _approved;
+		emit ApprovalForAll(_owner, _operator, _approved);
 	}
 
 	/**
 	 * @dev Internal function to invoke {IERC721Receiver-onERC721Received} on a target address.
 	 * The call is not executed if the target address is not a contract.
 	 *
-	 * @param from address representing the previous owner of the given token ID
-	 * @param to target address that will receive the tokens
-	 * @param tokenId uint256 ID of the token to be transferred
+	 * @param _from address representing the previous owner of the given token ID
+	 * @param _to target address that will receive the tokens
+	 * @param _tokenId uint256 ID of the token to be transferred
 	 * @param _data bytes optional data to send along with the call
 	 * @return bool whether the call correctly returned the expected magic value
 	 */
 	function _checkOnERC721Received(
-		address from,
-		address to,
-		uint256 tokenId,
+		address _from,
+		address _to,
+		uint256 _tokenId,
 		bytes memory _data
 	) private returns (bool) {
-		if (to.isContract()) {
-			try IERC721Receiver(to).onERC721Received(_msgSender(), from, tokenId, _data) returns (
+		if (_to.isContract()) {
+			try IERC721Receiver(_to).onERC721Received(_msgSender(), _from, _tokenId, _data) returns (
 				bytes4 retval
 			) {
 				return retval == IERC721Receiver.onERC721Received.selector;
@@ -509,9 +509,9 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	 * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
 	 */
 	function _beforeTokenTransfer(
-		address from,
-		address to,
-		uint256 tokenId
+		address _from,
+		address _to,
+		uint256 _tokenId
 	) internal virtual {}
 
 	/**
@@ -526,8 +526,8 @@ contract MERC721 is Context, ERC165, IERC721, IERC721Metadata {
 	 * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
 	 */
 	function _afterTokenTransfer(
-		address from,
-		address to,
-		uint256 tokenId
+		address _from,
+		address _to,
+		uint256 _tokenId
 	) internal virtual {}
 }
