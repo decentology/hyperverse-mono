@@ -13,7 +13,7 @@ import './utils/Counters.sol';
  * the Metadata extension, but not including the Enumerable extension, which is available separately as
  * {ERC721Enumerable}.
  */
-contract ERC721 is MERC721,IHyperverseModule, Initializable {
+contract ERC721 is MERC721, IHyperverseModule, Initializable {
 	using SafeMath for uint256;
 	using Counters for Counters.Counter;
 
@@ -33,11 +33,8 @@ contract ERC721 is MERC721,IHyperverseModule, Initializable {
 	// only possible if we call the constructor like this
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-	error Unauthorized();
-	error AlreadyInitialized();
-	error ZeroAddress();
 
-		/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+modifiers
 	modifier isTenantOwner() {
@@ -55,7 +52,7 @@ contract ERC721 is MERC721,IHyperverseModule, Initializable {
 	}
 
 	modifier checkMint() {
-		if(publicMint == false && msg.sender != _tenantOwner) {
+		if (publicMint == false && msg.sender != _tenantOwner) {
 			revert Unauthorized();
 		}
 		_;
@@ -87,13 +84,11 @@ contract ERC721 is MERC721,IHyperverseModule, Initializable {
 		publicMint = !publicMint;
 	}
 
-
-
-	function mint(address _to) public checkMint returns (uint256)  {
-		if(_to == address(0)) {
+	function mint(address _to) public checkMint returns (uint256) {
+		if (_to == address(0)) {
 			revert ZeroAddress();
 		}
-		
+
 		uint256 tokenId = tokenCounter.current();
 		//safely mint token for the person that called the function
 		_safeMint(_to, tokenId);
