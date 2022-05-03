@@ -1,7 +1,7 @@
 import { HyperverseProvider } from './utils/Provider';
 import { Meta, Story } from '@storybook/react';
 import { useModule } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
 const Button = () => {
 	const { connect } = useEvm();
 	const { factoryContract } = useModule();
@@ -16,7 +16,7 @@ export default {
 } as Meta;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: Story = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<Button {...args} />
 	</HyperverseProvider>
