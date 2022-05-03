@@ -7,8 +7,8 @@
 		"packages/*"
 	],
 	"scripts": {
-		"build": "NODE_NO_WARNINGS=1 turbo run build --no-deps --scope=@decentology* --scope=!@decentology/samples* --scope=!@decentology/hyperverse-*-starterkit --force",
-		"deploy": "turbo run deploy --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-starterkit --force",
+		"build": "NODE_NO_WARNINGS=1 turbo run build --no-deps --scope=@decentology* --scope=!@decentology/samples* --scope=!@decentology/hyperverse-*-builderkit --force",
+		"deploy": "turbo run deploy --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-builderkit --force",
 		"lint": "turbo run lint --no-deps --scope=@decentology/hyperverse* --continue",
 		"dev": "turbo run dev --parallel",
 		"clean": "turbo run clean --parallel",

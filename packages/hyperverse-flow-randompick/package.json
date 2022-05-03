@@ -27,6 +27,7 @@
   "dependencies": {
     "@decentology/hyperverse": "workspace:*",
     "@decentology/hyperverse-flow": "workspace:*",
+    "@decentology/unstated-next": "workspace:*",
     "@onflow/fcl": "^0.0.78",
     "@onflow/types": "^0.0.6",
     "unstated-next": "^1.1.0"
