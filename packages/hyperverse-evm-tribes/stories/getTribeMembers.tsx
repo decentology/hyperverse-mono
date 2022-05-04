@@ -19,8 +19,6 @@ export const GetTribeMembers = ({ ...props }) => {
 	);
 };
 
-GetTribeMembers.propTypes = {
-	tribeId: PropTypes.number.isRequired,
-};
+GetTribeMembers.propTypes = {};
 
 GetTribeMembers.defaultProps = {};

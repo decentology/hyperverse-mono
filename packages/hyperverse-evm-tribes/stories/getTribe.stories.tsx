@@ -21,6 +21,4 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-	id: 1,
-};
+Demo.args = {};

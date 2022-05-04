@@ -20,8 +20,6 @@ export const GetTribeId = ({ ...props }) => {
 	);
 };
 
-GetTribeId.propTypes = {
-	account: PropTypes.string.isRequired,
-};
+GetTribeId.propTypes = {};
 
 GetTribeId.defaultProps = {};

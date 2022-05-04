@@ -1,7 +1,7 @@
-import { GetTotalTenants } from './totalTenants';
+import { GetTotalTenants } from './getTotalTenants';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/totalTenants.mdx';
+import { Doc } from '../docs/getTotalTenants.mdx';
 
 export default {
 	title: 'Components/GetTotalTenants',

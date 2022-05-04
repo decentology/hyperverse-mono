@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 export const GetAllTribes = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState(null);
+	
 	useEffect(() => {
 		tribes.getAllTribes().then(setData);
 	}, []);
