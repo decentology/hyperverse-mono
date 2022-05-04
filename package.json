@@ -7,9 +7,9 @@
 		"packages/*"
 	],
 	"scripts": {
-		"build": "NODE_NO_WARNINGS=1 turbo run build --no-deps --scope=@decentology* --scope=!@decentology/samples* --scope=!@decentology/hyperverse-*-starterkit --force",
-		"deploy": "turbo run deploy --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-starterkit --force",
-		"lint": "turbo run lint --no-deps --scope=@decentology/hyperverse*",
+		"build": "NODE_NO_WARNINGS=1 turbo run build --no-deps --scope=@decentology* --scope=!@decentology/samples* --scope=!@decentology/hyperverse-*-builderkit --force",
+		"deploy": "turbo run deploy --no-deps --scope=@decentology/hyperverse* --scope=!@decentology/hyperverse-*-builderkit --force",
+		"lint": "turbo run lint --no-deps --scope=@decentology/hyperverse* --continue",
 		"dev": "turbo run dev --parallel",
 		"clean": "turbo run clean --parallel",
 		"dev:algorand": "turbo run dev --cwd=./apps/algorand --parallel ",
@@ -33,10 +33,22 @@
 		"node": ">=14.0.0"
 	},
 	"dependencies": {
+		"react": "^17.0.2",
 		"turborepo": "^0.0.1"
 	},
 	"resolutions": {
 		"@types/react": "17.0.2",
 		"@types/react-dom": "17.0.2"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [],
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"react"
+			],
+			"allowedVersions": {
+				"react": "17"
+			}
+		}
 	}
 }

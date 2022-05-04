@@ -1,7 +1,7 @@
-import { initialize, Provider, networks } from '@decentology/hyperverse';
+import { initialize, Provider, Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as Token from '@decentology/hyperverse-ethereum-token';
-import * as StakeRewards from '@decentology/hyperverse-ethereum-stake-rewards';
+import * as Token from '@decentology/hyperverse-evm-erc20';
+import * as StakeRewards from '@decentology/hyperverse-evm-stake-rewards';
 import { globalCss } from '../stitches.config';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,7 +29,7 @@ const globalStyles = globalCss({
 
 const hyperverse = initialize({
 	blockchain: Ethereum,
-	network: networks.Testnet,
+	network: Network.Testnet,
 	modules: [
 		{
 			bundle: Token,

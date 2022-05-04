@@ -3,9 +3,9 @@ import Storage from './constants/storage';
 import { Hyperverse, HyperverseConfig, StorageOptions } from './types';
 
 function initialize(options: Hyperverse) {
-	const network = options.blockchain!.getNetwork!(
-		typeof options.network === 'string' ? options.network : options.network.type
-	);
+	const network = typeof options.network === "string" ? (options.blockchain!.getNetwork!(
+		options.network
+	)) : options.network;
 	const hyperverseConfig: HyperverseConfig = {
 		...options,
 		storage: setupStorage(options.storage),

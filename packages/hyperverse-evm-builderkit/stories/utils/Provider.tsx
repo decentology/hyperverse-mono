@@ -1,8 +1,9 @@
 import { initialize, Network, Provider } from '@decentology/hyperverse';
 import { Localhost } from '@decentology/hyperverse-evm';
+import { FC } from 'react';
 import * as SmartModule from '../../source';
 
-export const HyperverseProvider = ({ children }) => {
+export const HyperverseProvider: FC<any> = ({ children }) => {
 	const hyperverse = initialize({
 		blockchain: Localhost,
 		network: {
@@ -11,7 +12,7 @@ export const HyperverseProvider = ({ children }) => {
 			name: 'localhost',
 			networkUrl: 'http://localhost:6006/hyperchain'
 		},
-		modules: [{ bundle: SmartModule, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }]
+		modules: [{ bundle: SmartModule, tenantId: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }]
 	});
 	return <Provider initialState={hyperverse}>{children}</Provider>;
 };

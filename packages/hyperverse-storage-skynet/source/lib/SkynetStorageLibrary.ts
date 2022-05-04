@@ -13,5 +13,7 @@ export class SkynetStorageLibrary extends SkynetClient {
 		this.client = new SkynetClient(clientUrl);
 		Object.assign(this, this.client)
 	}
-	getLink = (siaLink: string) => `${this.client.portalUrl}/${siaLink.replace('sia:', '')}`;
+	getLink(siaLink: string) { 
+		return `${this.client.portalUrl}/${siaLink.replace('sia:', '')}`;
+	}
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useToken } from '@decentology/hyperverse-ethereum-token';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import {
 	Box,
 	Item,
@@ -15,14 +15,14 @@ import {
 
 const Mint = () => {
 	const { address } = useEthereum();
-	const { Mint } = useToken();
+	const { Mint } = useERC20();
 	const { mutate } = Mint();
 	const [amount, setAmount] = useState(0);
 
 	const mint = async () => {
 		try {
 			const instanceData = {
-        amount: amount,
+				amount: amount,
 			};
 
 			mutate(instanceData);
@@ -50,9 +50,7 @@ const Mint = () => {
 								placeholder="Amount"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={mint}>
-								{!address ? 'Connet Wallet' : 'Mint'}
-							</Button>
+							<Button onClick={mint}>{!address ? 'Connet Wallet' : 'Mint'}</Button>
 						</Content>
 					</Parameters>
 				</Item>

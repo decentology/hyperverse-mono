@@ -1,8 +1,9 @@
 import { initialize, Network, Provider } from '@decentology/hyperverse';
 import { Localhost } from '@decentology/hyperverse-evm';
+import { FC } from 'react';
 import * as Stake from '../../source';
 
-export const HyperverseProvider = ({ children }) => {
+export const HyperverseProvider: FC<{}> = ({ children }) => {
 	const hyperverse = initialize({
 		blockchain: Localhost,
 		network: {

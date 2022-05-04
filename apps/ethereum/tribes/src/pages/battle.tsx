@@ -3,7 +3,7 @@ import { useTribes } from '@decentology/hyperverse-evm-tribes';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Nav from '../components/Nav';
 import styles from '../styles/Home.module.css';
@@ -15,12 +15,22 @@ const Battle = () => {
 	const [randomFightImage, setRandomFightImage] = useState<string>(fightImages[0]);
 	const [winner, setWinner] = useState<any>(null);
 	const tribes = useTribes();
-	const { data: tribesList } = useQuery('tribes', () => tribes.getAllTribes(), {
+	const { data: tribesList } = useQuery('tribes', () => tribes.getAllTribes!(), {
 		enabled: !tribes.loading,
 	});
-	const { StartRandomPick, GetRandomPick } = useRandomPick();
-	const { mutate: randomMutate, data: requestId, isLoading: randomNumber } = StartRandomPick();
-	let { data: randomNumberPick, isLoading: loadingWinner } = GetRandomPick(requestId);
+	const { startRandomPick, getRandomPick } = useRandomPick();
+	const {
+		mutate: randomMutate,
+		data: requestId,
+		isLoading: randomNumber,
+	} = useMutation(startRandomPick);
+	let { data: randomNumberPick, isLoading: loadingWinner } = useQuery(
+		['randomNumber', { requestId }],
+		() => getRandomPick(requestId),
+		{
+			enabled: !!requestId,
+		}
+	);
 	const startBattle = useCallback(() => {
 		setWinner(null);
 		randomMutate([1, 2]);

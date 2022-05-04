@@ -18,7 +18,7 @@ const Container = () => {
 	const { address } = useEthereum();
 	const { TokenName, TokenSymbol, Balance, TotalSupply, CheckInstance } = useERC20();
 
-	const { data: instance } = CheckInstance(address);
+	const { data: instance } = CheckInstance(address!);
 
 	const toastId = 'instance';
 	useEffect(() => {

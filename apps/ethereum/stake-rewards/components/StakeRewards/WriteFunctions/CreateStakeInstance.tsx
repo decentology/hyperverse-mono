@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useStakeRewards } from '@decentology/hyperverse-ethereum-stake-rewards';
+import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards';
 import {
 	Box,
 	Item,
@@ -25,7 +25,7 @@ const CreateStakeInstance = () => {
 	const createNewInstance = async () => {
 		try {
 			const instanceData = {
-				account: address,
+				account: address!,
 				stakingToken: stakingToken,
 				rewardsToken: rewardsToken,
 				rewardRate: rewardRate,

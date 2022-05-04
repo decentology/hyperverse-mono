@@ -21,6 +21,7 @@ async function ModuleLibraryInternal(
 		providerOrSigner = getProvider(hyperverse.network);
 	}
 	const base = await EvmLibraryBase(
+		'CustomModule',
 		hyperverse,
 		factoryAddress!,
 		FactoryABI,

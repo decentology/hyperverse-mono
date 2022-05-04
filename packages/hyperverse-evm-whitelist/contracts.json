@@ -1,0 +1,36 @@
+{
+  "ethereum": {
+    "testnet": {
+      "contractAddress": "0xE1a5336dBe787BEeEF2d2F949172E32467927Ed3",
+      "factoryAddress": "0xDDE441177a7E2f799BE34568ed4fe8cC82E2b46B"
+    },
+    "mainnet": {}
+  },
+  "metis": {
+    "testnet": {
+      "contractAddress": "",
+      "factoryAddress": ""
+    },
+    "mainnet": {}
+  },
+  "avalanche": {
+    "testnet": {
+      "contractAddress": "",
+      "factoryAddress": ""
+    },
+    "mainnet": {}
+  },
+  "polygon": {
+    "testnet": {
+      "contractAddress": "",
+      "factoryAddress": ""
+    },
+    "mainnet": {}
+  },
+  "hardhat": {
+    "testnet": {
+      "contractAddress": "",
+      "factoryAddress": ""
+    }
+  }
+}

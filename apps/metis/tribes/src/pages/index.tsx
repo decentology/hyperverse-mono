@@ -11,12 +11,12 @@ const Home: NextPage = () => {
 	const router = useRouter();
 	const { address } = useMetis();
 	const { getTribeId } = useTribes();
-	const [tribeId, setTribeId] = useState<number>(); 
+	const [tribeId, setTribeId] = useState<number | null>();
 	useEffect(() => {
-		if (getTribeId != null) {
+		if (address && getTribeId) {
 			getTribeId(address).then(setTribeId);
 		}
-	},[getTribeId, address]);
+	}, [getTribeId, address]);
 
 	return (
 		<>

@@ -2,32 +2,31 @@ const { ethers } = require('hardhat');
 const { expect } = require('chai');
 
 describe('ERC721', function () {
-  let ExampleNFT;
-  let exampleNFTContract;
-  let ExampleNFTFactory;
-  let exampleNFTFactoryContract;
+  let ERC721;
+  let erc721ctr;
+  let ERC721Factory;
+  let erc721factoryCtr;
   let alice;
   let bob;
-  let cara;
+  let owner;
   let aliceProxyContract;
 
   beforeEach(async () => {
-    [alice, bob, cara] = await ethers.getSigners();
+    [owner, alice, bob] = await ethers.getSigners();
+    ERC721 = await ethers.getContractFactory('ERC721');
+    erc721ctr = await ERC721.deploy(owner.address);
+    await erc721ctr.deployed();
 
-    ExampleNFT = await ethers.getContractFactory('ExampleNFT');
-    exampleNFTContract = await ExampleNFT.deploy();
-    await exampleNFTContract.deployed();
+    ERC721Factory = await ethers.getContractFactory('ERC721Factory');
+    erc721factoryCtr = await ERC721Factory.deploy(erc721ctr.address, owner.address);
+    await erc721factoryCtr.deployed();
 
-    ExampleNFTFactory = await ethers.getContractFactory('ExampleNFTFactory');
-    exampleNFTFactoryContract = await ExampleNFTFactory.deploy(exampleNFTContract.address);
-    await exampleNFTFactoryContract.deployed();
-
-    await exampleNFTFactoryContract.connect(alice).createInstance("ALICE", "ALC");
-    aliceProxyContract = await ExampleNFT.attach(await exampleNFTFactoryContract.getProxy(alice.address));
+    await erc721factoryCtr.connect(alice).createInstance(alice.address, "ALICE", "ALC");
+    aliceProxyContract = await ERC721.attach(await erc721factoryCtr.getProxy(alice.address));
   });
 
   it('Master Contract should match exampleNFTContract', async function () {
-    expect(await exampleNFTFactoryContract.masterContract()).to.equal(exampleNFTContract.address);
+    expect(await erc721factoryCtr.masterContract()).to.equal(erc721ctr.address);
   });
 
   it("Should match alice's initial token data", async function () {
@@ -36,8 +35,8 @@ describe('ERC721', function () {
   });
 
   it("Should reflect the correct balances", async function () {
-    await aliceProxyContract.connect(alice).createNFT();
-    expect(await aliceProxyContract.balanceOf(alice.address)).to.equal(1);
-    expect(await aliceProxyContract.balanceOf(bob.address)).to.equal(0);
+    await aliceProxyContract.connect(alice).mint(alice.address);
+    // expect(await aliceProxyContract.balanceOf(alice.address)).to.equal(1);
+    // expect(await aliceProxyContract.balanceOf(bob.address)).to.equal(0);
   });
 });

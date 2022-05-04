@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useMutation, UseMutationOptions, useQuery } from 'react-query';
 import { BigNumber, ethers } from 'ethers';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { createContainer, useContainer } from '@decentology/unstated-next';
@@ -23,10 +22,6 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) 
 		}
 	}, [connectedProvider]);
 
-	const errors = (err: any) => {
-		throw err;
-		// throw new Error("Something went wrong!");
-	};
 
 	useEffect(() => {
 		if (connectedProvider) {
@@ -38,14 +33,11 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) 
 		async (numbers: Number[]) => {
 			try {
 				const tx = await contract.startRandomPick(numbers);
-				console.log('Sending...');
 				const waited = await tx.wait();
 				const event = waited.events.filter((x: any) => x.event == 'StartedRandomPick')[0];
 				const requestId = event.args[1];
-				console.log('RequestId:', requestId);
 				return requestId;
 			} catch (err) {
-				errors(err);
 				throw err;
 			}
 		},
@@ -77,13 +69,8 @@ function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) 
 	return {
 		tenantId,
 		contract,
-		StartRandomPick: (
-			options?: Omit<UseMutationOptions<unknown, unknown, void, unknown>, 'mutationFn'>
-		) => useMutation((numbers: Number[]) => startRandomPick(numbers)),
-		GetRandomPick: (requestId: string) =>
-			useQuery(['getRandomPick'], () => getRandomPick(requestId), {
-				enabled: !!requestId,
-			}),
+		startRandomPick,
+		getRandomPick
 	};
 }
 

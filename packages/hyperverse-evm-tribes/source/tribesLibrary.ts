@@ -11,7 +11,7 @@ export function TribesLibrary(...args: Parameters<typeof TribesLibraryInternal>)
 	return new CancellablePromise(TribesLibraryInternal(...args), () => { });
 }
 
-async function TribesLibraryInternal(
+export async function TribesLibraryInternal(
 	hyperverse: HyperverseConfig,
 	providerOrSigner?: ethers.providers.Provider | ethers.Signer
 ) {
@@ -23,6 +23,7 @@ async function TribesLibraryInternal(
 		providerOrSigner = getProvider(hyperverse.network);
 	}
 	const base = await EvmLibraryBase(
+		'Tribes',
 		hyperverse,
 		factoryAddress!,
 		FactoryABI,
@@ -31,15 +32,20 @@ async function TribesLibraryInternal(
 	);
 
 	const formatTribeResultFromTribeId = async (tribeId: number) => {
-		const txn = await base.proxyContract?.getTribeData(tribeId);
-		const link = txn.replace('sia:', '');
-		const json = JSON.parse(
-			// eslint-disable-next-line no-await-in-loop
-			await (await fetch(`${hyperverse!.storage!.clientUrl}/${link}`)).text()
-		);
-		json.id = tribeId;
-		json.imageUrl = `${hyperverse!.storage!.clientUrl}/${json.image.replace('sia:', '')}`;
-		return json as MetaDataFormatted;
+		try {
+			const txn = await base.proxyContract.getTribeData(tribeId);
+			const link = txn.replace('sia:', '');
+			const resp = await fetch(`${hyperverse!.storage!.clientUrl}/${link}`);
+			if (resp.ok) {
+				const json = await resp.json()
+				json.id = tribeId;
+				json.imageUrl = `${hyperverse!.storage!.clientUrl}/${json.image.replace('sia:', '')}`;
+				return json as MetaDataFormatted;
+			}
+			throw new Error("Unable to format tribes document")
+		} catch (error) {
+			throw new Error("Unable to format tribes document")
+		}
 	};
 
 	const getTribeId = async (account: string) => {
@@ -148,6 +154,7 @@ async function TribesLibraryInternal(
 
 	return {
 		...base,
+		// getTribeId: depsReady(getTribeId),
 		getTribeId,
 		getTribeByAccount,
 		getTribe,
@@ -158,3 +165,15 @@ async function TribesLibraryInternal(
 		addTribe,
 	};
 }
+
+// export type LibFn<Value, Args extends any> = (args: Args) => Value;
+function depsReady<Value, State extends any>(callback: (args: State) => Promise<Value>) {
+	// check deps
+	return async (...args: Parameters<typeof callback>) => {
+		const result = callback(...args);
+		// return Promise.resolve(result);
+		return result;
+	};
+}
+
+

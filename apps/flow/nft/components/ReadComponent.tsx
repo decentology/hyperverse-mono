@@ -1,6 +1,6 @@
 import { styled } from '../stitches.config';
 import { useFlow } from '@decentology/hyperverse-flow';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -15,34 +15,33 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 	return shortendHash;
 };
 
-const ReadComponent = ({ hook, header, description, buttonText, isAddress }) => {
+const ReadComponent = ({ hook, header, description, buttonText, isAddress }: any) => {
 	const flow = useFlow();
 	const [hidden, setHidden] = useState(false);
 	const [data, setData] = useState();
 
 	useEffect(() => {
+		const fetchData = async () => {
+			let returnedData = null;
+			if (header === 'Get Balance') {
+				console.log('User', flow.user?.addr);
+				returnedData = await hook(flow.user?.addr);
+			} else {
+				returnedData = await hook();
+			}
+			console.log(returnedData);
+			setData(returnedData);
+		};
 		if (flow.user && flow.user.loggedIn) {
 			fetchData();
 		}
-	}, [flow.user])
-
-	const fetchData = async () => {
-		let returnedData = null;
-		if (header === 'Get Balance') {
-			console.log("User", flow.user?.addr)
-			returnedData = await hook(flow.user?.addr);
-		} else {
-			returnedData = await hook();
-		}
-		console.log(returnedData);
-		setData(returnedData);
-	}
+	}, [flow.user, header, hook]);
 
 	return (
 		<Box>
 			<h4>{header}</h4>
 			<p>{description}</p>
-			<Button disabled={!flow.user?.addr} onClick={() => setHidden(p => !p)}>
+			<Button disabled={!flow.user?.addr} onClick={() => setHidden((p) => !p)}>
 				{!flow.user?.addr ? 'Connect Wallet' : !hidden ? buttonText : data}
 			</Button>
 		</Box>

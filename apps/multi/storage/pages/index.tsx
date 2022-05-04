@@ -8,7 +8,7 @@ const Home: NextPage = () => {
 	const { uploadFile, downloadFile, openFile, getLink } = useStorage();
 
 	const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files[0];
+		const file = event.target.files![0];
 		const fileHash = await uploadFile(file);
 		console.log(fileHash);
 	};

@@ -1,10 +1,5 @@
 {
 	"name": "@decentology/hyperverse-storage-skynet",
-	"exports": {
-		".": {
-			"import": "./source/index.ts"
-		}
-	},
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"module": "./distribution/index.es.js",
@@ -29,13 +24,17 @@
 	"peerDependencies": {
 		"react": "^17.0.2"
 	},
+	"engines": {
+		"node": ">=12.0.0"
+	},
 	"devDependencies": {
-		"@decentology/config": "^1.0.0",
+		"@decentology/config": "workspace:*",
+		"@types/react": "17.0.2",
 		"parcel": "^2.2.1",
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
-		"skynet-js": "^4.0.23-beta",
-		"@decentology/unstated-next": "^1.1.1"
+		"@decentology/unstated-next": "workspace:*",
+		"skynet-js": "^4.0.23-beta"
 	}
 }

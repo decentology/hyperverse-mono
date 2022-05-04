@@ -12,18 +12,24 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
 	useEffect(() => {
-		const lib = TribesLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setTribesLibrary)
+		const lib = TribesLibrary(hyperverse, connectedProvider || readOnlyProvider).then(
+			setTribesLibrary
+		);
 		return lib.cancel;
-	}, [connectedProvider])
+	}, [connectedProvider]);
 
 	const useTribeEvents = (eventName: string, callback: any) => {
-		return useEvent(eventName, useCallback(callback, [tribesLibrary?.proxyContract]), tribesLibrary?.proxyContract);
+		return useEvent(
+			eventName,
+			useCallback(callback, [tribesLibrary?.proxyContract]),
+			tribesLibrary?.proxyContract
+		);
 	};
 
 	return {
 		...tribesLibrary,
-		tenantId,
 		loading: !tribesLibrary,
+		tenantId,
 		useTribeEvents,
 	};
 }

@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { FC } from 'react';
 
 const h = React.createElement;
 
-const ShowDocs = (props) => {
+const ShowDocs: FC<any> = (props) => {
   return h(
     'div',
     {},

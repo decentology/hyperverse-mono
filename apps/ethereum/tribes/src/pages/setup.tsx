@@ -22,7 +22,7 @@ const Setup = () => {
 
 	const { data, error: instanceErr } = useQuery(
 		'checkInstance',
-		() => tribes.checkInstance(account),
+		() => tribes.checkInstance!(account),
 		{ enabled: !tribes.loading }
 	);
 	const {

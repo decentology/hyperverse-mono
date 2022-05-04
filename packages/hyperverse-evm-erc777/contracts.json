@@ -25,8 +25,8 @@
       "factoryAddress": ""
     },
     "testnet": {
-      "contractAddress": "0xD83398688733551aa146724687849Ef1f8DBbd83",
-      "factoryAddress": "0xeD0CBAF20DE4e8595De41Ad6102FA1182f3531F9"
+      "contractAddress": "0xCCdf30a5c417de4Aa28dCEeA480ac1b6f29ada9f",
+      "factoryAddress": "0x3a270D12a7FB3f2F49E60A8D61EB52A1Ef167AD9"
     }
   },
   "polygon": {

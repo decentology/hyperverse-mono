@@ -23,7 +23,7 @@ const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
 	const { address } = useEthereum();
 	const { Proxy, CheckInstance } = useERC20();
-	const { data: instance } = CheckInstance(address);
+	const { data: instance } = CheckInstance(address!);
 	const { data, isLoading, refetch } = Proxy();
 	const [hidden, setHidden] = useState(false);
 

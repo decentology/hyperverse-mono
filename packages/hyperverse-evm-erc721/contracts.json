@@ -15,8 +15,8 @@
   },
   "ethereum": {
     "testnet": {
-      "contractAddress": "0xe1a3efDbC4Cb1d69013b016cab589D323153E812",
-      "factoryAddress": "0x9ECA54f6b69B571798DC11FD57a989d437A286B3"
+      "contractAddress": "0x95557ee579CD0321129e2aA9353FA61748401Ab0",
+      "factoryAddress": "0x3bcABe3A2b90Ea7C08A0987030f34e9D7A78fE8e"
     },
     "mainnet": {}
   },

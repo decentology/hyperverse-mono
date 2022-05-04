@@ -32,7 +32,7 @@ export class AppService {
 		const tribes = await TribesLibrary(hyperverse, provider);
 		const totalTribes = await tribes.getTotalTenants();
 		return renderToStaticMarkup(
-			React.createElement('div', null, `Total Tenants: ${0}`),
+			React.createElement('div', null, `Total Tenants: ${totalTribes}`),
 		);
 	}
 }

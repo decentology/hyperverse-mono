@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import { useState, useEffect } from 'react'
+import { MetaDataFormatted } from '../source/types';
 
 export const GetTribe = ({ ...props }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<MetaDataFormatted | null>(null);
 	useEffect(() => {
-		return () => {
-			tribes.getTribe().then(setData);
-		};
-	}, [])
+		if (tribes.getTribe) {
+			tribes.getTribe(props.id).then(setData);
+		}
+	}, [tribes.getTribe]);
 
 	return (
 		<div className="tribe">

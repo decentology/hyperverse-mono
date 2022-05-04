@@ -1,5 +1,8 @@
 {
   "extends": "@decentology/config/react-library.json",
   "include": ["source/**/*.ts", "source/**/*.tsx"],
-  "exclude": ["node_modules", "distribution"]
+  "exclude": ["node_modules", "distribution"],
+  "compilerOptions": {
+	  "preserveSymlinks": true
+  }
 }
