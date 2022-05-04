@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/config",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"license": "MIT",
 	"files": [
 		"eslint-preset.js",

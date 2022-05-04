@@ -1,5 +1,11 @@
 # @decentology/web3modal
 
+## 1.9.14
+
+### Patch Changes
+
+-   milestone update
+
 ## 1.9.8
 
 ### Patch Changes

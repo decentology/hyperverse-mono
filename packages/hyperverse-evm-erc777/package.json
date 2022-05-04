@@ -1,6 +1,6 @@
 {
   "name": "@decentology/hyperverse-evm-erc777",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "source": "./source/index.ts",
   "types": "./distribution/index.d.ts",
   "main": "./distribution/index.js",
@@ -28,9 +28,9 @@
     "distribution",
     "utils"
   ],
-	"engines": {
-		"node": ">=12.0.0"
-	},
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "dependencies": {
     "@decentology/hyperverse": "workspace:*",
     "@decentology/hyperverse-ethereum": "workspace:*",

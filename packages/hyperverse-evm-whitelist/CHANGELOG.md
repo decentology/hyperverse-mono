@@ -1,5 +1,20 @@
 # @decentology/hyperverse-ethereum-tribes
 
+## 2.0.0
+
+### Major Changes
+
+-   a1fd554: EVM Whitelist Module
+
+### Patch Changes
+
+-   milestone update
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.11
+    -   @decentology/hyperverse-evm@1.0.11
+    -   @decentology/hyperverse-evm-erc721@1.0.3
+    -   @decentology/unstated-next@1.1.5
+
 ## 1.0.10
 
 ### Patch Changes
