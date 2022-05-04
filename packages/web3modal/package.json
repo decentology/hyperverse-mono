@@ -51,7 +51,7 @@
 		"clean:all": "npm run clean && npm run clean:example && npm run clean:node_modules",
 		"bootstrap": "npm install && cd example && npm install",
 		"start": "npm run check && cd example && npm run start",
-		"build": "tsc",
+		"build": "tsc && cp -r src/providers/logos dist/providers",
 		"build:example": "npm run bootstrap && npm run build && cd example && npm run build",
 		"test": "mocha --require ./babel-polyfill.js test/**/*.spec.js",
 		"lint": "tsc --noEmit",
@@ -91,6 +91,9 @@
 	},
 	"peerDependencies": {
 		"react": "^17.0.2"
+	},
+	"engines": {
+		"node": ">=12.0.0"
 	},
 	"dependencies": {
 		"detect-browser": "^5.1.0",

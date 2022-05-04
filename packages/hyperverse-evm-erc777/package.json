@@ -28,6 +28,9 @@
     "distribution",
     "utils"
   ],
+	"engines": {
+		"node": ">=12.0.0"
+	},
   "dependencies": {
     "@decentology/hyperverse": "workspace:*",
     "@decentology/hyperverse-ethereum": "workspace:*",
