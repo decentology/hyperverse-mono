@@ -38,7 +38,6 @@
 		"@decentology/hyperverse-storage-skynet": "workspace:*",
 		"@decentology/unstated-next": "workspace:*",
 		"@openzeppelin/contracts": "^4.4.2",
-		"@react-native-picker/picker": "^2.4.1",
 		"dotenv": "^16.0.0",
 		"esbuild": "^0.14.27",
 		"ethers": "^5.6.2",
