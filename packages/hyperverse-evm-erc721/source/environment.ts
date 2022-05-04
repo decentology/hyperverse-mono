@@ -4,8 +4,8 @@ import {
 	EvmEnvironment,
 	BlockchainEvm,
 } from '@decentology/hyperverse';
-import ERC721FactoryABI from '../artifacts/contracts/NFTFactory.sol/NFTFactory.json';
-import ERC721ABI from '../artifacts/contracts/NFT.sol/NFT.json';
+import ERC721FactoryABI from '../artifacts/contracts/ERC721Factory.sol/ERC721Factory.json';
+import ERC721ABI from '../artifacts/contracts/ERC721.sol/ERC721.json';
 import Contracts from '../contracts.json';
 export const FactoryABI = ERC721FactoryABI.abi;
 export const ContractABI = ERC721ABI.abi;
