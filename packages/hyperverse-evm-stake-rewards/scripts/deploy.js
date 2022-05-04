@@ -4,7 +4,8 @@ const main = async () => {
 	const hyperverseAdmin = '0x62a7aa79a52591Ccc62B71729329A80a666fA50f';
 	const Token = await hre.ethers.getContractFactory('StakeRewardsToken');
 	const token = await Token.deploy(hyperverseAdmin);
-	await token.deployed();
+	await token.deployed()
+
 
 	const TokenFactory = await hre.ethers.getContractFactory('StakeRewardsFactory');
 	const tokenFactory = await TokenFactory.deploy(token.address, hyperverseAdmin);
