@@ -6,11 +6,18 @@ export const GetTribeByAccount = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState(null);
 
+	/**
+	 * Error in getTribeId()
+	 */
 	useEffect(() => {
-		return () => {
-			tribes.getTribeByAccount('').then(setData); // Need to pass an account
-		};
-	}, []);
+		console.log('before the if - get tribe by account')
+		console.log(props.account)
+		if (tribes.getTribeByAccount) {
+			tribes.getTribeByAccount(props.account).then(setData);
+			console.log('after the if', props.account)
+			console.log(data);
+		}
+	}, [tribes.getTribeByAccount]);
 
 	return (
 		<div className="tribeByAccount">
@@ -19,6 +26,8 @@ export const GetTribeByAccount = ({ ...props }) => {
 	);
 };
 
-GetTribeByAccount.propTypes = {};
+GetTribeByAccount.propTypes = {
+	account: PropTypes.string.isRequired
+};
 
 GetTribeByAccount.defaultProps = {};

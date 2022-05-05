@@ -10,6 +10,7 @@ export const JoinTribe = ({ ...props }) => {
 	const { address } = useEvm();
 	const [user, setUser] = useState(null);
 	const [data, setData] = useState(null);
+	const tenantAddress = 'sef'
 
 	const joinKnight = () => {
 		useEffect(() => {
@@ -56,7 +57,7 @@ export const JoinTribe = ({ ...props }) => {
 					{address ? (
 						<>
 							<span className="tribes">
-								Welcome, <b>{address}</b>!
+								Welcome, <b>{tenantAddress}</b>!
 							</span>
 							<button
 								type="button"

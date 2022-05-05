@@ -1,30 +1,31 @@
 import styled from 'styled-components';
 
 export const Styles = styled.div`
- background: #DEDEDE;
+ background: #000000;
  padding: 20px;
+ text-align: center;
 
  h1 {
-   border-bottom: 1px solid white;
-   color: #3d3d3d;
+   color: #ffffff;
    font-family: sans-serif;
-   font-size: 20px;
+   font-size: 50px;
    font-weight: 600;
    line-height: 24px;
    padding: 10px;
+   margin-bottom: 20px;
    text-align: center;
  }
 
- form {
-   background: white;
+ Box {
+   background: black;
    border-radius: 5px;
-   box-shadow: 5px 5px 5px #B7B9BA;
    display: flex;
    flex-direction: column;
-   justify-content: space-around;
+   justify-content: center;
    margin: 0 auto;
-   max-width: 500px;
+   max-width: px;
    padding: 30px 20px;
+   text-align: center;
  }
 
  input {
@@ -37,12 +38,13 @@ export const Styles = styled.div`
  }
 
  label {
-   color: #3d3d3d;
+   color: #ffffff;
    display: block;
    font-family: sans-serif;
    font-size: 14px;
    font-weight: 500;
    margin-bottom: 5px;
+   text-align: center;
  }
 
  .error {
@@ -51,6 +53,14 @@ export const Styles = styled.div`
    font-size: 12px;
    height: 30px;
  }
+
+block_container {
+    text-align: center;
+    display: inLine;
+}
+bloc1, bloc2 {
+    display: inline;
+}
 
  .submitButton {
    background-color: #DAEBF5;
