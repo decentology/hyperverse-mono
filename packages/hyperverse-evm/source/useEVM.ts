@@ -1,11 +1,8 @@
-import Web3Modal from '@decentology/web3modal';
-import WalletConnectProvider from '@walletconnect/ethereum-provider';
-import { providers, ethers } from 'ethers';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { Network, NetworkConfig, useHyperverse } from '@decentology/hyperverse';
 import '@rainbow-me/rainbowkit/styles.css';
 
-import { useAccount, useProvider, useSigner, useEnsLookup } from 'wagmi';
+import { useAccount, useSigner, useEnsName, useProvider } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { getProvider } from './evmLibraryBase';
 
@@ -38,17 +35,21 @@ function EvmState(
 	const { network } = useHyperverse();
 
 	//for later when rainbowkit uses new wagmi
-	// const readOnlyProvider = useProvider();
-	const readOnlyProvider = getProvider(network);
-	const [account] = useAccount();
+	const readOnlyProvider = useProvider();
+// console.log('readOnlyProvider2', readOnlyProvider);
 
-	const address = account?.data?.address;
 
-	const [{ data: ens }] = useEnsLookup({ address });
+	// const readOnlyProvider2 = getProvider(network);
 
-	const [{ data: signer }] = useSigner();
+	const {data: account, error: accountErr} = useAccount();
 
-	return { Connect: ConnectButton, readOnlyProvider, connectedProvider: null, signer, account: address, address:address, ens: ens, error: account.error };
+	const address = account?.address;
+
+	const {data: ens} = useEnsName(address);
+
+	const {data: signer} = useSigner();
+
+	return { Connect: ConnectButton, readOnlyProvider, connectedProvider: null, signer, account: address, address:address, ens: ens, error: accountErr };
 }
 
 export const Evm = createContainer(EvmState);
