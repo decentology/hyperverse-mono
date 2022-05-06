@@ -18,6 +18,8 @@ const Home: NextPage = () => {
 			getTribeId(address).then(setTribeId);
 		}
 	}, [getTribeId, address]);
+
+
 	return (
 		<>
 			<Head>

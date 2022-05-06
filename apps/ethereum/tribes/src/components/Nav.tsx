@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { toast } from 'react-toastify';
-import { useAccount, useProvider, useSigner, useEnsLookup, useNetwork } from 'wagmi';
+
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -19,13 +19,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 const Nav = () => {
-	const { ens, address, account, Connect, error } = useEthereum();
-	const provider = useProvider();
-	const [{data: signer} ]= useSigner();
-	const [acc] = useAccount()
-
-	// console.log('hi', provider, signer)
-
+	const { Connect, error } = useEthereum();
 	useEffect(() => {
 		if (error) {
 			toast.warn(error.message, {

@@ -50,7 +50,8 @@ const AllTribes = () => {
 			) : (
 				<div className={styles.container}>
 					<h1>Tribes</h1>
-					{address ? (
+					{
+					// address ? (
 						!data || data.length === 0 ? (
 							<>
 								<h5>There are currently no existing tribes.</h5>
@@ -74,9 +75,11 @@ const AllTribes = () => {
 								</div>
 							</>
 						)
-					) : (
-						<p className={styles.error}>Please connect your wallet to join a tribe.</p>
-					)}
+					// ) 
+					// : (
+					// 	<p className={styles.error}>Please connect your wallet to join a tribe.</p>
+					// )
+					}
 				</div>
 			)}
 		</main>
