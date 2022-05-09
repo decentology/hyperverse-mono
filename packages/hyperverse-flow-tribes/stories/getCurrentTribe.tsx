@@ -15,7 +15,7 @@ export const GetCurrentTribe = ({ ...props }) => {
 
 GetCurrentTribe.propTypes = {
     tenantId: PropTypes.string.isRequired,
-    accountAddress: PropTypes.string.isRequired
+    account: PropTypes.string.isRequired
 };
 
 GetCurrentTribe.defaultProps = {};
