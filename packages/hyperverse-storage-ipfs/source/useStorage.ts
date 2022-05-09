@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { create, IPFSHTTPClient } from 'ipfs-http-client';
+import { create } from 'ipfs-http-client';
 import { createContainer } from '@decentology/unstated-next';
 import { concat as uint8ArrayConcat } from 'uint8arrays/concat';
 import { toString as uint8ArrayToString } from 'uint8arrays/to-string';
@@ -12,9 +12,9 @@ type StorageProps = {
 function StorageState(
 	{ clientUrl }: StorageProps = { clientUrl: 'https://ipfs.infura.io:5001' }
 ): IHyperverseStorage {
-	const [client] = useState<IPFSHTTPClient>(create({ url: clientUrl }));
+	const [client] = useState(create({ url: clientUrl }));
 	const { add, get, addAll, cat } = client;
-	const getLink = (link: string) => `https://cloudflare-ipfs.com/ipfs/${link}`;
+	const getLink = (link: string) => `https://hyperverse.infura-ipfs.io/ipfs/${link}`;
 	return {
 		uploadFile: async (file: File) => {
 			const result = await add(file);
