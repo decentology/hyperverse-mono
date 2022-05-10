@@ -34,6 +34,7 @@
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
+		"@decentology/hyperverse": "workspace:*",
 		"@decentology/unstated-next": "workspace:*",
 		"skynet-js": "^4.0.23-beta"
 	}

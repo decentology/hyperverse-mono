@@ -1,8 +1,5 @@
 import { SkynetClient } from "skynet-js";
 
-export type StorageProps = {
-	clientUrl: string | undefined;
-};
 export class SkynetStorageLibrary extends SkynetClient {
 	client: SkynetClient;
 	clientUrl: string | undefined;

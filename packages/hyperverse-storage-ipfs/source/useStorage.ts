@@ -3,15 +3,12 @@ import { create } from 'ipfs-http-client';
 import { createContainer } from '@decentology/unstated-next';
 import { concat as uint8ArrayConcat } from 'uint8arrays/concat';
 import { toString as uint8ArrayToString } from 'uint8arrays/to-string';
-import { IHyperverseStorage } from '@decentology/hyperverse';
+import { StorageProps } from '@decentology/hyperverse';
 import all from 'it-all';
-type StorageProps = {
-	clientUrl: string;
-};
 
 function StorageState(
 	{ clientUrl }: StorageProps = { clientUrl: 'https://ipfs.infura.io:5001' }
-): IHyperverseStorage {
+) {
 	const [client] = useState(create({ url: clientUrl }));
 	const { add, get, addAll, cat } = client;
 	const getLink = (link: string) => `https://hyperverse.infura-ipfs.io/ipfs/${link}`;
@@ -29,7 +26,7 @@ function StorageState(
 		// 	return paths;
 		// },
 		downloadFile: (link: string) => window.location.assign(getLink(link)),
-		openFile: async (link) => {
+		openFile: async (link: string) => {
 			const result = uint8ArrayToString(uint8ArrayConcat(await all(await cat(link))));
 			return result;
 		},

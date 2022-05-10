@@ -82,3 +82,7 @@ export interface IHyperverseStorage {
 	client: any;
 	clientUrl: string;
 }
+
+export type StorageProps = {
+	clientUrl: string | undefined;
+};

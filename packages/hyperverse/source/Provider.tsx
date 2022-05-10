@@ -1,7 +1,7 @@
 import { createElement, FC, useEffect, useState } from 'react';
 import { Hyperverse, HyperverseConfig } from './types';
 import { HyperverseContainer } from './useHyperverse';
-import { Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet';
+import { Provider as IPFSProvider } from '@decentology/hyperverse-storage-ipfs';
 
 export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, initialState }) => {
 	const [selectedBlockchain, setSelectedBlockchain] = useState<string | null>(
@@ -30,7 +30,7 @@ export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, ini
 
 	return (
 		<HyperverseContainer.Provider initialState={initialState}>
-			<SkyNetProvider
+			<IPFSProvider
 				initialState={
 					typeof initialState.storage === 'object'
 						? { ...initialState.storage }
@@ -43,7 +43,7 @@ export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, ini
 				) : (
 					children
 				)}
-			</SkyNetProvider>
+			</IPFSProvider>
 		</HyperverseContainer.Provider>
 	);
 };
