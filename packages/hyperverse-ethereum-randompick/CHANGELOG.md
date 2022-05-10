@@ -1,5 +1,16 @@
 # @decentology/hyperverse-ethereum-randompick
 
+## 1.0.16
+
+### Patch Changes
+
+-   Version Bump
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.14
+    -   @decentology/hyperverse-ethereum@1.0.14
+    -   @decentology/hyperverse-storage-skynet@1.0.13
+    -   @decentology/unstated-next@1.1.8
+
 ## 1.0.15
 
 ### Patch Changes

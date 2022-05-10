@@ -1,5 +1,11 @@
 # @decentology/web3modal
 
+## 1.9.17
+
+### Patch Changes
+
+-   Version Bump
+
 ## 1.9.16
 
 ### Patch Changes

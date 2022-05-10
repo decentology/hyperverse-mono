@@ -1,5 +1,15 @@
 # @decentology/hyperverse-ethereum-erc721
 
+## 1.0.6
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.14
+    -   @decentology/hyperverse-evm@1.0.14
+    -   @decentology/hyperverse-storage-skynet@1.0.13
+    -   @decentology/unstated-next@1.1.8
+
 ## 1.0.5
 
 ### Patch Changes

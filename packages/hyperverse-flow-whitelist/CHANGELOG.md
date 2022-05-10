@@ -1,5 +1,14 @@
 # @decentology/hyperverse-flow-tribes
 
+## 1.0.4
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.14
+    -   @decentology/unstated-next@1.1.8
+    -   @decentology/hyperverse-flow@1.0.14
+
 ## 1.0.3
 
 ### Patch Changes

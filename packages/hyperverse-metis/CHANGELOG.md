@@ -1,5 +1,16 @@
 # @decentology/hyperverse-metis
 
+## 1.0.15
+
+### Patch Changes
+
+-   Version Bump
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.14
+    -   @decentology/hyperverse-evm@1.0.14
+    -   @decentology/unstated-next@1.1.8
+    -   @decentology/web3modal@1.9.17
+
 ## 1.0.14
 
 ### Patch Changes
