@@ -9,7 +9,6 @@ export const getProvider = (network: NetworkConfig) => {
 };
 
 export async function EvmLibraryBase(
-
 	moduleName: string,
 	hyperverse: HyperverseConfig,
 	factoryAddress: string,
@@ -47,6 +46,7 @@ export async function EvmLibraryBase(
 	let proxyContract: Contract | undefined;
 
 	try {
+		console.log('factoryContract', factoryContract);
 		proxyAddress = await factoryContract.getProxy(tenantId);
 	} catch (error) {
 		console.log(error)

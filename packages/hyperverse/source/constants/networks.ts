@@ -6,7 +6,7 @@ export enum Network {
 export type NetworkConfig = {
 	type: Network,
 	name?: string;
-	rpcUrl?: string;
+	networkUrl?: string;
 	chainId?: number;
 	blockExplorer?: string;
 	providerId?: string;

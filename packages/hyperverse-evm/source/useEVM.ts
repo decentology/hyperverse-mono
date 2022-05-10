@@ -1,55 +1,42 @@
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { Network, NetworkConfig, useHyperverse } from '@decentology/hyperverse';
+import {  useHyperverse } from '@decentology/hyperverse';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import { useAccount, useSigner, useEnsName, useProvider } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { getProvider } from './evmLibraryBase';
+import { useEffect, useState } from 'react'
 
-type InitialEvmState = {
-	networks: {
-		[Network.Mainnet]: NetworkConfig;
-		[Network.Testnet]: NetworkConfig;
-	};
-};
 
-function EvmState(
-	initialState: InitialEvmState = {
-		networks: {
-			mainnet: {
-				type: Network.Mainnet,
-				name: '',
-				networkUrl: '',
-				chainId: -1,
-			},
-			testnet: {
-				type: Network.Testnet,
-				name: '',
-				networkUrl: '',
-				chainId: -1,
-			},
-		},
-	}
-) {
-	
+function EvmState() {
+	const [allow, setAllow] = useState(false);
+
 	const { network } = useHyperverse();
 
-	//for later when rainbowkit uses new wagmi
 	const readOnlyProvider = useProvider();
-// console.log('readOnlyProvider2', readOnlyProvider);
 
-
-	// const readOnlyProvider2 = getProvider(network);
-
-	const {data: account, error: accountErr} = useAccount();
+	const {data: account, error: accountErr, isLoading} = useAccount();
 
 	const address = account?.address;
 
 	const {data: ens} = useEnsName(address);
 
-	const {data: signer} = useSigner();
+	//check this signer network
+	let {data: signer} = useSigner();
+	console.log('signers', signer);
 
-	return { Connect: ConnectButton, readOnlyProvider, connectedProvider: null, signer, account: address, address:address, ens: ens, error: accountErr };
+// console.log(signer?.provider.getNetwork().then( n => {console.log(n.chainId)}));
+	useEffect(()=> {
+		signer?.provider.getNetwork().then((n: { chainId: number | undefined; }) => {
+				console.log('hi',n.chainId, network.chainId);	
+
+				n.chainId === network.chainId ? setAllow(true) : setAllow(false);
+				
+		})
+	}, [signer?.provider])
+
+	console.log('allow', allow);
+
+	return { Connect: ConnectButton, readOnlyProvider, connectedProvider: null, signer: allow ? signer : null , account: address, address:address, ens: ens, error: accountErr, isLoading: isLoading };
 }
 
 export const Evm = createContainer(EvmState);

@@ -25,8 +25,8 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 
 	const { network: defaultNetwork } = useHyperverse();
 
-	console.log('networks',networks)
-	console.log('network',defaultNetwork)
+	// console.log('networks',networks)
+	// console.log('network',defaultNetwork)
 	
 /**
   id: number
@@ -54,8 +54,12 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	//switch chains to use networks
 	const { chains, provider } = configureChains(
 		[ chain.rinkeby],
-		[apiProvider.infura(INFURA_ID), apiProvider.fallback()]
+		[apiProvider.jsonRpc(() => ({
+			rpcUrl: defaultNetwork.networkUrl!
+		})), apiProvider.fallback()]
 	);
+
+	// console.log('provider',provider, )
 
 	const { connectors } = getDefaultWallets({
 		appName: 'Hyperverse',
@@ -65,12 +69,10 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const wagmiClient = createClient({
 		autoConnect: true,
 		connectors,
-		
-		//add the defaultNetwork here
 		provider,
     //not sure if this helps or does anything tbh
-		// jsonRpcUrl: ({ chainId }: { chainId: any }) =>
-		// 	chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
+		jsonRpcUrl: ({ chainId }: { chainId: any }) =>
+			chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
 	});
 
 
