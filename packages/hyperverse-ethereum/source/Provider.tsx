@@ -9,19 +9,21 @@ export const Networks = {
 		type: Network.Mainnet,
 		name: 'mainnet',
 		networkUrl: `https://mainnet.infura.io/v3/${INFURA_ID}`,
+		providerId: INFURA_ID, 
 		chainId: 1,
 	},
 	[Network.Testnet]: {
 		type: Network.Testnet,
 		name: 'rinkeby',
 		chainId: 4,
+		providerId: INFURA_ID, 
 		networkUrl: `https://rinkeby.infura.io/v3/${INFURA_ID}`,
 		explorerUrl: 'https://rinkeby.etherscan.io',
 	},
 };
 const Provider: FC<ProviderProps> = ({ children, ...props }:ProviderProps) => {
 	return (
-		<EvmProvider {...props}>
+		<EvmProvider networks={Networks} { ...props}>
 			<Ethereum.Provider>{children}</Ethereum.Provider>
 		</EvmProvider>
 	);
