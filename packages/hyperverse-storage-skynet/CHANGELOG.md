@@ -1,5 +1,12 @@
 # @decentology/hyperverse-storage-skynet
 
+## 1.0.11
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/unstated-next@1.1.6
+
 ## 1.0.10
 
 ### Patch Changes

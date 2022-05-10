@@ -1,5 +1,14 @@
 # @decentology/hyperverse-ethereum-token
 
+## 1.0.4
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.12
+    -   @decentology/hyperverse-ethereum@1.0.12
+    -   @decentology/unstated-next@1.1.6
+
 ## 1.0.3
 
 ### Patch Changes

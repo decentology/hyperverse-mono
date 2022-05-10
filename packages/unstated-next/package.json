@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/unstated-next",
-	"version": "1.1.5",
+	"version": "1.1.6",
 	"description": "200 bytes to never think about React state management libraries ever again",
 	"exports": {
 		".": {
@@ -16,7 +16,7 @@
 	"sideEffects": false,
 	"publishConfig": {
 		"access": "public",
-		"exports": {}
+		"exports": null
 	},
 	"scripts": {
 		"format": "prettier --write '**'",

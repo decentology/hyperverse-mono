@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/web3modal",
-	"version": "1.9.14",
+	"version": "1.9.15",
 	"description": "A single Web3 / Ethereum provider solution for all Wallets",
 	"keywords": [
 		"web3",
@@ -27,7 +27,7 @@
 	},
 	"publishConfig": {
 		"access": "public",
-		"exports": {}
+		"exports": null
 	},
 	"main": "dist/index.js",
 	"unpkg": "dist/index.js",
@@ -55,7 +55,7 @@
 		"clean:all": "npm run clean && npm run clean:example && npm run clean:node_modules",
 		"bootstrap": "npm install && cd example && npm install",
 		"start": "npm run check && cd example && npm run start",
-		"build": "tsc && cp -r src/providers/logos dist/providers",
+		"build": "webpack && cp -r src/providers/logos dist/providers",
 		"build:example": "npm run bootstrap && npm run build && cd example && npm run build",
 		"test": "mocha --require ./babel-polyfill.js test/**/*.spec.js",
 		"lint": "tsc --noEmit",
@@ -82,6 +82,7 @@
 		"isomorphic-fetch": "^2.2.1",
 		"mocha": "5.2.0",
 		"prettier": "^1.18.2",
+		"react-dom": "^17.0.2",
 		"terser": "^3.14.1",
 		"ts-loader": "^5.3.3",
 		"tslib": "^2.3.1",

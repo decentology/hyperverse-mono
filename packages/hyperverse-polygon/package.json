@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-polygon",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
