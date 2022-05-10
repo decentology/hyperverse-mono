@@ -4,7 +4,7 @@
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
 	"type": "module",
-	"version": "1.0.13",
+	"version": "1.0.14",
 	"license": "MIT",
 	"repository": {
 		"type": "git",

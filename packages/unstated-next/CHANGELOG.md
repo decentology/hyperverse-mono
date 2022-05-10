@@ -1,5 +1,11 @@
 # @decentology/unstated-next
 
+## 1.1.7
+
+### Patch Changes
+
+-   Fixed exports on publish
+
 ## 1.1.6
 
 ### Patch Changes

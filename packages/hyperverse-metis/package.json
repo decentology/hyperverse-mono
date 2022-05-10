@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-metis",
-	"version": "1.0.13",
+	"version": "1.0.14",
 	"source": "./source/index.ts",
 	"module": "./distribution/index.es.js",
 	"main": "./distribution/index.js",

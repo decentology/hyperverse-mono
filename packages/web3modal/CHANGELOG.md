@@ -1,5 +1,11 @@
 # @decentology/web3modal
 
+## 1.9.16
+
+### Patch Changes
+
+-   Fixed exports on publish
+
 ## 1.9.15
 
 ### Patch Changes

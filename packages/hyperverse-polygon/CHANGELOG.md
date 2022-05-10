@@ -1,5 +1,15 @@
 # @decentology/hyperverse-polygon
 
+## 1.0.4
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.13
+    -   @decentology/hyperverse-evm@1.0.13
+    -   @decentology/unstated-next@1.1.7
+    -   @decentology/web3modal@1.9.16
+
 ## 1.0.3
 
 ### Patch Changes
