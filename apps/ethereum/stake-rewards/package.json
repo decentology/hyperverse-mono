@@ -18,6 +18,7 @@
 		"@decentology/hyperverse-evm-erc20": "^1.0.0",
 		"@decentology/hyperverse-evm-stake-rewards": "^1.0.0",
 		"@decentology/unstated-next": "^1.1.1",
+		"@decentology/web3modal": "^1.9.0",
 		"@radix-ui/react-accordion": "^0.1.6",
 		"@radix-ui/react-tabs": "^0.1.5",
 		"@stitches/react": "^1.2.6",

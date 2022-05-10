@@ -233,6 +233,7 @@ importers:
       '@decentology/hyperverse-evm-erc20': ^1.0.0
       '@decentology/hyperverse-evm-stake-rewards': ^1.0.0
       '@decentology/unstated-next': ^1.1.1
+      '@decentology/web3modal': ^1.9.0
       '@radix-ui/react-accordion': ^0.1.6
       '@radix-ui/react-tabs': ^0.1.5
       '@stitches/react': ^1.2.6
@@ -253,6 +254,7 @@ importers:
       '@decentology/hyperverse-evm-erc20': link:../../../packages/hyperverse-evm-erc20
       '@decentology/hyperverse-evm-stake-rewards': link:../../../packages/hyperverse-evm-stake-rewards
       '@decentology/unstated-next': link:../../../packages/unstated-next
+      '@decentology/web3modal': link:../../../packages/web3modal
       '@radix-ui/react-accordion': 0.1.6_react@17.0.2
       '@radix-ui/react-tabs': 0.1.5_react@17.0.2
       '@stitches/react': 1.2.8_react@17.0.2
@@ -311,7 +313,7 @@ importers:
       '@decentology/hyperverse-ethereum-randompick': ^1.0.0
       '@decentology/hyperverse-evm-tribes': ^1.0.0
       '@decentology/unstated-next': ^1.0.0
-      '@decentology/web3modal': ^1.0.0
+      '@decentology/web3modal': ^1.9.0
       '@types/node': 17.0.7
       '@types/react': 17.0.2
       eslint: 8.6.0
@@ -17294,7 +17296,7 @@ packages:
       mississippi: 3.0.0
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
-      promise-inflight: 1.0.1_bluebird@3.7.2
+      promise-inflight: 1.0.1
       rimraf: 2.7.1
       ssri: 6.0.2
       unique-filename: 1.1.1
@@ -34099,16 +34101,6 @@ packages:
     peerDependenciesMeta:
       bluebird:
         optional: true
-
-  /promise-inflight/1.0.1_bluebird@3.7.2:
-    resolution: {integrity: sha1-mEcocL8igTL8vdhoEputEsPAKeM=}
-    peerDependencies:
-      bluebird: '*'
-    peerDependenciesMeta:
-      bluebird:
-        optional: true
-    dependencies:
-      bluebird: 3.7.2
 
   /promise-to-callback/1.0.0:
     resolution: {integrity: sha1-XSp0kBC/tn2WNZj805YHRqaP7vc=}
