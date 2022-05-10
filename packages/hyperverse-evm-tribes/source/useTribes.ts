@@ -13,6 +13,7 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	console.log('tribes', signer);
 	useEffect(() => {
+		console.log('UseEffect', signer, readOnlyProvider);
 		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary)
 		return lib.cancel;
 	}, [signer, readOnlyProvider])

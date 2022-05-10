@@ -22,20 +22,25 @@ function EvmState() {
 
 	//check this signer network
 	let {data: signer} = useSigner();
-	console.log('signers', signer);
 
 // console.log(signer?.provider.getNetwork().then( n => {console.log(n.chainId)}));
 	useEffect(()=> {
 		signer?.provider.getNetwork().then((n: { chainId: number | undefined; }) => {
 				console.log('hi',n.chainId, network.chainId);	
-
+				
+				Object.freeze(signer.provider._network);
 				n.chainId === network.chainId ? setAllow(true) : setAllow(false);
 				
 		})
 	}, [signer?.provider])
 
-	console.log('allow', allow);
+	useEffect(() => { 
+		if (account == null) {
+			setAllow(false);
+		}
+	}, [account]);
 
+	console.log('allow', allow);
 	return { Connect: ConnectButton, readOnlyProvider, connectedProvider: null, signer: allow ? signer : null , account: address, address:address, ens: ens, error: accountErr, isLoading: isLoading };
 }
 

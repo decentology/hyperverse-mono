@@ -46,10 +46,10 @@ export async function EvmLibraryBase(
 	let proxyContract: Contract | undefined;
 
 	try {
-		console.log('factoryContract', factoryContract);
+		console.log('factoryContract', factoryContract, factoryContract?.provider?._network?.chainId);
 		proxyAddress = await factoryContract.getProxy(tenantId);
 	} catch (error) {
-		console.log(error)
+		console.log('error factory', error, factoryContract, factoryContract.signer, factoryContract?.provider?._network?.chainId);
 		throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
 	}
 
