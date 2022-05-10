@@ -21,7 +21,7 @@ export const RandomPick = ({ ...props }) => {
 };
 
 RandomPick.propTypes = {
-    tenantId: PropTypes.string.isRequired;
+    tenantId: PropTypes.string.isRequired
 };
 
 RandomPick.defaultProps = {};

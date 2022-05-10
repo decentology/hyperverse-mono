@@ -1,5 +1,4 @@
 import { RandomPick } from './randomPick';
-import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/randomPick.mdx';
 
@@ -13,11 +12,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
-	<HyperverseProvider>
-		<RandomPick {...args} />
-	</HyperverseProvider>
-);
+const Template = (args) => <RandomPick {...args} />;
 
 export const Demo = Template.bind({});
 
