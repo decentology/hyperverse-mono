@@ -1,5 +1,4 @@
 import { GetNFTMetadata } from './getNFTMetadata';
-import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/getNFTMetadata.mdx';
 
@@ -13,11 +12,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
-	<HyperverseProvider>
-		<GetNFTMetadata {...args} />
-	</HyperverseProvider>
-);
+const Template = (args) => <GetNFTMetadata {...args} />;
 
 export const Demo = Template.bind({});
 

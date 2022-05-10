@@ -1,5 +1,4 @@
 import { DeleteWhitelist } from './deleteWhitelist';
-import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/deleteWhitelist.mdx';
 
@@ -13,11 +12,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
-	<HyperverseProvider>
-		<DeleteWhitelist {...args} />
-	</HyperverseProvider>
-);
+const Template = (args) => <DeleteWhitelist {...args} />;
 
 export const Demo = Template.bind({});
 

@@ -1,5 +1,4 @@
 import { GetNFTIDs } from './getNFTIDs';
-import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/getNFTIDs.mdx';
 
@@ -13,11 +12,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
-	<HyperverseProvider>
-		<GetNFTIDs {...args} />
-	</HyperverseProvider>
-);
+const Template = (args) => <GetNFTIDs {...args} />;
 
 export const Demo = Template.bind({});
 
