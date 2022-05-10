@@ -25,6 +25,10 @@
 			"import": "./index.ts"
 		}
 	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {}
+	},
 	"main": "dist/index.js",
 	"unpkg": "dist/index.js",
 	"types": "dist/index.d.ts",

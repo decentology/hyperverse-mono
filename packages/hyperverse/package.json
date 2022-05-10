@@ -19,7 +19,8 @@
 		"url": "https://github.com/decentology/hyperverse-mono"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": {}
 	},
 	"scripts": {
 		"build": "parcel build",

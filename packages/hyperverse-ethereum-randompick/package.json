@@ -22,7 +22,8 @@
 		"lint": "tsc --noEmit"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": {}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2"
