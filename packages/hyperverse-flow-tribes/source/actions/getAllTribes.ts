@@ -3,7 +3,10 @@ const t = require('@onflow/types');
 import { TribesData } from '../types';
 
 async function getAllTribes(tenantId: string) {
+	console.log('in get all tribes');
+	console.log(tenantId);
 	try {
+		console.log('in the try')
 		const allTribes = await fcl
 			.send([
 				fcl.script`
@@ -13,6 +16,7 @@ async function getAllTribes(tenantId: string) {
           return Tribes.getAllTribes(tenantID).values
       }
       `,
+	  
 				fcl.args([fcl.arg(tenantId, t.Address)]),
 			])
 			.then(fcl.decode);

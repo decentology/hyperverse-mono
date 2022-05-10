@@ -3,34 +3,20 @@ import './button.css';
 import { useTribes } from '../source';
 import { useState, useEffect } from 'react';
 
-export const GetAllTribes = ({ tenantId, ...props }) => {
+export const GetAllTribes = ({ ...props }) => {
 	const { getAllTribes } = useTribes();
-    const { allTribes } = getAllTribes();
-    const [data, setData] = useState(null)
-    console.log(props.tenantId)
-
-    useEffect(() => {
-        console.log('before try', props.tenantId)
-        try {
-            if(allTribes) {
-                allTribes(props.tenantId).then(setData)
-            }
-        } catch (err) {
-            throw err;
-            console.log(err);
-        }
-        console.log('after try catch', props.tenantId)
-    }, [])
+	const { allTribes } = getAllTribes();
+	console.log('this is all tribes', allTribes)
 
 	return (
-        <div className="allTribes">
-            All Tribes: <b>{data}</b>
-        </div>
-);
+		<div className="allTribes">
+			All Tribes: <b>{allTribes}</b>
+		</div>
+	);
 };
 
 GetAllTribes.propTypes = {
-    tenantId: PropTypes.string.isRequired
+	tenantId: PropTypes.string.isRequired,
 };
 
 GetAllTribes.defaultProps = {};
