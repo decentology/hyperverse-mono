@@ -31,15 +31,15 @@
 		"react": "^17.0.2"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "workspace:*",
-		"@decentology/unstated-next": "workspace:*",
-		"@decentology/web3modal": "workspace:*",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
+		"@decentology/web3modal": "workspace:^",
 		"@walletconnect/ethereum-provider": "^1.7.7",
 		"@walletconnect/web3-provider": "^1.7.1",
 		"ethers": "^5.6.2"
 	},
 	"devDependencies": {
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
 		"parcel": "^2.2.1",

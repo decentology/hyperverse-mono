@@ -34,16 +34,16 @@
 	],
 	"dependencies": {
 		"@chainlink/contracts": "^0.4.0",
-		"@decentology/hyperverse": "workspace:*",
-		"@decentology/hyperverse-ethereum": "workspace:*",
-		"@decentology/hyperverse-storage-skynet": "workspace:*",
-		"@decentology/unstated-next": "workspace:*",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-ethereum": "workspace:^",
+		"@decentology/hyperverse-storage-skynet": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"ethers": "^5.5.3",
 		"react-use": "^17.3.2",
 		"skynet-js": "^4.0.23-beta"
 	},
 	"devDependencies": {
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "workspace:^",
 		"@nomiclabs/hardhat-ethers": "^2.0.4",
 		"@nomiclabs/hardhat-waffle": "^2.0.2",
 		"@types/react": "17.0.2",

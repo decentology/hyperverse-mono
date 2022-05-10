@@ -24,14 +24,14 @@
 		"react": "^17.0.2"
 	},
 	"devDependencies": {
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "workspace:^",
 		"@types/react": "17.0.2",
 		"parcel": "^2.2.1",
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "workspace:*",
-		"@decentology/hyperverse-algorand": "workspace:*",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-algorand": "workspace:^",
 		"algosdk": "^1.12.0"
 	}
 }

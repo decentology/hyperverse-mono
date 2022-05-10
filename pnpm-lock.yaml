@@ -390,10 +390,10 @@ importers:
   apps/flow/nft:
     specifiers:
       '@decentology/config': ^1.0.2
-      '@decentology/hyperverse': ^1.0.12
-      '@decentology/hyperverse-flow': ^1.0.12
-      '@decentology/hyperverse-flow-nft': 1.0.3
-      '@decentology/unstated-next': ^1.1.6
+      '@decentology/hyperverse': ^1.0.14
+      '@decentology/hyperverse-flow': ^1.0.14
+      '@decentology/hyperverse-flow-nft': 1.0.5
+      '@decentology/unstated-next': ^1.1.8
       '@radix-ui/react-accordion': ^0.1.6
       '@stitches/react': ^1.2.6
       '@types/react': 17.0.2
@@ -488,11 +488,11 @@ importers:
 
   apps/hyperverse.dev:
     specifiers:
-      '@decentology/hyperverse': ^1.0.12
-      '@decentology/hyperverse-ethereum': ^1.0.12
-      '@decentology/hyperverse-flow': ^1.0.12
-      '@decentology/hyperverse-metis': ^1.0.13
-      '@decentology/unstated-next': ^1.1.6
+      '@decentology/hyperverse': ^1.0.14
+      '@decentology/hyperverse-ethereum': ^1.0.14
+      '@decentology/hyperverse-flow': ^1.0.14
+      '@decentology/hyperverse-metis': ^1.0.15
+      '@decentology/unstated-next': ^1.1.8
       '@headlessui/react': ^1.5.0
       '@heroicons/react': ^1.0.5
       '@next/bundle-analyzer': ^12.1.0
@@ -696,9 +696,9 @@ importers:
 
   packages/hyperverse:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse-storage-skynet': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse-storage-skynet': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@swc/helpers': ^0.3.6
       '@types/react': 17.0.2
       parcel: ^2.3.2
@@ -715,9 +715,9 @@ importers:
 
   packages/hyperverse-algorand:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@json-rpc-tools/utils': ^1.7.6
       '@types/node': ^17.0.30
       '@types/react': 17.0.2
@@ -748,9 +748,9 @@ importers:
 
   packages/hyperverse-algorand-counter:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-algorand': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-algorand': workspace:^
       '@types/react': 17.0.2
       algosdk: ^1.12.0
       parcel: ^2.2.1
@@ -767,7 +767,7 @@ importers:
 
   packages/hyperverse-db:
     specifiers:
-      '@decentology/config': workspace:*
+      '@decentology/config': workspace:^
       '@types/react': 17.0.2
       gun: ^0.2020.1235
       react-query: ^3.34.8
@@ -782,10 +782,10 @@ importers:
 
   packages/hyperverse-ethereum:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-evm': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-evm': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@ethersproject/providers': ^5.6.4
       '@types/node': ^17.0.30
       '@types/react': 17.0.2
@@ -810,11 +810,11 @@ importers:
   packages/hyperverse-ethereum-randompick:
     specifiers:
       '@chainlink/contracts': ^0.4.0
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-ethereum': workspace:*
-      '@decentology/hyperverse-storage-skynet': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-ethereum': workspace:^
+      '@decentology/hyperverse-storage-skynet': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@nomiclabs/hardhat-ethers': ^2.0.4
       '@nomiclabs/hardhat-waffle': ^2.0.2
       '@types/react': 17.0.2
@@ -852,10 +852,10 @@ importers:
 
   packages/hyperverse-evm:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/unstated-next': workspace:*
-      '@decentology/web3modal': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/unstated-next': workspace:^
+      '@decentology/web3modal': workspace:^
       '@types/node': ^17.0.30
       '@types/react': 17.0.2
       '@walletconnect/ethereum-provider': ^1.7.7
@@ -947,10 +947,10 @@ importers:
   packages/hyperverse-evm-erc20:
     specifiers:
       '@babel/core': ^7.17.8
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-ethereum': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-ethereum': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@nomiclabs/hardhat-ethers': ^2.0.4
       '@nomiclabs/hardhat-waffle': ^2.0.2
       '@storybook/addon-actions': ^6.4.20
@@ -1004,11 +1004,11 @@ importers:
   packages/hyperverse-evm-erc721:
     specifiers:
       '@babel/core': ^7.17.8
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-evm': workspace:*
-      '@decentology/hyperverse-storage-skynet': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-evm': workspace:^
+      '@decentology/hyperverse-storage-skynet': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@nomiclabs/hardhat-ethers': ^2.0.4
       '@nomiclabs/hardhat-waffle': ^2.0.2
       '@openzeppelin/contracts': ^4.5.0
@@ -1065,10 +1065,10 @@ importers:
   packages/hyperverse-evm-erc777:
     specifiers:
       '@babel/core': ^7.17.9
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-ethereum': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-ethereum': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@nomiclabs/hardhat-ethers': ^2.0.4
       '@nomiclabs/hardhat-waffle': ^2.0.2
       '@storybook/addon-actions': ^6.4.20
@@ -1185,10 +1185,10 @@ importers:
   packages/hyperverse-evm-tribes:
     specifiers:
       '@babel/core': ^7.17.8
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-evm': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-evm': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@ethersproject/abstract-provider': ^5.6.0
       '@nomiclabs/hardhat-ethers': ^2.0.4
       '@nomiclabs/hardhat-waffle': ^2.0.2
@@ -1255,11 +1255,11 @@ importers:
 
   packages/hyperverse-evm-whitelist:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-evm': workspace:*
-      '@decentology/hyperverse-evm-erc721': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-evm': workspace:^
+      '@decentology/hyperverse-evm-erc721': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@nomiclabs/hardhat-ethers': ^2.0.4
       '@nomiclabs/hardhat-waffle': ^2.0.2
       '@openzeppelin/contracts': ^4.4.2
@@ -1306,10 +1306,10 @@ importers:
 
   packages/hyperverse-flow:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-storage-skynet': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-storage-skynet': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@onflow/fcl': ^0.0.77
       '@onflow/types': ^0.0.5
       '@types/node': ^17.0.21
@@ -1337,10 +1337,10 @@ importers:
 
   packages/hyperverse-flow-battlenik:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-flow': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-flow': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@onflow/fcl': ^0.0.78
       '@onflow/types': ^0.0.6
       '@types/node': ^17.0.16
@@ -1362,10 +1362,10 @@ importers:
 
   packages/hyperverse-flow-helloworld:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-flow': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-flow': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@onflow/fcl': ^0.0.78
       '@onflow/types': ^0.0.6
       '@types/node': ^17.0.16
@@ -1388,10 +1388,10 @@ importers:
   packages/hyperverse-flow-nft:
     specifiers:
       '@babel/core': ^7.17.9
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-flow': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-flow': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@onflow/fcl': ^0.0.78
       '@onflow/types': ^0.0.6
       '@storybook/addon-actions': ^6.4.20
@@ -1455,10 +1455,10 @@ importers:
   packages/hyperverse-flow-randompick:
     specifiers:
       '@babel/core': ^7.17.9
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-flow': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-flow': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@onflow/fcl': ^0.0.78
       '@onflow/types': ^0.0.6
       '@storybook/addon-actions': ^6.4.22
@@ -1495,10 +1495,10 @@ importers:
 
   packages/hyperverse-flow-storefront:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-flow': workspace:*
-      '@decentology/unstated-next': ^1.1.6
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-flow': workspace:^
+      '@decentology/unstated-next': ^1.1.8
       '@onflow/fcl': ^0.0.78
       '@onflow/types': ^0.0.6
       '@types/node': ^17.0.16
@@ -1545,10 +1545,10 @@ importers:
   packages/hyperverse-flow-token:
     specifiers:
       '@babel/core': ^7.17.9
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-flow': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-flow': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@onflow/fcl': ^0.0.78
       '@onflow/types': ^0.0.6
       '@storybook/addon-actions': ^6.4.20
@@ -1586,10 +1586,10 @@ importers:
   packages/hyperverse-flow-tribes:
     specifiers:
       '@babel/core': ^7.17.9
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-flow': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-flow': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@onflow/fcl': ^0.0.78
       '@onflow/types': ^0.0.6
       '@storybook/addon-actions': ^6.4.20
@@ -1627,10 +1627,10 @@ importers:
   packages/hyperverse-flow-whitelist:
     specifiers:
       '@babel/core': ^7.17.9
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-flow': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-flow': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@onflow/fcl': ^0.0.78
       '@onflow/types': ^0.0.6
       '@storybook/addon-actions': ^6.4.22
@@ -1691,11 +1691,11 @@ importers:
 
   packages/hyperverse-metis:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-evm': workspace:*
-      '@decentology/unstated-next': workspace:*
-      '@decentology/web3modal': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-evm': workspace:^
+      '@decentology/unstated-next': workspace:^
+      '@decentology/web3modal': workspace:^
       '@types/react': 17.0.2
       '@walletconnect/web3-provider': ^1.7.1
       ethers: ^5.5.3
@@ -1716,11 +1716,11 @@ importers:
 
   packages/hyperverse-polygon:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/hyperverse-evm': workspace:*
-      '@decentology/unstated-next': workspace:*
-      '@decentology/web3modal': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/hyperverse-evm': workspace:^
+      '@decentology/unstated-next': workspace:^
+      '@decentology/web3modal': workspace:^
       '@types/react': 17.0.2
       '@walletconnect/web3-provider': ^1.7.1
       ethers: ^5.5.3
@@ -1741,9 +1741,9 @@ importers:
 
   packages/hyperverse-storage-ipfs:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/hyperverse': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/hyperverse': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@types/react': 17.0.2
       ipfs-http-client: ^56.0.1
       it-all: ^1.0.6
@@ -1766,8 +1766,8 @@ importers:
 
   packages/hyperverse-storage-skynet:
     specifiers:
-      '@decentology/config': workspace:*
-      '@decentology/unstated-next': workspace:*
+      '@decentology/config': workspace:^
+      '@decentology/unstated-next': workspace:^
       '@types/react': 17.0.2
       parcel: ^2.2.1
       rimraf: ^3.0.2
@@ -42441,7 +42441,7 @@ packages:
     resolution: {directory: packages/web3modal, type: directory}
     id: file:packages/web3modal
     name: '@decentology/web3modal'
-    version: 1.9.15
+    version: 1.9.17
     engines: {node: '>=12.0.0'}
     peerDependencies:
       react: ^17.0.2 || 17
