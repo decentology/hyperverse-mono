@@ -1,5 +1,4 @@
 import { Setup } from './setup';
-import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/setup.mdx';
 
@@ -13,11 +12,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
-	<HyperverseProvider>
-		<Setup {...args} />
-	</HyperverseProvider>
-);
+const Template = (args) => <Setup {...args} />;
 
 export const Demo = Template.bind({});
 

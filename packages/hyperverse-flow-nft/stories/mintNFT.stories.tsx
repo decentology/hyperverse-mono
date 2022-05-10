@@ -1,5 +1,4 @@
 import { MintNFT } from './mintNFT';
-import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/mintNFT.mdx';
 
@@ -13,18 +12,14 @@ export default {
 	},
 };
 
-const Template = (args) => (
-	<HyperverseProvider>
-		<MintNFT {...args} />
-	</HyperverseProvider>
-);
+const Template = (args) => <MintNFT {...args} />;
 
 export const Demo = Template.bind({});
 
 Demo.args = {
 	recipient: '',
-    name: '',
-    description: '',
-    thumbnail: '',
-    metadata: null
+	name: '',
+	description: '',
+	thumbnail: '',
+	metadata: null,
 };
