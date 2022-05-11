@@ -1,5 +1,35 @@
 # @decentology/hyperverse-ethereum
 
+## 1.0.14
+
+### Patch Changes
+
+-   Version Bump
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.14
+    -   @decentology/unstated-next@1.1.8
+    -   @decentology/web3modal@1.9.17
+
+## 1.0.13
+
+### Patch Changes
+
+-   Fixed exports on publish
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.13
+    -   @decentology/unstated-next@1.1.7
+    -   @decentology/web3modal@1.9.16
+
+## 1.0.12
+
+### Patch Changes
+
+-   Package exports update
+-   Updated dependencies
+    -   @decentology/web3modal@1.9.15
+    -   @decentology/hyperverse@1.0.12
+    -   @decentology/unstated-next@1.1.6
+
 ## 1.0.11
 
 ### Patch Changes

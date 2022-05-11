@@ -9,7 +9,7 @@
 	"main": "./distribution/index.js",
 	"module": "./distribution/index.es.js",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.11",
+	"version": "1.0.14",
 	"license": "MIT",
 	"files": [
 		"distribution"
@@ -20,7 +20,7 @@
 	},
 	"publishConfig": {
 		"access": "public",
-		"exports": {}
+		"exports": null
 	},
 	"scripts": {
 		"build": "parcel build",
@@ -35,13 +35,13 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse-storage-skynet": "workspace:*",
-		"@decentology/hyperverse-storage-ipfs": "workspace:*",
-		"@decentology/unstated-next": "workspace:*",
+		"@decentology/hyperverse-storage-ipfs": "workspace:^",
+		"@decentology/hyperverse-storage-skynet": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"@swc/helpers": "^0.3.6"
 	},
 	"devDependencies": {
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "workspace:^",
 		"@types/react": "17.0.2",
 		"parcel": "^2.3.2",
 		"rimraf": "^3.0.2"

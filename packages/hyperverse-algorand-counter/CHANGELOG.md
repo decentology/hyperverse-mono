@@ -1,5 +1,29 @@
 # @decentology/hyperverse-algorand-counter
 
+## 1.0.15
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.14
+    -   @decentology/hyperverse-algorand@1.0.14
+
+## 1.0.14
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.13
+    -   @decentology/hyperverse-algorand@1.0.13
+
+## 1.0.13
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.12
+    -   @decentology/hyperverse-algorand@1.0.12
+
 ## 1.0.12
 
 ### Patch Changes

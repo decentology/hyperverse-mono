@@ -9,7 +9,7 @@
 	"main": "./distribution/index.js",
 	"module": "./distribution/index.es.js",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.9",
+	"version": "1.0.12",
 	"license": "MIT",
 	"files": [
 		"distribution"
@@ -33,16 +33,16 @@
 		"node": ">=12.0.0"
 	},
 	"devDependencies": {
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "workspace:^",
 		"@types/react": "17.0.2",
 		"ipfs-core-types": "^0.10.3",
 		"parcel": "^2.2.1",
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "workspace:*",
-		"@decentology/unstated-next": "workspace:*",
 		"ipfs-http-client": "^56.0.3",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"it-all": "^1.0.6",
 		"it-drain": "^1.0.5",
 		"uint8arrays": "^3.0.0"

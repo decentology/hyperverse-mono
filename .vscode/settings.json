@@ -1,7 +1,5 @@
 {
 	"cSpell.words": ["Algodv", "Algorand", "algosdk", "Hyperverse", "walletconnect"],
 	"cSpell.enabled": false,
-	"typescript.tsserver.experimental.enableProjectDiagnostics": false,
-	"files.exclude": {},
-	"explorerExclude.backup": null
+	"typescript.tsserver.experimental.enableProjectDiagnostics": false
 }
