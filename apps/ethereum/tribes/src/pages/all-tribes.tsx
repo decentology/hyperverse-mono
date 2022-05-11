@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { useMutation, useQuery } from 'react-query';
+import { TRIBES } from '../components/Tribes';
 
 const AllTribes = () => {
 	const router = useRouter();
@@ -29,7 +30,7 @@ const AllTribes = () => {
 		}
 	}, [isSuccess, router]);
 
-	const isLoading = tribes.loading || allTribesLoading || joinTribeLoading;
+	const isLoading = tribes.loading  || joinTribeLoading;
 
 	useEffect(() => {
 		if (error) {
@@ -50,7 +51,7 @@ const AllTribes = () => {
 				<div className={styles.container}>
 					<h1>Tribes</h1>
 					{address ? (
-						!data || data.length === 0 ? (
+						!TRIBES || TRIBES.length === 0 ? (
 							<>
 								<h5>There are currently no existing tribes.</h5>
 								<Link href="/">Go back home</Link>
@@ -59,13 +60,13 @@ const AllTribes = () => {
 							<>
 								<h5>Select Your Tribe</h5>
 								<div className={styles.allTribes}>
-									{data.map((item) => (
+									{TRIBES.map((item) => (
 										<div key={item.id} onClick={() => mutate(item.id)}>
 											<Image
 												width={200}
 												height={250}
 												className={styles.cards}
-												src={item.imageUrl}
+												src={item.image}
 												alt={item.name}
 											/>
 										</div>

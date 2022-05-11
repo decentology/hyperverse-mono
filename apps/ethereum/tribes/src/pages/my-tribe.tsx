@@ -8,18 +8,27 @@ import Nav from '../components/Nav';
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
+import {TRIBES} from '../components/Tribes';
 
 const TribesPage = () => {
 	const router = useRouter();
 	const { address: account } = useEthereum();
 	const tribes = useTribes();
-	const {
-		data,
-		isLoading: tribeDataLoading,
-		error: tribeErr,
-	} = useQuery('tribeAccount', () => tribes.getTribeByAccount!(account!), {
+	// const {
+	// 	data,
+	// 	isLoading: tribeDataLoading,
+	// 	error: tribeErr,
+	// } = useQuery('tribeAccount', () => tribes.getTribeByAccount!(account!), {
+	// 	enabled: !tribes.loading,
+	// });
+
+	const {data, 		isLoading: tribeDataLoading,
+		error: tribeErr,} = useQuery('tribeId', () => tribes.getTribeId!(account!), {
 		enabled: !tribes.loading,
 	});
+
+	const tribeData = TRIBES.find(tribe => tribe.id === data);
+
 
 	const {
 		mutate,
@@ -48,26 +57,26 @@ const TribesPage = () => {
 			<Nav />
 			{isLoading ? (
 				<Loader loaderMessage="Processing..." />
-			) : account && !tribeErr && data ? (
+			) : account && !tribeErr && tribeData ? (
 				<div className={styles.container2}>
 					<div className={styles.container3}>
-						{data.image === 'N/A' ? (
+						{tribeData.image === 'N/A' ? (
 							<div className={styles.tribeCard}>
-								<h2>{data.name}</h2>
+								<h2>{tribeData.name}</h2>
 							</div>
 						) : (
 							<Image
 								width={300}
 								height={380}
-								src={`${data.imageUrl}`}
-								alt={data.name}
+								src={`${tribeData.image}`}
+								alt={tribeData.name}
 								className={styles.tribe}
 							/>
 						)}
 
 						<div className={styles.text}>
-							<h1>{data.name}</h1>
-							<p className={styles.description}>{data.description}</p>
+							<h1>{tribeData.name}</h1>
+							<p className={styles.description}>{tribeData.description}</p>
 						</div>
 					</div>
 					<button className={styles.join} onClick={() => mutate()}>
