@@ -11,9 +11,8 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const hyperverse = useHyperverse();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
-	console.log('tribes', signer);
+
 	useEffect(() => {
-		console.log('UseEffect', signer, readOnlyProvider);
 		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary)
 		return lib.cancel;
 	}, [signer, readOnlyProvider])
