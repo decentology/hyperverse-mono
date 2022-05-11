@@ -1,12 +1,9 @@
 import * as PropTypes from 'prop-types';
-import './button.css';
 import { useTribes } from '../source';
-import { useState, useEffect } from 'react';
 
 export const GetAllTribes = ({ ...props }) => {
 	const { getAllTribes } = useTribes();
-	const { allTribes } = getAllTribes();
-	console.log('this is all tribes', allTribes)
+	const { data: allTribes } = getAllTribes(props.tenantId);
 
 	return (
 		<div className="allTribes">
