@@ -29,17 +29,17 @@ const main = async () => {
 
 	// Setup Default Tenant
 	let proxyAddress = constants.AddressZero;
-	// await tribesFactory.createInstance(deployer.address);
-	// while (proxyAddress === constants.AddressZero) {
-	// 	proxyAddress = await tribesFactory.getProxy(deployer.address);
-	// }
-	// const tribesProxy = await Tribes.attach(proxyAddress);
-	// console.log('Proxy Contract', tribesProxy.address);
-	// await tribesProxy.addNewTribe('AABfrc40kgAcsJtNBxhR9nXBwRJGEek56bcigT5VofglIg');
-	// await tribesProxy.addNewTribe('AAAKk52tJJCHPVlTTn-pHLBNaj0gfel64u0CTbqm95uuvA');
-	// await tribesProxy.addNewTribe('AACGqB25a8vWbskwRO8YIoyvSoXR9poTz7DVEcl1RKdGbw');
-	// await tribesProxy.addNewTribe('AABfNxBgYBQlGM2FAxiaguJM4dcS3bFJAtXGFE2LAc98yA');
-	// await tribesProxy.addNewTribe('AABsBeuaExyLT-3ujU6pL-_o9l5oQYeaq24zvMAU7aiYSQ');
+	await tribesFactory.createInstance(deployer.address);
+	while (proxyAddress === constants.AddressZero) {
+		proxyAddress = await tribesFactory.getProxy(deployer.address);
+	}
+	const tribesProxy = await Tribes.attach(proxyAddress);
+	console.log('Proxy Contract', tribesProxy.address);
+	await tribesProxy.addNewTribe('Qmd2bbrCVzGF7Wzrurqcz4TrSVerov7e1BB1TuUkr9kcJ2');
+	await tribesProxy.addNewTribe('QmaKVKTYJh9gYRpaLgBuM8Z6Z1fBUoHFfsxCe3px5jX4xH');
+	await tribesProxy.addNewTribe('QmVVs5RXtCD6Dz1gcSDce2WtmtmTR91cjS61tSuQMg2tZN');
+	await tribesProxy.addNewTribe('QmSy12cCQAVjcqcxLvyrDdPFUjrWxsYvRzTgd2nBoeSY6M');
+	await tribesProxy.addNewTribe('QmPF6Zezcsh8dA9UD6evQFcuk4GsukessAXNAc1SvxML1h');
 };
 
 const runMain = async () => {
