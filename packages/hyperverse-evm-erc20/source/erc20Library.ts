@@ -33,6 +33,21 @@ export async function ERC20LibraryInternal(
 		providerOrSigner
 	);
 
+  const createTokenInstance = 
+		async (account: string, name: string, symbol: string, decimal: number) => {
+			try {
+				const createTxn = await base.createInstance(
+					account,
+					name,
+					symbol,
+					decimal
+				);
+				return createTxn.wait() as TransactionReceipt;
+			} catch (err) {
+				throw err;
+			}
+		};
+
 	const getTotalSuply = async () => {
 		try {
 			const totalSupply = await base.proxyContract?.totalSupply();
@@ -134,6 +149,7 @@ export async function ERC20LibraryInternal(
 
   return {
     ...base,
+    createTokenInstance,
     getTotalSuply,
     getBalanceOf,
     getBalance,

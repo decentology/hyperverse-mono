@@ -86,6 +86,7 @@ export async function EvmLibraryBase(
 			throw err;
 		}
 	};
+
 	const factoryErrors = (err: any) => {
 		if (!factoryContract?.signer) {
 			throw new Error('Please connect your wallet!');
