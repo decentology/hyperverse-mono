@@ -146,52 +146,54 @@ a more comprehensive user experience for your stories.
 
 <div className="subheading">Story Example</div>
 
-Let's walkthrough how we set up **Get Total Supply** for an example.
+Let's walkthrough how we set up **Random Pick** for an example.
 
-<div className="smallerheading">getTotalSupply.ts</div>
+<div className="smallerheading">getRandomPick.ts</div>
 
-Before we begin writing our story, we'll take a look at the `getTotalSupply` function from `getTotalSupply.ts` to
-get a better idea of what we'll need. We can see that this function needs an **account** in order to return a number for the balance.
+Before we begin writing our story, we'll take a look at the `randomPick` function from `getRandomPick.ts` to
+get a better idea of what we'll need. We can see that this function needs an array of **values** in order to return a random pick.
 
 ```jsx
 
 const fcl = require('@onflow/fcl');
 const t = require('@onflow/types');
 
-async function getTotalSupply(tenantId: string) {
-  try {
-    const totalSupply = await fcl.send([
-      fcl.script`
-				import ExampleNFT from 0xNFT
-						
-				pub fun main(tenantID: Address): UInt64? {
-						return ExampleNFT.totalSupply[tenantID]
-				}
-      `,
-      fcl.args([
-        fcl.arg(tenantId, t.Address)
-      ]),
-    ]).then(fcl.decode);
-    return totalSupply || 0;
-  } catch (error) {
-    console.error(error);
-  }
+async function getRandomPick(values: any[]) {
+    try {
+        console.log(values);
+        const randomPick = await fcl.send([
+            fcl.script`
+            import RandomPick from 0xRandomPick
+                
+            pub fun main(values: [AnyStruct]): AnyStruct {
+                return RandomPick.randomPick(values: values)
+            }
+            `,
+            fcl.args([
+                fcl.arg(values, t.Array(t.Int))
+            ]),
+        ]).then(fcl.decode);
+
+        console.log(randomPick);
+        return randomPick;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-export { getTotalSupply };
+export { getRandomPick };
 
 ```
 
-<div className="smallerheading">getTotalSupply.stories.tsx</div>
+<div className="smallerheading">randomPick.stories.tsx</div>
 
 Here is where we'll start setting up our story. If you take a look at the sidebar
 you'll notice a list of stories. Each of these stories contains a demo that we'll see
 render under the **Canvas** tab.
 
 We'll import the component we want this story to render in our story template. This template
-will call the **GetTotalSupply** component. It is binded with our first story we have titled **Demo**.
-We provide an initial tenant Id of `0x62a7aa79a52591Ccc62B71729329A80a666fA50f` that we will pass
-through as the account that `getTotalSupply` requires.
+will call the **RandomPick** component. It is binded with our first story we have titled **Demo**.
+We provide an initial array of values that we will pass through that `getRandomPick` requires.
 
 You can add other stories within this file for your component if you wish. In addition to writing
 the interactions we would want to see from these functions we can also write the interactions we would
@@ -199,14 +201,14 @@ not want to see. This is a great way to showcase expected errors in specific sta
 
 ```jsx
 
-import { GetTotalSupply } from './getTotalSupply';
+import { RandomPick } from './randomPick';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getTotalSupply.mdx';
+import { Doc } from '../docs/randomPick.mdx';
 
 export default {
-	title: 'Components/GetTotalSupply',
-	component: GetTotalSupply,
+	title: 'Components/RandomPick',
+	component: RandomPick,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -216,44 +218,55 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetTotalSupply {...args} />
+		<RandomPick {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	tenantId: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'
+	values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 };
 
 ```
 
-<div className="smallerheading">getTotalSupply.tsx</div>
+<div className="smallerheading">randomPick.tsx</div>
 
 The main component below is what we'll import into the story. It is here we will write the
-interactions we want to have with the `getBalanceOf` function.
+interactions we want to have with the `getRandomPick` function.
 
 ```jsx
 
 import * as PropTypes from 'prop-types';
-import { useToken } from '../source';
+import { useRandomPick } from '../source';
+import { useState, useEffect } from 'react';
+import './button.css';
 
-export const GetTotalSupply = ({ ...props }) => {
-	const { getTotalSupply } = useToken();
-	const { data: totalSupply } = getTotalSupply(props.tenantId);
+export const RandomPick = ({ ...props }) => {
+	const { getRandomPick } = useRandomPick();
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		try {
+			getRandomPick(props.values).then(setData);
+		} catch (err) {
+			console.log(err);
+		}
+		getRandomPick(props.values);
+	}, []);
 
 	return (
-		<div className="totalSupply">
-			Total Supply: <b>{totalSupply}</b>
+		<div className="pick">
+			Random Pick: <b>{data}</b>
 		</div>
 	);
 };
 
-GetTotalSupply.propTypes = {
-	tenantId: PropTypes.string.isRequired,
+RandomPick.propTypes = {
+	values: PropTypes.array.isRequired,
 };
 
-GetTotalSupply.defaultProps = {};
+RandomPick.defaultProps = {};
 
 ```
 

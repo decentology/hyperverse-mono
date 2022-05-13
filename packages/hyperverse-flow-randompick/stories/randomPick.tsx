@@ -1,27 +1,30 @@
 import * as PropTypes from 'prop-types';
 import { useRandomPick } from '../source';
+import { useState, useEffect } from 'react';
 import './button.css';
 
 export const RandomPick = ({ ...props }) => {
 	const { getRandomPick } = useRandomPick();
-	const {} = getRandomPick('');
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		try {
+			getRandomPick(props.values).then(setData);
+		} catch (err) {
+			console.log(err);
+		}
+		getRandomPick(props.values);
+	}, []);
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				// TODO
-			}}
-		>
-			Mint NFT
-		</button>
+		<div className="pick">
+			Random Pick: <b>{data}</b>
+		</div>
 	);
 };
 
 RandomPick.propTypes = {
-    tenantId: PropTypes.string.isRequired
+	values: PropTypes.array.isRequired,
 };
 
 RandomPick.defaultProps = {};
