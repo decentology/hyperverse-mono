@@ -1,10 +1,6 @@
-import { useMemo, useState } from 'react';
-import { create } from 'ipfs-http-client';
+import { useMemo } from 'react';
 import { createContainer } from '@decentology/unstated-next';
-import { concat as uint8ArrayConcat } from 'uint8arrays/concat';
-import { toString as uint8ArrayToString } from 'uint8arrays/to-string';
-import { StorageProps } from '@decentology/hyperverse';
-import all from 'it-all';
+import { StorageProps } from '@decentology/hyperverse-types';
 import { IpfsStorageLibrary } from './ipfsStorageLibrary';
 
 function StorageState(

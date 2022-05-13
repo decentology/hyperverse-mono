@@ -18,7 +18,7 @@ export type HyperverseBlockchainInit<T> = (
 export type HyperverseBlockchain<T> = {
 	name: Blockchain;
 	getNetwork?: (network: Network) => NetworkConfig;
-	Provider: FC<unknown> | ContainerProvider<unknown> | ContainerProvider<any>;
+	Provider: FC<any> | ContainerProvider<unknown> | ContainerProvider<any>;
 };
 
 export type BlockchainFeatures<T> = {

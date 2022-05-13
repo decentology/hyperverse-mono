@@ -9,16 +9,13 @@ type ContractState = ethers.Contract;
 
 function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address,  connectedProvider,  readOnlyProvider } = useEthereum();
-	const {FactoryABI, factoryAddress, ContractABI, contractAddress } = useEnvironment();
+	const { address, signer, readOnlyProvider } = useEthereum();
+	const { FactoryABI, factoryAddress, ContractABI, contractAddress } = useEnvironment();
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
 		new ethers.Contract(factoryAddress!, FactoryABI, readOnlyProvider) as ContractState
 	);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 
-	const signer = useMemo(async () => {
-		return connectedProvider?.getSigner();
-	}, [connectedProvider]);
 
 	useEffect(() => {
 		const fetchContract = async () => {
@@ -63,10 +60,11 @@ function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 	);
 
 	useEffect(() => {
-		if (connectedProvider) {
-			setup();
+		if (signer) {
+			const ctr = factoryContract.connect(signer) as ContractState;
+			setFactoryContract(ctr);
 		}
-	}, [setup, connectedProvider]);
+	}, [signer]);
 
 	const checkInstance = async (account: any) => {
 		try {
@@ -137,7 +135,7 @@ function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	const transfer = useCallback(async (to: string, value: number) => {
 		try {
-			const transfer = await proxyContract?.transfer(to, value, {gasLimit: 1000000});
+			const transfer = await proxyContract?.transfer(to, value, { gasLimit: 1000000 });
 			return transfer.wait();
 		} catch (err) {
 			if (err instanceof String) {
@@ -229,7 +227,7 @@ function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 		tenantId,
 		factoryContract,
 		proxyContract,
-		CheckInstance: (account:string) =>
+		CheckInstance: (account: string) =>
 			useQuery(
 				['checkInstance', address, factoryContract?.address, { account }],
 				() => checkInstance(account),
@@ -312,7 +310,7 @@ function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 
 		TokenSymbol: () =>
 			useQuery(['getTokenSymbol'], () => getTokenSymbol(), {
-				enabled: !!proxyContract?.signer ,
+				enabled: !!proxyContract?.signer,
 			}),
 
 		Approve: (

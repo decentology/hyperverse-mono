@@ -1,5 +1,5 @@
-import { useEvm} from './useEVM';
-import {Provider, ProviderProps, lightTheme, darkTheme} from './Provider'
+import { useEvm } from './useEVM';
+import { Provider, ProviderProps, lightTheme, darkTheme } from './Provider'
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
 import { getProvider } from './evmLibraryBase';
 export { EvmLibraryBase } from './evmLibraryBase';
@@ -24,20 +24,17 @@ const getNetwork = (network: Network) => {
 	return Networks[network]
 }
 
-
 export const Ethereum = makeHyperverseBlockchain({
 	name: Blockchain.Ethereum,
-		// @ts-ignore
 	Provider: Provider,
 	getNetwork
 });
 
 export const Localhost = makeHyperverseBlockchain({
 	name: Blockchain.Localhost,
-	// @ts-ignore
 	Provider: Provider,
 	getNetwork
 });
 
-export type {ProviderProps}
-export { Provider, useEvm, getProvider, lightTheme, darkTheme};
+export type { ProviderProps }
+export { Provider, useEvm, getProvider, lightTheme, darkTheme };

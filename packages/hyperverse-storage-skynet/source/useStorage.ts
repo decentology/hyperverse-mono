@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { SkynetClient } from 'skynet-js';
 import { createContainer } from '@decentology/unstated-next';
 import { SkynetStorageLibrary } from './lib/SkynetStorageLibrary';
-import { StorageProps } from '@decentology/hyperverse';
+import { StorageProps } from '@decentology/hyperverse-types';
 
 
 function StorageState({ clientUrl }: StorageProps = { clientUrl: 'https://siasky.net' }) {

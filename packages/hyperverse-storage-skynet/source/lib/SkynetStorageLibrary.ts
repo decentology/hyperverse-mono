@@ -1,5 +1,5 @@
 import { SkynetClient } from "skynet-js";
-import { IHyperverseStorage, StorageProps } from '@decentology/hyperverse'
+import { IHyperverseStorage, StorageProps } from '@decentology/hyperverse-types';
 
 export function SkynetStorageLibrary({ clientUrl }: StorageProps): IHyperverseStorage {
 	const client = new SkynetClient(clientUrl);

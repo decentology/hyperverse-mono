@@ -13,16 +13,13 @@ type ContractState = ethers.Contract;
 
 function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address,  connectedProvider,  readOnlyProvider } = useEvm();
+	const { address, signer, readOnlyProvider } = useEvm();
 	const { factoryAddress, ContractABI, FactoryABI } = useEnvironment()
 	const [factoryContract, setFactoryContract] = useState<ContractState>(
 		new ethers.Contract(factoryAddress!, FactoryABI, readOnlyProvider) as ContractState
 	);
 	const [proxyContract, setProxyContract] = useState<ContractState>();
 
-	const signer = useMemo(async () => {
-		return connectedProvider?.getSigner();
-	}, [connectedProvider]);
 
 	useEffect(() => {
 		const fetchContract = async () => {
@@ -42,15 +39,6 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 		fetchContract();
 	}, [factoryContract, tenantId, readOnlyProvider, signer]);
 
-	const setup = useCallback(async () => {
-		const accountSigner = await signer;
-		if (accountSigner) {
-			const ctr = factoryContract.connect(accountSigner) as ContractState;
-			setFactoryContract(ctr);
-		}
-		// We have a defualt contract that has no signer. Which will work for read-only operations.
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [signer]);
 
 	const errors = useCallback(
 		(err: any) => {
@@ -68,10 +56,11 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	);
 
 	useEffect(() => {
-		if (connectedProvider) {
-			setup();
+		if (signer) {
+			const ctr = factoryContract.connect(signer) as ContractState;
+			setFactoryContract(ctr);
 		}
-	}, [setup, connectedProvider]);
+	}, [signer]);
 
 	const createInstance = async (name: string, symbol: string) => {
 		try {

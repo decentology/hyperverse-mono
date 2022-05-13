@@ -4,7 +4,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"composite": false,
-		"declaration": true,
+		"declaration": false,
 		"esModuleInterop": true,
 		"emitDecoratorMetadata": true,
 		"allowSyntheticDefaultImports": true,
