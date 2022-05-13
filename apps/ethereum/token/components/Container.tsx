@@ -18,11 +18,11 @@ const Container = () => {
 	const { address } = useEthereum();
 	const { TokenName, TokenSymbol, Balance, TotalSupply, CheckInstance } = useERC20();
 
-	const { data: instance } = CheckInstance(address!);
+	const { data: instance, error } = CheckInstance(address!);
 
 	const toastId = 'instance';
 	useEffect(() => {
-		if (!instance && !toast.isActive(toastId)) {
+		if (!instance || error && !toast.isActive(toastId)) {
 			toast.info(
 				'Make sure you have an instance. If you already have one change the tenant ID in _app.tsx to test this app',
 				{
