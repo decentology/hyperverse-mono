@@ -1,4 +1,4 @@
-import { IHyperverseStorage, StorageProps } from '@decentology/hyperverse';
+import { IHyperverseStorage, StorageProps } from '@decentology/hyperverse-types';
 import { create } from 'ipfs-http-client';
 import { concat as uint8ArrayConcat } from 'uint8arrays/concat';
 import { toString as uint8ArrayToString } from 'uint8arrays/to-string';

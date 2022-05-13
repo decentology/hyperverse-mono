@@ -9,13 +9,12 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@decentology/unstated-next": "workspace:*",
-		"@decentology/web3modal": "workspace:*",
-		"@decentology/hyperverse-evm": "workspace:*",
-		"@decentology/hyperverse": "workspace:*",
-		"@decentology/hyperverse-ethereum": "workspace:*",
-		"@decentology/hyperverse-ethereum-randompick": "workspace:*",
-		"@decentology/hyperverse-evm-tribes": "workspace:*",
+		"@decentology/unstated-next": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-ethereum": "workspace:^",
+		"@decentology/hyperverse-ethereum-randompick": "workspace:^",
+		"@decentology/hyperverse-evm-tribes": "workspace:^",
 		"ethers": "^5.5.2",
 		"next": "12.0.7",
 		"react": "17.0.2",
@@ -29,7 +28,7 @@
 		"swr": "^1.3.0"
 	},
 	"devDependencies": {
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "workspace:^",
 		"@types/node": "17.0.7",
 		"@types/react": "17.0.38",
 		"eslint": "8.6.0",

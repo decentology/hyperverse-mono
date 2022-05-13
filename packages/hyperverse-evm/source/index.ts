@@ -1,5 +1,3 @@
-export * from '@decentology/web3modal';
-
 import { useEvm} from './useEVM';
 import {Provider, ProviderProps, lightTheme, darkTheme} from './Provider'
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';

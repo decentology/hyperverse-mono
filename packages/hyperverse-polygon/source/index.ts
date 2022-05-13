@@ -1,4 +1,3 @@
-export * from '@decentology/web3modal';
 import { Provider, usePolygon } from './usePolygon';
 import { Blockchain, makeHyperverseBlockchain } from '@decentology/hyperverse';
 

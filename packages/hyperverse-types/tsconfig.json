@@ -1,0 +1,5 @@
+{
+	"extends": "@decentology/config/react-library.json",
+	"exclude": ["distribution", "node_modules"]
+  }
+  

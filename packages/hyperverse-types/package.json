@@ -1,10 +1,8 @@
 {
-	"name": "@decentology/hyperverse-storage-skynet",
-	"source": "./source/index.ts",
-	"main": "./distribution/index.js",
-	"module": "./distribution/index.es.js",
+	"name": "@decentology/hyperverse-types",
+	"source": "index.d.ts",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.13",
+	"version": "1.0.12",
 	"license": "MIT",
 	"files": [
 		"distribution"
@@ -29,13 +27,7 @@
 	},
 	"devDependencies": {
 		"@decentology/config": "workspace:^",
-		"@types/react": "17.0.2",
 		"parcel": "^2.2.1",
 		"rimraf": "^3.0.2"
-	},
-	"dependencies": {
-		"@decentology/hyperverse-types": "workspace:^",
-		"@decentology/unstated-next": "workspace:^",
-		"skynet-js": "^4.0.23-beta"
 	}
 }

@@ -1,4 +1,3 @@
-export * from '@decentology/web3modal';
 import { useMetis } from './useMetis';
 import Provider, { NETWORKS } from './Provider';
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';

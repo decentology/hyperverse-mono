@@ -33,7 +33,6 @@
 	"dependencies": {
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
-		"@decentology/web3modal": "workspace:^",
 		"@ethersproject/providers": "^5.6.4",
 		"@rainbow-me/rainbowkit": "^0.1.0",
 		"@walletconnect/ethereum-provider": "^1.7.7",
