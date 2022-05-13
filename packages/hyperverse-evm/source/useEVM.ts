@@ -106,7 +106,13 @@ function EvmState(
 
 				const signer = web3Provider.getSigner();
 				const address = await signer.getAddress();
-				const ens = await web3Provider.lookupAddress(address);
+				let ens: string | null = null;
+				try {
+					ens = await web3Provider.lookupAddress(address);
+					
+				} catch (error) {
+					
+				}
 
 				const userNetwork = await web3Provider.getNetwork();
 
