@@ -2,6 +2,8 @@ import { styled } from '../stitches.config';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { useQuery } from 'react-query';
+
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -17,16 +19,16 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 type Props = {
-	hook: any;
+	fn: any;
 	header: string;
 	description: string;
 	buttonText: string;
 	isAddress?: boolean;
 };
-const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Props) => {
+const ReadComponent = ({ fn, header, description, buttonText, isAddress }: Props) => {
 	const { address } = useEthereum();
 	const [hidden, setHidden] = useState(false);
-	const { data, isLoading, error } = hook;
+	const { data, error, isLoading } = useQuery(header, fn);
 
 	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
 

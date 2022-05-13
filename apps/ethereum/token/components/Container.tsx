@@ -13,16 +13,18 @@ import { toast } from 'react-toastify';
 import { BsFillExclamationDiamondFill } from 'react-icons/bs';
 import GetProxy from './ReadFunctions/GetProxy';
 import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+import { useQuery } from 'react-query';
+
 
 const Container = () => {
 	const { address } = useEthereum();
-	const { TokenName, TokenSymbol, Balance, TotalSupply, CheckInstance } = useERC20();
+	const erc20 = useERC20();
 
-	const { data: instance, error } = CheckInstance(address!);
+	const { data: instance } = useQuery('instance', () => address && erc20.checkInstance!(address));
 
 	const toastId = 'instance';
 	useEffect(() => {
-		if (!instance || error && !toast.isActive(toastId)) {
+		if (!instance  && !toast.isActive(toastId)) {
 			toast.info(
 				'Make sure you have an instance. If you already have one change the tenant ID in _app.tsx to test this app',
 				{
@@ -35,25 +37,25 @@ const Container = () => {
 
 	const TokenReadFunctions = [
 		{
-			hook: TokenName(),
+			fn: erc20.getTokenName!,
 			header: 'Token Name',
 			description: 'Get the Token Name',
 			buttonText: 'Get Token Name'
 		},
 		{
-			hook: TokenSymbol(),
+			fn: erc20.getTokenSymbol!,
 			header: 'Token Symbol',
 			description: 'Get the token symbol',
 			buttonText: 'Get Token Symbol'
 		},
 		{
-			hook: TotalSupply(),
+			fn: erc20.getTotalSuply!,
 			header: 'Total Supply',
 			description: 'Total supply in circulation',
 			buttonText: 'Get Total Supply'
 		},
 		{
-			hook: Balance(),
+			fn: erc20.getBalance!,
 			header: 'Balance',
 			description: 'Get the balance of your account',
 			buttonText: 'Get Balance'
@@ -63,7 +65,6 @@ const Container = () => {
 	return (
 		<Box>
 			<Reminder>
-				{' '}
 				<BsFillExclamationDiamondFill />
 				Don&apos;t forget to change the tenantID in&nbsp;<b> pages/_app.tsx </b>&nbsp;to
 				test this app.
@@ -71,7 +72,7 @@ const Container = () => {
 			<h3>Token Factory Functions</h3>
 			<Section>
 				<CreateInstance />
-				<GetProxy />
+				{/* <GetProxy /> */}
 			</Section>
 
 			<h3>Token Functions</h3>
@@ -79,22 +80,22 @@ const Container = () => {
 				{TokenReadFunctions.map((item) => (
 					<ReadComponent
 						key={item.header}
-						hook={item.hook}
+						fn={item.fn}
 						header={item.header}
 						description={item.description}
 						buttonText={item.buttonText}
 					/>
 				))}
-				<BalanceOf />
+				{/* <BalanceOf />
 				<Transfer />
 				<TransferFrom />
 				<Approve />
-				<Allowance />
+				<Allowance /> */}
 			</Section>
 
 			<h3>Tenant Owner Functions</h3>
 			<Section>
-				<Mint />
+				{/* <Mint /> */}
 			</Section>
 		</Box>
 	);
