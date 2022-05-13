@@ -1,4 +1,5 @@
-import { Register } from './createWhitelist';
+import { Register } from './register';
+import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/register.mdx';
 
@@ -12,7 +13,11 @@ export default {
 	},
 };
 
-const Template = (args) => <Register {...args} />;
+const Template = (args) => (
+	<HyperverseProvider>
+		<Register {...args} />
+	</HyperverseProvider>
+);
 
 export const Demo = Template.bind({});
 

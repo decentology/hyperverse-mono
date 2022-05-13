@@ -1,4 +1,5 @@
 import { MintToken } from './mintToken';
+import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/mintToken.mdx';
 
@@ -12,11 +13,15 @@ export default {
 	},
 };
 
-const Template = (args) => <MintToken {...args} />;
+const Template = (args) => (
+	<HyperverseProvider>
+		<MintToken {...args} />
+	</HyperverseProvider>
+);
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	recipient: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f', // i need accounts to mess with
-    amount: 1000
+	recipient: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+	amount: 10,
 };

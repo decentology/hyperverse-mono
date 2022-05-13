@@ -1,4 +1,5 @@
 import { GetTotalSupply } from './getTotalSupply';
+import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/getTotalSupply.mdx';
 
@@ -12,7 +13,11 @@ export default {
 	},
 };
 
-const Template = (args) => <GetTotalSupply {...args} />;
+const Template = (args) => (
+	<HyperverseProvider>
+		<GetTotalSupply {...args} />
+	</HyperverseProvider>
+);
 
 export const Demo = Template.bind({});
 

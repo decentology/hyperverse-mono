@@ -1,4 +1,5 @@
 import { TransferToken } from './transferToken';
+import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/transferToken.mdx';
 
@@ -12,12 +13,16 @@ export default {
 	},
 };
 
-const Template = (args) => <TransferToken {...args} />;
+const Template = (args) => (
+	<HyperverseProvider>
+		<TransferToken {...args} />
+	</HyperverseProvider>
+);
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-    tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
-	recipient: '', // i need accounts to mess with
-    amount: 1000
+	tenantId: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+	recipient: '0x4ddbaf7fe601ac46',
+	amount: 1000,
 };

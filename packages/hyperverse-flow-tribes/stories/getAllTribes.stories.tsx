@@ -1,7 +1,6 @@
 import { GetAllTribes } from './getAllTribes';
-import { Provider } from '../source/Provider';
-import React from 'react';
 import { HyperverseProvider } from './utils/Provider';
+import React from 'react';
 import { Doc } from '../docs/getAllTribes.mdx';
 
 export default {
@@ -16,12 +15,12 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetAllTribes {...args} />;
+		<GetAllTribes {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f'
+	tenantId: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'
 };

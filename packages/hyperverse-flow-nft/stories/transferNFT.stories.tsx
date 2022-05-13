@@ -1,4 +1,5 @@
 import { TransferNFT } from './transferNFT';
+import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/transferNFT.mdx';
 
@@ -12,7 +13,11 @@ export default {
 	},
 };
 
-const Template = (args) => <TransferNFT {...args} />;
+const Template = (args) => (
+	<HyperverseProvider>
+		<TransferNFT {...args} />;
+	</HyperverseProvider>
+);
 
 export const Demo = Template.bind({});
 

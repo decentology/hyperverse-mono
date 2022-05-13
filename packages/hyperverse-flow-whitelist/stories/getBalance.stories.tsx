@@ -1,4 +1,5 @@
 import { GetBalance } from './getBalance';
+import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/getBalance.mdx';
 
@@ -12,7 +13,11 @@ export default {
 	},
 };
 
-const Template = (args) => <GetBalance {...args} />;
+const Template = (args) => (
+	<HyperverseProvider>
+		<GetBalance {...args} />
+	</HyperverseProvider>
+);
 
 export const Demo = Template.bind({});
 
