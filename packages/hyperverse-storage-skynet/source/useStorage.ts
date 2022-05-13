@@ -6,8 +6,7 @@ import { StorageProps } from '@decentology/hyperverse';
 
 
 function StorageState({ clientUrl }: StorageProps = { clientUrl: 'https://siasky.net' }) {
-	const lib = new SkynetStorageLibrary({ clientUrl });
-	const [client] = useState<SkynetClient>(lib.client);
+	const lib = SkynetStorageLibrary({ clientUrl });
 	return lib;
 }
 

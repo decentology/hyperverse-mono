@@ -1,16 +1,32 @@
 import { SkynetClient } from "skynet-js";
-import { StorageProps } from '@decentology/hyperverse'
-export class SkynetStorageLibrary extends SkynetClient {
-	client: SkynetClient;
-	clientUrl: string | undefined;
+import { IHyperverseStorage, StorageProps } from '@decentology/hyperverse'
 
-	constructor({ clientUrl }: StorageProps = { clientUrl: 'https://siasky.net' }) {
-		super();
-		this.clientUrl = clientUrl;
-		this.client = new SkynetClient(clientUrl);
-		Object.assign(this, this.client)
+export function SkynetStorageLibrary({ clientUrl }: StorageProps): IHyperverseStorage {
+	const client = new SkynetClient(clientUrl);
+	const getLink = (link: string) => {
+		return `${client.portalUrl}/${link.replace('sia:', '')}`;
 	}
-	getLink(siaLink: string) {
-		return `${this.client.portalUrl}/${siaLink.replace('sia:', '')}`;
+
+	const uploadFile = async(file: File) => {
+		const result = await client.uploadFile(file);
+		return result.skylink;
+	}
+
+	const downloadFile = async(link: string) => {
+		window.location.assign(getLink(link));
+	}
+
+	const openFile = async(link: string) => {
+		const result = await client.openFile(link);
+		return result;
+	}
+
+	return {
+		client,
+		clientUrl,
+		getLink,
+		uploadFile,
+		downloadFile,
+		openFile
 	}
 }

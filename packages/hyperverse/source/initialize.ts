@@ -20,11 +20,11 @@ function setupStorage(options: Storage | StorageOptions) {
 	if (
 		storageOptions === null ||
 		storageOptions?.name === undefined ||
-		storageOptions?.name === Storage.Skynet
+		storageOptions?.name === Storage.Ipfs
 	) {
 		return IpfsStorageLibrary(
 			storageOptions?.options?.clientUrl
-				? { clientUrl: storageOptions.options.clientUrl }
+				? { ...storageOptions.options }
 				: undefined
 		);
 	}

@@ -135,13 +135,13 @@ export async function TribesLibraryInternal(
 
 	const addTribe = async ({ metadata, image }: { metadata: Omit<MetaData, 'image'>, image: File }) => {
 		try {
-			const {  } = await hyperverse.storage.uploadFile(image);
+			const imageLink = await hyperverse.storage?.uploadFile(image);
 			const fullMetaData: MetaData = {
 				...metadata,
-				image: imageLink
+				image: imageLink!
 			};
 			const metadataFile = new File([JSON.stringify(fullMetaData)], 'metadata.json');
-			const { skylink: metadataFileLink } = await hyperverse!.storage!.uploadFile(
+			const metadataFileLink = await hyperverse!.storage!.uploadFile(
 				metadataFile
 			);
 

@@ -3,7 +3,7 @@
 	"display": "Default",
 	"compilerOptions": {
 		"baseUrl": ".",
-		"composite": true,
+		"composite": false,
 		"declaration": true,
 		"esModuleInterop": true,
 		"emitDecoratorMetadata": true,
