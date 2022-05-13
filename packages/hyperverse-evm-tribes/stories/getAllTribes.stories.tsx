@@ -3,6 +3,7 @@ import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/getAllTribes.mdx';
 import { Story } from '@storybook/react';
+import { MetaDataFormatted } from '../source/types';
 
 export default {
 	title: 'Components/GetAllTribes',
@@ -22,4 +23,15 @@ const Template: Story = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {};
+Demo.args = {
+	tribeOne: {
+		name: 'Knight',
+		id: 1,
+		imageUrl: 'https://picsum.photos/200'
+	},
+	tribeTwo: {
+		name: 'Mage',
+		id: 2,
+		imageUrl: 'https://picsum.photos/200'
+	},
+};

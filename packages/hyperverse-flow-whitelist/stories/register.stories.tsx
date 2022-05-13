@@ -1,4 +1,4 @@
-import { Register } from './createWhitelist';
+import { Register } from './register';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/register.mdx';

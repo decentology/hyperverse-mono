@@ -15,7 +15,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<TransferNFT {...args} />
+		<TransferNFT {...args} />;
 	</HyperverseProvider>
 );
 
@@ -23,6 +23,6 @@ export const Demo = Template.bind({});
 
 Demo.args = {
 	tenantId: '',
-    recipient: '',
-    withdrawID: null
+	recipient: '',
+	withdrawID: null,
 };

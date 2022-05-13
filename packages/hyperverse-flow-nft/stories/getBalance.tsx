@@ -2,9 +2,9 @@ import * as PropTypes from 'prop-types';
 import './button.css';
 import { useNFT } from '../source';
 
-export const GetBalance = ({ ...props }) => {
+export const GetBalance = ({ tenantId, account, ...props }) => {
 	const { getBalance } = useNFT();
-    const { balance } = getBalance();
+    const { balance } = getBalance(tenantId, account);
 
 	return (
         <div className="Balance">

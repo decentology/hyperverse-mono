@@ -20,6 +20,7 @@ const Template = (args) => (
 );
 
 export const Demo = Template.bind({});
+
 Demo.args = {
-	account: '',
+	account: 'kendylAccount'
 };

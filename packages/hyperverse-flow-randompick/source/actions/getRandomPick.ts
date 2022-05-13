@@ -3,7 +3,6 @@ const t = require('@onflow/types');
 
 async function getRandomPick(values: any[]) {
     try {
-        console.log(values);
         const randomPick = await fcl.send([
             fcl.script`
             import RandomPick from 0xRandomPick

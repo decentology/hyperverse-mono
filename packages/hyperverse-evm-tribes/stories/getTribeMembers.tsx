@@ -8,7 +8,7 @@ export const GetTribeMembers = ({ ...props }) => {
 	const [data, setData] = useState(null);
 	useEffect(() => {
 		return () => {
-			tribes.getTribeMembers().then(setData);
+			tribes.getTribeMembers(5).then(setData);
 		};
 	}, []);
 
@@ -19,8 +19,6 @@ export const GetTribeMembers = ({ ...props }) => {
 	);
 };
 
-GetTribeMembers.propTypes = {
-	tribeId: PropTypes.number.isRequired,
-};
+GetTribeMembers.propTypes = {};
 
 GetTribeMembers.defaultProps = {};

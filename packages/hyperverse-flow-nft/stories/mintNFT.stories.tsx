@@ -23,8 +23,8 @@ export const Demo = Template.bind({});
 
 Demo.args = {
 	recipient: '',
-    name: '',
-    description: '',
-    thumbnail: '',
-    metadata: null
+	name: '',
+	description: '',
+	thumbnail: '',
+	metadata: null,
 };

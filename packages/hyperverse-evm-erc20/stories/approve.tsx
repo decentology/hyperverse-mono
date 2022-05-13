@@ -8,9 +8,9 @@ export const Approve = ({ ...props }) => {
 	const { mutate } = Approve();
 
 	return (
-		// <div className="allowance">
-		// 	Allowance: <b>{allowance}</b>
-		// </div>
+		<div className="allowance">
+			{/* Allowance: <b>{allowance}</b> */}
+		</div>
 	);
 };
 

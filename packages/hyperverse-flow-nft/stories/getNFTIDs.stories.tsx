@@ -17,11 +17,11 @@ const Template = (args) => (
 	<HyperverseProvider>
 		<GetNFTID {...args} />
 	</HyperverseProvider>
-);
+)
 
 export const Demo = Template.bind({});
 
 Demo.args = {
 	tenantId: '',
-    account: null
+	account: null,
 };

@@ -1,5 +1,4 @@
-import * as PropTypes from 'prop-types';
-import './button.css';
+import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
 import { useCallback, useRef } from 'react';

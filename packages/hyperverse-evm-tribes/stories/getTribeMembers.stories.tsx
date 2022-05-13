@@ -1,7 +1,7 @@
 import { GetTribeMembers } from './getTribeMembers';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/tribeMembers.mdx';
+import { Doc } from '../docs/getTribeMembers.mdx';
 
 export default {
 	title: 'Components/GetTribeMembers',
@@ -20,6 +20,5 @@ const Template = (args) => (
 );
 
 export const Demo = Template.bind({});
-Demo.args = {
-	tribeId: 1
-};
+
+Demo.args = {};

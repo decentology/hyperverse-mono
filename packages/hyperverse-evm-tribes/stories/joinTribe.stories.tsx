@@ -19,9 +19,6 @@ const Template = (args) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const JoinTribeDemo = Template.bind({});
 
-Demo.args = {
-    knightId: 1,
-    mageId: 2
-};
+JoinTribeDemo.args = {};

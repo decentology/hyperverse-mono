@@ -5,10 +5,15 @@ import { MetaDataFormatted } from '../source/types';
 
 export const GetTribe = ({ ...props }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState<MetaDataFormatted | null>(null);
+	const [data, setData] = useState(null);
+
 	useEffect(() => {
+		console.log(props.id)
 		if (tribes.getTribe) {
+			console.log('in the if')
 			tribes.getTribe(props.id).then(setData);
+			console.log('props', props.id);
+			console.log('data', data);
 		}
 	}, [tribes.getTribe]);
 

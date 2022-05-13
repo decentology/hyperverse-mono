@@ -21,6 +21,4 @@ const Template: Story = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-	account: null,
-};
+Demo.args = {};

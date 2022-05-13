@@ -1,20 +1,20 @@
 import * as PropTypes from 'prop-types';
-import './button.css';
 import { useTribes } from '../source';
 
-export const GetAllTribes = ({ ...props }) => {
+export const GetAllTribes = ({ tenantId, ...props }) => {
+	console.log('this is the tenant id', tenantId)
 	const { getAllTribes } = useTribes();
-    const { allTribes } = getAllTribes();
+	const { data: allTribes } = getAllTribes(tenantId);
 
 	return (
-        <div className="allTribes">
-            All Tribes: <b>{allTribes}</b>
-        </div>
-);
+		<div className="allTribes">
+			All Tribes: <b>{allTribes}</b>
+		</div>
+	);
 };
 
 GetAllTribes.propTypes = {
-    tenantId: PropTypes.string.isRequired
+	tenantId: PropTypes.string.isRequired,
 };
 
 GetAllTribes.defaultProps = {};

@@ -7,11 +7,20 @@ import { useState, useEffect } from 'react';
 export const GetTribeId = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState(null);
+
+	/**
+	 * Error: network does not support ENS
+	 * Stuck at contract call? (line 55)
+	 */
 	useEffect(() => {
-		return () => {
-			tribes.getTribeId().then(setData);
-		};
-	}, [])
+		if (tribes.getTribeId) {
+			console.log(props.account)
+			tribes.getTribeId(props.account).then(setData);
+			console.log(props.account)
+			console.log('this is the data', data)
+		}
+	}, [tribes.getTribeId])
+	console.log(data)
 
 	return (
 		<div className="tribe">
@@ -21,7 +30,7 @@ export const GetTribeId = ({ ...props }) => {
 };
 
 GetTribeId.propTypes = {
-	account: PropTypes.string.isRequired,
+	account: PropTypes.string.isRequired
 };
 
 GetTribeId.defaultProps = {};
