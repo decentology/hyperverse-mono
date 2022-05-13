@@ -1,4 +1,4 @@
-import { SkynetStorageLibrary } from '@decentology/hyperverse-storage-skynet';
+import { IpfsStorageLibrary } from '@decentology/hyperverse-storage-ipfs';
 import Storage from './constants/storage';
 import { Hyperverse, HyperverseConfig, StorageOptions } from './types';
 
@@ -22,7 +22,7 @@ function setupStorage(options: Storage | StorageOptions) {
 		storageOptions?.name === undefined ||
 		storageOptions?.name === Storage.Skynet
 	) {
-		return new SkynetStorageLibrary(
+		return IpfsStorageLibrary(
 			storageOptions?.options?.clientUrl
 				? { clientUrl: storageOptions.options.clientUrl }
 				: undefined

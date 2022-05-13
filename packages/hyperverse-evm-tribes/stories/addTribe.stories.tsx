@@ -7,6 +7,11 @@ import { within, userEvent } from '@storybook/testing-library';
 export default {
 	title: 'Components/AddTribe',
 	component: AddTribe,
+	argTypes: {
+		image: { control: { type: 'file', accept: '.png' } },
+		name: { control: { type: 'text' } },
+		description: { control: { type: 'text' } },
+	},
 	parameters: {
 		docs: {
 			page: Doc,
@@ -33,3 +38,5 @@ Demo.play = async ({ canvasElement }) => {
 	});
 	await userEvent.click(canvas.getByRole('button'));
 };
+
+Demo.args = {};

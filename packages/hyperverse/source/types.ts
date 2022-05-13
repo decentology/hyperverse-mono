@@ -4,6 +4,7 @@ import { Blockchain, BlockchainEvm } from './constants/blockchains';
 import { Network, NetworkConfig } from './constants/networks';
 import Storage from './constants/storage';
 import { SkynetStorageLibrary } from '@decentology/hyperverse-storage-skynet';
+import { IpfsStorageLibrary  } from '@decentology/hyperverse-storage-ipfs';
 type Exact<A, B> = A extends B ? (B extends A ? A : never) : never;
 
 export function makeHyperverseBlockchain<T extends HyperverseBlockchain<unknown>>(payload: T): T {
@@ -38,7 +39,7 @@ export type Hyperverse = {
 
 export type HyperverseConfig = {
 	network: NetworkConfig;
-	storage?: SkynetStorageLibrary;
+	storage?: ReturnType<typeof IpfsStorageLibrary> | SkynetStorageLibrary;
 } & Omit<Hyperverse, 'network' | 'storage'>;
 
 export type HyperverseModuleBase = {
@@ -85,4 +86,5 @@ export interface IHyperverseStorage {
 
 export type StorageProps = {
 	clientUrl: string | undefined;
+	resolveUrl?: string
 };

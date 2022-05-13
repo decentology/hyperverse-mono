@@ -33,13 +33,13 @@ export async function TribesLibraryInternal(
 
 	const formatTribeResultFromTribeId = async (tribeId: number) => {
 		try {
-			const txn = await base.proxyContract.getTribeData(tribeId);
+			const txn = await base.proxyContract?.getTribeData(tribeId);
 			const link = txn.replace('sia:', '');
-			const resp = await fetch(`${hyperverse!.storage!.clientUrl}/${link}`);
+			const resp = await fetch(hyperverse!.storage!.getLink(link));
 			if (resp.ok) {
 				const json = await resp.json()
 				json.id = tribeId;
-				json.imageUrl = `${hyperverse!.storage!.clientUrl}/${json.image.replace('sia:', '')}`;
+				json.imageUrl = hyperverse!.storage!.getLink(json.image);
 				return json as MetaDataFormatted;
 			}
 			throw new Error("Unable to format tribes document")
@@ -135,7 +135,7 @@ export async function TribesLibraryInternal(
 
 	const addTribe = async ({ metadata, image }: { metadata: Omit<MetaData, 'image'>, image: File }) => {
 		try {
-			const { skylink: imageLink } = await hyperverse!.storage!.uploadFile(image);
+			const {  } = await hyperverse.storage.uploadFile(image);
 			const fullMetaData: MetaData = {
 				...metadata,
 				image: imageLink

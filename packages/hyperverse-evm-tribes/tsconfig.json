@@ -4,6 +4,7 @@
 	"exclude": ["distribution", "node_modules"],
 	"compilerOptions": {
 		"resolveJsonModule": true,
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+		"composite": false
 	}
 }

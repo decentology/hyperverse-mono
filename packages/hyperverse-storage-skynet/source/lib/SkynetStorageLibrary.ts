@@ -1,5 +1,5 @@
 import { SkynetClient } from "skynet-js";
-
+import { StorageProps } from '@decentology/hyperverse'
 export class SkynetStorageLibrary extends SkynetClient {
 	client: SkynetClient;
 	clientUrl: string | undefined;
@@ -10,7 +10,7 @@ export class SkynetStorageLibrary extends SkynetClient {
 		this.client = new SkynetClient(clientUrl);
 		Object.assign(this, this.client)
 	}
-	getLink(siaLink: string) { 
+	getLink(siaLink: string) {
 		return `${this.client.portalUrl}/${siaLink.replace('sia:', '')}`;
 	}
 }

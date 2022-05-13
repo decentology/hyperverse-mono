@@ -17,7 +17,7 @@ export async function EvmLibraryBase(
 	contractABI: ContractInterface,
 	providerOrSigner: ethers.providers.Provider | ethers.Signer
 ) {
-
+	let error: Error | string | null = null;
 	let signer: ethers.Signer | undefined;
 	if (providerOrSigner instanceof ethers.providers.Web3Provider) {
 		signer = providerOrSigner.getSigner();
@@ -48,26 +48,25 @@ export async function EvmLibraryBase(
 		}
 	}
 
-	let proxyAddress: string
+	let proxyAddress: string | null = null;
 	let proxyContract: Contract | undefined;
 	try {
 		proxyAddress = await factoryContract.getProxy(tenantId);
 	} catch (error) {
-		console.log(error)
-		throw new Error(`Failed to get proxy address for tenant ${tenantId}`);
+		error = new Error(`Failed to get proxy address for tenant ${tenantId}`);
 	}
 
 	if (proxyAddress === ethers.constants.AddressZero) {
 		throw new Error('Tenant ID is not registered');
 	}
-	proxyContract = new ethers.Contract(
-		proxyAddress,
-		contractABI,
-		signer || providerOrSigner
-	) as Contract;
 
-
-
+	if (proxyAddress != null) {
+		proxyContract = new ethers.Contract(
+			proxyAddress,
+			contractABI,
+			signer || providerOrSigner
+		) as Contract
+	};
 
 	const checkInstance = async (account: any) => {
 		try {
@@ -110,6 +109,7 @@ export async function EvmLibraryBase(
 	};
 
 	return {
+		error,
 		setProvider,
 		checkInstance,
 		createInstance,

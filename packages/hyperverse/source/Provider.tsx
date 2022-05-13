@@ -30,20 +30,25 @@ export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, ini
 
 	return (
 		<HyperverseContainer.Provider initialState={initialState}>
-			<IPFSProvider
-				initialState={
-					typeof initialState.storage === 'object'
-						? { ...initialState.storage }
-						: undefined
-				}
-			>
-				{initialState.blockchain &&
-				initialState.options?.disableProviderAutoInit !== true ? (
-					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
-				) : (
-					children
-				)}
-			</IPFSProvider>
+			{initialState.options?.disableProviderAutoInit !== true ? (
+				<IPFSProvider
+					initialState={
+						typeof initialState.storage === 'object'
+							? { ...initialState.storage }
+							: undefined
+					}
+				>
+					{initialState.blockchain ? (
+						<initialState.blockchain.Provider>
+							{children}
+						</initialState.blockchain.Provider>
+					) : (
+						children
+					)}
+				</IPFSProvider>
+			) : (
+				children
+			)}
 		</HyperverseContainer.Provider>
 	);
 };
