@@ -4,7 +4,7 @@ import { useEvm } from '@decentology/hyperverse-evm/source';
 import { useCallback, useRef } from 'react';
 export const AddTribe = ({ ...props }) => {
 	const { addTribe, error } = useTribes();
-	const { address, connect } = useEvm();
+	const { address, Connect } = useEvm();
 	const imageRef = useRef(null);
 
 	const uploadFile = useCallback(async () => {
@@ -33,14 +33,18 @@ export const AddTribe = ({ ...props }) => {
 				style={{ display: 'none' }}
 				src={require('./assets/mage card.png')}
 			/>
-			<button
-				type="button"
-				className={['storybook-button', `storybook-button--large`].join(' ')}
-				style={{ color: 'blue' }}
-				onClick={address ? uploadFile : connect}
-			>
-				{address ? 'Add Tribe' : 'Connect'}
-			</button>
+			{address ? (
+				<button
+					type="button"
+					className={['storybook-button', `storybook-button--large`].join(' ')}
+					style={{ color: 'blue' }}
+					onClick={uploadFile}
+				>
+					Add Tribe
+				</button>
+			) : (
+				<Connect />
+			)}
 		</>
 	);
 };
