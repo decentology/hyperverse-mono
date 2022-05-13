@@ -33,8 +33,7 @@ export async function TribesLibraryInternal(
 
 	const formatTribeResultFromTribeId = async (tribeId: number) => {
 		try {
-			const txn = await base.proxyContract?.getTribeData(tribeId);
-			const link = txn.replace('sia:', '');
+			const link = await base.proxyContract?.getTribeData(tribeId);
 			const resp = await fetch(hyperverse!.storage!.getLink(link));
 			if (resp.ok) {
 				const json = await resp.json()
@@ -144,7 +143,7 @@ export async function TribesLibraryInternal(
 			const metadataFileLink = await hyperverse!.storage!.uploadFile(
 				metadataFile
 			);
-
+			console.log(base.proxyContract);
 			const addTxn = await base.proxyContract?.addNewTribe(metadataFileLink);
 			return addTxn.wait() as TransactionReceipt;
 		} catch (err) {
@@ -165,15 +164,4 @@ export async function TribesLibraryInternal(
 		addTribe,
 	};
 }
-
-// export type LibFn<Value, Args extends any> = (args: Args) => Value;
-function depsReady<Value, State extends any>(callback: (args: State) => Promise<Value>) {
-	// check deps
-	return async (...args: Parameters<typeof callback>) => {
-		const result = callback(...args);
-		// return Promise.resolve(result);
-		return result;
-	};
-}
-
 

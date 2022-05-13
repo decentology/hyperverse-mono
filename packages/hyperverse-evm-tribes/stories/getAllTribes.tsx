@@ -8,14 +8,15 @@ export const GetAllTribes = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState<MetaDataFormatted[] | null>(null);
 	useEffect(() => {
-		if(tribes.getAllTribes) {
+		if (tribes.getAllTribes) {
 			tribes.getAllTribes().then(setData);
 		}
 	}, [tribes.getAllTribes]);
 
 	return (
 		<div className="tribes">
-			All Tribes: <b>{data}</b>
+			<div>All Tribes: </div>
+			<pre>{JSON.stringify(data, null, 2)}</pre>
 		</div>
 	);
 };
