@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 const TribesPage = () => {
 	const router = useRouter();
-	const { address: account } = useEthereum();
+	const { account } = useEthereum();
 	const tribes = useTribes();
 	const {
 		data,
@@ -46,6 +46,7 @@ const TribesPage = () => {
 	return (
 		<main>
 			<Nav />
+			<button className={styles.join} onClick={() => mutate()}>Leave</button>
 			{isLoading ? (
 				<Loader loaderMessage="Processing..." />
 			) : account && !tribeErr && data ? (

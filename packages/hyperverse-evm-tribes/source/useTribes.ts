@@ -7,16 +7,15 @@ import { useHyperverse } from '@decentology/hyperverse';
 
 function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { connectedProvider, readOnlyProvider } = useEvm();
+	const { readOnlyProvider, signer } = useEvm();
 	const hyperverse = useHyperverse();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
+
 	useEffect(() => {
-		const lib = TribesLibrary(hyperverse, connectedProvider || readOnlyProvider).then(
-			setTribesLibrary
-		);
+		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary)
 		return lib.cancel;
-	}, [connectedProvider]);
+	}, [signer, readOnlyProvider])
 
 	const useTribeEvents = (eventName: string, callback: any) => {
 		return useEvent(

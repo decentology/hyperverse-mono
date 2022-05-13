@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { toast } from 'react-toastify';
 
+
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
 	if (postCharLength) {
@@ -18,8 +19,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 const Nav = () => {
-	const { ens, address, disconnect, connect, error } = useEthereum();
-
+	const { Connect, error } = useEthereum();
 	useEffect(() => {
 		if (error) {
 			toast.warn(error.message, {
@@ -40,15 +40,9 @@ const Nav = () => {
 					</a>
 				</Link>
 
-				{!address ? (
-					<button className={styles.connect} onClick={connect}>
-						Connect Wallet
-					</button>
-				) : (
-					<button className={styles.logout} onClick={disconnect}>
-						<span>{ens || shortenHash(address, 5, 5)}</span>
-					</button>
-				)}
+			<Connect accountStatus={'full'}/>
+			{/* {connect({accountStatus:"full"})} */}
+		
 			</div>
 		</nav>
 	);

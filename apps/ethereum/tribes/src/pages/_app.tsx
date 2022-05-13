@@ -28,13 +28,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 			},
 		],
 	});
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Provider initialState={hyperverse}>
-				<InnerComponent>
-					<ToastContainer />
-					<Component {...pageProps} />
-				</InnerComponent>
+					<InnerComponent>
+						<ToastContainer />
+						<Component {...pageProps} />
+					</InnerComponent>
 			</Provider>
 		</QueryClientProvider>
 	);

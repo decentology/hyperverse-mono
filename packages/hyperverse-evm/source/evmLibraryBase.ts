@@ -9,7 +9,6 @@ export const getProvider = (network: NetworkConfig) => {
 };
 
 export async function EvmLibraryBase(
-
 	moduleName: string,
 	hyperverse: HyperverseConfig,
 	factoryAddress: string,
@@ -26,7 +25,7 @@ export async function EvmLibraryBase(
 	let factoryContract = new ethers.Contract(
 		factoryAddress!,
 		factoryABI,
-		signer || providerOrSigner
+		providerOrSigner,
 	) as Contract;
 	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === moduleName)?.tenantId;
 	if (!tenantId) {
@@ -37,19 +36,20 @@ export async function EvmLibraryBase(
 		factoryContract = new ethers.Contract(
 			factoryAddress!,
 			factoryABI,
-			signer || provider
+			provider
 		) as Contract;
 		if (proxyContract) {
 			proxyContract = new ethers.Contract(
 				proxyContract.address,
 				contractABI,
-				signer || provider
+				provider
 			) as Contract;
 		}
 	}
 
 	let proxyAddress: string | null = null;
 	let proxyContract: Contract | undefined;
+
 	try {
 		proxyAddress = await factoryContract.getProxy(tenantId);
 	} catch (error) {

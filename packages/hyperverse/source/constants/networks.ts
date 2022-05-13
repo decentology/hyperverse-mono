@@ -5,10 +5,11 @@ export enum Network {
 
 export type NetworkConfig = {
 	type: Network,
-	networkUrl?: string;
 	name?: string;
+	networkUrl?: string;
 	chainId?: number;
-	explorerUrl?: string;
+	blockExplorer?: string;
+	providerId?: string;
 	[key: string]: any;
 
 }

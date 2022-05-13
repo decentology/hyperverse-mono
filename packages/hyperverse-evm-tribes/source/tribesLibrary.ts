@@ -15,6 +15,7 @@ export async function TribesLibraryInternal(
 	hyperverse: HyperverseConfig,
 	providerOrSigner?: ethers.providers.Provider | ethers.Signer
 ) {
+
 	const { FactoryABI, factoryAddress, ContractABI } = getEnvironment(
 		hyperverse.blockchain?.name!,
 		hyperverse.network
