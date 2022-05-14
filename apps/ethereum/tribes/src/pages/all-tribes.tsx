@@ -45,7 +45,6 @@ const AllTribes = () => {
 	return (
 		<main>
 			<Nav />
-			<button className={styles.join} onClick={() => mutate(1)}>Join</button>
 			{isLoading ? (
 				<Loader loaderMessage="processing..." />
 				) : (

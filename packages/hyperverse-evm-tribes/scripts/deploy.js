@@ -29,10 +29,19 @@ const main = async () => {
 
 	// Setup Default Tenant
 	let proxyAddress = constants.AddressZero;
-	await tribesFactory.createInstance(deployer.address);
+	const instanceTnx = await tribesFactory.createInstance(deployer.address);
+	instanceTnx.wait();
+	console.log('Instance Created', instanceTnx.hash);
 	while (proxyAddress === constants.AddressZero) {
-		proxyAddress = await tribesFactory.getProxy(deployer.address);
+		try {
+			proxyAddress = await tribesFactory.getProxy(deployer.address);
+		} catch (error) {
+			proxyAddress = constants.AddressZero;
+		}
 	}
+
+	//delay promise timeout
+	
 	const tribesProxy = await Tribes.attach(proxyAddress);
 	console.log('Proxy Contract', tribesProxy.address);
 	await tribesProxy.addNewTribe('Qmd2bbrCVzGF7Wzrurqcz4TrSVerov7e1BB1TuUkr9kcJ2');
