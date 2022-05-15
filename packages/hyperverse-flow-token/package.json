@@ -29,15 +29,15 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "workspace:^",
-		"@decentology/hyperverse-flow": "workspace:^",
-		"@decentology/unstated-next": "workspace:^",
+		"@decentology/hyperverse": "^1",
+		"@decentology/hyperverse-flow": "^1",
+		"@decentology/unstated-next": "^1",
 		"@onflow/fcl": "^0.0.78",
 		"@onflow/types": "^0.0.6"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.9",
-		"@decentology/config": "workspace:^",
+		"@decentology/config": "^1",
 		"@storybook/addon-actions": "^6.4.20",
 		"@storybook/addon-essentials": "^6.4.20",
 		"@storybook/addon-interactions": "^6.4.20",

@@ -33,9 +33,9 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "workspace:^",
-		"@decentology/hyperverse-ethereum": "workspace:^",
-		"@decentology/unstated-next": "workspace:^",
+		"@decentology/hyperverse": "^1",
+		"@decentology/hyperverse-ethereum": "^1",
+		"@decentology/unstated-next": "^1",
 		"dotenv": "^16.0.0",
 		"ethers": "^5.5.3",
 		"react-query": "^3.34.7",
@@ -43,7 +43,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.8",
-		"@decentology/config": "workspace:^",
+		"@decentology/config": "^1",
 		"@nomiclabs/hardhat-ethers": "^2.0.4",
 		"@nomiclabs/hardhat-waffle": "^2.0.2",
 		"@storybook/addon-actions": "^6.4.20",
