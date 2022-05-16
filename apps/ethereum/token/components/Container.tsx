@@ -72,7 +72,7 @@ const Container = () => {
 			<h3>Token Factory Functions</h3>
 			<Section>
 				<CreateInstance />
-				{/* <GetProxy /> */}
+				<GetProxy />
 			</Section>
 
 			<h3>Token Functions</h3>
@@ -86,16 +86,16 @@ const Container = () => {
 						buttonText={item.buttonText}
 					/>
 				))}
-				{/* <BalanceOf />
+				<BalanceOf />
 				<Transfer />
 				<TransferFrom />
 				<Approve />
-				<Allowance /> */}
+				<Allowance />
 			</Section>
 
 			<h3>Tenant Owner Functions</h3>
 			<Section>
-				{/* <Mint /> */}
+				<Mint />
 			</Section>
 		</Box>
 	);
