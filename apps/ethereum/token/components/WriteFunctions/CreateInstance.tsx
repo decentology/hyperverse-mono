@@ -19,24 +19,28 @@ const CreateInstance = () => {
 	const { address } = useEthereum();
 	const erc20 = useERC20();
 	const { data: instance } = useQuery('instance', () => erc20.checkInstance!(address));
-	useMutation('createInstance', erc20.createTokenInstance);
+
+	const {
+		mutate,
+		isLoading,
+	} = useMutation('createTokenInstance', erc20.createTokenInstance);
 
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
 	const [tokenDecimals, setTokenDecimals] = useState(0);
 
-	// const createNewInstance = async () => {
-	// 	try {
-	// 		mutate({
-	// 			account: address!,
-	// 			name: tokenName,
-	// 			symbol: tokenSymbol,
-	// 			decimal: tokenDecimals
-	// 		});
-	// 	} catch (error) {
-	// 		throw error;
-	// 	}
-	// };
+	const createNewInstance = async () => {
+		try {
+			mutate({
+				account: address!,
+				name: tokenName,
+				symbol: tokenSymbol,
+				decimal: tokenDecimals
+			});
+		} catch (error) {
+			throw error;
+		}
+	};
 
 	return (
 		<Box>
