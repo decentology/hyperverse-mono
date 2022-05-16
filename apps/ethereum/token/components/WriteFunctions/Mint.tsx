@@ -12,20 +12,22 @@ import {
 	Content,
 	Button,
 } from '../ComponentStyles';
+import { useMutation } from 'react-query';
 
 const Mint = () => {
 	const { address } = useEthereum();
-	const { Mint } = useERC20();
-	const { mutate, isLoading } = Mint();
+	
+	const erc20 = useERC20();
+	const {
+		mutate,
+		isLoading,
+	} = useMutation('mint', erc20.mint);
+
 	const [amount, setAmount] = useState(0);
 
 	const mint = async () => {
 		try {
-			const instanceData = {
-				amount: amount,
-			};
-
-			mutate(instanceData);
+			mutate(amount);
 		} catch (error) {
 			throw error;
 		}

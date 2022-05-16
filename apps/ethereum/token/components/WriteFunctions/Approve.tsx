@@ -2,6 +2,7 @@ import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+import { useMutation } from 'react-query';
 import {
 	Box,
 	Item,
@@ -15,10 +16,16 @@ import {
 
 const Approve = () => {
 	const { address } = useEthereum();
-	const { Approve } = useERC20();
-	const { mutate, isLoading} = Approve();
 	const [spender, setSpender] = useState('');
 	const [amount, setAmount] = useState(0);
+	
+	const erc20 = useERC20();
+	const {
+		mutate,
+		isLoading,
+	} = useMutation('approve', erc20.approve);
+
+
 
 	const approve = async () => {
 		try {

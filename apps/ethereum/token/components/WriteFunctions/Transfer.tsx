@@ -13,21 +13,27 @@ import {
 	Content,
 	Button,
 } from '../ComponentStyles';
+import { useMutation } from 'react-query';
 
 const Transfer = () => {
 	const { address } = useEthereum();
-	const { Transfer } = useERC20();
-	const { mutate, error, isLoading } = Transfer();
-	const [receiver, setReceiver] = useState('');
+	const erc20 = useERC20();
+	const {
+		mutate,
+		isLoading,
+		error
+	} = useMutation('transfer', erc20.transfer);
+
+	const [receiver, setReceiver] = useState<string>('');
 	const [amount, setAmount] = useState(0);
 
 	const [err, setErr] = useState('');
 
 	const transfer = async () => {
 		try {
-			const instanceData = {
+			const instanceData : {to:string, amount:number} = {
 				to: receiver,
-				value: amount,
+				amount: amount,
 			};
 
 			mutate(instanceData);

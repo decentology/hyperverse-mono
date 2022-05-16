@@ -60,7 +60,7 @@ export async function ERC20LibraryInternal(
     }
 	};
 
-  const transfer = async (to: string, amount: number) => {
+  const transfer = async ({to, amount} : {to: string, amount: number}) => {
     try {
       const transferTxn = await base.proxyContract?.transfer(to, amount);
       return transferTxn.wait() as TransactionReceipt
@@ -69,7 +69,7 @@ export async function ERC20LibraryInternal(
     }
   }
 
-  const transferFrom = async (from: string, to: string, amount: number) => {
+  const transferFrom = async ({from, to, amount}:{from: string, to: string, amount: number}) => {
     try {
       const transferTxn = await base.proxyContract?.transferFrom(from, to, amount);
       return transferTxn.wait() as TransactionReceipt
@@ -87,7 +87,7 @@ export async function ERC20LibraryInternal(
     }
   }
 
-  const approve = async (spender: string, amount: number) => {
+  const approve = async ({spender, amount} : {spender: string, amount: number}) => {
     try {
       const approveTxn = await base.proxyContract?.approve(spender, amount);
       return approveTxn.wait() as TransactionReceipt
