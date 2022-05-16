@@ -9,6 +9,7 @@ function EthereumState() {
 }
 
 export const Ethereum = createContainer(EthereumState);
+
 export const Provider = Ethereum.Provider;
 export function useEthereum() {
 	return useContainer(Ethereum);

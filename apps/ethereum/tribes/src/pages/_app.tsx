@@ -17,9 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: Ethereum,
 		network: Network.Testnet,
-		storage: {
-			options: { clientUrl: 'https://fileportal.org' }, // Updated to fileportal due to SSL error issues with SiaSky.net
-		},
 		modules: [
 			{
 				bundle: Tribes,
@@ -31,13 +28,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 			},
 		],
 	});
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Provider initialState={hyperverse}>
-				<InnerComponent>
-					<ToastContainer />
-					<Component {...pageProps} />
-				</InnerComponent>
+					<InnerComponent>
+						<ToastContainer />
+						<Component {...pageProps} />
+					</InnerComponent>
 			</Provider>
 		</QueryClientProvider>
 	);

@@ -35,3 +35,5 @@ yarn-error.log*
 apps/hyperverse.dev
 .idea
 yarn.lock
+pnpm-lock.yaml
+.vscode/settings.json

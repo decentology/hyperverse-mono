@@ -1,6 +1,6 @@
 enum Storage {
 	Skynet = 'skynet',
-	Filecoin = 'filecoin',
+	Ipfs = 'ipfs',
 }
 
 export default Storage;

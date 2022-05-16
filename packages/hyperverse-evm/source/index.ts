@@ -1,8 +1,9 @@
-export * from '@decentology/web3modal';
-import { Provider, useEvm, Evm } from './useEVM';
+import { useEvm } from './useEVM';
+import { Provider, ProviderProps, lightTheme, darkTheme } from './Provider'
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
 import { getProvider } from './evmLibraryBase';
 export { EvmLibraryBase } from './evmLibraryBase';
+
 
 const Networks = {
 	[Network.Mainnet]: {
@@ -22,6 +23,7 @@ const Networks = {
 const getNetwork = (network: Network) => {
 	return Networks[network]
 }
+
 export const Ethereum = makeHyperverseBlockchain({
 	name: Blockchain.Ethereum,
 	Provider: Provider,
@@ -34,4 +36,5 @@ export const Localhost = makeHyperverseBlockchain({
 	getNetwork
 });
 
-export { Provider, useEvm, Evm, getProvider };
+export type { ProviderProps }
+export { Provider, useEvm, getProvider, lightTheme, darkTheme };

@@ -1,5 +1,21 @@
 {
-	"extends": "@decentology/config/react-library.json",
-	"include": ["source/**/*.ts", "source/**/*.tsx", "**/*.json", "**.*.mdx"],
-	"exclude": ["distribution", "node_modules"]
+  "extends": "@decentology/config/react-library.json",
+  "include": [
+    "source/**/*.ts",
+    "source/**/*.tsx",
+    "**/*.json",
+    "**.*.mdx"
+  ],
+  "exclude": [
+    "distribution",
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "jsx": "preserve"
+  }
 }

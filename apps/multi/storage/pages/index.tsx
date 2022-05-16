@@ -45,7 +45,7 @@ const Home: NextPage = () => {
 					</div>
 					<div>
 						<Image
-							src={getLink('QmPyzeGXqVYCUg5mMyw7YeiNv3njkYhBaKXvL3dxRZ1Ln4')}
+							src={getLink('QmQvatqwphGBXEkQVXSDLuFXtwNgEKWZbEeMahsFEv4rj7')}
 							alt="My image"
 							width="200"
 							height="200"

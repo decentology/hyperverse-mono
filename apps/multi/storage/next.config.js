@@ -11,6 +11,6 @@ const withTM = require('next-transpile-modules')([
 module.exports = withTM({
 	reactStrictMode: true,
 	images: {
-		domains: ['ipfs.infura.io', 'cloudflare-ipfs.com'],
+		domains: ['ipfs.infura.io', 'cloudflare-ipfs.com', 'hyperverse.infura-ipfs.io'],
 	},
 });

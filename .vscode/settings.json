@@ -1,18 +1,5 @@
 {
 	"cSpell.words": ["Algodv", "Algorand", "algosdk", "Hyperverse", "walletconnect"],
 	"cSpell.enabled": false,
-	"typescript.tsserver.experimental.enableProjectDiagnostics": false,
-	"files.exclude": {
-		"**/.git": true,
-		"**/.svn": true,
-		"**/.hg": true,
-		"**/CVS": true,
-		"**/.DS_Store": true,
-		"**/Thumbs.db": true,
-		"**/node_modules": true,
-		"**/.turbo": true,
-		"**/cache": true,
-		"**/artifacts": true,
-		"**/distribution": true
-	}
+	"typescript.tsserver.experimental.enableProjectDiagnostics": false
 }

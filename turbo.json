@@ -15,7 +15,10 @@
     "dev": {
       "cache": false
     },
-    "clean": {
+	"deploy": {
+	  "cache": false
+	},
+	"clean": {
       "cache": false
     }
   }

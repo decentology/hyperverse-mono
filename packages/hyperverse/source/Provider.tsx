@@ -1,7 +1,7 @@
 import { createElement, FC, useEffect, useState } from 'react';
 import { Hyperverse, HyperverseConfig } from './types';
 import { HyperverseContainer } from './useHyperverse';
-import { Provider as SkyNetProvider } from '@decentology/hyperverse-storage-skynet';
+import { Provider as IPFSProvider } from '@decentology/hyperverse-storage-ipfs';
 
 export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, initialState }) => {
 	const [selectedBlockchain, setSelectedBlockchain] = useState<string | null>(
@@ -24,26 +24,30 @@ export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, ini
 			);
 		}
 	}
-
 	// TODO: Check storage configured through intirialize and set the correct provider
 	// IPFS vs Skynet
 
 	return (
 		<HyperverseContainer.Provider initialState={initialState}>
-			<SkyNetProvider
-				initialState={
-					typeof initialState.storage === 'object'
-						? { ...initialState.storage }
-						: undefined
-				}
-			>
-				{initialState.blockchain &&
-				initialState.options?.disableProviderAutoInit !== true ? (
-					<initialState.blockchain.Provider>{children}</initialState.blockchain.Provider>
-				) : (
-					children
-				)}
-			</SkyNetProvider>
+			{initialState.options?.disableProviderAutoInit !== true ? (
+				<IPFSProvider
+					initialState={
+						typeof initialState.storage === 'object'
+							? { ...initialState.storage }
+							: undefined
+					}
+				>
+					{initialState.blockchain ? (
+						<initialState.blockchain.Provider>
+							{children}
+						</initialState.blockchain.Provider>
+					) : (
+						children
+					)}
+				</IPFSProvider>
+			) : (
+				children
+			)}
 		</HyperverseContainer.Provider>
 	);
 };

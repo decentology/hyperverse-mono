@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm-tribes",
-	"version": "1.0.10",
+	"version": "1.0.14",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"module": "./distribution/index.es.js",
@@ -36,9 +36,9 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "workspace:*",
-		"@decentology/hyperverse-evm": "workspace:*",
-		"@decentology/unstated-next": "workspace:*",
+		"@decentology/hyperverse": "^1",
+		"@decentology/hyperverse-evm": "^1",
+		"@decentology/unstated-next": "^1",
 		"dotenv": "^16.0.0",
 		"ethers": "^5.6.2",
 		"hardhat": "^2.9.1",
@@ -47,7 +47,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.8",
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "^1",
 		"@ethersproject/abstract-provider": "^5.6.0",
 		"@nomiclabs/hardhat-ethers": "^2.0.4",
 		"@nomiclabs/hardhat-waffle": "^2.0.2",
@@ -69,6 +69,7 @@
 		"http-proxy-middleware": "^2.0.4",
 		"npm-run-all": "^4.1.5",
 		"parcel": "^2.2.1",
+		"prop-types": "^15.8.1",
 		"rimraf": "^3.0.2",
 		"storybook-react-context": "^0.6.0",
 		"wait-on": "^6.0.1"

@@ -1,5 +1,45 @@
 # @decentology/hyperverse-ethereum
 
+## 1.0.14
+
+### Patch Changes
+
+-   Version Bump
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.14
+    -   @decentology/hyperverse-evm@1.0.14
+    -   @decentology/unstated-next@1.1.8
+
+## 1.0.13
+
+### Patch Changes
+
+-   Fixed exports on publish
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.13
+    -   @decentology/hyperverse-evm@1.0.13
+    -   @decentology/unstated-next@1.1.7
+
+## 1.0.12
+
+### Patch Changes
+
+-   Package exports update
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.12
+    -   @decentology/hyperverse-evm@1.0.12
+    -   @decentology/unstated-next@1.1.6
+
+## 1.0.11
+
+### Patch Changes
+
+-   milestone update
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.11
+    -   @decentology/hyperverse-evm@1.0.11
+    -   @decentology/unstated-next@1.1.5
+
 ## 1.0.10
 
 ### Patch Changes

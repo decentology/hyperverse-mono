@@ -18,25 +18,10 @@ export const GetAllTribes = ({ tribeOne, tribeTwo, ...props }) => {
 	}, [tribes.getAllTribes]);
 
 	return (
-		<Styles>
-			<form>
-				<h1> TRIBES </h1>
-				<div id="block_container">
-					<div id="bloc1">
-						<label>
-							Knight Tribe Id: <b>{tribeOne.id}</b>
-						</label>
-						<img src={tribeOne.imageUrl} />
-					</div>
-					<div id="bloc2">
-						<label>
-							Mage Tribe Id: <b>{tribeTwo.id}</b>
-						</label>
-						<img src={tribeTwo.imageUrl} />
-					</div>
-				</div>
-			</form>
-		</Styles>
+		<div className="tribes">
+			<div>All Tribes: </div>
+			<pre>{JSON.stringify(data, null, 2)}</pre>
+		</div>
 	);
 };
 

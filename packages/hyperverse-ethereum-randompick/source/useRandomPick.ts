@@ -8,26 +8,18 @@ type ContractState = ethers.Contract;
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, connectedProvider, readOnlyProvider, } = useEthereum();
+	const { address, signer, readOnlyProvider, } = useEthereum();
 	const { ContractABI, contractAddress } = useEnvironment();
 	const [contract, setRandomPickContract] = useState<ContractState>(
 		new ethers.Contract(contractAddress!, ContractABI, readOnlyProvider) as ContractState
 	);
 
-	const setup = useCallback(async () => {
-		const signer = await connectedProvider?.getSigner();
+	useEffect(() => {
 		if (signer && contract) {
 			const ctr = contract.connect(signer) as ContractState;
 			setRandomPickContract(ctr);
 		}
-	}, [connectedProvider]);
-
-
-	useEffect(() => {
-		if (connectedProvider) {
-			setup();
-		}
-	}, [connectedProvider]);
+	}, [signer]);
 
 	const startRandomPick = useCallback(
 		async (numbers: Number[]) => {

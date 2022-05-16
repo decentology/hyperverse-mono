@@ -8,11 +8,6 @@ export const NewInstance = ({ ...props }) => {
 	const tribes = useTribes();
 	const { address, connect } = useEvm();
 
-	useEffect(() => {
-		return () => {
-			tribes.newInstance().then(mutate);
-		};
-	}, []);
 
 	return (
 		<button
@@ -22,7 +17,7 @@ export const NewInstance = ({ ...props }) => {
 			onClick={() => {
 				console.log('Calling mutate');
 				if (address) {
-					mutate({ account: address });
+					tribes.createInstance(address);
 				} else {
 					connect();
 				}

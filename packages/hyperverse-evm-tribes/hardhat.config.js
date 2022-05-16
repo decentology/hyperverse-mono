@@ -24,7 +24,9 @@ module.exports = {
 	solidity: '0.8.4',
 	defaultNetwork: 'hardhat',
 	networks: {
-		hardhat: {},
+		hardhat: {
+			chainId: 1337
+		},
 		ethereum: {
 			url: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
 			accounts,

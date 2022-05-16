@@ -5,6 +5,11 @@ import { HyperverseProvider } from './utils/Provider';
 export default {
 	title: 'Components/AddTribe',
 	component: AddTribe,
+	argTypes: {
+		image: { control: { type: 'file', accept: '.png' } },
+		name: { control: { type: 'text' } },
+		description: { control: { type: 'text' } },
+	},
 	parameters: {
 		layout: 'fullscreen',
 	},

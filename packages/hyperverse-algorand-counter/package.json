@@ -4,7 +4,7 @@
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
 	"type": "module",
-	"version": "1.0.11",
+	"version": "1.0.15",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -24,14 +24,14 @@
 		"react": "^17.0.2"
 	},
 	"devDependencies": {
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "^1",
 		"@types/react": "17.0.2",
 		"parcel": "^2.2.1",
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "workspace:*",
-		"@decentology/hyperverse-algorand": "workspace:*",
+		"@decentology/hyperverse": "^1",
+		"@decentology/hyperverse-algorand": "^1",
 		"algosdk": "^1.12.0"
 	}
 }

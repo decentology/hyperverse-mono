@@ -6,8 +6,8 @@
 	"exclude": ["node_modules"],
 	"compilerOptions": {
 		"lib": ["ES2017", "DOM"],
-		"module": "ES5",
-		"target": "ES5",
+		"module": "ES6",
+		"target": "ES6",
 		"rootDir": "../",
 		"preserveSymlinks": true,
 		"outDir": "distribution",

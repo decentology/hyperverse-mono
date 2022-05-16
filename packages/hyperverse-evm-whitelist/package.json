@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm-whitelist",
-	"version": "1.0.1",
+	"version": "2.0.3",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"module": "./distribution/index.es.js",
@@ -32,10 +32,10 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "workspace:*",
-		"@decentology/hyperverse-evm": "workspace:*",
-		"@decentology/hyperverse-evm-erc721": "workspace:*",
-		"@decentology/unstated-next": "workspace:*",
+		"@decentology/hyperverse": "^1",
+		"@decentology/hyperverse-evm": "^1",
+		"@decentology/hyperverse-evm-erc721": "^1",
+		"@decentology/unstated-next": "^1",
 		"@openzeppelin/contracts": "^4.4.2",
 		"dotenv": "^16.0.0",
 		"esbuild": "^0.14.27",
@@ -49,7 +49,7 @@
 		"skynet-js": "^4.0.23-beta"
 	},
 	"devDependencies": {
-		"@decentology/config": "workspace:*",
+		"@decentology/config": "^1",
 		"@nomiclabs/hardhat-ethers": "^2.0.4",
 		"@nomiclabs/hardhat-waffle": "^2.0.2",
 		"@types/react": "17.0.2",

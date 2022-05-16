@@ -1,15 +1,23 @@
-import { SkynetStorageLibrary } from '@decentology/hyperverse-storage-skynet';
+import { IpfsStorageLibrary } from '@decentology/hyperverse-storage-ipfs';
+import { NetworkConfig } from './constants/networks';
 import Storage from './constants/storage';
 import { Hyperverse, HyperverseConfig, StorageOptions } from './types';
 
 function initialize(options: Hyperverse) {
-	const network = typeof options.network === "string" ? (options.blockchain!.getNetwork!(
-		options.network
-	)) : options.network;
+	let network: NetworkConfig;
+	if (typeof options.network === 'string') {
+		if (options.blockchain?.getNetwork) {
+			network = options.blockchain.getNetwork(options.network);
+		} else {
+			network = { type: options.network };
+		}
+	} else {
+		network = options.network;
+	}
 	const hyperverseConfig: HyperverseConfig = {
 		...options,
 		storage: setupStorage(options.storage),
-		network
+		network,
 	};
 	return hyperverseConfig;
 }
@@ -20,12 +28,10 @@ function setupStorage(options: Storage | StorageOptions) {
 	if (
 		storageOptions === null ||
 		storageOptions?.name === undefined ||
-		storageOptions?.name === Storage.Skynet
+		storageOptions?.name === Storage.Ipfs
 	) {
-		return new SkynetStorageLibrary(
-			storageOptions?.options?.clientUrl
-				? { clientUrl: storageOptions.options.clientUrl }
-				: undefined
+		return IpfsStorageLibrary(
+			storageOptions?.options?.clientUrl ? { ...storageOptions.options } : undefined
 		);
 	}
 	return undefined;

@@ -12,7 +12,7 @@ import { useMutation, useQuery } from 'react-query';
 
 const AllTribes = () => {
 	const router = useRouter();
-	const { address } = useEthereum();
+	// const { account } = useEthereum();
 	const tribes = useTribes();
 	const { data, isLoading: allTribesLoading } = useQuery('tribes', () => tribes.getAllTribes!(), {
 		enabled: !tribes.loading,
@@ -23,6 +23,7 @@ const AllTribes = () => {
 		error,
 		isSuccess,
 	} = useMutation('joinTribe', tribes.joinTribe);
+	
 	useEffect(() => {
 		if (isSuccess) {
 			router.push('/my-tribe');
@@ -46,10 +47,11 @@ const AllTribes = () => {
 			<Nav />
 			{isLoading ? (
 				<Loader loaderMessage="processing..." />
-			) : (
-				<div className={styles.container}>
+				) : (
+					<div className={styles.container}>
 					<h1>Tribes</h1>
-					{address ? (
+					{
+					// account ? (
 						!data || data.length === 0 ? (
 							<>
 								<h5>There are currently no existing tribes.</h5>
@@ -73,9 +75,11 @@ const AllTribes = () => {
 								</div>
 							</>
 						)
-					) : (
-						<p className={styles.error}>Please connect your wallet to join a tribe.</p>
-					)}
+					// ) 
+					// : (
+					// 	<p className={styles.error}>Please connect your wallet to join a tribe.</p>
+					// )
+					}
 				</div>
 			)}
 		</main>

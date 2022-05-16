@@ -4,6 +4,7 @@ import { Blockchain, BlockchainEvm } from './constants/blockchains';
 import { Network, NetworkConfig } from './constants/networks';
 import Storage from './constants/storage';
 import { SkynetStorageLibrary } from '@decentology/hyperverse-storage-skynet';
+import { IpfsStorageLibrary  } from '@decentology/hyperverse-storage-ipfs';
 type Exact<A, B> = A extends B ? (B extends A ? A : never) : never;
 
 export function makeHyperverseBlockchain<T extends HyperverseBlockchain<unknown>>(payload: T): T {
@@ -17,7 +18,7 @@ export type HyperverseBlockchainInit<T> = (
 export type HyperverseBlockchain<T> = {
 	name: Blockchain;
 	getNetwork?: (network: Network) => NetworkConfig;
-	Provider: FC<unknown> | ContainerProvider<unknown> | ContainerProvider<any>;
+	Provider: FC<any> | ContainerProvider<unknown> | ContainerProvider<any>;
 };
 
 export type BlockchainFeatures<T> = {
@@ -38,7 +39,7 @@ export type Hyperverse = {
 
 export type HyperverseConfig = {
 	network: NetworkConfig;
-	storage?: SkynetStorageLibrary;
+	storage?: ReturnType<typeof IpfsStorageLibrary> | ReturnType<typeof SkynetStorageLibrary>;
 } & Omit<Hyperverse, 'network' | 'storage'>;
 
 export type HyperverseModuleBase = {
@@ -58,7 +59,7 @@ export type HyperverseModuleInstance = {
 	tenantId?: string;
 };
 
-export type StorageOptions = { name?: Storage; options?: { clientUrl: string } } | undefined;
+export type StorageOptions = { name?: Storage; options?: { clientUrl: string, resolveUrl: string} } | undefined;
 
 export type EvmEnvironment = {
 	[key in BlockchainEvm]?: {
@@ -71,14 +72,3 @@ export type EvmEnvironment = {
 			| {};
 	};
 };
-
-export interface IHyperverseStorage {
-	[key: string]: any;
-	uploadFile: (file: File) => Promise<string>;
-	// uploadDirectory: (directory: File[]) => Promise<string[]>;
-	downloadFile: (link: string) => Promise<void> | void;
-	openFile: (link: string) => Promise<string>;
-	getLink: (link: string) => string;
-	client: any;
-	clientUrl: string;
-}

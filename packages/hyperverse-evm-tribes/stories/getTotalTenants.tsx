@@ -7,12 +7,10 @@ export const GetTotalTenants = ({ tenants, ...props }) => {
 	const [data, setData] = useState(tenants);
 
 	useEffect(() => {
-		return () => {
-			tribes.getTotalTenants().then(setData)
-			console.log(data)
-		};
-	}, []);
-	console.log(data)
+		if(tribes.getTotalTenants){
+			tribes.getTotalTenants().then(setData);
+		}
+	}, [tribes]);
 
 	return (
 		<div className="totalTenants">
