@@ -15,7 +15,7 @@ import {
 import { useQuery } from 'react-query';
 
 const Allowance = () => {
-	const { address } = useEthereum();
+	const { account } = useEthereum();
 	const [owner, setOwner] = useState('');
 	const [spender, setSpender] = useState('');
 
@@ -33,8 +33,8 @@ const Allowance = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Allowance'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Get Allowance'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -54,7 +54,7 @@ const Allowance = () => {
 									setHidden((p) => !p);
 								}}
 							>
-								{!address
+								{!account
 									? 'Connect Wallet'
 									: isLoading
 									? 'fetching ...'

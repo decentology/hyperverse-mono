@@ -7,6 +7,7 @@ import {
 } from '@decentology/hyperverse';
 import { ContractInterface } from 'ethers';
 import Contracts from '../contracts.json';
+
 import ERC20Factory from '../artifacts/contracts/ERC20Factory.sol/ERC20Factory.json';
 import ERC20 from '../artifacts/contracts/ERC20.sol/ERC20.json';
 

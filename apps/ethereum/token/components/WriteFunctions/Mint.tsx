@@ -15,7 +15,7 @@ import {
 import { useMutation } from 'react-query';
 
 const Mint = () => {
-	const { address } = useEthereum();
+	const { account } = useEthereum();
 	
 	const erc20 = useERC20();
 	const {
@@ -40,8 +40,8 @@ const Mint = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Mint'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Mint'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -53,7 +53,7 @@ const Mint = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={mint}>
-								{!address
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'

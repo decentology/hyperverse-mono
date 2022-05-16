@@ -1,6 +1,6 @@
 import { HyperverseConfig } from '@decentology/hyperverse';
 import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
-import { ethers, BigNumber, constants } from 'ethers';
+import { ethers, BigNumber } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { CancellablePromise } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';

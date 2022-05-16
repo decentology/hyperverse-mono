@@ -34,6 +34,7 @@
 	},
 	"dependencies": {
 		"@decentology/hyperverse": "^1",
+		"@decentology/hyperverse-evm": "^1",
 		"@decentology/hyperverse-ethereum": "^1",
 		"@decentology/unstated-next": "^1",
 		"dotenv": "^16.0.0",

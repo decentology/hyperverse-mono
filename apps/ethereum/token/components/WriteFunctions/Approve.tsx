@@ -15,7 +15,7 @@ import {
 } from '../ComponentStyles';
 
 const Approve = () => {
-	const { address } = useEthereum();
+	const { account } = useEthereum();
 	const [spender, setSpender] = useState('');
 	const [amount, setAmount] = useState(0);
 	
@@ -47,8 +47,8 @@ const Approve = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Approve'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Approve'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -64,7 +64,7 @@ const Approve = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={approve}>
-								{!address
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'

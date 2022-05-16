@@ -15,7 +15,7 @@ import {
 import { useMutation } from 'react-query';
 
 const TransferFrom = () => {
-	const { address } = useEthereum();
+	const { account } = useEthereum();
 	const erc20 = useERC20();
 	const {
 		mutate,
@@ -43,12 +43,12 @@ const TransferFrom = () => {
 	return (
 		<Box>
 			<h4>Transfer From</h4>
-			<p>Transfers tokens from one address to another</p>
+			<p>Transfers tokens from one account to another</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer From'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Transfer From'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -62,7 +62,7 @@ const TransferFrom = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={transferFrom}>
-								{!address
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'

@@ -19,8 +19,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 const Nav = () => {
-	const { address, disconnect, connect, error } = useEthereum();
-
+	const { Connect, error } = useEthereum();
 	useEffect(() => {
 		if (error) {
 			toast.warn(error.message, {
@@ -42,15 +41,7 @@ const Nav = () => {
 					</About>
 				</Link>
 
-				{!address ? (
-					<ConnectButton  onClick={connect}>
-						Connect Wallet
-					</ConnectButton>
-				) : (
-					<ConnectButton color='green'  onClick={disconnect}>
-						<span>{shortenHash(address, 5, 5)}</span>
-					</ConnectButton>
-				)}
+				<Connect accountStatus={'full'}/>
 			</NavItems>
 		</Header>
 	);

@@ -16,9 +16,9 @@ import {
 import { useQuery, useMutation } from 'react-query';
 
 const CreateInstance = () => {
-	const { address } = useEthereum();
+	const { account } = useEthereum();
 	const erc20 = useERC20();
-	const { data: instance } = useQuery('instance', () => erc20.checkInstance!(address));
+	const { data: instance } = useQuery('instance', () => erc20.checkInstance!(account));
 
 	const {
 		mutate,
@@ -32,7 +32,7 @@ const CreateInstance = () => {
 	const createNewInstance = async () => {
 		try {
 			mutate({
-				account: address!,
+				account: account!,
 				name: tokenName,
 				symbol: tokenSymbol,
 				decimal: tokenDecimals
@@ -49,8 +49,8 @@ const CreateInstance = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address || instance}>
-							{!address
+						<Trigger disabled={!account || instance}>
+							{!account
 								? 'Connect Wallet'
 								: instance
 								? 'You already have an instance'
@@ -74,7 +74,7 @@ const CreateInstance = () => {
 								onChange={(e) => setTokenDecimals(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
-								{!address
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'

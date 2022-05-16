@@ -26,7 +26,7 @@ type Props = {
 	isAddress?: boolean;
 };
 const ReadComponent = ({ fn, header, description, buttonText, isAddress }: Props) => {
-	const { address } = useEthereum();
+	const { account } = useEthereum();
 	const [hidden, setHidden] = useState(false);
 	const { data, error, isLoading } = useQuery(header, fn);
 
@@ -46,8 +46,8 @@ const ReadComponent = ({ fn, header, description, buttonText, isAddress }: Props
 		<Box>
 			<h4>{header}</h4>
 			<p>{description}</p>
-			<Button disabled={!address} onClick={() => setHidden(p => !p)}>
-				{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? buttonText : dataFetched?.toString() || "N/A"}
+			<Button disabled={!account} onClick={() => setHidden(p => !p)}>
+				{!account ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? buttonText : dataFetched?.toString() || "N/A"}
 			</Button>
 		</Box>
 	);

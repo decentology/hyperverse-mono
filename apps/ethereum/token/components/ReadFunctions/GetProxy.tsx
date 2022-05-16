@@ -22,13 +22,13 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 
 const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
-	const { address } = useEthereum();
+	const { account } = useEthereum();
 	const erc20 = useERC20();
 	const { data:instance } = useQuery('checkInstance', () =>
-		erc20.checkInstance!(address!))
+		erc20.checkInstance!(account!))
 
 	const { data, isLoading } = useQuery('getProxy', () =>
-	 			erc20.getProxy!(address!));
+	 			erc20.getProxy!(account!));
 
 	const [hidden, setHidden] = useState(false);
 
@@ -47,8 +47,8 @@ const ProxyToken = () => {
 			<h4>Get Proxy Token</h4>
 			<p>Get your proxy contract address</p>
 			<Content>
-				<Button disabled={!address || !instance} onClick={() => setHidden((p) => !p)}>
-					{!address
+				<Button disabled={!account || !instance} onClick={() => setHidden((p) => !p)}>
+					{!account
 						? 'Connect Wallet'
 						: !instance
 						? 'You need an instance'
