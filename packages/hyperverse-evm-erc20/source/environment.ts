@@ -16,7 +16,6 @@ export const FactoryABI = ERC20Factory.abi as ContractInterface;
 
 const environment = Contracts as EvmEnvironment;
 
-
 function getEnvironment(blockchainName: Blockchain, network: NetworkConfig) {
 	if (blockchainName == null) {
 		throw new Error('Blockchain is not set');

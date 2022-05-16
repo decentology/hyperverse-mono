@@ -5,6 +5,6 @@ export const ModuleName = 'ERC20';
 
 import { Provider } from './Provider';
 export const ERC20 = {
-  Provider,
-  ModuleName
-}
+	Provider,
+	ModuleName,
+};

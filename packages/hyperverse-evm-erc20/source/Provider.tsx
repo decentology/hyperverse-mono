@@ -6,9 +6,7 @@ const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
 	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
-	return (
-			<ERC20.Provider initialState={{ tenantId: tenantId }}>{children}</ERC20.Provider>
-	);
+	return <ERC20.Provider initialState={{ tenantId: tenantId }}>{children}</ERC20.Provider>;
 };
 
 export { Provider };

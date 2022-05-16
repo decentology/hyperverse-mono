@@ -6,7 +6,6 @@ import { useHyperverse } from '@decentology/hyperverse';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { ERC20Library, ERC20LibraryType } from './erc20Library';
 
-
 function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const { connectedProvider, readOnlyProvider } = useEvm();
@@ -33,7 +32,7 @@ function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 		loading: !erc20Library,
 		tenantId,
 		useERC20Events,
-	}
+	};
 }
 
 export const ERC20 = createContainer(ERC20State);
