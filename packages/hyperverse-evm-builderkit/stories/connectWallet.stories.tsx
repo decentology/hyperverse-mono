@@ -2,26 +2,30 @@ import { HyperverseProvider } from './utils/Provider';
 import { Meta, Story } from '@storybook/react';
 import { useModule } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
+import { Doc } from '../docs/connectWallet.mdx';
+
 const Button = () => {
 	const { connect } = useEvm();
 	const { factoryContract } = useModule();
 	return <button onClick={() => connect()}>{factoryContract?.address}</button>;
 };
 
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-	title: 'Example/Test1',
+	title: 'Components/ConnectWallet',
 	component: Button,
-	// More on argTypes: https://storybook.js.org/docs/react/api/argtypes
+	parameters: {
+		docs: {
+			page: Doc,
+		},
+	},
 } as Meta;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<Button {...args} />
 	</HyperverseProvider>
 );
 
-export const Example = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Example.args = {};
+export const Demo = Template.bind({});
+
+Demo.args = {};
