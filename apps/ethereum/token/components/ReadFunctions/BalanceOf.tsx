@@ -12,12 +12,17 @@ import {
 	Content,
 	Button,
 } from '../ComponentStyles';
+import { useQuery } from 'react-query';
 
 const BalanceOf = () => {
 	const { address } = useEthereum();
-	const { BalanceOf } = useERC20();
+
 	const [account, setAccount] = useState(address);
-	const { data, isLoading } = BalanceOf(account!);
+
+	const erc20 = useERC20();
+	const { data, isLoading } = useQuery('balanceOf', () =>
+		erc20.getBalanceOf!(account!))
+
 	const [hidden, setHidden] = useState(false);
 
 	return (

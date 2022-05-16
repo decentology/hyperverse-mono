@@ -5,6 +5,7 @@ import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import { MdFileCopy } from 'react-icons/md';
 import { Box } from '../ComponentStyles';
 import { styled } from '@stitches/react';
+import { useQuery } from 'react-query';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -22,9 +23,13 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
 	const { address } = useEthereum();
-	const { Proxy, CheckInstance } = useERC20();
-	const { data: instance } = CheckInstance(address!);
-	const { data, isLoading, refetch } = Proxy();
+	const erc20 = useERC20();
+	const { data:instance } = useQuery('checkInstance', () =>
+		erc20.checkInstance!(address!))
+
+	const { data, isLoading } = useQuery('getProxy', () =>
+	 			erc20.getProxy!(address!));
+
 	const [hidden, setHidden] = useState(false);
 
 	const zeroAddress = data === '0x0000000000000000000000000000000000000000';
