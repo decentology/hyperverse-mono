@@ -12,21 +12,23 @@ import {
 	Content,
 	Button,
 } from '../ComponentStyles';
+import { useMutation } from 'react-query';
 
 const TransferFrom = () => {
-	const { address } = useEthereum();
-	const { TransferFrom } = useERC20();
-	const { mutate, isLoading } = TransferFrom();
-  const [from, setFrom] = useState('');
+	const { account } = useEthereum();
+	const erc20 = useERC20();
+	const { mutate, isLoading } = useMutation('transferFrom', erc20.transferFrom);
+
+	const [from, setFrom] = useState('');
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);
 
 	const transferFrom = async () => {
 		try {
-			const instanceData = {
+			const instanceData: { from: string; to: string; amount: number } = {
 				from: from,
 				to: receiver,
-				value: amount,
+				amount: amount,
 			};
 
 			mutate(instanceData);
@@ -38,12 +40,12 @@ const TransferFrom = () => {
 	return (
 		<Box>
 			<h4>Transfer From</h4>
-			<p>Transfers tokens from one address to another</p>
+			<p>Transfers tokens from one account to another</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer From'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Transfer From'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -57,7 +59,7 @@ const TransferFrom = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={transferFrom}>
-								{!address
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'
