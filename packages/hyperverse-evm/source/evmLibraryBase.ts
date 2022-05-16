@@ -88,19 +88,9 @@ export async function EvmLibraryBase(
 		}
 	};
 
-	const createInstance = async (account: string) => {
+	const createInstance = async ({account, ...args }:{account: string, [key: string] : any}) => {
 		try {
-			const createTxn = await factoryContract.createInstance(account);
-			return createTxn.wait();
-		} catch (err) {
-			factoryErrors(err);
-			throw err;
-		}
-	};
-
-	const createTokenInstance = async ({account, name,symbol, decimal}:{account: string, name: string, symbol: string, decimal: number}) => {
-		try {
-			const createTxn = await factoryContract.createInstance(account, name, symbol, decimal);
+			const createTxn = await factoryContract.createInstance(account, args);
 			return createTxn.wait();
 		} catch (err) {
 			factoryErrors(err);
@@ -136,7 +126,6 @@ export async function EvmLibraryBase(
 		getProxy,
 		checkInstance,
 		createInstance,
-		createTokenInstance,
 		getTotalTenants,
 		factoryContract,
 		proxyContract,

@@ -20,7 +20,7 @@ const CreateInstance = () => {
 	const erc20 = useERC20();
 	const { data: instance } = useQuery('instance', () => erc20.checkInstance!(account));
 
-	const { mutate, isLoading } = useMutation('createTokenInstance', erc20.createTokenInstance);
+	const { mutate, isLoading } = useMutation('createTokenInstance', erc20.createInstance);
 
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
@@ -30,9 +30,9 @@ const CreateInstance = () => {
 		try {
 			mutate({
 				account: account!,
-				name: tokenName,
-				symbol: tokenSymbol,
-				decimal: tokenDecimals,
+				tokenName,
+				tokenSymbol,
+				tokenDecimals,
 			});
 		} catch (error) {
 			throw error;
