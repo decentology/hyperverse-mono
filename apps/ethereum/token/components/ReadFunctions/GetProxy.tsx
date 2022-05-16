@@ -24,11 +24,9 @@ const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
 	const { account } = useEthereum();
 	const erc20 = useERC20();
-	const { data:instance } = useQuery('checkInstance', () =>
-		erc20.checkInstance!(account!))
+	const { data: instance } = useQuery('checkInstance', () => erc20.checkInstance!(account!));
 
-	const { data, isLoading } = useQuery('getProxy', () =>
-	 			erc20.getProxy!(account!));
+	const { data, isLoading } = useQuery('getProxy', () => erc20.getProxy!(account!));
 
 	const [hidden, setHidden] = useState(false);
 

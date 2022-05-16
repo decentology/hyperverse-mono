@@ -10,7 +10,7 @@ import {
 	Parameters,
 	Input,
 	Content,
-	Button
+	Button,
 } from '../ComponentStyles';
 
 import { useQuery, useMutation } from 'react-query';
@@ -20,10 +20,7 @@ const CreateInstance = () => {
 	const erc20 = useERC20();
 	const { data: instance } = useQuery('instance', () => erc20.checkInstance!(account));
 
-	const {
-		mutate,
-		isLoading,
-	} = useMutation('createTokenInstance', erc20.createTokenInstance);
+	const { mutate, isLoading } = useMutation('createTokenInstance', erc20.createTokenInstance);
 
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
@@ -35,7 +32,7 @@ const CreateInstance = () => {
 				account: account!,
 				name: tokenName,
 				symbol: tokenSymbol,
-				decimal: tokenDecimals
+				decimal: tokenDecimals,
 			});
 		} catch (error) {
 			throw error;
@@ -89,7 +86,6 @@ const CreateInstance = () => {
 };
 
 export default CreateInstance;
-function NewInstance(): { mutate: any; isLoading: any; } {
+function NewInstance(): { mutate: any; isLoading: any } {
 	throw new Error('Function not implemented.');
 }
-

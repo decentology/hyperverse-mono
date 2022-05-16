@@ -18,11 +18,7 @@ import { useMutation } from 'react-query';
 const Transfer = () => {
 	const { account } = useEthereum();
 	const erc20 = useERC20();
-	const {
-		mutate,
-		isLoading,
-		error
-	} = useMutation('transfer', erc20.transfer);
+	const { mutate, isLoading, error } = useMutation('transfer', erc20.transfer);
 
 	const [receiver, setReceiver] = useState<string>('');
 	const [amount, setAmount] = useState(0);
@@ -31,7 +27,7 @@ const Transfer = () => {
 
 	const transfer = async () => {
 		try {
-			const instanceData : {to:string, amount:number} = {
+			const instanceData: { to: string; amount: number } = {
 				to: receiver,
 				amount: amount,
 			};

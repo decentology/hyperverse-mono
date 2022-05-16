@@ -18,14 +18,9 @@ const Approve = () => {
 	const { account } = useEthereum();
 	const [spender, setSpender] = useState('');
 	const [amount, setAmount] = useState(0);
-	
+
 	const erc20 = useERC20();
-	const {
-		mutate,
-		isLoading,
-	} = useMutation('approve', erc20.approve);
-
-
+	const { mutate, isLoading } = useMutation('approve', erc20.approve);
 
 	const approve = async () => {
 		try {

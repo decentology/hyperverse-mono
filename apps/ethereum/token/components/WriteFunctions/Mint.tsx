@@ -16,12 +16,9 @@ import { useMutation } from 'react-query';
 
 const Mint = () => {
 	const { account } = useEthereum();
-	
+
 	const erc20 = useERC20();
-	const {
-		mutate,
-		isLoading,
-	} = useMutation('mint', erc20.mint);
+	const { mutate, isLoading } = useMutation('mint', erc20.mint);
 
 	const [amount, setAmount] = useState(0);
 

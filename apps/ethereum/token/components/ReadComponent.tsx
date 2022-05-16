@@ -1,9 +1,8 @@
 import { styled } from '../stitches.config';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useQuery } from 'react-query';
-
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -46,8 +45,14 @@ const ReadComponent = ({ fn, header, description, buttonText, isAddress }: Props
 		<Box>
 			<h4>{header}</h4>
 			<p>{description}</p>
-			<Button disabled={!account} onClick={() => setHidden(p => !p)}>
-				{!account ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? buttonText : dataFetched?.toString() || "N/A"}
+			<Button disabled={!account} onClick={() => setHidden((p) => !p)}>
+				{!account
+					? 'Connect Wallet'
+					: isLoading
+					? 'fetching ...'
+					: !hidden
+					? buttonText
+					: dataFetched?.toString() || 'N/A'}
 			</Button>
 		</Box>
 	);

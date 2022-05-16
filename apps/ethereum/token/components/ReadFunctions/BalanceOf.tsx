@@ -20,8 +20,7 @@ const BalanceOf = () => {
 	const [address, setAddress] = useState('');
 
 	const erc20 = useERC20();
-	const { data, isLoading } = useQuery('balanceOf', () =>
-		erc20.getBalanceOf!(address!))
+	const { data, isLoading } = useQuery('balanceOf', () => erc20.getBalanceOf!(address!));
 
 	const [hidden, setHidden] = useState(false);
 
@@ -32,10 +31,8 @@ const BalanceOf = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!account }>
-							{!account
-								? 'Connect Wallet'
-								: 'Get Balance Of'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Get Balance Of'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -46,7 +43,13 @@ const BalanceOf = () => {
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!account ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Balance Of' : data!.toString()}
+								{!account
+									? 'Connect Wallet'
+									: isLoading
+									? 'fetching ...'
+									: !hidden
+									? 'Get Balance Of'
+									: data!.toString()}
 							</Button>
 						</Content>
 					</Parameters>
