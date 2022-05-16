@@ -13,12 +13,13 @@ import { toast } from 'react-toastify';
 import { BsFillExclamationDiamondFill } from 'react-icons/bs';
 import GetProxy from './ReadFunctions/GetProxy';
 import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+import { useQuery } from 'react-query';
 
 const Container = () => {
 	const { address } = useEthereum();
-	const { TokenName, TokenSymbol, Balance, TotalSupply, CheckInstance } = useERC20();
+	const erc20 = useERC20();
 
-	const { data: instance } = CheckInstance(address!);
+	const { data: instance } = useQuery('instance', () => address && erc20.checkInstance!(address));
 
 	const toastId = 'instance';
 	useEffect(() => {
@@ -27,7 +28,7 @@ const Container = () => {
 				'Make sure you have an instance. If you already have one change the tenant ID in _app.tsx to test this app',
 				{
 					position: toast.POSITION.BOTTOM_CENTER,
-					toastId: 'instance'
+					toastId: 'instance',
 				}
 			);
 		}
@@ -35,35 +36,34 @@ const Container = () => {
 
 	const TokenReadFunctions = [
 		{
-			hook: TokenName(),
+			fn: erc20.getTokenName!,
 			header: 'Token Name',
 			description: 'Get the Token Name',
-			buttonText: 'Get Token Name'
+			buttonText: 'Get Token Name',
 		},
 		{
-			hook: TokenSymbol(),
+			fn: erc20.getTokenSymbol!,
 			header: 'Token Symbol',
 			description: 'Get the token symbol',
-			buttonText: 'Get Token Symbol'
+			buttonText: 'Get Token Symbol',
 		},
 		{
-			hook: TotalSupply(),
+			fn: erc20.getTotalSuply!,
 			header: 'Total Supply',
 			description: 'Total supply in circulation',
-			buttonText: 'Get Total Supply'
+			buttonText: 'Get Total Supply',
 		},
 		{
-			hook: Balance(),
+			fn: erc20.getBalance!,
 			header: 'Balance',
 			description: 'Get the balance of your account',
-			buttonText: 'Get Balance'
-		}
+			buttonText: 'Get Balance',
+		},
 	];
 
 	return (
 		<Box>
 			<Reminder>
-				{' '}
 				<BsFillExclamationDiamondFill />
 				Don&apos;t forget to change the tenantID in&nbsp;<b> pages/_app.tsx </b>&nbsp;to
 				test this app.
@@ -79,7 +79,7 @@ const Container = () => {
 				{TokenReadFunctions.map((item) => (
 					<ReadComponent
 						key={item.header}
-						hook={item.hook}
+						fn={item.fn}
 						header={item.header}
 						description={item.description}
 						buttonText={item.buttonText}
@@ -113,15 +113,15 @@ const Box = styled('div', {
 	padding: '0 2rem 2rem',
 	color: '$blue500',
 	'& h3': {
-		marginTop: '1rem'
-	}
+		marginTop: '1rem',
+	},
 });
 
 const Section = styled('div', {
 	marginTop: '1rem',
 	display: 'grid',
 	gridTemplateColumns: '270px 270px 270px 257px',
-	gridGap: '10px'
+	gridGap: '10px',
 });
 
 const Reminder = styled('div', {
@@ -136,6 +136,6 @@ const Reminder = styled('div', {
 	borderRadius: '5px',
 	'& svg': {
 		marginRight: '0.5rem',
-		fontSize: '1rem'
-	}
+		fontSize: '1rem',
+	},
 });

@@ -77,15 +77,27 @@ export async function EvmLibraryBase(
 			throw err;
 		}
 	};
-	const createInstance = async (account: string) => {
+
+	const getProxy = async (account: any) => {
 		try {
-			const createTxn = await factoryContract.createInstance(account);
+			const instance = await factoryContract.getProxy(account);
+			return instance;
+		} catch (err) {
+			factoryErrors(err);
+			throw err;
+		}
+	};
+
+	const createInstance = async ({account, ...args }:{account: string, [key: string] : any}) => {
+		try {
+			const createTxn = await factoryContract.createInstance(account, args);
 			return createTxn.wait();
 		} catch (err) {
 			factoryErrors(err);
 			throw err;
 		}
 	};
+
 	const factoryErrors = (err: any) => {
 		if (!factoryContract?.signer) {
 			throw new Error('Please connect your wallet!');
@@ -111,6 +123,7 @@ export async function EvmLibraryBase(
 	return {
 		error,
 		setProvider,
+		getProxy,
 		checkInstance,
 		createInstance,
 		getTotalTenants,
