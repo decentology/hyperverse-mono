@@ -78,6 +78,16 @@ export async function EvmLibraryBase(
 		}
 	};
 
+	const getProxy = async (account: any) => {
+		try {
+			const instance = await factoryContract.getProxy(account);
+			return instance;
+		} catch (err) {
+			factoryErrors(err);
+			throw err;
+		}
+	};
+
 	const createInstance = async (account: string) => {
 		try {
 			const createTxn = await factoryContract.createInstance(account);
@@ -123,6 +133,7 @@ export async function EvmLibraryBase(
 	return {
 		error,
 		setProvider,
+		getProxy,
 		checkInstance,
 		createInstance,
 		createTokenInstance,
