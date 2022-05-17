@@ -12,20 +12,19 @@ import {
 	Content,
 	Button,
 } from '../ComponentStyles';
+import { useMutation } from 'react-query';
 
 const Mint = () => {
-	const { address } = useEthereum();
-	const { Mint } = useERC20();
-	const { mutate, isLoading } = Mint();
+	const { account } = useEthereum();
+
+	const erc20 = useERC20();
+	const { mutate, isLoading } = useMutation('mint', erc20.mint);
+
 	const [amount, setAmount] = useState(0);
 
 	const mint = async () => {
 		try {
-			const instanceData = {
-				amount: amount,
-			};
-
-			mutate(instanceData);
+			mutate(amount);
 		} catch (error) {
 			throw error;
 		}
@@ -38,8 +37,8 @@ const Mint = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Mint'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Mint'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -51,7 +50,7 @@ const Mint = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={mint}>
-								{!address
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'
