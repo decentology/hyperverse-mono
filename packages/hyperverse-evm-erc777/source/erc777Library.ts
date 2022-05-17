@@ -238,23 +238,26 @@ export async function ERC777LibraryInternal(
 		}
 	};
 
-  const burn = async ({amount, data} : {amount: number; data: string}) => {
-    try {
-      const burnTxn = await base.proxyContract?.burn(amount, ethers.utils.formatBytes32String(data));
-      return burnTxn.wait() as TransactionReceipt;
-    } catch (error) {
-      throw error;
-    }
-  }
+	const burn = async ({ amount, data }: { amount: number; data: string }) => {
+		try {
+			const burnTxn = await base.proxyContract?.burn(
+				amount,
+				ethers.utils.formatBytes32String(data)
+			);
+			return burnTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
 
-  const mint = async (amount: number) => {
-    try {
-      const mintTxn = await base.proxyContract?.mint(amount);
-      return mintTxn.wait() as TransactionReceipt;
-    } catch (error) {
-      throw error;
-    }
-  }
+	const mint = async (amount: number) => {
+		try {
+			const mintTxn = await base.proxyContract?.mint(amount);
+			return mintTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
 
 	const base = await EvmLibraryBase(
 		'ERC20',
@@ -267,25 +270,25 @@ export async function ERC777LibraryInternal(
 
 	return {
 		...base,
-    getTokenName,
-    getTokenSymbol,
-    getDecimal,
-    getGranularity,
-    getTotalSuply,
-    getBalance,
-    getBalanceOf,
-    send,
-    transfer,
-    transferFrom,
-    allowance,
-    approve,
-    getDefaultOperators,
-    checkOperator,
-    authorizeOperator,
-    revokeOperator,
-    operatorSend,
-    operatorBurn,
-    burn,
-    mint,
+		getTokenName,
+		getTokenSymbol,
+		getDecimal,
+		getGranularity,
+		getTotalSuply,
+		getBalance,
+		getBalanceOf,
+		send,
+		transfer,
+		transferFrom,
+		allowance,
+		approve,
+		getDefaultOperators,
+		checkOperator,
+		authorizeOperator,
+		revokeOperator,
+		operatorSend,
+		operatorBurn,
+		burn,
+		mint,
 	};
 }

@@ -13,9 +13,7 @@ import ERC777 from '../artifacts/contracts/ERC777.sol/ERC777.json';
 export const ContractABI = ERC777.abi;
 export const FactoryABI = ERC777Factory.abi;
 
-
 const environment = Contracts as EvmEnvironment;
-
 
 function getEnvironment(blockchainName: Blockchain, network: NetworkConfig) {
 	if (blockchainName == null) {
