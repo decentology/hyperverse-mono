@@ -1,7 +1,5 @@
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import {  useHyperverse } from '@decentology/hyperverse';
-import '@rainbow-me/rainbowkit/styles.css';
-
 import { useAccount, useSigner, useEnsName, useProvider } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useEffect, useState } from 'react'

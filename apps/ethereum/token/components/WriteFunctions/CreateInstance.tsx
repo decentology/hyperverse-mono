@@ -10,14 +10,18 @@ import {
 	Parameters,
 	Input,
 	Content,
-	Button
+	Button,
 } from '../ComponentStyles';
 
+import { useQuery, useMutation } from 'react-query';
+
 const CreateInstance = () => {
-	const { address } = useEthereum();
-	const { NewInstance, CheckInstance } = useERC20();
-	const { data: instance } = CheckInstance(address!);
-	const { mutate, isLoading } = NewInstance();
+	const { account } = useEthereum();
+	const erc20 = useERC20();
+	const { data: instance } = useQuery('instance', () => erc20.checkInstance!(account));
+
+	const { mutate, isLoading } = useMutation('createTokenInstance', erc20.createInstance);
+
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
 	const [tokenDecimals, setTokenDecimals] = useState(0);
@@ -25,10 +29,10 @@ const CreateInstance = () => {
 	const createNewInstance = async () => {
 		try {
 			mutate({
-				account: address!,
-				name: tokenName,
-				symbol: tokenSymbol,
-				decimal: tokenDecimals
+				account: account!,
+				tokenName,
+				tokenSymbol,
+				tokenDecimals,
 			});
 		} catch (error) {
 			throw error;
@@ -42,8 +46,8 @@ const CreateInstance = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address || instance}>
-							{!address
+						<Trigger disabled={!account || instance}>
+							{!account
 								? 'Connect Wallet'
 								: instance
 								? 'You already have an instance'
@@ -67,7 +71,7 @@ const CreateInstance = () => {
 								onChange={(e) => setTokenDecimals(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
-								{!address
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'
@@ -82,3 +86,6 @@ const CreateInstance = () => {
 };
 
 export default CreateInstance;
+function NewInstance(): { mutate: any; isLoading: any } {
+	throw new Error('Function not implemented.');
+}

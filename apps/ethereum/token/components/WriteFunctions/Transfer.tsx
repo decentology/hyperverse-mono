@@ -13,21 +13,23 @@ import {
 	Content,
 	Button,
 } from '../ComponentStyles';
+import { useMutation } from 'react-query';
 
 const Transfer = () => {
-	const { address } = useEthereum();
-	const { Transfer } = useERC20();
-	const { mutate, error, isLoading } = Transfer();
-	const [receiver, setReceiver] = useState('');
+	const { account } = useEthereum();
+	const erc20 = useERC20();
+	const { mutate, isLoading, error } = useMutation('transfer', erc20.transfer);
+
+	const [receiver, setReceiver] = useState<string>('');
 	const [amount, setAmount] = useState(0);
 
 	const [err, setErr] = useState('');
 
 	const transfer = async () => {
 		try {
-			const instanceData = {
+			const instanceData: { to: string; amount: number } = {
 				to: receiver,
-				value: amount,
+				amount: amount,
 			};
 
 			mutate(instanceData);
@@ -55,8 +57,8 @@ const Transfer = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer Tokens'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Transfer Tokens'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -72,7 +74,7 @@ const Transfer = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={transfer}>
-								{!address
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'

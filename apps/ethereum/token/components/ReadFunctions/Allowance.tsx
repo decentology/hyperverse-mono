@@ -12,13 +12,18 @@ import {
 	Content,
 	Button,
 } from '../ComponentStyles';
+import { useQuery } from 'react-query';
 
 const Allowance = () => {
-	const { address } = useEthereum();
-	const { Allowance } = useERC20();
+	const { account } = useEthereum();
 	const [owner, setOwner] = useState('');
 	const [spender, setSpender] = useState('');
-	const { data, isLoading, refetch } = Allowance(owner!, spender!);
+
+	const erc20 = useERC20();
+	const { data, isLoading, refetch } = useQuery('allowance', () =>
+		erc20.allowance!(owner!, spender!)
+	);
+
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -28,10 +33,8 @@ const Allowance = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address
-								? 'Connect Wallet'
-								: 'Get Allowance'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Get Allowance'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -51,7 +54,13 @@ const Allowance = () => {
 									setHidden((p) => !p);
 								}}
 							>
-								{!address ? 'Connect Wallet' : isLoading ? 'fetching ...' : !hidden ? 'Get Allowance' : data!.toString()}
+								{!account
+									? 'Connect Wallet'
+									: isLoading
+									? 'fetching ...'
+									: !hidden
+									? 'Get Allowance'
+									: data!.toString()}
 							</Button>
 						</Content>
 					</Parameters>
