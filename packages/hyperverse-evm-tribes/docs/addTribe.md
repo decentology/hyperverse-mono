@@ -34,18 +34,21 @@ const addTribe = async ({ metadata, image }: { metadata: Omit<MetaData, 'image'>
 ### Stories
 
 ```jsx
+
+import React from 'react';
 import { AddTribe } from './addTribe';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/addTribe.mdx';
 
 export default {
 	title: 'Components/AddTribe',
 	component: AddTribe,
+	argTypes: {
+		image: { control: { type: 'file', accept: '.png' } },
+		name: { control: { type: 'text' } },
+		description: { control: { type: 'text' } },
+	},
 	parameters: {
-		docs: {
-			page: Doc,
-		},
+		layout: 'fullscreen',
 	},
 };
 
@@ -57,51 +60,71 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-    metdata: '',
-    image: File
-};
+Demo.args = {};
+
 ```
 
 ### Main UI Component
 
 ```jsx
-import * as PropTypes from 'prop-types';
-import './button.css';
+
+import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
-
+import { useCallback, useRef } from 'react';
 export const AddTribe = ({ ...props }) => {
-	const tribes = useTribes();
-	const { address } = useEvm();
-	// const { mutate } = AddTribe();
+	const { addTribe, error } = useTribes();
+	const { address, Connect } = useEvm();
+	const imageRef = useRef(null);
 
-	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			// onClick={() => {
-			// 		mutate({ metadata: '', image: File });
-			// }}
-		>
-			Add Tribe
-		</button>
+	const uploadFile = useCallback(async () => {
+		const resp = await fetch(props.image || imageRef.current.src);
+		const blob = await resp.blob();
+		const file = new File([blob], 'mage.png', { type: 'image/png' });
+		const result = await addTribe({
+			image: file,
+			metadata: {
+				name: props.name || 'Mage',
+				description:
+					props.description ||
+					'Mage casts elemental smashes and makes sure every attack hits their targets at all times.',
+			},
+		});
+		console.log('Result', result);
+	}, [addTribe]);
+
+	return error != null ? (
+		<div>Error</div>
+	) : (
+		<>
+			<img
+				id="mage"
+				ref={imageRef}
+				style={{ display: 'none' }}
+				src={require('./assets/mage card.png')}
+			/>
+			{address ? (
+				<button
+					type="button"
+					className={['storybook-button', `storybook-button--large`].join(' ')}
+					style={{ color: 'blue' }}
+					onClick={uploadFile}
+				>
+					Add Tribe
+				</button>
+			) : (
+				<Connect />
+			)}
+		</>
 	);
 };
 
 AddTribe.propTypes = {
-    metadata: PropTypes.string.isRequired,
-    // image: PropTypes.file.isRequired
+	metadata: PropTypes.string.isRequired,
 };
 
 AddTribe.defaultProps = {};
-```
 
-### Args
-
-```jsx
-// Incomplete
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

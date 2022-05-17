@@ -1,6 +1,7 @@
 import React from 'react';
 import { AddTribe } from './addTribe';
 import { HyperverseProvider } from './utils/Provider';
+import { Doc } from '../docs/addTribe.mdx';
 
 export default {
 	title: 'Components/AddTribe',
