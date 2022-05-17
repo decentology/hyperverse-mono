@@ -14,7 +14,7 @@ export type ProviderProps = {
 	children: React.ReactNode;
 	networks?: any;
 } & WagmiProviderProps &
-	Parameters<typeof RainbowKitProvider>[0];
+	Partial<Parameters<typeof RainbowKitProvider>[0]>;
 
 export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
@@ -79,8 +79,8 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 			<RainbowKitProvider
 				chains={chains}
 				showRecentTransactions={true}
-				theme={darkTheme({
-					accentColor: '#7b3fe4',
+				theme={props.theme || darkTheme({
+					accentColor: '#999',
 				})}
 			>
 				<Evm.Provider>{children}</Evm.Provider>
