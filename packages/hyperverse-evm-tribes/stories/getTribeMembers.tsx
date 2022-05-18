@@ -5,20 +5,27 @@ import { useState, useEffect } from 'react';
 
 export const GetTribeMembers = ({ ...props }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState(null);
-	useEffect(() => {
-		return () => {
-			tribes.getTribeMembers(5).then(setData);
-		};
-	}, []);
+	const [data, setData] = useState([]);
 
-	return (
-		<div className="tribeMembers">
-			Tribe Members: <b>{data}</b>
-		</div>
-	);
+	useEffect(() => {
+		if (tribes.getTribeMembers) {
+			tribes.getTribeMembers(props.tribeId).then(setData);
+		}
+	}, [tribes.getTribeMembers]);
+
+	const hasTribeMembers = () => {
+		return data.length > 0 ? (
+			<p>There are members in this tribe.</p>
+		) : (
+			<p>There are no members in this tribe.</p>
+		);
+	};
+
+	return <div className="tribeMembers"> {hasTribeMembers()}</div>;
 };
 
-GetTribeMembers.propTypes = {};
+GetTribeMembers.propTypes = {
+	tribeId: PropTypes.number.isRequired,
+};
 
 GetTribeMembers.defaultProps = {};

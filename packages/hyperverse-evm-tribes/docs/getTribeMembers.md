@@ -8,9 +8,10 @@
 
 ### getTribeMembers
 
-<p> The `getTribeMembers` function takes in a tribeId associated with the tribe you are requesting member information from. </p>
+<p> The `getTribeMembers` function takes in the tribe id tied to the tribe you are requesting member information from. </p>
 
 ```jsx
+
 	const getTribeMembers = async (tribeId: number) => {
 		try {
 			const events = await base.proxyContract?.queryFilter(
@@ -32,15 +33,17 @@
 			throw err;
 		}
 	};
+
 ```
 
 ### Stories
 
 ```jsx
+
 import { GetTribeMembers } from './getTribeMembers';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/tribeMembers.mdx';
+import { Doc } from '../docs/getTribeMembers.mdx';
 
 export default {
 	title: 'Components/GetTribeMembers',
@@ -59,14 +62,17 @@ const Template = (args) => (
 );
 
 export const Demo = Template.bind({});
+
 Demo.args = {
 	tribeId: 1
 };
+
 ```
 
 ### Main UI Component
 
 ```jsx
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
@@ -74,18 +80,23 @@ import { useState, useEffect } from 'react';
 
 export const GetTribeMembers = ({ ...props }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState(null);
-	useEffect(() => {
-		return () => {
-			tribes.getTribeMembers().then(setData);
-		};
-	}, []);
+	const [data, setData] = useState([]);
 
-	return (
-		<div className="tribeMembers">
-			Tribe Members: <b>{data}</b>
-		</div>
-	);
+	useEffect(() => {
+		if (tribes.getTribeMembers) {
+			tribes.getTribeMembers(props.tribeId).then(setData);
+		}
+	}, [tribes.getTribeMembers]);
+
+	const hasTribeMembers = () => {
+		return data.length > 0 ? (
+			<p>There are members in this tribe.</p>
+		) : (
+			<p>There are no members in this tribe.</p>
+		);
+	};
+
+	return <div className="tribeMembers"> {hasTribeMembers()}</div>;
 };
 
 GetTribeMembers.propTypes = {
@@ -93,16 +104,19 @@ GetTribeMembers.propTypes = {
 };
 
 GetTribeMembers.defaultProps = {};
+
 ```
 
 ### Args
 
+<p> For the purposes of this demo we have given a tribe id of **1** which is the tribe id of Mage. There are no members in this tribe which is reflected in the results of the demo.</p>
+
 ```jsx
-GetTribeMembers.propTypes = {
-	tribeId: PropTypes.number.isRequired,
+
+Demo.args = {
+	tribeId: 1
 };
 
-GetTribeMembers.defaultProps = {};
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)
