@@ -162,7 +162,7 @@ describe('StakeRewards Testing', function () {
 
 		describe('Collect Rewards', function () {
 			beforeEach(async function () {
-				await AliceStakeTenant.connect(bob).getReward();
+				await AliceStakeTenant.connect(bob).claimReward();
 			});
 
 			it('Should be able to transfer rewards to Bob', async function () {

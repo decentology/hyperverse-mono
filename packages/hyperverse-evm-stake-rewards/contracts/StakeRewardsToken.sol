@@ -175,7 +175,7 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient, Initializable
 		emit StakeWithdrawn(msg.sender, _amount);
 	}
 
-	function getReward() external updateReward(msg.sender) hasRewardBalance(msg.sender) {
+	function claimReward() external updateReward(msg.sender) hasRewardBalance(msg.sender) {
 		uint256 reward = rewards[msg.sender];
 		if (reward > 0) {
 			rewards[msg.sender] = 0;
