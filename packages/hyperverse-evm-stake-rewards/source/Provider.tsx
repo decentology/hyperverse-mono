@@ -6,7 +6,11 @@ const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
 	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
-	return <StakeRewards.Provider initialState={{ tenantId: tenantId }}>{children}</StakeRewards.Provider>;
+	return (
+		<StakeRewards.Provider initialState={{ tenantId: tenantId }}>
+			{children}
+		</StakeRewards.Provider>
+	);
 };
 
 export { Provider };
