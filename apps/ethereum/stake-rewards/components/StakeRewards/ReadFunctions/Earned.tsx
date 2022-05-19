@@ -13,13 +13,20 @@ import {
 	Button,
 	Module,
 } from '../../ComponentStyles';
+import { useQuery } from 'react-query';
 
 const Earned = () => {
-	const { address } = useEthereum();
-	const { CheckInstance, Earned } = useStakeRewards();
-	const {data: instance} = CheckInstance();
-	const [account, setAccount] = useState(address);
-	const { data } = Earned(account!);
+	const { account } = useEthereum();
+	const stakeRewards = useStakeRewards();
+
+	const { data: instance } = useQuery(
+		'instance',
+		() => account && stakeRewards.checkInstance!(address)
+	);
+
+	const [address, setAddress] = useState(account);
+	const { data } = useQuery('balanceOf', () => stakeRewards.getEarned!(address!));
+
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -29,19 +36,27 @@ const Earned = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address || !instance}>
-							{!address ? 'Connect Wallet': !instance ? 'Create an Instance' : 'Get Earned Rewards'}
+						<Trigger disabled={!account || !instance}>
+							{!account
+								? 'Connect Wallet'
+								: !instance
+								? 'Create an Instance'
+								: 'Get Earned Rewards'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
 								placeholder="Account"
-								onChange={(e) => setAccount(e.target.value)}
+								onChange={(e) => setAddress(e.target.value)}
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Earned Rewards' : data}
+								{!address
+									? 'Connect Wallet'
+									: !hidden
+									? 'Get Earned Rewards'
+									: data}
 							</Button>
 						</Content>
 					</Parameters>

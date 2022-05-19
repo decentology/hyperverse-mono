@@ -1,5 +1,6 @@
 import { styled } from '../stitches.config';
 import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
 import ReadComponent from './ReadComponent';
 import * as Accordion from '@radix-ui/react-accordion';
 import CreateStakeInstance from './StakeRewards/WriteFunctions/CreateStakeInstance';
@@ -14,46 +15,46 @@ import CreateTokenInstance from './Token/WriteFunctions/CreateTokenInstance';
 import GetProxyToken from './Token/ReadFunctions/GetProxyToken';
 import Transfer from './Token/WriteFunctions/Transfer';
 
-const StakeContainer = () => {
-	const {
-		CheckInstance,
-		Proxy,
-		TotalSupply,
-		Balance,
-		RewardPerToken,
-		StakeTokenContract,
-		RewardTokenContract,
-	} = useStakeRewards();
+import { useQuery } from 'react-query';
 
-	const {data: instance} = CheckInstance();
+const StakeContainer = () => {
+	const { address } = useEthereum();
+
+	const stakeRewards = useStakeRewards();
+
+	const { data: instance, error } = useQuery(
+		'instance',
+		() => address && stakeRewards.checkInstance!(address)
+	);
+
 	const StakeReadFunctions = [
 		{
-			hook: TotalSupply(),
+			hook: stakeRewards.getTotalSuply!,
 			header: 'Total Supply',
 			description: 'Get the Total Supply of Stake Tokens that is currently staked',
 			buttonText: 'Get Total Supply',
 		},
 		{
-			hook: Balance(),
+			hook: stakeRewards.getBalance!,
 			header: 'Balance',
 			description: 'Get the stake token balance of your account',
 			buttonText: 'Get Balance',
 		},
 		{
-			hook: RewardPerToken(),
+			hook: stakeRewards.rewardPerToken!,
 			header: 'Reward Per Token',
 			description: 'Get the current reward rate per token staked',
 			buttonText: 'Get Rate',
 		},
 		{
-			hook: StakeTokenContract(),
+			hook: stakeRewards.getStakeToken!,
 			header: 'Stake Token Contract',
 			description: 'Get the stake token contract',
 			buttonText: 'Get Contract',
 			isAddress: true,
 		},
 		{
-			hook: RewardTokenContract(),
+			hook: stakeRewards.getStakeToken!,
 			header: 'Reward Token Contract',
 			description: 'Get the reward token contract',
 			buttonText: 'Get Contract',
@@ -123,12 +124,12 @@ const StakeContainer = () => {
 							<Section>
 								<CreateStakeInstance />
 								<ReadComponent
-									hook={Proxy()}
+									hook={stakeRewards.getProxy!}
 									header="Get Proxy"
 									description="Get your proxy contract address"
 									buttonText={'Get Instance'}
 									isAddress={true}
-                  module={'(Stake Rewards Module)'}
+									module={'(Stake Rewards Module)'}
 								/>
 							</Section>
 						</Info>
@@ -174,33 +175,39 @@ const StakeContainer = () => {
 					<Content>
 						<Info>
 							<p>
-								To stake, an account staking needs to allow your Stake Rewards
-								proxy contract to transfer their Stake Token.
+								To stake, an account staking needs to allow your Stake Rewards proxy
+								contract to transfer their Stake Token.
 								<br />
 								So before you can stake, you first need to do an approval from your
 								Stake Token Instance.
-                <br /> 
-                <br /> 
-                1. Get the proxy address of your Stake Rewards Instance and copy it to the side.
-                <br /> 
-                2. Switch your account to the owner of the Stake Token Instance you instantiated in Step 1.
-                <br />
-                3. In Approve, paste the address of your Stake Reward Instance and an amount of how much tokens you want to approve it to stake.
-                <br />
-                4. This is now your test account and you can now stake any amount that is equal to or less than the amount you approved.
-                
+								<br />
+								<br />
+								1. Get the proxy address of your Stake Rewards Instance and copy it
+								to the side.
+								<br />
+								2. Switch your account to the owner of the Stake Token Instance you
+								instantiated in Step 1.
+								<br />
+								3. In Approve, paste the address of your Stake Reward Instance and
+								an amount of how much tokens you want to approve it to stake.
+								<br />
+								4. This is now your test account and you can now stake any amount
+								that is equal to or less than the amount you approved.
 							</p>
-							<h3>Transfering Tokens with Token Module and Staking with Stake Rewards Module</h3>
+							<h3>
+								Transfering Tokens with Token Module and Staking with Stake Rewards
+								Module
+							</h3>
 							<Section>
-              <ReadComponent
-									hook={Proxy()}
+								<ReadComponent
+									hook={stakeRewards.getProxy!}
 									header="Get Proxy"
 									description="Get your proxy contract address"
 									buttonText={'Get Instance'}
 									isAddress={true}
-                  module={'(Stake Rewards Module)'}
+									module={'(Stake Rewards Module)'}
 								/>
-                <Approve />
+								<Approve />
 								<Stake />
 							</Section>
 						</Info>

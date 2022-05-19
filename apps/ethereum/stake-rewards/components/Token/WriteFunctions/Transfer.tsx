@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import { toast } from 'react-toastify';
 import {
 	Box,
@@ -12,13 +11,17 @@ import {
 	Input,
 	Content,
 	Button,
-	Module
+	Module,
 } from '../../ComponentStyles';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777/source';
+import { useMutation } from 'react-query';
 
 const Transfer = () => {
-	const { address } = useEthereum();
-	const { Transfer } = useERC20();
-	const { mutate, error } = Transfer();
+	const { account } = useEthereum();
+	const erc777 = useERC777();
+
+	const { mutate } = useMutation('createInstance', erc777.transfer);
+
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);
 
@@ -26,16 +29,13 @@ const Transfer = () => {
 
 	const createNewInstance = async () => {
 		try {
-			const instanceData = {
+			mutate({
 				to: receiver,
-				value: amount,
-			};
-
-			mutate(instanceData);
+				amount: amount,
+			});
 		} catch (error) {
 			console.log('e', error);
 			throw error;
-
 		}
 	};
 
@@ -53,12 +53,12 @@ const Transfer = () => {
 	return (
 		<Box>
 			<h4>Transfer Tokens</h4>
-			<p>Transfer your tokens to the provided address</p>
+			<p>Transfer your tokens to the provided account</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer Tokens'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Transfer Tokens'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -74,7 +74,7 @@ const Transfer = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Transfer'}
+								{!account ? 'Connet Wallet' : 'Transfer'}
 							</Button>
 						</Content>
 					</Parameters>
@@ -86,4 +86,3 @@ const Transfer = () => {
 };
 
 export default Transfer;
-
