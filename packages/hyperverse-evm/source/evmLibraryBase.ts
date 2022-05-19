@@ -28,13 +28,11 @@ export async function EvmLibraryBase(
 		providerOrSigner
 	) as Contract;
 
-	console.log('arr', hyperverse.modules, moduleName);
-	console.log(hyperverse.modules.find((x) => x.bundle.ModuleName));
 	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === moduleName)?.tenantId;
 	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
-
+	
 	const setProvider = (provider: ethers.providers.Provider) => {
 		factoryContract = new ethers.Contract(factoryAddress!, factoryABI, provider) as Contract;
 		if (proxyContract) {
@@ -42,9 +40,9 @@ export async function EvmLibraryBase(
 				proxyContract.address,
 				contractABI,
 				provider
-			) as Contract;
-		}
-	};
+				) as Contract;
+			}
+		};
 
 	let proxyAddress: string | null = null;
 	let proxyContract: Contract | undefined;
@@ -53,7 +51,8 @@ export async function EvmLibraryBase(
 		proxyAddress = await factoryContract.getProxy(tenantId);
 	} catch (error) {
 		const err = new Error(`Failed to get proxy address for tenant ${tenantId}`);
-		throw err;
+		// throw err;
+		console.log(err);
 	}
 
 	if (proxyAddress === ethers.constants.AddressZero) {
