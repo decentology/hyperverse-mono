@@ -5,22 +5,9 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { styled } from '../stitches.config';
 
-const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
-	let shortendHash;
-	if (postCharLength) {
-		shortendHash =
-			hash.slice(0, charLength) +
-			'...' +
-			hash.slice(hash.length - postCharLength, hash.length);
-	} else {
-		shortendHash = hash.slice(0, charLength);
-	}
-	return shortendHash;
-};
 
 const Nav = () => {
-	const { address, disconnect, connect, error } = useEthereum();
-
+	const { Connect, error } = useEthereum();
 	useEffect(() => {
 		if (error) {
 			toast.warn(error.message, {
@@ -42,13 +29,7 @@ const Nav = () => {
 					</About>
 				</Link>
 
-				{!address ? (
-					<ConnectButton onClick={connect}>Connect Wallet</ConnectButton>
-				) : (
-					<ConnectButton color="green" onClick={disconnect}>
-						<span>{shortenHash(address, 5, 5)}</span>
-					</ConnectButton>
-				)}
+				<Connect accountStatus={'full'} />
 			</NavItems>
 		</Header>
 	);

@@ -5,18 +5,6 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { styled } from '../stitches.config';
 
-const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
-	let shortendHash;
-	if (postCharLength) {
-		shortendHash =
-			hash.slice(0, charLength) +
-			'...' +
-			hash.slice(hash.length - postCharLength, hash.length);
-	} else {
-		shortendHash = hash.slice(0, charLength);
-	}
-	return shortendHash;
-};
 
 const Nav = () => {
 	const { Connect, error } = useEthereum();
