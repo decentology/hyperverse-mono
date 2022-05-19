@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777';
 import {
 	Box,
 	Item,
@@ -13,15 +13,19 @@ import {
 	Button,
 	Module,
 } from '../../ComponentStyles';
+import { useQuery } from 'react-query';
 
 const Allowance = () => {
-	const { address } = useEthereum();
-	const { Allowance } = useERC20();
+	const { account } = useEthereum();
 	const [owner, setOwner] = useState('');
 	const [spender, setSpender] = useState('');
-	const { data, refetch } = Allowance(owner!, spender!);
-	const [hidden, setHidden] = useState(false);
 
+	const erc20 = useERC777();
+	const { data, isLoading, refetch } = useQuery('allowance', () =>
+		erc20.allowance!(owner!, spender!)
+	);
+
+	const [hidden, setHidden] = useState(false);
 	return (
 		<Box>
 			<h4>Allowance</h4>
@@ -29,8 +33,8 @@ const Allowance = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Allowance'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Get Allowance'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -50,7 +54,13 @@ const Allowance = () => {
 									setHidden((p) => !p);
 								}}
 							>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Allowance' : data}
+								{!account
+									? 'Connect Wallet'
+									: isLoading
+									? 'fetching ...'
+									: !hidden
+									? 'Get Allowance'
+									: data!.toString()}
 							</Button>
 						</Content>
 					</Parameters>

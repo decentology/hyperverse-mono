@@ -3,6 +3,7 @@ import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Module } from './ComponentStyles';
+import { useQuery } from 'react-query';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -26,15 +27,20 @@ type Props = {
 	isAddress?: boolean;
 	module?: string;
 };
-const ReadComponent = ({ checkInstance, hook, header, description, buttonText, isAddress, module }: Props) => {
-	const { address } = useEthereum();
+const ReadComponent = ({
+	checkInstance,
+	hook,
+	header,
+	description,
+	buttonText,
+	isAddress,
+	module,
+}: Props) => {
+	const { account } = useEthereum();
 	const [hidden, setHidden] = useState(false);
-	const { data, error } = hook;
+	const { data, error, isLoading } = useQuery(header, hook);
 
-	
-
-	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
-	
+	const dataFetched = isAddress ? shortenHash(data as any, 5, 5) : data;
 
 	useEffect(() => {
 		if (error) {
@@ -50,10 +56,11 @@ const ReadComponent = ({ checkInstance, hook, header, description, buttonText, i
 		<Box>
 			<h4>{header}</h4>
 			<p>{description}</p>
-			<Button disabled={!address || !checkInstance} onClick={() => setHidden((p) => !p)}>
-				{!address
-					? 'Connect Wallet' 
-					: !checkInstance ? 'Create an Instance'
+			<Button disabled={!account || !checkInstance} onClick={() => setHidden((p) => !p)}>
+				{!account
+					? 'Connect Wallet'
+					: !checkInstance
+					? 'Create an Instance'
 					: !hidden
 					? buttonText
 					: dataFetched}

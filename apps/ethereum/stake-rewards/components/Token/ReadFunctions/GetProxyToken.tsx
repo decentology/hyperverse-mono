@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC20  } from '@decentology/hyperverse-evm-erc20';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777';
 import { MdFileCopy } from 'react-icons/md';
 import {
 	Box,
@@ -10,9 +10,10 @@ import {
 	Trigger,
 	Parameters,
 	Button,
-	Module
+	Module,
 } from '../../ComponentStyles';
 import { styled } from '@stitches/react';
+import { useQuery } from 'react-query';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -29,20 +30,24 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 
 const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
-	const { address } = useEthereum();
-	const { Proxy } = useERC20();
-	const { data, refetch } = Proxy();
+	const { account } = useEthereum();
+	const erc777 = useERC777();
+
+	const { data: instance } = useQuery('checkInstance', () => erc777.checkInstance!(account!));
+
+	const { data, refetch, isLoading } = useQuery('getProxy', () => erc777.getProxy!(account!));
+
 	const [hidden, setHidden] = useState(false);
 
 	const zeroAddress = data === '0x0000000000000000000000000000000000000000';
-	
+
 	const showInfo = !zeroAddress ? shortenHash(data, 5, 5) : 'You need an instance';
 
-  useEffect(() => {
-    if (addressCopied === true) {
-      setTimeout(() => setAddressCopied(false), 5000);
-    }
-  }, [addressCopied]);
+	useEffect(() => {
+		if (addressCopied === true) {
+			setTimeout(() => setAddressCopied(false), 5000);
+		}
+	}, [addressCopied]);
 
 	return (
 		<Box>
@@ -51,35 +56,39 @@ const ProxyToken = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Proxy'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Get Proxy'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Button
+								disabled={!account || !instance}
 								onClick={() => {
 									refetch();
 									setHidden(true);
 								}}
 							>
-								{!address
+								{!account
 									? 'Connect Wallet'
+									: !instance
+									? 'You need an instance'
+									: isLoading
+									? 'fetching ...'
 									: !hidden
-									? 'Get Proxy '
+									? 'Get Proxy'
 									: showInfo}
-				
 							</Button>
-              {hidden && !zeroAddress &&(
-									<CopyButton
-										onClick={() => {
-											navigator.clipboard.writeText(data);
-											setAddressCopied(true);
-										}}
-									>
-										{!addressCopied ? <MdFileCopy /> : ''}
-									</CopyButton>
-								)}
+							{hidden && !zeroAddress && (
+								<CopyButton
+									onClick={() => {
+										navigator.clipboard.writeText(data);
+										setAddressCopied(true);
+									}}
+								>
+									{!addressCopied ? <MdFileCopy /> : ''}
+								</CopyButton>
+							)}
 						</Content>
 					</Parameters>
 				</Item>
@@ -92,25 +101,25 @@ const ProxyToken = () => {
 export default ProxyToken;
 
 const CopyButton = styled('button', {
-  margin: '10px 0 -5px 2px',
+	margin: '10px 0 -5px 2px',
 	backgroundColor: 'transparent',
-  outline: 'none',
-  border: 'none',
-  color: '$yellow100',
-  cursor: 'pointer',
-  '&:hover': {
-    opacity: 0.8,
-  }
+	outline: 'none',
+	border: 'none',
+	color: '$yellow100',
+	cursor: 'pointer',
+	'&:hover': {
+		opacity: 0.8,
+	},
 });
 
 const Content = styled('div', {
-  display: 'flex',
-  flexDirection: 'row',
-  width: '100%',
-  marginTop: '10px',
-  justifyContent: 'center',
-  alignItems: 'center',
-})
+	display: 'flex',
+	flexDirection: 'row',
+	width: '100%',
+	marginTop: '10px',
+	justifyContent: 'center',
+	alignItems: 'center',
+});
 
 const CopyIcon = () => (
 	<svg

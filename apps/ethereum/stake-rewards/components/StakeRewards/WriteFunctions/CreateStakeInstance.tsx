@@ -11,27 +11,30 @@ import {
 	Input,
 	Content,
 	Button,
-	Module
+	Module,
 } from '../../ComponentStyles';
+import { useMutation, useQuery } from 'react-query';
 
 const CreateStakeInstance = () => {
-	const { address } = useEthereum();
-	const { NewInstance } = useStakeRewards();
-	const { mutate } = NewInstance();
+	const { account } = useEthereum();
+	const stakeRewards = useStakeRewards();
+
+	const { data: instance } = useQuery('instance', () => stakeRewards.checkInstance!(account));
+
+	const { mutate, isLoading } = useMutation('createTokenInstance', stakeRewards.createInstance);
+
 	const [stakingToken, setStakingToken] = useState('');
 	const [rewardsToken, setRewardsToken] = useState('');
 	const [rewardRate, setRewardRate] = useState(0);
 
 	const createNewInstance = async () => {
 		try {
-			const instanceData = {
-				account: address!,
+			mutate({
+				account: account!,
 				stakingToken: stakingToken,
 				rewardsToken: rewardsToken,
 				rewardRate: rewardRate,
-			};
-
-			mutate(instanceData);
+			});
 		} catch (error) {
 			throw error;
 		}
@@ -44,8 +47,12 @@ const CreateStakeInstance = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Create Instance'}
+						<Trigger disabled={!account}>
+							{!account
+								? 'Connect Wallet'
+								: instance
+								? 'You already have an instance'
+								: 'Create Instance'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -65,7 +72,11 @@ const CreateStakeInstance = () => {
 								onChange={(e) => setRewardRate(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Create Instance'}
+								{!account
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Create Instance'}
 							</Button>
 						</Content>
 					</Parameters>

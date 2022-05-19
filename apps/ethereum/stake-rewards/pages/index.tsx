@@ -3,7 +3,6 @@ import { styled } from '../stitches.config';
 import Nav from '../components/Nav';
 import Container from '../components/Container';
 
-
 export default function Home() {
 	return (
 		<>
@@ -15,7 +14,6 @@ export default function Home() {
 				<Nav />
 				<h1>Hyperverse Stake Rewards Module</h1>
 				<Container />
-
 			</Main>
 		</>
 	);
