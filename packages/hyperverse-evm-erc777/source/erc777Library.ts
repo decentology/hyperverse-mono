@@ -25,6 +25,15 @@ export async function ERC777LibraryInternal(
 		providerOrSigner = getProvider(hyperverse.network);
 	}
 
+	const base = await EvmLibraryBase(
+		'ERC777',
+		hyperverse,
+		factoryAddress!,
+		FactoryABI,
+		ContractABI,
+		providerOrSigner
+	);
+
 	const getTokenName = async () => {
 		try {
 			const name = await base.proxyContract?.name();
@@ -258,15 +267,6 @@ export async function ERC777LibraryInternal(
 			throw error;
 		}
 	};
-
-	const base = await EvmLibraryBase(
-		'ERC20',
-		hyperverse,
-		factoryAddress!,
-		FactoryABI,
-		ContractABI,
-		providerOrSigner
-	);
 
 	return {
 		...base,

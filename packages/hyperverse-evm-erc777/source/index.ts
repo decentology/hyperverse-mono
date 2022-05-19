@@ -1,10 +1,10 @@
 export { useERC777 } from './useERC777';
 export { Provider } from './Provider';
 
-export const ModuleName = 'ERC20';
+export const ModuleName = 'ERC777';
 
 import { Provider } from './Provider';
-export const ERC20 = {
+export const ERC777 = {
 	Provider,
 	ModuleName,
 };
