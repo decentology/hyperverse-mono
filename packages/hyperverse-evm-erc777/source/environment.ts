@@ -10,8 +10,8 @@ import Contracts from '../contracts.json';
 
 import ERC777Factory from '../artifacts/contracts/ERC777Factory.sol/ERC777Factory.json';
 import ERC777 from '../artifacts/contracts/ERC777.sol/ERC777.json';
-export const ContractABI = ERC777.abi;
-export const FactoryABI = ERC777Factory.abi;
+export const ContractABI = ERC777.abi as ContractInterface;
+export const FactoryABI = ERC777Factory.abi as ContractInterface;
 
 const environment = Contracts as EvmEnvironment;
 
