@@ -1,18 +1,12 @@
-import { HyperverseModuleInstance } from '@decentology/hyperverse';
 import { StakeRewards } from './useStakeRewards';
 import { FC } from 'react';
-import { QueryClientProvider, QueryClient } from 'react-query';
-const client = new QueryClient();
+import { HyperverseModuleInstance } from '@decentology/hyperverse';
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
-	if (tenantId == null) {
+	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
-	return (
-		<QueryClientProvider client={client}>
-			<StakeRewards.Provider initialState={{ tenantId: tenantId }}>{children}</StakeRewards.Provider>
-		</QueryClientProvider>
-	);
+	return <StakeRewards.Provider initialState={{ tenantId: tenantId }}>{children}</StakeRewards.Provider>;
 };
 
 export { Provider };
