@@ -3,7 +3,7 @@
 	"version": "1.0.14",
 	"exports": {
 		".": {
-			"import": "./source/index.ts"
+			"import": "./index.ts"
 		}
 	},
 	"source": "./source/index.ts",
