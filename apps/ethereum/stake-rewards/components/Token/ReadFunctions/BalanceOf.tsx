@@ -17,9 +17,11 @@ import { useQuery } from 'react-query';
 const BalanceOf = () => {
 	const { account } = useEthereum();
 	const erc777 = useERC777();
-	const [address, setAddress] = useState(account);
-
 	const { data, isLoading } = useQuery('balanceOf', () => erc777.getBalanceOf!(address!));
+
+	const { data: instance } = useQuery('checkInstance', () => erc777.checkInstance!(account!));
+
+	const [address, setAddress] = useState(account);
 
 	const [hidden, setHidden] = useState(false);
 
@@ -44,10 +46,12 @@ const BalanceOf = () => {
 							<Button onClick={() => setHidden((p) => !p)}>
 								{!account
 									? 'Connect Wallet'
+									: !instance
+									? 'No Instance'
 									: isLoading
 									? 'fetching ...'
 									: !hidden
-									? 'Get Balance Of'
+									? 'Get Allowance'
 									: data!.toString()}
 							</Button>
 						</Content>

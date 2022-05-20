@@ -10,9 +10,14 @@ import Mint from './WriteFunctions/Mint';
 import GetProxyToken from './ReadFunctions/GetProxyToken';
 import { useERC777 } from '@decentology/hyperverse-evm-erc777';
 import { BsExclamationTriangleFill } from 'react-icons/bs';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useQuery } from 'react-query';
 
 const TokenTab = () => {
+	const { account } = useEthereum();
 	const erc777 = useERC777();
+
+	const { data: instance } = useQuery('checkInstance', () => erc777.checkInstance!(account!));
 
 	const TokenReadFunctions = [
 		{
@@ -58,16 +63,17 @@ const TokenTab = () => {
 
 			<h3>Token Functions</h3>
 			<Section>
-				{TokenReadFunctions.map((item) => (
-					<ReadComponent
-						key={item.header}
-						hook={item.hook}
-						header={item.header}
-						description={item.description}
-						buttonText={item.buttonText}
-						module={'(Token Module)'}
-					/>
-				))}
+				{instance &&
+					TokenReadFunctions.map((item) => (
+						<ReadComponent
+							key={item.header}
+							hook={item.hook}
+							header={item.header}
+							description={item.description}
+							buttonText={item.buttonText}
+							module={'(Token Module)'}
+						/>
+					))}
 				<BalanceOf />
 				<Transfer />
 				<TransferFrom />

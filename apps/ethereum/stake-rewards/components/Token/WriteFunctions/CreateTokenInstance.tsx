@@ -22,15 +22,17 @@ const CreateTokenInstance = () => {
 	const { mutate } = useMutation('createInstance', erc777.createInstance);
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
-	const [tokenDecimals, setTokenDecimals] = useState(0);
+	const [initialSupply, setInitialSupply] = useState(0);
 
+	const operator = [account]
 	const createNewInstance = async () => {
 		try {
 			mutate({
 				account: account!,
-				name: tokenName,
-				symbol: tokenSymbol,
-				decimal: tokenDecimals,
+				tokenName,
+				tokenSymbol,
+				operator,
+				initialSupply,
 			});
 		} catch (error) {
 			throw error;
@@ -62,7 +64,7 @@ const CreateTokenInstance = () => {
 								type="number"
 								min="0"
 								placeholder="Token Decimal"
-								onChange={(e) => setTokenDecimals(e.currentTarget.valueAsNumber)}
+								onChange={(e) => setInitialSupply(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
 								{!account ? 'Connet Wallet' : 'Create Instance'}

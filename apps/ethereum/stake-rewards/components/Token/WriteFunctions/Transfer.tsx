@@ -20,12 +20,11 @@ const Transfer = () => {
 	const { account } = useEthereum();
 	const erc777 = useERC777();
 
-	const { mutate } = useMutation('createInstance', erc777.transfer);
+	const { mutate, error } = useMutation('Tranfer', erc777.transfer);
 
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);
 
-	const [err, setErr] = useState('');
 
 	const createNewInstance = async () => {
 		try {
@@ -48,7 +47,7 @@ const Transfer = () => {
 				});
 			}
 		}
-	}, [err]);
+	}, [error]);
 
 	return (
 		<Box>

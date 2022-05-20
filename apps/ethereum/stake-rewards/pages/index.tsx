@@ -10,8 +10,8 @@ export default function Home() {
 				<title>Hyperverse 🚀</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Main>
 				<Nav />
+			<Main>
 				<h1>Hyperverse Stake Rewards Module</h1>
 				<Container />
 			</Main>
