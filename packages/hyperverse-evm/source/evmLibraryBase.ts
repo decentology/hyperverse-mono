@@ -51,8 +51,7 @@ export async function EvmLibraryBase(
 		proxyAddress = await factoryContract.getProxy(tenantId);
 	} catch (error) {
 		const err = new Error(`Failed to get proxy address for tenant ${tenantId}`);
-		// throw err;
-		console.log(err);
+		throw err;
 	}
 
 	if (proxyAddress === ethers.constants.AddressZero) {
@@ -95,7 +94,7 @@ export async function EvmLibraryBase(
 		[key: string]: any;
 	}) => {
 		try {
-			const createTxn = await factoryContract.createInstance(account, args);
+			const createTxn = await factoryContract.createInstance(account, ...Object.values(args));
 			return createTxn.wait();
 		} catch (err) {
 			factoryErrors(err);
