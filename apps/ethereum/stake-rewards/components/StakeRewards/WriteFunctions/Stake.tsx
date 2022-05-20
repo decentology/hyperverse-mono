@@ -20,9 +20,7 @@ const Stake = () => {
 
 	const stakeRewards = useStakeRewards();
 
-	const { data: instance } = useQuery('instance', () => stakeRewards.checkInstance!(account));
-
-	const { mutate } = useMutation('claimReward', stakeRewards.stake);
+	const { mutate } = useMutation('stake', stakeRewards.stake);
 
 	const [amount, setAmount] = useState(0);
 
@@ -41,11 +39,9 @@ const Stake = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!account || !instance}>
+						<Trigger disabled={!account}>
 							{!account
 								? 'Connect Wallet'
-								: !instance
-								? 'Create an Instance'
 								: 'Stake'}
 						</Trigger>
 					</TriggerContainer>

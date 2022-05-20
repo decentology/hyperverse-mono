@@ -24,7 +24,10 @@ const BalanceOf = () => {
 	);
 
 	const [address, setAddress] = useState(account);
-	const { data } = useQuery('balanceOf', () => stakeRewards.getBalanceOf!(account!));
+	const { data, isLoading } = useQuery('balanceOf', () => stakeRewards.getBalanceOf!(account!),
+	{
+		enabled: instance,
+	})
 
 	const [hidden, setHidden] = useState(false);
 
@@ -36,11 +39,15 @@ const BalanceOf = () => {
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address || !instance}>
-							{!address
-								? 'Connect Wallet'
-								: !instance
-								? 'Create an Instance'
-								: 'Get Balance Of'}
+						{!account
+									? 'Connect Wallet'
+									: !instance
+									? 'You need an instance'
+									: isLoading
+									? 'fetching ...'
+									: !hidden
+									? 'Get Proxy'
+									: data}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>

@@ -16,6 +16,8 @@ import GetProxyToken from './Token/ReadFunctions/GetProxyToken';
 import Transfer from './Token/WriteFunctions/Transfer';
 
 import { useQuery } from 'react-query';
+import GetProxy from './StakeRewards/ReadFunctions/GetProxy';
+import Authorize from './Token/WriteFunctions/Authorize';
 
 const StakeContainer = () => {
 	const { address } = useEthereum();
@@ -107,67 +109,6 @@ const StakeContainer = () => {
 				<Accordion.Item value="item-1">
 					<Header>
 						<Trigger>
-							Step 2: Create Your Stake Rewards Instance
-							<IoIosArrowDown />
-						</Trigger>
-					</Header>
-					<Content>
-						<Info>
-							<p>
-								To create your Stake Rewards Instance, provide it the 2 proxy token
-								addresses you saved from step 1.
-								<br />
-								Once your instance is your created, get your Stake Reward proxy
-								address and save it on the side.
-							</p>
-							<h3>Stake Rewards Factory Functions</h3>
-							<Section>
-								<CreateStakeInstance />
-								<ReadComponent
-									hook={stakeRewards.getProxy!}
-									header="Get Proxy"
-									description="Get your proxy contract address"
-									buttonText={'Get Instance'}
-									isAddress={true}
-									module={'(Stake Rewards Module)'}
-								/>
-							</Section>
-						</Info>
-					</Content>
-				</Accordion.Item>
-			</Accordion.Root>
-
-			<Accordion.Root type="single" collapsible>
-				<Accordion.Item value="item-1">
-					<Header>
-						<Trigger>
-							Step 3: Steup your Rewards Process
-							<IoIosArrowDown />
-						</Trigger>
-					</Header>
-					<Content>
-						<Info>
-							<p>
-								To allow this contract to distibute your rewards tokens, you need to
-								transfer your Rewards Token from your Token Instance to your Stake
-								Rewards proxy address.
-								<br />
-								This is why you need to use the same account for your Stake Rewards
-								Instance and your Rewards Token Instance.
-							</p>
-							<h3>Token Module Transfer</h3>
-							<Section>
-								<Transfer />
-							</Section>
-						</Info>
-					</Content>
-				</Accordion.Item>
-			</Accordion.Root>
-
-			<Accordion.Root type="single" collapsible>
-				<Accordion.Item value="item-1">
-					<Header>
-						<Trigger>
 							Staking Process
 							<IoIosArrowDown />
 						</Trigger>
@@ -217,7 +158,7 @@ const StakeContainer = () => {
 
 			<h3>Stake Rewards Other Functions</h3>
 			<Section>
-				{StakeReadFunctions.map((item) => (
+				{instance && StakeReadFunctions.map((item) => (
 					<ReadComponent
 						checkInstance={instance}
 						key={item.header}

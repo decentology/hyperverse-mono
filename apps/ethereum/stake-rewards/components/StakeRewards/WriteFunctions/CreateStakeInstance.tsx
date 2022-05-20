@@ -21,7 +21,7 @@ const CreateStakeInstance = () => {
 
 	const { data: instance } = useQuery('instance', () => stakeRewards.checkInstance!(account));
 
-	const { mutate, isLoading } = useMutation('createTokenInstance', stakeRewards.createInstance);
+	const { mutate, isLoading } = useMutation('createInstance', stakeRewards.createInstance);
 
 	const [stakingToken, setStakingToken] = useState('');
 	const [rewardsToken, setRewardsToken] = useState('');
@@ -31,9 +31,9 @@ const CreateStakeInstance = () => {
 		try {
 			mutate({
 				account: account!,
-				stakingToken: stakingToken,
-				rewardsToken: rewardsToken,
-				rewardRate: rewardRate,
+				stakingToken,
+				rewardsToken,
+				rewardRate,
 			});
 		} catch (error) {
 			throw error;

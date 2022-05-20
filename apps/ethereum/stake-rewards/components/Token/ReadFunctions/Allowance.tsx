@@ -15,14 +15,18 @@ import {
 } from '../../ComponentStyles';
 import { useQuery } from 'react-query';
 
+
 const Allowance = () => {
 	const { account } = useEthereum();
 	const [owner, setOwner] = useState('');
 	const [spender, setSpender] = useState('');
 
-	const erc20 = useERC777();
+	const erc777 = useERC777();
+
+	const { data: instance } = useQuery('checkInstance', () => erc777.checkInstance!(account!));
+
 	const { data, isLoading, refetch } = useQuery('allowance', () =>
-		erc20.allowance!(owner!, spender!)
+		erc777.allowance!(owner!, spender!)
 	);
 
 	const [hidden, setHidden] = useState(false);
@@ -56,6 +60,8 @@ const Allowance = () => {
 							>
 								{!account
 									? 'Connect Wallet'
+									: !instance
+									? 'No Instance'
 									: isLoading
 									? 'fetching ...'
 									: !hidden

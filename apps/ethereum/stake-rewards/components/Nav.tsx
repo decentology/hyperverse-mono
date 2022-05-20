@@ -47,40 +47,15 @@ const Header = styled('nav', {
 const NavItems = styled('div', {
 	display: 'flex',
 	alignItems: 'center',
-	'& button': {
-		margin: '0 0 0 20px',
-	},
+
 });
 
 const About = styled('a', {
 	color: 'white',
 	textDecoration: 'none',
+	marginRight: 20,
 	'&:hover': {
 		opacity: 0.8,
 	},
 });
-const ConnectButton = styled('button', {
-	minWidth: '130px',
-	backgroundColor: '$blue200',
-	outline: 'none',
-	border: 'none',
-	padding: '10px 15px',
-	borderRadius: '90px',
-	cursor: 'pointer',
 
-	variants: {
-		color: {
-			green: {
-				backgroundColor: '$green200',
-				color: 'white',
-				'&:hover span': {
-					display: 'none',
-				},
-				'&:hover:before': {
-					content: '"disconnect" !important',
-					opacity: 0.9,
-				},
-			},
-		},
-	},
-});
