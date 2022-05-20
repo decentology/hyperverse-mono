@@ -7,17 +7,20 @@ export const GetTotalTenants = ({ tenants, ...props }) => {
 	const [data, setData] = useState(tenants);
 
 	useEffect(() => {
-		if(tribes.getTotalTenants){
+		if (tribes.getTotalTenants) {
 			tribes.getTotalTenants().then(setData);
 		}
 	}, [tribes.getTotalTenants]);
 
-	return (
-		<div className="totalTenants">
-			<div>Total Tenants: </div>
-			<pre>{data}</pre>
-		</div>
-	);
+	const hasTenants = () => {
+		return data ? (
+			<p>{data}</p>
+		) : (
+			<p>There are no tenants. Please create an instance.</p>
+		);
+	};
+
+	return <div className="totalTenants"> Total Tenants: {hasTenants()}</div>;
 };
 
 GetTotalTenants.propTypes = {};

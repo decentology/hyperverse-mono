@@ -36,7 +36,6 @@ import { GetAllTribes } from './getAllTribes';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import { Doc } from '../docs/getAllTribes.mdx';
-import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/GetAllTribes',
@@ -48,7 +47,7 @@ export default {
 	},
 };
 
-const Template: Story = (args) => (
+const Template = (args) => (
 	<HyperverseProvider>
 		<GetAllTribes {...args} />
 	</HyperverseProvider>
@@ -65,12 +64,12 @@ Demo.args = {};
 ```jsx
 
 import * as PropTypes from 'prop-types';
-import './button.css';
 import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
 import { MetaDataFormatted } from '../source/types';
+import './button.css';
 
-export const GetAllTribes = ({ tribeOne, tribeTwo, ...props }) => {
+export const GetAllTribes = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState<MetaDataFormatted[] | null>(null);
 

@@ -13,6 +13,9 @@ export default {
 	},
 	parameters: {
 		layout: 'fullscreen',
+		docs: {
+			page: Doc,
+		},
 	},
 };
 

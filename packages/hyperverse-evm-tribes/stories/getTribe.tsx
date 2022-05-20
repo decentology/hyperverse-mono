@@ -12,12 +12,15 @@ export const GetTribe = ({ ...props }) => {
 		}
 	}, [tribes.getTribe]);
 
-	return (
-		<div className="tribe">
-			<div> Tribe: </div>
+	const hasTribes = () => {
+		return data ? (
 			<pre>{JSON.stringify(data)}</pre>
-		</div>
-	);
+		) : (
+			<p>Please add a tribe.</p>
+		);
+	};
+
+	return <div className="totalTenants"> Tribe: {hasTribes()}</div>;
 };
 
 GetTribe.propTypes = {

@@ -28,6 +28,7 @@
 ### Stories
 
 ```jsx
+
 import { GetTribeId } from './getTribeId';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
@@ -51,49 +52,45 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-	account: '',
-};
+Demo.args = {};
+
 ```
 
 ### Main UI Component
 
 ```jsx
-import React from 'react';
-import PropTypes from 'prop-types';
+
+import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import './button.css';
-import { useState, useEffect } from 'react';
+import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEffect, useState } from 'react';
 
-export const GetTribeId = ({ ...props }) => {
+export const GetTribeId = ({ account, ...props }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState(null);
+	const { address } = useEvm();
+	const [data, setData] = useState(address);
+
 	useEffect(() => {
-		return () => {
-			tribes.getTribeId().then(setData);
-		};
-	}, [])
+		if (tribes.getTribeId) {
+			tribes.getTribeId(address).then(setData);
+		}
+	}, [tribes.getTribeId]);
 
-	return (
-		<div className="tribe">
-			Tribe Id: <b>{data}</b>
-		</div>
-	);
+	const hasTribeId = () => {
+		return data ? (
+			<p>Tribe id: {data}</p>
+		) : (
+			<p>This account is not in a tribe!</p>
+		);
+	};
+
+	return <div className="tribeId"> {hasTribeId()}</div>;
 };
 
-GetTribeId.propTypes = {
-	account: PropTypes.string.isRequired,
-};
+GetTribeId.propTypes = {};
 
 GetTribeId.defaultProps = {};
-```
 
-### Args
-
-```jsx
-Demo.args = {
-	account: '',
-};
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

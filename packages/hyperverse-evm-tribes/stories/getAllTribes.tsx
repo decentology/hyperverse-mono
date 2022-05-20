@@ -1,10 +1,10 @@
 import * as PropTypes from 'prop-types';
-import './button.css';
 import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
 import { MetaDataFormatted } from '../source/types';
+import './button.css';
 
-export const GetAllTribes = ({ tribeOne, tribeTwo, ...props }) => {
+export const GetAllTribes = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState<MetaDataFormatted[] | null>(null);
 

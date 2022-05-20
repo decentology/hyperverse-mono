@@ -90,7 +90,7 @@ export const GetTribeMembers = ({ ...props }) => {
 
 	const hasTribeMembers = () => {
 		return data.length > 0 ? (
-			<p>There are members in this tribe.</p>
+			<pre>Tribe Members: {JSON.stringify(data)}</pre>
 		) : (
 			<p>There are no members in this tribe.</p>
 		);
@@ -109,7 +109,7 @@ GetTribeMembers.defaultProps = {};
 
 ### Args
 
-<p> For the purposes of this demo we have given a tribe id of **1** which is the tribe id of Mage. There are no members in this tribe which is reflected in the results of the demo.</p>
+<p> For the purposes of this demo we have given a tribe id of **1** which is the tribe id of Mage. There are no members in this tribe which is reflected in the results of the demo. After you create an instance and join this tribe you will see your address added.</p>
 
 ```jsx
 

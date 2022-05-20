@@ -65,17 +65,20 @@ export const GetTotalTenants = ({ tenants, ...props }) => {
 	const [data, setData] = useState(tenants);
 
 	useEffect(() => {
-		if(tribes.getTotalTenants){
+		if (tribes.getTotalTenants) {
 			tribes.getTotalTenants().then(setData);
 		}
 	}, [tribes.getTotalTenants]);
 
-	return (
-		<div className="totalTenants">
-			<div>Total Tenants: </div>
-			<pre>{data}</pre>
-		</div>
-	);
+	const hasTenants = () => {
+		return data ? (
+			<p>{data}</p>
+		) : (
+			<p>There are no tenants. Please create an instance.</p>
+		);
+	};
+
+	return <div className="totalTenants"> Total Tenants: {hasTenants()}</div>;
 };
 
 GetTotalTenants.propTypes = {};
@@ -86,7 +89,7 @@ GetTotalTenants.defaultProps = {};
 
 ### Provider.tsx
 
-<p> An initial tenantId of `0x62a7aa79a52591Ccc62B71729329A80a666fA50f` is given which returns a value of **1** in the demo as their is only one tenant.</p>
+<p> An initial tenantId of `0x62a7aa79a52591Ccc62B71729329A80a666fA50f` is given which returns a value of **1** in the demo as their is only one tenant when you first start Storybook.</p>
 
 ```jsx
 import { initialize, Network, Provider } from '@decentology/hyperverse';

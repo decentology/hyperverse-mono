@@ -49,11 +49,13 @@ export async function TribesLibraryInternal(
 	};
 
 	const getTribeId = async (account: string) => {
+		console.log('account in get tribe id', account)
 		try {
+			console.log('in the try')
 			const id = await base.proxyContract?.getUserTribe(account);
+			console.log('after the try', account)
 			return id.toNumber() as number;
 		} catch (err) {
-			console.log(err)
 			if (err instanceof Error) {
 				if (err.message.includes('This member is not in a Tribe!')) {
 					return null;
@@ -63,7 +65,9 @@ export async function TribesLibraryInternal(
 	};
 
 	const getTribeByAccount = async (account: string) => {
+		console.log('in tribe by account', account)
 		const tribeId = await getTribeId(account);
+		console.log('in tribe by account 2', account)
 		return await getTribe(tribeId!);
 	}
 

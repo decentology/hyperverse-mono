@@ -1,36 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import './button.css';
-import { useState, useEffect } from 'react';
+import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEffect, useState } from 'react';
 
-export const GetTribeId = ({ ...props }) => {
+export const GetTribeId = ({ account, ...props }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState(null);
+	const { address } = useEvm();
+	const [data, setData] = useState(address);
 
-	/**
-	 * Error: network does not support ENS
-	 * Stuck at contract call? (line 55)
-	 */
 	useEffect(() => {
 		if (tribes.getTribeId) {
-			console.log(props.account)
-			tribes.getTribeId(props.account).then(setData);
-			console.log(props.account)
-			console.log('this is the data', data)
+			tribes.getTribeId(address).then(setData);
 		}
-	}, [tribes.getTribeId])
-	console.log(data)
+	}, [tribes.getTribeId]);
 
-	return (
-		<div className="tribe">
-			Tribe Id: <b>{data}</b>
-		</div>
-	);
+	const hasTribeId = () => {
+		return data ? (
+			<p>Tribe id: {data}</p>
+		) : (
+			<p>This account is not in a tribe!</p>
+		);
+	};
+
+	return <div className="tribeId"> {hasTribeId()}</div>;
 };
 
-GetTribeId.propTypes = {
-	account: PropTypes.string.isRequired
-};
+GetTribeId.propTypes = {};
 
 GetTribeId.defaultProps = {};

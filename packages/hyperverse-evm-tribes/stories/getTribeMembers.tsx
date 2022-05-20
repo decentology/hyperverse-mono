@@ -15,7 +15,7 @@ export const GetTribeMembers = ({ ...props }) => {
 
 	const hasTribeMembers = () => {
 		return data.length > 0 ? (
-			<p>There are members in this tribe.</p>
+			<pre>Tribe Members: {JSON.stringify(data)}</pre>
 		) : (
 			<p>There are no members in this tribe.</p>
 		);

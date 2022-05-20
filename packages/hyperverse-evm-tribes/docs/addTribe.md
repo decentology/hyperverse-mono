@@ -8,21 +8,21 @@
 
 ### addTribe
 
-<p> The `addTribes` function takes in metadata and an image file. </p>
+<p> The `addTribes` function takes in metadata and an image file for your tribe. </p>
 
 ```jsx
-const addTribe = async ({ metadata, image }: { metadata: Omit<MetaData, 'image'>, image: File }) => {
+	const addTribe = async ({ metadata, image }: { metadata: Omit<MetaData, 'image'>, image: File }) => {
 		try {
-			const { skylink: imageLink } = await hyperverse!.storage!.uploadFile(image);
+			const imageLink = await hyperverse.storage?.uploadFile(image);
 			const fullMetaData: MetaData = {
 				...metadata,
-				image: imageLink
+				image: imageLink!
 			};
 			const metadataFile = new File([JSON.stringify(fullMetaData)], 'metadata.json');
-			const { skylink: metadataFileLink } = await hyperverse!.storage!.uploadFile(
+			const metadataFileLink = await hyperverse!.storage!.uploadFile(
 				metadataFile
 			);
-
+			console.log(base.proxyContract);
 			const addTxn = await base.proxyContract?.addNewTribe(metadataFileLink);
 			return addTxn.wait() as TransactionReceipt;
 		} catch (err) {
@@ -38,6 +38,7 @@ const addTribe = async ({ metadata, image }: { metadata: Omit<MetaData, 'image'>
 import React from 'react';
 import { AddTribe } from './addTribe';
 import { HyperverseProvider } from './utils/Provider';
+import { Doc } from '../docs/addTribe.mdx';
 
 export default {
 	title: 'Components/AddTribe',
@@ -49,6 +50,9 @@ export default {
 	},
 	parameters: {
 		layout: 'fullscreen',
+		docs: {
+			page: Doc,
+		},
 	},
 };
 
@@ -119,9 +123,7 @@ export const AddTribe = ({ ...props }) => {
 	);
 };
 
-AddTribe.propTypes = {
-	metadata: PropTypes.string.isRequired,
-};
+AddTribe.propTypes = {};
 
 AddTribe.defaultProps = {};
 

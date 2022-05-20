@@ -1,6 +1,6 @@
 # Get Tribe
 
-<p> The `getTribe` function from `tribesLibrary` returns a tribe's data. </p>
+<p> The `getTribe` function from `tribesLibrary` returns a tribe's metadata. </p>
 
 ---
 
@@ -50,7 +50,7 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	tribeId: 1
+	tribeId: 1,
 };
 
 ```
@@ -73,12 +73,15 @@ export const GetTribe = ({ ...props }) => {
 		}
 	}, [tribes.getTribe]);
 
-	return (
-		<div className="tribe">
-			<div> Tribe: </div>
+	const hasTribes = () => {
+		return data ? (
 			<pre>{JSON.stringify(data)}</pre>
-		</div>
-	);
+		) : (
+			<p>Please add a tribe.</p>
+		);
+	};
+
+	return <div className="totalTenants"> Tribe: {hasTribes()}</div>;
 };
 
 GetTribe.propTypes = {
@@ -91,7 +94,7 @@ GetTribe.defaultProps = {};
 
 ### Args
 
-<p> We give an initial tribe id of **1** which will return the first tribe in the preset list of tribes. </p>
+<p> We give an initial tribe id of **1** which will return the first tribe (**Mage**) in the preset list of tribes. </p>
 
 ```jsx
 

@@ -1,6 +1,6 @@
+import React from 'react';
 import { JoinTribe } from './joinTribe';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import { Doc } from '../docs/joinTribe.mdx';
 
 export default {
@@ -19,6 +19,8 @@ const Template = (args) => (
 	</HyperverseProvider>
 );
 
-export const JoinTribeDemo = Template.bind({});
+export const Demo = Template.bind({});
 
-JoinTribeDemo.args = {};
+Demo.args = {
+	tribeId: 1,
+};
