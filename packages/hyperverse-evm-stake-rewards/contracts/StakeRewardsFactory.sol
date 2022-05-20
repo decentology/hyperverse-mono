@@ -22,7 +22,7 @@ contract StakeRewardsFactory is CloneFactory {
 	Counters.Counter public tenantCounter;
 
 	mapping(address => Tenant) public tenants;
-	mapping(address => bool) private instance;
+	mapping(address => bool) public instance;
 
 	address public immutable owner;
 	address public immutable masterContract;

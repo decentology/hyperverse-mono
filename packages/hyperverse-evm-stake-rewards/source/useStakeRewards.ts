@@ -2,22 +2,21 @@ import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 
-import { useHyperverse } from '@decentology/hyperverse';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { StakeRewardsLibrary, StakeRewardsLibraryType } from './stakeRewardsLibrary';
+import { useHyperverse } from '@decentology/hyperverse';
 
 function StakeRewardsState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { connectedProvider, readOnlyProvider } = useEvm();
+	const { readOnlyProvider, signer } = useEvm();
 	const hyperverse = useHyperverse();
-	const [stakeRewardsLibrary, setStakeRewardsLib] = useState<StakeRewardsLibraryType>();
+	const [stakeRewardsLibrary, setStakeRewardsLibrary] = useState<StakeRewardsLibraryType>();
+
 
 	useEffect(() => {
-		const lib = StakeRewardsLibrary(hyperverse, connectedProvider || readOnlyProvider).then(
-			setStakeRewardsLib
-		);
+		const lib = StakeRewardsLibrary(hyperverse, signer || readOnlyProvider).then(setStakeRewardsLibrary)
 		return lib.cancel;
-	}, [connectedProvider]);
+	}, [signer, readOnlyProvider])
 
 	const useStakeRewardsEvents = (eventName: string, callback: any) => {
 		return useEvent(
