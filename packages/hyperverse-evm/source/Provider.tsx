@@ -19,25 +19,6 @@ export type ProviderProps = {
 export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const { network: defaultNetwork } = useHyperverse();
-
-	/**
- wagmi chain Type:
-  id: number
-  name: AddEthereumChainParameter['chainName']
-  nativeCurrency?: AddEthereumChainParameter['nativeCurrency']
-  rpcUrls: { [key in RpcProviderName]?: string } & {
-    [key: string]: string
-    default: string
-  }
-  blockExplorers?: {
-    [key in BlockExplorerName]: BlockExplorer
-  } & {
-    [key: string]: BlockExplorer
-    default: BlockExplorer
-  }
-  testnet?: boolean
- */
-
 	const { chains, provider } = configureChains(
 		[
 			{
@@ -69,7 +50,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 		autoConnect: true,
 		connectors,
 		provider,
-		//not sure if this helps or does anything tbh
+		// @ts-ignore
 		jsonRpcUrl: ({ chainId }: { chainId: any }) =>
 			chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
 	});

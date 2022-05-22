@@ -27,8 +27,8 @@
 				"../../../packages/hyperverse-ethereum"
 			],
 
-			"@decentology/hyperverse-storage-skynet": [
-				"../../../packages/hyperverse-storage-skynet"
+			"@decentology/hyperverse-storage-ipfs": [
+				"../../../packages/hyperverse-storage-ipfs"
 			],
 			"@decentology/hyperverse-evm": [
 				"../../../packages/hyperverse-evm"

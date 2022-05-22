@@ -2,7 +2,7 @@
 	"name": "@decentology/hyperverse",
 	"exports": {
 		".": {
-			"import": "./source/index.ts"
+			"import": "./index.ts"
 		}
 	},
 	"source": "./source/index.ts",

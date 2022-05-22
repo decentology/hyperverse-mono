@@ -2,5 +2,4 @@
 	"extends": "@decentology/config/react-library.json",
 	"include": ["index.d.ts"],
 	"exclude": ["distribution", "node_modules"]
-  }
-  
+}
