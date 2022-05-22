@@ -1,4 +1,4 @@
-import { networks, useHyperverse } from '@decentology/hyperverse';
+import { Network, useHyperverse } from '@decentology/hyperverse';
 import { useEffect, useState } from 'react';
 import { createContainer } from '@decentology/unstated-next';
 import * as actions from './actions';
@@ -11,9 +11,9 @@ function WhitelistState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	const tenantId = initialState.tenantId;
 	const initialize = async () => {
-		if (network === networks.Mainnet) {
+		if (network.type === Network.Mainnet) {
 			// TODO: Deploy to Flow Mainnet.
-		} else if (network === networks.Testnet) {
+		} else if (network.type === Network.Testnet) {
 			fcl.config().put('0xWhitelist', '0x3f55c5f48f39b076');
 		}
 

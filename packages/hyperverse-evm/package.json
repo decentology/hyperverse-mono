@@ -7,6 +7,7 @@
 		}
 	},
 	"source": "./source/index.ts",
+	"main:src": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"module": "./distribution/index.es.js",
 	"types": "./distribution/index.d.ts",

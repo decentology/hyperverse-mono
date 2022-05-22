@@ -23,7 +23,7 @@
 		"exports": null
 	},
 	"scripts": {
-		"build": "parcel build",
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},
@@ -43,7 +43,6 @@
 	"devDependencies": {
 		"@decentology/config": "^1",
 		"@types/react": "17.0.2",
-		"parcel": "^2.3.2",
 		"rimraf": "^3.0.2"
 	}
 }

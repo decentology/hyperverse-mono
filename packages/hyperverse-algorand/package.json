@@ -13,7 +13,6 @@
 		"distribution"
 	],
 	"scripts": {
-		"build": "parcel build",
 		"clean": "rimraf ./distribution"
 	},
 	"peerDependencies": {

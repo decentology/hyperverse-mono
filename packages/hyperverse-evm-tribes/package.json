@@ -14,7 +14,7 @@
 		"deploy-metis": "hardhat run scripts/deploy.js --network metis",
 		"deploy-avalanche": "hardhat run scripts/deploy.js --network avalanche",
 		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
-		"build": "parcel build",
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit",
 		"storybook": "start-storybook -p 6006",

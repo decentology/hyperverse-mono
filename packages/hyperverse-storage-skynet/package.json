@@ -17,7 +17,7 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "parcel build",
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},

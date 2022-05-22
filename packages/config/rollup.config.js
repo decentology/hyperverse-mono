@@ -3,6 +3,7 @@ import { join } from 'path';
 import { defineConfig } from 'rollup';
 import autoExternal from 'rollup-plugin-auto-external';
 import esbuild from 'rollup-plugin-esbuild';
+import json from '@rollup/plugin-json';
 import dts from 'rollup-plugin-dts';
 const dir = 'distribution';
 const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
@@ -16,6 +17,7 @@ export default defineConfig([
 			autoExternal({
 				packagePath: join(process.cwd(), 'package.json'),
 			}),
+			json(),
 			esbuild({ sourceMap: true }),
 		],
 		output: [

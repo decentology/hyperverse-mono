@@ -7,7 +7,7 @@
 	"license": "MIT",
 	"scripts": {
 		"test": "hardhat test",
-		"build": "parcel build",
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
 		"compile": "hardhat compile",
 		"deploy": "run-p deploy-ethereum deploy-metis deploy-avalanche deploy-polygon",

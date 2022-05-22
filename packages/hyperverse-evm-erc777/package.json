@@ -8,7 +8,7 @@
   "scripts": {
     "test": "hardhat test",
     "compile": "hardhat compile",
-    "build": "parcel build",
+    "build": "rollup --config node:@decentology/config/rollup.config.js",
     "deploy": "run-p deploy-ethereum deploy-metis deploy-avalanche deploy-polygon",
     "deploy-ethereum": "hardhat run scripts/deploy.js --network ethereum ",
     "deploy-metis": "hardhat run scripts/deploy.js --network metis",
