@@ -1,4 +1,4 @@
-import '@rainbow-me/rainbowkit/styles.css';
+import '@rainbow-me/rainbowkit/dist/index.css';
 import {
 	apiProvider,
 	configureChains,
