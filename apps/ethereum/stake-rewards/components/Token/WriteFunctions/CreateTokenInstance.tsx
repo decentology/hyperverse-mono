@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import {
 	Box,
 	Item,
@@ -13,25 +12,28 @@ import {
 	Button,
 	Module,
 } from '../../ComponentStyles';
+import { useMutation } from 'react-query';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777';
 
 const CreateTokenInstance = () => {
-	const { address } = useEthereum();
-	const { NewInstance } = useERC20();
-	const { mutate } = NewInstance();
+	const { account } = useEthereum();
+	const erc777 = useERC777();
+
+	const { mutate } = useMutation('createInstance', erc777.createInstance);
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
-	const [tokenDecimals, setTokenDecimals] = useState(0);
+	const [initialSupply, setInitialSupply] = useState(0);
 
+	const operator = [account]
 	const createNewInstance = async () => {
 		try {
-			const instanceData = {
-				account: address!,
-				name: tokenName,
-				symbol: tokenSymbol,
-				decimal: tokenDecimals,
-			};
-
-			mutate(instanceData);
+			mutate({
+				account: account!,
+				tokenName,
+				tokenSymbol,
+				operator,
+				initialSupply,
+			});
 		} catch (error) {
 			throw error;
 		}
@@ -44,8 +46,8 @@ const CreateTokenInstance = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Create Instance'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Create Instance'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -62,10 +64,10 @@ const CreateTokenInstance = () => {
 								type="number"
 								min="0"
 								placeholder="Token Decimal"
-								onChange={(e) => setTokenDecimals(e.currentTarget.valueAsNumber)}
+								onChange={(e) => setInitialSupply(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Create Instance'}
+								{!account ? 'Connet Wallet' : 'Create Instance'}
 							</Button>
 						</Content>
 					</Parameters>

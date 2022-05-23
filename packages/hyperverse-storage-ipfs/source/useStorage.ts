@@ -6,7 +6,7 @@ import { IpfsStorageLibrary } from './ipfsStorageLibrary';
 function StorageState(
 	{ clientUrl }: StorageProps = { clientUrl: 'https://ipfs.infura.io:5001' }
 ) {
-	const lib = useMemo(IpfsStorageLibrary, [clientUrl]);
+	const lib = IpfsStorageLibrary({ clientUrl });
 	return lib
 }
 

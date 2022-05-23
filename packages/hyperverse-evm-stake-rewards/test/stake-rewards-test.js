@@ -11,8 +11,8 @@ describe('StakeRewards Testing', function () {
 	let erc777ctr;
 	let TokenFactory;
 	let tokenFactoryCtr;
-	let alice777;
-	let bob777;
+	let rewardTokenAlice;
+	let stakeTokenBob;
 
 	//Staking Contracts
 	let StakeRewards;
@@ -48,8 +48,8 @@ describe('StakeRewards Testing', function () {
 			.connect(bob)
 			.createInstance('BOB', 'BO', [], initialSupply, bob.address);
 
-		alice777 = await ERC777.attach(await tokenFactoryCtr.getProxy(alice.address));
-		bob777 = await ERC777.attach(await tokenFactoryCtr.getProxy(bob.address));
+		rewardTokenAlice = await ERC777.attach(await tokenFactoryCtr.getProxy(alice.address));
+		stakeTokenBob = await ERC777.attach(await tokenFactoryCtr.getProxy(bob.address));
 
 		StakeRewards = await ethers.getContractFactory('StakeRewardsToken');
 		stakeRewardsCtr = await StakeRewards.deploy(owner.address);
@@ -61,12 +61,12 @@ describe('StakeRewards Testing', function () {
 
 		await stakeFactoryCtr
 			.connect(alice)
-			.createInstance(alice.address, bob777.address, alice777.address, rewardRate);
+			.createInstance(alice.address, stakeTokenBob.address, rewardTokenAlice.address, rewardRate);
 
 		AliceStakeTenant = await StakeRewards.attach(await stakeFactoryCtr.getProxy(alice.address));
 
 		//TENANT OWNER: add the StakeRewardsToken instance to the Reward Token ERC777 default operactor
-		await alice777.connect(alice).authorizeOperator(AliceStakeTenant.address);
+		await rewardTokenAlice.connect(alice).authorizeOperator(AliceStakeTenant.address);
 
 	});
 
@@ -77,8 +77,8 @@ describe('StakeRewards Testing', function () {
 		});
 
 		it('rewardsToken and stakingToken should match MockStakingToken and MockRewardsToken Address', async function () {
-			expect(await AliceStakeTenant.rewardsToken()).to.equal(alice777.address);
-			expect(await AliceStakeTenant.stakingToken()).to.equal(bob777.address);
+			expect(await AliceStakeTenant.rewardsToken()).to.equal(rewardTokenAlice.address);
+			expect(await AliceStakeTenant.stakingToken()).to.equal(stakeTokenBob.address);
 		});
 
 		it('Reward Rate should be 100', async function () {
@@ -94,7 +94,7 @@ describe('StakeRewards Testing', function () {
 		beforeEach(async function () {
 
 			//user step: allow the stake instance to be a default operator
-			await bob777.connect(bob).authorizeOperator(AliceStakeTenant.address);
+			await stakeTokenBob.connect(bob).authorizeOperator(AliceStakeTenant.address);
 
 			await AliceStakeTenant.connect(bob).stake(100);
 			// await AliceStakeTenant.connect(bob).stake(100);
@@ -148,7 +148,7 @@ describe('StakeRewards Testing', function () {
 				});
 
 				it("Bob's ERC20 balance should be 50", async function () {
-					expect(await bob777.balanceOf(bob.address)).to.equal(initialSupply.sub(50));
+					expect(await stakeTokenBob.balanceOf(bob.address)).to.equal(initialSupply.sub(50));
 				});
 
 				it("Total Supply of Alice's Instance should decrease ", async function () {
@@ -162,11 +162,11 @@ describe('StakeRewards Testing', function () {
 
 		describe('Collect Rewards', function () {
 			beforeEach(async function () {
-				await AliceStakeTenant.connect(bob).getReward();
+				await AliceStakeTenant.connect(bob).claimReward();
 			});
 
 			it('Should be able to transfer rewards to Bob', async function () {
-				expect(await alice777.balanceOf(bob.address)).to.equal(20);
+				expect(await rewardTokenAlice.balanceOf(bob.address)).to.equal(20);
 			});
 
 			it("Should update Bob's reward in Alice's Instance to 0", async function () {

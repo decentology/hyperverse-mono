@@ -13,13 +13,22 @@ import {
 	Button,
 	Module,
 } from '../../ComponentStyles';
+import { useQuery } from 'react-query';
 
 const BalanceOf = () => {
-	const { address } = useEthereum();
-	const { CheckInstance, BalanceOf } = useStakeRewards();
-	const {data: instance} = CheckInstance();
-	const [account, setAccount] = useState(address);
-	const { data } = BalanceOf(account!);
+	const { account } = useEthereum();
+	const stakeRewards = useStakeRewards();
+	const { data: instance } = useQuery(
+		'instance',
+		() => account && stakeRewards.checkInstance!(address)
+	);
+
+	const [address, setAddress] = useState(account);
+	const { data, isLoading } = useQuery('balanceOf', () => stakeRewards.getBalanceOf!(account!),
+	{
+		enabled: instance,
+	})
+
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -30,14 +39,22 @@ const BalanceOf = () => {
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!address || !instance}>
-							{!address ? 'Connect Wallet' : !instance ? 'Create an Instance' : 'Get Balance Of'}
+						{!account
+									? 'Connect Wallet'
+									: !instance
+									? 'You need an instance'
+									: isLoading
+									? 'fetching ...'
+									: !hidden
+									? 'Get Proxy'
+									: data}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
 								placeholder="Account"
-								onChange={(e) => setAccount(e.target.value)}
+								onChange={(e) => setAddress(e.target.value)}
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>

@@ -41,11 +41,16 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient, Initializable
 		bytes _operatorData
 	);
 
+	event TokenStaked(address indexed _user, uint256 _amount);
+	event RewardTokenPaid(address indexed _user, uint256 _amount);
+	event StakeWithdrawn(address indexed _user, uint256 _amount);
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	error Unauthorized();
 	error AlreadyInitialized();
 	error ZeroAddress();
 	error InsufficientBalance();
+	error ZeroAmount();
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
@@ -73,15 +78,22 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient, Initializable
 	}
 
 	modifier hasStakeBalance(address _account, uint256 _amount) {
-		if(_balances[_account] < _amount || _balances[_account] <= 0) {
+		if (_balances[_account] < _amount || _balances[_account] <= 0) {
 			revert InsufficientBalance();
 		}
 		_;
 	}
 
 	modifier hasRewardBalance(address _account) {
-		if(rewards[_account] <= 0) {
+		if (rewards[_account] <= 0) {
 			revert InsufficientBalance();
+		}
+		_;
+	}
+
+	modifier checkAmount(uint256 _amount) {
+		if (_amount <= 0) {
+			revert ZeroAmount();
 		}
 		_;
 	}
@@ -144,26 +156,32 @@ contract StakeRewardsToken is IHyperverseModule, IERC777Recipient, Initializable
 			rewards[_account];
 	}
 
-	function stake(uint256 _amount) external updateReward(msg.sender) {
+	function stake(uint256 _amount) external checkAmount(_amount) updateReward(msg.sender) {
 		totalSupply = totalSupply.add(_amount);
 		_balances[msg.sender] = _balances[msg.sender].add(_amount);
 		stakingToken.operatorSend(msg.sender, address(this), _amount, '', '');
+		emit TokenStaked(msg.sender, _amount);
 	}
 
 	function withdraw(uint256 _amount)
 		external
+		checkAmount(_amount)
 		hasStakeBalance(msg.sender, _amount)
 		updateReward(msg.sender)
 	{
 		totalSupply = totalSupply.sub(_amount);
 		_balances[msg.sender] = _balances[msg.sender].sub(_amount);
 		stakingToken.send(msg.sender, _amount, '');
+		emit StakeWithdrawn(msg.sender, _amount);
 	}
 
-	function getReward() external updateReward(msg.sender) hasRewardBalance(msg.sender) {
+	function claimReward() external updateReward(msg.sender) hasRewardBalance(msg.sender) {
 		uint256 reward = rewards[msg.sender];
-		rewards[msg.sender] = 0;
-		rewardsToken.operatorSend(_tenantOwner, msg.sender, reward, '', '');
+		if (reward > 0) {
+			rewards[msg.sender] = 0;
+			rewardsToken.operatorSend(_tenantOwner, msg.sender, reward, '', '');
+			emit RewardTokenPaid(msg.sender,reward);
+		}
 	}
 
 	function tokensReceived(

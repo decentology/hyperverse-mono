@@ -1,38 +1,39 @@
 import {
-	Network,
-	Blockchain,
 	isEvm,
+	Blockchain,
 	BlockchainEvm,
 	EvmEnvironment,
-	useHyperverse,
+	NetworkConfig,
 } from '@decentology/hyperverse';
+import { ContractInterface } from 'ethers';
+import Contracts from '../contracts.json';
+
 import ERC777Factory from '../artifacts/contracts/ERC777Factory.sol/ERC777Factory.json';
 import ERC777 from '../artifacts/contracts/ERC777.sol/ERC777.json';
-export const ContractABI = ERC777.abi;
-export const FactoryABI = ERC777Factory.abi;
-import Contracts from '../contracts.json';
+export const ContractABI = ERC777.abi as ContractInterface;
+export const FactoryABI = ERC777Factory.abi as ContractInterface;
 
 const environment = Contracts as EvmEnvironment;
 
-
-function useEnvironment() {
-	const { blockchain, network } = useHyperverse();
-	if (blockchain == null) {
+function getEnvironment(blockchainName: Blockchain, network: NetworkConfig) {
+	if (blockchainName == null) {
 		throw new Error('Blockchain is not set');
 	}
-	if (!isEvm(blockchain?.name)) {
+	if (!isEvm(blockchainName)) {
 		throw new Error('Blockchain is not EVM compatible');
 	}
 
-	const env = environment[blockchain.name as BlockchainEvm]
-	if (!env) {
-		throw new Error('Blockchain not found');
+	const chain = environment[blockchainName as BlockchainEvm];
+	if (!chain) {
+		throw new Error('Blockchain is not supported');
 	}
+
+	const env = chain[network.type];
 	return {
-		...env[network.type],
+		...env,
 		ContractABI,
 		FactoryABI,
 	};
 }
 
-export { environment, useEnvironment };
+export { environment, getEnvironment };

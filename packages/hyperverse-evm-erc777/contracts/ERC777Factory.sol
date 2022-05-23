@@ -67,11 +67,11 @@ contract ERC777Factory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	function createInstance(
+		address _tenant,
 		string memory _name,
 		string memory _symbol,
 		address[] memory _defaultOperators,
-		uint256 _initialSupply,
-		address _tenant
+		uint256 _initialSupply
 	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
 		ERC777 token = ERC777(createClone(masterContract));
 		//initializing tenant state of clone

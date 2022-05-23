@@ -1,18 +1,12 @@
-import { HyperverseModuleInstance } from '@decentology/hyperverse';
 import { ERC777 } from './useERC777';
 import { FC } from 'react';
-import { QueryClientProvider, QueryClient } from 'react-query';
-const client = new QueryClient();
+import { HyperverseModuleInstance } from '@decentology/hyperverse';
 
 const Provider: FC<HyperverseModuleInstance> = ({ children, tenantId }) => {
-	if (tenantId == null) {
+	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
-	return (
-		<QueryClientProvider client={client}>
-			<ERC777.Provider initialState={{ tenantId: tenantId }}>{children}</ERC777.Provider>
-		</QueryClientProvider>
-	);
+	return <ERC777.Provider initialState={{ tenantId: tenantId }}>{children}</ERC777.Provider>;
 };
 
 export { Provider };
