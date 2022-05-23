@@ -14,7 +14,7 @@ export const NewInstance = ({ ...props }) => {
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				console.log('Calling mutate');
+				console.log('Connecting...');
 				if (address) {
 					mutate({ name: '', symbol: '' });
 				} else {

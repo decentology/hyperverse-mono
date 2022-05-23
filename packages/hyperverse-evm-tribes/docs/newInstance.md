@@ -13,9 +13,7 @@
 ```jsx
 	const createInstance = async ({account, ...args }:{account: string, [key: string] : any}) => {
 		try {
-			console.log('in the try')
 			const createTxn = await factoryContract.createInstance(account, args);
-			console.log('in create instance', account)
 			return createTxn.wait();
 		} catch (err) {
 			factoryErrors(err);

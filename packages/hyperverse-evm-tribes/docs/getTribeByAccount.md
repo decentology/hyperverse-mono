@@ -13,9 +13,7 @@
 ```jsx
 
 	const getTribeByAccount = async (account: string) => {
-		console.log('in tribe by account', account)
 		const tribeId = await getTribeId(account);
-		console.log('in tribe by account 2', account)
 		return await getTribe(tribeId!);
 	}
 

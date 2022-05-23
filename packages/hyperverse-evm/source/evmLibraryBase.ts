@@ -70,10 +70,7 @@ export async function EvmLibraryBase(
 
 	const checkInstance = async (account: any) => {
 		try {
-			console.log("in the try")
-			console.log(account)
 			const instance = await factoryContract.instance(account);
-			console.log("account in check instance", account)
 			return instance;
 		} catch (err) {
 			factoryErrors(err);
@@ -93,9 +90,7 @@ export async function EvmLibraryBase(
 
 	const createInstance = async ({account, ...args }:{account: string, [key: string] : any}) => {
 		try {
-			console.log('in the try')
 			const createTxn = await factoryContract.createInstance(account, args);
-			console.log('in create instance', account)
 			return createTxn.wait();
 		} catch (err) {
 			factoryErrors(err);
