@@ -1,5 +1,15 @@
 {
   "extends": "@decentology/config/react-library.json",
   "include": ["source/**/*.ts", "source/**/*.tsx"],
-  "exclude": ["node_modules", "distribution"]
+  "exclude": ["node_modules", "distribution"],
+  "compilerOptions": {
+	"paths": {
+		"@rainbow-me/rainbowkit":[
+			"node_modules/@decentology/hyperverse-evm/node_modules/@rainbow-me/rainbowkit/dist/"
+		],
+		"@decentology/hyperverse-evm": [
+			"../hyperverse-evm"
+		]
+	}
+  }
 }
