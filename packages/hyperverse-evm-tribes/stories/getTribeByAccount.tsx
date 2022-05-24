@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
 import { useState, useEffect } from 'react';
 
 export const GetTribeByAccount = ({ ...props }) => {
