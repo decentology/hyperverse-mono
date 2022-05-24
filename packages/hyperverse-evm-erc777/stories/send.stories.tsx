@@ -21,10 +21,4 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-	sender: '',
-    recipient: '',
-    value: null,
-    data: '',
-    operatorData: ''
-};
+Demo.args = {};

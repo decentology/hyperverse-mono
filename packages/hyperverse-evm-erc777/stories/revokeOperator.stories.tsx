@@ -21,6 +21,4 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-	operator: ''
-};
+Demo.args = {};
