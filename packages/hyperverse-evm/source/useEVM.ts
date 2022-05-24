@@ -2,7 +2,7 @@ import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse } from '@decentology/hyperverse';
 import { useAccount, useSigner, useEnsName, useProvider } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 function EvmState() {
 	const [allow, setAllow] = useState(false);
@@ -21,11 +21,10 @@ function EvmState() {
 	let { data: signer } = useSigner();
 
 	useEffect(() => {
-		signer?.provider?.getNetwork().then((n: { chainId: number | undefined; }) => {
+		signer?.provider?.getNetwork().then((n: { chainId: number | undefined }) => {
 			n.chainId === network.chainId ? setAllow(true) : setAllow(false);
-
-		})
-	}, [signer?.provider])
+		});
+	}, [signer?.provider]);
 
 	useEffect(() => {
 		if (account == null) {

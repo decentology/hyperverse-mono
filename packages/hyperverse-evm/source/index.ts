@@ -3,7 +3,7 @@ import { Provider, } from './Provider';
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
 import { getProvider } from './evmLibraryBase';
 export { EvmLibraryBase } from './evmLibraryBase';
-export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
+// export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
 const Networks = {
 	[Network.Mainnet]: {
 		type: Network.Mainnet,
