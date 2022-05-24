@@ -1,22 +1,28 @@
 import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
+import './button.css';
 
 export const Approve = ({ ...props }) => {
-	const { Approve } = useERC20();
-    const { address } = useEvm();
-	const { mutate } = Approve();
+	const { approve } = useERC20();
+	const { address, Connect } = useEvm();
 
-	return (
-		<div className="allowance">
-			{/* Allowance: <b>{allowance}</b> */}
-		</div>
+	return address ? (
+		<button
+			type="button"
+			className={['storybook-button', `storybook-button--large`].join(' ')}
+			style={{ color: 'blue' }}
+			onClick={() => {
+				approve({});
+			}}
+		>
+			Transfer NFT
+		</button>
+	) : (
+		<Connect />
 	);
 };
 
-Approve.propTypes = {
-    spender: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
-};
+Approve.propTypes = {};
 
 Approve.defaultProps = {};

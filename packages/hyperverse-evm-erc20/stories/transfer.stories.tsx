@@ -23,5 +23,4 @@ export const Demo = Template.bind({});
 
 Demo.args = {
     to: '',
-    value: 1
 };

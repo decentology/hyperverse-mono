@@ -1,13 +1,23 @@
 import * as PropTypes from 'prop-types';
 import { useERC721 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEffect, useState } from 'react';
 
 export const GetBalance = ({ ...props }) => {
-	const { Balance } = useERC721();
-	const { data: balance } = Balance();
+	const erc721 = useERC721();
+	const { address } = useEvm();
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		if (erc721.getBalance) {
+			erc721.getBalance().then(setData);
+		}
+	}, [erc721.getBalance]);
 
 	return (
-		<div className="Balance">
-			Balance: <b>{balance}</b>
+		<div className="balance">
+			<div>Balance: </div>
+			<pre>{data}</pre>
 		</div>
 	);
 };

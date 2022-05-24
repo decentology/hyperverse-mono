@@ -1,20 +1,27 @@
-import { use } from 'chai';
 import * as PropTypes from 'prop-types';
 import { useERC721 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEffect, useState } from 'react';
 
 export const GetOwnerOf = ({ ...props }) => {
-	const { OwnerOf } = useERC721();
-	const { data: tokenOwner } = OwnerOf(0); // wants a token Id
+	const erc721 = useERC721();
+	const { address } = useEvm();
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		if (erc721.getOwnerOf) {
+			erc721.getOwnerOf('').then(setData);
+		}
+	}, [erc721.getOwnerOf]);
 
 	return (
 		<div className="ownerOf">
-			Owner Of: <b>{tokenOwner}</b>
+			<div>Owner Of: </div>
+			<pre>{data}</pre>
 		</div>
 	);
 };
 
-GetOwnerOf.propTypes = {
-	tokenId: PropTypes.number.isRequired,
-};
+GetOwnerOf.propTypes = {};
 
 GetOwnerOf.defaultProps = {};

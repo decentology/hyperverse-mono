@@ -1,25 +1,25 @@
 import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
-const { expect } = require('chai');
-const { BigNumber } = require('ethers');
-const { ethers } = require('hardhat');
-
-let unitMultiple = new BigNumber.from(10).pow(new BigNumber.from(3));
-let alice;
-let cara;
+import { useEvm } from '@decentology/hyperverse-evm/source';
+import './button.css';
 
 export const Allowance = ({ ...props }) => {
-	// let ownerAccount = alice.address; // owner
-	// let spenderAccount = cara.address; // spender
-	// let allowanceAmount = new BigNumber.from(500).mul(unitMultiple);
+	const { allowance } = useERC20();
+	const { address, Connect } = useEvm();
 
-	// const { Allowance } = useERC20();
-	// const { data: allowance } = Allowance(ownerAccount, spenderAccount); // wants an owner and a spender
-
-	return (
-		<div className="allowance">
-			Allowance: <b>{}</b>
-		</div>
+	return address ? (
+		<button
+			type="button"
+			className={['storybook-button', `storybook-button--large`].join(' ')}
+			style={{ color: 'blue' }}
+			onClick={() => {
+				allowance({'', ''});
+			}}
+		>
+			Allowance
+		</button>
+	) : (
+		<Connect />
 	);
 };
 
