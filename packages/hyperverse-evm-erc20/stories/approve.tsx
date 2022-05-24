@@ -16,7 +16,7 @@ export const Approve = ({ ...props }) => {
 				approve({});
 			}}
 		>
-			Transfer NFT
+			Approve
 		</button>
 	) : (
 		<Connect />

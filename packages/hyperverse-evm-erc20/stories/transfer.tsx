@@ -23,8 +23,6 @@ export const Transfer = ({ ...props }) => {
 	);
 };
 
-Transfer.propTypes = {
-    to: PropTypes.string.isRequired,
-};
+Transfer.propTypes = {};
 
 Transfer.defaultProps = {};
