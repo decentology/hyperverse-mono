@@ -14,7 +14,7 @@
 		"deploy-metis": "hardhat run scripts/deploy.js --network metis",
 		"deploy-avalanche": "hardhat run scripts/deploy.js --network avalanche",
 		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
-		"build": "parcel build",
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},
@@ -22,7 +22,8 @@
 		"access": "public"
 	},
 	"peerDependencies": {
-		"react": "^17.0.2"
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
 	},
 	"files": [
 		"distribution",
@@ -56,7 +57,7 @@
 		"chai": "^4.3.4",
 		"dotenv": "^16.0.0",
 		"npm-run-all": "^4.1.5",
-		"parcel": "^2.2.1",
+
 		"rimraf": "^3.0.2"
 	}
 }

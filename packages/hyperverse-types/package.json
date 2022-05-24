@@ -5,7 +5,7 @@
 	"version": "1.0.12",
 	"license": "MIT",
 	"files": [
-		"distribution"
+		"index.d.ts"
 	],
 	"repository": {
 		"type": "git",
@@ -15,7 +15,6 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "parcel build",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},
@@ -27,7 +26,7 @@
 	},
 	"devDependencies": {
 		"@decentology/config": "^1",
-		"parcel": "^2.2.1",
+
 		"rimraf": "^3.0.2"
 	}
 }

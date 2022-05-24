@@ -9,6 +9,7 @@ export default defineConfig({
 		esbuildOptions: {
 			define: {
 				global: 'globalThis',
+				"globalThis.process.env.NODE_ENV": "development"
 			},
 			plugins: [
 				NodeGlobalsPolyfillPlugin({
@@ -20,12 +21,11 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'react/jsx-runtime': 'react/jsx-runtime.js',
+			'stream': 'stream-browserify',
+			'http': 'http-browserify',
 		},
 	},
 	define: {
-		process: {
-			env: {},
-		},
 		React: React,
 	},
 });

@@ -19,35 +19,20 @@ export type ProviderProps = {
 export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const { network: defaultNetwork } = useHyperverse();
-
-	/**
- wagmi chain Type:
-  id: number
-  name: AddEthereumChainParameter['chainName']
-  nativeCurrency?: AddEthereumChainParameter['nativeCurrency']
-  rpcUrls: { [key in RpcProviderName]?: string } & {
-    [key: string]: string
-    default: string
-  }
-  blockExplorers?: {
-    [key in BlockExplorerName]: BlockExplorer
-  } & {
-    [key: string]: BlockExplorer
-    default: BlockExplorer
-  }
-  testnet?: boolean
- */
-
 	const { chains, provider } = configureChains(
 		[
 			{
-				id: defaultNetwork.chainId,
-				name: defaultNetwork.name,
+				id: defaultNetwork.chainId!,
+				name: defaultNetwork.name!,
 				rpcUrls: {
-					[defaultNetwork.rpcUrl]: defaultNetwork.rpcUrl,
+					default: defaultNetwork.networkUrl!,
 				},
 				blockExplorers: {
-					default: { url: defaultNetwork.explorerUrl },
+					etherscan: {
+						name: 'Etherscan',
+						url: defaultNetwork.blockExplorer!,
+					},
+					default: {name: 'default', url: defaultNetwork.blockExplorer !},
 				},
 				testnet: defaultNetwork.type === 'testnet',
 			},
@@ -65,13 +50,16 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 		chains,
 	});
 
+
+	// const wagmiClient = createClient();
+
 	const wagmiClient = createClient({
 		autoConnect: true,
 		connectors,
 		provider,
-		//not sure if this helps or does anything tbh
-		jsonRpcUrl: ({ chainId }: { chainId: any }) =>
-			chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
+
+		// jsonRpcUrl: ({ chainId }: { chainId: any }) =>
+		// 	chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
 	});
 
 	return (

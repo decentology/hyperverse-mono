@@ -6,7 +6,7 @@
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
 	"scripts": {
-		"build": "parcel build",
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},
@@ -26,13 +26,12 @@
 		"@decentology/hyperverse": "^1",
 		"@decentology/hyperverse-evm": "^1",
 		"@decentology/unstated-next": "^1",
-		"@walletconnect/web3-provider": "^1.7.1",
 		"ethers": "^5.5.3"
 	},
 	"devDependencies": {
 		"@decentology/config": "^1",
 		"@types/react": "17.0.2",
-		"parcel": "^2.2.1",
+
 		"rimraf": "^3.0.2"
 	}
 }

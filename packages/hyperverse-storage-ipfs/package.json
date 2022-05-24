@@ -22,7 +22,7 @@
 		"access": "public"
 	},
 	"scripts": {
-		"build": "parcel build",
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},
@@ -36,7 +36,7 @@
 		"@decentology/config": "^1",
 		"@types/react": "17.0.2",
 		"ipfs-core-types": "^0.10.3",
-		"parcel": "^2.2.1",
+
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {

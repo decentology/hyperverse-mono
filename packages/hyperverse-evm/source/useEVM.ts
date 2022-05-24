@@ -15,13 +15,13 @@ function EvmState() {
 
 	const address = account?.address;
 
-	const { data: ens } = useEnsName(address);
+	const { data: ens } = useEnsName({ address: address });
 
 	//check this signer network
 	let { data: signer } = useSigner();
 
 	useEffect(() => {
-		signer?.provider.getNetwork().then((n: { chainId: number | undefined }) => {
+		signer?.provider?.getNetwork().then((n: { chainId: number | undefined }) => {
 			n.chainId === network.chainId ? setAllow(true) : setAllow(false);
 		});
 	}, [signer?.provider]);
