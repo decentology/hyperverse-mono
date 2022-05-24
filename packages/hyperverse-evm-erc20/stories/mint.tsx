@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
 import './button.css';
 
 export const Mint = ({ ...props }) => {
@@ -16,7 +16,7 @@ export const Mint = ({ ...props }) => {
 				mint({});
 			}}
 		>
-			Transfer NFT
+			Mint NFT
 		</button>
 	) : (
 		<Connect />

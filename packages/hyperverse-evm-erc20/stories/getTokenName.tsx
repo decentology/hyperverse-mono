@@ -1,5 +1,6 @@
 import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
 export const GetTokenName = ({ name, ...props }) => {
