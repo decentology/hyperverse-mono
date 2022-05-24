@@ -1,15 +1,26 @@
 import * as PropTypes from 'prop-types';
 import { useStakeRewards } from '../source';
+import { useEffect, useState } from 'react';
 
 export const GetTotalSupply = ({ ...props }) => {
-	const { TotalSupply } = useStakeRewards();
-	const { data: totalSupply } = TotalSupply();
+	const stakeRewards = useStakeRewards();
+	const [data, setData] = useState();
 
-	return (
-		<div className="totalSupply">
-			Total Supply: <b>{totalSupply}</b>
-		</div>
-	);
+	useEffect(() => {
+		if (stakeRewards.getTotalSuply) {
+			stakeRewards.getTotalSuply().then(setData);
+		}
+	}, [stakeRewards.getTotalSuply]);
+
+	const hasTokenSupply = () => {
+		return data ? (
+			<p>{data}</p>
+		) : (
+			<p>There is are no tokens.</p>
+		);
+	};
+
+	return <div className="stakeToken"> Stake Token: {hasTokenSupply()}</div>;
 };
 
 GetTotalSupply.propTypes = {};

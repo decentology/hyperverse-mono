@@ -1,11 +1,11 @@
-import { GetReward } from './getReward';
+import { ClaimReward } from './claimReward';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getReward.mdx';
+import { Doc } from '../docs/claimReward.mdx';
 
 export default {
-	title: 'Components/GetReward',
-	component: GetReward,
+	title: 'Components/ClaimReward',
+	component: ClaimReward,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,7 +15,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetReward {...args} />
+		<ClaimReward {...args} />
 	</HyperverseProvider>
 );
 
