@@ -3,10 +3,10 @@ import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
-export const GetBalance = ({ ...props }) => {
+export const GetBalance = ({ balance, ...props }) => {
 	const erc721 = useERC721();
 	const { address } = useEvm();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState(balance);
 
 	useEffect(() => {
 		if (erc721.getBalance) {
@@ -14,12 +14,15 @@ export const GetBalance = ({ ...props }) => {
 		}
 	}, [erc721.getBalance]);
 
-	return (
-		<div className="balance">
-			<div>Balance: </div>
-			<pre>{data}</pre>
-		</div>
-	);
+	const balanceAvailable = () => {
+		return data ? (
+			<p>{data}</p>
+		) : (
+			<p>This is not a valid address.</p>
+		);
+	};
+
+	return <div className="balance"> Balance: {balanceAvailable()}</div>;
 };
 
 GetBalance.propTypes = {};

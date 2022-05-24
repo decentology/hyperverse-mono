@@ -29,8 +29,6 @@ export const NewInstance = ({ ...props }) => {
 	);
 };
 
-NewInstance.propTypes = {
-	account: PropTypes.string.isRequired,
-};
+NewInstance.propTypes = {};
 
 NewInstance.defaultProps = {};

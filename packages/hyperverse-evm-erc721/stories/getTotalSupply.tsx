@@ -14,15 +14,17 @@ export const GetTotalSupply = ({ ...props }) => {
 		}
 	}, [erc721.getTotalSuply]);
 
-	return (
-		<div className="totalSupply">
-			<div>Total Supply: </div>
-			<pre>{data}</pre>
-		</div>
-	);
+	const totalSupply = () => {
+		return data ? (
+			<p>{data}</p>
+		) : (
+			<p>There is no supply of tokens.</p>
+		);
+	};
+
+	return <div className="totalSupply"> Total Supply: {totalSupply()}</div>;
 };
 
-GetTotalSupply.propTypes = {
-};
+GetTotalSupply.propTypes = {};
 
 GetTotalSupply.defaultProps = {};

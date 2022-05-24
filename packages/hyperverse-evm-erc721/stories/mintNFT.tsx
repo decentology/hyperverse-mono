@@ -29,8 +29,6 @@ export const MintNFT = ({ ...props }) => {
 	);
 };
 
-MintNFT.propTypes = {
-	to: PropTypes.string.isRequired
-};
+MintNFT.propTypes = {};
 
 MintNFT.defaultProps = {};
