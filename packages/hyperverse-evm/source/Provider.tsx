@@ -25,7 +25,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 				id: defaultNetwork.chainId!,
 				name: defaultNetwork.name!,
 				rpcUrls: {
-					default: defaultNetwork.rpcUrl,
+					default: defaultNetwork.networkUrl!,
 				},
 				blockExplorers: {
 					etherscan: {
@@ -51,16 +51,16 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	});
 
 
-	const wagmiClient = createClient();
+	// const wagmiClient = createClient();
 
-	// const wagmiClient = createClient({
-	// 	autoConnect: true,
-	// 	connectors,
-	// 	provider,
-	// 	// @ts-ignore
-	// 	jsonRpcUrl: ({ chainId }: { chainId: any }) =>
-	// 		chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
-	// });
+	const wagmiClient = createClient({
+		autoConnect: true,
+		connectors,
+		provider,
+
+		// jsonRpcUrl: ({ chainId }: { chainId: any }) =>
+		// 	chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
+	});
 
 	return (
 		<WagmiProvider client={wagmiClient} {...props}>

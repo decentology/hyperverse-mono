@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
 
 export const LeaveTribe = ({ ...props }) => {
 	const { leaveTribe, error } = useTribes();
