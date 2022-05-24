@@ -9,10 +9,10 @@ export const GetTotalSupply = ({ ...props }) => {
 	const [data, setData] = useState();
 
 	useEffect(() => {
-		if (erc777.getTotalSupply) {
-			erc777.getTotalSupply().then(setData);
+		if (erc777.getTotalSuply) {
+			erc777.getTotalSuply().then(setData);
 		}
-	}, [erc777.getTotalSupply]);
+	}, [erc777.getTotalSuply]);
 
 	const totalSupply = () => {
 		return data ? (

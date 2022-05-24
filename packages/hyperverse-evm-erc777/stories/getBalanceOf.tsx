@@ -9,10 +9,10 @@ export const GetBalanceOf = ({ account, ...props }) => {
 	const [data, setData] = useState(account);
 
 	useEffect(() => {
-		if (erc777.getBalance) {
-			erc777.getBalance().then(setData);
+		if (erc777.getBalanceOf) {
+			erc777.getBalanceOf().then(setData);
 		}
-	}, [erc777.getBalance]);
+	}, [erc777.getBalanceOf]);
 
 	const balanceAvailable = () => {
 		return data ? (
