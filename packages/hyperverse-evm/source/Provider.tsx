@@ -6,31 +6,35 @@ import {
 	RainbowKitProvider,
 	darkTheme,
 } from '@rainbow-me/rainbowkit';
-import { chain, ProviderProps as WagmiProviderProps, createClient, WagmiProvider } from 'wagmi';
+import { chain, WagmiConfigProps , createClient, WagmiConfig } from 'wagmi';
 import { Evm } from './useEVM';
 import { useHyperverse } from '@decentology/hyperverse';
 
 export type ProviderProps = {
 	children: React.ReactNode;
 	networks?: any;
-} & WagmiProviderProps &
-	Partial<Parameters<typeof RainbowKitProvider>[0]>;
-
-export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
+}
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const { network: defaultNetwork } = useHyperverse();
 	const { chains, provider } = configureChains(
 		[
 			{
-				id: defaultNetwork.chainId,
-				name: defaultNetwork.name,
+				id: defaultNetwork.chainId!,
+				network: 'Default',
+				name: defaultNetwork.name!,
 				rpcUrls: {
-					[defaultNetwork.rpcUrl]: defaultNetwork.rpcUrl,
+					default: defaultNetwork.networkUrl!,
 				},
 				blockExplorers: {
-					default: { url: defaultNetwork.explorerUrl },
+					etherscan: {
+						name: 'Default',
+						url: defaultNetwork.blockExplorer!,
+					},
+					default: {
+						name: 'Default',
+						url: defaultNetwork.blockExplorer!,
+					},
 				},
-				testnet: defaultNetwork.type === 'testnet',
 			},
 		],
 		[
@@ -45,27 +49,33 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 		appName: 'Hyperverse',
 		chains,
 	});
+	
+	const wagmiClient = createClient();
 
-	const wagmiClient = createClient({
-		autoConnect: true,
-		connectors,
-		provider,
-		// @ts-ignore
-		jsonRpcUrl: ({ chainId }: { chainId: any }) =>
-			chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
-	});
+	// const wagmiClient = createClient({
+	// 	autoConnect: true,
+	// 	connectors,
+	// 	provider,
+
+	// 	// jsonRpcUrl: ({ chainId }: { chainId: any }) =>
+	// 	// 	chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
+	// });
 
 	return (
-		<WagmiProvider client={wagmiClient} {...props}>
+		<WagmiConfig client={wagmiClient} {...props}>
 			<RainbowKitProvider
 				chains={chains}
 				showRecentTransactions={true}
-				theme={props.theme || darkTheme({
-					accentColor: '#999',
-				})}
+				theme={
+					// @ts-ignore
+					props.theme ||
+					darkTheme({
+						accentColor: '#999',
+					})
+				}
 			>
 				<Evm.Provider>{children}</Evm.Provider>
 			</RainbowKitProvider>
-		</WagmiProvider>
+		</WagmiConfig>
 	);
 };
