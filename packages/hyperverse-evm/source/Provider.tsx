@@ -57,12 +57,13 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 		autoConnect: true,
 		connectors,
 		provider,
-
-		// jsonRpcUrl: ({ chainId }: { chainId: any }) =>
-		// 	chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
+		// @ts-ignore
+		jsonRpcUrl: ({ chainId }: { chainId: any }) =>
+			chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
 	});
 
 	return (
+		// @ts-ignore
 		<WagmiProvider client={wagmiClient} {...props}>
 			<RainbowKitProvider
 				chains={chains}
