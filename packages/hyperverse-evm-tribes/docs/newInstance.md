@@ -1,6 +1,6 @@
 # New Instance
 
-<p> The `createInstance` function from `tribesLibrary` allows a user to connect their wallet where they can create a new instance. </p>
+<p> The `createInstance` function from `evmBaseLibrary` allows a user to connect their wallet where they can then create a new instance. </p>
 
 ---
 
@@ -11,26 +11,24 @@
 <p> The `createInstance` function takes in an account. </p>
 
 ```jsx
-	const createInstance = useCallback(
-		async (account: string) => {
-			try {
-				const createTxn = await factoryContract.createInstance(account);
-				return createTxn.wait();
-			} catch (err) {
-				factoryErrors(err);
-				throw err;
-			}
-		},
-		[factoryContract?.signer]
-	);
+	const createInstance = async ({account, ...args }:{account: string, [key: string] : any}) => {
+		try {
+			const createTxn = await factoryContract.createInstance(account, args);
+			return createTxn.wait();
+		} catch (err) {
+			factoryErrors(err);
+			throw err;
+		}
+	};
 ```
 
 ### Stories
 
 ```jsx
+
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
+import { Story } from '@storybook/react';
 import { Doc } from '../docs/newInstance.mdx';
 
 export default {
@@ -43,65 +41,57 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args) => (
 	<HyperverseProvider>
 		<NewInstance {...args} />
 	</HyperverseProvider>
 );
 
-export const Account = Template.bind({});
+export const Demo = Template.bind({});
 
-Account.args = {
-	account: null,
-};
+Demo.args = {};
+
 ```
 
 ### Main UI Component
 
 ```jsx
-export const NewInstance = ({ ...props }) => {
-	const { NewInstance } = useTribes();
-	const { address, connect } = useEvm();
-	const { mutate } = NewInstance();
 
-	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				console.log('Calling mutate');
-				if (address) {
-					mutate({ account: address });
-				} else {
-					connect();
-				}
-			}}
-		>
-			{address ? 'New Instance' : 'Connect'}
-		</button>
+import * as PropTypes from 'prop-types';
+import { useTribes } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm/source';
+import './button.css';
+
+export const NewInstance = ({ ...props }) => {
+	const { createInstance, error } = useTribes();
+	const { address, Connect } = useEvm();
+
+	return error != null ? (
+		<div>Error</div>
+	) : (
+		<>
+			{address ? (
+				<button
+					type="button"
+					className={['storybook-button', `storybook-button--large`].join(' ')}
+					style={{ color: 'blue' }}
+					onClick={() => {
+						createInstance({account: address});
+					}}
+				>
+					New Instance
+				</button>
+			) : (
+				<Connect />
+			)}
+		</>
 	);
 };
 
-NewInstance.propTypes = {
-	account: PropTypes.string.isRequired
-};
+NewInstance.propTypes = {};
 
 NewInstance.defaultProps = {};
-};
-```
 
-### Args
-
-<p> For testing purposes, the information needed to create an instance is given in **Provider.tsx**.</p>
-
-```jsx
-NewInstance.propTypes = {
-	account: PropTypes.string.isRequired
-};
-
-NewInstance.defaultProps = {};
-};
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

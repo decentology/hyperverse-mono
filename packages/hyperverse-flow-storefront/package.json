@@ -7,7 +7,10 @@
 	"license": "MIT",
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
-		"clean": "rimraf ./distribution"
+		"clean": "rimraf ./distribution",
+		"build:parcel": "parcel build",
+		"storybook": "start-storybook -p 6006",
+		"build-storybook": "build-storybook"
 	},
 	"files": [
 		"distribution"
@@ -33,6 +36,12 @@
 		"@decentology/unstated-next": "^1.1.8"
 	},
 	"devDependencies": {
+		"@storybook/addon-actions": "^6.4.22",
+		"@storybook/addon-essentials": "^6.4.22",
+		"@storybook/addon-interactions": "^6.4.22",
+		"@storybook/addon-links": "^6.4.22",
+		"@storybook/react": "^6.4.22",
+		"@storybook/testing-library": "^0.0.11",
 		"@decentology/config": "^1",
 		"@types/node": "^17.0.16",
 		"@types/react": "17.0.2",

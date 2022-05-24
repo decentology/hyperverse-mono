@@ -67,9 +67,12 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 			<RainbowKitProvider
 				chains={chains}
 				showRecentTransactions={true}
-				theme={props.theme || darkTheme({
-					accentColor: '#999',
-				})}
+				theme={
+					props.theme ||
+					darkTheme({
+						accentColor: '#999',
+					})
+				}
 			>
 				<Evm.Provider>{children}</Evm.Provider>
 			</RainbowKitProvider>

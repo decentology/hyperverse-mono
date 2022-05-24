@@ -2,24 +2,27 @@ import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards';
-import {
-	Box,
-	Button,
-} from '../../ComponentStyles';
+import { Box, Button } from '../../ComponentStyles';
+import { useMutation, useQuery } from 'react-query';
 
 const GetReward = () => {
-	const { address } = useEthereum();
-	const { CheckInstance, WithdrawReward } = useStakeRewards();
-	const {data: instance} = CheckInstance();
-	const { mutate } = WithdrawReward();
+	const { account } = useEthereum();
+	const stakeRewards = useStakeRewards();
 
+	const { data: instance } = useQuery('instance', () => stakeRewards.checkInstance!(account));
+
+	const { mutate } = useMutation('claimReward', stakeRewards.claimReward);
 
 	return (
 		<Box>
 			<h4>Get Rewards</h4>
 			<p>Withdraw your reward tokens</p>
-			<Button disabled={!address || !instance} onClick={mutate}>
-				{!address ? 'Connect Wallet' : !instance ? 'Create an Instance' : 'Withdraw Rewards'}
+			<Button disabled={!account || !instance} onClick={() => mutate()}>
+				{!account
+					? 'Connect Wallet'
+					: !instance
+					? 'Create an Instance'
+					: 'Withdraw Rewards'}
 			</Button>
 		</Box>
 	);

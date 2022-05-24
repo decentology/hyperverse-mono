@@ -1,14 +1,23 @@
 import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
+import { useState, useEffect } from 'react';
 
-export const GetAllTribes = ({ tenantId, ...props }) => {
-	console.log('this is the tenant id', tenantId)
+export const GetAllTribes = ({ ...props }) => {
 	const { getAllTribes } = useTribes();
-	const { data: allTribes } = getAllTribes(tenantId);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		try {
+			getAllTribes(props.tenantId).then(setData);
+		} catch (err) {
+			console.log(err);
+		}
+		getAllTribes(props.tenantId);
+	}, []);
 
 	return (
 		<div className="allTribes">
-			All Tribes: <b>{allTribes}</b>
+			All Tribes: <b>{data}</b>
 		</div>
 	);
 };

@@ -32,7 +32,17 @@ function EvmState() {
 		}
 	}, [account]);
 
-	return { Connect: ConnectButton, readOnlyProvider, connectedProvider: null, signer: allow ? signer : null, account: address, address: address, ens: ens, error: accountErr, isLoading: isLoading };
+	return {
+		Connect: ConnectButton,
+		readOnlyProvider,
+		connectedProvider: null,
+		signer: allow ? signer : null,
+		account: address,
+		address: address,
+		ens: ens,
+		error: accountErr,
+		isLoading: isLoading,
+	};
 }
 
 export const Evm = createContainer(EvmState);

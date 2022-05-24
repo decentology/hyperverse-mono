@@ -49,9 +49,6 @@ export const AddTribe = ({ ...props }) => {
 	);
 };
 
-AddTribe.propTypes = {
-	metadata: PropTypes.string.isRequired,
-	// image: PropTypes.file.isRequired
-};
+AddTribe.propTypes = {};
 
 AddTribe.defaultProps = {};

@@ -1,12 +1,14 @@
 # Get All Tribes
 
-<p> The `getAllTribes` function from `tribesLibrary` returns all tribes. </p>
+<p> The `getAllTribes` function from `tribesLibrary` returns all tribes and their metadata. </p>
 
 ---
 
 <br>
 
 ### getAllTribes
+
+<p> This module comes preset with a number of tribes. These include Mage, Alchemist, Dragon, Healer, and Knight. The metadata associated with these tribes will be returned in the demo. </p>
 
 ```jsx
 	const getAllTribes = async () => {
@@ -29,6 +31,7 @@
 ### Stories
 
 ```jsx
+
 import { GetAllTribes } from './getAllTribes';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
@@ -53,26 +56,33 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {};
+
 ```
 
 ### Main UI Component
 
 ```jsx
+
 import * as PropTypes from 'prop-types';
-import './button.css';
 import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
+import { MetaDataFormatted } from '../source/types';
+import './button.css';
 
 export const GetAllTribes = ({ ...props }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<MetaDataFormatted[] | null>(null);
+
 	useEffect(() => {
-		tribes.getAllTribes().then(setData);
-	}, []);
+		if (tribes.getAllTribes) {
+			tribes.getAllTribes().then(setData);
+		}
+	}, [tribes.getAllTribes]);
 
 	return (
 		<div className="tribes">
-			All Tribes: <b>{data}</b>
+			<div>All Tribes: </div>
+			<pre>{JSON.stringify(data, null, 2)}</pre>
 		</div>
 	);
 };
@@ -80,12 +90,7 @@ export const GetAllTribes = ({ ...props }) => {
 GetAllTribes.propTypes = {};
 
 GetAllTribes.defaultProps = {};
-```
 
-### Args
-
-```jsx
-// Incomplete
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

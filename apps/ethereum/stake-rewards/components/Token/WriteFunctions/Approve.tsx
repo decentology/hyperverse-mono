@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import {useERC20} from '@decentology/hyperverse-evm-erc20';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777';
 import {
 	Box,
 	Item,
@@ -11,24 +11,26 @@ import {
 	Input,
 	Content,
 	Button,
-	Module
+	Module,
 } from '../../ComponentStyles';
+import { useMutation } from 'react-query';
 
 const Approve = () => {
-	const { address } = useEthereum();
-	const { Approve } = useERC20();
-	const { mutate } = Approve();
+	const { account } = useEthereum();
+
+	const erc777 = useERC777();
+
+	const { mutate } = useMutation('claimReward', erc777.approve);
+
 	const [spender, setSpender] = useState('');
 	const [amount, setAmount] = useState(0);
 
 	const approve = async () => {
 		try {
-			const instanceData = {
-        spender: spender,
-        amount: amount,
-			};
-
-			mutate(instanceData);
+			mutate({
+				spender: spender,
+				amount: amount,
+			});
 		} catch (error) {
 			throw error;
 		}
@@ -37,12 +39,12 @@ const Approve = () => {
 	return (
 		<Box>
 			<h4>Approve</h4>
-			<p> Approve address to spend the given amount of token on your behalf</p>
+			<p> Approve account to spend the given amount of token on your behalf</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Approve'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Approve'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -58,7 +60,7 @@ const Approve = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={approve}>
-								{!address ? 'Connet Wallet' : 'Approve'}
+								{!account ? 'Connet Wallet' : 'Approve'}
 							</Button>
 						</Content>
 					</Parameters>

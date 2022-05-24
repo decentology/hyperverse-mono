@@ -8,7 +8,7 @@ const Container = () => {
 		<Box>
 			<StyledTabs defaultValue="tab1" orientation="vertical">
 				<StyledList aria-label="tabs example">
-				<StyledTrigger value="tab1">Stake Rewards Module</StyledTrigger>
+					<StyledTrigger value="tab1">Stake Rewards Module</StyledTrigger>
 					<StyledTrigger value="tab2">Token Module</StyledTrigger>
 				</StyledList>
 				<StyledContent value="tab1">
@@ -17,7 +17,6 @@ const Container = () => {
 				<StyledContent value="tab2">
 					<TokenTab />
 				</StyledContent>
-
 			</StyledTabs>
 		</Box>
 	);
@@ -38,18 +37,6 @@ const Box = styled('div', {
 	'& h3': {
 		marginTop: '2rem',
 	},
-});
-
-const Section = styled('div', {
-	marginTop: '1rem',
-	display: 'grid',
-	gridTemplateColumns: '270px 270px 270px 257px',
-	gridGap: '10px',
-});
-
-const Info = styled('div', {
-	marginTop: '2rem',
-	color: '$gray200',
 });
 
 const StyledTabs = styled(Tabs.Root, {

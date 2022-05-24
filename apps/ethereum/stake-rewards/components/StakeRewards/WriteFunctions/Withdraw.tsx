@@ -13,21 +13,21 @@ import {
 	Button,
 	Module,
 } from '../../ComponentStyles';
+import { useMutation, useQuery } from 'react-query';
 
 const Withdraw = () => {
-	const { address } = useEthereum();
-	const { CheckInstance, WithdrawTokens } = useStakeRewards();
-	const {data: instance} = CheckInstance();
-	const { mutate } = WithdrawTokens();
+	const { account } = useEthereum();
+	const stakeRewards = useStakeRewards();
+
+	const { data: instance } = useQuery('instance', () => stakeRewards.checkInstance!(account));
+
+	const { mutate } = useMutation('claimReward', stakeRewards.withdraw);
+
 	const [amount, setAmount] = useState(0);
 
 	const withdraw = async () => {
 		try {
-			const instanceData = {
-        amount: amount,
-			};
-
-			mutate(instanceData);
+			mutate(amount);
 		} catch (error) {
 			throw error;
 		}
@@ -40,8 +40,12 @@ const Withdraw = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address || !instance}>
-							{!address ? 'Connect Wallet' : !instance ? 'Create an Instance': 'Withdraw'}
+						<Trigger disabled={!account || !instance}>
+							{!account
+								? 'Connect Wallet'
+								: !instance
+								? 'Create an Instance'
+								: 'Withdraw'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -53,7 +57,7 @@ const Withdraw = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={withdraw}>
-								{!address ? 'Connet Wallet' : 'Withdraw'}
+								{!account ? 'Connet Wallet' : 'Withdraw'}
 							</Button>
 						</Content>
 					</Parameters>
