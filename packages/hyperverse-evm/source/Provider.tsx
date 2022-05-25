@@ -6,7 +6,7 @@ import {
 	RainbowKitProvider,
 	darkTheme,
 } from '@rainbow-me/rainbowkit';
-import { chain, ProviderProps as WagmiProviderProps, createClient, WagmiProvider } from 'wagmi';
+import { ProviderProps as WagmiProviderProps, createClient, WagmiProvider } from 'wagmi';
 import { Evm } from './useEVM';
 import { useHyperverse } from '@decentology/hyperverse';
 
@@ -32,7 +32,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 						name: 'Etherscan',
 						url: defaultNetwork.blockExplorer!,
 					},
-					default: {name: 'default', url: defaultNetwork.blockExplorer !},
+					default: { name: 'default', url: defaultNetwork.blockExplorer! },
 				},
 				testnet: defaultNetwork.type === 'testnet',
 			},
@@ -49,7 +49,6 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 		appName: 'Hyperverse',
 		chains,
 	});
-
 
 	// const wagmiClient = createClient();
 
