@@ -50,8 +50,6 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 		chains,
 	});
 
-	// const wagmiClient = createClient();
-
 	const wagmiClient = createClient({
 		autoConnect: true,
 		connectors,
