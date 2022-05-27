@@ -38,7 +38,7 @@
 		"@ethersproject/providers": "^5.6.4",
 		"@rainbow-me/rainbowkit": "^0.1.0",
 		"ethers": "^5.6.5",
-		"wagmi": "^0.3.2"
+		"wagmi": "^0.3.3"
 	},
 	"devDependencies": {
 		"@decentology/config": "^1",
