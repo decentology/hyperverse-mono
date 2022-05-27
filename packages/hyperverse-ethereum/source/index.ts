@@ -12,5 +12,4 @@ export const Ethereum = makeHyperverseBlockchain({
 });
 
 export { Localhost, lightTheme, darkTheme } from '@decentology/hyperverse-evm';
-// export type { ProviderProps } from '@decentology/hyperverse-evm';
 export { Provider, useEthereum, getNetwork, Networks };

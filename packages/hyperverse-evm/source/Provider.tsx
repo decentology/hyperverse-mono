@@ -56,7 +56,6 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	});
 
 	return (
-		// @ts-ignore
 		<WagmiProvider client={wagmiClient} {...props}>
 			<RainbowKitProvider
 				chains={chains}
