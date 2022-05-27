@@ -6,15 +6,13 @@ import {
 	NetworkConfig,
 } from '@decentology/hyperverse';
 
-import Contracts from '../contracts.json';
-import { ContractInterface } from 'ethers';
 import ERC721FactoryABI from '../artifacts/contracts/ERC721Factory.sol/ERC721Factory.json';
 import ERC721ABI from '../artifacts/contracts/ERC721.sol/ERC721.json';
+import Contracts from '../contracts.json';
+import { ContractInterface } from 'ethers';
 
 export const FactoryABI = ERC721FactoryABI.abi as ContractInterface;
 export const ContractABI = ERC721ABI.abi as ContractInterface;
-
-
 
 const environment = Contracts as EvmEnvironment;
 
