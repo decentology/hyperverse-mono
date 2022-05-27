@@ -16,7 +16,6 @@ export type ProviderProps = {
 } & WagmiProviderProps &
 	Partial<Parameters<typeof RainbowKitProvider>[0]>;
 
-export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const { network: defaultNetwork } = useHyperverse();
 	const { chains, provider } = configureChains(

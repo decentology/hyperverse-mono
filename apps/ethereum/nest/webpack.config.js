@@ -38,10 +38,6 @@ module.exports = function (options) {
 			__dirname,
 			'../../../packages/unstated-next',
 		),
-		'@decentology/web3modal': path.resolve(
-			__dirname,
-			'../../../packages/web3modal',
-		),
 	};
 
 	return config;

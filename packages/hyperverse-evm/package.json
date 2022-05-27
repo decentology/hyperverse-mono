@@ -17,6 +17,7 @@
 	},
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
+		"build:parcel": "parcel build",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},
@@ -43,6 +44,7 @@
 		"@decentology/config": "^1",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
+		"parcel": "2.2.1",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.74.1",
 		"tslib": "^2.4.0"

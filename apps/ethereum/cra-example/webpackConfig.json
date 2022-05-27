@@ -216,7 +216,6 @@
               "/home/jsheely/Projects/Decentology/hyperverse-base/packages/hyperverse-storage-skynet",
               "/home/jsheely/Projects/Decentology/hyperverse-base/packages/hyperverse-template",
               "/home/jsheely/Projects/Decentology/hyperverse-base/packages/unstated-next",
-              "/home/jsheely/Projects/Decentology/hyperverse-base/packages/web3modal"
             ],
             "loader": "/home/jsheely/Projects/Decentology/hyperverse-base/node_modules/babel-loader/lib/index.js",
             "options": {

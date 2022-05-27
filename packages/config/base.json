@@ -12,7 +12,7 @@
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,
 		"inlineSources": false,
-		"isolatedModules": false,
+		"isolatedModules": true,
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
 		"preserveWatchOutput": true,
