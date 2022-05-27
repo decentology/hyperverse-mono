@@ -35,7 +35,7 @@ const Stake = () => {
 	return (
 		<Box>
 			<h4>Stake</h4>
-			<p>Stake some tokens, make sure you have tokens from the staking contract</p>
+			<p>Stake some tokens, make sure you have tokens from the initial staking token</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>

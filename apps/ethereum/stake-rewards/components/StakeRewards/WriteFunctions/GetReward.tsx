@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards';
 import { Box, Button } from '../../ComponentStyles';
 import { useMutation, useQuery } from 'react-query';
+import { Content } from '@radix-ui/react-accordion';
 
 const GetReward = () => {
 	const { account } = useEthereum();
@@ -17,6 +16,7 @@ const GetReward = () => {
 		<Box>
 			<h4>Get Rewards</h4>
 			<p>Withdraw your reward tokens</p>
+
 			<Button disabled={!account || !instance} onClick={() => mutate()}>
 				{!account
 					? 'Connect Wallet'
