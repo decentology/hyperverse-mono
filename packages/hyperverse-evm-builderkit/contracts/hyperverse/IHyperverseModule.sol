@@ -20,15 +20,15 @@ abstract contract IHyperverseModule {
     address private owner;
 
     struct ModuleMetadata {
-        bytes title; // <-- `pub var title: String` in Cadence
+        bytes title;
         Author author;
         bytes version;
         uint64 publishedAt;
-        bytes externalLink; // <-- can't be "external" in Solidity because it's a keyword
+        bytes externalLink; 
     }
-
+    
     struct Author {
-        address authorAddress; // <-- can't be "address" in Solidity because it's a keyword
+        address authorAddress;
         string externalLink;
     }
 }
