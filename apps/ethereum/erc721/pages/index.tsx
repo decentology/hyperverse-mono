@@ -12,7 +12,7 @@ export default function Home() {
 			</Head>
 			<Main>
 				<Nav />
-				<h1>Hyperverse Token Package</h1>
+				<h1>Hyperverse ERC721 Package</h1>
 				<Container />
 			</Main>
 		</>

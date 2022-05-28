@@ -2,9 +2,11 @@ import { initialize, Provider, Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
 import * as ERC721 from '@decentology/hyperverse-evm-erc721';
 import { globalCss } from '../stitches.config';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import type { AppProps } from 'next/app';
 
+const queryClient = new QueryClient();
 const globalStyles = globalCss({
 	'*': {
 		margin: 0,
@@ -21,9 +23,8 @@ const globalStyles = globalCss({
 		backgroundColor: '$blue500',
 		color: '$gray100',
 		maxWidth: '1200px',
-	}
-})
-
+	},
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
@@ -33,14 +34,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 			{
 				bundle: ERC721,
 				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
-			}
+			},
 		],
 	});
-	globalStyles()
+	globalStyles();
 	return (
-		<Provider initialState={hyperverse}>
-			<Component {...pageProps} />
-		</Provider>
+		<QueryClientProvider client={queryClient}>
+			<Provider initialState={hyperverse}>
+				<Component {...pageProps} />
+			</Provider>
+		</QueryClientProvider>
 	);
 }
 

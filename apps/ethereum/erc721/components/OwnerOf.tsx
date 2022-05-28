@@ -12,6 +12,7 @@ import {
 	Content,
 	Button,
 } from './WriteFunctions/WriteComponents';
+import { useQuery } from 'react-query';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -27,10 +28,12 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 const OwnerOf = () => {
-	const { address } = useEthereum();
-	const { OwnerOf } = useERC721();
-	const [tokenId, setTokenId] = useState(0);
-	const { data } = OwnerOf(tokenId);
+	const { account } = useEthereum();
+	const erc721 = useERC721();
+	const [tokenId, setTokenId] = useState("0");
+	const { data } = useQuery('ownerOf', () => erc721.getOwnerOf!(tokenId!));
+
+
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -40,8 +43,8 @@ const OwnerOf = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Owner Of'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Get Owner Of'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -50,11 +53,11 @@ const OwnerOf = () => {
 								type="number"
 								min="0"
 								placeholder="TokenId"
-								onChange={(e) => setTokenId(e.target.valueAsNumber)}
+								onChange={(e) => setTokenId(e.target.value)}
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Owner Of' : shortenHash(data, 5, 5)}
+								{!account ? 'Connect Wallet' : !hidden ? 'Get Owner Of' : shortenHash(data, 5, 5)}
 							</Button>
 						</Content>
 					</Parameters>

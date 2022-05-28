@@ -14,8 +14,6 @@ import ERC721ABI from '../artifacts/contracts/ERC721.sol/ERC721.json';
 export const FactoryABI = ERC721FactoryABI.abi as ContractInterface;
 export const ContractABI = ERC721ABI.abi as ContractInterface;
 
-
-
 const environment = Contracts as EvmEnvironment;
 
 function getEnvironment(blockchainName: Blockchain, network: NetworkConfig) {
