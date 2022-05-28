@@ -10,22 +10,24 @@ import {
 	Parameters,
 	Input,
 	Content,
-	Button
+	Button,
 } from './WriteComponents';
+import { useMutation } from 'react-query';
 
 const Transfer = () => {
-	const { address } = useEthereum();
-	const { Transfer } = useERC721();
-	const { mutate } = Transfer();
+	const { account } = useEthereum();
+	const erc721 = useERC721();
+	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.transfer);
+
 	const [receiver, setReceiver] = useState('');
 	const [tokenId, setTokenId] = useState(0);
 
 	const createNewInstance = async () => {
 		try {
 			mutate({
-				from: address!,
+				from: account!,
 				to: receiver,
-				tokenId: tokenId
+				tokenId: tokenId,
 			});
 		} catch (error) {
 			throw error;
@@ -39,24 +41,28 @@ const Transfer = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer Tokens'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Transfer Tokens'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
 								placeholder="Receiver"
-								onChange={e => setReceiver(e.target.value)}
+								onChange={(e) => setReceiver(e.target.value)}
 							/>
 							<Input
 								type="number"
 								min="0"
 								placeholder="TokenId to transfer"
-								onChange={e => setTokenId(e.currentTarget.valueAsNumber)}
+								onChange={(e) => setTokenId(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Transfer'}
+								{!account
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Create Instance'}
 							</Button>
 						</Content>
 					</Parameters>

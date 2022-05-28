@@ -39,7 +39,6 @@
 		"@decentology/unstated-next": "^1",
 		"@openzeppelin/contracts": "^4.5.0",
 		"ethers": "^5.5.3",
-		"react-query": "^3.34.7",
 		"react-use": "^17.3.2",
 		"skynet-js": "^4.0.23-beta",
 		"real-cancellable-promise": "^1.1.1"

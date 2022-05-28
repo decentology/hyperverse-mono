@@ -8,17 +8,17 @@ import OwnerOf from './OwnerOf';
 import { useERC721 } from '@decentology/hyperverse-evm-erc721';
 
 const Container = () => {
-	const { Proxy, TotalSupply, Balance } = useERC721()
+	const erc721 = useERC721()
 
 	const TokenReadFunctions = [
 		{
-			hook: TotalSupply,
+			hook: erc721.getTotalSuply!,
 			header: 'Get Total Supply',
 			description: 'Get the total supply of NFTs',
 			buttonText: 'Get Total Supply',
 		},
 		{
-			hook: Balance,
+			hook: erc721.getBalance!,
 			header: 'Get Balance',
 			description: 'Get the balance of your account',
 			buttonText: 'Get Balance',
@@ -31,7 +31,7 @@ const Container = () => {
 			<Section>
 				<CreateInstance />
 				<ReadComponent
-					hook={Proxy}
+					fn={erc721.getProxy!}
 					header="Get Proxy"
 					description="Get your proxy contract address"
 					buttonText={'Get Instance'}
@@ -44,7 +44,7 @@ const Container = () => {
 				{TokenReadFunctions.map((item) => (
 					<ReadComponent
 						key={item.header}
-						hook={item.hook}
+						fn={item.hook}
 						header={item.header}
 						description={item.description}
 						buttonText={item.buttonText}
