@@ -1,0 +1,38 @@
+import Head from 'next/head';
+import { styled } from '../../stitches.config';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Hero } from '../components/Landing/Hero';
+
+export default function Home() {
+	return (
+		<>
+			<Head>
+				<title>Hyperverse 🚀</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+			<Main>
+				<Nav>
+				<Link href="https://www.decentology.com/" passHref>
+				<a target="_blank" rel="noreferrer">
+					<Image src="/images/Decentology.png" alt='Decentology'  width={175} height={36}/>
+					</a>
+				</Link>
+				</Nav>
+				<Hero />
+			</Main>
+		</>
+	);
+}
+
+const Main = styled('main', {
+	display: 'flex',
+	flexDirection: 'column',
+	margin: 'auto',
+	justifyContent: 'center',
+
+});
+
+const Nav = styled('nav', {
+	display: 'flex',
+})
