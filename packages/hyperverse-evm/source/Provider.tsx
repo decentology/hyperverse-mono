@@ -9,6 +9,7 @@ import {
 import { ProviderProps as WagmiProviderProps, createClient, WagmiProvider } from 'wagmi';
 import { Evm } from './useEVM';
 import { useHyperverse } from '@decentology/hyperverse';
+import { BaseProvider } from '@ethersproject/providers';
 
 export type ProviderProps = {
 	children: React.ReactNode;
@@ -56,6 +57,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	});
 
 	return (
+		// @ts-ignore - StaticJsonRpcProvider missing type of BaseProvider. Needs fixed in Wagmi/Ethers
 		<WagmiProvider client={wagmiClient} {...props}>
 			<RainbowKitProvider
 				chains={chains}
