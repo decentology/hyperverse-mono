@@ -4,7 +4,6 @@ import { useEthereum } from '@decentology/hyperverse-ethereum';
 import ReadComponent from './ReadComponent';
 import * as Accordion from '@radix-ui/react-accordion';
 import CreateStakeInstance from './StakeRewards/WriteFunctions/CreateStakeInstance';
-import Approve from './Token/WriteFunctions/Approve';
 import Stake from './StakeRewards/WriteFunctions/Stake';
 import BalanceOf from './StakeRewards/ReadFunctions/BalanceOf';
 import Earned from './StakeRewards/ReadFunctions/Earned';
@@ -13,8 +12,7 @@ import GetReward from './StakeRewards/WriteFunctions/GetReward';
 import { IoIosArrowDown } from 'react-icons/io';
 import CreateTokenInstance from './Token/WriteFunctions/CreateTokenInstance';
 import GetProxyToken from './Token/ReadFunctions/GetProxyToken';
-import Transfer from './Token/WriteFunctions/Transfer';
-
+import CheckOperator from './Token/ReadFunctions/CheckOperator';
 import { useQuery } from 'react-query';
 import GetProxy from './StakeRewards/ReadFunctions/GetProxy';
 import Authorize from './Token/WriteFunctions/Authorize';
@@ -77,10 +75,10 @@ const StakeContainer = () => {
 					<Content>
 						<Info>
 							<p>
-								A Stake Rewards Instance needs two ERC20 Tokens, a Stake Token and a
+								A Stake Rewards Instance needs two ERC777 Tokens, a Stake Token and a
 								Reward Token.
 								<br />
-								The Stake Token can be any ERC20 Token, but the Reward Token must be
+								The Stake Token can be any ERC777 Token, but the Reward Token must be
 								yours.
 								<br />
 								For this sample app, you need to create 2 Token instance.{' '}
@@ -103,58 +101,53 @@ const StakeContainer = () => {
 						</Info>
 					</Content>
 				</Accordion.Item>
-			</Accordion.Root>
-
-			<Accordion.Root type="single" collapsible>
-				<Accordion.Item value="item-1">
+				<Accordion.Item value="item-2">
 					<Header>
 						<Trigger>
-							Staking Process
+							Step 2: Create Your Stake Rewards Instance
+							<IoIosArrowDown />
+						</Trigger>
+					</Header>
+					<Content>
+						<Info>
+							<p>&nbsp;</p>
+							<h3>Create your Stake Rewards Instance</h3>
+							<Section>
+								<CreateStakeInstance />
+								<GetProxy />
+							</Section>
+
+						</Info>
+					</Content>
+				</Accordion.Item>
+
+				<Accordion.Item value="item-3">
+					<Header>
+						<Trigger>
+							Step 3: Authorize your instances
 							<IoIosArrowDown />
 						</Trigger>
 					</Header>
 					<Content>
 						<Info>
 							<p>
-								To stake, an account staking needs to allow your Stake Rewards proxy
-								contract to transfer their Stake Token.
-								<br />
-								So before you can stake, you first need to do an approval from your
-								Stake Token Instance.
-								<br />
-								<br />
-								1. Get the proxy address of your Stake Rewards Instance and copy it
-								to the side.
-								<br />
-								2. Switch your account to the owner of the Stake Token Instance you
-								instantiated in Step 1.
-								<br />
-								3. In Approve, paste the address of your Stake Reward Instance and
-								an amount of how much tokens you want to approve it to stake.
-								<br />
-								4. This is now your test account and you can now stake any amount
-								that is equal to or less than the amount you approved.
+								Add your stake rewards instance as an authorized operator in your reward token instance
 							</p>
-							<h3>
-								Transfering Tokens with Token Module and Staking with Stake Rewards
-								Module
-							</h3>
+							<h3>Auhtorize</h3>
 							<Section>
-								<ReadComponent
-									hook={stakeRewards.getProxy!}
-									header="Get Proxy"
-									description="Get your proxy contract address"
-									buttonText={'Get Instance'}
-									isAddress={true}
-									module={'(Stake Rewards Module)'}
-								/>
-								<Approve />
-								<Stake />
+								<GetProxy	/>
+								<Authorize />
+								<CheckOperator />
 							</Section>
+							<Reminder>
+								Make sure to save each token proxy contract addresses on the side,
+								you will need them for Step 2.
+							</Reminder>
 						</Info>
 					</Content>
 				</Accordion.Item>
 			</Accordion.Root>
+
 
 			<h3>Stake Rewards Other Functions</h3>
 			<Section>
@@ -170,11 +163,14 @@ const StakeContainer = () => {
 						module={'(Stake Rewards Module)'}
 					/>
 				))}
+				<Stake />
 				<BalanceOf />
 				<Earned />
 				<Withdraw />
 				<GetReward />
 			</Section>
+
+	
 		</>
 	);
 };

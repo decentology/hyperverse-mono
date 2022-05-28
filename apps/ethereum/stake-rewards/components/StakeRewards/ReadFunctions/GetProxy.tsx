@@ -51,7 +51,7 @@ const ProxyToken = () => {
 
 	return (
 		<Box>
-			<h4>Get Proxy Token</h4>
+			<h4>Get Proxy Stake Rewards</h4>
 			<p>Get your proxy contract address</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
