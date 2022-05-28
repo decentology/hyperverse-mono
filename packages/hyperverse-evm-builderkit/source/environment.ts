@@ -1,6 +1,6 @@
 import {
-	Blockchain,
 	isEvm,
+	Blockchain,
 	BlockchainEvm,
 	EvmEnvironment,
 	NetworkConfig,
@@ -8,8 +8,10 @@ import {
 import Factory from '../artifacts/contracts/ModuleFactory.sol/ModuleFactory.json';
 import Contract from '../artifacts/contracts/Module.sol/Module.json';
 import Contracts from '../contracts.json';
-export const ContractABI = Contract.abi;
-export const FactoryABI = Factory.abi;
+
+import { ContractInterface } from 'ethers';
+export const ContractABI = Contract.abi as ContractInterface;
+export const FactoryABI = Factory.abi as ContractInterface;
 
 const environment = Contracts as EvmEnvironment;
 
@@ -34,4 +36,3 @@ function getEnvironment(blockchainName: Blockchain, network: NetworkConfig) {
 }
 
 export { environment, getEnvironment };
-
