@@ -2,12 +2,18 @@ import { HyperverseProvider } from './utils/Provider';
 import { Meta, Story } from '@storybook/react';
 import { useModule } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import { Doc } from '../docs/connectWallet.mdx';
+import Doc from '../docs/connectWallet.mdx';
 
 const Button = () => {
-	const { connect } = useEvm();
+	const { Connect } = useEvm();
 	const { factoryContract } = useModule();
-	return <button onClick={() => connect()}>{factoryContract?.address}</button>;
+	return (
+		<div>
+			<Connect />
+			<h1>Factory Address</h1>
+			<p>{factoryContract?.address}</p>
+		</div>
+	);
 };
 
 export default {
