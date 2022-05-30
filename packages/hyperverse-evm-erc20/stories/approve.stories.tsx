@@ -21,7 +21,4 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-    spender: '',
-    amount: 0
-};
+Demo.args = {};

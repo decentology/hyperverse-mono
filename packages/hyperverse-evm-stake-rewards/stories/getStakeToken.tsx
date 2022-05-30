@@ -1,15 +1,26 @@
 import * as PropTypes from 'prop-types';
 import { useStakeRewards } from '../source';
+import { useEffect, useState } from 'react';
 
 export const GetStakeToken = ({ ...props }) => {
-	const { StakeTokenContract } = useStakeRewards();
-	const { data: stakeToken } = StakeTokenContract();
+	const stakeRewards = useStakeRewards();
+	const [data, setData] = useState();
 
-	return (
-			<div className="stakeToken">
-				Stake Token: <b>{stakeToken}</b>
-			</div>
-	);
+	useEffect(() => {
+		if (stakeRewards.getStakeToken) {
+			stakeRewards.getStakeToken().then(setData);
+		}
+	}, [stakeRewards.getStakeToken]);
+
+	const hasStakeToken = () => {
+		return data ? (
+			<p>{data}</p>
+		) : (
+			<p>There is no stake token.</p>
+		);
+	};
+
+	return <div className="stakeToken"> Stake Token: {hasStakeToken()}</div>;
 };
 
 GetStakeToken.propTypes = {

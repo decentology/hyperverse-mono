@@ -1,34 +1,28 @@
 import * as PropTypes from 'prop-types';
-import './style.css';
 import { useStakeRewards } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './button.css';
 
 export const NewInstance = ({ ...props }) => {
-	const { NewInstance } = useStakeRewards();
-	const { address, connect } = useEvm();
-	const { mutate } = NewInstance();
+	const { createInstance } = useStakeRewards();
+	const { address, Connect } = useEvm();
 
-	return (
+	return address ? (
 		<button
 			type="button"
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				console.log('Calling mutate');
-				if (address) {
-					mutate({ account: address, stakingToken: 'STK', rewardsToken: 'RTK', rewardRate: 0.2 });
-				} else {
-					connect();
-				}
+				createInstance({});
 			}}
 		>
-			{address ? 'New Instance' : 'Connect'}
+			New Instance
 		</button>
+	) : (
+		<Connect />
 	);
 };
 
-NewInstance.propTypes = {
-	account: PropTypes.string.isRequired,
-};
+NewInstance.propTypes = {};
 
 NewInstance.defaultProps = {};

@@ -1,29 +1,28 @@
 import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
-import './style.css';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './button.css';
 
 export const RevokeOperator = ({ ...props }) => {
-	const { RevokeOperator } = useERC777();
-	const { address } = useEvm();
-	const { mutate } = RevokeOperator();
+	const { revokeOperator } = useERC777();
+	const { address, Connect } = useEvm();
 
-	return (
+	return address ? (
 		<button
 			type="button"
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				mutate({ operator: '' });
+				revokeOperator(address);
 			}}
 		>
 			Revoke Operator
 		</button>
+	) : (
+		<Connect />
 	);
 };
 
-RevokeOperator.propTypes = {
-	operator: PropTypes.string.isRequired
-};
+RevokeOperator.propTypes = {};
 
 RevokeOperator.defaultProps = {};

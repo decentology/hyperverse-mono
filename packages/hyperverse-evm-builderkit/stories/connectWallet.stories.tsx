@@ -5,15 +5,9 @@ import { useEvm } from '@decentology/hyperverse-evm';
 import Doc from '../docs/connectWallet.mdx';
 
 const Button = () => {
-	const { Connect } = useEvm();
+	const { address, Connect } = useEvm();
 	const { factoryContract } = useModule();
-	return (
-		<div>
-			<Connect />
-			<h1>Factory Address</h1>
-			<p>{factoryContract?.address}</p>
-		</div>
-	);
+	return <button onClick={() => <Connect />}> </button>;
 };
 
 export default {

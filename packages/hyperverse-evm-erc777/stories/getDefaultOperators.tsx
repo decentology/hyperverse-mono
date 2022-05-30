@@ -1,18 +1,30 @@
 import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import { useEffect, useState } from 'react';
 
 export const GetDefaultOperators = ({ ...props }) => {
-	const { DefaultOperators } = useERC777();
-	const { data: defaultOperators } = DefaultOperators();
+	const erc777 = useERC777();
+	const { address } = useEvm();
+	const [data, setData] = useState();
 
-	return (
-			<div className="defaultOperators">
-				Default Operators: <b>{defaultOperators}</b>
-			</div>
-	);
+	useEffect(() => {
+		if (erc777.getDefaultOperators) {
+			erc777.getDefaultOperators().then(setData);
+		}
+	}, [erc777.getDefaultOperators]);
+
+	const operators = () => {
+		return data ? (
+			<p>{data}</p>
+		) : (
+			<p>There are no operators.</p>
+		);
+	};
+
+	return <div className="operators"> Default Operators: {operators()}</div>;
 };
 
-GetDefaultOperators.propTypes = {
-};
+GetDefaultOperators.propTypes = {};
 
 GetDefaultOperators.defaultProps = {};

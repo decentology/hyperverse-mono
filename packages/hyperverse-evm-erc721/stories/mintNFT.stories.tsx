@@ -1,12 +1,11 @@
-import { MintNFTForm } from './mintNFT';
+import { MintNFT } from './mintNFT';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/mintNFT.mdx';
-import { within, userEvent } from '@storybook/testing-library';
+import { Doc } from '../docs/mintNFT.mdx';
 
 export default {
 	title: 'Components/MintNFT',
-	component: MintNFTForm,
+	component: MintNFT,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -16,13 +15,12 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<MintNFTForm {...args} />
+		<MintNFT {...args} />
 	</HyperverseProvider>
 );
 
-export const MintDemo = Template.bind({});
+export const Demo = Template.bind({});
 
-MintDemo.args = {
-	to: '',
+Demo.args = {
+	to: ''
 };
-

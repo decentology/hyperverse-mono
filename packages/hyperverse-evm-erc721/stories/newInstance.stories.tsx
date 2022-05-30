@@ -1,6 +1,6 @@
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
+import { Story } from '@storybook/react';
 import { Doc } from '../docs/newInstance.mdx';
 
 export default {
@@ -13,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args) => (
 	<HyperverseProvider>
 		<NewInstance {...args} />
 	</HyperverseProvider>
@@ -21,6 +21,4 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-	account: null,
-};
+Demo.args = {};

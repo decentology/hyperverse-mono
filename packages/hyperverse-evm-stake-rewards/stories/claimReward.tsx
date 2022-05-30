@@ -1,10 +1,10 @@
 import * as PropTypes from 'prop-types';
-import { useERC777 } from '../source';
+import { useStakeRewards } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import './button.css';
+import { useEffect, useState } from 'react';
 
-export const AuthorizeOperator = ({ ...props }) => {
-	const { authorizeOperator } = useERC777();
+export const ClaimReward = ({ ...props }) => {
+	const { claimReward } = useStakeRewards();
 	const { address, Connect } = useEvm();
 
 	return address ? (
@@ -13,16 +13,16 @@ export const AuthorizeOperator = ({ ...props }) => {
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				authorizeOperator({});
+				claimReward({});
 			}}
 		>
-			Authorize Operator
+			Claim Token Rewards
 		</button>
 	) : (
 		<Connect />
 	);
 };
 
-AuthorizeOperator.propTypes = {};
+ClaimReward.propTypes = {};
 
-AuthorizeOperator.defaultProps = {};
+ClaimReward.defaultProps = {};

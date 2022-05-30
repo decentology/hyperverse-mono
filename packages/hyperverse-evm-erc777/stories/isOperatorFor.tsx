@@ -1,21 +1,30 @@
-import { use } from 'chai';
 import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import { useEffect, useState } from 'react';
 
 export const IsOperatorFor = ({ ...props }) => {
-	const { CheckOperator } = useERC777();
-	const { data: operatorFor } = CheckOperator('', ''); // wants an operator and a token holder
+	const erc777 = useERC777();
+	const { address } = useEvm();
+	const [data, setData] = useState();
 
-	return (
-		<div className="operatorFor">
-			Operator For: <b>{operatorFor}</b>
-		</div>
-	);
+	useEffect(() => {
+		if (erc777.checkOperator) {
+			erc777.checkOperator().then(setData);
+		}
+	}, [erc777.checkOperator]);
+
+	const operatorExists = () => {
+		return data ? (
+			<p>{JSON.stringify(data)}</p>
+		) : (
+			<p>This account is not an operator.</p>
+		);
+	};
+
+	return <div className="operator"> Operator For: {operatorExists()}</div>;
 };
 
-IsOperatorFor.propTypes = {
-	operator: PropTypes.string.isRequired,
-	tokenHolder: PropTypes.string.isRequired
-};
+IsOperatorFor.propTypes = {};
 
 IsOperatorFor.defaultProps = {};

@@ -1,20 +1,29 @@
 import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import { useEffect, useState } from 'react';
+import './button.css';
 
 export const Allowance = ({ ...props }) => {
-	const { Allowance } = useERC777();
-	const { data: allowance } = Allowance('', ''); // wants an owner and a spender
+	const { allowance } = useERC777();
+	const { address, Connect } = useEvm();
 
-	return (
-			<div className="allowance">
-				Allowance: <b>{allowance}</b>
-			</div>
+	return address ? (
+		<button
+			type="button"
+			className={['storybook-button', `storybook-button--large`].join(' ')}
+			style={{ color: 'blue' }}
+			onClick={() => {
+				allowance({});
+			}}
+		>
+			Allowance
+		</button>
+	) : (
+		<Connect />
 	);
 };
 
-Allowance.propTypes = {
-	owner: PropTypes.string.isRequired,
-	spender: PropTypes.string.isRequired
-};
+Allowance.propTypes = {};
 
 Allowance.defaultProps = {};
