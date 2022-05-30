@@ -1,11 +1,11 @@
-import { GetTotalSupply } from './getTotalSupply';
+import { ApproveAll } from './setApprovalForAll';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/getTotalSupply.mdx';
+import Doc from '../docs/setApprovalForAll.mdx';
 
 export default {
-	title: 'Components/GetTotalSupply',
-	component: GetTotalSupply,
+	title: 'Components/ApproveAll',
+	component: ApproveAll,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,10 +15,15 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetTotalSupply {...args} />
+		<ApproveAll {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
-Demo.args = {};
+Demo.args = {
+	approveAll: {
+		to: '',
+		approved: true,
+	},
+};

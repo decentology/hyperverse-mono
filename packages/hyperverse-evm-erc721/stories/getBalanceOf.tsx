@@ -1,30 +1,26 @@
-import { useEffect, useState } from 'react';
 import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
-export const GetBalanceOf = ({ balance, ...props }) => {
+export const GetBalanceOf = ({ ...props }: {account: string}) => {
 	const erc721 = useERC721();
 	const { address } = useEvm();
-	const [data, setData] = useState(balance);
+	const [data, setData] = useState(null);
+	console.log('account', props.account);
 
 	useEffect(() => {
 		if (erc721.getBalanceOf) {
-			erc721.getBalanceOf().then(setData);
+			erc721.getBalanceOf(props.account).then(setData);
 		}
 	}, [erc721.getBalanceOf]);
 
 	const balanceAvailable = () => {
 		return data ? (
-			<p>{data}</p>
+			<p>{JSON.stringify(data)}</p>
 		) : (
-			<p>This is not a valid address.</p>
+			<p>Error.</p>
 		);
 	};
 
-	return <div className="balanceOf"> Balance Of: {balanceAvailable()}</div>;
+	return <div className="balanceOf"> Balance of: {props.account} {balanceAvailable()}</div>;
 };
-
-GetBalanceOf.propTypes = {};
-
-GetBalanceOf.defaultProps = {};

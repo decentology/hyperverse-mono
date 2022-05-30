@@ -1,16 +1,15 @@
-import * as PropTypes from 'prop-types';
 import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
-export const GetOwnerOf = ({ account, ...props }) => {
+export const GetOwnerOf = ({ ...props }: {account: string, tokenId: string}) => {
 	const erc721 = useERC721();
 	const { address } = useEvm();
-	const [data, setData] = useState(account);
+	const [data, setData] = useState(props.account);
 
 	useEffect(() => {
 		if (erc721.getOwnerOf) {
-			erc721.getOwnerOf().then(setData);
+			erc721.getOwnerOf(props.tokenId).then(setData);
 		}
 	}, [erc721.getOwnerOf]);
 
@@ -22,9 +21,5 @@ export const GetOwnerOf = ({ account, ...props }) => {
 		);
 	};
 
-	return <div className="ownerOf"> Owner Of: {owner()}</div>;
+	return <div className="ownerOf"> Owner of {props.tokenId}: {owner()}</div>;
 };
-
-GetOwnerOf.propTypes = {};
-
-GetOwnerOf.defaultProps = {};

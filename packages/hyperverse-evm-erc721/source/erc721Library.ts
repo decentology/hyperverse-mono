@@ -32,18 +32,10 @@ export async function ERC721LibraryInternal(
 		providerOrSigner
 	);
 
-  const getTotalSuply = async () => {
-		try {
-			const totalSupply = await base.proxyContract?.totalSupply();
-			return BigNumber.from(totalSupply) as BigNumber;
-		} catch (error) {
-			throw error;
-		}
-	};
-
   const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await base.proxyContract?.balanceOf(account);
+      console.log('balance', balance)
 			return BigNumber.from(balance) as BigNumber;
 		} catch (error) {
 			throw error;
@@ -115,7 +107,6 @@ export async function ERC721LibraryInternal(
 
 	return {
 		...base,
-    getTotalSuply,
     getBalanceOf,
     getBalance,
     getOwnerOf,
