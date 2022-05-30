@@ -94,6 +94,7 @@ export async function EvmLibraryBase(
 		[key: string]: any;
 	}) => {
 		try {
+			console.log('in the try')
 			const createTxn = await factoryContract.createInstance(account, ...Object.values(args));
 			return createTxn.wait();
 		} catch (err) {
