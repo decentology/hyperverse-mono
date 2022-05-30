@@ -10,9 +10,9 @@ export const HyperverseProvider: FC<{}> = ({ children }) => {
 			type: Network.Testnet,
 			chainId: 1337,
 			name: 'localhost',
-			networkUrl: 'http://localhost:6006/hyperchain'
+			networkUrl: 'http://localhost:6006/hyperchain',
 		},
-		modules: [{ bundle: ERC721, tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f' }]
+		modules: [{ bundle: ERC721, tenantId: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266' }],
 	});
 	return <Provider initialState={hyperverse}>{children}</Provider>;
 };

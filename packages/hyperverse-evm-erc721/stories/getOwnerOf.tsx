@@ -1,20 +1,20 @@
-import { use } from 'chai';
-import * as PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { useERC721 } from '../source';
 
-export const GetOwnerOf = ({ ...props }) => {
-	const { OwnerOf } = useERC721();
-	const { data: tokenOwner } = OwnerOf(0); // wants a token Id
+export const GetOwnerOf = ({ ...props }: { tokenId: string }) => {
+	const { getOwnerOf } = useERC721();
+	const [owner, setOwner] = useState('');
+	useEffect(() => {
+		if (getOwnerOf) {
+			getOwnerOf(props.tokenId).then((value) => {
+				setOwner(value);
+			});
+		}
+	}, [getOwnerOf]);
 
 	return (
 		<div className="ownerOf">
-			Owner Of: <b>{tokenOwner}</b>
+			Owner Of: <b>{owner}</b>
 		</div>
 	);
 };
-
-GetOwnerOf.propTypes = {
-	tokenId: PropTypes.number.isRequired,
-};
-
-GetOwnerOf.defaultProps = {};

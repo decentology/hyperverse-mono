@@ -1,7 +1,7 @@
 import { Transfer } from './transfer';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/transfer.mdx';
+import Doc from '../docs/transfer.mdx';
 
 export default {
 	title: 'Components/Transfer',
@@ -22,7 +22,6 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	from: '',
     to: '',
     tokenId: 123
 };

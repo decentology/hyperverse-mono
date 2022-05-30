@@ -1,19 +1,19 @@
-import * as PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { useERC721 } from '../source';
 
-export const GetBalanceOf = ({ ...props }) => {
-	const { BalanceOf } = useERC721();
-	const { data: balanceOf } = BalanceOf(''); // wants an account address
-
+export const GetBalanceOf = ({ ...props }: { account: string }) => {
+	const { getBalanceOf } = useERC721();
+	const [balance, setBalance] = useState(0);
+	useEffect(() => {
+		if (getBalanceOf) {
+			getBalanceOf(props.account).then((value) => {
+				setBalance(value.toNumber());
+			});
+		}
+	}, [getBalanceOf]);
 	return (
 		<div className="balanceOf">
-			BalanceOf: <b>{balanceOf}</b>
+			BalanceOf: <b>{balance}</b>
 		</div>
 	);
 };
-
-GetBalanceOf.propTypes = {
-	account: PropTypes.string.isRequired,
-};
-
-GetBalanceOf.defaultProps = {};

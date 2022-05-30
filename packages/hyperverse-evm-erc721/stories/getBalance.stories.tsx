@@ -1,7 +1,7 @@
 import { GetBalance } from './getBalance';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getBalance.mdx';
+import Doc from '../docs/getBalance.mdx';
 
 export default {
 	title: 'Components/GetBalance',
