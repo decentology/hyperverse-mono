@@ -66,6 +66,7 @@ const ModuleInfo = styled('div', {
     marginTop: 12,
     fontSize: 18,
     fontWeight: 400,
+    textTransform: 'capitalize',
   },
 
   p: {

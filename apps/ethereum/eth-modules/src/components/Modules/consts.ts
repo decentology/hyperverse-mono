@@ -20,7 +20,7 @@ export const MODULES = [
   },
   {
     name: "StakeRewards",
-    path: "/playground/stake-rewards",
+    path: "/playground/stakerewards",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
     icon: StakeRewards,
   },

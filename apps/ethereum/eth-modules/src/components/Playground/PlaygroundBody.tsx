@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { styled } from '../../../stitches.config'
 
@@ -6,10 +7,18 @@ export const PlaygroundBody = () => {
   const { module } = router.query
   return (
     <Container>
-      <h1>
-        <span>{module}</span>
-        &nbsp;Smart Module
-      </h1>
+      <SubContainer>
+        <h1>
+          {module}
+          &nbsp;Smart Module
+        </h1>
+
+        <Link href="https://faucet.paradigm.xyz/" passHref>
+          <a target="_blank" rel="noreferrer">
+            get rinkeby eth
+          </a>
+        </Link>
+      </SubContainer>
       <ContentContainer />
     </Container>
   )
@@ -18,16 +27,25 @@ export const PlaygroundBody = () => {
 const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+})
+
+const SubContainer = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'baseline',
+  fontFamily: '$mono',
+  fontWeight: '400',
 
   h1: {
-    fontFamily: '$mono',
     fontSize: 24,
-    fontWeight: '400',
     textTransform: 'capitalize',
-
     span: {
       textTransform: 'uppercase',
-    }
+    },
+  },
+
+  a: {
+    color: '$white100',
   },
 })
 

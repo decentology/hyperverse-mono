@@ -41,6 +41,10 @@ const globalStyles = globalCss({
 	a: {
 		cursor: 'pointer',
 		textDecoration: 'none',
+
+    '&:hover': {
+      opacity: 0.8,
+    }
 	},
 })
 
