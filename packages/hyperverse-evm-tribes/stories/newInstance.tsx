@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
@@ -28,7 +27,3 @@ export const NewInstance = ({ ...props }) => {
 		</>
 	);
 };
-
-NewInstance.propTypes = {};
-
-NewInstance.defaultProps = {};

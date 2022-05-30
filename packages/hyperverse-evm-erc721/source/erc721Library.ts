@@ -34,6 +34,7 @@ export async function ERC721LibraryInternal(
 
   const getBalanceOf = async (account: string) => {
 		try {
+      console.log('in the try', account)
 			const balance = await base.proxyContract?.balanceOf(account);
       console.log('balance', balance)
 			return BigNumber.from(balance) as BigNumber;
