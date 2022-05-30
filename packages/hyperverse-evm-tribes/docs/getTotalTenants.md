@@ -112,4 +112,4 @@ export const HyperverseProvider: FC<{}> = ({ children }) => {
 };
 ```
 
-For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)
+For more information about our modules please visit: [**Hyperverse Docs**](https://docs.hyperverse.dev)

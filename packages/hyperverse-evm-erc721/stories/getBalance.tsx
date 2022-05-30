@@ -1,4 +1,4 @@
-import * as PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
@@ -24,7 +24,3 @@ export const GetBalance = ({ balance, ...props }) => {
 
 	return <div className="balance"> Balance: {balanceAvailable()}</div>;
 };
-
-GetBalance.propTypes = {};
-
-GetBalance.defaultProps = {};

@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './button.css';

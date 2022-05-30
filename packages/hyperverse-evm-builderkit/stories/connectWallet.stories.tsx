@@ -2,7 +2,7 @@ import { HyperverseProvider } from './utils/Provider';
 import { Meta, Story } from '@storybook/react';
 import { useModule } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import { Doc } from '../docs/connectWallet.mdx';
+import Doc from '../docs/connectWallet.mdx';
 
 const Button = () => {
 	const { address, Connect } = useEvm();

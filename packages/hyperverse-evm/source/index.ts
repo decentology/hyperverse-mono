@@ -1,9 +1,9 @@
 import { useEvm } from './useEVM';
-import { Provider, } from './Provider';
+import { Provider, ProviderProps } from './Provider';
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
 import { getProvider } from './evmLibraryBase';
 export { EvmLibraryBase } from './evmLibraryBase';
-// export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
+export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
 const Networks = {
 	[Network.Mainnet]: {
 		type: Network.Mainnet,
@@ -35,4 +35,5 @@ export const Localhost = makeHyperverseBlockchain({
 	getNetwork,
 });
 
-export { Provider, useEvm, getProvider, };
+export { Provider, useEvm, getProvider};
+export type {ProviderProps};

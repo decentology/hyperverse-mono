@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards';
 import { Box, Button } from '../../ComponentStyles';

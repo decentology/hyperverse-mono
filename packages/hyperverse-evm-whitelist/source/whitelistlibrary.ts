@@ -36,17 +36,6 @@ export async function WhitelistLibraryInternal(
 		providerOrSigner
 	);
 
-	const errors = (err: any) => {
-		if (!base.factoryContract?.signer) {
-			throw new Error('Please connect your wallet!');
-		}
-
-		if (err.code === 4001) {
-			throw new Error('You rejected the transaction!');
-		}
-
-		throw err;
-	};
 
 	const getWhitelistedAddresses = async () => {
 		try {

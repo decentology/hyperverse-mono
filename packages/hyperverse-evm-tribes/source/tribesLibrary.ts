@@ -50,7 +50,6 @@ export async function TribesLibraryInternal(
 
 	const getTribeId = async (account: string) => {
 		try {
-			console.log('in the try')
 			const id = await base.proxyContract?.getUserTribe(account);
 			return id.toNumber() as number;
 		} catch (err) {
@@ -156,7 +155,6 @@ export async function TribesLibraryInternal(
 
 	return {
 		...base,
-		// getTribeId: depsReady(getTribeId),
 		getTribeId,
 		getTribeByAccount,
 		getTribe,

@@ -12,20 +12,19 @@ import {
 	Content,
 	Button,
 } from './WriteComponents';
+import { useMutation } from 'react-query';
 
 const MintNFT = () => {
 	const { address } = useEthereum();
-	const { MintNFT } = useERC721();
-	const { mutate } = MintNFT();
+	const erc721 = useERC721();
+
+	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.mint);
+
 	const [receiver, setReceiver] = useState('');
 
-	const mintAnNFT = async () => {
+	const mintNFT = async () => {
 		try {
-			const instanceData = {
-				to: receiver
-			};
-
-			mutate(instanceData);
+			mutate(receiver);
 		} catch (error) {
 			throw error;
 		}
@@ -48,8 +47,12 @@ const MintNFT = () => {
 								placeholder="Receiver"
 								onChange={(e) => setReceiver(e.target.value)}
 							/>
-							<Button onClick={mintAnNFT}>
-								{!address ? 'Connet Wallet' : 'Mint'}
+							<Button onClick={mintNFT}>
+								{!address
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Mint'}
 							</Button>
 						</Content>
 					</Parameters>

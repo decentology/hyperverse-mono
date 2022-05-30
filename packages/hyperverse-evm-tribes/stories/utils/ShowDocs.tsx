@@ -4,20 +4,20 @@ import { FC } from 'react';
 const h = React.createElement;
 
 const ShowDocs: FC<any> = (props) => {
-  return h(
-    'div',
-    {},
-    h('div', {
-      style: {
-        padding: '0 20px',
-      },
-      dangerouslySetInnerHTML: {
-        __html: props.md.default,
-      },
-    }),
-    h('style', {
-      dangerouslySetInnerHTML: {
-        __html: `
+	return h(
+		'div',
+		{},
+		h('div', {
+			style: {
+				padding: '0 20px',
+			},
+			dangerouslySetInnerHTML: {
+				__html: props.md.default,
+			},
+		}),
+		h('style', {
+			dangerouslySetInnerHTML: {
+				__html: `
 @import url(https://fonts.googleapis.com/css?family=Merriweather:300italic,300);
 
 h1, h1 code, h2, h2 code, h3, h3 code, h4, h4 code {
@@ -97,9 +97,9 @@ a:active {
   color: #2980b9;
 }
         `,
-      },
-    })
-  );
+			},
+		})
+	);
 };
 
 export default ShowDocs;

@@ -12,12 +12,16 @@ import {
 	Content,
 	Button,
 } from './WriteFunctions/WriteComponents';
+import { useQuery } from 'react-query';
 
 const BalanceOf = () => {
-	const { address } = useEthereum();
-	const { BalanceOf } = useERC721();
-	const [account, setAccount] = useState(address || "0x45e4c90801b1a17c178bB9855aA181A886DAA603");
-	const { data } = BalanceOf(account);
+	const { account } = useEthereum();
+	const erc721 = useERC721();
+	
+	const [address, setAddress] = useState(account || "0x45e4c90801b1a17c178bB9855aA181A886DAA603");
+	const { data } = useQuery('balanceOf', () => erc721.getBalanceOf!(address!));
+
+
 	const [hidden, setHidden] = useState(false);
 
 	return (
@@ -27,19 +31,19 @@ const BalanceOf = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Balance Of'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Get Balance Of'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
 								placeholder="Account"
-								onChange={(e) => setAccount(e.target.value)}
+								onChange={(e) => setAddress(e.target.value)}
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
+								{!account ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
 							</Button>
 						</Content>
 					</Parameters>

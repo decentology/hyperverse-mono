@@ -2,7 +2,7 @@ import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
 import { MetaDataFormatted } from '../source/types';
-import './button.css';
+import './style.css';
 
 export const GetAllTribes = ({ ...props }) => {
 	const tribes = useTribes();

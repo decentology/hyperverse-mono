@@ -1,7 +1,8 @@
 import { styled } from '../stitches.config';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { UseQueryResult } from 'react-query';
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useQuery } from 'react-query';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
 	let shortendHash;
@@ -17,25 +18,41 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 type Props = {
-	hook: () => UseQueryResult<any, unknown>;
+	fn: any;
 	header: string;
 	description: string;
 	buttonText: string;
 	isAddress?: boolean;
 };
-const ReadComponent = ({ hook, header, description, buttonText, isAddress }: Props) => {
-	const { address } = useEthereum();
+const ReadComponent = ({ fn, header, description, buttonText, isAddress }: Props) => {
+	const { account } = useEthereum();
 	const [hidden, setHidden] = useState(false);
-	const { data } = hook();
+	const { data, error, isLoading } = useQuery(header, fn);
 
-	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
+	const dataFetched = isAddress ? shortenHash(data as string, 5, 5) : data as any
+
+	useEffect(() => {
+		if (error) {
+			if (error instanceof Error) {
+				toast.error(error.message, {
+					position: toast.POSITION.BOTTOM_CENTER,
+				});
+			}
+		}
+	}, [error]);
 
 	return (
 		<Box>
 			<h4>{header}</h4>
 			<p>{description}</p>
-			<Button disabled={!address} onClick={() => setHidden(p => !p)}>
-				{!address ? 'Connect Wallet' : !hidden ? buttonText : dataFetched}
+			<Button disabled={!account} onClick={() => setHidden((p) => !p)}>
+				{!account
+					? 'Connect Wallet'
+					: isLoading
+					? 'fetching ...'
+					: !hidden
+					? buttonText
+					: dataFetched?.toString() || 'N/A'}
 			</Button>
 		</Box>
 	);

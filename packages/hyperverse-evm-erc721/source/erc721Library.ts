@@ -24,7 +24,7 @@ export async function ERC721LibraryInternal(
 		providerOrSigner = getProvider(hyperverse.network);
 	}
 	const base = await EvmLibraryBase(
-		'Tribes',
+		'ERC721',
 		hyperverse,
 		factoryAddress!,
 		FactoryABI,

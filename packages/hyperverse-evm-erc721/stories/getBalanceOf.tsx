@@ -1,4 +1,4 @@
-import * as PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';

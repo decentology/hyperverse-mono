@@ -17,7 +17,6 @@ function EvmState() {
 
 	const { data: ens } = useEnsName({ address: address });
 
-	//check this signer network
 	let { data: signer } = useSigner();
 
 	useEffect(() => {

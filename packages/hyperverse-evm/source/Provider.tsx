@@ -6,9 +6,10 @@ import {
 	RainbowKitProvider,
 	darkTheme,
 } from '@rainbow-me/rainbowkit';
-import { chain, ProviderProps as WagmiProviderProps, createClient, WagmiProvider } from 'wagmi';
+import { ProviderProps as WagmiProviderProps, createClient, WagmiProvider } from 'wagmi';
 import { Evm } from './useEVM';
 import { useHyperverse } from '@decentology/hyperverse';
+import { BaseProvider } from '@ethersproject/providers';
 
 export type ProviderProps = {
 	children: React.ReactNode;
@@ -16,7 +17,6 @@ export type ProviderProps = {
 } & WagmiProviderProps &
 	Partial<Parameters<typeof RainbowKitProvider>[0]>;
 
-export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const { network: defaultNetwork } = useHyperverse();
 	const { chains, provider } = configureChains(
@@ -32,7 +32,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 						name: 'Etherscan',
 						url: defaultNetwork.blockExplorer!,
 					},
-					default: {name: 'default', url: defaultNetwork.blockExplorer !},
+					default: { name: 'default', url: defaultNetwork.blockExplorer! },
 				},
 				testnet: defaultNetwork.type === 'testnet',
 			},
@@ -50,19 +50,14 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 		chains,
 	});
 
-
-	// const wagmiClient = createClient();
-
 	const wagmiClient = createClient({
 		autoConnect: true,
 		connectors,
 		provider,
-
-		// jsonRpcUrl: ({ chainId }: { chainId: any }) =>
-		// 	chains.find((x) => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0],
 	});
 
 	return (
+		// @ts-ignore - StaticJsonRpcProvider missing type of BaseProvider. Needs fixed in Wagmi/Ethers
 		<WagmiProvider client={wagmiClient} {...props}>
 			<RainbowKitProvider
 				chains={chains}
