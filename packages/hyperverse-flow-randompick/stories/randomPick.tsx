@@ -1,7 +1,7 @@
 import * as PropTypes from 'prop-types';
 import { useRandomPick } from '../source';
 import { useState, useEffect } from 'react';
-import './button.css';
+import './style.css';
 
 export const RandomPick = ({ ...props }) => {
 	const { getRandomPick } = useRandomPick();

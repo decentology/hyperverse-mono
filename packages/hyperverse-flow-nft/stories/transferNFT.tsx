@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import { useNFT } from '../source';
-import './button.css';
+import './style.css';
 
 export const TransferNFT = ({ ...props }) => {
 	const { transferNFT } = useNFT();

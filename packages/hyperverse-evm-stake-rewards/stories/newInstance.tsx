@@ -1,5 +1,5 @@
 import * as PropTypes from 'prop-types';
-import './button.css';
+import './style.css';
 import { useStakeRewards } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
 

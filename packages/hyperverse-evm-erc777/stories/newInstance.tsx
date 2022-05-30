@@ -1,6 +1,6 @@
 
 import * as PropTypes from 'prop-types';
-import './button.css';
+import './style.css';
 import { useERC777 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
 

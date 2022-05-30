@@ -1,5 +1,5 @@
 import * as PropTypes from 'prop-types';
-import './button.css';
+import './style.css';
 import { useTribes } from '../source';
 import { useFlow } from '@decentology/hyperverse-flow/source';
 
