@@ -12,37 +12,59 @@ import Discord from './assets/discord-logo.svg';
 import Github from './assets/github-logo.png';
 import Storybook from './assets/storybook-logo.svg';
 
-<Meta title="Get Started/Stories"/>
+<Meta title="Get Started/Stories" />
 
 <style>{`
+  .heading {
+    --dark: '#000000';
+    font-weight: 900;
+    font-size: 30px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+}
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
     font-size: 15px;
     color: #999;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     line-height: 24px;
     text-transform: uppercase;
-    margin-bottom: 2px;
-    margin-top: 30px;
+    margin-bottom: 12px;
+    margin-top: 40px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
   }
 
-    .smallerheading {
-    --black: '#000000';
-    font-weight: 800;
-    font-size: 15px;
-    color: #000000;
-    letter-spacing: 1px;
-    line-height: 24px;
-    margin-bottom: 2px;
-    margin-top: 30px;
+  .body {
+    color: '#999';
+    font-weight: 200;
+    font-size: 16px;
+    letter-spacing: 0px;
+    line-height: 21px;
+    margin-bottom: 12px;
+    margin-top: 8px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
   }
+
+  @font-face {
+  font-family: "Fira Sans";
+  src: url('fonts/fira/eot/FiraSans-Regular.eot');
+  src: url('fonts/fira/eot/FiraSans-Regular.eot') format('embedded-opentype'),
+       url('fonts/fira/woff2/FiraSans-Regular.woff2') format('woff2'),
+       url('fonts/fira/woff/FiraSans-Regular.woff') format('woff'),
+       url('fonts/fira/woff2/FiraSans-Regular.ttf') format('truetype');
+}
 
   .link-list {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     row-gap: 10px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  
   }
 
   @media (min-width: 620px) {
@@ -50,6 +72,8 @@ import Storybook from './assets/storybook-logo.svg';
       row-gap: 20px;
       column-gap: 20px;
       grid-template-columns: 1fr 1fr;
+      font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+      
     }
   }
 
@@ -58,6 +82,7 @@ import Storybook from './assets/storybook-logo.svg';
       display: -ms-grid;
       -ms-grid-columns: 1fr 1fr;
       -ms-grid-rows: 1fr 1fr;
+      font-family: "PT Sans", Calibri, Tahoma, sans-serif;
     }
   }
 
@@ -67,26 +92,32 @@ import Storybook from './assets/storybook-logo.svg';
     border: 1px solid #00000010;
     border-radius: 5px;
     transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
-    color: #333333;
+    color: #ffffff;
     display: flex;
     align-items: flex-start;
+    background: #19495e;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
   }
 
   .link-item:hover {
-    border-color: #1EA7FD50;
     transform: translate3d(0, -3px, 0);
     box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
+    background: #246685;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
   }
 
   .link-item:active {
     border-color: #1EA7FD;
     transform: translate3d(0, 0, 0);
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+
   }
 
   .link-item strong {
     font-weight: 700;
     display: block;
     margin-bottom: 2px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
   }
   
   .link-item img {
@@ -94,11 +125,13 @@ import Storybook from './assets/storybook-logo.svg';
     width: 40px;
     margin-right: 15px;
     flex: none;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
   }
 
   .link-item span {
     font-size: 14px;
     line-height: 20px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
   }
 
   .tip {
@@ -129,67 +162,91 @@ import Storybook from './assets/storybook-logo.svg';
   
 `}</style>
 
-# Create Stories
+<div className="heading">Create Stories</div>
 
-Each of our stories is written with two files: one for the component and one for the story itself 
-(each story file will include **".stories"** within the file name).
+<div className="body">
+	Each of our stories is written with two files: one for the component and one for the story
+	itself (each story file will include <b>".stories"</b> within the file name).
+</div>
 
-**Component Files:** These files contain an initial state for the component that we have written ourselves.
-Depending upon the needs of the component we provide a set of initial arguments/props to pass through
-to render a story that replicates an expected interaction.
+<div className="body">
+	<b>Component Files:</b> These files contain an initial state for the component that we have
+	written ourselves. Depending upon the needs of the component we provide a set of initial
+	arguments/props to pass through to render a story that replicates an expected interaction.
+</div>
 
-**Stories Files:** These files contain much of the setup for the interactions we just mentioned. The story template
-is created here along with its accompanying docs page. Additionally, it is in these files where 
-we will define the arguments/props we wish to pass through to the components.
+<div className="body">
+	<b>Stories Files:</b> These files contain much of the setup for the interactions we just
+	mentioned. The story template is created here along with its accompanying docs page.
+	Additionally, it is in these files where we will define the arguments/props we wish to pass
+	through to the components.
+</div>
 
-Check out Storybook's [**What's a Story**](https://storybook.js.org/docs/react/get-started/whats-a-story) section for a more
-comprehensive guide to writing stories.
+<div className="body">
+	Check out the
+	<a href="https://storybook.js.org/docs/react/get-started/whats-a-story">
+		{' '}
+		Storybook Addons{' '}
+	</a> section for a more comprehensive guide to writing stories.
+</div>
 
-Storybook also supports many [**Addon**](https://storybook.js.org/docs/react/essentials/introduction) features to support
-a more comprehensive user experience for your stories.
+<div className="body">
+	Storybook also supports many{' '}
+	<a href="https://storybook.js.org/docs/react/essentials/introduction"> addon features </a> to
+	support a more comprehensive user experience for your stories.
+</div>
 
 <div className="subheading">Story Example</div>
 
-Let's walkthrough how we set up **Get Balance Of** for an example.
+<div className="body">
+	Let's walkthrough how we set up <b>Get Balance Of</b> for our example.
+</div>
 
-<div className="smallerheading">useERC721.ts</div>
+<div className="subheading">useERC721.ts</div>
 
-Before we begin writing our story, we'll take a look at the `getBalanceOf` function from `useERC721.ts` to
-get a better idea of what we'll need. We can see that this function needs an **account** in order to return a number for the balance.
+<div className="body">
+	Before we begin writing our story, we'll take a look at the <b>getBalanceOf</b> function from{' '}
+	<b>useERC721.ts</b> to get a better idea of what we'll need. We can see that this function needs
+	an <b>account</b> in order to return a number for the balance.
+</div>
 
 ```jsx
-
-	const getBalanceOf = async (account: string) => {
-		try {
-			console.log("balanceOf:", account);
-			const balance = await proxyContract?.balanceOf(account);
-			return balance.toNumber();
-		} catch (err) {
-			errors(err);
-			throw err;
-		}
+const getBalanceOf = async (account: string) => {
+	try {
+		console.log('balanceOf:', account);
+		const balance = await proxyContract?.balanceOf(account);
+		return balance.toNumber();
+	} catch (err) {
+		errors(err);
+		throw err;
 	}
-
+};
 ```
 
-<div className="smallerheading">getBalanceOf.stories.tsx</div>
+<div className="subheading">getBalanceOf.stories.tsx</div>
 
-Here is where we'll start setting up our story. If you take a look at the sidebar
-you'll notice a list of stories. Each of these stories contains a demo that we'll see
-render under the **Canvas** tab.
+<div className="body">
+	Here is where we'll start setting up our story. If you take a look at the sidebar you'll notice
+	a list of stories. Each of these stories contains a demo that we'll see render under the{' '}
+	<b>Canvas</b> tab.
+</div>
 
-We'll import the component we want this story to render in our story template. This template
-will call the **GetBalanceOf** component. It is binded with our first story we have titled **Demo**.
-We provide an initial address of `0x70997970c51812dc3a010c7d01b50e0d17dc79c8` that we will pass
-through as the account that `getBalanceOf` requires.
+<div className="body">
+	We'll import the component we want this story to render in our story template. This template
+	will call the <b>GetBalanceOf</b> component. It is binded with our first story we have titled{' '}
+	<b>Demo</b>. We provide an initial address of <b>0x70997970c51812dc3a010c7d01b50e0d17dc79c8</b>{' '}
+	that we will pass through as the account that <b>getBalanceOf</b> requires.
+</div>
 
-You can add other stories within this file for your component if you wish. In addition to writing
-the interactions we would want to see from these functions we can also write the interactions we would
-not want to see. This is a great way to showcase expected errors in specific states. For example, you could
-write another story with an initial address that does not have a tribe Id associated with it.
+<div className="body">
+	You can add other stories within this file for your component if you wish. In addition to
+	writing the interactions we would want to see from these functions we can also write the
+	interactions we would not want to see. This is a great way to showcase expected errors in
+	specific states. For example, you could write another story with an initial address that does
+	not have a tribe Id associated with it.
+</div>
 
 ```jsx
-
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
@@ -214,18 +271,18 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	account: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8'
+	account: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
 };
-
 ```
 
-<div className="smallerheading">getBalanceOf.tsx</div>
+<div className="subheading">getBalanceOf.tsx</div>
 
-The main component below is what we'll import into the story. It is here we will write the
-interactions we want to have with the `getBalanceOf` function.
+<div className="body">
+	The main component below is what we'll import into the story. It is here we will write the
+	interactions we want to have with the <b>getBalanceOf</b> function.
+</div>
 
 ```jsx
-
 import * as PropTypes from 'prop-types';
 import { useERC721 } from '../source';
 
@@ -239,9 +296,10 @@ export const GetBalanceOf = ({ ...props }) => {
 		</div>
 	);
 };
-
 ```
 
-And there you go! Now you have a general idea of how we create stories that mimic the interactions 
-we can expect or want from the functions in our modules. Feel free to create your own stories from our
-modules for your application.
+<div className="body">
+	And there you go! Now you have a general idea of how we create stories that mimic the
+	interactions we can expect or want from the functions in our modules. Feel free to create your
+	own stories from our modules for your application.
+</div>
