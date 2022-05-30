@@ -12,9 +12,11 @@ export const { styled, getCssText, globalCss, createTheme } = createStitches({
     fonts: {
       system: 'system-ui',
       mainFont: 'Montserrat, sans-serif',
+      mono: 'Roboto Mono, monospace',
     },
     colors: {
       black100: '#030202',
+      blue100: '#15112B',
       white100: '#fafafa',
     },
     backgroundImage: {

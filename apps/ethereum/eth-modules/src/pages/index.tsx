@@ -11,7 +11,7 @@ export default function Home() {
 				<title>Hyperverse 🚀</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Main>
+			<main>
 				<Nav>
 				<Link href="https://www.decentology.com/" passHref>
 				<a target="_blank" rel="noreferrer">
@@ -20,18 +20,11 @@ export default function Home() {
 				</Link>
 				</Nav>
 				<Hero />
-			</Main>
+			</main>
 		</>
 	);
 }
 
-const Main = styled('main', {
-	display: 'flex',
-	flexDirection: 'column',
-	margin: 'auto',
-	justifyContent: 'center',
-
-});
 
 const Nav = styled('nav', {
 	display: 'flex',
