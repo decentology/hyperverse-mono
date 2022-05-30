@@ -7,9 +7,6 @@ export const Playground = () => {
       <Container>
         <PlaygroundTab />
         <PlaygroundBody />
-
-
-
       </Container>
     </>
   );

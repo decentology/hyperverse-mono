@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { motion } from 'framer-motion';
+import { LINKS } from '../../consts';
 
 export function Hero() {
 	return (
@@ -23,7 +24,7 @@ export function Hero() {
 						Playground
 					</Button>
 				</Link>
-				<Link href="https://docs.hyperverse.dev/" passHref>
+				<Link href={LINKS.Docs} passHref>
 					<Button
 						target="_blank"
 						rel="noreferrer"

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { styled, css } from '../../../stitches.config'
-import { MODULES } from '../Modules/consts'
+import { MODULES } from '../../consts'
 import Link from 'next/link'
 
 export const PlaygroundTab = () => {
@@ -13,7 +13,7 @@ export const PlaygroundTab = () => {
       {MODULES.map((item) => {
         const selected = item.name.toUpperCase() === module?.toString().toUpperCase()
         return (
-          <Link key={item.name} href={`/playground/${item.name}`} passHref>
+          <Link key={item.name} href={item.path} passHref>
             <TabItem selected={selected}>{item.name}</TabItem>
           </Link>
         )

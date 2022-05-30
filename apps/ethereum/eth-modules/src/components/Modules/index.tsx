@@ -1,5 +1,5 @@
 import { styled } from "../../../stitches.config";
-import { MODULES } from "./consts";
+import { MODULES } from "../../consts";
 import { ModuleCard } from "./ModuleCard";
 export const Modules = () => {
   return (

@@ -1,6 +1,6 @@
 import { createStitches } from '@stitches/react'
 
-export const { styled, getCssText, globalCss, createTheme, css } = createStitches({
+export const { styled, getCssText, globalCss, createTheme, css, keyframes } = createStitches({
   media: {
     mobile: '(min-width: 640px)',
     tablet: '(min-width: 768px)',
@@ -17,6 +17,8 @@ export const { styled, getCssText, globalCss, createTheme, css } = createStitche
     colors: {
       black100: '#030202',
       blue100: '#15112B',
+      blue200: '#28243C',
+      blue300: '#342F4E',
       white100: '#fafafa',
     },
     backgroundImage: {

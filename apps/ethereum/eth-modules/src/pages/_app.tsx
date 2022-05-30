@@ -23,6 +23,10 @@ const globalStyles = globalCss({
     backgroundSize: 'cover',
     backgroundColor: '$black100',
     color: '$white100',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
 
   },
   main: {
@@ -30,9 +34,8 @@ const globalStyles = globalCss({
 		flexDirection: 'column',
 		margin: 'auto',
     fontSize: 16,
-		marginTop: 120,
 		padding: '0 24px',
-
+    minHeight: 700,
 		'@desktop': {
 			padding: 0,
 			width: '1100px',

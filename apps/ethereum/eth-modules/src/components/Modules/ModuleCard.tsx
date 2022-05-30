@@ -1,5 +1,5 @@
 import { styled } from '@stitches/react'
-import { MODULES } from './consts'
+import { MODULES } from '../../consts'
 import { ERC721 } from '../icons'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -38,11 +38,10 @@ const ModuleContainer = styled(motion.div, {
   width: 330,
   height: 240,
   boxShadow: '4px 4px 10px rgba(51, 45, 85, 0.6)',
-  bordeRadius: 14,
   cursor: 'pointer',
+  borderRadius: 14,
 
   '&:hover': {
-    bordeRadius: 14,
     backgroundImage: 'linear-gradient(93deg, #8CC760 0%, #3898FF 100%)',
     color: '$black100',
     boxShadow: '4px 4px 10px rgba(51, 45, 85, 0.9)',
@@ -55,7 +54,7 @@ const ModuleInfo = styled('div', {
   padding: '80px 24px 8px',
 
   svg: {
-    width: 30,
+    width: 25,
   },
 
   '*': {

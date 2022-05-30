@@ -3,6 +3,7 @@ import { styled } from '../../stitches.config';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Hero } from '../components/Landing/Hero';
+import { LINKS } from '../consts';
 
 export default function Home() {
 	return (
@@ -13,7 +14,7 @@ export default function Home() {
 			</Head>
 			<main>
 				<Nav>
-				<Link href="https://www.decentology.com/" passHref>
+				<Link href={LINKS.Decentology} passHref>
 				<a target="_blank" rel="noreferrer">
 					<Image src="/images/Decentology.png" alt='Decentology'  width={175} height={36}/>
 					</a>

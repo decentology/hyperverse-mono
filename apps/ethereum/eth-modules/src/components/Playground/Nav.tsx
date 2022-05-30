@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
 import { Github } from '../icons'
 import Link from 'next/link'
+import { LINKS } from '../../consts'
 
 export function Nav() {
   const { Connect, error } = useEthereum()
@@ -15,13 +16,13 @@ export function Nav() {
       </Link>
 
       <RightContainer>
-			<Link href="https://docs.hyperverse.dev/" passHref>
+			<Link href={LINKS.Docs} passHref>
           <a target="_blank" rel="noreferrer">
             Docs
           </a>
         </Link>
 
-        <Link href="https://github.com/decentology/hyperverse-mono" passHref>
+        <Link href={LINKS.Github} passHref>
           <a target="_blank" rel="noreferrer">
             <Github />
           </a>

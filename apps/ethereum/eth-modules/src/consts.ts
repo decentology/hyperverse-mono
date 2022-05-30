@@ -1,4 +1,4 @@
-import { ERC721, ERC20, ERC777, StakeRewards, Whitelist, Tribes } from "../icons"
+import { ERC721, ERC20, ERC777, StakeRewards, Whitelist, Tribes } from "./components/icons"
 export const MODULES = [
   {
     name: "ERC721",
@@ -20,7 +20,7 @@ export const MODULES = [
   },
   {
     name: "StakeRewards",
-    path: "/playground/stakerewards",
+    path: "/playground/stake-rewards",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
     icon: StakeRewards,
   },
@@ -37,3 +37,11 @@ export const MODULES = [
     icon: Tribes,
   },
 ]
+
+export const LINKS = {
+  Paradigm: 'https://faucet.paradigm.xyz/',
+  Github: 'https://github.com/decentology/hyperverse-mono',
+  Discord: 'https://discord.gg/decentology',
+  Decentology: 'https://decentology.com/',
+  Docs: 'https://docs.hyperverse.dev/'
+}

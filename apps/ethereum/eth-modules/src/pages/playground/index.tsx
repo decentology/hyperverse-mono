@@ -1,8 +1,7 @@
-import { styled } from '../../../stitches.config';
+import { css, styled } from '../../../stitches.config';
 import { Nav } from '../../components/Playground/Nav';
-import { ModuleCard } from '../../components/Modules/ModuleCard';
 import { Modules } from '../../components/Modules';
-import { ERC721 } from '../../components/icons';
+
 
 export default function Playground() {
 	return (
@@ -14,3 +13,4 @@ export default function Playground() {
 		</>
 	);
 }
+
