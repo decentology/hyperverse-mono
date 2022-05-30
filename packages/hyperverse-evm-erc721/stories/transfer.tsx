@@ -4,7 +4,7 @@ import './style.css';
 
 export const Transfer = ({ ...props }) => {
 	const { transfer } = useERC721();
-	const { address, connect } = useEvm();
+	const { address, Connect } = useEvm();
 
 	return address ? (
 		<button
@@ -18,15 +18,6 @@ export const Transfer = ({ ...props }) => {
 			Transfer
 		</button>
 	) : (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				connect();
-			}}
-		>
-			Connect
-		</button>
+		<Connect />
 	);
 };
