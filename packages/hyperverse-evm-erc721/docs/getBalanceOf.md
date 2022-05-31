@@ -1,6 +1,6 @@
 # Get Balance Of
 
-<p> The `getBalanceOf` function from `useERC721` returns the current available balance of a provided address. </p>
+<p> The `getBalanceOf` function from `erc721Library` returns the current available balance of a provided address. </p>
 
 ---
 
