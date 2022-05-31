@@ -1,14 +1,14 @@
-# Mint NFT
+# Mint
 
-<p> The `mintNFT` function from `erc721Library` allows a user to create their own NFT. </p>
+<p> The `mint` function from `erc721Library` allows a user to mint their own NFT. </p>
 
 ---
 
 <br>
 
-### mintNFT
+### mint
 
-<p> The `mintNFT` function takes in a target address. </p>
+<p> The `mint` function takes in a target address. </p>
 
 ```jsx
   const mint = async(to: string) => {
@@ -24,14 +24,14 @@
 ### Stories
 
 ```jsx
-import { MintNFT } from './mintNFT';
+import { Mint } from './mint';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/mintNFT.mdx';
+import Doc from '../docs/mint.mdx';
 
 export default {
-	title: 'Components/MintNFT',
-	component: MintNFT,
+	title: 'Components/Mint',
+	component: Mint,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -41,14 +41,14 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<MintNFT {...args} />
+		<Mint {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9'
+	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 };
 ```
 
@@ -59,7 +59,7 @@ import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const MintNFT = ({ ...props }: {to: string}) => {
+export const Mint = ({ ...props }: { to: string }) => {
 	const { mint } = useERC721();
 	const { address, Connect } = useEvm();
 
