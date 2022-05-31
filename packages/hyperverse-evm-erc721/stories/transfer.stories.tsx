@@ -22,9 +22,7 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	transfer: {
-		from: '',
-		to: '',
-		tokenId: 1,
-	},
+	from: '',
+	to: '',
+	tokenId: 1,
 };

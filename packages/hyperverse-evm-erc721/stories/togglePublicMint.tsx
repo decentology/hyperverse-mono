@@ -1,25 +1,24 @@
 import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import { useEffect, useState } from 'react';
+import './style.css';
 
 export const TogglePublicMint = ({ ...props }) => {
-	const erc721 = useERC721();
-	const { address } = useEvm();
-	const [data, setData] = useState(null);
+	const { togglePublicMint } = useERC721();
+	const { Connect } = useEvm();
 
-	useEffect(() => {
-		if (erc721.togglePublicMint) {
-			erc721.togglePublicMint().then(setData);
-		}
-	}, [erc721.togglePublicMint]);
-
-	const toggle = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>Error.</p>
-		);
-	};
-
-	return <div className="toggle"> Toggle: {toggle()}</div>;
+	return (
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					togglePublicMint();
+				}}
+			>
+				Public Mint
+			</button>
+		</>
+	);
 };

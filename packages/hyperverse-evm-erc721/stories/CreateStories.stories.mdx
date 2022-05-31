@@ -18,7 +18,7 @@ import Storybook from './assets/storybook-logo.svg';
   .heading {
     --dark: '#000000';
     font-weight: 900;
-    font-size: 30px;
+    font-size: 32px;
     letter-spacing: 1px;
     line-height: 24px;
     margin-bottom: 20px;
@@ -28,7 +28,7 @@ import Storybook from './assets/storybook-logo.svg';
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
-    font-size: 15px;
+    font-size: 18px;
     color: #999;
     letter-spacing: 4px;
     line-height: 24px;
@@ -41,7 +41,7 @@ import Storybook from './assets/storybook-logo.svg';
   .body {
     color: '#999';
     font-weight: 200;
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 0px;
     line-height: 21px;
     margin-bottom: 12px;
@@ -206,14 +206,14 @@ import Storybook from './assets/storybook-logo.svg';
 
 <div className="body">
 	Before we begin writing our story, we'll take a look at the <b>getBalanceOf</b> function from{' '}
-	<b>useERC721.ts</b> to get a better idea of what we'll need. We can see that this function needs
+	<b>erc721Library.ts</b> to get a better idea of what we'll need. We can see that this function needs
 	an <b>account</b> in order to return a number for the balance.
 </div>
 
 ```jsx
+
 const getBalanceOf = async (account: string) => {
 	try {
-		console.log('balanceOf:', account);
 		const balance = await proxyContract?.balanceOf(account);
 		return balance.toNumber();
 	} catch (err) {
@@ -221,6 +221,7 @@ const getBalanceOf = async (account: string) => {
 		throw err;
 	}
 };
+
 ```
 
 <div className="subheading">getBalanceOf.stories.tsx</div>
@@ -231,22 +232,8 @@ const getBalanceOf = async (account: string) => {
 	<b>Canvas</b> tab.
 </div>
 
-<div className="body">
-	We'll import the component we want this story to render in our story template. This template
-	will call the <b>GetBalanceOf</b> component. It is binded with our first story we have titled{' '}
-	<b>Demo</b>. We provide an initial address of <b>0x70997970c51812dc3a010c7d01b50e0d17dc79c8</b>{' '}
-	that we will pass through as the account that <b>getBalanceOf</b> requires.
-</div>
-
-<div className="body">
-	You can add other stories within this file for your component if you wish. In addition to
-	writing the interactions we would want to see from these functions we can also write the
-	interactions we would not want to see. This is a great way to showcase expected errors in
-	specific states. For example, you could write another story with an initial address that does
-	not have a tribe Id associated with it.
-</div>
-
 ```jsx
+
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
@@ -273,7 +260,23 @@ export const Demo = Template.bind({});
 Demo.args = {
 	account: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
 };
+
 ```
+
+<div className="body">
+	We'll import the component we want this story to render in our story template. This template
+	will call the <b>GetBalanceOf</b> component. It is binded with our first story we have titled{' '}
+	<b>Demo</b>. We provide an initial address of <b>0x70997970c51812dc3a010c7d01b50e0d17dc79c8</b>{' '}
+	that we will pass through as the account that <b>getBalanceOf</b> requires. Feel free to replace this address
+  with another.
+</div>
+
+<div className="body">
+	You can add other stories within this file for your component if you wish. In addition to
+	writing the interactions we would want to see from these functions we can also write the
+	interactions we would not want to see. This is a great way to showcase expected errors in
+	specific states.
+</div>
 
 <div className="subheading">getBalanceOf.tsx</div>
 
@@ -283,6 +286,7 @@ Demo.args = {
 </div>
 
 ```jsx
+
 import { useERC721 } from '../source';
 
 export const GetBalanceOf = ({ ...props }) => {
@@ -295,6 +299,7 @@ export const GetBalanceOf = ({ ...props }) => {
 		</div>
 	);
 };
+
 ```
 
 <div className="body">
