@@ -7,19 +7,19 @@ import { ERC721 } from '../Modules/ERC721'
 import { ERC777 } from '../Modules/ERC777'
 
 const SmartModules = {
-  'erc721': {
+  erc721: {
     title: 'ERC721',
     component: ERC721,
   },
-  'erc20' : {
+  erc20: {
     title: 'ERC20',
     component: ERC20,
   },
-  'erc777': {
+  erc777: {
     title: 'ERC777',
     component: ERC777,
   },
-} 
+}
 
 export const PlaygroundBody = () => {
   const router = useRouter()
@@ -39,9 +39,7 @@ export const PlaygroundBody = () => {
           </a>
         </Link>
       </SubContainer>
-      <ContentContainer>
-        {SmartModules[moduleDefault].component()}
-      </ContentContainer>
+      <ContentContainer>{SmartModules[moduleDefault].component()}</ContentContainer>
     </Container>
   )
 }
