@@ -206,21 +206,20 @@ import Storybook from './assets/storybook-logo.svg';
 
 <div className="body">
 	Before we begin writing our story, we'll take a look at the <b>getBalanceOf</b> function from{' '}
-	<b>erc721Library.ts</b> to get a better idea of what we'll need. We can see that this function needs
-	an <b>account</b> in order to return a number for the balance.
+	<b>erc721Library.ts</b> to get a better idea of what we'll need. We can see that this function
+	needs an <b>account</b> in order to return a number for the balance.
 </div>
 
 ```jsx
 
-const getBalanceOf = async (account: string) => {
-	try {
-		const balance = await proxyContract?.balanceOf(account);
-		return balance.toNumber();
-	} catch (err) {
-		errors(err);
-		throw err;
-	}
-};
+	const getBalanceOf = async (account: string) => {
+		try {
+			const balance = await base.proxyContract?.balanceOf(account);
+			return BigNumber.from(balance) as BigNumber;
+		} catch (error) {
+			throw error;
+		}
+	};
 
 ```
 
@@ -237,7 +236,7 @@ const getBalanceOf = async (account: string) => {
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getBalanceOf.mdx';
+import Doc from '../docs/getBalanceOf.mdx';
 
 export default {
 	title: 'Components/GetBalanceOf',
@@ -258,7 +257,7 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	account: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8',
+	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9'
 };
 
 ```
@@ -266,9 +265,9 @@ Demo.args = {
 <div className="body">
 	We'll import the component we want this story to render in our story template. This template
 	will call the <b>GetBalanceOf</b> component. It is binded with our first story we have titled{' '}
-	<b>Demo</b>. We provide an initial address of <b>0x70997970c51812dc3a010c7d01b50e0d17dc79c8</b>{' '}
-	that we will pass through as the account that <b>getBalanceOf</b> requires. Feel free to replace this address
-  with another.
+	<b>Demo</b>. We provide an initial address of <b>0x976EA74026E726554dB657fA54763abd0C3a0aa9</b>{' '}
+	that we will pass through as the account that <b>getBalanceOf</b> requires. Feel free to replace
+	this address with another.
 </div>
 
 <div className="body">
@@ -288,16 +287,29 @@ Demo.args = {
 ```jsx
 
 import { useERC721 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import { useEffect, useState } from 'react';
 
-export const GetBalanceOf = ({ ...props }) => {
-	const { BalanceOf } = useERC721();
-	const { data: balanceOf } = BalanceOf(props.account);
+export const GetBalanceOf = ({ ...props }: {account: string}) => {
+	const erc721 = useERC721();
+	const { address } = useEvm();
+	const [data, setData] = useState(null);
 
-	return (
-		<div className="balanceOf">
-			Balance of: <b>{balanceOf}</b>
-		</div>
-	);
+	useEffect(() => {
+		if (erc721.getBalanceOf) {
+			erc721.getBalanceOf(props.account).then(setData);
+		}
+	}, [erc721.getBalanceOf]);
+
+	const balanceAvailable = () => {
+		return data ? (
+			<p>{JSON.stringify(data)}</p>
+		) : (
+			<p>Error.</p>
+		);
+	};
+
+	return <div className="balanceOf"> Balance of: {props.account} {balanceAvailable()}</div>;
 };
 
 ```
