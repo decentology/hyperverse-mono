@@ -12,6 +12,7 @@
   "dependencies": {
     "@decentology/hyperverse": "^1",
     "@decentology/hyperverse-ethereum": "^1",
+    "@decentology/hyperverse-evm-erc721": "^1",
     "@decentology/hyperverse-evm-erc20": "^1",
     "@decentology/unstated-next": "^1.1.1",
     "@radix-ui/react-dialog": "^0.1.7",

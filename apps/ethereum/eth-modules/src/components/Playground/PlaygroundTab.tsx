@@ -19,6 +19,7 @@ export const PlaygroundTab = () => {
         )
       })}
       <Heading css={{ marginTop: 32 }}>Resources</Heading>
+      <ResourceItem>Rinkeby Faucet</ResourceItem>
       <ResourceItem>Github</ResourceItem>
       <ResourceItem>Documentation</ResourceItem>
       <ResourceItem>Discord</ResourceItem>

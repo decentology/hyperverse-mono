@@ -3,6 +3,7 @@ const withTM = require('next-transpile-modules')([
 	'@decentology/hyperverse',
 	'@decentology/hyperverse-ethereum',
 	'@decentology/hyperverse-evm-erc20',
+	'@decentology/hyperverse-evm-erc721',
 ]);
 
 module.exports = withTM({

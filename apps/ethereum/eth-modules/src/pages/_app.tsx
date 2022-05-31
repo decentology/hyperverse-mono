@@ -1,6 +1,7 @@
 import { initialize, Provider, Network } from '@decentology/hyperverse'
 import { Ethereum } from '@decentology/hyperverse-ethereum'
 import * as Token from '@decentology/hyperverse-evm-erc20'
+import * as NFT from '@decentology/hyperverse-evm-erc721'
 import { globalCss } from '../../stitches.config'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -60,6 +61,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     modules: [
       {
         bundle: Token,
+        tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
+      },
+      {
+        bundle: NFT,
         tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
       },
     ],
