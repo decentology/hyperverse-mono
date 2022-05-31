@@ -3,6 +3,6 @@
   "include": ["source/**/*.ts", "source/**/*.tsx", "**/*.json"],
   "exclude": ["distribution", "node_modules"],
   "compilerOptions": {
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
   }
 }
