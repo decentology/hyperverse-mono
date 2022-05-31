@@ -11,15 +11,14 @@
 <p> The `getOwnerOf` function takes in a token ID. </p>
 
 ```jsx
-	const getOwnerOf = async (tokenId: number) => {
-		try {
-			console.log("ownerOf:", tokenId);
-			const owner = await proxyContract?.ownerOf(tokenId);
-			return owner;
-		} catch (err) {
-			return "0x000";
-		}
-	}
+  const getOwnerOf = async (tokenId: string) => {
+    try {
+      const owner = await base.proxyContract?.ownerOf(tokenId);
+      return owner;
+    } catch (error) {
+      throw error;
+    }
+  }
 ```
 
 ### Stories
