@@ -28,14 +28,14 @@
 		"node": ">=12.0.0"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@types/react": "17.0.2",
 
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
-		"@decentology/hyperverse-types": "^1",
-		"@decentology/unstated-next": "^1",
+		"@decentology/hyperverse-types": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"skynet-js": "^4.0.23-beta"
 	}
 }

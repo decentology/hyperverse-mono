@@ -29,8 +29,8 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/hyperverse-flow": "^1",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-flow": "workspace:^",
 		"@onflow/fcl": "^0.0.78",
 		"@onflow/types": "^0.0.6",
 		"@decentology/unstated-next": "^1.1.8"
@@ -42,7 +42,7 @@
 		"@storybook/addon-links": "^6.4.22",
 		"@storybook/react": "^6.4.22",
 		"@storybook/testing-library": "^0.0.11",
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.16",
 		"@types/react": "17.0.2",
 
