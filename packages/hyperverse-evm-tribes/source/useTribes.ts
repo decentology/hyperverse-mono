@@ -11,11 +11,10 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const hyperverse = useHyperverse();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
-
 	useEffect(() => {
-		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary)
+		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary);
 		return lib.cancel;
-	}, [signer, readOnlyProvider])
+	}, [signer, readOnlyProvider]);
 
 	const useTribeEvents = (eventName: string, callback: any) => {
 		return useEvent(

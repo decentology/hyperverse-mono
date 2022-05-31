@@ -2,7 +2,7 @@ import { HyperverseConfig } from '@decentology/hyperverse';
 import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
 import { ethers, BigNumber } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
-import { CancellablePromise } from 'real-cancellable-promise';
+import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';
 
 export type StakeRewardsLibraryType = Awaited<ReturnType<typeof StakeRewardsLibraryInternal>>;
@@ -10,7 +10,7 @@ export type StakeRewardsLibraryType = Awaited<ReturnType<typeof StakeRewardsLibr
 export function StakeRewardsLibrary(
 	...args: Parameters<typeof StakeRewardsLibraryInternal>
 ): CancellablePromise<StakeRewardsLibraryType> {
-	return new CancellablePromise(StakeRewardsLibraryInternal(...args), () => {});
+	return pseudoCancellable(StakeRewardsLibraryInternal(...args));
 }
 
 export async function StakeRewardsLibraryInternal(
@@ -38,7 +38,7 @@ export async function StakeRewardsLibraryInternal(
 	const getTotalSuply = async () => {
 		try {
 			const totalSupply = await base.proxyContract?.totalSupply();
-			return BigNumber.from(totalSupply) as Number;
+			return BigNumber.from(totalSupply).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -47,7 +47,7 @@ export async function StakeRewardsLibraryInternal(
 	const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await base.proxyContract?.balanceOf(account);
-			return BigNumber.from(balance) as Number;
+			return BigNumber.from(balance).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -56,7 +56,7 @@ export async function StakeRewardsLibraryInternal(
 	const getBalance = async () => {
 		try {
 			const balance = await base.proxyContract?.balance();
-			return BigNumber.from(balance) as Number;
+			return BigNumber.from(balance).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -65,7 +65,7 @@ export async function StakeRewardsLibraryInternal(
 	const rewardPerToken = async () => {
 		try {
 			const reward = await base.proxyContract?.rewardPerToken();
-			return reward.toNumber() as Number;
+			return reward.toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -74,7 +74,7 @@ export async function StakeRewardsLibraryInternal(
 	const getEarned = async (account: string) => {
 		try {
 			const earned = await base.proxyContract?.earned(account);
-			return BigNumber.from(earned) as Number;
+			return BigNumber.from(earned).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -101,7 +101,7 @@ export async function StakeRewardsLibraryInternal(
 	const claimReward = async () => {
 		try {
 			const reward = await base.proxyContract?.claimReward();
-			return BigNumber.from(reward) as Number;
+			return BigNumber.from(reward).toNumber();
 		} catch (error) {
 			throw error;
 		}

@@ -2,14 +2,14 @@ import { HyperverseConfig } from '@decentology/hyperverse';
 import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
 import { ethers, BigNumber } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
-import { CancellablePromise } from 'real-cancellable-promise';
+import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';
 export type ERC777LibraryType = Awaited<ReturnType<typeof ERC777LibraryInternal>>;
 
 export function ERC777Library(
 	...args: Parameters<typeof ERC777LibraryInternal>
 ): CancellablePromise<ERC777LibraryType> {
-	return new CancellablePromise(ERC777LibraryInternal(...args), () => {});
+	return pseudoCancellable(ERC777LibraryInternal(...args));
 }
 
 export async function ERC777LibraryInternal(
