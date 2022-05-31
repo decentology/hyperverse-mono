@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useState, useEffect } from 'react';
@@ -24,7 +23,3 @@ export const GetTribeByAccount = ({ ...props }) => {
 
 	return <div className="tribeMembers"> {tribeOfAccount()}</div>;
 };
-
-GetTribeByAccount.propTypes = {};
-
-GetTribeByAccount.defaultProps = {};

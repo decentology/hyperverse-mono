@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
 import { MetaDataFormatted } from '../source/types';
@@ -15,13 +14,9 @@ export const GetAllTribes = ({ ...props }) => {
 	}, [tribes.getAllTribes]);
 
 	return (
-		<div className="tribes">
+		<div className="tribeMembers">
 			<div>All Tribes: </div>
 			<pre>{JSON.stringify(data, null, 2)}</pre>
 		</div>
 	);
 };
-
-GetAllTribes.propTypes = {};
-
-GetAllTribes.defaultProps = {};

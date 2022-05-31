@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useState, useEffect } from 'react';
 
-export const GetTribeMembers = ({ ...props }) => {
+export const GetTribeMembers = ({ ...props }: {tribeId: number}) => {
 	const tribes = useTribes();
 	const [data, setData] = useState([]);
 
@@ -23,9 +22,3 @@ export const GetTribeMembers = ({ ...props }) => {
 
 	return <div className="tribeMembers"> {hasTribeMembers()}</div>;
 };
-
-GetTribeMembers.propTypes = {
-	tribeId: PropTypes.number.isRequired,
-};
-
-GetTribeMembers.defaultProps = {};

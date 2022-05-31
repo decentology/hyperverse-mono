@@ -1,4 +1,4 @@
-import * as PropTypes from 'prop-types';
+import React from 'react';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 export const GetTribeId = ({ account, ...props }) => {
 	const tribes = useTribes();
 	const { address } = useEvm();
-	const [data, setData] = useState(address);
+	const [data, setData] = useState(account);
 
 	useEffect(() => {
 		if (tribes.getTribeId) {
@@ -24,7 +24,3 @@ export const GetTribeId = ({ account, ...props }) => {
 
 	return <div className="tribeId"> {hasTribeId()}</div>;
 };
-
-GetTribeId.propTypes = {};
-
-GetTribeId.defaultProps = {};
