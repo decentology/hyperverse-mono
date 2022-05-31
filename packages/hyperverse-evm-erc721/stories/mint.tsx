@@ -2,7 +2,7 @@ import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const MintNFT = ({ ...props }: { to: string }) => {
+export const Mint = ({ ...props }: { to: string }) => {
 	const { mint } = useERC721();
 	const { address, Connect } = useEvm();
 
@@ -17,7 +17,7 @@ export const MintNFT = ({ ...props }: { to: string }) => {
 					mint(address);
 				}}
 			>
-				Mint NFT
+				Mint
 			</button>
 		</>
 	);
