@@ -1,7 +1,7 @@
-import { styled, keyframes } from '../../../stitches.config'
+import { styled, keyframes } from '../../../../stitches.config'
 import { motion } from 'framer-motion'
 import { Close, Root as Dialog, Trigger, Portal, Content as DialogContent, Overlay } from '@radix-ui/react-dialog'
-import { Exit } from '../icons'
+import { Exit } from '../../icons'
 
 const dummy = {
   functionName: 'Create Instance',
@@ -96,7 +96,7 @@ const Description = styled('p', {
   margin: 'auto 12px',
 })
 
-const Button = styled(motion.button, {
+export const Button = styled(motion.button, {
   fontFamily: '$mono',
   color: '$white100',
   border: 'none',
@@ -105,6 +105,7 @@ const Button = styled(motion.button, {
   boxShadow: '2px 4px 12px rgba(140, 199, 96, 0.15)',
   borderRadius: '14px',
   cursor: 'pointer',
+  minWidth: 160,
 })
 
 const overlayShow = keyframes({

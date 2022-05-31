@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { styled, css } from '../../../stitches.config'
+import { styled } from '../../../stitches.config'
 import { MODULES } from '../../consts'
 import Link from 'next/link'
 

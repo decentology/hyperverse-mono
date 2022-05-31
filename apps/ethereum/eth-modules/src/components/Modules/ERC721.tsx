@@ -1,7 +1,8 @@
 import { styled } from '../../../stitches.config'
-import { ReadFunction } from './CreateInstance'
+import { ReadFunction } from './shared/CreateInstance'
 import { Root as Tabs, Trigger, List, Content } from '@radix-ui/react-tabs'
 import React from 'react'
+import { ReadComponent } from './shared/ReadComponent'
 
 export const ModuleTabs = {
   DASHBOARD: 'dashboard',
@@ -31,7 +32,14 @@ export const ERC721 = () => {
         <Content value={ModuleTabs.DASHBOARD}>
           <ReadFunction />
         </Content>
-        <Content value={ModuleTabs.PLAYGROUND}></Content>
+        <ContentContainer value={ModuleTabs.PLAYGROUND}>
+          <ReadComponent />
+          <ReadComponent />
+          <ReadComponent />
+          <ReadComponent />
+          <ReadComponent />
+          <ReadComponent />
+        </ContentContainer>
       </Tabs>
     </ModuleContainer>
   )
@@ -73,4 +81,15 @@ export const PanelTrigger = styled(Trigger, {
       },
     },
   },
+})
+
+export const ContentContainer = styled(Content, {
+  maxHeight: 550,
+  overflowY: 'auto',
+  display: 'grid',
+  columnGap: 20,
+  gridTemplateColumns: 'repeat(3, 265px)',
+  justifyContent: 'center',
+  marginTop: 26,
+  rowGap: 20,
 })
