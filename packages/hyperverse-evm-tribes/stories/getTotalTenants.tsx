@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
 
@@ -22,7 +21,3 @@ export const GetTotalTenants = ({ tenants, ...props }) => {
 
 	return <div className="totalTenants"> Total Tenants: {hasTenants()}</div>;
 };
-
-GetTotalTenants.propTypes = {};
-
-GetTotalTenants.defaultProps = {};

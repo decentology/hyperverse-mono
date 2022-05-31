@@ -15,12 +15,11 @@ import Storybook from './assets/storybook-logo.svg';
 <Meta title="Get Started/Introduction" />
 
 <style>{`
-
   .heading {
     --dark: '#000000';
     font-weight: 900;
-    font-size: 30px;
-    letter-spacing: 4px;
+    font-size: 32px;
+    letter-spacing: 1px;
     line-height: 24px;
     margin-bottom: 20px;
     margin-top: 40px;
@@ -29,7 +28,7 @@ import Storybook from './assets/storybook-logo.svg';
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
-    font-size: 15px;
+    font-size: 18px;
     color: #999;
     letter-spacing: 4px;
     line-height: 24px;
@@ -42,7 +41,7 @@ import Storybook from './assets/storybook-logo.svg';
   .body {
     color: '#999';
     font-weight: 200;
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 0px;
     line-height: 21px;
     margin-bottom: 12px;
@@ -186,11 +185,32 @@ import Storybook from './assets/storybook-logo.svg';
 </div>
 
 <div className="body">
-	Read more about NFTs <a href="https://ethereum.org/en/nft/"> here </a>.{' '}
+	Read more about NFTs <a href="https://ethereum.org/en/nft/"> here</a>.{' '}
+</div>
+
+<div className="subheading">Run Storybook</div>
+
+<div className="body">
+	To run Storybook navigate to a module's package directory (for example:
+	<b> hyperverse-mono/packages/hyperverse-evm-erc721 </b> for the erc721 module.
 </div>
 
 <div className="body">
-	<i>Check out our ERC721 module for both the Flow and Metis blockchains.</i>
+  Now run <b> pnpm storybook </b> inside the module directory.
+</div>
+
+<div className="subheading">Get Set Up</div>
+
+<div className="body">
+	Before you can interact with the functions in this module you must connect your wallet using the
+	tenantId address <b> 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 </b> from the{' '}
+	<b> Provider.tsx </b> file. It is important that you are connected with this address
+	specifically in order to run through these interactions.
+</div>
+
+<div className="body">
+	After your wallet is connected you will then need to create a new instance. From there you can
+	mint a new token and run through the other demos.
 </div>
 
 <div className="subheading">About Storybook</div>
@@ -201,7 +221,7 @@ import Storybook from './assets/storybook-logo.svg';
 
 <div className="body">
 	Each story includes a demo and a docs page. Our demonstrations simulate the user's interaction
-	with each component. This is done by providing props for the initial state.
+	with each component.
 </div>
 
 <div className="body">

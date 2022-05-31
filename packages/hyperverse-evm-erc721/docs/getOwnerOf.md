@@ -1,6 +1,6 @@
 # Get Owner Of
 
-<p> The `getOwnerOf` function from `useERC721` returns the address of a token ID owner. </p>
+<p> The `getOwnerOf` function from `erc721Library` returns the address of a token ID owner. </p>
 
 ---
 
@@ -11,33 +11,74 @@
 <p> The `getOwnerOf` function takes in a token ID. </p>
 
 ```jsx
-	const getOwnerOf = async (tokenId: number) => {
-		try {
-			console.log("ownerOf:", tokenId);
-			const owner = await proxyContract?.ownerOf(tokenId);
-			return owner;
-		} catch (err) {
-			return "0x000";
-		}
-	}
+  const getOwnerOf = async (tokenId: string) => {
+    try {
+      const owner = await base.proxyContract?.ownerOf(tokenId);
+      return owner;
+    } catch (error) {
+      throw error;
+    }
+  }
 ```
 
 ### Stories
 
 ```jsx
+import { GetOwnerOf } from './getOwnerOf';
+import { HyperverseProvider } from './utils/Provider';
+import React from 'react';
+import Doc from '../docs/getOwnerOf.mdx';
 
+export default {
+	title: 'Components/GetOwnerOf',
+	component: GetOwnerOf,
+	parameters: {
+		docs: {
+			page: Doc,
+		},
+	},
+};
+
+const Template = (args) => (
+	<HyperverseProvider>
+		<GetOwnerOf {...args} />
+	</HyperverseProvider>
+);
+
+export const Demo = Template.bind({});
+
+Demo.args = {
+	tokenId: 1
+};
 ```
 
 ### Main UI Component
 
 ```jsx
+import { useERC721 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import { useEffect, useState } from 'react';
 
+export const GetOwnerOf = ({ ...props }: {tokenId: string}) => {
+	const erc721 = useERC721();
+	const { address } = useEvm();
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		if (erc721.getOwnerOf) {
+			erc721.getOwnerOf(props.tokenId).then(setData);
+		}
+	}, [erc721.getOwnerOf]);
+
+	const owner = () => {
+		return data ? (
+			<p>{data}</p>
+		) : (
+			<p>Error.</p>
+		);
+	};
+
+	return <div className="ownerOf"> Owner of {props.tokenId}: {owner()}</div>;
 ```
 
-### Args
-
-```jsx
-
-```
-
-For more information about our modules please visit: [**Hyperverse Docs**](https://docs.hyperverse.dev)
+For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

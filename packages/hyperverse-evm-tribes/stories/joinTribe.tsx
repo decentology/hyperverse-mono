@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
-export const JoinTribe = ({ ...props }) => {
+export const JoinTribe = ({ ...props }: {tribeId: number}) => {
 	const { joinTribe } = useTribes();
 	const { address, Connect } = useEvm();
 
@@ -25,9 +25,3 @@ export const JoinTribe = ({ ...props }) => {
 		<Connect />
 	);
 };
-
-JoinTribe.propTypes = {
-	tribeId: PropTypes.number.isRequired,
-};
-
-JoinTribe.defaultProps = {};

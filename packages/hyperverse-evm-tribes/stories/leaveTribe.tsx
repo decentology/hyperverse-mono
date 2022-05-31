@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
 export const LeaveTribe = ({ ...props }) => {
 	const { leaveTribe, error } = useTribes();
@@ -26,7 +26,3 @@ export const LeaveTribe = ({ ...props }) => {
 		<Connect />
 	);
 };
-
-LeaveTribe.propTypes = {};
-
-LeaveTribe.defaultProps = {};

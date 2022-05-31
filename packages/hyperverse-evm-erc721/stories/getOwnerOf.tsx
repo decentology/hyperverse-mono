@@ -21,5 +21,5 @@ export const GetOwnerOf = ({ ...props }: {account: string, tokenId: string}) => 
 		);
 	};
 
-	return <div className="ownerOf"> Owner of {props.tokenId}: {owner()}</div>;
+	return <div className="ownerOf"> Owner of token {props.tokenId}: {owner()}</div>;
 };

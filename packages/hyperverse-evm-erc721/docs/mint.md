@@ -1,19 +1,20 @@
-# Set Approval for All
-<p> The `setApprovalForAll` function from `erc721Library` ... </p>
+# Mint
+
+<p> The `mint` function from `erc721Library` allows a user to mint their own NFT. </p>
 
 ---
 
 <br>
 
-### setApprovalForAll
+### mint
 
-<p> The `transfer` function takes in ... </p>
+<p> The `mint` function takes in a target address. </p>
 
 ```jsx
-  const setApprovalForAll = async ({ to, approved }: { to: string; approved: boolean }) => {
+  const mint = async(to: string) => {
     try {
-      const setApprovalTxn = await base.proxyContract?.setApprovalForAll(to, approved);
-      return setApprovalTxn.wait() as TransactionReceipt;
+      const mintTxn = await base.proxyContract?.mint(to);
+      return mintTxn.wait() as TransactionReceipt;
     } catch (error) {
       throw error;
     }
@@ -23,14 +24,14 @@
 ### Stories
 
 ```jsx
-import { ApproveAll } from './setApprovalForAll';
+import { Mint } from './mint';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/setApprovalForAll.mdx';
+import Doc from '../docs/mint.mdx';
 
 export default {
-	title: 'Components/ApproveAll',
-	component: ApproveAll,
+	title: 'Components/Mint',
+	component: Mint,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -40,7 +41,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<ApproveAll {...args} />
+		<Mint {...args} />
 	</HyperverseProvider>
 );
 
@@ -48,7 +49,6 @@ export const Demo = Template.bind({});
 
 Demo.args = {
 	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
-	approved: true,
 };
 ```
 
@@ -59,8 +59,8 @@ import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const ApproveAll = ({ ...props }: { to: string; approved: boolean }) => {
-	const { setApprovalForAll } = useERC721();
+export const Mint = ({ ...props }: { to: string }) => {
+	const { mint } = useERC721();
 	const { address, Connect } = useEvm();
 
 	return (
@@ -71,10 +71,10 @@ export const ApproveAll = ({ ...props }: { to: string; approved: boolean }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setApprovalForAll(props);
+					mint(props.to);
 				}}
 			>
-				Approve All
+				Mint
 			</button>
 		</>
 	);

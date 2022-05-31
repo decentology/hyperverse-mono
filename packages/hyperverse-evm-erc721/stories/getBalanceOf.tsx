@@ -6,7 +6,6 @@ export const GetBalanceOf = ({ ...props }: {account: string}) => {
 	const erc721 = useERC721();
 	const { address } = useEvm();
 	const [data, setData] = useState(null);
-	console.log('account', props.account);
 
 	useEffect(() => {
 		if (erc721.getBalanceOf) {

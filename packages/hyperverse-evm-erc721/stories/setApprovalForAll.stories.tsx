@@ -22,8 +22,6 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	approveAll: {
-		to: '',
-		approved: true,
-	},
+	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	approved: true,
 };
