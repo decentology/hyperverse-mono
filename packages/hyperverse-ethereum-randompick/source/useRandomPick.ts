@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { BigNumber, ethers } from 'ethers';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEvm } from '@decentology/hyperverse-evm';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEnvironment } from './environment';
 
@@ -8,7 +8,7 @@ type ContractState = ethers.Contract;
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 function RandomPickState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, signer, readOnlyProvider, } = useEthereum();
+	const { address, signer, readOnlyProvider, } = useEvm();
 	const { ContractABI, contractAddress } = useEnvironment();
 	const [contract, setRandomPickContract] = useState<ContractState>(
 		new ethers.Contract(contractAddress!, ContractABI, readOnlyProvider) as ContractState
