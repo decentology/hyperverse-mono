@@ -1,6 +1,6 @@
 {
 	"name": "stake-rewards",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
@@ -12,12 +12,12 @@
 		"react": "^17.0.2"
 	},
 	"dependencies": {
-		"@decentology/config": "^1.0.0",
-    "@decentology/hyperverse": "workspace:^",
-    "@decentology/hyperverse-ethereum": "workspace:^",
-    "@decentology/hyperverse-evm-erc777": "workspace:^",
+		"@decentology/config": "^1.0.3",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-ethereum": "workspace:^",
+		"@decentology/hyperverse-evm-erc777": "workspace:^",
 		"@decentology/hyperverse-evm-stake-rewards": "workspace:^",
-		"@decentology/unstated-next": "^1.1.1",
+		"@decentology/unstated-next": "^1.1.9",
 		"@radix-ui/react-accordion": "^0.1.6",
 		"@radix-ui/react-tabs": "^0.1.5",
 		"@stitches/react": "^1.2.6",

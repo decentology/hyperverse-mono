@@ -3,7 +3,7 @@
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.14",
+	"version": "1.0.15",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -27,16 +27,15 @@
 		"node": ">=12.0.0"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@decentology/config": "^1.0.3",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
-
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/hyperverse-storage-skynet": "^1",
-		"@decentology/unstated-next": "^1",
+		"@decentology/hyperverse": "^1.0.15",
+		"@decentology/hyperverse-storage-skynet": "^1.0.14",
+		"@decentology/unstated-next": "^1.1.9",
 		"@onflow/fcl": "^0.0.77",
 		"@onflow/types": "^0.0.5",
 		"aphrodite": "^2.4.0",

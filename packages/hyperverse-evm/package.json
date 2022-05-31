@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm",
-	"version": "1.0.14",
+	"version": "1.0.15",
 	"exports": {
 		".": {
 			"import": "./index.ts"
@@ -33,15 +33,15 @@
 		"react-dom": "^17.0.2"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/unstated-next": "^1",
+		"@decentology/hyperverse": "^1.0.15",
+		"@decentology/unstated-next": "^1.1.9",
 		"@ethersproject/providers": "^5.6.4",
 		"@rainbow-me/rainbowkit": "^0.1.0",
 		"ethers": "^5.6.5",
 		"wagmi": "^0.3.3"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@decentology/config": "^1.0.3",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
 		"parcel": "2.2.1",
