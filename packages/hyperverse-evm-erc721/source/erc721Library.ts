@@ -31,7 +31,6 @@ export async function ERC721LibraryInternal(
 		ContractABI,
 		providerOrSigner
 	);
-	console.log('I got the signer', base.proxyContract?.signer)
 
 	const getBalanceOf = async (account: string) => {
 		try {

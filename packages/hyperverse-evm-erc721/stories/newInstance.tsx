@@ -14,7 +14,7 @@ export const NewInstance = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					createInstance({ account: address });
+					createInstance({ account: address, name: 'TEST', symbol:'TST' });
 				}}
 			>
 				New Instance
