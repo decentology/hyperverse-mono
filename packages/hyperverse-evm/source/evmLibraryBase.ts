@@ -49,7 +49,7 @@ export async function EvmLibraryBase(
 
 	try {
 		proxyAddress = await factoryContract.getProxy(tenantId);
-	} catch (error) {
+	} catch (e) {
 		const err = new Error(`Failed to get proxy address for tenant ${tenantId}`);
 	 	error = err;
 	}
