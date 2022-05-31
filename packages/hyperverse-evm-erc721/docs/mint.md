@@ -63,19 +63,20 @@ export const Mint = ({ ...props }: { to: string }) => {
 	const { mint } = useERC721();
 	const { address, Connect } = useEvm();
 
-	return address ? (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				mint(props.to);
-			}}
-		>
-			Mint NFT
-		</button>
-	) : (
-		<Connect />
+	return (
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					mint(props.to);
+				}}
+			>
+				Mint
+			</button>
+		</>
 	);
 };
 ```
