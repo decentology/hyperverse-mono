@@ -18,7 +18,7 @@ export const HyperverseProvider: FC<{}> = ({ children }) => {
 				  }
 				: {
 						type: Network.Testnet,
-						chainId: 1337,
+						chainId: 31337,
 						name: 'localhost',
 						networkUrl: 'http://localhost:6006/hyperchain',
 				  },

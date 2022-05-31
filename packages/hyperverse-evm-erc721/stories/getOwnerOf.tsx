@@ -11,7 +11,7 @@ export const GetOwnerOf = ({ ...props }: {account: string, tokenId: string}) => 
 		if (erc721.getOwnerOf) {
 			erc721.getOwnerOf(props.tokenId).then(setData);
 		}
-	}, [erc721.getOwnerOf]);
+	}, [props.tokenId, props.account, erc721.getOwnerOf]);
 
 	const owner = () => {
 		return data ? (
