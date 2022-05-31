@@ -10,10 +10,10 @@
     "pretty": "prettier . --write"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1",
-    "@decentology/hyperverse-ethereum": "^1",
-    "@decentology/hyperverse-evm-erc721": "^1",
-    "@decentology/hyperverse-evm-erc20": "^1",
+    "@decentology/hyperverse": "workspace:^",
+    "@decentology/hyperverse-ethereum": "workspace:^",
+    "@decentology/hyperverse-evm-erc721": "workspace:^",
+    "@decentology/hyperverse-evm-erc20": "workspace:^",
     "@decentology/unstated-next": "^1.1.1",
     "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-tabs": "^0.1.5",
