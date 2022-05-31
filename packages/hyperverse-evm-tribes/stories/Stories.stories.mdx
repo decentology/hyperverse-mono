@@ -1,0 +1,305 @@
+import { Meta } from '@storybook/addon-docs';
+import Code from './assets/code-brackets.svg';
+import Colors from './assets/colors.svg';
+import Comments from './assets/comments.svg';
+import Direction from './assets/direction.svg';
+import Flow from './assets/flow.svg';
+import Plugin from './assets/plugin.svg';
+import Repo from './assets/repo.svg';
+import StackAlt from './assets/stackalt.svg';
+
+<Meta title="Get Started/Stories" />
+
+<style>{`
+  .heading {
+    --dark: '#000000';
+    font-weight: 900;
+    font-size: 32px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+}
+  .subheading {
+    --mediumdark: '#999999';
+    font-weight: 900;
+    font-size: 18px;
+    color: #999;
+    letter-spacing: 4px;
+    line-height: 24px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-top: 40px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  }
+
+  .body {
+    color: '#999';
+    font-weight: 200;
+    font-size: 16px;
+    letter-spacing: 0px;
+    line-height: 21px;
+    margin-bottom: 12px;
+    margin-top: 8px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  }
+
+  @font-face {
+  font-family: "Fira Sans";
+  src: url('fonts/fira/eot/FiraSans-Regular.eot');
+  src: url('fonts/fira/eot/FiraSans-Regular.eot') format('embedded-opentype'),
+       url('fonts/fira/woff2/FiraSans-Regular.woff2') format('woff2'),
+       url('fonts/fira/woff/FiraSans-Regular.woff') format('woff'),
+       url('fonts/fira/woff2/FiraSans-Regular.ttf') format('truetype');
+}
+
+  .link-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 10px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  
+  }
+
+  @media (min-width: 620px) {
+    .link-list {
+      row-gap: 20px;
+      column-gap: 20px;
+      grid-template-columns: 1fr 1fr;
+      font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+      
+    }
+  }
+
+  @media all and (-ms-high-contrast:none) {
+  .link-list {
+      display: -ms-grid;
+      -ms-grid-columns: 1fr 1fr;
+      -ms-grid-rows: 1fr 1fr;
+      font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    }
+  }
+
+  .link-item {
+    display: block;
+    padding: 20px 30px 20px 15px;
+    border: 1px solid #00000010;
+    border-radius: 5px;
+    transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
+    color: #ffffff;
+    display: flex;
+    align-items: flex-start;
+    background: #19495e;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  }
+
+  .link-item:hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
+    background: #246685;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  }
+
+  .link-item:active {
+    border-color: #1EA7FD;
+    transform: translate3d(0, 0, 0);
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+
+  }
+
+  .link-item strong {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  }
+  
+  .link-item img {
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+    flex: none;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  }
+
+  .link-item span {
+    font-size: 14px;
+    line-height: 20px;
+    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+  }
+
+  .tip {
+    display: inline-block;
+    border-radius: 1em;
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 700;
+    background: #E7FDD8;
+    color: #66BF3C;
+    padding: 4px 12px;
+    margin-right: 10px;
+    vertical-align: top;
+  }
+
+  .tip-wrapper {
+    font-size: 13px;
+    line-height: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .tip-wrapper code {
+    font-size: 12px;
+    display: inline-block;
+  }
+
+  
+`}</style>
+
+<div className="heading">Create Stories</div>
+
+<div className="body">
+	Each of our stories is written with two files: one for the component and one for the story
+	itself (each story file will include <b>".stories"</b> within the file name).
+</div>
+
+<div className="body">
+	<b>Component Files:</b> These files contain an initial state for the component that we have
+	written ourselves. Depending upon the needs of the component we provide a set of initial
+	arguments/props to pass through to render a story that replicates an expected interaction.
+</div>
+
+<div className="body">
+	<b>Stories Files:</b> These files contain much of the setup for the interactions we just
+	mentioned. The story template is created here along with its accompanying docs page.
+	Additionally, it is in these files where we will define the arguments/props we wish to pass
+	through to the components.
+</div>
+
+<div className="body">
+	Check out the
+	<a href="https://storybook.js.org/docs/react/get-started/whats-a-story">
+		{' '}
+		Storybook Addons{' '}
+	</a> section for a more comprehensive guide to writing stories.
+</div>
+
+<div className="body">
+	Storybook also supports many{' '}
+	<a href="https://storybook.js.org/docs/react/essentials/introduction"> addon features </a> to
+	support a more comprehensive user experience for your stories.
+</div>
+
+<div className="subheading">Story Example</div>
+
+<div className="body">Let's walkthrough how we set up <b>Get Tribe Id</b> for an example.</div>
+
+<div className="subheading">tribesLibrary.ts</div>
+
+<div className="body">Before we begin writing our story, we'll take a look at the <b>getTribeId</b> function from <b>tribesLibrary.ts</b> to
+get a better idea of what we'll need. We can see that this function needs an <b>account</b> in order to return a number for the tribe Id.</div>
+
+```jsx
+
+	const getTribeId = async (account: string) => {
+		try {
+			const id = await base.proxyContract?.getUserTribe(account);
+			return id.toNumber() as number;
+		} catch (err) {
+			if (err instanceof Error) {
+				if (err.message.includes('This member is not in a Tribe!')) {
+					return null;
+				}
+			}
+		};
+	};
+
+```
+
+<div className="subheading">getTribeId.stories.tsx</div>
+
+<div className="body">Here is where we'll start setting up our story. If you take a look at the sidebar
+you'll notice a list of stories. Each of these stories contains a demo that we'll see
+render under the <b>Canvas</b> tab.</div>
+
+<div className="body">We'll import the component we want this story to render in our story template. This template
+will call the <b>GetTribeId</b> component. It is binded with our first story we have titled <b>Demo</b>.
+We provide an initial address of <b>0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266</b> that we will pass
+through as the account that <b>getTribeId</b> requires. This is the same address we use for the initial 
+<b> tenantId</b> in <b>Provider.tsx</b>.</div>
+
+<div className="body">You can add other stories within this file for your component if you wish. In addition to writing
+the interactions we would want to see from these functions we can also write the interactions we would
+not want to see. This is a great way to showcase expected errors in specific states. For example, you could
+write another story with an initial address that does not have a tribe Id associated with it.</div>
+
+```jsx
+
+import { GetTribeId } from './getTribeId';
+import { HyperverseProvider } from './utils/Provider';
+import React from 'react';
+import { Doc } from '../docs/getTribeID.mdx';
+
+export default {
+	title: 'Components/GetTribeId',
+	component: GetTribeId,
+	parameters: {
+		docs: {
+			page: Doc,
+		},
+	},
+};
+
+const Template = (args) => (
+	<HyperverseProvider>
+		<GetTribeId {...args} />
+	</HyperverseProvider>
+);
+
+export const Demo = Template.bind({});
+
+Demo.args = {};
+
+```
+
+<div className="subheading">getTribeId.tsx</div>
+
+<div className="body">The main component below is what we'll import into the story. It is here we will write the
+interactions we want to have with the <b>getTribeId</b> function.</div>
+
+```jsx
+
+import React from 'react';
+import { useTribes } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import { useEffect, useState } from 'react';
+
+export const GetTribeId = ({ account, ...props }) => {
+	const tribes = useTribes();
+	const { address } = useEvm();
+	const [data, setData] = useState(account);
+
+	useEffect(() => {
+		if (tribes.getTribeId) {
+			tribes.getTribeId(address).then(setData);
+		}
+	}, [tribes.getTribeId]);
+
+	const hasTribeId = () => {
+		return data ? (
+			<p>Tribe id: {data}</p>
+		) : (
+			<p>This account is not in a tribe!</p>
+		);
+	};
+
+	return <div className="tribeId"> {hasTribeId()}</div>;
+};
+
+```
+
+<div className="body">And there you go! Now you have a general idea of how we create stories that mimic the interactions
+we can expect or want from the functions in our modules. Feel free to create your own stories from our
+modules for your application.</div>
