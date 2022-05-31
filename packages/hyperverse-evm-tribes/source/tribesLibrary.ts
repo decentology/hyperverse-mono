@@ -2,13 +2,13 @@ import { HyperverseConfig } from '@decentology/hyperverse';
 import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
 import { ethers } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider'
-import { CancellablePromise } from 'real-cancellable-promise';
+import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';
 import { MetaData, MetaDataFormatted } from './types';
 
 export type TribesLibraryType = Awaited<ReturnType<typeof TribesLibraryInternal>>;
 export function TribesLibrary(...args: Parameters<typeof TribesLibraryInternal>): CancellablePromise<TribesLibraryType> {
-	return new CancellablePromise(TribesLibraryInternal(...args), () => { });
+	return pseudoCancellable(TribesLibraryInternal(...args));
 }
 
 export async function TribesLibraryInternal(

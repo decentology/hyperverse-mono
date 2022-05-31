@@ -2,7 +2,7 @@ import { HyperverseConfig } from '@decentology/hyperverse';
 import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
 import { ethers, BigNumber } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
-import { CancellablePromise } from 'real-cancellable-promise';
+import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';
 
 export type ERC20LibraryType = Awaited<ReturnType<typeof ERC20LibraryInternal>>;
@@ -10,7 +10,7 @@ export type ERC20LibraryType = Awaited<ReturnType<typeof ERC20LibraryInternal>>;
 export function ERC20Library(
 	...args: Parameters<typeof ERC20LibraryInternal>
 ): CancellablePromise<ERC20LibraryType> {
-	return new CancellablePromise(ERC20LibraryInternal(...args), () => { });
+	return pseudoCancellable(ERC20LibraryInternal(...args));
 }
 
 export async function ERC20LibraryInternal(
