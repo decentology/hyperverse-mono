@@ -1,7 +1,7 @@
 import { MintNFT } from './mintNFT';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/mintNFT.mdx';
+import Doc from '../docs/mintNFT.mdx';
 
 export default {
 	title: 'Components/MintNFT',
