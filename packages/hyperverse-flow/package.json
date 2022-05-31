@@ -27,15 +27,15 @@
 		"node": ">=12.0.0"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1.0.3",
+		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1.0.15",
-		"@decentology/hyperverse-storage-skynet": "^1.0.14",
-		"@decentology/unstated-next": "^1.1.9",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-storage-skynet": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"@onflow/fcl": "^0.0.77",
 		"@onflow/types": "^0.0.5",
 		"aphrodite": "^2.4.0",

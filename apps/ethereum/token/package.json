@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1",
-    "@decentology/hyperverse-ethereum": "^1",
-    "@decentology/hyperverse-evm-erc20": "^1",
+    "@decentology/hyperverse": "workspace:^",
+    "@decentology/hyperverse-ethereum": "workspace:^",
+    "@decentology/hyperverse-evm-erc20": "workspace:^",
     "@decentology/unstated-next": "^1.1.1",
     "@radix-ui/react-accordion": "^0.1.6",
     "@stitches/react": "^1.2.6",

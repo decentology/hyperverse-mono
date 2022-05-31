@@ -33,12 +33,12 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1.0.15",
-		"@decentology/hyperverse-evm": "^1.0.15",
-		"@decentology/unstated-next": "^1.1.9"
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/unstated-next": "workspace:^"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1.0.3",
+		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
 		"parcel": "2.2.1",

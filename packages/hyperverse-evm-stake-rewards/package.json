@@ -33,11 +33,11 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1.0.15",
-		"@decentology/hyperverse-ethereum": "^1.0.15",
-		"@decentology/hyperverse-evm": "^1.0.15",
-		"@decentology/hyperverse-evm-erc777": "^2.0.4",
-		"@decentology/unstated-next": "^1.1.9",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-ethereum": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/hyperverse-evm-erc777": "^2.0.0",
+		"@decentology/unstated-next": "workspace:^",
 		"dotenv": "^16.0.0",
 		"ethers": "^5.5.3",
 		"hardhat-erc1820": "^0.1.0",
