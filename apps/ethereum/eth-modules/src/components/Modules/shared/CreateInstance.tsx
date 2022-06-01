@@ -78,6 +78,7 @@ const Container = styled('div', {
   borderRadius: 14,
   padding: 20,
   boxShadow: '2px 2px 2px #342F4E',
+  width: '95%',
 })
 
 const Info = styled('div', {

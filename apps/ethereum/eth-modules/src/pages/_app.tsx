@@ -28,28 +28,27 @@ const globalStyles = globalCss({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-
   },
   main: {
-		display: 'flex',
-		flexDirection: 'column',
-		margin: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    margin: 'auto',
     fontSize: 16,
-		padding: '0 24px',
+    padding: '0 24px',
     minHeight: 700,
-		'@desktop': {
-			padding: 0,
-			width: '1100px',
-		}
+    '@desktop': {
+      padding: 0,
+      width: '1100px',
+    },
   },
-	a: {
-		cursor: 'pointer',
-		textDecoration: 'none',
+  a: {
+    cursor: 'pointer',
+    textDecoration: 'none',
 
     '&:hover': {
       opacity: 0.8,
-    }
-	},
+    },
+  },
 })
 
 const queryClient = new QueryClient()

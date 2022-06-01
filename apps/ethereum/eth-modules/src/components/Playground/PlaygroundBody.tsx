@@ -6,7 +6,6 @@ import { ERC20 } from '../Modules/ERC20'
 import { ERC721 } from '../Modules/ERC721'
 import { ERC777 } from '../Modules/ERC777'
 
-
 const SmartModules = {
   erc721: {
     title: 'ERC721',
@@ -77,5 +76,4 @@ const ContentContainer = styled('div', {
   background: '$blue100',
   borderRadius: 14,
   padding: '5px 10px',
-
 })
