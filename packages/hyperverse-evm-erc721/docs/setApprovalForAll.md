@@ -1,5 +1,6 @@
 # Set Approval for All
-<p> The `setApprovalForAll` function from `erc721Library` ... </p>
+
+<p> The `setApprovalForAll` function from `erc721Library` approves all transfers of tokens to other addresses. </p>
 
 ---
 
@@ -7,7 +8,7 @@
 
 ### setApprovalForAll
 
-<p> The `transfer` function takes in ... </p>
+<p> The `transfer` function takes in the target address and a value of true for approved. </p>
 
 ```jsx
   const setApprovalForAll = async ({ to, approved }: { to: string; approved: boolean }) => {
