@@ -1,13 +1,13 @@
 # Toggle Public Mint
-<p> The `togglePublicMint` function from `erc721Library` ... </p>
+
+<p> The `togglePublicMint` function from `erc721Library` toggles between allowing other users who
+are not the tenant to mint and or not mint.  </p>
 
 ---
 
 <br>
 
 ### togglePublicMint
-
-<p> The `togglePublicMint` function takes in ... </p>
 
 ```jsx
   const togglePublicMint = async () => {
