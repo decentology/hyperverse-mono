@@ -21,4 +21,9 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {};
+Demo.args = {
+	account: '',
+	amount: 10000,
+	data: '',
+	operatorData: ''
+};

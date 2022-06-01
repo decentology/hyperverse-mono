@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
@@ -18,13 +17,9 @@ export const GetDefaultOperators = ({ ...props }) => {
 		return data ? (
 			<p>{data}</p>
 		) : (
-			<p>There are no operators.</p>
+			<p>Error.</p>
 		);
 	};
 
 	return <div className="operators"> Default Operators: {operators()}</div>;
 };
-
-GetDefaultOperators.propTypes = {};
-
-GetDefaultOperators.defaultProps = {};
