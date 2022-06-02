@@ -1,6 +1,6 @@
 import { useStakeRewards } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import './button.css';
+import './style.css';
 
 export const NewInstance = ({ ...props }) => {
 	const { createInstance } = useStakeRewards();
