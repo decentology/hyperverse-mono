@@ -7,7 +7,7 @@ import Doc from '../docs/connectWallet.mdx';
 const Button = () => {
 	const { address, Connect } = useEvm();
 	const { factoryContract } = useModule();
-	return <button onClick={() => <Connect />}> </button>;
+	return <Connect />;
 };
 
 export default {
