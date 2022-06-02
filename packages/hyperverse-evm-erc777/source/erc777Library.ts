@@ -73,7 +73,7 @@ export async function ERC777LibraryInternal(
 	const getTotalSuply = async () => {
 		try {
 			const totalSupply = await base.proxyContract?.totalSupply();
-			return BigNumber.from(totalSupply) as BigNumber;
+			return BigNumber.from(totalSupply).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -82,7 +82,7 @@ export async function ERC777LibraryInternal(
 	const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await base.proxyContract?.balanceOf(account);
-			return BigNumber.from(balance) as BigNumber;
+			return BigNumber.from(balance).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -91,7 +91,7 @@ export async function ERC777LibraryInternal(
 	const getBalance = async () => {
 		try {
 			const balance = await base.proxyContract?.balance();
-			return BigNumber.from(balance) as BigNumber;
+			return BigNumber.from(balance).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -139,7 +139,7 @@ export async function ERC777LibraryInternal(
 	const allowance = async (owner: string, spender: string) => {
 		try {
 			const allowance = await base.proxyContract?.allowance(owner, spender);
-			return BigNumber.from(allowance) as BigNumber;
+			return BigNumber.from(allowance).toNumber();
 		} catch (error) {
 			throw error;
 		}
