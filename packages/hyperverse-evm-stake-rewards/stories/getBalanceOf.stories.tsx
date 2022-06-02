@@ -21,4 +21,6 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {};
+Demo.args = {
+	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+};

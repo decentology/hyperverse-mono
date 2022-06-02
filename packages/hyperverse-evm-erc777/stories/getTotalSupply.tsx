@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
@@ -6,7 +5,7 @@ import { useEffect, useState } from 'react';
 export const GetTotalSupply = ({ ...props }) => {
 	const erc777 = useERC777();
 	const { address } = useEvm();
-	const [data, setData] = useState();
+	const [data, setData] = useState(null);
 
 	useEffect(() => {
 		if (erc777.getTotalSuply) {
@@ -18,14 +17,9 @@ export const GetTotalSupply = ({ ...props }) => {
 		return data ? (
 			<p>{data}</p>
 		) : (
-			<p>That token does not exist.</p>
+			<p>Error.</p>
 		);
 	};
 
 	return <div className="totalSupply"> Total Supply: {totalSupply()}</div>;
 };
-
-GetTotalSupply.propTypes = {
-};
-
-GetTotalSupply.defaultProps = {};

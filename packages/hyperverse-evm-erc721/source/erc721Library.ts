@@ -88,7 +88,7 @@ export async function ERC721LibraryInternal(
 		tokenId: number;
 	}) => {
 		try {
-			const transferTxn = await base.proxyContract?.safeTransferFrom(from, to, tokenId);
+			const transferTxn = await base.proxyContract?.tcdransferFrom(from, to, tokenId);
 			return transferTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;

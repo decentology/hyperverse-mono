@@ -1,12 +1,11 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
-export const GetBalance = ({ balance, ...props }) => {
+export const GetBalance = ({ ...props }) => {
 	const erc777 = useERC777();
 	const { address } = useEvm();
-	const [data, setData] = useState(balance);
+	const [data, setData] = useState(null);
 
 	useEffect(() => {
 		if (erc777.getBalance) {
@@ -18,13 +17,9 @@ export const GetBalance = ({ balance, ...props }) => {
 		return data ? (
 			<p>{data}</p>
 		) : (
-			<p>This is not a valid address.</p>
+			<p>Error.</p>
 		);
 	};
 
 	return <div className="balance"> Balance: {balanceAvailable()}</div>;
 };
-
-GetBalance.propTypes = {};
-
-GetBalance.defaultProps = {};

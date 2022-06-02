@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
@@ -6,7 +5,7 @@ import { useEffect, useState } from 'react';
 export const GetTokenSymbol = ({ ...props }) => {
 	const erc777 = useERC777();
 	const { address } = useEvm();
-	const [data, setData] = useState();
+	const [data, setData] = useState(null);
 
 	useEffect(() => {
 		if (erc777.getTokenSymbol) {
@@ -24,8 +23,3 @@ export const GetTokenSymbol = ({ ...props }) => {
 
 	return <div className="tokenSymbol"> Token Symbol: {tokenSymbol()}</div>;
 };
-
-GetTokenSymbol.propTypes = {
-};
-
-GetTokenSymbol.defaultProps = {};

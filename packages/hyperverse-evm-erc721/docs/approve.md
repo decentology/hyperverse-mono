@@ -1,6 +1,6 @@
 # Approve
 
-<p> The `approve` function from `erc721Library` sets ... </p>
+<p> The `approve` function from `erc721Library` sets approves the transfer of a token to another address. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### approve
 
-<p> The `approve` function takes in ... </p>
+<p> The `approve` function takes in the target address and the token Id. </p>
 
 ```jsx
   const approve = async ({ to, tokenId }: { to: string; tokenId: number }) => {
