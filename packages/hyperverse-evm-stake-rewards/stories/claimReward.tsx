@@ -4,7 +4,7 @@ import './style.css';
 
 export const ClaimReward = ({ ...props }) => {
 	const { claimReward } = useStakeRewards();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

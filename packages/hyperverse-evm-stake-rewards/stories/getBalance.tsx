@@ -12,11 +12,7 @@ export const GetBalance = ({ ...props }) => {
 	}, [stakeRewards.getBalance]);
 
 	const hasBalance = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>Error.</p>
-		);
+		return data ? <p>{data}</p> : <p>Error.</p>;
 	};
 
 	return <div className="balance"> Balance: {hasBalance()}</div>;

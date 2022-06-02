@@ -1,6 +1,6 @@
 # Withdraw
 
-<p> The `withdraw` function from `useStakeRewards` withdraws an amount of tokens the user has staked. </p>
+<p> The `withdraw` function from `stakeRewardsLibrary` withdraws an amount of tokens. </p>
 
 ---
 
@@ -11,33 +11,72 @@
 <p> The `withdraw` function takes in an amount of tokens. </p>
 
 ```jsx
-	const withdraw = useCallback(async (amount: number) => {
+	const withdraw = async (amount: number) => {
 		try {
-			const withdraw = await proxyContract?.withdraw(amount);
-			return withdraw.wait();
-		} catch (err) {
-			errors(err);
-			throw err;
+			const withdrawTxn = await base.proxyContract?.withdraw(amount);
+			return withdrawTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
 		}
-	}, [proxyContract?.signer]);
+	};
 ```
 
 ### Stories
 
 ```jsx
+import { Withdraw } from './withdraw';
+import { HyperverseProvider } from './utils/Provider';
+import React from 'react';
+import { Doc } from '../docs/withdraw.mdx';
 
+export default {
+	title: 'Components/Withdraw',
+	component: Withdraw,
+	parameters: {
+		docs: {
+			page: Doc,
+		},
+	},
+};
+
+const Template = (args) => (
+	<HyperverseProvider>
+		<Withdraw {...args} />
+	</HyperverseProvider>
+);
+
+export const Demo = Template.bind({});
+
+Demo.args = {};
 ```
 
 ### Main UI Component
 
 ```jsx
+import { useStakeRewards } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './button.css';
 
+export const Withdraw = ({ ...props }: { amount: number }) => {
+	const { withdraw } = useStakeRewards();
+	const { address, Connect } = useEvm();
+
+	return (
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					withdraw(props.amount);
+				}}
+			>
+				Withdraw Tokens
+			</button>
+		</>
+	);
+};
 ```
 
-### Args
-
-```jsx
-
-```
-
-For more information about our modules please visit: [**Hyperverse Docs**](https://docs.hyperverse.dev)
+For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)
