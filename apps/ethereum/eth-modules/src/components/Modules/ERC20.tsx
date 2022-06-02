@@ -1,16 +1,9 @@
 import { ReadFunction } from './shared/CreateInstance'
-import { Root as Tabs } from '@radix-ui/react-tabs'
+import { Root as Tabs, Content } from '@radix-ui/react-tabs'
 import React from 'react'
 import { ReadComponent } from './shared/ReadComponent'
-import {
-  ModuleContainer,
-  Header,
-  PanelTrigger,
-  Heading,
-  ContentContainer,
-  ContentGrid,
-  ModuleTabs,
-} from './shared/ModuleStyles'
+import { ModuleContainer, Header, PanelTrigger, Heading, ContentGrid, ModuleTabs } from './shared/ModuleStyles'
+import { Dashboard } from './shared/Dashboard'
 
 export const ERC20 = () => {
   const [activeTab, setActiveTab] = React.useState<ModuleTabs>(ModuleTabs.DASHBOARD)
@@ -26,21 +19,21 @@ export const ERC20 = () => {
           <PanelTrigger active={activeTab === ModuleTabs.DASHBOARD} value={ModuleTabs.DASHBOARD}>
             <Heading>Dashboard</Heading>
           </PanelTrigger>
-          <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
+          {/* <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
             <Heading>Playground</Heading>
-          </PanelTrigger>
+          </PanelTrigger> */}
         </Header>
-        <ContentContainer value={ModuleTabs.DASHBOARD}>
-          <ReadFunction />
-        </ContentContainer>
-        <ContentGrid value={ModuleTabs.PLAYGROUND}>
+        <Content value={ModuleTabs.DASHBOARD}>
+          <Dashboard />
+        </Content>
+        {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
-        </ContentGrid>
+        </ContentGrid> */}
       </Tabs>
     </ModuleContainer>
   )

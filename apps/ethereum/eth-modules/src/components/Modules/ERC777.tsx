@@ -1,16 +1,8 @@
-import { ReadFunction } from './shared/CreateInstance'
-import { Root as Tabs } from '@radix-ui/react-tabs'
+import { Root as Tabs, Content } from '@radix-ui/react-tabs'
 import React from 'react'
 import { ReadComponent } from './shared/ReadComponent'
-import {
-  ModuleContainer,
-  Header,
-  PanelTrigger,
-  Heading,
-  ContentContainer,
-  ContentGrid,
-  ModuleTabs,
-} from './shared/ModuleStyles'
+import { ModuleContainer, Header, PanelTrigger, Heading, ContentGrid, ModuleTabs } from './shared/ModuleStyles'
+import { Dashboard } from './shared/Dashboard'
 
 export const ERC777 = () => {
   const [activeTab, setActiveTab] = React.useState<ModuleTabs>(ModuleTabs.DASHBOARD)
@@ -30,9 +22,9 @@ export const ERC777 = () => {
             <Heading>Playground</Heading>
           </PanelTrigger>
         </Header>
-        <ContentContainer value={ModuleTabs.DASHBOARD}>
-          <ReadFunction />
-        </ContentContainer>
+        <Content value={ModuleTabs.DASHBOARD}>
+          <Dashboard />
+        </Content>
         <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />
           <ReadComponent />
