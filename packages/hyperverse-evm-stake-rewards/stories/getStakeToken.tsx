@@ -1,29 +1,24 @@
-import * as PropTypes from 'prop-types';
 import { useStakeRewards } from '../source';
-import { useEffect, useState } from 'react';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
 export const GetStakeToken = ({ ...props }) => {
-	const stakeRewards = useStakeRewards();
-	const [data, setData] = useState();
+	const { getStakeToken } = useStakeRewards();
+	const { address, Connect } = useEvm();
 
-	useEffect(() => {
-		if (stakeRewards.getStakeToken) {
-			stakeRewards.getStakeToken().then(setData);
-		}
-	}, [stakeRewards.getStakeToken]);
-
-	const hasStakeToken = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>There is no stake token.</p>
-		);
-	};
-
-	return <div className="stakeToken"> Stake Token: {hasStakeToken()}</div>;
+	return (
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					getStakeToken();
+				}}
+			>
+				Get Stake Tokens
+			</button>
+		</>
+	);
 };
-
-GetStakeToken.propTypes = {
-};
-
-GetStakeToken.defaultProps = {};

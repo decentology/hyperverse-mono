@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import { useStakeRewards } from '../source';
 import { useEffect, useState } from 'react';
 
@@ -13,16 +12,8 @@ export const RewardPerToken = ({ ...props }) => {
 	}, [stakeRewards.rewardPerToken]);
 
 	const hasRewardToken = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>There is no reward token.</p>
-		);
+		return data ? <p>{data}</p> : <p>Error.</p>;
 	};
 
-	return <div className="rewardToken"> Reward Token: {hasRewardToken()}</div>;
+	return <div className="rewardToken"> Reward per Token: {hasRewardToken()}</div>;
 };
-
-RewardPerToken.propTypes = {};
-
-RewardPerToken.defaultProps = {};
