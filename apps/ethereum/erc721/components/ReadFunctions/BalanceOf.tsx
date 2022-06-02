@@ -21,7 +21,6 @@ const BalanceOf = () => {
 
 	const erc721 = useERC721();
 	const { data, isLoading } = useQuery('balanceOf', () => erc721.getBalanceOf!(address!));
-console.log(data);
 	const [hidden, setHidden] = useState(false);
 
 	return (
