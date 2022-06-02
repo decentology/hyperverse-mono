@@ -1,15 +1,9 @@
 {
 	"extends": "@decentology/config/nextjs.json",
-	"include": [
-	  "next-env.d.ts",
-	  "**/*.ts",
-	  "**/*.tsx"
-	],
-	"exclude": [
-	  "**/node_modules"
-	],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"exclude": ["**/node_modules"],
 	"compilerOptions": {
-	  "isolatedModules": true
+		"jsx": "react",
+		"isolatedModules": true
 	}
-  }
-  
+}

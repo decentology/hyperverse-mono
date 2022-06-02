@@ -3,10 +3,13 @@ import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 import { ReadFunction } from './CreateInstance'
 import { getHighlighter, setCDN } from 'shiki'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
+import { useERC721 } from '@decentology/hyperverse-evm-erc721'
+
 import { MODULES } from '../../../consts'
 
 import React from 'react'
 import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
 
 setCDN('https://unpkg.com/shiki/')
 const DEFAULT_LANG = 'typescript'
@@ -21,8 +24,9 @@ export const Dashboard = () => {
   const { module } = router.query
 
   const { account } = useEthereum()
+  const erc721 = useERC721()
 
-  // const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account))
+  const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account))
 
   const moduleDefault = module?.toString() ?? 'erc721'
   const dependencies = `yarn i @decentology/hyperverse-ethereum @decentology/hyperverse-${moduleDefault}`
@@ -46,7 +50,7 @@ export const Dashboard = () => {
     <ScrollArea>
       <Viewport>
         <ReadFunction createInstanceFn={() => {}} />
-        {account && (
+        {instance && (
           <>
             <SubHeader>Get Started</SubHeader>
             <CodeContainer>
