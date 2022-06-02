@@ -15,7 +15,10 @@ function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 	useEffect(() => {
 		const lib = ERC20Library(hyperverse, connectedProvider || readOnlyProvider).then(
 			setERC20Library
-		);
+		).catch(x => {
+			// Ignoring stale library instance
+		});
+
 		return lib.cancel;
 	}, [connectedProvider]);
 

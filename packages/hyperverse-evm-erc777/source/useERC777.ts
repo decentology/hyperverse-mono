@@ -14,7 +14,9 @@ function ERC777State(initialState: { tenantId: string } = { tenantId: '' }) {
 
 
 	useEffect(() => {
-		const lib = ERC777Library(hyperverse, signer || readOnlyProvider).then(setERC777Library)
+		const lib = ERC777Library(hyperverse, signer || readOnlyProvider).then(setERC777Library).catch(x => {
+			// Ignoring stale library instance
+		});
 		return lib.cancel;
 	}, [signer, readOnlyProvider])
 

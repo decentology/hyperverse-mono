@@ -14,7 +14,10 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: '' }
 
 
 	useEffect(() => {
-		const lib = StakeRewardsLibrary(hyperverse, signer || readOnlyProvider).then(setStakeRewardsLibrary)
+		const lib = StakeRewardsLibrary(hyperverse, signer || readOnlyProvider).then(setStakeRewardsLibrary).catch(x => {
+			// Ignoring stale library instance
+		});
+
 		return lib.cancel;
 	}, [signer, readOnlyProvider])
 

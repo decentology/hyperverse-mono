@@ -12,7 +12,10 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 
 	useEffect(() => {
-		const lib = ModuleLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setHyperverseModule)
+		const lib = ModuleLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setHyperverseModule).catch(x => {
+			// Ignoring stale library instance
+		});
+
 		return lib.cancel;
 	}, [connectedProvider])
 

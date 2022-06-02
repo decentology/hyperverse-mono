@@ -12,7 +12,9 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
 	useEffect(() => {
-		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary);
+		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary).catch(x => {
+			// Ignoring stale library instance
+		});
 		return lib.cancel;
 	}, [signer, readOnlyProvider]);
 
