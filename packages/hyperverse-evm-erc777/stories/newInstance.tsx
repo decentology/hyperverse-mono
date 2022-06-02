@@ -14,7 +14,13 @@ export const NewInstance = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					createInstance({account: address});
+					createInstance({
+						account: address,
+						tokenName: 'TEST',
+						tokenSymbol: 'TST',
+						operator: ['0x976EA74026E726554dB657fA54763abd0C3a0aa9'], // tried with tenant address too
+						initialSupply: 50000,
+					});
 				}}
 			>
 				New Instance
