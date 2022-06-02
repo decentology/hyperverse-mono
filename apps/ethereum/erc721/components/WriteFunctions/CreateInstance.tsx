@@ -11,11 +11,13 @@ import {
 	Input,
 	Content,
 	Button,
-} from './WriteComponents';
-import { useMutation, useQuery } from 'react-query';
+} from '../ComponentStyles';
+
+import { useQuery, useMutation } from 'react-query';
 
 const CreateInstance = () => {
 	const { account } = useEthereum();
+
 	const erc721 = useERC721();
 	const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account));
 
@@ -39,7 +41,7 @@ const CreateInstance = () => {
 	return (
 		<Box>
 			<h4>New Instance</h4>
-			<p>Create your own instance of a token </p>
+			<p>Create your own instance of an ERC721 </p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
@@ -61,8 +63,9 @@ const CreateInstance = () => {
 								placeholder="Token Symbol"
 								onChange={(e) => setTokenSymbol(e.target.value)}
 							/>
+
 							<Button onClick={createNewInstance}>
-              {!account
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'
@@ -77,3 +80,6 @@ const CreateInstance = () => {
 };
 
 export default CreateInstance;
+function NewInstance(): { mutate: any; isLoading: any } {
+	throw new Error('Function not implemented.');
+}

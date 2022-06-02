@@ -11,39 +11,48 @@ import {
 	Input,
 	Content,
 	Button,
-} from './WriteFunctions/WriteComponents';
-import { useQuery } from 'react-query';
+} from '../ComponentStyles';
+import { useMutation } from 'react-query';
 
-const BalanceOf = () => {
+const Mint = () => {
 	const { account } = useEthereum();
+
 	const erc721 = useERC721();
-	
-	const [address, setAddress] = useState(account || "0x45e4c90801b1a17c178bB9855aA181A886DAA603");
-	const { data } = useQuery('balanceOf', () => erc721.getBalanceOf!(address!));
+	const { mutate, isLoading } = useMutation('mint', erc721.mint);
 
+	const [reciever, setReceiver] = useState(0);
 
-	const [hidden, setHidden] = useState(false);
+	const mint = async () => {
+		try {
+			mutate(reciever);
+		} catch (error) {
+			throw error;
+		}
+	};
 
 	return (
 		<Box>
-			<h4>Get Balance Of</h4>
-			<p>Get the balance of an account</p>
+			<h4>Mint</h4>
+			<p>Mint an NFT</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
 						<Trigger disabled={!account}>
-							{!account ? 'Connect Wallet' : 'Get Balance Of'}
+							{!account ? 'Connect Wallet' : 'Mint'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
-								placeholder="Account"
-								onChange={(e) => setAddress(e.target.value)}
+								placeholder="Receiver"
+								onChange={(e) => setReceiver(e.target.value)}
 							/>
-
-							<Button onClick={() => setHidden((p) => !p)}>
-								{!account ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
+							<Button onClick={mint}>
+								{!account
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Mint'}
 							</Button>
 						</Content>
 					</Parameters>
@@ -53,4 +62,4 @@ const BalanceOf = () => {
 	);
 };
 
-export default BalanceOf;
+export default Mint;

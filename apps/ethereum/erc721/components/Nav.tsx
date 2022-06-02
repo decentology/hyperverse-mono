@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { styled } from '../stitches.config';
 
+
 const Nav = () => {
 	const { Connect, error } = useEthereum();
 	useEffect(() => {
@@ -54,6 +55,7 @@ const NavItems = styled('div', {
 const About = styled('a', {
 	color: 'white',
 	textDecoration: 'none',
+	marginRight: 10,
 	'&:hover': {
 		opacity: 0.8,
 	},

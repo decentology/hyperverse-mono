@@ -29,7 +29,7 @@ const ReadComponent = ({ fn, header, description, buttonText, isAddress }: Props
 	const [hidden, setHidden] = useState(false);
 	const { data, error, isLoading } = useQuery(header, fn);
 
-	const dataFetched = isAddress ? shortenHash(data as string, 5, 5) : data as any
+	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
 
 	useEffect(() => {
 		if (error) {
