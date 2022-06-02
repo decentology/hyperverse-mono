@@ -18,21 +18,21 @@ export const ERC777 = () => {
           <PanelTrigger active={activeTab === ModuleTabs.DASHBOARD} value={ModuleTabs.DASHBOARD}>
             <Heading>Dashboard</Heading>
           </PanelTrigger>
-          <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
+          {/* <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
             <Heading>Playground</Heading>
-          </PanelTrigger>
+          </PanelTrigger> */}
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
           <Dashboard />
         </Content>
-        <ContentGrid value={ModuleTabs.PLAYGROUND}>
+        {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
-        </ContentGrid>
+        </ContentGrid> */}
       </Tabs>
     </ModuleContainer>
   )
