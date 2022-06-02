@@ -13,9 +13,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	useEffect(() => {
 		const lib = ERC721Library(hyperverse, signer || readOnlyProvider).then(setERC721Library);
-		return () => {
-			return lib.cancel();
-		};
+		return lib.cancel;
 	}, [signer, readOnlyProvider]);
 
 	const useERC721Events = (eventName: string, callback: any) => {
