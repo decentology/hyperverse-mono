@@ -2,15 +2,8 @@ import { styled, keyframes } from '../../../../stitches.config'
 import { motion } from 'framer-motion'
 import { Close, Root as Dialog, Trigger, Portal, Content as DialogContent, Overlay } from '@radix-ui/react-dialog'
 import { Exit } from '../../icons'
-
-const dummy = {
-  functionName: 'Create Instance',
-  description: 'Create you own instance of the ERC721 contract',
-  args: {
-    token: 'Token Name',
-    symbol: 'Token Symbol',
-  },
-}
+import { useRouter } from 'next/router'
+import { MODULES } from '../../../consts'
 
 function Content({ children, ...props }: { children: React.ReactNode }) {
   return (
@@ -21,16 +14,27 @@ function Content({ children, ...props }: { children: React.ReactNode }) {
   )
 }
 
-export const ReadFunction = () => {
+type ReadFunctionProps = {
+  createInstanceFn: () => void
+}
+
+export const ReadFunction = ({ createInstanceFn }: ReadFunctionProps) => {
+  const router = useRouter()
+  const { module } = router.query
+
+  const moduleDefault = module?.toString() ?? 'erc721'
+  const functionName = 'Create Instance'
+  const description = `Create a new instance of the ${module} smart module.`
+
   return (
     <Dialog>
       <Container>
         <Info>
-          <Name>{dummy.functionName} </Name>
-          <Description>{dummy.description}</Description>
+          <Name>{functionName} </Name>
+          <Description>{description}</Description>
         </Info>
 
-        {dummy.args ? (
+        {moduleDefault ? (
           <>
             <Trigger asChild>
               <Button
@@ -39,19 +43,30 @@ export const ReadFunction = () => {
                   transition: { duration: 0.1 },
                 }}
               >
-                {dummy.functionName}
+                {functionName}
               </Button>
             </Trigger>
 
             <Content>
               <DialogClose>
-                <h2>{dummy.functionName}</h2>
+                <h2>{functionName}</h2>
                 <Exit />
               </DialogClose>
               <InputContainer>
-                {Object.values(dummy.args).map((item) => (
-                  <Input required={true} key={item} placeholder={item} />
-                ))}
+                {Object.values(MODULES[moduleDefault].args).map((item) => {
+                  {
+                    console.log(item)
+                  }
+                  return <Input required={true} key={item} placeholder={item} />
+                })}
+                <Button
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.1 },
+                  }}
+                >
+                  {functionName}
+                </Button>
               </InputContainer>
             </Content>
           </>
@@ -62,7 +77,7 @@ export const ReadFunction = () => {
               transition: { duration: 0.1 },
             }}
           >
-            {dummy.functionName}
+            {functionName}
           </Button>
         )}
       </Container>

@@ -33,11 +33,10 @@ export const PlaygroundBody = () => {
           {SmartModules[moduleDefault].title}
           &nbsp;Smart Module
         </h1>
-        <Link href={LINKS.Paradigm} passHref>
-          <a target="_blank" rel="noreferrer">
-            get rinkeby eth
-          </a>
-        </Link>
+        <div>
+          <Dot />
+          <p>audit in progress</p>
+        </div>
       </SubContainer>
       <ContentContainer>{SmartModules[moduleDefault].component()}</ContentContainer>
     </Container>
@@ -67,6 +66,16 @@ const SubContainer = styled('div', {
   a: {
     color: '$white100',
   },
+
+  div: {
+    display: 'flex',
+    alignItems: 'baseline',
+    p: {
+      fontWeight: '300',
+      fontSize: 14,
+      marginLeft: 10,
+    },
+  },
 })
 
 const ContentContainer = styled('div', {
@@ -76,4 +85,13 @@ const ContentContainer = styled('div', {
   background: '$blue100',
   borderRadius: 14,
   padding: '5px 10px',
+})
+
+const Dot = styled('span', {
+  background: 'yellow',
+  boxShadow: '0 0 0 1.2px yellow',
+  height: 10,
+  width: 10,
+  borderRadius: '50%',
+  display: 'inline-block',
 })

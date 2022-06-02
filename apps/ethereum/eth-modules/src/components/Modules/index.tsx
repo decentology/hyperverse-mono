@@ -1,12 +1,12 @@
-import { styled } from "../../../stitches.config";
-import { MODULES } from "../../consts";
-import { ModuleCard } from "./ModuleCard";
+import { styled } from '../../../stitches.config'
+import { MODULES } from '../../consts'
+import { ModuleCard } from './ModuleCard'
 export const Modules = () => {
   return (
     <Container>
       <h1> Smart Modules</h1>
       <Grid>
-        {MODULES.map((module) => (
+        {Object.values(MODULES).map((module) => (
           <ModuleCard
             key={module.name}
             name={module.name}
@@ -15,7 +15,6 @@ export const Modules = () => {
             path={module.path}
           />
         ))}
-
       </Grid>
     </Container>
   )
@@ -25,12 +24,12 @@ const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   margin: '50px 0 0',
-  
+
   h1: {
     fontFamily: '$mono',
     fontSize: 24,
     fontWeight: '400',
-  }
+  },
 })
 
 const Grid = styled('div', {
@@ -49,6 +48,4 @@ const Grid = styled('div', {
   '@desktop': {
     gridTemplateColumns: 'repeat(3, 340px)',
   },
-
-
-});
+})

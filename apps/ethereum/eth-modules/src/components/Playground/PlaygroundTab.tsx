@@ -10,7 +10,7 @@ export const PlaygroundTab = () => {
   return (
     <Container>
       <Heading>Modules</Heading>
-      {MODULES.map((item) => {
+      {Object.values(MODULES).map((item) => {
         const selected = item.name.toUpperCase() === module?.toString().toUpperCase()
         return (
           <Link key={item.name} href={item.path} passHref>
