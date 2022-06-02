@@ -1,11 +1,13 @@
 {
 	"name": "@decentology/hyperverse-evm",
 	"version": "1.0.15",
+
 	"exports": {
 		".": {
-			"import": "./index.ts"
+			"import": "./source/index.ts"
 		}
 	},
+	"type": "module",
 	"source": "./source/index.ts",
 	"main:src": "./source/index.ts",
 	"main": "./distribution/index.js",
@@ -26,7 +28,12 @@
 	],
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			".": {
+				"require": "./distribution/index.js",
+				"import": "./distribution/index.es.js"
+			}
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",

@@ -6,6 +6,7 @@
 			"import": "./source/index.ts"
 		}
 	},
+	"type": "module",
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"main:src": "./source/index.ts",
@@ -23,7 +24,12 @@
 	],
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			".": {
+				"require": "./distribution/index.js",
+				"import": "./distribution/index.es.js"
+			}
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
