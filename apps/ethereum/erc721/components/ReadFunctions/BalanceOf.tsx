@@ -11,23 +11,22 @@ import {
 	Input,
 	Content,
 	Button,
-} from './WriteFunctions/WriteComponents';
+} from '../ComponentStyles';
 import { useQuery } from 'react-query';
 
 const BalanceOf = () => {
 	const { account } = useEthereum();
+
+	const [address, setAddress] = useState('');
+
 	const erc721 = useERC721();
-	
-	const [address, setAddress] = useState(account || "0x45e4c90801b1a17c178bB9855aA181A886DAA603");
-	const { data } = useQuery('balanceOf', () => erc721.getBalanceOf!(address!));
-
-
+	const { data, isLoading } = useQuery('balanceOf', () => erc721.getBalanceOf!(address!));
 	const [hidden, setHidden] = useState(false);
 
 	return (
 		<Box>
-			<h4>Get Balance Of</h4>
-			<p>Get the balance of an account</p>
+			<h4>Balance Of</h4>
+			<p>Get the balance of a provided address</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
@@ -43,7 +42,13 @@ const BalanceOf = () => {
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!account ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
+								{!account
+									? 'Connect Wallet'
+									: isLoading
+									? 'fetching ...'
+									: !hidden
+									? 'Get Balance Of'
+									: data ? data.toString() : '0'}
 							</Button>
 						</Content>
 					</Parameters>

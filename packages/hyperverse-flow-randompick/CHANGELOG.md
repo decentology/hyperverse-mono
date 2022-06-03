@@ -1,5 +1,15 @@
 # @decentology/hyperverse-flow-randompick
 
+## 1.0.5
+
+### Patch Changes
+
+-   Milestone version
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.15
+    -   @decentology/hyperverse-flow@1.0.15
+    -   @decentology/unstated-next@1.1.9
+
 ## 1.0.4
 
 ### Patch Changes

@@ -11,7 +11,7 @@ import {
 	Input,
 	Content,
 	Button,
-} from './WriteFunctions/WriteComponents';
+} from '../ComponentStyles';
 import { useQuery } from 'react-query';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
@@ -27,19 +27,20 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 	return shortendHash;
 };
 
-const OwnerOf = () => {
+const GetOwnerOf = () => {
 	const { account } = useEthereum();
-	const erc721 = useERC721();
-	const [tokenId, setTokenId] = useState("0");
-	const { data } = useQuery('ownerOf', () => erc721.getOwnerOf!(tokenId!));
 
+	const [tokenId, setTokenId] = useState('');
+
+	const erc721 = useERC721();
+	const { data, isLoading } = useQuery('ownerOf', () => erc721.getOwnerOf!(tokenId));
 
 	const [hidden, setHidden] = useState(false);
 
 	return (
 		<Box>
-			<h4>Get Owner Of</h4>
-			<p>Get the owner of a tokenId</p>
+			<h4>Owner Of</h4>
+			<p>Get the owner of a given tokenId</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
@@ -50,14 +51,18 @@ const OwnerOf = () => {
 					<Parameters>
 						<Content>
 							<Input
-								type="number"
-								min="0"
-								placeholder="TokenId"
+								placeholder="Token Id"
 								onChange={(e) => setTokenId(e.target.value)}
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!account ? 'Connect Wallet' : !hidden ? 'Get Owner Of' : shortenHash(data, 5, 5)}
+								{!account
+									? 'Connect Wallet'
+									: isLoading
+									? 'fetching ...'
+									: !hidden
+									? 'Get Owner Of'
+									: data ? shortenHash(data.toString(), 4,4) : 'Invalid Token Id'}
 							</Button>
 						</Content>
 					</Parameters>
@@ -67,4 +72,4 @@ const OwnerOf = () => {
 	);
 };
 
-export default OwnerOf;
+export default GetOwnerOf;

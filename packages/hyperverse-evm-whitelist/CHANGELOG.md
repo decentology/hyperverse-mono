@@ -1,5 +1,16 @@
 # @decentology/hyperverse-ethereum-tribes
 
+## 2.0.4
+
+### Patch Changes
+
+-   Milestone version
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.15
+    -   @decentology/hyperverse-evm@1.0.15
+    -   @decentology/hyperverse-evm-erc721@1.0.7
+    -   @decentology/unstated-next@1.1.9
+
 ## 2.0.3
 
 ### Patch Changes

@@ -11,20 +11,20 @@ import {
 	Input,
 	Content,
 	Button,
-} from './WriteComponents';
+} from '../ComponentStyles';
 import { useMutation } from 'react-query';
 
-const MintNFT = () => {
-	const { address } = useEthereum();
+const Mint = () => {
+	const { account } = useEthereum();
+
 	const erc721 = useERC721();
+	const { mutate, isLoading } = useMutation('mint', erc721.mint);
 
-	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.mint);
+	const [reciever, setReceiver] = useState(0);
 
-	const [receiver, setReceiver] = useState('');
-
-	const mintNFT = async () => {
+	const mint = async () => {
 		try {
-			mutate(receiver);
+			mutate(reciever);
 		} catch (error) {
 			throw error;
 		}
@@ -32,13 +32,13 @@ const MintNFT = () => {
 
 	return (
 		<Box>
-			<h4>Mint NFT</h4>
-			<p>Mint NFT to someone</p>
+			<h4>Mint</h4>
+			<p>Mint an NFT</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Mint'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Mint'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -47,8 +47,8 @@ const MintNFT = () => {
 								placeholder="Receiver"
 								onChange={(e) => setReceiver(e.target.value)}
 							/>
-							<Button onClick={mintNFT}>
-								{!address
+							<Button onClick={mint}>
+								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'
@@ -62,4 +62,4 @@ const MintNFT = () => {
 	);
 };
 
-export default MintNFT;
+export default Mint;

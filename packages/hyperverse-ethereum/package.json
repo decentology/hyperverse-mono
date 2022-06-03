@@ -1,11 +1,12 @@
 {
 	"name": "@decentology/hyperverse-ethereum",
-	"version": "1.0.14",
+	"version": "1.0.15",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
 		}
 	},
+	"type": "module",
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"main:src": "./source/index.ts",
@@ -23,7 +24,12 @@
 	],
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			".": {
+				"require": "./distribution/index.js",
+				"import": "./distribution/index.es.js"
+			}
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
@@ -33,12 +39,12 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/hyperverse-evm": "^1",
-		"@decentology/unstated-next": "^1"
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/unstated-next": "workspace:^"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
 		"parcel": "2.2.1",

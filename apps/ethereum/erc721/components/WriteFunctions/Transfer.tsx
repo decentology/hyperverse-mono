@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useERC721 } from '@decentology/hyperverse-evm-erc721';
+import { toast } from 'react-toastify';
 import {
 	Box,
 	Item,
@@ -11,33 +12,48 @@ import {
 	Input,
 	Content,
 	Button,
-} from './WriteComponents';
+} from '../ComponentStyles';
 import { useMutation } from 'react-query';
 
 const Transfer = () => {
 	const { account } = useEthereum();
 	const erc721 = useERC721();
-	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.transfer);
+	const { mutate, isLoading, error } = useMutation('transfer', erc721.transfer);
 
-	const [receiver, setReceiver] = useState('');
+	const [receiver, setReceiver] = useState<string>('');
 	const [tokenId, setTokenId] = useState(0);
+	
 
-	const createNewInstance = async () => {
+	const transfer = async () => {
 		try {
-			mutate({
+			const instanceData: { from:string, to: string; tokenId: number } = {
 				from: account!,
 				to: receiver,
 				tokenId: tokenId,
-			});
+			};
+
+			mutate(instanceData);
 		} catch (error) {
+			console.log('e', error);
 			throw error;
 		}
 	};
 
+	useEffect(() => {
+		if (error) {
+			console.log(error);
+			if (error instanceof Error) {
+				toast.error(error.message, {
+					position: toast.POSITION.BOTTOM_CENTER,
+				});
+			}
+		}
+	}, [error]);
+
 	return (
 		<Box>
-			<h4>Transfer Tokens</h4>
-			<p>Transfer Tokens to someone</p>
+			<h4>Transfer NFT</h4>
+			<p>Transfer your NFT to the provided address</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
@@ -52,17 +68,15 @@ const Transfer = () => {
 								onChange={(e) => setReceiver(e.target.value)}
 							/>
 							<Input
-								type="number"
-								min="0"
-								placeholder="TokenId to transfer"
+								placeholder="TokenID"
 								onChange={(e) => setTokenId(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={createNewInstance}>
+							<Button onClick={transfer}>
 								{!account
 									? 'Connet Wallet'
 									: isLoading
 									? 'txn loading ...'
-									: 'Create Instance'}
+									: 'Transfer'}
 							</Button>
 						</Content>
 					</Parameters>

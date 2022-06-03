@@ -3,7 +3,7 @@
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"license": "MIT",
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
@@ -29,16 +29,16 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/hyperverse-flow": "^1",
-		"@decentology/unstated-next": "^1",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-flow": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"@onflow/fcl": "^0.0.78",
 		"@onflow/types": "^0.0.6",
 		"unstated-next": "^1.1.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.9",
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@storybook/addon-actions": "^6.4.22",
 		"@storybook/addon-essentials": "^6.4.22",
 		"@storybook/addon-interactions": "^6.4.22",
@@ -48,7 +48,6 @@
 		"@types/node": "^17.0.16",
 		"@types/react": "17.0.2",
 		"babel-loader": "^8.2.5",
-
 		"rimraf": "^3.0.2"
 	}
 }

@@ -1,5 +1,15 @@
 # @decentology/hyperverse
 
+## 1.0.15
+
+### Patch Changes
+
+-   Milestone version
+-   Updated dependencies
+    -   @decentology/hyperverse-storage-ipfs@1.0.13
+    -   @decentology/hyperverse-storage-skynet@1.0.14
+    -   @decentology/unstated-next@1.1.9
+
 ## 1.0.14
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-polygon",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
@@ -23,15 +23,14 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/hyperverse-evm": "^1",
-		"@decentology/unstated-next": "^1",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"ethers": "^5.5.3"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@types/react": "17.0.2",
-
 		"rimraf": "^3.0.2"
 	}
 }

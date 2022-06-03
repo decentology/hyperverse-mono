@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-db",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"type": "module",
 	"main": "index.ts",
 	"license": "MIT",
@@ -15,7 +15,7 @@
 		"react-use": "^17.3.2"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@types/react": "17.0.2"
 	},
 	"scripts": {

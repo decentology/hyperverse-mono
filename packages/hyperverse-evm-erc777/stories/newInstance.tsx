@@ -18,7 +18,7 @@ export const NewInstance = ({ ...props }) => {
 						account: address,
 						tokenName: 'TEST',
 						tokenSymbol: 'TST',
-						operator: ['0x976EA74026E726554dB657fA54763abd0C3a0aa9'], // tried with tenant address too
+						operator: [''],
 						initialSupply: 50000,
 					});
 				}}

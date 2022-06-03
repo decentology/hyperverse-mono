@@ -12,10 +12,10 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [erc721Library, setERC721Library] = useState<ERC721LibraryType>();
 
 	useEffect(() => {
-		const lib = ERC721Library(hyperverse, signer || readOnlyProvider).then(setERC721Library);
-		return () => {
-			return lib.cancel();
-		};
+		const lib = ERC721Library(hyperverse, signer || readOnlyProvider).then(setERC721Library).catch(x => {
+			// Ignoring stale library instance
+		});
+		return lib.cancel;
 	}, [signer, readOnlyProvider]);
 
 	const useERC721Events = (eventName: string, callback: any) => {

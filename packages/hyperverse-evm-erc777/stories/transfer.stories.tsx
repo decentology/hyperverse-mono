@@ -22,6 +22,6 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	to: '',
-	amount: 10000,
+	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	amount: 200,
 };
