@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { styled } from '../../../stitches.config'
-import { MODULES } from '../../consts'
+import { MODULES, LINKS } from '../../consts'
+
 import Link from 'next/link'
 
 export const PlaygroundTab = () => {
@@ -19,10 +20,37 @@ export const PlaygroundTab = () => {
         )
       })}
       <Heading css={{ marginTop: 32 }}>Resources</Heading>
-      <ResourceItem>Rinkeby Faucet</ResourceItem>
-      <ResourceItem>Github</ResourceItem>
-      <ResourceItem>Documentation</ResourceItem>
-      <ResourceItem>Discord</ResourceItem>
+      <ResourceItem>
+        <Link href={LINKS.Paradigm}>
+          <a target="_blank" rel="noreferrer">
+            Rinkeby Faucet
+          </a>
+        </Link>
+      </ResourceItem>
+      
+
+      <ResourceItem>
+        <Link href={LINKS.Github}>
+          <a target="_blank" rel="noreferrer">
+          Github
+          </a>
+        </Link>
+      </ResourceItem>
+      <ResourceItem>
+        <Link href={LINKS.Docs}>
+          <a target="_blank" rel="noreferrer">
+          Documentation
+          </a>
+        </Link>
+      </ResourceItem>
+      <ResourceItem>
+        <Link href={LINKS.Discord}>
+          <a target="_blank" rel="noreferrer">
+          Discord
+          </a>
+        </Link>
+      </ResourceItem>
+
     </Container>
   )
 }
@@ -80,6 +108,10 @@ const ResourceItem = styled('div', {
   paddingLeft: 8,
   cursor: 'pointer',
   opacity: 0.9,
+  a:{
+
+    color: '$white100',
+  },
   '&:hover': {
     opacity: 0.7,
   },
