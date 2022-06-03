@@ -21,4 +21,9 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {};
+const { ethers } = require('hardhat');
+
+Demo.args = {
+	amount: 20,
+	data: ethers.utils.formatBytes32String('0x'),
+};

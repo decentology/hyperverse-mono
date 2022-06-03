@@ -1,10 +1,8 @@
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
 export const GetTotalSupply = ({ ...props }) => {
 	const erc777 = useERC777();
-	const { address } = useEvm();
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
@@ -14,11 +12,7 @@ export const GetTotalSupply = ({ ...props }) => {
 	}, [erc777.getTotalSuply]);
 
 	const totalSupply = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>Error.</p>
-		);
+		return data ? <p>{data}</p> : <p>{erc777.error}</p>;
 	};
 
 	return <div className="totalSupply"> Total Supply: {totalSupply()}</div>;
