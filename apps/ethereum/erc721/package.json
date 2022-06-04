@@ -1,31 +1,31 @@
 {
-	"name": "@decentology/samples-erc721",
-	"version": "0.1.2",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
-	},
-	"dependencies": {
-		"@decentology/hyperverse": "workspace:^",
-		"@decentology/hyperverse-ethereum": "workspace:^",
-		"@decentology/hyperverse-evm-erc721": "workspace:^",
-		"@decentology/unstated-next": "^1.1.9",
-		"@radix-ui/react-accordion": "^0.1.6",
-		"@stitches/react": "^1.2.6",
-		"ethers": "^5.5.4",
-		"next": "12.1.0",
-		"react": "17.0.2",
-		"react-dom": "17.0.2",
-		"react-query": "^3.34.16",
-		"react-toastify": "^8.2.0"
-	},
-	"devDependencies": {
-		"@decentology/config": "^1.0.3",
-		"@types/react": "17.0.2",
-		"eslint": "8.9.0",
-		"eslint-config-next": "12.1.0"
-	}
+  "name": "@decentology/samples-token",
+  "version": "0.1.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@decentology/hyperverse": "workspace:^",
+    "@decentology/hyperverse-ethereum": "workspace:^",
+    "@decentology/hyperverse-evm-erc721": "workspace:^",
+    "@decentology/unstated-next": "^1.1.1",
+    "@radix-ui/react-accordion": "^0.1.6",
+    "@stitches/react": "^1.2.6",
+    "ethers": "^5.5.4",
+    "next": "12.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
+    "react-query": "^3.38.0",
+    "react-toastify": "^8.2.0"
+  },
+  "devDependencies": {
+    "@decentology/config": "^1.0.0",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.1.0"
+  }
 }

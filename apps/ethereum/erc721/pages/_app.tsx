@@ -2,11 +2,12 @@ import { initialize, Provider, Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
 import * as ERC721 from '@decentology/hyperverse-evm-erc721';
 import { globalCss } from '../stitches.config';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import type { AppProps } from 'next/app';
 
-const queryClient = new QueryClient();
 const globalStyles = globalCss({
 	'*': {
 		margin: 0,
@@ -26,6 +27,7 @@ const globalStyles = globalCss({
 	},
 });
 
+const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: Ethereum,
@@ -37,10 +39,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 			},
 		],
 	});
+
 	globalStyles();
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Provider initialState={hyperverse}>
+				<ToastContainer />
 				<Component {...pageProps} />
 			</Provider>
 		</QueryClientProvider>

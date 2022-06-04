@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { styled } from '../stitches.config';
 
+
 const Nav = () => {
 	const { Connect, error } = useEthereum();
 	useEffect(() => {
