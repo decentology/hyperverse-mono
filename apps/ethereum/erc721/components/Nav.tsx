@@ -55,6 +55,7 @@ const NavItems = styled('div', {
 const About = styled('a', {
 	color: 'white',
 	textDecoration: 'none',
+	marginRight: 10,
 	'&:hover': {
 		opacity: 0.8,
 	},
