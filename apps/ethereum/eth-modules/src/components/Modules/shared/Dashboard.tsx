@@ -29,7 +29,7 @@ export const Dashboard = () => {
   const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account))
 
   const moduleDefault = module?.toString() ?? 'erc721'
-  const dependencies = `yarn i @decentology/hyperverse-ethereum @decentology/hyperverse-${moduleDefault}`
+  const dependencies = `yarn i @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${moduleDefault}`
   const dappstarter = MODULES[moduleDefault].dappstarter
 
   const hyperverseInitialize = `
@@ -50,7 +50,7 @@ export const Dashboard = () => {
     <ScrollArea>
       <Viewport>
         <ReadFunction createInstanceFn={() => {}} />
-        {instance && (
+        {true && (
           <>
             <SubHeader>Get Started</SubHeader>
             <CodeContainer>
@@ -99,6 +99,7 @@ const CodeContainer = styled('div', {
   padding: 20,
   marginBottom: 20,
   boxShadow: '2px 2px 2px #342F4E',
+  maxWidth: 800,
   h3: {
     fontFamily: '$mono',
     fontWeight: '400',
@@ -112,6 +113,8 @@ const CodeContainer = styled('div', {
     borderRadius: 14,
     border: '1px solid #eaeaea',
     marginBottom: 20,
+    overflow: 'auto',
+    
   },
 })
 
