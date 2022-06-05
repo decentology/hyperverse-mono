@@ -9,10 +9,18 @@ import { useERC721 } from '@decentology/hyperverse-evm-erc721'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
 import { MODULES } from '../../consts'
 
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 
 export const ERC721 = () => {
   const [activeTab, setActiveTab] = React.useState<ModuleTabs>(ModuleTabs.DASHBOARD)
+
+  const { account } = useEthereum()
+  const erc721 = useERC721()
+
+  const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account))
+
+	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.createInstance);
+
 
   return (
     <ModuleContainer>
@@ -31,7 +39,7 @@ export const ERC721 = () => {
           </PanelTrigger>
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
-          <Dashboard />
+          <Dashboard createInstanceFn={mutate} instance={instance} />
         </Content>
         <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />

@@ -9,7 +9,7 @@ export function Nav() {
   const { Connect, error } = useEthereum()
   return (
     <Container>
-      <Link href="/playground" passHref>
+      <Link href="/" passHref>
         <a>
           <Image src="/images/Hyperverse.png" alt="Hyperverse" width={200} height={38} />
         </a>

@@ -19,14 +19,11 @@ const highlighterPromise = getHighlighter({
   langs: [DEFAULT_LANG],
 })
 
-export const Dashboard = () => {
+export const Dashboard = ({createInstanceFn, instance}: {createInstanceFn: any, instance: boolean}) => {
   const router = useRouter()
   const { module } = router.query
 
   const { account } = useEthereum()
-  const erc721 = useERC721()
-
-  const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account))
 
   const moduleDefault = module?.toString() ?? 'erc721'
   const dependencies = `yarn i @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${moduleDefault}`
@@ -49,8 +46,10 @@ export const Dashboard = () => {
   return (
     <ScrollArea>
       <Viewport>
-        <ReadFunction createInstanceFn={() => {}} />
-        {true && (
+        {!instance && (
+          <ReadFunction createInstanceFn={createInstanceFn} />
+        )}
+        {instance && (
           <>
             <SubHeader>Get Started</SubHeader>
             <CodeContainer>

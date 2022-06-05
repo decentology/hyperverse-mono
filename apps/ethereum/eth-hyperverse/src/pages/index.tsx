@@ -1,10 +1,7 @@
 import Head from 'next/head';
 import { styled } from '../../stitches.config';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Hero } from '../components/Landing/Hero';
-import { LINKS } from '../consts';
-
+import { Nav } from '../components/Playground/Nav';
+import { Modules } from '../components/Modules';
 export default function Home() {
 	return (
 		<>
@@ -13,20 +10,10 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main>
-				<Nav>
-				<Link href={LINKS.Decentology} passHref>
-				<a target="_blank" rel="noreferrer">
-					<Image src="/images/Decentology.png" alt='Decentology'  width={175} height={36}/>
-					</a>
-				</Link>
-				</Nav>
-				<Hero />
+			<Nav />
+				<Modules/>
 			</main>
 		</>
 	);
 }
 
-
-const Nav = styled('nav', {
-	display: 'flex',
-})
