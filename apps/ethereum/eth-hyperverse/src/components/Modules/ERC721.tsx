@@ -16,10 +16,9 @@ export const ERC721 = () => {
 
   const { account } = useEthereum()
   const erc721 = useERC721()
+  const { data: instance, isLoading } = useQuery('instance', () => erc721.getProxy!(account), {enabled: !!erc721.factoryContract})
 
-  const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account))
-
-	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.createInstance);
+	const { mutate } = useMutation('createTokenInstance', erc721.createInstance);
 
 
   return (
@@ -34,12 +33,12 @@ export const ERC721 = () => {
           <PanelTrigger active={activeTab === ModuleTabs.DASHBOARD} value={ModuleTabs.DASHBOARD}>
             <Heading>Dashboard</Heading>
           </PanelTrigger>
-          <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
+          {/* <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
             <Heading>Playground</Heading>
-          </PanelTrigger>
+          </PanelTrigger> */}
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
-          <Dashboard />
+          <Dashboard key='erc721' module='erc721' instance={instance} isLoading={isLoading} createInstance={mutate}/>
         </Content>
         {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />

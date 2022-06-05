@@ -7,10 +7,9 @@ import { useERC721 } from '@decentology/hyperverse-evm-erc721'
 
 import { MODULES } from '../../../consts'
 
-import React from 'react'
-import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
-import { CreateInstanceERC721 } from './CreateInstanceERC721'
+import React, { useState } from 'react'
+import { Skeleton } from '../../basics/Skeleton'
+import { Instance } from './Instance'
 
 setCDN('https://unpkg.com/shiki/')
 const DEFAULT_LANG = 'typescript'
@@ -20,18 +19,12 @@ const highlighterPromise = getHighlighter({
   langs: [DEFAULT_LANG],
 })
 
-export const Dashboard = () => {
-  const router = useRouter()
-  const { module } = router.query
-
+export const Dashboard = ({module,instance, isLoading, createInstance} : { module:string, instance: string, isLoading:boolean, createInstance: any}) => {
   const { account } = useEthereum()
-  const erc721 = useERC721()
 
-  const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account))
 
-  const moduleDefault = module?.toString() ?? 'erc721'
-  const dependencies = `yarn i @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${moduleDefault}`
-  const dappstarter = MODULES[moduleDefault].dappstarter
+  const dependencies = `yarn i @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${module}`
+  const dappstarter = MODULES[module].dappstarter
 
   const hyperverseInitialize = `
     const hyperverse = initialize({
@@ -39,7 +32,7 @@ export const Dashboard = () => {
       network: Network.Testnet,
       modules: [
         {
-          bundle: ${MODULES[moduleDefault].name},
+          bundle: ${MODULES[module].name},
           tenantId: '${account ?? 'your account address'}',
         },
       ],
@@ -47,28 +40,39 @@ export const Dashboard = () => {
 
 `
 
+console.log(module, instance)
+
   return (
     <ScrollArea>
-      <Viewport>
-        {console.log(!instance && (module === 'erc721'))}
-        {!instance && module === 'erc721' && <CreateInstanceERC721 /> }
-        {instance && (
-          <>
-            <SubHeader>Get Started</SubHeader>
-            <CodeContainer>
-              <h3>Install Dependencies</h3>
-              <Code code={dependencies} theme={DEFAULT_THEME} />
-              <h3>Initialize Hyperverse</h3>
-              <Code code={hyperverseInitialize} theme={DEFAULT_THEME} />
-            </CodeContainer>
-            <SubHeader>DappStarter</SubHeader>
-            <CodeContainer>
-              <h3>{dappstarter.app}</h3>
-              <Code code={dappstarter.url} theme={DEFAULT_THEME} />
-            </CodeContainer>
-          </>
-        )}
-      </Viewport>
+      {isLoading ? (
+        <Skeleton>
+          <SkeletonContainer />
+        </Skeleton>
+      ) : (
+        <Viewport>
+          {!account ? (
+            <CenterContainer>Connect Your Wallet</CenterContainer>
+          ) : !!instance ? (
+            <>
+              <Instance instance={instance} />
+              <SubHeader>Get Started</SubHeader>
+              <CodeContainer>
+                <h3>Install Dependencies</h3>
+                <Code code={dependencies} theme={DEFAULT_THEME} />
+                <h3>Initialize Hyperverse</h3>
+                <Code code={hyperverseInitialize} theme={DEFAULT_THEME} />
+              </CodeContainer>
+              <SubHeader>DappStarter</SubHeader>
+              <CodeContainer>
+                <h3>{dappstarter.app}</h3>
+                <Code code={dappstarter.url} theme={DEFAULT_THEME} />
+              </CodeContainer>
+            </>
+          ) : (
+            <CreateInstance createInstanceFn={createInstance}/>
+          )}
+        </Viewport>
+      )}
       <Scrollbar orientation="vertical">
         <Thumb />
       </Scrollbar>
@@ -128,12 +132,25 @@ const ScrollArea = styled(ScrollAreaPrimitive.Root, {
   overflow: 'hidden',
 })
 
+const SkeletonContainer = styled('div', {
+  width: 200,
+  height: 520,
+})
+
 const Viewport = styled(ScrollAreaPrimitive.Viewport, {
   width: '100%',
   height: '100%',
   borderRadius: 'inherit',
 })
 
+const CenterContainer = styled('div', {
+  width: '100%',
+  height: 500,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+})
 const Scrollbar = styled(ScrollAreaPrimitive.Scrollbar, {
   display: 'flex',
   // ensures no selection

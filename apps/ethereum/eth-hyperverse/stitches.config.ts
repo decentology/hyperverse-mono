@@ -19,7 +19,10 @@ export const { styled, getCssText, globalCss, createTheme, css, keyframes } = cr
       blue100: '#15112B',
       blue200: '#28243C',
       blue300: '#342F4E',
+      blue400: '#2C284',
+      blue500: '#221E36',
       white100: '#fafafa',
+      grey100: '#383543'
     },
     backgroundImage: {
       greenBlue: 'linear-gradient(93.31deg, #8CC760 19.89%, rgba(56, 152, 255, 0.99) 109.23%)',

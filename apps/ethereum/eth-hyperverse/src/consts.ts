@@ -3,7 +3,7 @@ import { ERC721, ERC20, ERC777, StakeRewards, Whitelist, Tribes } from './compon
 export const MODULES = {
 	erc721: {
 		name: 'ERC721',
-		path: '/playground/erc721',
+		path: '/modules/erc721',
 		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
 		icon: ERC721,
 		args: {
@@ -12,12 +12,12 @@ export const MODULES = {
 		},
 		dappstarter: {
 			app: 'NextJS',
-			url: 'https://nextjs.org/',
+			url: 'git clone https://github.com/decentology/hyperverse-mono',
 		},
 	},
 	erc20: {
 		name: 'ERC20',
-		path: '/playground/erc20',
+		path: '/modules/erc20',
 		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
 		icon: ERC20,
 		args: {
@@ -30,21 +30,21 @@ export const MODULES = {
 			url: 'https://nextjs.org/',
 		},
 	},
-	erc777: {
-		name: 'ERC777',
-		path: '/playground/erc777',
-		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-		icon: ERC777,
-		args: {
-			token: 'Token Name',
-			symbol: 'Token Symbol',
-			decimals: 'Token Decimals',
-		},
-		dappstarter: {
-			app: 'NextJS',
-			url: 'https://nextjs.org/',
-		},
-	},
+	// erc777: {
+	// 	name: 'ERC777',
+	// 	path: '/playground/erc777',
+	// 	description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+	// 	icon: ERC777,
+	// 	args: {
+	// 		token: 'Token Name',
+	// 		symbol: 'Token Symbol',
+	// 		decimals: 'Token Decimals',
+	// 	},
+	// 	dappstarter: {
+	// 		app: 'NextJS',
+	// 		url: 'https://nextjs.org/',
+	// 	},
+	// },
 	// {
 	//   name: "StakeRewards",
 	//   path: "/playground/stake-rewards",
