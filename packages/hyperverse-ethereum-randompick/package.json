@@ -6,6 +6,11 @@
 	"module": "./distribution/index.es.js",
 	"main": "./distribution/index.js",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"scripts": {
 		"test": "hardhat test",
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
@@ -18,7 +23,12 @@
 	},
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			".": {
+				"require": "./distribution/index.js",
+				"import": "./distribution/index.es.js"
+			}
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",

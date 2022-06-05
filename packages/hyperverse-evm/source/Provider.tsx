@@ -1,4 +1,3 @@
-import '@rainbow-me/rainbowkit/styles.css';
 import {
 	apiProvider,
 	configureChains,
@@ -9,7 +8,6 @@ import {
 import { ProviderProps as WagmiProviderProps, createClient, WagmiProvider } from 'wagmi';
 import { Evm } from './useEVM';
 import { useHyperverse } from '@decentology/hyperverse';
-import { BaseProvider } from '@ethersproject/providers';
 
 export type ProviderProps = {
 	children: React.ReactNode;

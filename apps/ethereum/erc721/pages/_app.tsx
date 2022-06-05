@@ -5,7 +5,7 @@ import { globalCss } from '../stitches.config';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
+import '@decentology/hyperverse-ethereum/styles.css'
 import type { AppProps } from 'next/app';
 
 // const globalStyles = globalCss({
