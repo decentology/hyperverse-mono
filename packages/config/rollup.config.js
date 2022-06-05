@@ -53,6 +53,11 @@ export default defineConfig([
 		input,
 		output: [{ file: `${dir}/index.d.ts`, format: 'es' }],
 		plugins: [
+			postcss({
+				modules: true,
+				extract: 'styles.css',
+
+			  }),
 			autoExternal({
 				packagePath: join(process.cwd(), 'package.json'),
 			}),

@@ -82,7 +82,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		'hyperverse-evm-erc721-tennantId',
 		'0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
 	);
-	console.log('TenantId:', tenantId);
+	
 	const hyperverse = initialize({
 		blockchain: Ethereum,
 		network: Network.Testnet,
