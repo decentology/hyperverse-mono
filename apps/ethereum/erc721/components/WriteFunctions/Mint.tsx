@@ -20,7 +20,7 @@ const Mint = () => {
 	const erc721 = useERC721();
 	const { mutate, isLoading } = useMutation('mint', erc721.mint);
 
-	const [reciever, setReceiver] = useState(0);
+	const [reciever, setReceiver] = useState('');
 
 	const mint = async () => {
 		try {

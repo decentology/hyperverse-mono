@@ -17,7 +17,7 @@ import {
 const ApproveForAll = () => {
 	const { account } = useEthereum();
 	const [operator, setOperator] = useState('');
-	const [approved, setApproved] = useState(0);
+	const [approved, setApproved] = useState(false);
 
 	const erc721 = useERC721();
 	const { mutate, isLoading } = useMutation('approve', erc721.setApprovalForAll);
@@ -55,7 +55,7 @@ const ApproveForAll = () => {
 							<Input
 								type="boolean"
 								placeholder="True or False"
-								onChange={(e) => setApproved(e.currentTarget.valueAsNumber)}
+								onChange={(e) => setApproved(e.currentTarget.checked)}
 							/>
 							<Button onClick={approve}>
 								{!account

@@ -27,7 +27,7 @@ type Props = {
 const ReadComponent = ({ fn, header, description, buttonText, isAddress }: Props) => {
 	const { account } = useEthereum();
 	const [hidden, setHidden] = useState(false);
-	const { data, error, isLoading } = useQuery(header, fn);
+	const { data, error, isLoading } = useQuery<string>(header, fn);
 
 	const dataFetched = isAddress ? shortenHash(data, 5, 5) : data;
 
