@@ -28,17 +28,35 @@ module.exports = function (options) {
 		...packages,
 	];
 
-	config.resolve.alias = {
-		...options.resolve.alias,
-		'@decentology/hyperverse': path.resolve(
-			__dirname,
-			'../../../packages/hyperverse',
-		),
-		'@decentology/unstated-next': path.resolve(
-			__dirname,
-			'../../../packages/unstated-next',
-		),
-	};
-
+	config.module.rules.push({
+		test: /\.tsx?$/,
+		loader: 'ts-loader',
+		// include: [/[\\/]node_modules[\\/]@decentology[\\/]/, ...packages], // <-- instruct to transpile ts files from this path
+		include: [...packages],
+		options: {
+			allowTsInNodeModules: true, // <- this a specific option of ts-loader
+			transpileOnly: true,
+			compilerOptions: {
+				module: 'commonjs',
+				noEmit: false,
+			},
+		},
+	});
+	// config.resolve.alias = {
+	// 	...options.resolve.alias,
+	// 	'@decentology/*': [path.resolve(__dirname, '../../../packages/*')],
+	// };
+	// config.resolve.alias = {
+	// 	...options.resolve.alias,
+	// 	'@decentology/hyperverse': path.resolve(
+	// 		__dirname,
+	// 		'../../../packages/hyperverse',
+	// 	),
+	// 	'@decentology/unstated-next': path.resolve(
+	// 		__dirname,
+	// 		'../../../packages/unstated-next',
+	// 	),
+	// };
+	console.log(JSON.stringify(config, null, 2));
 	return config;
 };
