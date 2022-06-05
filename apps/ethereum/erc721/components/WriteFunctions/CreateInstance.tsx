@@ -20,7 +20,7 @@ const CreateInstance = () => {
 	const { account } = useEthereum();
 	const context = useContext(AppContext);
 	const erc721 = useERC721();
-	const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account));
+	const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account), {enabled: !!erc721.factoryContract});
 
 	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.createInstance);
 

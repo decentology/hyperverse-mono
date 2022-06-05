@@ -24,10 +24,13 @@ const ProxyToken = () => {
 	const [addressCopied, setAddressCopied] = useState<boolean>(false);
 	const { account } = useEthereum();
 	const erc721 = useERC721();
-;
-	const { data: instance } = useQuery('checkInstance', () => erc721.checkInstance!(account!));
+	const { data: instance } = useQuery('checkInstance', () => erc721.checkInstance!(account!), {
+		enabled: !!erc721.factoryContract,
+	});
 
-	const { data, isLoading } = useQuery('getProxy', () => erc721.getProxy!(account!));
+	const { data, isLoading } = useQuery('getProxy', () => erc721.getProxy!(account!), {
+		enabled: !!erc721.factoryContract,
+	});
 
 	const [hidden, setHidden] = useState(false);
 
