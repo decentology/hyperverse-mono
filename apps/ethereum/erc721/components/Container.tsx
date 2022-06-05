@@ -39,8 +39,7 @@ const Container = () => {
 		<Box>
 			<Reminder>
 				<BsFillExclamationDiamondFill />
-				Don&apos;t forget to change the tenantID in&nbsp;<b> pages/_app.tsx </b>&nbsp;to
-				test this app.
+				<p>New instance <b>tenantId</b> is saved to <b>local storage</b> upon creation.</p>
 			</Reminder>
 			<h3>Token Factory Functions</h3>
 			<Section>
