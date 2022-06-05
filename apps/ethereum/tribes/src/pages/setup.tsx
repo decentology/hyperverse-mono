@@ -9,7 +9,7 @@ import { useMutation, useQuery } from 'react-query';
 
 const Setup = () => {
 	const router = useRouter();
-	const { address: account, connect } = useEthereum();
+	const { address: account, Connect } = useEthereum();
 	// const { CheckInstance, NewInstance, AddTribe, tenantId } = useTribes();
 	const tribes = useTribes();
 	const [isLoadingAddTribe, setIsLoadingAddTribe] = useState(false);
@@ -88,9 +88,7 @@ const Setup = () => {
 					)}
 					{!account ? (
 						<div className={styles.container2}>
-							<button className={styles.connect} onClick={() => connect()}>
-								Connect Wallet
-							</button>
+							<Connect />
 						</div>
 					) : account.toLowerCase() === tribes.tenantId.toLowerCase() ? (
 						<div className={styles.container2}>

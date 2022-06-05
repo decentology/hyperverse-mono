@@ -63,7 +63,7 @@ const AllTribes = () => {
 								<div className={styles.allTribes}>
 									{data.map((item) => (
 										<div key={item.id} onClick={() => mutate(item.id)}>
-											<Image
+											<img
 												width={200}
 												height={250}
 												className={styles.cards}

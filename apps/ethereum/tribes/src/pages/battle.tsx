@@ -86,7 +86,7 @@ const Battle = () => {
 									: undefined
 							}
 						>
-							<Image
+							<img
 								src={contestants[0].imageUrl}
 								width={270}
 								height={350}
@@ -95,7 +95,7 @@ const Battle = () => {
 						</div>
 						<div className={styles.container4}>
 							{isLoading ? (
-								<Image
+								<img
 									src={`/${randomFightImage}`}
 									className={styles.blink_me}
 									width={170}
@@ -103,7 +103,7 @@ const Battle = () => {
 									alt="Loading"
 								/>
 							) : !winner ? (
-								<Image src="/VS.png" width={170} height={170} alt="vs" />
+								<img src="/VS.png" width={170} height={170} alt="vs" />
 							) : null}
 						</div>
 						<div
@@ -115,7 +115,7 @@ const Battle = () => {
 									: ''
 							}
 						>
-							<Image
+							<img
 								src={contestants[1].imageUrl}
 								width={270}
 								height={350}
