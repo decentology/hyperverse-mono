@@ -1,6 +1,6 @@
 import { styled } from '../../../../stitches.config'
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
-import { ReadFunction } from './CreateInstance'
+import { CreateInstance } from './CreateInstance'
 import { getHighlighter, setCDN } from 'shiki'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
 import { useERC721 } from '@decentology/hyperverse-evm-erc721'
@@ -10,6 +10,7 @@ import { MODULES } from '../../../consts'
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
+import { CreateInstanceERC721 } from './CreateInstanceERC721'
 
 setCDN('https://unpkg.com/shiki/')
 const DEFAULT_LANG = 'typescript'
@@ -19,11 +20,14 @@ const highlighterPromise = getHighlighter({
   langs: [DEFAULT_LANG],
 })
 
-export const Dashboard = ({createInstanceFn, instance}: {createInstanceFn: any, instance: boolean}) => {
+export const Dashboard = () => {
   const router = useRouter()
   const { module } = router.query
 
   const { account } = useEthereum()
+  const erc721 = useERC721()
+
+  const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account))
 
   const moduleDefault = module?.toString() ?? 'erc721'
   const dependencies = `yarn i @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${moduleDefault}`
@@ -46,9 +50,8 @@ export const Dashboard = ({createInstanceFn, instance}: {createInstanceFn: any, 
   return (
     <ScrollArea>
       <Viewport>
-        {!instance && (
-          <ReadFunction createInstanceFn={createInstanceFn} />
-        )}
+        {console.log(!instance && (module === 'erc721'))}
+        {!instance && module === 'erc721' && <CreateInstanceERC721 /> }
         {instance && (
           <>
             <SubHeader>Get Started</SubHeader>
@@ -113,7 +116,6 @@ const CodeContainer = styled('div', {
     border: '1px solid #eaeaea',
     marginBottom: 20,
     overflow: 'auto',
-    
   },
 })
 

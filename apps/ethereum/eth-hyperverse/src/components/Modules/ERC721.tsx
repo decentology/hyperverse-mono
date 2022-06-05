@@ -39,16 +39,16 @@ export const ERC721 = () => {
           </PanelTrigger>
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
-          <Dashboard createInstanceFn={mutate} instance={instance} />
+          <Dashboard />
         </Content>
-        <ContentGrid value={ModuleTabs.PLAYGROUND}>
+        {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
           <ReadComponent />
-        </ContentGrid>
+        </ContentGrid> */}
       </Tabs>
     </ModuleContainer>
   )

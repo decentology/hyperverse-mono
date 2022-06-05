@@ -4,6 +4,10 @@ import { Close, Root as Dialog, Trigger, Portal, Content as DialogContent, Overl
 import { Exit } from '../../icons'
 import { useRouter } from 'next/router'
 import { MODULES } from '../../../consts'
+import { useState } from 'react'
+import { useMutation } from 'react-query'
+import { useERC721 } from '@decentology/hyperverse-evm-erc721'
+import { useEthereum } from '@decentology/hyperverse-ethereum'
 
 function Content({ children, ...props }: { children: React.ReactNode }) {
   return (
@@ -14,18 +18,34 @@ function Content({ children, ...props }: { children: React.ReactNode }) {
   )
 }
 
-type ReadFunctionProps = {
-  createInstanceFn: () => void
-}
 
-export const CreateInstance = ({ createInstanceFn }: ReadFunctionProps) => {
-  const router = useRouter()
-  const { module } = router.query
 
-  const moduleDefault = module?.toString() ?? 'erc721'
+export const CreateInstanceERC721 = () => {
+	const { account } = useEthereum();
+
+	const erc721 = useERC721();
+
+	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.createInstance);
+
   const functionName = 'Create Instance'
-  const description = `Create a new instance of the ${module} smart module.`
+  const description = `Create a new instance of the erc721 smart module.`
 
+  const [tokenName, setTokenName] = useState('');
+	const [tokenSymbol, setTokenSymbol] = useState('');
+
+
+
+	const createNewInstance = async () => {
+		try {
+			mutate({
+				account: account!,
+				tokenName,
+				tokenSymbol,
+			});
+		} catch (error) {
+			throw error;
+		}
+	};
   return (
     <Dialog>
       <Container>
@@ -34,8 +54,7 @@ export const CreateInstance = ({ createInstanceFn }: ReadFunctionProps) => {
           <Description>{description}</Description>
         </Info>
 
-        {moduleDefault ? (
-          <>
+
             <Trigger asChild>
               <Button
                 whileHover={{
@@ -53,30 +72,26 @@ export const CreateInstance = ({ createInstanceFn }: ReadFunctionProps) => {
                 <Exit />
               </DialogClose>
               <InputContainer>
-                {Object.values(MODULES[moduleDefault].args).map((item) => {
-                  return <Input required={true} key={item} placeholder={item} />
-                })}
+              <Input required={true}  placeholder='Token Name' onChange={(e) => setTokenName(e.target.value)} />
+              <Input
+              required={true} 
+								placeholder="Token Symbol"
+								onChange={(e) => setTokenSymbol(e.target.value)}
+							/>
+
                 <Button
                   whileHover={{
                     scale: 1.1,
                     transition: { duration: 0.1 },
                   }}
+                  onClick={createNewInstance}
                 >
                   {functionName}
                 </Button>
               </InputContainer>
             </Content>
-          </>
-        ) : (
-          <Button
-            whileHover={{
-              scale: 1.1,
-              transition: { duration: 0.1 },
-            }}
-          >
-            {functionName}
-          </Button>
-        )}
+          
+
       </Container>
     </Dialog>
   )
