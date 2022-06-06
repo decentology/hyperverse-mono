@@ -179,16 +179,14 @@ import Storybook from './assets/storybook-logo.svg';
 </div>
 
 <div className="body">
-	Check out the
-	<a href="https://storybook.js.org/docs/react/get-started/whats-a-story">
-		{' '}
-		Storybook Addons{' '}
-	</a> section for a more comprehensive guide to writing stories.
+	Check out the{' '}
+	<a href="https://storybook.js.org/docs/react/get-started/whats-a-story">Storybook Addons</a>{' '}
+	section for a more comprehensive guide to writing stories.
 </div>
 
 <div className="body">
 	Storybook also supports many{' '}
-	<a href="https://storybook.js.org/docs/react/essentials/introduction"> addon features </a> to
+	<a href="https://storybook.js.org/docs/react/essentials/introduction"> addon features</a>{' '} to
 	support a more comprehensive user experience for your stories.
 </div>
 
@@ -202,21 +200,19 @@ import Storybook from './assets/storybook-logo.svg';
 
 <div className="body">
 	Before we begin writing our story, we'll take a look at the <b>getBalanceOf</b> function from{' '}
-	<b>stakeRewardsLibrary.ts</b> to get a better idea of what we'll need. We can see that this function
-	needs an <b>account</b> in order to return a number for the balance.
+	<b>stakeRewardsLibrary.ts</b> to get a better idea of what we'll need. We can see that this
+	function needs an <b>account</b> in order to return a number for the balance.
 </div>
 
 ```jsx
-
-	const getBalanceOf = async (account: string) => {
-		try {
-			const balance = await base.proxyContract?.balanceOf(account);
-			return BigNumber.from(balance).toNumber();
-		} catch (error) {
-			throw error;
-		}
-	};
-
+const getBalanceOf = async (account: string) => {
+	try {
+		const balance = await base.proxyContract?.balanceOf(account);
+		return BigNumber.from(balance).toNumber();
+	} catch (error) {
+		throw error;
+	}
+};
 ```
 
 <div className="subheading">getBalanceOf.stories.tsx</div>
@@ -228,7 +224,6 @@ import Storybook from './assets/storybook-logo.svg';
 </div>
 
 ```jsx
-
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
@@ -255,7 +250,6 @@ export const Demo = Template.bind({});
 Demo.args = {
 	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 };
-
 ```
 
 <div className="body">
@@ -281,7 +275,6 @@ Demo.args = {
 </div>
 
 ```jsx
-
 import { useStakeRewards } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
@@ -303,7 +296,6 @@ export const GetBalanceOf = ({ ...props }: { account: string }) => {
 
 	return <div className="balanceOf"> Balance Of: {hasBalance()}</div>;
 };
-
 ```
 
 <div className="body">
