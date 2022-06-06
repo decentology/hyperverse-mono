@@ -22,7 +22,7 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	tenantId: '',
+	tenantId: '0x4ddbaf7fe601ac46',
 	id: 1,
-	account: '',
+	account: '0x4ddbaf7fe601ac46',
 };
