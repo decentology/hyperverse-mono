@@ -20,14 +20,21 @@ Demo.args = {
 
 export const GetProxy = ({ ...props }: { account: string }) => {
 	const erc721 = useERC721();
-	const { address } = useEvm();
+	const { address, Connect } = useEvm();
 	const [data, setData] = useState(null);
-
+	
 	useEffect(() => {
 		if (erc721.getProxy) {
-			erc721.getProxy(props.account).then(setData);
+			erc721.getProxy(!props.account ? address : props.account).then(setData).catch(() => {
+				setData(null);
+			});
 		}
-	}, [erc721.getProxy]);
+	}, [erc721.getProxy, props.account, address]);
 
-	return <div className="balanceOf"> Proxy Address: {data}</div>;
+	return (
+		<>
+			<Connect />
+			<div> Proxy Address: {data}</div>
+		</>
+	);
 };
