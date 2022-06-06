@@ -33,18 +33,28 @@ export const CreateInstance = ({ createInstanceFn }: ReadFunctionProps) => {
 	const [test, setTest] = useState({})
 
 
+
 	const createNewInstance = async () => {
 		try {
-			
+			const orderedArgs = Object.assign(...Object.keys(ARGUMENTS).map(x => {
+				return {[x]: test[x]}
+			}))
+
 			createInstanceFn({
 				account: account!,
-				...test,
+				...orderedArgs
+				
 			})
 
 		} catch (error) {
 			throw error
 		}
 	}
+	// Check Discordc
+
+	console.log()
+
+
 	return (
 		<Dialog>
 			<InstanceContainer>

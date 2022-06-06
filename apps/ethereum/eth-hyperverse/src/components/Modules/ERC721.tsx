@@ -1,13 +1,9 @@
-import { styled } from '../../../stitches.config'
 import { Dashboard } from './shared/Dashboard'
 import { Content, Root as Tabs } from '@radix-ui/react-tabs'
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 import React from 'react'
-import { ReadComponent } from './shared/ReadComponent'
 import { ModuleContainer, Header, PanelTrigger, Heading, ContentGrid, ModuleTabs } from './shared/ModuleStyles'
 import { useERC721 } from '@decentology/hyperverse-evm-erc721'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
-import { MODULES } from '../../consts'
 
 import { useMutation, useQuery } from 'react-query'
 
@@ -16,10 +12,14 @@ export const ERC721 = () => {
 
   const { account } = useEthereum()
   const erc721 = useERC721()
-  const { data: instance, isLoading } = useQuery('instance', () => erc721.getProxy!(account), {enabled: !!erc721.factoryContract})
+  const { data: instance, isLoading } = useQuery('instance', () => erc721.getProxy!(account), {
+    enabled: !!erc721.factoryContract,
+  })
 
-	const { mutate } = useMutation('createTokenInstance', erc721.createInstance);
+  console.log('erc721', instance)
 
+
+  const { mutate } = useMutation('createTokenInstance', erc721.createInstance)
 
   return (
     <ModuleContainer>
@@ -38,7 +38,7 @@ export const ERC721 = () => {
           </PanelTrigger> */}
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
-          <Dashboard key='erc721' module='erc721' instance={instance} isLoading={isLoading} createInstance={mutate}/>
+          <Dashboard key="erc721" module="erc721" instance={instance} isLoading={isLoading} createInstance={mutate} />
         </Content>
         {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />

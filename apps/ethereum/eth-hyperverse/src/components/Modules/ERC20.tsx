@@ -1,4 +1,3 @@
-
 import { Root as Tabs, Content } from '@radix-ui/react-tabs'
 import React from 'react'
 import { ModuleContainer, Header, PanelTrigger, Heading, ContentGrid, ModuleTabs } from './shared/ModuleStyles'
@@ -12,10 +11,12 @@ export const ERC20 = () => {
   const { account } = useEthereum()
 
   const erc20 = useERC20()
-  const { data: instance, isLoading } = useQuery('instance', () => erc20.getProxy!(account), {enabled: !!erc20.factoryContract})
+  const { data: instance, isLoading } = useQuery('instance20' , () => erc20.getProxy!(account), {
+    enabled: !!erc20.factoryContract, 
+    
+  })
 
-	const { mutate } = useMutation('createTokenInstance', erc20.createInstance);
-
+  const { mutate } = useMutation('createTokenInstance', erc20.createInstance)
 
   return (
     <ModuleContainer>
@@ -29,21 +30,12 @@ export const ERC20 = () => {
           <PanelTrigger active={activeTab === ModuleTabs.DASHBOARD} value={ModuleTabs.DASHBOARD}>
             <Heading>Dashboard</Heading>
           </PanelTrigger>
-          {/* <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
-            <Heading>Playground</Heading>
-          </PanelTrigger> */}
+ 
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
-          <Dashboard key='erc20' module='erc20' instance={instance} isLoading={isLoading}  createInstance={mutate}/>
+          <Dashboard key="erc20" module="erc20" instance={instance} isLoading={isLoading} createInstance={mutate} />
         </Content>
-        {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
-          <ReadComponent />
-          <ReadComponent />
-          <ReadComponent />
-          <ReadComponent />
-          <ReadComponent />
-          <ReadComponent />
-        </ContentGrid> */}
+
       </Tabs>
     </ModuleContainer>
   )

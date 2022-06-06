@@ -40,7 +40,6 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : { modul
 
 `
 
-console.log(module, instance)
 
   return (
     <ScrollArea>
