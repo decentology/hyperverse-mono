@@ -40,3 +40,4 @@ package-lock.json
 .vscode/settings.json
 storybook-static/
 *.tgz
+*.zip
