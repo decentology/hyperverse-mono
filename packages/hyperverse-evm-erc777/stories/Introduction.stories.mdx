@@ -12,7 +12,7 @@ import Discord from './assets/discord-logo.svg';
 import Github from './assets/github-logo.png';
 import Storybook from './assets/storybook-logo.svg';
 
-<Meta title="Get Started/Introduction" />
+<Meta title="Start Here/Introduction" />
 
 <style>{`
   .heading {
@@ -88,6 +88,7 @@ import Storybook from './assets/storybook-logo.svg';
     align-items: flex-start;
     background: #19495e;
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-decoration: none;
   }
 
   .link-item:hover {
@@ -120,7 +121,7 @@ import Storybook from './assets/storybook-logo.svg';
   }
 
   .link-item span {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 20px;
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
@@ -153,7 +154,12 @@ import Storybook from './assets/storybook-logo.svg';
   
 `}</style>
 
-<div className="heading">Welcome!</div>
+<div className="heading">
+	Welcome!{' '}
+	<span role="img" aria-label="wave">
+		👋
+	</span>
+</div>
 
 <div className="body">
 	We have integrated Storybook with <b>ERC777 (EVM)</b> in an effort to help users interact with

@@ -11,7 +11,7 @@ export const OperatorBurn = ({
 	operatorData: string;
 }) => {
 	const { operatorBurn } = useERC777();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

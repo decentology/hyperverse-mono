@@ -2,9 +2,9 @@ import { useERC777 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const Send = ({ ...props }: { to: string; amount: number; data: string }) => {
+export const Send = ({ ...props }: { to: string; amount: number; data: any }) => {
 	const { send } = useERC777();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

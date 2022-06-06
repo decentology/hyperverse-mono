@@ -12,8 +12,8 @@ export const GetTotalSupply = ({ ...props }) => {
 	}, [erc777.getTotalSuply]);
 
 	const totalSupply = () => {
-		return data ? <p>{data}</p> : <p>{erc777.error}</p>;
+		return data ? <p>{data} tokens</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="totalSupply"> Total Supply: {totalSupply()}</div>;
+	return <div className="body"> Total Supply: {totalSupply()}</div>;
 };

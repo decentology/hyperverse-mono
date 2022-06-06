@@ -15,5 +15,5 @@ export const GetDecimals = ({ ...props }) => {
 		return data ? <p>{JSON.stringify(data)}</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="decimals"> Decimal: {decimalsAvailable()}</div>;
+	return <div className="body"> Decimal: {decimalsAvailable()}</div>;
 };

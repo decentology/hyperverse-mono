@@ -12,7 +12,7 @@ import Discord from './assets/discord-logo.svg';
 import Github from './assets/github-logo.png';
 import Storybook from './assets/storybook-logo.svg';
 
-<Meta title="Get Started/Stories" />
+<Meta title="Start Here/Stories" />
 
 <style>{`
   .heading {
@@ -153,7 +153,12 @@ import Storybook from './assets/storybook-logo.svg';
   
 `}</style>
 
-<div className="heading">Create Stories</div>
+<div className="heading">
+	Create Stories{' '}
+	<span role="img" aria-label="book">
+		📖
+	</span>
+</div>
 
 <div className="body">
 	Each of our stories is written with two files: one for the component and one for the story
@@ -174,16 +179,14 @@ import Storybook from './assets/storybook-logo.svg';
 </div>
 
 <div className="body">
-	Check out the
-	<a href="https://storybook.js.org/docs/react/get-started/whats-a-story">
-		{' '}
-		Storybook Addons{' '}
-	</a> section for a more comprehensive guide to writing stories.
+	Check out the{' '}
+	<a href="https://storybook.js.org/docs/react/get-started/whats-a-story">Storybook Addons</a>{' '}
+	section for a more comprehensive guide to writing stories.
 </div>
 
 <div className="body">
 	Storybook also supports many{' '}
-	<a href="https://storybook.js.org/docs/react/essentials/introduction"> addon features </a> to
+	<a href="https://storybook.js.org/docs/react/essentials/introduction"> addon features</a> to
 	support a more comprehensive user experience for your stories.
 </div>
 
@@ -202,16 +205,14 @@ import Storybook from './assets/storybook-logo.svg';
 </div>
 
 ```jsx
-
-	const getBalanceOf = async (account: string) => {
-		try {
-			const balance = await base.proxyContract?.balanceOf(account);
-			return BigNumber.from(balance).toNumber();
-		} catch (error) {
-			throw error;
-		}
-	};
-
+const getBalanceOf = async (account: string) => {
+	try {
+		const balance = await base.proxyContract?.balanceOf(account);
+		return BigNumber.from(balance).toNumber();
+	} catch (error) {
+		throw error;
+	}
+};
 ```
 
 <div className="subheading">getBalanceOf.stories.tsx</div>
@@ -223,7 +224,6 @@ import Storybook from './assets/storybook-logo.svg';
 </div>
 
 ```jsx
-
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
@@ -248,9 +248,8 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9'
+	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 };
-
 ```
 
 <div className="body">
@@ -276,7 +275,6 @@ Demo.args = {
 </div>
 
 ```jsx
-
 import { useERC777 } from '../source';
 import { useEffect, useState } from 'react';
 
@@ -296,7 +294,6 @@ export const GetBalanceOf = ({ ...props }: { account: string }) => {
 
 	return <div className="balanceOf"> Balance Of: {balanceAvailable()}</div>;
 };
-
 ```
 
 <div className="body">

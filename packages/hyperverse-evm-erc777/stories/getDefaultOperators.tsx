@@ -15,5 +15,5 @@ export const GetDefaultOperators = ({ ...props }) => {
 		return data ? <p>{data}</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="operators"> Default Operators: {operators()}</div>;
+	return <div className="body"> Default Operators: {operators()}</div>;
 };

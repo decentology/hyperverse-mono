@@ -12,8 +12,8 @@ export const GetTokenName = ({ ...props }) => {
 	}, [erc777.getTokenName]);
 
 	const tokenName = () => {
-		return data ? <p>{JSON.stringify(data)}</p> : <p>{erc777.error}</p>;
+		return data ? <p>{data}</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="tokenName"> Token Name: {tokenName()}</div>;
+	return <div className="body"> Token Name: {tokenName()}</div>;
 };

@@ -22,5 +22,5 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	amount: 10000
+	amount: 500
 };

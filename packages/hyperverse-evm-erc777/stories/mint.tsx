@@ -4,7 +4,7 @@ import './style.css';
 
 export const Mint = ({ ...props }: {amount: number}) => {
 	const { mint } = useERC777();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

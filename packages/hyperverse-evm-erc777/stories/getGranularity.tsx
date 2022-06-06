@@ -15,5 +15,5 @@ export const GetGranularity = ({ ...props }) => {
 		return data ? <p>{JSON.stringify(data)}</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="granularity"> Granularity: {granularity()}</div>;
+	return <div className="body"> Granularity: {granularity()}</div>;
 };

@@ -4,7 +4,7 @@ import './style.css';
 
 export const AuthorizeOperator = ({ ...props }: { operator: string }) => {
 	const { authorizeOperator } = useERC777();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

@@ -12,7 +12,7 @@ export const OperatorSend = ({
 	operatorData: string;
 }) => {
 	const { operatorSend } = useERC777();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

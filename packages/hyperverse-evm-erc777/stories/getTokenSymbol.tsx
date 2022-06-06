@@ -12,8 +12,8 @@ export const GetTokenSymbol = ({ ...props }) => {
 	}, [erc777.getTokenSymbol]);
 
 	const tokenSymbol = () => {
-		return data ? <p>{JSON.stringify(data)}</p> : <p>{erc777.error}</p>;
+		return data ? <p>{data}</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="tokenSymbol"> Token Symbol: {tokenSymbol()}</div>;
+	return <div className="body"> Token Symbol: {tokenSymbol()}</div>;
 };
