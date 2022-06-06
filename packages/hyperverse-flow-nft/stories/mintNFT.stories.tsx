@@ -22,9 +22,9 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	recipient: '',
-	name: '',
-	description: '',
+	recipient: '', // blocto address
+	name: 'firstNFT',
+	description: 'The very first NFT.',
 	thumbnail: '',
-	metadata: null,
+	metadata: '', // keep empty
 };

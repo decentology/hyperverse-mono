@@ -12,19 +12,41 @@ import Discord from './assets/discord-logo.svg';
 import Github from './assets/github-logo.png';
 import Storybook from './assets/storybook-logo.svg';
 
-<Meta title="Get Started/Introduction" />
+<Meta title="Start Here/Introduction" />
 
 <style>{`
+  .heading {
+    --dark: '#000000';
+    font-weight: 900;
+    font-size: 32px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
-    font-size: 15px;
+    font-size: 16px;
     color: #999;
     letter-spacing: 4px;
     line-height: 24px;
     text-transform: uppercase;
     margin-bottom: 12px;
     margin-top: 40px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  .body {
+    color: '#999';
+    font-weight: 200;
+    font-size: 16px;
+    letter-spacing: 0px;
+    line-height: 21px;
+    margin-bottom: 12px;
+    margin-top: 8px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-list {
@@ -32,6 +54,7 @@ import Storybook from './assets/storybook-logo.svg';
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     row-gap: 10px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   
   }
 
@@ -40,6 +63,7 @@ import Storybook from './assets/storybook-logo.svg';
       row-gap: 20px;
       column-gap: 20px;
       grid-template-columns: 1fr 1fr;
+      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       
     }
   }
@@ -49,6 +73,7 @@ import Storybook from './assets/storybook-logo.svg';
       display: -ms-grid;
       -ms-grid-columns: 1fr 1fr;
       -ms-grid-rows: 1fr 1fr;
+      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
   }
 
@@ -62,17 +87,21 @@ import Storybook from './assets/storybook-logo.svg';
     display: flex;
     align-items: flex-start;
     background: #19495e;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-decoration: none;
   }
 
   .link-item:hover {
     transform: translate3d(0, -3px, 0);
     box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
     background: #246685;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-item:active {
     border-color: #1EA7FD;
     transform: translate3d(0, 0, 0);
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   }
 
@@ -80,6 +109,7 @@ import Storybook from './assets/storybook-logo.svg';
     font-weight: 700;
     display: block;
     margin-bottom: 2px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
   
   .link-item img {
@@ -87,11 +117,13 @@ import Storybook from './assets/storybook-logo.svg';
     width: 40px;
     margin-right: 15px;
     flex: none;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-item span {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 20px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .tip {
@@ -122,35 +154,78 @@ import Storybook from './assets/storybook-logo.svg';
   
 `}</style>
 
-# Welcome!
+<div className="heading">
+	Welcome!{' '}
+	<span role="img" aria-label="wave">
+		👋
+	</span>
+</div>
 
-We have integrated Storybook with **ERC721 (Flow)** in an effort to help users interact with the different components in this module.
+<div className="body">
+	We have integrated Storybook with <b>NFT (Flow)</b> in an effort to help users interact with the
+	different components in this module. Feel free to browse our example stories from our Hyperverse
+	modules now by navigating to them in the left sidebar under <b>Components</b>. Every story
+	includes a demo and a docs page.
+</div>
 
-Feel free to browse our example stories from our Hyperverse modules now by navigating to them in the left sidebar under **Components**.
-Every story includes a demo and a docs page.
-You can view each demo under the **Canvas** tab and the docs under the **Docs** tab.
+<div className="body">
+	You can view each demo under the <b>Canvas</b> tab and the docs under the <b>Docs</b> tab.
+</div>
 
+<div className="subheading">About Flow NFT</div>
 
-<div className="subheading">About ERC721</div>
+<div className="body">
+	The aim of **Flow NFT** is to allow users to create, transfer, and manage their own NFTs
+	(non-fungible tokens). These tokens are unique and cannot be replaced (unlike ERC20 tokens).
+	NFTs allow you to create unique pieces of art, music, certificates, or any other item you'd
+	like.
+</div>
 
-The aim of **ERC721** is to allow users to create, transfer, and manage their own NFTs (non-fungible tokens).
-These tokens are unique and cannot be replaced (unlike ERC20 tokens).
-NFTs allow you to create unique pieces of art, music, certificates, or any other item you'd like.
+<div className="body">
+	Read more about NFTs <a href="https://ethereum.org/en/nft/"> here</a>.{' '}
+</div>
 
-Read more about NFTs [**here**](https://ethereum.org/en/nft/).
+<div className="subheading">Run Storybook</div>
 
-***Our ERC721 Token Module currently supports both the Ethereum, Flow, and Metis blockchains.***
+<div className="body">
+	To run Storybook navigate to a module's package directory (for example:
+	<b> hyperverse-mono/packages/hyperverse-flow-nft </b> for the Flow NFT module.
+</div>
+
+<div className="body">
+	Now run <b> pnpm storybook </b> inside the module directory.
+</div>
+
+<div className="subheading">Get Set Up</div>
+
+<div className="body">
+	Before you can interact with the functions in this module you must connect your wallet using the
+	tenantId address <b> 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 </b> from the{' '}
+	<b> Provider.tsx </b> file. It is important that you are connected with this address
+	specifically in order to run through these interactions.
+</div>
+
+<div className="body">
+	After your wallet is connected you will then need to create a new instance. From there you can
+	mint a new token and run through the other demos.
+</div>
 
 <div className="subheading">About Storybook</div>
 
-Storybook helps users with their UI development, testing, and documentation.
+<div className="body">
+	Storybook helps users with their UI development, testing, and documentation.
+</div>
 
-Each story includes a demo and a docs page. Our demonstrations
-simulate the user's interaction with each component. This is done by providing props for the initial state.
+<div className="body">
+	Each story includes a demo and a docs page. Our demonstrations simulate the user's interaction
+	with each component.
+</div>
 
-While we have provided a set of stories for you to get started with, you are welcome to create your own!
-Navigate to the **Stories** section on the sidebar for more information on how to create them.
-
+<div className="body">
+	While we have provided a set of stories for you to get started with, you are welcome to create
+	your own! Navigate to the <b>Stories</b> section on the sidebar for more information on how to
+	create them.
+</div>
 
 <div className="subheading">Resources</div>
 

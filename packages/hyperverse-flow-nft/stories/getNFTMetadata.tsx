@@ -1,20 +1,19 @@
-import * as PropTypes from 'prop-types';
-import './style.css';
 import { useNFT } from '../source';
+import { useEffect, useState } from 'react';
 
-export const GetNFTMetadata = ({ ...props }) => {
-	const { getNFTMetadata } = useNFT();
-    const { nftMetadata } = getNFTMetadata();
+export const GetNFTMetadata = ({ ...props }: { tenantId: string; id: number; account: string }) => {
+	const flowNFT = useNFT();
+	const [data, setData] = useState(null);
 
-	return (
-        <div className="nftMetadata">
-            NFT Metadata: <b>{nftMetadata}</b>
-        </div>
-);
-};
+	useEffect(() => {
+		if (flowNFT.getNFTMetadata) {
+			flowNFT.getNFTMetadata().then(setData);
+		}
+	}, [flowNFT.getNFTMetadata]);
 
-GetNFTMetadata.propTypes = {
-    tenantId: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    account: PropTypes.string.isRequired
+	const availableMetadata = () => {
+		return data ? <p>{JSON.stringify(data)}</p> : <p>Error.</p>;
+	};
+
+	return <div className="body"> NFT Metadata: {availableMetadata()}</div>;
 };

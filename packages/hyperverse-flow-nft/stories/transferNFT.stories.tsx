@@ -24,5 +24,5 @@ export const Demo = Template.bind({});
 Demo.args = {
 	tenantId: '',
 	recipient: '',
-	withdrawID: null,
+	withdrawID: 1,
 };

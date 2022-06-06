@@ -23,6 +23,6 @@ export const Demo = Template.bind({});
 
 Demo.args = {
 	tenantId: '',
-	id: null,
-	account: null,
+	id: 1,
+	account: '',
 };

@@ -22,6 +22,6 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
-	account: '0x4ddbaf7fe601ac46',
+	tenantId: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266',
+	account: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'
 };

@@ -1,31 +1,40 @@
-import * as PropTypes from 'prop-types';
 import { useNFT } from '../source';
+import { useFlow } from '@decentology/hyperverse-flow';
 import './style.css';
 
-export const MintNFT = ({ ...props }) => {
+export const MintNFT = ({
+	...props
+}: {
+	recipient: string;
+	name: string;
+	description: string;
+	thumbnail: string;
+	metadata: any;
+}) => {
 	const { mintNFT } = useNFT();
-	const { } = mintNFT('', '', '', '', '');
+	const flowNFT = useFlow();
 
-	return (
+	return flowNFT.user.addr ? (
 		<button
 			type="button"
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-                // TODO
+				mintNFT('', '', '', '', '');
 			}}
 		>
-			Mint NFT
+			Mint
+		</button>
+	) : (
+		<button
+			type="button"
+			className={['storybook-button', `storybook-button--large`].join(' ')}
+			style={{ color: 'blue' }}
+			onClick={() => {
+				// connect();
+			}}
+		>
+			Connect Wallet
 		</button>
 	);
 };
-
-MintNFT.propTypes = {
-	recipient: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    metadata: PropTypes.any.isRequired
-};
-
-MintNFT.defaultProps = {};
