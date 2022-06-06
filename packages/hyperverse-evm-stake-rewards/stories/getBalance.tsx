@@ -15,5 +15,5 @@ export const GetBalance = ({ ...props }) => {
 		return data ? <p>{data}</p> : <p>Error.</p>;
 	};
 
-	return <div className="balance"> Balance: {hasBalance()}</div>;
+	return <div className="body"> Balance: {hasBalance()}</div>;
 };

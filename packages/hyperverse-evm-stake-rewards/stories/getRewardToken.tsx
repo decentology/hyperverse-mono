@@ -3,7 +3,7 @@ import { useEvm } from '@decentology/hyperverse-evm';
 
 export const GetRewardToken = ({ ...props }) => {
 	const { getRewardToken } = useStakeRewards();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -16,7 +16,7 @@ export const GetRewardToken = ({ ...props }) => {
 					getRewardToken();
 				}}
 			>
-				Get Rewawrd Tokens
+				Get Reward Tokens
 			</button>
 		</>
 	);

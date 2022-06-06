@@ -15,5 +15,5 @@ export const RewardPerToken = ({ ...props }) => {
 		return data ? <p>{data}</p> : <p>Error.</p>;
 	};
 
-	return <div className="rewardToken"> Reward per Token: {hasRewardToken()}</div>;
+	return <div className="body"> Reward per Token: {hasRewardToken()}</div>;
 };

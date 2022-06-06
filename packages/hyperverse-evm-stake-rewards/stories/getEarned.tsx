@@ -1,10 +1,8 @@
 import { useStakeRewards } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
 export const GetEarned = ({ ...props }: { account: string }) => {
 	const stakeRewards = useStakeRewards();
-	const { address } = useEvm();
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
@@ -17,5 +15,5 @@ export const GetEarned = ({ ...props }: { account: string }) => {
 		return data ? <p>{data}</p> : <p>Error.</p>;
 	};
 
-	return <div className="earnedTokens"> Earned Tokens: {hasEarnedTokens()}</div>;
+	return <div className="body"> Earned Tokens: {hasEarnedTokens()}</div>;
 };

@@ -4,7 +4,7 @@ import './style.css';
 
 export const Withdraw = ({ ...props }: { amount: number }) => {
 	const { withdraw } = useStakeRewards();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
