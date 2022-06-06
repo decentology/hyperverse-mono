@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm-tribes",
-	"version": "1.0.15",
+	"version": "1.0.16",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"module": "./distribution/index.es.js",

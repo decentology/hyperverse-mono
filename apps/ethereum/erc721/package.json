@@ -1,11 +1,11 @@
 {
   "name": "@decentology/samples-nft",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-	"preview": "next build && next export && cd out && 7z a -mx=9 publish.zip . ../.azure/. && az webapp deployment source config-zip --resource-group samples --name dappstarter-samples --src publish.zip",
+    "preview": "next build && next export && cd out && 7z a -mx=9 publish.zip . ../.azure/. && az webapp deployment source config-zip --resource-group samples --name dappstarter-samples --src publish.zip",
     "start": "next start",
     "lint": "next lint"
   },

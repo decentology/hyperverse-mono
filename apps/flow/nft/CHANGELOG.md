@@ -1,5 +1,14 @@
 # erc721
 
+## 0.1.8
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.17
+    -   @decentology/hyperverse-flow@1.0.16
+    -   @decentology/hyperverse-flow-nft@1.0.7
+
 ## 0.1.7
 
 ### Patch Changes

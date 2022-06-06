@@ -1,5 +1,11 @@
 # @decentology/hyperverse
 
+## 1.0.17
+
+### Patch Changes
+
+-   Update deployment for ESM modules.
+
 ## 1.0.15
 
 ### Patch Changes

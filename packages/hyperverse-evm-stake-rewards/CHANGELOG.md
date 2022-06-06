@@ -1,5 +1,15 @@
 # @decentology/hyperverse-ethereum-token
 
+## 1.0.3
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.17
+    -   @decentology/hyperverse-ethereum@1.0.17
+    -   @decentology/hyperverse-evm@1.0.17
+    -   @decentology/hyperverse-evm-erc777@2.0.5
+
 ## 1.0.2
 
 ### Patch Changes
