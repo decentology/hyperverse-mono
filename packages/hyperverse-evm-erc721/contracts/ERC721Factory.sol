@@ -26,7 +26,6 @@ contract ERC721Factory is CloneFactory {
 
 	address public immutable owner;
 	address public immutable masterContract;
-	address private hyperverseAdmin = 0x62a7aa79a52591Ccc62B71729329A80a666fA50f;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
@@ -44,7 +43,7 @@ contract ERC721Factory is CloneFactory {
 		if (_tenant == address(0)) {
 			revert ZeroAddress();
 		}
-		if (!(msg.sender == _tenant || msg.sender == hyperverseAdmin)) {
+		if (!(msg.sender == _tenant || msg.sender == owner)) {
 			revert Unauthorized();
 		}
 		_;
