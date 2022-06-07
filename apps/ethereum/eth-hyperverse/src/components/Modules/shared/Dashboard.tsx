@@ -31,7 +31,11 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : Dashboa
   const { account } = useEthereum()
 
   const dependencies = `yarn add @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${module}`
+  //@ts-ignore
   const dappstarter = MODULES[module].dappstarter
+
+  //@ts-ignore
+  let moduleName = MODULES[module].name
 
   const hyperverseInitialize = `
     const hyperverse = initialize({
@@ -39,7 +43,8 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : Dashboa
       network: Network.Testnet,
       modules: [
         {
-          bundle: ${MODULES[module].name},
+          
+          bundle: ${moduleName},
           tenantId: '${account ?? 'your account address'}',
         },
       ],
@@ -60,7 +65,7 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : Dashboa
             <CenterContainer>Connect Your Wallet</CenterContainer>
           ) : !!instance ? (
             <>
-            <Loader/>
+            {/* <Loader/> */}
               <Instance instance={instance} />
               <SubHeader>Get Started</SubHeader>
               <CodeContainer>

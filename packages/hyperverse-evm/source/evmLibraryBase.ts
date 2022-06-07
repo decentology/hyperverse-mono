@@ -106,6 +106,7 @@ export async function EvmLibraryBase(
 	};
 
 	const factoryErrors = (err: any) => {
+		console.error(err);
 		if(err.errorName === 'InstanceDoesNotExist') {
 			return;
 		}

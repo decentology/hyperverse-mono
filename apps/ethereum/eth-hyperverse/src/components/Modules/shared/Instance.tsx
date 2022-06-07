@@ -17,6 +17,7 @@ export const Instance = ({ instance }: { instance: string }) => {
   return (
     <InstanceContainer>
       <Name>
+        {/* @ts-ignore */}
         {SmartModules[moduleDefault].title}
         &nbsp;Instance
       </Name>

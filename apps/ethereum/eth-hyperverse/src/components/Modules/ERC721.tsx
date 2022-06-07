@@ -13,7 +13,7 @@ export const ERC721 = () => {
   const { account } = useEthereum()
   const erc721 = useERC721()
   const { data: instance, isLoading } = useQuery('instance', () => erc721.getProxy!(account), {
-    enabled: !!erc721.factoryContract,
+    enabled: !!erc721.factoryContract && !!account,
   })
   const { mutate } = useMutation('createTokenInstance', erc721.createInstance)
 

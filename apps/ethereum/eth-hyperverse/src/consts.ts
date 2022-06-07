@@ -1,6 +1,6 @@
 import { ERC721, ERC20, ERC777, StakeRewards, Whitelist, Tribes } from './components/icons'
 
-export const MODULES = {
+export const MODULES  = {
 	erc721: {
 		name: 'ERC721',
 		path: '/modules/erc721',

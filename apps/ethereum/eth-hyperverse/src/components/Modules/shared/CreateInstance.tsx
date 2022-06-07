@@ -25,9 +25,10 @@ export const CreateInstance = ({ createInstanceFn }: ReadFunctionProps) => {
 	const { module } = router.query
 	const { account } = useEthereum()
 
-	const moduleDefault = module?.toString() ?? 'erc721'
+	const moduleDefault = module?.toString() ?? 'erc721' as any
 
-	const ARGUMENTS = MODULES[moduleDefault].args
+	//@ts-ignore
+	const ARGUMENTS = MODULES[moduleDefault].args 
 	const functionName = 'Create Instance'
 	const description = `Create a new instance of the ${module} smart module.`
 	const [test, setTest] = useState({})
@@ -36,7 +37,9 @@ export const CreateInstance = ({ createInstanceFn }: ReadFunctionProps) => {
 
 	const createNewInstance = async () => {
 		try {
+			//@ts-ignore
 			const orderedArgs = Object.assign(...Object.keys(ARGUMENTS).map(x => {
+			//@ts-ignore
 				return {[x]: test[x]}
 			}))
 
@@ -91,6 +94,7 @@ export const CreateInstance = ({ createInstanceFn }: ReadFunctionProps) => {
 											onChange={(e) => {
 												setTest((prev) => ({ ...prev, [item]: e.target.value }))
 											}}
+											//@ts-ignore
 											value={test[item]}
 										/>
 									)

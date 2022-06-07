@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { styled } from '../../stitches.config';
 import { Nav } from '../components/Playground/Nav';
 import { Modules } from '../components/Modules';
+import { Playground } from '../components/Playground';
 export default function Home() {
 	return (
 		<>
@@ -11,7 +12,9 @@ export default function Home() {
 			</Head>
 			<main>
 			<Nav />
-				<Modules/>
+			<Playground />
+
+				{/* <Modules/> */}
 			</main>
 		</>
 	);

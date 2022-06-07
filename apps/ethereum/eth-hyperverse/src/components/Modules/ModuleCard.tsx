@@ -8,7 +8,7 @@ import { ReactNode } from 'react'
 type ModuleProps = {
   name: string
   description: string
-  Icon: ReactNode
+  Icon: () => ReactNode
   path: string
 }
 

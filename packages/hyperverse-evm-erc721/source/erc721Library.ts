@@ -106,8 +106,6 @@ export async function ERC721LibraryInternal(
 	}
 
 
-
-
 	const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await base.proxyContract?.balanceOf(account);

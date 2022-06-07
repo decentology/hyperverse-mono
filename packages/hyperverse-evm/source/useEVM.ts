@@ -31,6 +31,7 @@ function EvmState() {
 		}
 	}, [account]);
 
+	console.log('evm',signer, 'allow:' , allow, 	signer?.provider?.getNetwork());
 	return {
 		Connect: ConnectButton,
 		readOnlyProvider,

@@ -10,6 +10,11 @@
   ],
   "compilerOptions": {
     "jsx": "preserve",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "@types/react" : [
+        "../../../node_modules/@types/react"
+      ],
+    }
   }
 }

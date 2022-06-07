@@ -26,6 +26,7 @@ export const PlaygroundBody = () => {
 		<Container>
 			<SubContainer>
 				<h1>
+					{/* @ts-ignore */}
 					{SmartModules[moduleDefault].title}
 					&nbsp;Smart Module
 				</h1>
@@ -34,6 +35,7 @@ export const PlaygroundBody = () => {
 					<p>audit in progress</p>
 				</div>
 			</SubContainer>
+					{/* @ts-ignore */}
 			<ContentContainer>{SmartModules[moduleDefault].component()}</ContentContainer>
 		</Container>
 	)

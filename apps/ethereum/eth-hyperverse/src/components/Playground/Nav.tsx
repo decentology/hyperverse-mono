@@ -29,7 +29,7 @@ export function Nav() {
         </Link>
 
    
-        <Connect accountStatus="full" />
+        <Connect />
       </RightContainer>
     </Container>
   )

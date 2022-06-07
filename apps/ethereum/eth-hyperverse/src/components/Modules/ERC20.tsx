@@ -12,7 +12,7 @@ export const ERC20 = () => {
 
   const erc20 = useERC20()
   const { data: instance, isLoading } = useQuery('instanceERC20', () => erc20.getProxy!(account), {
-    enabled: !!erc20.factoryContract,
+    enabled: !!erc20.factoryContract && !!account,
   })
 
 
