@@ -129,7 +129,9 @@ export async function ERC777LibraryInternal(
 
 	const allowance = async (owner: string, spender: string) => {
 		try {
+			console.log('in the try', owner, spender)
 			const allowance = await base.proxyContract?.allowance(owner, spender);
+			console.log('after contract call');
 			return BigNumber.from(allowance).toNumber();
 		} catch (error) {
 			throw error;

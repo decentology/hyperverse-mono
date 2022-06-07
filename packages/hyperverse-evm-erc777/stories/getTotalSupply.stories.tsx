@@ -1,7 +1,7 @@
 import { GetTotalSupply } from './getTotalSupply';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getTotalSupply.mdx';
+import Doc from '../docs/getTotalSupply.mdx';
 
 export default {
 	title: 'Components/GetTotalSupply',

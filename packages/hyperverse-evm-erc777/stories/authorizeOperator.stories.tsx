@@ -1,7 +1,7 @@
 import { AuthorizeOperator } from './authorizeOperator';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/authorizeOperator.mdx';
+import Doc from '../docs/authorizeOperator.mdx';
 
 export default {
 	title: 'Components/AuthorizeOperator',

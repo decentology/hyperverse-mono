@@ -1,7 +1,7 @@
 import { Approve } from './approve';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/approve.mdx';
+import Doc from '../docs/approve.mdx';
 
 export default {
 	title: 'Components/Approve',
@@ -23,5 +23,5 @@ export const Demo = Template.bind({});
 
 Demo.args = {
 	spender: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
-	amount: 300,
+	amount: 1000,
 };

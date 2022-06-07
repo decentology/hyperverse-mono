@@ -15,6 +15,7 @@ export const Allowance = ({ ...props }: {owner: string, spender: string}) => {
 				style={{ color: 'blue' }}
 				onClick={() => {
 					allowance(props.owner, props.spender);
+					console.log('addresses', props.owner, props.spender);
 				}}
 			>
 				Allowance
