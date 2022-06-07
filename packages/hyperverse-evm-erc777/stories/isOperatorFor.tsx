@@ -1,7 +1,7 @@
 import { useERC777 } from '../source';
 import { useEffect, useState } from 'react';
 
-export const IsOperatorFor = ({ ...props }: {operator: string, tokenHolder: string}) => {
+export const IsOperatorFor = ({ ...props }: { operator: string; tokenHolder: string }) => {
 	const erc777 = useERC777();
 	const [data, setData] = useState();
 
@@ -12,12 +12,13 @@ export const IsOperatorFor = ({ ...props }: {operator: string, tokenHolder: stri
 	}, [erc777.checkOperator]);
 
 	const operatorExists = () => {
-		return data ? (
-			<p>{JSON.stringify(data)}</p>
-		) : (
-			<p>Error.</p>
-		);
+		return data ? <p>{JSON.stringify(data)}</p> : <p>Error.</p>;
 	};
 
-	return <div className="operator"> Operator For: {operatorExists()}</div>;
+	return (
+		<div className="body">
+			{' '}
+			Operator for: <p>{props.tokenHolder}</p> {operatorExists()}
+		</div>
+	);
 };

@@ -400,8 +400,8 @@
       ]
     },
     "/Users/kendyl/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/ERC777Factory.sol": {
-      "lastModificationDate": 1653325704837,
-      "contentHash": "d69d80befaa3ee1b753b98c5b4edca5b",
+      "lastModificationDate": 1654622872987,
+      "contentHash": "62c4a22b9e2fdfa8921a666b7c75f2ef",
       "sourceName": "contracts/ERC777Factory.sol",
       "solcConfig": {
         "version": "0.8.4",
