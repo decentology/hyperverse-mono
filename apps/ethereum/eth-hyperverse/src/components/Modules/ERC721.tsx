@@ -15,10 +15,6 @@ export const ERC721 = () => {
   const { data: instance, isLoading } = useQuery('instance', () => erc721.getProxy!(account), {
     enabled: !!erc721.factoryContract,
   })
-
-  console.log('erc721', instance)
-
-
   const { mutate } = useMutation('createTokenInstance', erc721.createInstance)
 
   return (

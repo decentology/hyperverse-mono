@@ -38,7 +38,7 @@ const globalStyles = globalCss({
     minHeight: 700,
     '@desktop': {
       padding: 0,
-      width: '1100px',
+      width: '1260px',
     },
   },
   a: {

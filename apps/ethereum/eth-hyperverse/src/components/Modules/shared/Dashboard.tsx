@@ -1,6 +1,6 @@
 import { styled } from '../../../../stitches.config'
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
 import { CreateInstance } from './CreateInstance'
+import { ScrollArea, ViewportStyled, ScrollbarStyled, ThumbStyled } from './ModuleStyles'
 import { getHighlighter, setCDN } from 'shiki'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
 import { useERC721 } from '@decentology/hyperverse-evm-erc721'
@@ -10,6 +10,7 @@ import { MODULES } from '../../../consts'
 import React, { useState } from 'react'
 import { Skeleton } from '../../basics/Skeleton'
 import { Instance } from './Instance'
+import { Loader } from '../../basics/Loader'
 
 setCDN('https://unpkg.com/shiki/')
 const DEFAULT_LANG = 'typescript'
@@ -19,11 +20,17 @@ const highlighterPromise = getHighlighter({
   langs: [DEFAULT_LANG],
 })
 
-export const Dashboard = ({module,instance, isLoading, createInstance} : { module:string, instance: string, isLoading:boolean, createInstance: any}) => {
+type DashboardType = {
+  module: string
+  instance: string
+  isLoading: boolean
+  createInstance: any 
+}
+
+export const Dashboard = ({module,instance, isLoading, createInstance} : DashboardType) => {
   const { account } = useEthereum()
 
-
-  const dependencies = `yarn i @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${module}`
+  const dependencies = `yarn add @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${module}`
   const dappstarter = MODULES[module].dappstarter
 
   const hyperverseInitialize = `
@@ -48,11 +55,12 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : { modul
           <SkeletonContainer />
         </Skeleton>
       ) : (
-        <Viewport>
+        <ViewportStyled>
           {!account ? (
             <CenterContainer>Connect Your Wallet</CenterContainer>
           ) : !!instance ? (
             <>
+            <Loader/>
               <Instance instance={instance} />
               <SubHeader>Get Started</SubHeader>
               <CodeContainer>
@@ -70,11 +78,11 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : { modul
           ) : (
             <CreateInstance createInstanceFn={createInstance}/>
           )}
-        </Viewport>
+        </ViewportStyled>
       )}
-      <Scrollbar orientation="vertical">
-        <Thumb />
-      </Scrollbar>
+      <ScrollbarStyled orientation="vertical">
+        <ThumbStyled />
+      </ScrollbarStyled>
     </ScrollArea>
   )
 }
@@ -104,7 +112,7 @@ const CodeContainer = styled('div', {
   padding: 20,
   marginBottom: 20,
   boxShadow: '2px 2px 2px #342F4E',
-  maxWidth: 800,
+  maxWidth: 1000,
   h3: {
     fontFamily: '$mono',
     fontWeight: '400',
@@ -115,32 +123,20 @@ const CodeContainer = styled('div', {
     padding: 10,
   },
   '& pre': {
+    fontSize: 14,
     borderRadius: 14,
     border: '1px solid #eaeaea',
     marginBottom: 20,
-    overflow: 'auto',
+
   },
 })
 
-const SCROLLBAR_SIZE = 2
-
-const ScrollArea = styled(ScrollAreaPrimitive.Root, {
-  width: '100%',
-  height: 540,
-  borderRadius: 4,
-  overflow: 'hidden',
-})
 
 const SkeletonContainer = styled('div', {
   width: 200,
   height: 520,
 })
 
-const Viewport = styled(ScrollAreaPrimitive.Viewport, {
-  width: '100%',
-  height: '100%',
-  borderRadius: 'inherit',
-})
 
 const CenterContainer = styled('div', {
   width: '100%',
@@ -150,38 +146,4 @@ const CenterContainer = styled('div', {
   alignItems: 'center',
   textAlign: 'center',
 })
-const Scrollbar = styled(ScrollAreaPrimitive.Scrollbar, {
-  display: 'flex',
-  // ensures no selection
-  userSelect: 'none',
-  // disable browser handling of all panning and zooming gestures on touch devices
-  touchAction: 'none',
-  padding: 2,
-  background: '$blue200',
-  transition: 'background 160ms ease-out',
-  '&:hover': { background: '#342F4E' },
-  '&[data-orientation="vertical"]': { width: SCROLLBAR_SIZE },
-  '&[data-orientation="horizontal"]': {
-    flexDirection: 'column',
-    height: SCROLLBAR_SIZE,
-  },
-})
 
-const Thumb = styled(ScrollAreaPrimitive.Thumb, {
-  flex: 1,
-  background: '#fff',
-  borderRadius: SCROLLBAR_SIZE,
-  // increase target size for touch devices https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
-  position: 'relative',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '100%',
-    height: '100%',
-    minWidth: 44,
-    minHeight: 44,
-  },
-})

@@ -1,6 +1,6 @@
 import { Root as Tabs, Content } from '@radix-ui/react-tabs'
 import React from 'react'
-import { ModuleContainer, Header, PanelTrigger, Heading, ContentGrid, ModuleTabs } from './shared/ModuleStyles'
+import { ModuleContainer, Header, PanelTrigger, Heading, ModuleTabs } from './shared/ModuleStyles'
 import { Dashboard } from './shared/Dashboard'
 import { useERC20 } from '@decentology/hyperverse-evm-erc20'
 import { useMutation, useQuery } from 'react-query'
@@ -11,10 +11,10 @@ export const ERC20 = () => {
   const { account } = useEthereum()
 
   const erc20 = useERC20()
-  const { data: instance, isLoading } = useQuery('instance20' , () => erc20.getProxy!(account), {
-    enabled: !!erc20.factoryContract, 
-    
+  const { data: instance, isLoading } = useQuery('instanceERC20', () => erc20.getProxy!(account), {
+    enabled: !!erc20.factoryContract,
   })
+
 
   const { mutate } = useMutation('createTokenInstance', erc20.createInstance)
 

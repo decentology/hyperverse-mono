@@ -42,6 +42,7 @@ export const PlaygroundBody = () => {
 const Container = styled('div', {
 	display: 'flex',
 	flexDirection: 'column',
+
 })
 
 const SubContainer = styled('div', {
@@ -76,7 +77,7 @@ const SubContainer = styled('div', {
 
 const ContentContainer = styled('div', {
 	marginTop: 10,
-	width: 900,
+	width: 1050,
 	height: 630,
 	background: '$blue100',
 	borderRadius: 14,

@@ -81,6 +81,9 @@ export async function EvmLibraryBase(
 			const instance = await factoryContract.getProxy(account);
 			return instance;
 		} catch (err) {
+			if(err.errorName === 'InstanceDoesNotExist') {
+				return;
+			}
 			factoryErrors(err);
 			throw err;
 		}
@@ -103,6 +106,10 @@ export async function EvmLibraryBase(
 	};
 
 	const factoryErrors = (err: any) => {
+		if(err.errorName === 'InstanceDoesNotExist') {
+			return;
+		}
+		
 		if (!factoryContract?.signer) {
 			throw new Error('Please connect your wallet!');
 		}

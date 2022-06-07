@@ -20,19 +20,18 @@ export const PlaygroundTab = () => {
         )
       })}
       <Heading css={{ marginTop: 32 }}>Resources</Heading>
-      <ResourceItem>
-        <Link href={LINKS.Paradigm}>
-          <a target="_blank" rel="noreferrer">
-            Rinkeby Faucet
-          </a>
-        </Link>
-      </ResourceItem>
-      
 
       <ResourceItem>
         <Link href={LINKS.Github}>
           <a target="_blank" rel="noreferrer">
-          Github
+          GitGub
+          </a>
+        </Link>
+      </ResourceItem>
+      <ResourceItem>
+        <Link href={LINKS.Discord}>
+          <a target="_blank" rel="noreferrer">
+          Discord
           </a>
         </Link>
       </ResourceItem>
@@ -44,12 +43,15 @@ export const PlaygroundTab = () => {
         </Link>
       </ResourceItem>
       <ResourceItem>
-        <Link href={LINKS.Discord}>
+        <Link href={LINKS.Paradigm}>
           <a target="_blank" rel="noreferrer">
-          Discord
+            Rinkeby Faucet
           </a>
         </Link>
       </ResourceItem>
+      
+
+
 
     </Container>
   )
