@@ -1,12 +1,19 @@
 const hre = require('hardhat');
 const fs = require('fs-extra');
+const { ethers } = require('hardhat');
+require('dotenv').config();
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const main = async () => {
-	const hyperverseAdmin = '0x62a7aa79a52591Ccc62B71729329A80a666fA50f';
-	const Token = await hre.ethers.getContractFactory('ERC777');
+	// Launches the ERC1820 needed for local development
+	await hre.run('node:get-provider')
+	const [deployer] = await ethers.getSigners();
+	const hyperverseAdmin = deployer.address;
+
+	const Token = await ethers.getContractFactory('ERC777');
 	const token = await Token.deploy(hyperverseAdmin);
 	await token.deployed();
 
-	const TokenFactory = await hre.ethers.getContractFactory('ERC777Factory');
+	const TokenFactory = await ethers.getContractFactory('ERC777Factory');
 	const tokenFactory = await TokenFactory.deploy(token.address, hyperverseAdmin);
 	await tokenFactory.deployed();
 
