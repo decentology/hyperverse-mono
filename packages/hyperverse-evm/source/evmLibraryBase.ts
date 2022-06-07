@@ -81,7 +81,7 @@ export async function EvmLibraryBase(
 			const instance = await factoryContract.getProxy(account);
 			return instance;
 		} catch (err) {
-			if(err.errorName === 'InstanceDoesNotExist') {
+			if((err as any).errorName === 'InstanceDoesNotExist') {
 				return;
 			}
 			factoryErrors(err);

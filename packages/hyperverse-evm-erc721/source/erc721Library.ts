@@ -157,7 +157,7 @@ export async function ERC721LibraryInternal(
 
 	const setApprovalForAll = async ({ operator, approved }: { operator: string; approved: boolean }) => {
 		try {
-			const setApprovalTxn = await base.proxyContract?.setApprovalForAll(to, approved);
+			const setApprovalTxn = await base.proxyContract?.setApprovalForAll(operator, approved);
 			return setApprovalTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
