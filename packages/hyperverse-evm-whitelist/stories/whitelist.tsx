@@ -4,7 +4,7 @@ import './style.css';
 
 export const Whitelist = ({ ...props }) => {
 	const { whitelist } = useWhitelist();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

@@ -4,7 +4,7 @@ import './style.css';
 
 export const RevokeOperator = ({ ...props }: { operator: string }) => {
 	const { revokeOperator } = useWhitelist();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

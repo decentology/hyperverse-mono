@@ -1,7 +1,6 @@
 import { useWhitelist } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
-import { isAddress } from 'ethers/lib/utils';
 
 export const NewInstance = ({
 	...props
