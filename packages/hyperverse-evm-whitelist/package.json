@@ -16,7 +16,9 @@
 		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
-		"lint": "tsc --noEmit"
+		"lint": "tsc --noEmit",
+		"storybook": "start-storybook -p 6006",
+		"build-storybook": "build-storybook"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -35,7 +37,7 @@
 	"dependencies": {
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/hyperverse-evm": "workspace:^",
-		"@decentology/hyperverse-evm-erc721": "workspace:^",
+		"@decentology/hyperverse-evm-whitelist": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
 		"@openzeppelin/contracts": "^4.4.2",
 		"dotenv": "^16.0.0",
@@ -50,14 +52,34 @@
 		"skynet-js": "^4.0.23-beta"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.18.2",
 		"@decentology/config": "workspace:^",
 		"@nomiclabs/hardhat-ethers": "^2.0.4",
 		"@ethersproject/abstract-provider": "^5.6.0",
 		"@nomiclabs/hardhat-waffle": "^2.0.2",
+		"@storybook/addon-actions": "^6.5.6",
+		"@storybook/addon-console": "^1.2.3",
+		"@storybook/addon-docs": "^6.5.6",
+		"@storybook/addon-essentials": "^6.5.6",
+		"@storybook/addon-interactions": "^6.5.6",
+		"@storybook/addon-links": "^6.5.6",
+		"@storybook/addons": "^6.5.6",
+		"@storybook/builder-webpack5": "^6.5.6",
+		"@storybook/cli": "^6.5.6",
+		"@storybook/manager-webpack5": "^6.5.6",
+		"@storybook/react": "^6.5.6",
+		"@storybook/testing-library": "^0.0.11",
+		"@storybook/theming": "^6.5.6",
 		"@types/react": "17.0.2",
 		"chai": "^4.3.4",
+		"ethereum-waffle": "^3.4.4",
+		"fs-extra": "^10.1.0",
+		"hardhat": "^2.9.7",
+		"http-proxy-middleware": "^2.0.6",
+		"node-watch": "^0.7.3",
 		"dotenv": "^16.0.0",
 		"npm-run-all": "^4.1.5",
-		"rimraf": "^3.0.2"
+		"rimraf": "^3.0.2",
+		"wait-on": "^6.0.1"
 	}
 }

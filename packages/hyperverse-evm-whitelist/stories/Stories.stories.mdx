@@ -12,7 +12,7 @@ import Discord from './assets/discord-logo.svg';
 import Github from './assets/github-logo.png';
 import Storybook from './assets/storybook-logo.svg';
 
-<Meta title="Start Here/Introduction" />
+<Meta title="Start Here/Stories" />
 
 <style>{`
   .heading {
@@ -88,7 +88,6 @@ import Storybook from './assets/storybook-logo.svg';
     align-items: flex-start;
     background: #19495e;
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    text-decoration: none;
   }
 
   .link-item:hover {
@@ -121,7 +120,7 @@ import Storybook from './assets/storybook-logo.svg';
   }
 
   .link-item span {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
@@ -155,101 +154,103 @@ import Storybook from './assets/storybook-logo.svg';
 `}</style>
 
 <div className="heading">
-	Welcome!{' '}
-	<span role="img" aria-label="wave">
-		👋
+	Create Stories{' '}
+	<span role="img" aria-label="book">
+		📖
 	</span>
 </div>
 
 <div className="body">
-	We have integrated Storybook with <b>Whitelist (EVM)</b> in an effort to help users interact with
-	the different components in this module. Feel free to browse our example stories from our
-	Hyperverse modules now by navigating to them in the left sidebar under <b>Components</b>. Every
-	story includes a demo and a docs page.
+	Each of our stories is written with two files: one for the component and one for the story
+	itself (each story file will include <b>".stories"</b> within the file name).
 </div>
 
 <div className="body">
-	You can view each demo under the <b>Canvas</b> tab and the docs under the <b>Docs</b> tab.
-</div>
-
-<div className="subheading">About Whitelist</div>
-
-<div className="body">
-	The aim of <b>Whitelist</b> is to allow users to stake their tokens and earn rewards by making
-	transactions on a proof-of-stake blockchain.
-</div>
-
-<div className="subheading">Run Storybook</div>
-
-<div className="body">
-	To run Storybook navigate to a module's package directory (for example:
-	<b> hyperverse-mono/packages/hyperverse-evm-whitelist </b> for the whitelist module.
+	<b>Component Files:</b> These files contain an initial state for the component that we have
+	written ourselves. Depending upon the needs of the component we provide a set of initial
+	arguments/props to pass through to render a story that replicates an expected interaction.
 </div>
 
 <div className="body">
-	Now run <b> pnpm storybook </b> inside the module directory.
-</div>
-
-<div className="subheading">Get Set Up</div>
-
-<div className="body">
-	Before you can interact with the functions in this module you must connect your wallet using the
-	tenantId address <b> 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 </b> from the{' '}
-	<b> Provider.tsx </b> file. It is important that you are connected with this address
-	specifically in order to run through these interactions.
+	<b>Stories Files:</b> These files contain much of the setup for the interactions we just
+	mentioned. The story template is created here along with its accompanying docs page.
+	Additionally, it is in these files where we will define the arguments/props we wish to pass
+	through to the components.
 </div>
 
 <div className="body">
-	After your wallet is connected you will then need to create a new instance. From there you can
-	mint a new token and run through the other demos.
-</div>
-
-<div className="subheading">About Storybook</div>
-
-<div className="body">
-	Storybook helps users with their UI development, testing, and documentation.
+	Check out the{' '}
+	<a href="https://storybook.js.org/docs/react/get-started/whats-a-story">Storybook Addons</a>{' '}
+	section for a more comprehensive guide to writing stories.
 </div>
 
 <div className="body">
-	Each story includes a demo and a docs page. Our demonstrations simulate the user's interaction
-	with each component.
+	Storybook also supports many{' '}
+	<a href="https://storybook.js.org/docs/react/essentials/introduction"> addon features</a>{' '} to
+	support a more comprehensive user experience for your stories.
+</div>
+
+<div className="subheading">Story Example</div>
+
+<div className="body">
+	Let's walkthrough how we set up <b>Get Balance Of</b> for our example.
+</div>
+
+<div className="subheading">stakeRewardsLibrary.ts</div>
+
+<div className="body">
+	Before we begin writing our story, we'll take a look at the <b>getBalanceOf</b> function from{' '}
+	<b>stakeRewardsLibrary.ts</b> to get a better idea of what we'll need. We can see that this
+	function needs an <b>account</b> in order to return a number for the balance.
+</div>
+
+```jsx
+
+
+```
+
+<div className="subheading">getBalanceOf.stories.tsx</div>
+
+<div className="body">
+	Here is where we'll start setting up our story. If you take a look at the sidebar you'll notice
+	a list of stories. Each of these stories contains a demo that we'll see render under the{' '}
+	<b>Canvas</b> tab.
+</div>
+
+```jsx
+
+
+```
+
+<div className="body">
+	We'll import the component we want this story to render in our story template. This template
+	will call the <b>GetBalanceOf</b> component. It is binded with our first story we have titled{' '}
+	<b>Demo</b>. We provide an initial address of <b>0x976EA74026E726554dB657fA54763abd0C3a0aa9</b>{' '}
+	that we will pass through as the account that <b>getBalanceOf</b> requires. Feel free to replace
+	this address with another.
 </div>
 
 <div className="body">
-	While we have provided a set of stories for you to get started with, you are welcome to create
-	your own! Navigate to the <b>Stories</b> section on the sidebar for more information on how to
-	create them.
+	You can add other stories within this file for your component if you wish. In addition to
+	writing the interactions we would want to see from these functions we can also write the
+	interactions we would not want to see. This is a great way to showcase expected errors in
+	specific states.
 </div>
 
-<div className="subheading">Resources</div>
+<div className="subheading">.tsx</div>
 
-<div className="link-list">
-	<a className="link-item" href="https://storybook.js.org/" target="_blank">
-		<img src={Storybook} alt="storybook" />
-		<span>
-			<strong>Storybook Documentation</strong>
-			Learn more about Storybook
-		</span>
-	</a>
-	<a className="link-item" href="https://docs.hyperverse.dev/" target="_blank">
-		<img src={Hyperverse} alt="hyperverse" />
-		<span>
-			<strong>Hyperverse Docs</strong>
-			Documentation and videos
-		</span>
-	</a>
-	<a className="link-item" href="https://github.com/decentology/hyperverse-mono" target="_blank">
-		<img src={Github} alt="github" />
-		<span>
-			<strong>Decentology's GitHub</strong>
-			Check out our mono repo
-		</span>
-	</a>
-	<a className="link-item" href="https://discord.com/invite/uqecGxg" target="_blank">
-		<img src={Discord} alt="discord" />
-		<span>
-			<strong>Join us on Discord</strong>
-			Ask for help or chat with the community
-		</span>
-	</a>
+<div className="body">
+	The main component below is what we'll import into the story. It is here we will write the
+	interactions we want to have with the <b>getBalanceOf</b> function.
+</div>
+
+```jsx
+
+
+```
+
+<div className="body">
+	And there you go! Now you have a general idea of how we create stories that mimic the
+	interactions we can expect or want from the functions in our modules. Feel free to create your
+	own stories from our modules for your application.
 </div>
