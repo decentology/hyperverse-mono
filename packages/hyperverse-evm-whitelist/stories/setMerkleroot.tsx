@@ -4,7 +4,7 @@ import './style.css';
 
 export const SetMerkleRoot = ({ ...props }: { root: string }) => {
 	const { setMerkleRoot } = useWhitelist();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
