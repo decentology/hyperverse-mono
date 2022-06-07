@@ -7,20 +7,46 @@ import Flow from './assets/flow.svg';
 import Plugin from './assets/plugin.svg';
 import Repo from './assets/repo.svg';
 import StackAlt from './assets/stackalt.svg';
+import Hyperverse from './assets/hyperverse-logo.png';
+import Discord from './assets/discord-logo.svg';
+import Github from './assets/github-logo.png';
+import Storybook from './assets/storybook-logo.svg';
 
-<Meta title="Example/Introduction" />
+<Meta title="Start Here/Introduction" />
 
 <style>{`
+  .heading {
+    --dark: '#000000';
+    font-weight: 900;
+    font-size: 32px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
-    font-size: 13px;
+    font-size: 16px;
     color: #999;
-    letter-spacing: 6px;
+    letter-spacing: 4px;
     line-height: 24px;
     text-transform: uppercase;
     margin-bottom: 12px;
     margin-top: 40px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  .body {
+    color: '#999';
+    font-weight: 200;
+    font-size: 16px;
+    letter-spacing: 0px;
+    line-height: 21px;
+    margin-bottom: 12px;
+    margin-top: 8px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-list {
@@ -28,6 +54,8 @@ import StackAlt from './assets/stackalt.svg';
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     row-gap: 10px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  
   }
 
   @media (min-width: 620px) {
@@ -35,6 +63,8 @@ import StackAlt from './assets/stackalt.svg';
       row-gap: 20px;
       column-gap: 20px;
       grid-template-columns: 1fr 1fr;
+      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      
     }
   }
 
@@ -43,6 +73,7 @@ import StackAlt from './assets/stackalt.svg';
       display: -ms-grid;
       -ms-grid-columns: 1fr 1fr;
       -ms-grid-rows: 1fr 1fr;
+      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
   }
 
@@ -52,26 +83,33 @@ import StackAlt from './assets/stackalt.svg';
     border: 1px solid #00000010;
     border-radius: 5px;
     transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
-    color: #333333;
+    color: #ffffff;
     display: flex;
     align-items: flex-start;
+    background: #19495e;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-decoration: none;
   }
 
   .link-item:hover {
-    border-color: #1EA7FD50;
     transform: translate3d(0, -3px, 0);
     box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
+    background: #246685;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-item:active {
     border-color: #1EA7FD;
     transform: translate3d(0, 0, 0);
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
   }
 
   .link-item strong {
     font-weight: 700;
     display: block;
     margin-bottom: 2px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
   
   .link-item img {
@@ -79,11 +117,13 @@ import StackAlt from './assets/stackalt.svg';
     width: 40px;
     margin-right: 15px;
     flex: none;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-item span {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 20px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .tip {
@@ -114,98 +154,102 @@ import StackAlt from './assets/stackalt.svg';
   
 `}</style>
 
-# Welcome to Storybook
-
-Storybook helps you build UI components in isolation from your app's business logic, data, and context.
-That makes it easy to develop hard-to-reach states. Save these UI states as **stories** to revisit during development, testing, or QA.
-
-Browse example stories now by navigating to them in the sidebar.
-View their code in the `src/stories` directory to learn how they work.
-We recommend building UIs with a [**component-driven**](https://componentdriven.org) process starting with atomic components and ending with pages.
-
-<div className="subheading">Configure</div>
-
-<div className="link-list">
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/addons/addon-types"
-    target="_blank"
-  >
-    <img src={Plugin} alt="plugin" />
-    <span>
-      <strong>Presets for popular tools</strong>
-      Easy setup for TypeScript, SCSS and more.
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/configure/webpack"
-    target="_blank"
-  >
-    <img src={StackAlt} alt="Build" />
-    <span>
-      <strong>Build configuration</strong>
-      How to customize webpack and Babel
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/configure/styling-and-css"
-    target="_blank"
-  >
-    <img src={Colors} alt="colors" />
-    <span>
-      <strong>Styling</strong>
-      How to load and configure CSS libraries
-    </span>
-  </a>
-  <a
-    className="link-item"
-    href="https://storybook.js.org/docs/react/get-started/setup#configure-storybook-for-your-stack"
-    target="_blank"
-  >
-    <img src={Flow} alt="flow" />
-    <span>
-      <strong>Data</strong>
-      Providers and mocking for data libraries
-    </span>
-  </a>
+<div className="heading">
+	Welcome!{' '}
+	<span role="img" aria-label="wave">
+		👋
+	</span>
 </div>
 
-<div className="subheading">Learn</div>
-
-<div className="link-list">
-  <a className="link-item" href="https://storybook.js.org/docs" target="_blank">
-    <img src={Repo} alt="repo" />
-    <span>
-      <strong>Storybook documentation</strong>
-      Configure, customize, and extend
-    </span>
-  </a>
-  <a className="link-item" href="https://storybook.js.org/tutorials/" target="_blank">
-    <img src={Direction} alt="direction" />
-    <span>
-      <strong>In-depth guides</strong>
-      Best practices from leading teams
-    </span>
-  </a>
-  <a className="link-item" href="https://github.com/storybookjs/storybook" target="_blank">
-    <img src={Code} alt="code" />
-    <span>
-      <strong>GitHub project</strong>
-      View the source and add issues
-    </span>
-  </a>
-  <a className="link-item" href="https://discord.gg/storybook" target="_blank">
-    <img src={Comments} alt="comments" />
-    <span>
-      <strong>Discord chat</strong>
-      Chat with maintainers and the community
-    </span>
-  </a>
+<div className="body">
+	We have integrated Storybook with <b>Whitelist (EVM)</b> in an effort to help users interact with
+	the different components in this module. Feel free to browse our example stories from our
+	Hyperverse modules now by navigating to them in the left sidebar under <b>Components</b>. Every
+	story includes a demo and a docs page.
 </div>
 
-<div className="tip-wrapper">
-  <span className="tip">Tip</span>Edit the Markdown in{' '}
-  <code>src/stories/Introduction.stories.mdx</code>
+<div className="body">
+	You can view each demo under the <b>Canvas</b> tab and the docs under the <b>Docs</b> tab.
+</div>
+
+<div className="subheading">About Whitelist</div>
+
+<div className="body">
+	The aim of <b>Whitelist</b> is to allow users to stake their tokens and earn rewards by making
+	transactions on a proof-of-stake blockchain.
+</div>
+
+<div className="subheading">Run Storybook</div>
+
+<div className="body">
+	To run Storybook navigate to a module's package directory (for example:
+	<b> hyperverse-mono/packages/hyperverse-evm-whitelist </b> for the whitelist module.
+</div>
+
+<div className="body">
+	Now run <b> pnpm storybook </b> inside the module directory.
+</div>
+
+<div className="subheading">Get Set Up</div>
+
+<div className="body">
+	Before you can interact with the functions in this module you must connect your wallet using the
+	tenantId address <b> 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 </b> from the{' '}
+	<b> Provider.tsx </b> file. It is important that you are connected with this address
+	specifically in order to run through these interactions.
+</div>
+
+<div className="body">
+	After your wallet is connected you will then need to create a new instance. From there you can
+	mint a new token and run through the other demos.
+</div>
+
+<div className="subheading">About Storybook</div>
+
+<div className="body">
+	Storybook helps users with their UI development, testing, and documentation.
+</div>
+
+<div className="body">
+	Each story includes a demo and a docs page. Our demonstrations simulate the user's interaction
+	with each component.
+</div>
+
+<div className="body">
+	While we have provided a set of stories for you to get started with, you are welcome to create
+	your own! Navigate to the <b>Stories</b> section on the sidebar for more information on how to
+	create them.
+</div>
+
+<div className="subheading">Resources</div>
+
+<div className="link-list">
+	<a className="link-item" href="https://storybook.js.org/" target="_blank">
+		<img src={Storybook} alt="storybook" />
+		<span>
+			<strong>Storybook Documentation</strong>
+			Learn more about Storybook
+		</span>
+	</a>
+	<a className="link-item" href="https://docs.hyperverse.dev/" target="_blank">
+		<img src={Hyperverse} alt="hyperverse" />
+		<span>
+			<strong>Hyperverse Docs</strong>
+			Documentation and videos
+		</span>
+	</a>
+	<a className="link-item" href="https://github.com/decentology/hyperverse-mono" target="_blank">
+		<img src={Github} alt="github" />
+		<span>
+			<strong>Decentology's GitHub</strong>
+			Check out our mono repo
+		</span>
+	</a>
+	<a className="link-item" href="https://discord.com/invite/uqecGxg" target="_blank">
+		<img src={Discord} alt="discord" />
+		<span>
+			<strong>Join us on Discord</strong>
+			Ask for help or chat with the community
+		</span>
+	</a>
 </div>

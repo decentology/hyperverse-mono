@@ -7,7 +7,7 @@ export const GetBalance = ({ ...props }: { tenantId: string; account: string }) 
 
 	useEffect(() => {
 		if (flowNFT.getBalance) {
-			flowNFT.getBalance().then(setData);
+			flowNFT.getBalance(props.tenantId, props.account).then(setData);
 		}
 	}, [flowNFT.getBalance]);
 

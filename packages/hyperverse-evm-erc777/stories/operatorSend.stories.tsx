@@ -21,12 +21,12 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-const { ethers } = require('hardhat');
+// const { ethers } = require('hardhat');
 
 Demo.args = {
 	sender: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 	recipient: '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc',
 	amount: 10000,
-	data: ethers.utils.formatBytes32String('0x'),
-	operatorData: ethers.utils.formatBytes32String('0x'),
+	// data: ethers.utils.formatBytes32String('0x'),
+	// operatorData: ethers.utils.formatBytes32String('0x'),
 };

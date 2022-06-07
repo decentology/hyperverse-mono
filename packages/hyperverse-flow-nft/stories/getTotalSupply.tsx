@@ -7,7 +7,7 @@ export const GetTotalSupply = ({ ...props }: { tenantId: string }) => {
 
 	useEffect(() => {
 		if (flowNFT.getTotalSupply) {
-			flowNFT.getTotalSupply().then(setData);
+			flowNFT.getTotalSupply(props.tenantId).then(setData);
 		}
 	}, [flowNFT.getTotalSupply]);
 

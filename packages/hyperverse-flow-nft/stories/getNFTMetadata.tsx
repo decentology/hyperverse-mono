@@ -7,7 +7,7 @@ export const GetNFTMetadata = ({ ...props }: { tenantId: string; id: number; acc
 
 	useEffect(() => {
 		if (flowNFT.getNFTMetadata) {
-			flowNFT.getNFTMetadata().then(setData);
+			flowNFT.getNFTMetadata(props.tenantId, props.id, props.account).then(setData);
 		}
 	}, [flowNFT.getNFTMetadata]);
 

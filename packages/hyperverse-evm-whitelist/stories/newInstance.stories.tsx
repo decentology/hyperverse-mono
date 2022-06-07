@@ -1,11 +1,11 @@
-import { IsWhitelistedMerkle } from './isWhitelistedMerkle';
+import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/isWhitelistedMerkle.mdx';
+import Doc from '../docs/whitelist.mdx';
 
 export default {
-	title: 'Components/IsWhitelistedMerkle',
-	component: IsWhitelistedMerkle,
+	title: 'Components/NewInstance',
+	component: NewInstance,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,12 +15,18 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<IsWhitelistedMerkle {...args} />
+		<NewInstance {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	account: ''
+	tenant: '',
+	startTime: 1,
+	endTime: 10,
+	units: 10,
+	ERC721: '',
+	ERC20: '',
+	merkleRoot: null,
 };

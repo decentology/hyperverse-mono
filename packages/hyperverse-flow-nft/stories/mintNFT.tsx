@@ -14,27 +14,16 @@ export const MintNFT = ({
 	const { mintNFT } = useNFT();
 	const flowNFT = useFlow();
 
-	return flowNFT.user.addr ? (
+	return  (
 		<button
 			type="button"
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				mintNFT('', '', '', '', '');
+				mintNFT('0xd2a8d169a907bf1f','firstNFT','The very first NFT.','','');
 			}}
 		>
 			Mint
 		</button>
-	) : (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				// connect();
-			}}
-		>
-			Connect Wallet
-		</button>
-	);
+	)
 };

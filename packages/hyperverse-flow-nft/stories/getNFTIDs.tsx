@@ -7,7 +7,7 @@ export const GetNFTID = ({ ...props }: { tenantId: string; account: string }) =>
 
 	useEffect(() => {
 		if (flowNFT.getNFTIDs) {
-			flowNFT.getNFTIDs().then(setData);
+			flowNFT.getNFTIDs(props.tenantId, props.account).then(setData);
 		}
 	}, [flowNFT.getNFTIDs]);
 

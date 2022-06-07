@@ -205,14 +205,8 @@ import Storybook from './assets/storybook-logo.svg';
 </div>
 
 ```jsx
-const getBalanceOf = async (account: string) => {
-	try {
-		const balance = await base.proxyContract?.balanceOf(account);
-		return BigNumber.from(balance).toNumber();
-	} catch (error) {
-		throw error;
-	}
-};
+
+
 ```
 
 <div className="subheading">getBalanceOf.stories.tsx</div>
@@ -224,32 +218,8 @@ const getBalanceOf = async (account: string) => {
 </div>
 
 ```jsx
-import { GetBalanceOf } from './getBalanceOf';
-import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/getBalanceOf.mdx';
 
-export default {
-	title: 'Components/GetBalanceOf',
-	component: GetBalanceOf,
-	parameters: {
-		docs: {
-			page: Doc,
-		},
-	},
-};
 
-const Template = (args) => (
-	<HyperverseProvider>
-		<GetBalanceOf {...args} />
-	</HyperverseProvider>
-);
-
-export const Demo = Template.bind({});
-
-Demo.args = {
-	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
-};
 ```
 
 <div className="body">
@@ -267,7 +237,7 @@ Demo.args = {
 	specific states.
 </div>
 
-<div className="subheading">getBalanceOf.tsx</div>
+<div className="subheading">.tsx</div>
 
 <div className="body">
 	The main component below is what we'll import into the story. It is here we will write the
@@ -275,27 +245,8 @@ Demo.args = {
 </div>
 
 ```jsx
-import { useStakeRewards } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
-import { useEffect, useState } from 'react';
 
-export const GetBalanceOf = ({ ...props }: { account: string }) => {
-	const stakeRewards = useStakeRewards();
-	const { address } = useEvm();
-	const [data, setData] = useState(null);
 
-	useEffect(() => {
-		if (stakeRewards.getBalanceOf) {
-			stakeRewards.getBalanceOf(props.account).then(setData);
-		}
-	}, [stakeRewards.getBalanceOf]);
-
-	const hasBalance = () => {
-		return data ? <p>{data}</p> : <p>Error.</p>;
-	};
-
-	return <div className="balanceOf"> Balance Of: {hasBalance()}</div>;
-};
 ```
 
 <div className="body">
