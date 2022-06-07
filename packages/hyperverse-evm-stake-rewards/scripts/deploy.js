@@ -2,6 +2,9 @@ const hre = require('hardhat');
 const fs = require('fs-extra');
 const erc777Factory = require('../../hyperverse-evm-erc777/artifacts/contracts/ERC777Factory.sol/ERC777Factory.json');
 const erc777 = require('../../hyperverse-evm-erc777/artifacts/contracts/ERC777.sol/ERC777.json');
+const { BigNumber } = require('ethers');
+let unitMultiple = new BigNumber.from(10).pow(new BigNumber.from(18));
+let initialSupply = new BigNumber.from(1000000).mul(unitMultiple);
 require('dotenv').config();
 const main = async () => {
 	// Launches the ERC1820 needed for local development
@@ -10,12 +13,12 @@ const main = async () => {
 	}
 	const [deployer, alice] = await ethers.getSigners();
 	const hyperverseAdmin = deployer.address;
-	const Token = await hre.ethers.getContractFactory('StakeRewardsToken');
-	const token = await Token.deploy(hyperverseAdmin);
+	const StakeRewardsTokenDeployer = await hre.ethers.getContractFactory('StakeRewardsToken');
+	const token = await StakeRewardsTokenDeployer.deploy(hyperverseAdmin);
 	await token.deployed();
 
-	const TokenFactory = await hre.ethers.getContractFactory('StakeRewardsFactory');
-	const tokenFactory = await TokenFactory.deploy(token.address, hyperverseAdmin);
+	const StakeRewardsFactoryDeployer = await hre.ethers.getContractFactory('StakeRewardsFactory');
+	const tokenFactory = await StakeRewardsFactoryDeployer.deploy(token.address, hyperverseAdmin);
 	await tokenFactory.deployed();
 
 	console.log(`[${hre.network.name}] Master Contract deployed to: ${token.address}`);
@@ -34,16 +37,20 @@ const main = async () => {
 	if (process.env.LOCALDEPLOY) {
 		// Get bytecode from ERC777 contract
 
-		const token777 = new hre.ethers.ContractFactory(erc777.abi, erc777.bytecode, deployer);
-		const token = await token777.deploy(hyperverseAdmin);
-		await token.deployed();
-		const TokenFactory777 = await hre.ethers.getContractFactory(
+		const Token777Deployer = new hre.ethers.ContractFactory(
+			erc777.abi,
+			erc777.bytecode,
+			deployer
+		);
+		const token777Instance = await Token777Deployer.deploy(hyperverseAdmin);
+		await token777Instance.deployed();
+		const Token777FactoryDeployer = await hre.ethers.getContractFactory(
 			erc777Factory.abi,
 			erc777Factory.bytecode,
 			deployer
 		);
-		const tokenFactory777Instance = await TokenFactory777.deploy(
-			token.address,
+		const tokenFactory777Instance = await Token777FactoryDeployer.deploy(
+			token777Instance.address,
 			hyperverseAdmin
 		);
 		await tokenFactory777Instance.deployed();
@@ -54,7 +61,7 @@ const main = async () => {
 			'Staking Token',
 			'STK',
 			[],
-			18
+			initialSupply
 		);
 
 		await instanceTnx.wait();
@@ -66,7 +73,7 @@ const main = async () => {
 			'Rewards Token',
 			'RWD',
 			[],
-			18
+			initialSupply
 		);
 		await instanceTnx.wait();
 		const rewardAddress = await tokenFactory777Instance.getProxy(alice.address);
@@ -75,6 +82,10 @@ const main = async () => {
 		console.log('Staking Token Contract deployed to: ', stakingAddress);
 		console.log('Rewards Token Contract deployed to: ', rewardAddress);
 		console.log('Staking Rewards Contract deployed to: ', stakingRewardInstance);
+
+		const stakingToken777Proxy = await Token777Deployer.attach(stakingAddress);
+		await stakingToken777Proxy.authorizeOperator(stakingRewardInstance);
+		await (await Token777Deployer.attach(rewardAddress)).authorizeOperator(stakingRewardInstance);
 	}
 };
 
