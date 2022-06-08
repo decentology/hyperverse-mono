@@ -1,0 +1,24 @@
+{
+  "extends": "@decentology/config/nextjs.json",
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "**/node_modules"
+  ],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "isolatedModules": true,
+    "paths": {
+      "@rainbow-me/rainbowkit": ["../../node_modules/@rainbow-me/rainbowkit"],
+			"@wagmi/core": ["../../node_modules/@wagmi/core"],
+			"@ethersproject/providers": ["../../node_modules/@ethersproject/providers"],
+      "@types/react" : [
+        "../../../node_modules/@types/react"
+        
+      ],
+    }
+  }
+}

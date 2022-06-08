@@ -49,7 +49,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	});
 
 	const wagmiClient = createClient({
-		autoConnect: true,
+		autoConnect: false,
 		connectors,
 		provider,
 	});
