@@ -38,7 +38,7 @@ module.exports = {
 			accounts,
 		},
 		polygon: {
-			url: 'https://rpc-mumbai.maticvigil.com',
+			url: 'https://matic-mumbai.chainstacklabs.com/',
 			accounts,
 		},
 	},
