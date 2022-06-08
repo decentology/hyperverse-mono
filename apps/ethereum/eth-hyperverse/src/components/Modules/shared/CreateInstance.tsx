@@ -29,8 +29,8 @@ export const CreateInstance = ({ createInstanceFn }: ReadFunctionProps) => {
 
 	//@ts-ignore
 	const ARGUMENTS = MODULES[moduleDefault].args 
-	const functionName = 'Create Instance'
-	const description = `Create a new instance of the ${module} smart module.`
+	const functionName = 'Create Tenant'
+	const description = `Create your own tenant of the ${module} smart module.`
 	const [test, setTest] = useState({})
 
 

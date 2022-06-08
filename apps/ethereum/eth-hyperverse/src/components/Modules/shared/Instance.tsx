@@ -19,7 +19,7 @@ export const Instance = ({ instance }: { instance: string }) => {
       <Name>
         {/* @ts-ignore */}
         {SmartModules[moduleDefault].title}
-        &nbsp;Instance
+        &nbsp;Tenant Contract
       </Name>
       <Address>
         <p>{instance}</p>

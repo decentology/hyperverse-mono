@@ -46,6 +46,6 @@ const Grid = styled('div', {
   },
 
   '@desktop': {
-    gridTemplateColumns: 'repeat(3, 340px)',
+    gridTemplateColumns: 'repeat(3, 360px)',
   },
 })

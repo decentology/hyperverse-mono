@@ -13,21 +13,23 @@ import { Instance } from './Instance'
 import { Loader } from '../../basics/Loader'
 
 setCDN('https://unpkg.com/shiki/')
-const DEFAULT_LANG = 'typescript'
+const DEFAULT_LANG = 'jsx'
+
+
 const DEFAULT_THEME = 'material-darker'
 const highlighterPromise = getHighlighter({
   theme: DEFAULT_THEME,
-  langs: [DEFAULT_LANG],
+  langs: [DEFAULT_LANG, 'sh'],
 })
 
 type DashboardType = {
   module: string
   instance: string
   isLoading: boolean
-  createInstance: any 
+  createInstance: any
 }
 
-export const Dashboard = ({module,instance, isLoading, createInstance} : DashboardType) => {
+export const Dashboard = ({ module, instance, isLoading, createInstance }: DashboardType) => {
   const { account } = useEthereum()
 
   const dependencies = `yarn add @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${module}`
@@ -50,8 +52,12 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : Dashboa
       ],
     });
 
-`
 
+    <Provider initialState={hyperverse}>
+      // Input your component here
+    </Provider>
+
+`
 
   return (
     <ScrollArea>
@@ -65,7 +71,7 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : Dashboa
             <CenterContainer>Connect Your Wallet</CenterContainer>
           ) : !!instance ? (
             <>
-            {/* <Loader/> */}
+              {/* <Loader/> */}
               <Instance instance={instance} />
               <SubHeader>Get Started</SubHeader>
               <CodeContainer>
@@ -74,14 +80,18 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : Dashboa
                 <h3>Initialize Hyperverse</h3>
                 <Code code={hyperverseInitialize} theme={DEFAULT_THEME} />
               </CodeContainer>
-              <SubHeader>DappStarter</SubHeader>
-              <CodeContainer>
-                <h3>{dappstarter.app}</h3>
-                <Code code={dappstarter.url} theme={DEFAULT_THEME} />
-              </CodeContainer>
+              {dappstarter && (
+                <>
+                  <SubHeader>DappStarter</SubHeader>
+                  <CodeContainer>
+                    <h3>{dappstarter.app}</h3>
+                    <Code code={dappstarter.url} theme={DEFAULT_THEME} lang="sh" />
+                  </CodeContainer>
+                </>
+              )}
             </>
           ) : (
-            <CreateInstance createInstanceFn={createInstance}/>
+            <CreateInstance createInstanceFn={createInstance} />
           )}
         </ViewportStyled>
       )}
@@ -92,14 +102,15 @@ export const Dashboard = ({module,instance, isLoading, createInstance} : Dashboa
   )
 }
 
-function Code({ code, theme }: { code: string; theme: string }) {
+function Code({ code, theme, lang=DEFAULT_LANG }: { code: string; theme: string; lang?:string }) {
   const [innerHtml, setHtml] = React.useState('Loading...')
+
   React.useEffect(() => {
     highlighterPromise.then((highlighter) => {
-      const html = highlighter.codeToHtml(code, DEFAULT_LANG, theme)
+      const html = highlighter.codeToHtml(code, lang, theme)
       setHtml(html)
     })
-  }, [code, theme])
+  }, [code, theme, lang])
   return <div dangerouslySetInnerHTML={{ __html: innerHtml }} />
 }
 
@@ -132,16 +143,13 @@ const CodeContainer = styled('div', {
     borderRadius: 14,
     border: '1px solid #eaeaea',
     marginBottom: 20,
-
   },
 })
-
 
 const SkeletonContainer = styled('div', {
   width: 200,
   height: 520,
 })
-
 
 const CenterContainer = styled('div', {
   width: '100%',
@@ -151,4 +159,3 @@ const CenterContainer = styled('div', {
   alignItems: 'center',
   textAlign: 'center',
 })
-
