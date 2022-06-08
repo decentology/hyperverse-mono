@@ -18,7 +18,7 @@ export const IsOperatorFor = ({ ...props }: { operator: string; tokenHolder: str
 	return (
 		<div className="body">
 			{' '}
-			Operator for: <p>{props.tokenHolder}</p> {operatorExists()}
+			Operator for: <b>{props.tokenHolder}</b> {operatorExists()}
 		</div>
 	);
 };

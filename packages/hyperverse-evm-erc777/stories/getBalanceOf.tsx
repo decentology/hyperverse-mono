@@ -15,5 +15,10 @@ export const GetBalanceOf = ({ ...props }: { account: string }) => {
 		return data ? <p>{data} tokens</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="body"> Balance of <b>{props.account}</b>: {balanceAvailable()}</div>;
+	return (
+		<div className="body">
+			{' '}
+			Balance of <b>{props.account}</b>: {balanceAvailable()}
+		</div>
+	);
 };
