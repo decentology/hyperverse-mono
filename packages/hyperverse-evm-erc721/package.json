@@ -1,11 +1,17 @@
 {
 	"name": "@decentology/hyperverse-evm-erc721",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.es.js",
 	"module": "./distribution/index.es.js",
+	"type": "module" ,
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"scripts": {
 		"test": "hardhat test",
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
@@ -22,7 +28,12 @@
 		"build-storybook": "build-storybook"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": {
+			".": {
+				"import": "./distribution/index.es.js"
+			}
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
@@ -36,9 +47,9 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1.0.17",
-		"@decentology/hyperverse-evm": "^1.0.17",
-		"@decentology/unstated-next": "^1.1.9",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"@openzeppelin/contracts": "^4.6.0",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",

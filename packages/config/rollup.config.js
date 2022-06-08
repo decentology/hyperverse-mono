@@ -7,7 +7,7 @@ import json from '@rollup/plugin-json';
 import dts from 'rollup-plugin-dts';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import postcss from 'rollup-plugin-postcss'
+import postcss from 'rollup-plugin-postcss';
 
 const dir = 'distribution';
 const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
@@ -20,8 +20,7 @@ export default defineConfig([
 			postcss({
 				modules: true,
 				extract: 'styles.css',
-
-			  }),
+			}),
 			resolve(),
 			commonjs(),
 			autoExternal({
@@ -35,12 +34,14 @@ export default defineConfig([
 			}),
 		],
 		output: [
-			{
-				dir,
-				format: 'cjs',
-				entryFileNames: '[name].js',
-				sourcemap: true,
-			},
+			pkg.type !== 'module'
+				? {
+						dir,
+						format: 'cjs',
+						entryFileNames: '[name].js',
+						sourcemap: true,
+				  }
+				: null,
 			{
 				dir,
 				entryFileNames: '[name].es.js',
@@ -56,8 +57,7 @@ export default defineConfig([
 			postcss({
 				modules: true,
 				extract: 'styles.css',
-
-			  }),
+			}),
 			autoExternal({
 				packagePath: join(process.cwd(), 'package.json'),
 			}),
