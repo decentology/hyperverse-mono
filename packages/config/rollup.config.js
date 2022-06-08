@@ -34,7 +34,7 @@ export default defineConfig([
 			}),
 		],
 		output: [
-			pkg.type !== 'module'
+			!pkg.main.endsWith('.es.js')
 				? {
 						dir,
 						format: 'cjs',

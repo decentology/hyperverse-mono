@@ -1,11 +1,10 @@
 {
 	"name": "@decentology/hyperverse-evm-erc721",
-	"version": "1.0.9",
+	"version": "1.0.10",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"main": "./distribution/index.es.js",
 	"module": "./distribution/index.es.js",
-	"type": "module" ,
 	"license": "MIT",
 	"exports": {
 		".": {
