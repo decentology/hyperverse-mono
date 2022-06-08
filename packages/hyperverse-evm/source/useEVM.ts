@@ -20,9 +20,13 @@ function EvmState() {
 	let { data: signer } = useSigner();
 
 	useEffect(() => {
+
 		signer?.provider?.getNetwork().then((n: { chainId: number | undefined }) => {
 			n.chainId === network.chainId ? setAllow(true) : setAllow(false);
+			
 		});
+		console.log('evm',signer, 'allow:' , allow, 	signer?.provider?.getNetwork());
+
 	}, [signer?.provider]);
 
 	useEffect(() => {

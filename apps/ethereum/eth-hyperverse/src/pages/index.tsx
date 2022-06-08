@@ -12,9 +12,7 @@ export default function Home() {
 			</Head>
 			<main>
 			<Nav />
-			<Playground />
-
-				{/* <Modules/> */}
+				<Modules/>
 			</main>
 		</>
 	);
