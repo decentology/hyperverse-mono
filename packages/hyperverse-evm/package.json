@@ -9,7 +9,7 @@
 	"type": "module",
 	"source": "./source/index.ts",
 	"main:src": "./source/index.ts",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.es.js",
 	"module": "./distribution/index.es.js",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
@@ -29,7 +29,6 @@
 		"access": "public",
 		"exports": {
 			".": {
-				"require": "./distribution/index.js",
 				"import": "./distribution/index.es.js"
 			}
 		}
@@ -42,9 +41,9 @@
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
 		"@ethersproject/providers": "^5.6.4",
-		"@rainbow-me/rainbowkit": "^0.1.0",
+		"@rainbow-me/rainbowkit": "^0.2.3",
 		"ethers": "^5.6.5",
-		"wagmi": "^0.3.3"
+		"wagmi": "^0.4.10"
 	},
 	"devDependencies": {
 		"@decentology/config": "workspace:^",

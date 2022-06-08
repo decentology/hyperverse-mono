@@ -16,6 +16,10 @@ const input = pkg.source;
 export default defineConfig([
 	{
 		input,
+		external: {
+			react: 'React',
+			'react-dom': 'ReactDOM',
+		},
 		plugins: [
 			postcss({
 				modules: true,
@@ -47,6 +51,10 @@ export default defineConfig([
 				entryFileNames: '[name].es.js',
 				format: 'es',
 				sourcemap: true,
+				globals: {
+					react: 'React',
+					'react-dom': 'ReactDOM',
+				},
 			},
 		],
 	},
