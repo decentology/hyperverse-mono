@@ -12,7 +12,6 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [erc721Library, setERC721Library] = useState<ERC721LibraryType>();
 
 	useEffect(() => {
-		console.log('sign', signer);
 		const lib = ERC721Library(hyperverse, signer || readOnlyProvider).then(setERC721Library).catch(x => {
 			// Ignoring stale library instance
 		});

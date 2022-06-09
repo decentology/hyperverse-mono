@@ -24,7 +24,7 @@ export const PlaygroundTab = () => {
       <ResourceItem>
         <Link href={LINKS.Github}>
           <a target="_blank" rel="noreferrer">
-          GitGub
+          GitHub
           </a>
         </Link>
       </ResourceItem>
@@ -45,7 +45,7 @@ export const PlaygroundTab = () => {
       <ResourceItem>
         <Link href={LINKS.Paradigm}>
           <a target="_blank" rel="noreferrer">
-            Rinkeby Faucet
+            Get Rinkeby
           </a>
         </Link>
       </ResourceItem>

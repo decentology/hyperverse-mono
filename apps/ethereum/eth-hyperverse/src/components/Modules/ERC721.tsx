@@ -1,6 +1,6 @@
 import { Dashboard } from './shared/Dashboard'
 import { Content, Root as Tabs } from '@radix-ui/react-tabs'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ModuleContainer, Header, PanelTrigger, Heading, ContentGrid, ModuleTabs } from './shared/ModuleStyles'
 import { useERC721 } from '@decentology/hyperverse-evm-erc721'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
@@ -12,11 +12,16 @@ export const ERC721 = () => {
 
   const { account } = useEthereum()
   const erc721 = useERC721()
-  const { data: instance, isLoading } = useQuery('instance', () => erc721.getProxy!(account), {
+  const { data: instance, isLoading, refetch } = useQuery('instance', () => erc721.getProxy!(account), {
     enabled: !!erc721.factoryContract && !!account,
   })
-  const { mutate } = useMutation('createTokenInstance', erc721.createInstance)
-
+  const { mutate, isLoading: txnLoading, isSuccess } = useMutation('createTokenInstance', erc721.createInstance)
+  
+  useEffect(() => {
+    if (isSuccess) {
+      refetch()
+    }
+  }, [isSuccess, refetch])
   return (
     <ModuleContainer>
       <Tabs
@@ -34,7 +39,14 @@ export const ERC721 = () => {
           </PanelTrigger> */}
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
-          <Dashboard key="erc721" module="erc721" instance={instance} isLoading={isLoading} createInstance={mutate} />
+          <Dashboard
+            key="erc721"
+            module="erc721"
+            instance={instance}
+            isLoading={isLoading}
+            createInstance={mutate}
+            txnLoading={txnLoading}
+          />
         </Content>
         {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />

@@ -51,7 +51,9 @@ const globalStyles = globalCss({
   },
 })
 
+
 const queryClient = new QueryClient()
+
 function MyApp({ Component, pageProps }: AppProps) {
   globalStyles()
   const hyperverse = initialize({

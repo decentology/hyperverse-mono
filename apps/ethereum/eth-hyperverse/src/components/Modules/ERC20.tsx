@@ -1,5 +1,5 @@
 import { Root as Tabs, Content } from '@radix-ui/react-tabs'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ModuleContainer, Header, PanelTrigger, Heading, ModuleTabs } from './shared/ModuleStyles'
 import { Dashboard } from './shared/Dashboard'
 import { useERC20 } from '@decentology/hyperverse-evm-erc20'
@@ -11,12 +11,16 @@ export const ERC20 = () => {
   const { account } = useEthereum()
 
   const erc20 = useERC20()
-  const { data: instance, isLoading } = useQuery('instanceERC20', () => erc20.getProxy!(account), {
+  const { data: instance, isLoading, refetch } = useQuery('instanceERC20', () => erc20.getProxy!(account), {
     enabled: !!erc20.factoryContract && !!account,
   })
-
-
-  const { mutate } = useMutation('createTokenInstance', erc20.createInstance)
+  const { mutate, isLoading: txnLoading, isSuccess } = useMutation('createTokenInstance', erc20.createInstance)
+  
+  useEffect(() => {
+    if (isSuccess) {
+      refetch()
+    }
+  }, [isSuccess, refetch])
 
   return (
     <ModuleContainer>
@@ -30,12 +34,17 @@ export const ERC20 = () => {
           <PanelTrigger active={activeTab === ModuleTabs.DASHBOARD} value={ModuleTabs.DASHBOARD}>
             <Heading>Dashboard</Heading>
           </PanelTrigger>
- 
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
-          <Dashboard key="erc20" module="erc20" instance={instance} isLoading={isLoading} createInstance={mutate} />
+          <Dashboard
+            key="erc20"
+            module="erc20"
+            instance={instance}
+            isLoading={isLoading}
+            createInstance={mutate}
+            txnLoading={txnLoading}
+          />
         </Content>
-
       </Tabs>
     </ModuleContainer>
   )
