@@ -40,8 +40,8 @@ export const CreateInstance = ({ createInstanceFn, txnLoading }: ReadFunctionPro
 	console.log(txnLoading);
   const createNewInstance = async () => {
     try {
-      //@ts-ignore
-      const orderedArgs = Object.assign(
+		const orderedArgs = Object.assign(
+		  //@ts-ignore
         ...Object.keys(ARGUMENTS).map((x) => {
           //@ts-ignore
           return { [x]: test[x] }
