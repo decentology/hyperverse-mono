@@ -37,7 +37,6 @@
 	"dependencies": {
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/hyperverse-evm": "workspace:^",
-		"@decentology/hyperverse-evm-whitelist": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
 		"@openzeppelin/contracts": "^4.4.2",
 		"dotenv": "^16.0.0",
