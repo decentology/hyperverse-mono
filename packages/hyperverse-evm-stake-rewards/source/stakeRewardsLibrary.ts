@@ -47,7 +47,7 @@ export async function StakeRewardsLibraryInternal(
 	const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await base.proxyContract?.balanceOf(account);
-			return BigNumber.from(balance).toNumber();
+			return balance ? BigNumber.from(balance).toNumber() : 0;
 		} catch (error) {
 			throw error;
 		}

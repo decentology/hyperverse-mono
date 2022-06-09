@@ -1,7 +1,7 @@
 import { GetDecimals } from './getDecimals';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getDecimals.mdx';
+import Doc from '../docs/getDecimals.mdx';
 
 export default {
 	title: 'Components/GetDecimals',

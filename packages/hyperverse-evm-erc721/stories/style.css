@@ -29,51 +29,13 @@
 	font-size: 16px;
 	padding: 12px 24px;
 }
-
-.form {
-  font-family: Roboto, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-.form__title {
-  letter-spacing: 1px;
-  font-weight: 600;
-}
-
-.form__status {
-  color: #666;
-  margin-bottom: 20px;
-}
-
-.form__label {
-  font-size: .8em;
-  font-weight: bold;
-}
-
-.form__input {
-   width: 200px;
-  height: 25px;
-  padding-left: 10px;
-  border-radius: 10px;
-  border: 1px solid darkgrey;
-}
-
-.form__button {
-  width: 100px;
-  height: 30px;
-  border-radius: 10px;
-  color: white;
-  background-color: rgb(48, 150, 184);
-  border: 0;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.form__button–submitting {
-  background-color: darkgrey;
-}
-
-.form__button–submitted {
-  background-color: limegreen;
+.body {
+  color: '#999';
+  font-weight: 200;
+  font-size: 18px;
+  letter-spacing: 0px;
+  line-height: 21px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

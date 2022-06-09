@@ -1,10 +1,8 @@
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
 export const GetDefaultOperators = ({ ...props }) => {
 	const erc777 = useERC777();
-	const { address } = useEvm();
 	const [data, setData] = useState();
 
 	useEffect(() => {
@@ -14,12 +12,8 @@ export const GetDefaultOperators = ({ ...props }) => {
 	}, [erc777.getDefaultOperators]);
 
 	const operators = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>Error.</p>
-		);
+		return data ? <p>{data}</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="operators"> Default Operators: {operators()}</div>;
+	return <div className="body"> Default Operators: {operators()}</div>;
 };

@@ -5,6 +5,7 @@ import './style.css';
 export const NewInstance = ({ ...props }) => {
 	const { createInstance } = useStakeRewards();
 	const { address, Connect } = useEvm();
+	console.log('address', address);
 
 	return (
 		<>
@@ -14,7 +15,12 @@ export const NewInstance = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					createInstance({ account: address });
+					createInstance({
+						account: address,
+						stakeToken: 'STK',
+						rewardToken: 'RWD',
+						rewardRate: 20,
+					});
 				}}
 			>
 				New Instance

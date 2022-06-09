@@ -4,7 +4,7 @@ import './style.css';
 
 export const GetStakeToken = ({ ...props }) => {
 	const { getStakeToken } = useStakeRewards();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

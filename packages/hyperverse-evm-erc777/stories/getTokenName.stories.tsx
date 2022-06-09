@@ -1,7 +1,7 @@
 import { GetTokenName } from './getTokenName';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getTokenName.mdx';
+import Doc from '../docs/getTokenName.mdx';
 
 export default {
 	title: 'Components/GetTokenName',

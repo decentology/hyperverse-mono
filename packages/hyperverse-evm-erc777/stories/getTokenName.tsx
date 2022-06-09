@@ -1,10 +1,8 @@
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
 export const GetTokenName = ({ ...props }) => {
 	const erc777 = useERC777();
-	const { address } = useEvm();
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
@@ -14,12 +12,8 @@ export const GetTokenName = ({ ...props }) => {
 	}, [erc777.getTokenName]);
 
 	const tokenName = () => {
-		return data ? (
-			<p>{JSON.stringify(data)}</p>
-		) : (
-			<p>There is no token name.</p>
-		);
+		return data ? <p>{data}</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="tokenName"> Token Name: {tokenName()}</div>;
+	return <div className="body"> Token Name: {tokenName()}</div>;
 };

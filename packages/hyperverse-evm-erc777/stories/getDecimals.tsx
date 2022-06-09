@@ -1,10 +1,8 @@
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
 export const GetDecimals = ({ ...props }) => {
 	const erc777 = useERC777();
-	const { address } = useEvm();
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
@@ -14,12 +12,8 @@ export const GetDecimals = ({ ...props }) => {
 	}, [erc777.getDecimal]);
 
 	const decimalsAvailable = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>Error.</p>
-		);
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{erc777.error}</p>;
 	};
 
-	return <div className="decimals"> Decimal: {decimalsAvailable()}</div>;
+	return <div className="body"> Decimal: {decimalsAvailable()}</div>;
 };

@@ -1,19 +1,19 @@
-import * as PropTypes from 'prop-types';
-import './style.css';
 import { useNFT } from '../source';
+import { useEffect, useState } from 'react';
 
-export const GetNFTID = ({ ...props }) => {
-	const { getNFTIDs } = useNFT();
-    const { nftID } = getNFTIDs();
+export const GetNFTID = ({ ...props }: { tenantId: string; account: string }) => {
+	const flowNFT = useNFT();
+	const [data, setData] = useState(null);
 
-	return (
-        <div className="nftID">
-            NFT ID: <b>{nftID}</b>
-        </div>
-);
-};
+	useEffect(() => {
+		if (flowNFT.getNFTIDs) {
+			flowNFT.getNFTIDs(props.tenantId, props.account).then(setData);
+		}
+	}, [flowNFT.getNFTIDs]);
 
-GetNFTID.propTypes = {
-    tenantId: PropTypes.string.isRequired,
-    account: PropTypes.string.isRequired
+	const availableNFT = () => {
+		return data ? <p>{JSON.stringify(data)}</p> : <p>Error.</p>;
+	};
+
+	return <div className="body"> NFT IDs: {availableNFT()}</div>;
 };

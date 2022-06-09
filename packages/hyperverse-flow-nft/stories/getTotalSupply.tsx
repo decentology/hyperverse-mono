@@ -1,18 +1,19 @@
-import * as PropTypes from 'prop-types';
-import './style.css';
 import { useNFT } from '../source';
+import { useEffect, useState } from 'react';
 
-export const GetTotalSupply = ({ tenantId, ...props }) => {
-	const { getTotalSupply } = useNFT();
-    const { totalSupply } = getTotalSupply(tenantId);
+export const GetTotalSupply = ({ ...props }: { tenantId: string }) => {
+	const flowNFT = useNFT();
+	const [data, setData] = useState(null);
 
-	return (
-        <div className="totalSupply">
-            Total Supply: <b>{totalSupply}</b>
-        </div>
-);
-};
+	useEffect(() => {
+		if (flowNFT.getTotalSupply) {
+			flowNFT.getTotalSupply(props.tenantId).then(setData);
+		}
+	}, [flowNFT.getTotalSupply]);
 
-GetTotalSupply.propTypes = {
-    tenantId: PropTypes.string.isRequired
+	const tokenSupply = () => {
+		return data ? <p>{data} tokens</p> : <p>Error.</p>;
+	};
+
+	return <div className="body"> Total Supply: {tokenSupply()}</div>;
 };

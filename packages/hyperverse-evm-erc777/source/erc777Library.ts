@@ -88,15 +88,6 @@ export async function ERC777LibraryInternal(
 		}
 	};
 
-	const getBalance = async () => {
-		try {
-			const balance = await base.proxyContract?.balance();
-			return BigNumber.from(balance).toNumber();
-		} catch (error) {
-			throw error;
-		}
-	};
-
 	const send = async ({ to, amount, data }: { to: string; amount: number; data: string }) => {
 		try {
 			const transferTxn = await base.proxyContract?.send(
@@ -275,7 +266,6 @@ export async function ERC777LibraryInternal(
 		getDecimal,
 		getGranularity,
 		getTotalSuply,
-		getBalance,
 		getBalanceOf,
 		send,
 		transfer,

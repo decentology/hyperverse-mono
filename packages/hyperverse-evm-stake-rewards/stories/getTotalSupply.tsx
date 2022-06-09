@@ -15,5 +15,5 @@ export const GetTotalSupply = ({ ...props }) => {
 		return data ? <p>{data}</p> : <p>Error.</p>;
 	};
 
-	return <div className="totalSupply"> Total Supply: {hasTokenSupply()}</div>;
+	return <div className="body"> Total Supply: {hasTokenSupply()}</div>;
 };

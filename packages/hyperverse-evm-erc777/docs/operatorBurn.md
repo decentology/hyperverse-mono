@@ -1,7 +1,6 @@
-
 # Operator Burn
 
-<p> The `operatorBurn` function from `useERC777` allows an operator to remove a token from circulation. </p>
+<p> The `operatorBurn` function from `useERC777` allows an operator to remove an amount of tokens from the total supply.. </p>
 
 ---
 
@@ -9,43 +8,102 @@
 
 ### operatorBurn
 
-<p> The `operatorBurn` function takes in a target account, the amount of tokens to remove, and the operator's data. </p>
+<p> The `operatorBurn` function takes in an operator's address, the amount of tokens to burn, and the operator's data. </p>
 
 ```jsx
-	const operatorBurn = useCallback(
-		async (account: string, value: number, data: string, operatorData: string) => {
-			try {
-				const burn = await proxyContract?.operatorBurn(
-					account,
-					value,
-					ethers.utils.formatBytes32String(data),
-					ethers.utils.formatBytes32String(operatorData)
-				);
-				return burn.wait();
-			} catch (err) {
-				throw err;
-			}
-		},
-		[address]
-	);
+	const operatorBurn = async ({
+		account,
+		amount,
+		data,
+		operatorData,
+	}: {
+		account: string;
+		amount: number;
+		data: string;
+		operatorData: string;
+	}) => {
+		try {
+			const operatorBurnTxn = await base.proxyContract?.operatorBurn(
+				account,
+				amount,
+				ethers.utils.formatBytes32String(data),
+				ethers.utils.formatBytes32String(operatorData)
+			);
+			return operatorBurnTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
 ```
 
 ### Stories
 
 ```jsx
+import { OperatorBurn } from './operatorBurn';
+import { HyperverseProvider } from './utils/Provider';
+import React from 'react';
+import Doc from '../docs/operatorBurn.mdx';
 
+export default {
+	title: 'Components/OperatorBurn',
+	component: OperatorBurn,
+	parameters: {
+		docs: {
+			page: Doc,
+		},
+	},
+};
+
+const Template = (args) => (
+	<HyperverseProvider>
+		<OperatorBurn {...args} />
+	</HyperverseProvider>
+);
+
+export const Demo = Template.bind({});
+
+Demo.args = {
+	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	amount: 25,
+	data: '',
+	operatorData: '',
+};
 ```
 
 ### Main UI Component
 
 ```jsx
+import { useERC777 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
+export const OperatorBurn = ({
+	...props
+}: {
+	account: string,
+	amount: number,
+	data: string,
+	operatorData: string,
+}) => {
+	const { operatorBurn } = useERC777();
+	const { Connect } = useEvm();
+
+	return (
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					operatorBurn(props);
+				}}
+			>
+				Operator Burn
+			</button>
+		</>
+	);
+};
 ```
 
-### Args
-
-```jsx
-
-```
-
-For more information about our modules please visit: [**Hyperverse Docs**](https://docs.hyperverse.dev)
+For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

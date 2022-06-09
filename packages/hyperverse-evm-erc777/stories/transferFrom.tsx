@@ -4,7 +4,7 @@ import './style.css';
 
 export const TransferFrom = ({ ...props }: { from: string; to: string; amount: number }) => {
 	const { transferFrom } = useERC777();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

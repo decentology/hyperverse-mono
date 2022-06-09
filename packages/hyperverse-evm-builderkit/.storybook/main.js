@@ -3,7 +3,7 @@ module.exports = {
 		builder: 'webpack5'
 	},
 	stories: [
-		// "../stories/**/*.stories.mdx",
+		"../stories/**/*.stories.mdx",
 		'../stories/**/*.stories.@(js|jsx|ts|tsx)',
 	],
 	addons: [
