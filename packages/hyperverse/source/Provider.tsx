@@ -1,4 +1,4 @@
-import { createElement, FC, useEffect, useState } from 'react';
+import { createElement as createElementLocal, FC, useEffect, useState } from 'react';
 import { Hyperverse, HyperverseConfig } from './types';
 import { HyperverseContainer } from './useHyperverse';
 import { Provider as IPFSProvider } from '@decentology/hyperverse-storage-ipfs';
@@ -15,7 +15,7 @@ export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, ini
 	}, [initialState.blockchain]);
 	if (initialState.blockchain && !initialState.options?.disableProviderAutoInit) {
 		for (const module of initialState.modules.reverse()) {
-			children = createElement(
+			children = createElementLocal(
 				module.bundle.Provider,
 				{
 					tenantId: module.tenantId,
