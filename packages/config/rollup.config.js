@@ -52,13 +52,14 @@ export default defineConfig([
 				sourcemap: true,
 				globals,
 			},
-			{
-				dir,
-				entryFileNames: '[name].umd.js',
-				format: 'umd',
-				name: pkg.name,
-				sourcemap: true,
-			},
+			// TODO: Will work on creating UMD builds. Not ready for initial release
+			// {
+			// 	dir,
+			// 	entryFileNames: '[name].umd.js',
+			// 	format: 'umd',
+			// 	name: pkg.name,
+			// 	sourcemap: true,
+			// },
 		],
 	},
 	{
