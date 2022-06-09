@@ -12,14 +12,15 @@ import postcss from 'rollup-plugin-postcss';
 const dir = 'distribution';
 const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
 const input = pkg.source;
+const globals = {
+	react: 'React',
+	'react-dom': 'ReactDOM',
+};
 
 export default defineConfig([
 	{
 		input,
-		external: {
-			react: 'React',
-			'react-dom': 'ReactDOM',
-		},
+		external: ['react', 'react-dom'],
 		plugins: [
 			postcss({
 				modules: true,
@@ -33,28 +34,32 @@ export default defineConfig([
 			json(),
 			esbuild({
 				sourceMap: true,
-				jsxFactory: 'React.createElement',
-				jsxFragment: 'React.Fragment',
+				loaders: 'tsx',
+				jsxFactory: 'createElement',
+				banner:  "import { createElement } from 'react';\n",
 			}),
 		],
 		output: [
-			!pkg.main.endsWith('.es.js')
-				? {
-						dir,
-						format: 'cjs',
-						entryFileNames: '[name].js',
-						sourcemap: true,
-				  }
-				: null,
+			{
+				dir,
+				entryFileNames: '[name].js',
+				format: 'cjs',
+				sourcemap: true,
+				globals,
+			},
 			{
 				dir,
 				entryFileNames: '[name].es.js',
 				format: 'es',
 				sourcemap: true,
-				globals: {
-					react: 'React',
-					'react-dom': 'ReactDOM',
-				},
+				globals,
+			},
+			{
+				dir,
+				entryFileNames: '[name].umd.js',
+				format: 'umd',
+				name: pkg.name,
+				sourcemap: true,
 			},
 		],
 	},

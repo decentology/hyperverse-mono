@@ -27,11 +27,7 @@
 	],
 	"publishConfig": {
 		"access": "public",
-		"exports": {
-			".": {
-				"import": "./distribution/index.es.js"
-			}
-		}
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",

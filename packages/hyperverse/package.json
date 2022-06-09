@@ -8,7 +8,7 @@
 	},
 	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.umd.js",
 	"main:src": "./source/index.ts",
 	"module": "./distribution/index.es.js",
 	"types": "./distribution/index.d.ts",
@@ -25,7 +25,7 @@
 		"access": "public",
 		"exports": {
 			".": {
-				"require": "./distribution/index.js",
+				"require": "./distribution/index.umd.js",
 				"import": "./distribution/index.es.js"
 			}
 		}
