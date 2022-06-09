@@ -9,9 +9,7 @@
 	},
 	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.es.js",
-	"main:src": "./source/index.ts",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
 	"scripts": {
@@ -26,10 +24,7 @@
 	"publishConfig": {
 		"access": "public",
 		"exports": {
-			".": {
-				"import": "./distribution/index.es.js"
-			},
-		"./styles.css": "./distribution/styles.css"
+			"./styles.css": "./distribution/styles.css"
 		}
 	},
 	"peerDependencies": {

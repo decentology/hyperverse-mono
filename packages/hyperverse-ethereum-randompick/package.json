@@ -3,8 +3,7 @@
 	"version": "1.0.18",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"module": "./distribution/index.es.js",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.mjs",
 	"license": "MIT",
 	"exports": {
 		".": {
@@ -23,12 +22,7 @@
 	},
 	"publishConfig": {
 		"access": "public",
-		"exports": {
-			".": {
-				"require": "./distribution/index.js",
-				"import": "./distribution/index.es.js"
-			}
-		}
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",

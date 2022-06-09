@@ -13,7 +13,6 @@
 		"eslint-config-prettier": "^8.3.0"
 	},
 	"scripts": {
-		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},
 	"devDependencies": {

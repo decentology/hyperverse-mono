@@ -1,9 +1,14 @@
 {
 	"name": "@decentology/hyperverse-evm-erc20",
-	"version": "1.0.8",
+	"version": "1.0.9",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.mjs",
 	"license": "MIT",
 	"scripts": {
 		"test": "hardhat test",
@@ -20,7 +25,8 @@
 		"build-storybook": "build-storybook"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",

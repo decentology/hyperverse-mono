@@ -8,9 +8,7 @@
 	},
 	"type": "module",
 	"source": "./source/index.ts",
-	"main:src": "./source/index.ts",
-	"main": "./distribution/index.es.js",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
 	"engines": {

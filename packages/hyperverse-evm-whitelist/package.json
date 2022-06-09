@@ -3,9 +3,13 @@
 	"version": "2.0.5",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"module": "./distribution/index.es.js",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.mjs",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"scripts": {
 		"compile": "hardhat compile",
 		"test": "hardhat test",
@@ -21,7 +25,8 @@
 		"build-storybook": "build-storybook"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",

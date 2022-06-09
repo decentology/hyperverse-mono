@@ -2,15 +2,12 @@
 	"name": "@decentology/hyperverse",
 	"exports": {
 		".": {
-			"require": "./index.ts",
 			"import": "./index.ts"
 		}
 	},
 	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.umd.js",
-	"main:src": "./source/index.ts",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"version": "1.0.17",
 	"license": "MIT",
@@ -23,12 +20,7 @@
 	},
 	"publishConfig": {
 		"access": "public",
-		"exports": {
-			".": {
-				"require": "./distribution/index.umd.js",
-				"import": "./distribution/index.es.js"
-			}
-		}
+		"exports": null
 	},
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
