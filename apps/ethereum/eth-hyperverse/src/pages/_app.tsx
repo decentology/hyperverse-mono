@@ -6,10 +6,6 @@ import { globalCss } from '../../stitches.config'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { WagmiConfig, chain, configureChains, createClient } from 'wagmi'
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import { publicProvider } from 'wagmi/providers/public'
-import { infuraProvider } from 'wagmi/providers/infura'
 
 import type { AppProps } from 'next/app'
 
@@ -56,24 +52,6 @@ const globalStyles = globalCss({
 })
 
 
-const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [
-    infuraProvider({ infuraId: 'fb9f66bab7574d70b281f62e19c27d49' }), publicProvider()
-
-  ]
-);
-
-const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  chains
-});
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider
-})
 const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -95,14 +73,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains}> */}
-          <Provider initialState={hyperverse}>
-            <ToastContainer />
-            <Component {...pageProps} />
-          </Provider>
-        {/* </RainbowKitProvider> */}
-      {/* </WagmiConfig> */}
+      <Provider initialState={hyperverse}>
+        <ToastContainer />
+        <Component {...pageProps} />
+      </Provider>
     </QueryClientProvider>
   )
 }

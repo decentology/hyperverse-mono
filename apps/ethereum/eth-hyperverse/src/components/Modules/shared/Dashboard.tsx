@@ -27,10 +27,12 @@ type DashboardType = {
   instance: string
   isLoading: boolean
   createInstance: any
+  txnLoading: boolean
 }
 
-export const Dashboard = ({ module, instance, isLoading, createInstance }: DashboardType) => {
+export const Dashboard = ({ module, instance, isLoading, createInstance, txnLoading }: DashboardType) => {
   const { account } = useEthereum()
+	console.log(txnLoading);
 
   const dependencies = `yarn add @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${module}`
   //@ts-ignore
@@ -91,7 +93,7 @@ export const Dashboard = ({ module, instance, isLoading, createInstance }: Dashb
               )}
             </>
           ) : (
-            <CreateInstance createInstanceFn={createInstance} />
+            <CreateInstance createInstanceFn={createInstance} txnLoading={txnLoading}/>
           )}
         </ViewportStyled>
       )}
@@ -151,7 +153,7 @@ const SkeletonContainer = styled('div', {
   height: 520,
 })
 
-const CenterContainer = styled('div', {
+export const CenterContainer = styled('div', {
   width: '100%',
   height: 500,
   display: 'flex',
