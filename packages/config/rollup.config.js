@@ -5,8 +5,6 @@ import autoExternal from 'rollup-plugin-auto-external';
 import esbuild from 'rollup-plugin-esbuild';
 import json from '@rollup/plugin-json';
 import dts from 'rollup-plugin-dts';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 
 const dir = 'distribution';
@@ -26,8 +24,6 @@ export default defineConfig([
 				modules: true,
 				extract: 'styles.css',
 			}),
-			resolve(),
-			commonjs(),
 			autoExternal({
 				packagePath: join(process.cwd(), 'package.json'),
 			}),
@@ -36,20 +32,22 @@ export default defineConfig([
 				sourceMap: true,
 				loaders: 'tsx',
 				jsxFactory: 'createElement',
-				banner:  "import { createElement } from 'react';\n",
+				banner: "import { createElement } from 'react';\n",
 			}),
 		],
 		output: [
+			!pkg.main.endsWith('.mjs')
+				? {
+						dir,
+						entryFileNames: '[name].js',
+						format: 'cjs',
+						sourcemap: true,
+						globals,
+				  }
+				: null,
 			{
 				dir,
-				entryFileNames: '[name].js',
-				format: 'cjs',
-				sourcemap: true,
-				globals,
-			},
-			{
-				dir,
-				entryFileNames: '[name].es.js',
+				entryFileNames: '[name].mjs',
 				format: 'es',
 				sourcemap: true,
 				globals,
