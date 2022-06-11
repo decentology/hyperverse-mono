@@ -1,30 +1,24 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
-import './button.css';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
-export const Transfer = ({ ...props }) => {
-	const { Transfer } = useERC777();
-	const { address } = useEvm();
-	const { mutate } = Transfer();
+export const Transfer = ({ ...props }: { to: string; amount: number }) => {
+	const { transfer } = useERC777();
+	const { Connect } = useEvm();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				mutate({ to: '', value: 10});
-			}}
-		>
-		Transfer
-		</button>
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					transfer(props);
+				}}
+			>
+				Transfer
+			</button>
+		</>
 	);
 };
-
-Transfer.propTypes = {
-	to: PropTypes.string.isRequired,
-	value: PropTypes.number.isRequired
-};
-
-Transfer.defaultProps = {};

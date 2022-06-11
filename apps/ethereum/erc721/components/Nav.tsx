@@ -5,22 +5,9 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { styled } from '../stitches.config';
 
-const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
-	let shortendHash;
-	if (postCharLength) {
-		shortendHash =
-			hash.slice(0, charLength) +
-			'...' +
-			hash.slice(hash.length - postCharLength, hash.length);
-	} else {
-		shortendHash = hash.slice(0, charLength);
-	}
-	return shortendHash;
-};
 
 const Nav = () => {
-	const { address, disconnect, connect, error } = useEthereum();
-
+	const { Connect, error } = useEthereum();
 	useEffect(() => {
 		if (error) {
 			toast.warn(error.message, {
@@ -35,22 +22,14 @@ const Nav = () => {
 					<Image src="/Hyperverse.png" width={250} height={47} />
 				</a>
 			</Link>
-			<NavItems >
+			<NavItems>
 				<Link href="https://docs.hyperverse.dev/" passHref>
 					<About target="_blank" rel="noreferrer">
 						About
 					</About>
 				</Link>
 
-				{!address ? (
-					<ConnectButton  onClick={connect}>
-						Connect Wallet
-					</ConnectButton>
-				) : (
-					<ConnectButton color='green'  onClick={disconnect}>
-						<span>{shortenHash(address, 5, 5)}</span>
-					</ConnectButton>
-				)}
+				<Connect accountStatus={'full'} />
 			</NavItems>
 		</Header>
 	);
@@ -63,23 +42,24 @@ const Header = styled('nav', {
 	flexDirection: 'row',
 	justifyContent: 'space-between',
 	alignItems: 'center',
-})
+});
 
 const NavItems = styled('div', {
 	display: 'flex',
 	alignItems: 'center',
-	'& button' : {
+	'& button': {
 		margin: '0 0 0 20px',
-	}
-})
+	},
+});
 
 const About = styled('a', {
 	color: 'white',
 	textDecoration: 'none',
+	marginRight: 10,
 	'&:hover': {
 		opacity: 0.8,
 	},
-})
+});
 const ConnectButton = styled('button', {
 	minWidth: '130px',
 	backgroundColor: '$blue200',
@@ -89,10 +69,9 @@ const ConnectButton = styled('button', {
 	borderRadius: '90px',
 	cursor: 'pointer',
 
-	
 	variants: {
 		color: {
-			green : {
+			green: {
 				backgroundColor: '$green200',
 				color: 'white',
 				'&:hover span': {
@@ -101,8 +80,8 @@ const ConnectButton = styled('button', {
 				'&:hover:before': {
 					content: '"disconnect" !important',
 					opacity: 0.9,
-				}
-			}
-		}
-	}
-})
+				},
+			},
+		},
+	},
+});

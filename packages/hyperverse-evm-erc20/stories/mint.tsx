@@ -1,29 +1,28 @@
 import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
 import './button.css';
 
 export const Mint = ({ ...props }) => {
-	const { Mint } = useERC20();
-	const { address } = useEvm();
-	const { mutate } = Mint();
+	const { mint } = useERC20();
+	const { address, Connect } = useEvm();
 
-	return (
+	return address ? (
 		<button
 			type="button"
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				mutate({ amount: 3 });
+				mint({});
 			}}
 		>
-			Mint
+			Mint NFT
 		</button>
+	) : (
+		<Connect />
 	);
 };
 
-Mint.propTypes = {
-	amount: PropTypes.number.isRequired,
-};
+Mint.propTypes = {};
 
 Mint.defaultProps = {};

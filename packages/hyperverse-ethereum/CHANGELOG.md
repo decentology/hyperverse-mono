@@ -1,5 +1,24 @@
 # @decentology/hyperverse-ethereum
 
+## 1.0.17
+
+### Patch Changes
+
+-   Update deployment for ESM modules.
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.17
+    -   @decentology/hyperverse-evm@1.0.17
+
+## 1.0.15
+
+### Patch Changes
+
+-   Milestone version
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.15
+    -   @decentology/hyperverse-evm@1.0.15
+    -   @decentology/unstated-next@1.1.9
+
 ## 1.0.14
 
 ### Patch Changes

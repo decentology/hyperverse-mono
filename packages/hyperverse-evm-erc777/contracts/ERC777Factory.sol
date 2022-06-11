@@ -27,7 +27,6 @@ contract ERC777Factory is CloneFactory {
 
 	address public immutable owner;
 	address public immutable masterContract;
-	address private hyperverseAdmin = 0x62a7aa79a52591Ccc62B71729329A80a666fA50f;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
@@ -45,7 +44,7 @@ contract ERC777Factory is CloneFactory {
 		if (_tenant == address(0)) {
 			revert ZeroAddress();
 		}
-		if (!(msg.sender == _tenant || msg.sender == hyperverseAdmin)) {
+		if (!(msg.sender == _tenant || msg.sender == owner)) {
 			revert Unauthorized();
 		}
 		_;
@@ -67,11 +66,11 @@ contract ERC777Factory is CloneFactory {
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	function createInstance(
+		address _tenant,
 		string memory _name,
 		string memory _symbol,
 		address[] memory _defaultOperators,
-		uint256 _initialSupply,
-		address _tenant
+		uint256 _initialSupply
 	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
 		ERC777 token = ERC777(createClone(masterContract));
 		//initializing tenant state of clone

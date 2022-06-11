@@ -5,11 +5,11 @@
 			"import": "./index.ts"
 		}
 	},
+	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.js",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.14",
+	"version": "1.0.17",
 	"license": "MIT",
 	"files": [
 		"distribution"
@@ -35,13 +35,13 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse-storage-ipfs": "^1",
-		"@decentology/hyperverse-storage-skynet": "^1",
-		"@decentology/unstated-next": "^1",
+		"@decentology/hyperverse-storage-ipfs": "workspace:^",
+		"@decentology/hyperverse-storage-skynet": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"@swc/helpers": "^0.3.6"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@types/react": "17.0.2",
 		"rimraf": "^3.0.2"
 	}

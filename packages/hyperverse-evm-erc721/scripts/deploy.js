@@ -6,15 +6,14 @@
 const hre = require('hardhat');
 const fs = require('fs-extra');
 const path = require('path');
+const { constants } = require('ethers');
 
 require('dotenv').config();
 async function main() {
-	const hyperverseAdmin = '0x62a7aa79a52591Ccc62B71729329A80a666fA50f';
-
 	const [deployer] = await ethers.getSigners();
+	const hyperverseAdmin = deployer.address;
 	console.log('Deploying contracts with the account:', deployer.address);
 	console.log('Account balance:', (await deployer.getBalance()).toString());
-	// console.log(path.join(__dirname, "../../hyperverse-evm-erc721/artifacts/contracts/NFT.sol/NFT.json"));
 
 	const NFT = await ethers.getContractFactory('ERC721');
 	const nftContract = await NFT.deploy(hyperverseAdmin);
@@ -25,9 +24,7 @@ async function main() {
 	await nftFactoryContract.deployed();
 
 	console.log(`[${hre.network.name}] NFT Contract deployed to: ${nftContract.address}`);
-	console.log(
-		`[${hre.network.name}] NFT Factory deployed to: ${nftFactoryContract.address}`
-	);
+	console.log(`[${hre.network.name}] NFT Factory deployed to: ${nftFactoryContract.address}`);
 
 	const env = JSON.parse(fs.readFileSync('contracts.json').toString());
 	env[hre.network.name] = env[hre.network.name] || {};
@@ -38,6 +35,23 @@ async function main() {
 
 	// Save contract addresses back to file
 	fs.writeJsonSync('contracts.json', env, { spaces: 2 });
+	if (process.env.LOCALDEPLOY) {
+		let proxyAddress = constants.AddressZero;
+		const instanceTnx = await nftFactoryContract.createInstance(
+			deployer.address,
+			'Test',
+			'TST'
+		);
+		instanceTnx.wait();
+		console.log('Instance Created', instanceTnx.hash);
+		while (proxyAddress === constants.AddressZero) {
+			try {
+				proxyAddress = await nftFactoryContract.getProxy(deployer.address);
+			} catch (error) {
+				proxyAddress = constants.AddressZero;
+			}
+		}
+	}
 }
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
@@ -48,4 +62,4 @@ main()
 		process.exit(1);
 	});
 
-module.exports = { main }
+module.exports = { main };

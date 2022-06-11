@@ -3,11 +3,14 @@
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.4",
+	"version": "1.0.6",
 	"license": "MIT",
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
-		"clean": "rimraf ./distribution"
+		"clean": "rimraf ./distribution",
+		"build:parcel": "parcel build",
+		"storybook": "start-storybook -p 6006",
+		"build-storybook": "build-storybook"
 	},
 	"files": [
 		"distribution"
@@ -26,17 +29,22 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/hyperverse-flow": "^1",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-flow": "workspace:^",
 		"@onflow/fcl": "^0.0.78",
 		"@onflow/types": "^0.0.6",
-		"@decentology/unstated-next": "^1.1.8"
+		"@decentology/unstated-next": "^1.1.9"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@storybook/addon-actions": "^6.4.22",
+		"@storybook/addon-essentials": "^6.4.22",
+		"@storybook/addon-interactions": "^6.4.22",
+		"@storybook/addon-links": "^6.4.22",
+		"@storybook/react": "^6.4.22",
+		"@storybook/testing-library": "^0.0.11",
+		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.16",
 		"@types/react": "17.0.2",
-
 		"rimraf": "^3.0.2"
 	}
 }

@@ -11,10 +11,6 @@
 		"nest": {
 			"type": "application",
 			"root": "."
-		},
-		"@decentology/hyperverse-evm-tribes": {
-			"type": "library",
-			"root": "../../../hyperverse-evm-tribes"
 		}
 	}
 }

@@ -1,10 +1,10 @@
-import * as PropTypes from 'prop-types';
 import { useNFT } from '../source';
-import './button.css';
+import { useFlow } from '@decentology/hyperverse-flow';
+import './style.css';
 
 export const TransferNFT = ({ ...props }) => {
 	const { transferNFT } = useNFT();
-	const { } = transferNFT();
+	const flowNFT = useFlow();
 
 	return (
 		<button
@@ -12,18 +12,10 @@ export const TransferNFT = ({ ...props }) => {
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-                // TODO
+				transferNFT('0x4ddbaf7fe601ac46', '0xd2a8d169a907bf1f', 1);
 			}}
 		>
 			Transfer NFT
 		</button>
 	);
 };
-
-TransferNFT.propTypes = {
-	tenantId: PropTypes.string.isRequired,
-    recipient: PropTypes.string.isRequired,
-    withdrawID: PropTypes.number.isRequired
-};
-
-TransferNFT.defaultProps = {};

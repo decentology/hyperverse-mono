@@ -1,30 +1,22 @@
-import * as PropTypes from 'prop-types';
-import './button.css';
 import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
 import { MetaDataFormatted } from '../source/types';
-import { Styles } from './formStyles';
+import './style.css';
 
-export const GetAllTribes = ({ tribeOne, tribeTwo, ...props }) => {
+export const GetAllTribes = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState<MetaDataFormatted[] | null>(null);
-	// const [data, setData] = useState(tribeOne);
 
 	useEffect(() => {
 		if (tribes.getAllTribes) {
 			tribes.getAllTribes().then(setData);
-			console.log(data);
 		}
 	}, [tribes.getAllTribes]);
 
 	return (
-		<div className="tribes">
+		<div className="tribeMembers">
 			<div>All Tribes: </div>
 			<pre>{JSON.stringify(data, null, 2)}</pre>
 		</div>
 	);
 };
-
-GetAllTribes.propTypes = {};
-
-GetAllTribes.defaultProps = {};

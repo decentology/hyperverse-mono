@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+// import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import {
 	Box,
 	Item,
@@ -12,20 +12,20 @@ import {
 	Content,
 	Button,
 } from '../../ComponentStyles';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777';
+import { useMutation } from 'react-query';
 
 const Mint = () => {
-	const { address } = useEthereum();
-	const { Mint } = useERC20();
-	const { mutate } = Mint();
+	const { account } = useEthereum();
+	const erc777 = useERC777();
+
+	const { mutate } = useMutation('createInstance', erc777.mint);
+
 	const [amount, setAmount] = useState(0);
 
 	const mint = async () => {
 		try {
-			const instanceData = {
-				amount: amount,
-			};
-
-			mutate(instanceData);
+			mutate(amount);
 		} catch (error) {
 			throw error;
 		}
@@ -38,8 +38,8 @@ const Mint = () => {
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Mint'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Mint'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -50,7 +50,7 @@ const Mint = () => {
 								placeholder="Amount"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={mint}>{!address ? 'Connet Wallet' : 'Mint'}</Button>
+							<Button onClick={mint}>{!account ? 'Connet Wallet' : 'Mint'}</Button>
 						</Content>
 					</Parameters>
 				</Item>

@@ -1,16 +1,24 @@
 import * as PropTypes from 'prop-types';
-import './button.css';
+import './style.css';
 import { useTribes } from '../source';
+import { useState, useEffect } from 'react';
 
-export const GetCurrentTribe = ({ tenantId, accountAddress, ...props }) => {
-    console.log('this is the tenant Id', tenantId)
-    console.log('this is the account address', accountAddress)
+export const GetCurrentTribe = ({ ...props }) => {
 	const { getCurrentTribe } = useTribes();
-    const { allTribes } = getCurrentTribe(tenantId, accountAddress);
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		try {
+			getCurrentTribe(props.tenantId, props.accountAddress).then(setData);
+		} catch (err) {
+			console.log(err);
+		}
+		getCurrentTribe(props.tenantId, props.accountAddress);
+	}, []);
 
 	return (
         <div className="currentTribe">
-            Current Tribe: <b>{allTribes}</b>
+            Current Tribe: <b>{data}</b>
         </div>
 );
 };

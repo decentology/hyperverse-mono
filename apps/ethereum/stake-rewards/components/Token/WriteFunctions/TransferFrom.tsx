@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+// import { useERC20 } from '@decentology/hyperverse-evm-erc20';
 import {
 	Box,
 	Item,
@@ -13,24 +13,26 @@ import {
 	Button,
 	Module,
 } from '../../ComponentStyles';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777';
+import { useMutation } from 'react-query';
 
 const TransferFrom = () => {
-	const { address } = useEthereum();
-	const { TransferFrom } = useERC20();
-	const { mutate } = TransferFrom();
-  const [from, setFrom] = useState('');
+	const { account } = useEthereum();
+	const erc777 = useERC777();
+
+	const { mutate } = useMutation('createInstance', erc777.transferFrom);
+
+	const [from, setFrom] = useState('');
 	const [receiver, setReceiver] = useState('');
 	const [amount, setAmount] = useState(0);
 
 	const createNewInstance = async () => {
 		try {
-			const instanceData = {
-        from: from,
+			mutate({
+				from: from,
 				to: receiver,
-				value: amount,
-			};
-
-			mutate(instanceData);
+				amount: amount,
+			});
 		} catch (error) {
 			throw error;
 		}
@@ -39,24 +41,18 @@ const TransferFrom = () => {
 	return (
 		<Box>
 			<h4>Transfer From</h4>
-			<p>Transfers tokens from one address to another</p>
+			<p>Transfers tokens from one account to another</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Transfer From'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Transfer From'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
-            <Input
-								placeholder="From"
-								onChange={(e) => setFrom(e.target.value)}
-							/>
-							<Input
-								placeholder="To"
-								onChange={(e) => setReceiver(e.target.value)}
-							/>
+							<Input placeholder="From" onChange={(e) => setFrom(e.target.value)} />
+							<Input placeholder="To" onChange={(e) => setReceiver(e.target.value)} />
 							<Input
 								type="number"
 								min="0"
@@ -64,7 +60,7 @@ const TransferFrom = () => {
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
 							<Button onClick={createNewInstance}>
-								{!address ? 'Connet Wallet' : 'Transfer '}
+								{!account ? 'Connet Wallet' : 'Transfer '}
 							</Button>
 						</Content>
 					</Parameters>

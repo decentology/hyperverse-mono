@@ -1,9 +1,14 @@
 {
 	"name": "@decentology/hyperverse-evm-erc20",
-	"version": "1.0.6",
+	"version": "1.0.9",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.mjs",
 	"license": "MIT",
 	"scripts": {
 		"test": "hardhat test",
@@ -20,10 +25,12 @@
 		"build-storybook": "build-storybook"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": null
 	},
 	"peerDependencies": {
-		"react": "^17.0.2"
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
 	},
 	"files": [
 		"distribution",
@@ -33,10 +40,10 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/hyperverse-evm": "^1",
-		"@decentology/hyperverse-ethereum": "^1",
-		"@decentology/unstated-next": "^1",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/hyperverse-ethereum": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"dotenv": "^16.0.0",
 		"ethers": "^5.5.3",
 		"react-use": "^17.3.2",
@@ -44,7 +51,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.8",
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@ethersproject/abstract-provider": "^5.6.0",
 		"@nomiclabs/hardhat-ethers": "^2.0.4",
 		"@nomiclabs/hardhat-waffle": "^2.0.2",
@@ -61,7 +68,6 @@
 		"ethereum-waffle": "^3.4.0",
 		"hardhat": "^2.8.3",
 		"npm-run-all": "^4.1.5",
-
 		"rimraf": "^3.0.2"
 	}
 }

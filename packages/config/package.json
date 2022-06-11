@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/config",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"license": "MIT",
 	"files": [
 		"eslint-preset.js",
@@ -13,7 +13,6 @@
 		"eslint-config-prettier": "^8.3.0"
 	},
 	"scripts": {
-		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
 	},
 	"devDependencies": {
@@ -21,12 +20,15 @@
 		"@rollup/plugin-json": "^4.1.0",
 		"@rollup/plugin-node-resolve": "^13.3.0",
 		"@rollup/plugin-typescript": "^8.3.2",
+		"@types/mdx": "^2.0.2",
+		"parcel": "2.2.1",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.74.1",
 		"rollup-plugin-auto-external": "^2.0.0",
 		"rollup-plugin-dts": "^4.2.1",
 		"rollup-plugin-esbuild": "^4.9.1",
 		"rollup-plugin-flat-dts": "^1.5.0",
+		"rollup-plugin-postcss": "^4.0.2",
 		"rollup-plugin-typescript2": "^0.31.2",
 		"tslib": "^2.4.0"
 	}

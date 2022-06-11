@@ -1,9 +1,11 @@
 import { initialize, Provider, Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as Token from '@decentology/hyperverse-evm-erc20';
+import * as ERC777 from '@decentology/hyperverse-evm-erc777';
 import * as StakeRewards from '@decentology/hyperverse-evm-stake-rewards';
-import { globalCss } from '../stitches.config';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { ToastContainer } from 'react-toastify';
+
+import { globalCss } from '../stitches.config';
 import 'react-toastify/dist/ReactToastify.css';
 
 import type { AppProps } from 'next/app';
@@ -27,28 +29,32 @@ const globalStyles = globalCss({
 	},
 });
 
-const hyperverse = initialize({
-	blockchain: Ethereum,
-	network: Network.Testnet,
-	modules: [
-		{
-			bundle: Token,
-			tenantId: '0xb872D781f558DE58bCa5F66929db52A8b5EA6380',
-		},
-		{
-			bundle: StakeRewards,
-			tenantId: '0xb872D781f558DE58bCa5F66929db52A8b5EA6380',
-		},
-	],
-});
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
+	const hyperverse = initialize({
+		blockchain: Ethereum,
+		network: Network.Testnet,
+		modules: [
+			{
+				bundle: ERC777,
+				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
+			},
+			{
+				bundle: StakeRewards,
+				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
+			},
+		],
+	});
+
 	globalStyles();
 	return (
-		<Provider initialState={hyperverse}>
-			<ToastContainer />
-			<Component {...pageProps} />
-		</Provider>
+		<QueryClientProvider client={queryClient}>
+			<Provider initialState={hyperverse}>
+				<ToastContainer />
+				<Component {...pageProps} />
+			</Provider>
+		</QueryClientProvider>
 	);
 }
 

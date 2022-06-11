@@ -25,35 +25,33 @@ export async function EvmLibraryBase(
 	let factoryContract = new ethers.Contract(
 		factoryAddress!,
 		factoryABI,
-		providerOrSigner,
+		providerOrSigner
 	) as Contract;
+
 	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === moduleName)?.tenantId;
 	if (!tenantId) {
 		throw new Error('Tenant ID is required');
 	}
-
+	
 	const setProvider = (provider: ethers.providers.Provider) => {
-		factoryContract = new ethers.Contract(
-			factoryAddress!,
-			factoryABI,
-			provider
-		) as Contract;
+		factoryContract = new ethers.Contract(factoryAddress!, factoryABI, provider) as Contract;
 		if (proxyContract) {
 			proxyContract = new ethers.Contract(
 				proxyContract.address,
 				contractABI,
 				provider
-			) as Contract;
-		}
-	}
+				) as Contract;
+			}
+		};
 
 	let proxyAddress: string | null = null;
 	let proxyContract: Contract | undefined;
 
 	try {
 		proxyAddress = await factoryContract.getProxy(tenantId);
-	} catch (error) {
-		error = new Error(`Failed to get proxy address for tenant ${tenantId}`);
+	} catch (e) {
+		const err = new Error(`Failed to get proxy address for tenant ${tenantId}`);
+	 	error = err;
 	}
 
 	if (proxyAddress === ethers.constants.AddressZero) {
@@ -65,8 +63,8 @@ export async function EvmLibraryBase(
 			proxyAddress,
 			contractABI,
 			signer || providerOrSigner
-		) as Contract
-	};
+		) as Contract;
+	}
 
 	const checkInstance = async (account: any) => {
 		try {
@@ -83,14 +81,23 @@ export async function EvmLibraryBase(
 			const instance = await factoryContract.getProxy(account);
 			return instance;
 		} catch (err) {
+			if((err as any).errorName === 'InstanceDoesNotExist') {
+				return;
+			}
 			factoryErrors(err);
 			throw err;
 		}
 	};
 
-	const createInstance = async ({account, ...args }:{account: string, [key: string] : any}) => {
+	const createInstance = async ({
+		account,
+		...args
+	}: {
+		account: string;
+		[key: string]: any;
+	}) => {
 		try {
-			const createTxn = await factoryContract.createInstance(account, args);
+			const createTxn = await factoryContract.createInstance(account, ...Object.values(args));
 			return createTxn.wait();
 		} catch (err) {
 			factoryErrors(err);
@@ -99,6 +106,11 @@ export async function EvmLibraryBase(
 	};
 
 	const factoryErrors = (err: any) => {
+		console.error(err);
+		if(err.errorName === 'InstanceDoesNotExist') {
+			return;
+		}
+		
 		if (!factoryContract?.signer) {
 			throw new Error('Please connect your wallet!');
 		}
@@ -129,7 +141,6 @@ export async function EvmLibraryBase(
 		getTotalTenants,
 		factoryContract,
 		proxyContract,
-		proxyAddress
-
-	}
+		proxyAddress,
+	};
 }

@@ -1,18 +1,19 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
+import { useEffect, useState } from 'react';
 
 export const GetTokenName = ({ ...props }) => {
-	const { TokenName } = useERC777();
-	const { data: tokenName } = TokenName();
+	const erc777 = useERC777();
+	const [data, setData] = useState(null);
 
-	return (
-			<div className="tokenName">
-				Token Name: <b>{tokenName}</b>
-			</div>
-	);
+	useEffect(() => {
+		if (erc777.getTokenName) {
+			erc777.getTokenName().then(setData);
+		}
+	}, [erc777.getTokenName]);
+
+	const tokenName = () => {
+		return data ? <p>{data}</p> : <p>{erc777.error}</p>;
+	};
+
+	return <div className="body"> Token Name: {tokenName()}</div>;
 };
-
-GetTokenName.propTypes = {
-};
-
-GetTokenName.defaultProps = {};

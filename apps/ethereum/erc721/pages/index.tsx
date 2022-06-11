@@ -10,23 +10,12 @@ export default function Home() {
 				<title>Hyperverse 🚀</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Main>
+			<main>
 				<Nav />
-				<h1>Hyperverse Token Package</h1>
+				<h1>Hyperverse ERC20 Package</h1>
 				<Container />
-			</Main>
+			</main>
 		</>
 	);
 }
 
-const Main = styled('main', {
-	display: 'flex',
-	flexDirection: 'column',
-	margin: 'auto',
-	justifyContent: 'center',
-	'& h1': {
-		marginTop: '2rem',
-		fontWeight: 'lighter',
-		fontSize: '1.5rem',
-	},
-});

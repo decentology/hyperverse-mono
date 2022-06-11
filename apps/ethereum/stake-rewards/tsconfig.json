@@ -16,6 +16,7 @@
     "incremental": true,
     "module": "esnext",
     "resolveJsonModule": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "isolatedModules": true
   }
 }

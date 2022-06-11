@@ -13,21 +13,20 @@ import {
 	Content,
 	Button,
 } from '../../ComponentStyles';
+import { useMutation, useQuery } from 'react-query';
 
 const Stake = () => {
-	const { address } = useEthereum();
-	const { CheckInstance, StakeTokens } = useStakeRewards();
-	const {data: instance} = CheckInstance();
-	const { mutate } = StakeTokens();
+	const { account } = useEthereum();
+
+	const stakeRewards = useStakeRewards();
+
+	const { mutate } = useMutation('stake', stakeRewards.stake);
+
 	const [amount, setAmount] = useState(0);
 
 	const stake = async () => {
 		try {
-			const instanceData = {
-        amount: amount,
-			};
-
-			mutate(instanceData);
+			mutate(amount);
 		} catch (error) {
 			throw error;
 		}
@@ -36,12 +35,14 @@ const Stake = () => {
 	return (
 		<Box>
 			<h4>Stake</h4>
-			<p>Stake some tokens, make sure you have tokens from the staking contract</p>
+			<p>Stake some tokens, make sure you have tokens from the initial staking token</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address || !instance}>
-							{!address ? 'Connect Wallet' : !instance ? 'Create an Instance'  : 'Stake'}
+						<Trigger disabled={!account}>
+							{!account
+								? 'Connect Wallet'
+								: 'Stake'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
@@ -52,9 +53,7 @@ const Stake = () => {
 								placeholder="Amount"
 								onChange={(e) => setAmount(e.currentTarget.valueAsNumber)}
 							/>
-							<Button onClick={stake}>
-								{!address ? 'Connet Wallet' : 'Stake'}
-							</Button>
+							<Button onClick={stake}>{!account ? 'Connet Wallet' : 'Stake'}</Button>
 						</Content>
 					</Parameters>
 				</Item>

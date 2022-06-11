@@ -1,29 +1,24 @@
-import * as PropTypes from 'prop-types';
-import './button.css';
 import { useStakeRewards } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
-export const StakeTokens = ({ ...props }) => {
-	const { StakeTokens } = useStakeRewards();
-	const { address } = useEvm();
-	const { mutate, data: amount } = StakeTokens();
+export const StakeTokens = ({ ...props }: { amount: number }) => {
+	const { stake } = useStakeRewards();
+	const { Connect } = useEvm();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-					mutate({amount});
-			}}
-		>
-			Stake Tokens
-		</button>
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					stake(props.amount);
+				}}
+			>
+				Stake Tokens
+			</button>
+		</>
 	);
 };
-
-StakeTokens.propTypes = {
-	amount: PropTypes.number.isRequired,
-};
-
-StakeTokens.defaultProps = {};

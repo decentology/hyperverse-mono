@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777';
 import {
 	Box,
 	Item,
@@ -13,33 +13,46 @@ import {
 	Button,
 	Module,
 } from '../../ComponentStyles';
+import { useQuery } from 'react-query';
 const BalanceOf = () => {
-	const { address } = useEthereum();
-	const { BalanceOf } = useERC20();
-	const [account, setAccount] = useState(address);
-	const { data } = BalanceOf(account!);
+	const { account } = useEthereum();
+	const erc777 = useERC777();
+	const { data, isLoading } = useQuery('balanceOf', () => erc777.getBalanceOf!(address!));
+
+	const { data: instance } = useQuery('checkInstance', () => erc777.checkInstance!(account!));
+
+	const [address, setAddress] = useState(account);
+
 	const [hidden, setHidden] = useState(false);
 
 	return (
 		<Box>
 			<h4>Balance Of</h4>
-			<p>Get the balance of a provided address</p>
+			<p>Get the balance of a provided account</p>
 			<Accordion.Root type="single" collapsible>
 				<Item value="item-1">
 					<TriggerContainer>
-						<Trigger disabled={!address}>
-							{!address ? 'Connect Wallet' : 'Get Balance Of'}
+						<Trigger disabled={!account}>
+							{!account ? 'Connect Wallet' : 'Get Balance Of'}
 						</Trigger>
 					</TriggerContainer>
 					<Parameters>
 						<Content>
 							<Input
 								placeholder="Account"
-								onChange={(e) => setAccount(e.target.value)}
+								onChange={(e) => setAddress(e.target.value)}
 							/>
 
 							<Button onClick={() => setHidden((p) => !p)}>
-								{!address ? 'Connect Wallet' : !hidden ? 'Get Balance Of' : data}
+								{!account
+									? 'Connect Wallet'
+									: !instance
+									? 'No Instance'
+									: isLoading
+									? 'fetching ...'
+									: !hidden
+									? 'Get Allowance'
+									: data!.toString()}
 							</Button>
 						</Content>
 					</Parameters>

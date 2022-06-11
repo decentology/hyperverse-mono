@@ -1,6 +1,6 @@
+import React from 'react';
 import { LeaveTribe } from './leaveTribe';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import { Doc } from '../docs/leaveTribe.mdx';
 
 export default {

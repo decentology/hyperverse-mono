@@ -1,22 +1,25 @@
 import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
-const { BigNumber } = require('ethers');
+import { useEvm } from '@decentology/hyperverse-evm';
+import './button.css';
 
 export const Burn = ({ ...props }) => {
-	// let unitMultiple = new BigNumber.from(10).pow(new BigNumber.from(3));
-	// let alice;
-	// let aliceProxyContract;
+	const { burn } = useERC20();
+	const { address, Connect } = useEvm();
 
-	// const { Burn } = useERC20();
-	// const { address } = useEvm();
-	// const amount = new BigNumber.from(500).mul(unitMultiple);
-	// const burnAmount = aliceProxyContract.connect(alice).burn(amount);
-
-	return (
-		<div className="burn">
-			Tokens Burned: <b>{}</b>
-		</div>
+	return address ? (
+		<button
+			type="button"
+			className={['storybook-button', `storybook-button--large`].join(' ')}
+			style={{ color: 'blue' }}
+			onClick={() => {
+				burn({});
+			}}
+		>
+			Burn Tokens
+		</button>
+	) : (
+		<Connect />
 	);
 };
 

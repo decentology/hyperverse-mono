@@ -1,52 +1,89 @@
-
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useERC721 } from '@decentology/hyperverse-evm-erc721';
-import { Box, Item, TriggerContainer, Trigger, Parameters, Input, Content, Button } from './WriteComponents'
+import {
+	Box,
+	Item,
+	TriggerContainer,
+	Trigger,
+	Parameters,
+	Input,
+	Content,
+	Button,
+} from '../ComponentStyles';
+
+import { useQuery, useMutation } from 'react-query';
+import { AppContext } from '../../pages/_app';
 
 const CreateInstance = () => {
-  const { address } = useEthereum();
-  const { NewInstance } = useERC721();
-  const { mutate } = NewInstance();
-  const [tokenName, setTokenName] = useState('');
-  const [tokenSymbol, setTokenSymbol] = useState('');
+	const { account } = useEthereum();
+	const context = useContext(AppContext);
+	const erc721 = useERC721();
+	const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account), {enabled: !!erc721.factoryContract});
 
-  const createNewInstance = async () => {
-    try {
-      const instanceData = {
-        name: tokenName,
-        symbol: tokenSymbol,
-      }
+	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.createInstance);
 
-      mutate(instanceData);
-    } catch (error) {
-      throw error;
-    }
-  }
+	const [tokenName, setTokenName] = useState('');
+	const [tokenSymbol, setTokenSymbol] = useState('');
 
-  return (
-    <Box>
-      <h4>New Instance</h4>
-      <p>Create your own instance of a token </p>
-      <Accordion.Root type="single" collapsible>
-        <Item value='item-1'>
-          <TriggerContainer>
-            <Trigger disabled={!address}>
-              {!address ? 'Connect Wallet' : 'Create Instance'}
-            </Trigger>
-          </TriggerContainer>
-          <Parameters>
-            <Content>
-              <Input placeholder='Token Name' onChange={(e) => setTokenName(e.target.value)} />
-              <Input placeholder='Token Symbol' onChange={(e) => setTokenSymbol(e.target.value)} />
-              <Button onClick={createNewInstance}>{!address ? 'Connet Wallet' : 'Create Instance'}</Button>
-            </Content>
-          </Parameters>
-        </Item>
-      </Accordion.Root>
-    </Box>
-  )
-}
+	const createNewInstance = async () => {
+		try {
+			mutate({
+				account: account!,
+				tokenName,
+				tokenSymbol,
+			}, {
+				onSuccess: () => { 
+					context.setTenantId(account);
+			}});
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	return (
+		<Box>
+			<h4>New Instance</h4>
+			<p>Create your own instance of an ERC721 </p>
+			<Accordion.Root type="single" collapsible>
+				<Item value="item-1">
+					<TriggerContainer>
+						<Trigger disabled={!account || instance}>
+							{!account
+								? 'Connect Wallet'
+								: instance
+								? 'You already have an instance'
+								: 'Create Instance'}
+						</Trigger>
+					</TriggerContainer>
+					<Parameters>
+						<Content>
+							<Input
+								placeholder="Token Name"
+								onChange={(e) => setTokenName(e.target.value)}
+							/>
+							<Input
+								placeholder="Token Symbol"
+								onChange={(e) => setTokenSymbol(e.target.value)}
+							/>
+
+							<Button onClick={createNewInstance}>
+								{!account
+									? 'Connet Wallet'
+									: isLoading
+									? 'txn loading ...'
+									: 'Create Instance'}
+							</Button>
+						</Content>
+					</Parameters>
+				</Item>
+			</Accordion.Root>
+		</Box>
+	);
+};
 
 export default CreateInstance;
+function NewInstance(): { mutate: any; isLoading: any } {
+	throw new Error('Function not implemented.');
+}

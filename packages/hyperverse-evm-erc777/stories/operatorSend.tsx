@@ -1,33 +1,32 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
-import './button.css';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
-export const OperatorSend = ({ ...props }) => {
-	const { OperatorSend } = useERC777();
-	const { address } = useEvm();
-	const { mutate } = OperatorSend();
+export const OperatorSend = ({
+	...props
+}: {
+	sender: string;
+	recipient: string;
+	amount: number;
+	data: string;
+	operatorData: string;
+}) => {
+	const { operatorSend } = useERC777();
+	const { Connect } = useEvm();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				mutate({ sender: '', recipient: '', value: 10, data: '', operatorData: '' });
-			}}
-		>
-			Operator Send
-		</button>
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					operatorSend(props);
+				}}
+			>
+				Operator Send
+			</button>
+		</>
 	);
 };
-
-OperatorSend.propTypes = {
-	sender: PropTypes.string.isRequired,
-	recipient: PropTypes.string.isRequired,
-	value: PropTypes.number.isRequired,
-	data: PropTypes.string.isRequired,
-	operatorData: PropTypes.string.isRequired,
-};
-
-OperatorSend.defaultProps = {};

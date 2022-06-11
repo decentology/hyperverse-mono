@@ -1,7 +1,7 @@
 import { Send } from './send';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/send.mdx';
+import Doc from '../docs/send.mdx';
 
 export default {
 	title: 'Components/Send',
@@ -22,9 +22,7 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	sender: '',
-    recipient: '',
-    value: null,
-    data: '',
-    operatorData: ''
+	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	amount: 125,
+	data: '',
 };

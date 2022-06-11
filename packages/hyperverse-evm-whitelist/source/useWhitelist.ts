@@ -13,7 +13,10 @@ function WhitelistState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [whitelistLibrary, setWhitelistLibrary] = useState<WhitelistLibraryType>();
 
 	useEffect(() => {
-		const lib = WhitelistLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setWhitelistLibrary)
+		const lib = WhitelistLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setWhitelistLibrary).catch(x => {
+			// Ignoring stale library instance
+		});
+
 		return lib.cancel;
 	}, [connectedProvider])
 

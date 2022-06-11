@@ -1,12 +1,12 @@
-import { HyperverseConfig } from '@decentology/hyperverse';
-import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
-import { ethers } from 'ethers';
-import { CancellablePromise } from 'real-cancellable-promise';
-import { getEnvironment } from './environment';
+import { HyperverseConfig } from "@decentology/hyperverse";
+import { EvmLibraryBase, getProvider } from "@decentology/hyperverse-evm";
+import { ethers } from "ethers";
+import { CancellablePromise, pseudoCancellable } from "real-cancellable-promise";
+import { getEnvironment } from "./environment";
 
 export type ModuleLibraryType = Awaited<ReturnType<typeof ModuleLibraryInternal>>;
 export function ModuleLibrary(...args: Parameters<typeof ModuleLibraryInternal>): CancellablePromise<ModuleLibraryType> {
-	return new CancellablePromise(ModuleLibraryInternal(...args), () => { });
+	return pseudoCancellable(ModuleLibraryInternal(...args));
 }
 
 async function ModuleLibraryInternal(

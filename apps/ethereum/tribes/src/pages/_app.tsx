@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { initialize, Provider } from '@decentology/hyperverse';
 import { Network } from '@decentology/hyperverse';
 import { Ethereum, darkTheme } from '@decentology/hyperverse-ethereum';
+import '@decentology/hyperverse-ethereum/styles.css';
 import { Tribes } from '@decentology/hyperverse-evm-tribes';
 import * as RandomPick from '@decentology/hyperverse-ethereum-randompick';
 import InnerComponent from '../components/InnerComponent';
@@ -32,14 +33,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Provider initialState={hyperverse}>
-				<Ethereum.Provider	theme={darkTheme({
-					accentColor: '#999',
-				})} >
+				<Ethereum.Provider
+					theme={darkTheme({
+						accentColor: '#999',
+					})}
+				>
 					<InnerComponent>
 						<ToastContainer />
 						<Component {...pageProps} />
 					</InnerComponent>
-					</Ethereum.Provider>
+				</Ethereum.Provider>
 			</Provider>
 		</QueryClientProvider>
 	);

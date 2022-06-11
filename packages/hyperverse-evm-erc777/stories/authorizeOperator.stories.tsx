@@ -1,7 +1,7 @@
 import { AuthorizeOperator } from './authorizeOperator';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/authorizeOperator.mdx';
+import Doc from '../docs/authorizeOperator.mdx';
 
 export default {
 	title: 'Components/AuthorizeOperator',
@@ -22,5 +22,5 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	operator: null,
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9'
 };

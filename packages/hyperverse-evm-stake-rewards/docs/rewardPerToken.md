@@ -1,6 +1,6 @@
 # Reward Per Token
 
-<p> The `rewardPerToken` function from `useStakeRewards` calculates the rate of reward. </p>
+<p> The `rewardPerToken` function from `stakeRewardsLibrary` returns the rate of reward per token. </p>
 
 ---
 
@@ -11,11 +11,10 @@
 ```jsx
 	const rewardPerToken = async () => {
 		try {
-			const reward = await proxyContract?.rewardPerToken();
+			const reward = await base.proxyContract?.rewardPerToken();
 			return reward.toNumber();
-		} catch (err) {
-			errors(err);
-			throw err;
+		} catch (error) {
+			throw error;
 		}
 	};
 ```
@@ -23,19 +22,54 @@
 ### Stories
 
 ```jsx
+import { RewardPerToken } from './rewardPerToken';
+import { HyperverseProvider } from './utils/Provider';
+import React from 'react';
+import { Doc } from '../docs/rewardPerToken.mdx';
 
+export default {
+	title: 'Components/RewardPerToken',
+	component: RewardPerToken,
+	parameters: {
+		docs: {
+			page: Doc,
+		},
+	},
+};
+
+const Template = (args) => (
+	<HyperverseProvider>
+		<RewardPerToken {...args} />
+	</HyperverseProvider>
+);
+
+export const Demo = Template.bind({});
+
+Demo.args = {};
 ```
 
 ### Main UI Component
 
 ```jsx
+import { useStakeRewards } from '../source';
+import { useEffect, useState } from 'react';
 
-```
+export const RewardPerToken = ({ ...props }) => {
+	const stakeRewards = useStakeRewards();
+	const [data, setData] = useState();
 
-### Args
+	useEffect(() => {
+		if (stakeRewards.rewardPerToken) {
+			stakeRewards.rewardPerToken().then(setData);
+		}
+	}, [stakeRewards.rewardPerToken]);
 
-```jsx
+	const hasRewardToken = () => {
+		return data ? <p>{data}</p> : <p>Error.</p>;
+	};
 
+	return <div className="rewardToken"> Reward per Token: {hasRewardToken()}</div>;
+};
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

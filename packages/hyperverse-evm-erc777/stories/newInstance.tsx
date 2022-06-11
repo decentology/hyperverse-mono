@@ -1,35 +1,30 @@
-
-import * as PropTypes from 'prop-types';
-import './button.css';
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
 export const NewInstance = ({ ...props }) => {
-	const { NewInstance } = useERC777();
-	const { address, connect } = useEvm();
-	const { mutate } = NewInstance();
+	const { createInstance } = useERC777();
+	const { address, Connect } = useEvm();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				console.log('Calling mutate');
-				if (address) {
-					mutate({ account: address, name: '', symbol: '', decimal: 0 });
-				} else {
-					connect();
-				}
-			}}
-		>
-			{address ? 'New Instance' : 'Connect'}
-		</button>
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					createInstance({
+						account: address,
+						tokenName: 'TEST',
+						tokenSymbol: 'TST',
+						operator: ['0x976EA74026E726554dB657fA54763abd0C3a0aa9'],
+						initialSupply: 50000,
+					});
+				}}
+			>
+				New Instance
+			</button>
+		</>
 	);
 };
-
-NewInstance.propTypes = {
-	account: PropTypes.string.isRequired
-};
-
-NewInstance.defaultProps = {};

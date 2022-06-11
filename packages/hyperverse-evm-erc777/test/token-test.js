@@ -35,11 +35,11 @@ describe('Token', function () {
 		await tokenFactoryCtr
 			.connect(alice)
 			.createInstance(
+				alice.address,
 				aliceInstance.name,
 				aliceInstance.symbol,
 				[cara.address],
 				aliceInstance.initialSupply,
-				alice.address
 			);
 
 		const main = await ethers.getContractFactory('ERC777');

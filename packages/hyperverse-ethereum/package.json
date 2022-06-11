@@ -1,15 +1,15 @@
 {
 	"name": "@decentology/hyperverse-ethereum",
-	"version": "1.0.14",
+	"version": "1.0.18",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
-		}
+		},
+		"./styles.css": "./source/styles.css"
 	},
+	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.js",
-	"main:src": "./source/index.ts",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
 	"scripts": {
@@ -23,26 +23,29 @@
 	],
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			"./styles.css": "./distribution/styles.css"
+		}
 	},
 	"peerDependencies": {
-		"react": "^17.0.2"
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
 	},
 	"engines": {
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1",
-		"@decentology/hyperverse-evm": "^1",
-		"@decentology/unstated-next": "^1",
-		"@ethersproject/providers": "^5.6.4",
-		"ethers": "^5.5.3"
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/unstated-next": "workspace:^"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1",
+		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
 		"parcel": "2.2.1",
-		"rimraf": "^3.0.2"
+		"rimraf": "^3.0.2",
+		"rollup": "^2.74.1",
+		"tslib": "^2.4.0"
 	}
 }

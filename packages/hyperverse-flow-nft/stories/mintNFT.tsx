@@ -1,31 +1,29 @@
-import * as PropTypes from 'prop-types';
 import { useNFT } from '../source';
-import './button.css';
+import { useFlow } from '@decentology/hyperverse-flow';
+import './style.css';
 
-export const MintNFT = ({ ...props }) => {
+export const MintNFT = ({
+	...props
+}: {
+	recipient: string;
+	name: string;
+	description: string;
+	thumbnail: string;
+	metadata: any;
+}) => {
 	const { mintNFT } = useNFT();
-	const { } = mintNFT('', '', '', '', '');
+	const flowNFT = useFlow();
 
-	return (
+	return  (
 		<button
 			type="button"
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-                // TODO
+				mintNFT('0xd2a8d169a907bf1f','firstNFT','The very first NFT.','','');
 			}}
 		>
-			Mint NFT
+			Mint
 		</button>
-	);
+	)
 };
-
-MintNFT.propTypes = {
-	recipient: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    thumbnail: PropTypes.string.isRequired,
-    metadata: PropTypes.any.isRequired
-};
-
-MintNFT.defaultProps = {};

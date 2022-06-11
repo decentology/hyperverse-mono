@@ -1,29 +1,24 @@
-import * as PropTypes from 'prop-types';
-import './button.css';
 import { useStakeRewards } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
-export const Withdraw = ({ ...props }) => {
-	const { WithdrawTokens } = useStakeRewards();
-	const { address } = useEvm();
-	const { mutate, data: amount } = WithdrawTokens();
+export const Withdraw = ({ ...props }: { amount: number }) => {
+	const { withdraw } = useStakeRewards();
+	const { Connect } = useEvm();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-					mutate({amount});
-			}}
-		>
-			Withdraw Tokens
-		</button>
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					withdraw(props.amount);
+				}}
+			>
+				Withdraw Tokens
+			</button>
+		</>
 	);
 };
-
-Withdraw.propTypes = {
-	amount: PropTypes.number.isRequired,
-};
-
-Withdraw.defaultProps = {};

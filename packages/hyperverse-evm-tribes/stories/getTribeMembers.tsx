@@ -1,24 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useState, useEffect } from 'react';
 
-export const GetTribeMembers = ({ ...props }) => {
+export const GetTribeMembers = ({ ...props }: {tribeId: number}) => {
 	const tribes = useTribes();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState([]);
+
 	useEffect(() => {
-		return () => {
-			tribes.getTribeMembers(5).then(setData);
-		};
-	}, []);
+		if (tribes.getTribeMembers) {
+			tribes.getTribeMembers(props.tribeId).then(setData);
+		}
+	}, [tribes.getTribeMembers]);
 
-	return (
-		<div className="tribeMembers">
-			Tribe Members: <b>{data}</b>
-		</div>
-	);
+	const hasTribeMembers = () => {
+		return data.length > 0 ? (
+			<pre>Tribe Members: {JSON.stringify(data)}</pre>
+		) : (
+			<p>There are no members in this tribe.</p>
+		);
+	};
+
+	return <div className="tribeMembers"> {hasTribeMembers()}</div>;
 };
-
-GetTribeMembers.propTypes = {};
-
-GetTribeMembers.defaultProps = {};

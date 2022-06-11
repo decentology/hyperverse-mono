@@ -2,7 +2,7 @@ import { HyperverseConfig } from '@decentology/hyperverse';
 import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
 import { ethers, BigNumber } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
-import { CancellablePromise } from 'real-cancellable-promise';
+import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';
 
 export type ERC20LibraryType = Awaited<ReturnType<typeof ERC20LibraryInternal>>;
@@ -10,7 +10,7 @@ export type ERC20LibraryType = Awaited<ReturnType<typeof ERC20LibraryInternal>>;
 export function ERC20Library(
 	...args: Parameters<typeof ERC20LibraryInternal>
 ): CancellablePromise<ERC20LibraryType> {
-	return new CancellablePromise(ERC20LibraryInternal(...args), () => {});
+	return pseudoCancellable(ERC20LibraryInternal(...args));
 }
 
 export async function ERC20LibraryInternal(
@@ -38,7 +38,7 @@ export async function ERC20LibraryInternal(
 	const getTotalSuply = async () => {
 		try {
 			const totalSupply = await base.proxyContract?.totalSupply();
-			return BigNumber.from(totalSupply) as Number;
+			return BigNumber.from(totalSupply);
 		} catch (error) {
 			throw error;
 		}
@@ -47,7 +47,7 @@ export async function ERC20LibraryInternal(
 	const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await base.proxyContract?.balanceOf(account);
-			return BigNumber.from(balance) as Number;
+			return BigNumber.from(balance);
 		} catch (error) {
 			throw error;
 		}
@@ -56,7 +56,7 @@ export async function ERC20LibraryInternal(
 	const getBalance = async () => {
 		try {
 			const balance = await base.proxyContract?.balance();
-			return BigNumber.from(balance) as Number;
+			return BigNumber.from(balance);
 		} catch (error) {
 			throw error;
 		}
@@ -91,7 +91,7 @@ export async function ERC20LibraryInternal(
 	const allowance = async (owner: string, spender: string) => {
 		try {
 			const allowance = await base.proxyContract?.allowance(owner, spender);
-			return BigNumber.from(allowance) as Number;
+			return BigNumber.from(allowance);
 		} catch (error) {
 			throw error;
 		}

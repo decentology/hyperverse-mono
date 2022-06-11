@@ -23,9 +23,10 @@
 ### Stories
 
 ```jsx
+
+import React from 'react';
 import { LeaveTribe } from './leaveTribe';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import { Doc } from '../docs/leaveTribe.mdx';
 
 export default {
@@ -47,54 +48,46 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {};
+
 ```
 
 ### Main UI Component
 
 ```jsx
-import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
-import { useState, useEffect } from 'react';
 
 export const LeaveTribe = ({ ...props }) => {
-	const tribes = useTribes();
-	const { address } = useEvm();
+	const { leaveTribe, error } = useTribes();
+	const { address, Connect } = useEvm();
+	console.log('address', address);
 
-	return (
-		<div>
-			<button
-				type="button"
-				className={['storybook-button', `storybook-button--large`].join(' ')}
-				style={{ color: 'blue' }}
-				onClick={() => {
-					tribes.leaveTribe();
-				}}
-			>
-				Leave Tribe: Knight
-			</button>
-			<button
-				type="button"
-				className={['storybook-button', `storybook-button--large`].join(' ')}
-				style={{ color: 'green' }}
-				onClick={() => {
-					tribes.leaveTribe();
-				}}
-			>
-				Leave Tribe: Mage
-			</button>
-		</div>
+	const tribeLeave = () => {
+		if (leaveTribe()) {
+			leaveTribe();
+		}
+	};
+
+	return address ? (
+		<button
+			type="button"
+			className={['storybook-button', `storybook-button--large`].join(' ')}
+			style={{ color: 'blue' }}
+			onClick={tribeLeave}
+		>
+			Leave Tribe
+		</button>
+	) : (
+		<Connect />
 	);
 };
 
 LeaveTribe.propTypes = {};
 
 LeaveTribe.defaultProps = {};
+
 ```
 
-### Args
-
-<p> There are no arguments for this component. </p>
-
-For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)
+For more information about our modules please visit: [**Hyperverse Docs**](https://docs.hyperverse.dev)

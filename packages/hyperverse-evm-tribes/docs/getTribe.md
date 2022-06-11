@@ -1,6 +1,6 @@
 # Get Tribe
 
-<p> The `getTribe` function from `tribesLibrary` returns a tribe's data. </p>
+<p> The `getTribe` function from `tribesLibrary` returns a tribe's metadata. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### getTribe
 
-<p> The `getTribe` function takes in an Id. </p>
+<p> The `getTribe` function takes in an id. </p>
 
 ```jsx
 	const getTribe = async (id: number) => {
@@ -16,6 +16,7 @@
 			await base.proxyContract?.getTribeData(id);
 			return formatTribeResultFromTribeId(id);
 		} catch (err) {
+			console.log(err)
 			throw err;
 		}
 	};
@@ -24,6 +25,7 @@
 ### Stories
 
 ```jsx
+
 import { GetTribe } from './getTribe';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
@@ -48,50 +50,58 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	id: 1,
+	tribeId: 1,
 };
+
 ```
 
 ### Main UI Component
 
 ```jsx
-import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import { useState, useEffect } from 'react'
-import { id } from 'ethers/lib/utils';
+import React, { useEffect, useState } from 'react';
 
 export const GetTribe = ({ ...props }) => {
 	const tribes = useTribes();
 	const [data, setData] = useState(null);
-	useEffect(() => {
-		return () => {
-			tribes.getTribe().then(setData);
-		};
-	}, [])
 
-	return (
-		<div className="tribe">
-			Tribe: <b>{data}</b>
-		</div>
-	);
+	useEffect(() => {
+		if (tribes.getTribe) {
+			tribes.getTribe(props.tribeId).then(setData);
+		}
+	}, [tribes.getTribe]);
+
+	const hasTribes = () => {
+		return data ? (
+			<pre>{JSON.stringify(data)}</pre>
+		) : (
+			<p>Please add a tribe.</p>
+		);
+	};
+
+	return <div className="totalTenants"> Tribe: {hasTribes()}</div>;
 };
 
 GetTribe.propTypes = {
-	id: PropTypes.number.isRequired,
+	tribeId: PropTypes.number.isRequired,
 };
 
 GetTribe.defaultProps = {};
+
 ```
 
 ### Args
 
+<p> We give an initial tribe id of **1** which will return the first tribe (**Mage**) in the preset list of tribes. </p>
+
 ```jsx
-GetTribe.propTypes = {
-	id: PropTypes.number.isRequired,
+
+Demo.args = {
+	tribeId: 1
 };
 
-GetTribe.defaultProps = {};
 ```
 
-For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)
+For more information about our modules please visit: [**Hyperverse Docs**](https://docs.hyperverse.dev)

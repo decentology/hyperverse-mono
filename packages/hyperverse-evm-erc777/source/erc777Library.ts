@@ -2,14 +2,14 @@ import { HyperverseConfig } from '@decentology/hyperverse';
 import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
 import { ethers, BigNumber } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
-import { CancellablePromise } from 'real-cancellable-promise';
+import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';
 export type ERC777LibraryType = Awaited<ReturnType<typeof ERC777LibraryInternal>>;
 
 export function ERC777Library(
 	...args: Parameters<typeof ERC777LibraryInternal>
 ): CancellablePromise<ERC777LibraryType> {
-	return new CancellablePromise(ERC777LibraryInternal(...args), () => {});
+	return pseudoCancellable(ERC777LibraryInternal(...args));
 }
 
 export async function ERC777LibraryInternal(
@@ -24,6 +24,15 @@ export async function ERC777LibraryInternal(
 	if (!providerOrSigner) {
 		providerOrSigner = getProvider(hyperverse.network);
 	}
+
+	const base = await EvmLibraryBase(
+		'ERC777',
+		hyperverse,
+		factoryAddress!,
+		FactoryABI,
+		ContractABI,
+		providerOrSigner
+	);
 
 	const getTokenName = async () => {
 		try {
@@ -64,7 +73,7 @@ export async function ERC777LibraryInternal(
 	const getTotalSuply = async () => {
 		try {
 			const totalSupply = await base.proxyContract?.totalSupply();
-			return BigNumber.from(totalSupply) as BigNumber;
+			return BigNumber.from(totalSupply).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -73,16 +82,7 @@ export async function ERC777LibraryInternal(
 	const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await base.proxyContract?.balanceOf(account);
-			return BigNumber.from(balance) as BigNumber;
-		} catch (error) {
-			throw error;
-		}
-	};
-
-	const getBalance = async () => {
-		try {
-			const balance = await base.proxyContract?.balance();
-			return BigNumber.from(balance) as BigNumber;
+			return BigNumber.from(balance).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -130,7 +130,7 @@ export async function ERC777LibraryInternal(
 	const allowance = async (owner: string, spender: string) => {
 		try {
 			const allowance = await base.proxyContract?.allowance(owner, spender);
-			return BigNumber.from(allowance) as BigNumber;
+			return BigNumber.from(allowance).toNumber();
 		} catch (error) {
 			throw error;
 		}
@@ -259,15 +259,6 @@ export async function ERC777LibraryInternal(
 		}
 	};
 
-	const base = await EvmLibraryBase(
-		'ERC20',
-		hyperverse,
-		factoryAddress!,
-		FactoryABI,
-		ContractABI,
-		providerOrSigner
-	);
-
 	return {
 		...base,
 		getTokenName,
@@ -275,7 +266,6 @@ export async function ERC777LibraryInternal(
 		getDecimal,
 		getGranularity,
 		getTotalSuply,
-		getBalance,
 		getBalanceOf,
 		send,
 		transfer,

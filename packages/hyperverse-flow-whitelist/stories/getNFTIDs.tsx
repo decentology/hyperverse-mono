@@ -1,5 +1,5 @@
 import * as PropTypes from 'prop-types';
-import './button.css';
+import './style.css';
 import { useWhitelist } from '../source';
 import { useState, useEffect } from 'react';
 

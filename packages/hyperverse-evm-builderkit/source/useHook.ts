@@ -13,7 +13,9 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [moduleLibrary, setModuleLibrary] = useState<ModuleLibraryType>();
 
 	useEffect(() => {
-		const lib = ModuleLibrary(hyperverse, signer || readOnlyProvider).then(setModuleLibrary)
+		const lib = ModuleLibrary(hyperverse, signer || readOnlyProvider).then(setModuleLibrary).catch(() => {
+			
+		})
 		return lib.cancel;
 	}, [signer, readOnlyProvider])
 

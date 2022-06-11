@@ -1,34 +1,24 @@
-
-import * as PropTypes from 'prop-types';
-import './button.css';
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
-export const AuthorizeOperator = ({ ...props }) => {
-	const { AuthorizeOperator } = useERC777();
-	const { address, connect } = useEvm();
-	const { mutate } = AuthorizeOperator();
+export const AuthorizeOperator = ({ ...props }: { operator: string }) => {
+	const { authorizeOperator } = useERC777();
+	const { Connect } = useEvm();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				// if (address) {
-				// 	mutate({  });
-				// } else {
-				// 	// TODO
-				// }
-			}}
-		>
-			Authorize Operator
-		</button>
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					authorizeOperator(props.operator);
+				}}
+			>
+				Authorize Operator
+			</button>
+		</>
 	);
 };
-
-AuthorizeOperator.propTypes = {
-	operator: PropTypes.string.isRequired
-};
-
-AuthorizeOperator.defaultProps = {};

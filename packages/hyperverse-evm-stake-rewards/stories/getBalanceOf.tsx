@@ -1,18 +1,24 @@
-import * as PropTypes from 'prop-types';
 import { useStakeRewards } from '../source';
+import { useEffect, useState } from 'react';
 
-export const GetBalanceOf = ({ ...props }) => {
-	const { BalanceOf } = useStakeRewards();
-	const { data: balanceOf } = BalanceOf(''); // wants an account
+export const GetBalanceOf = ({ ...props }: { account: string }) => {
+	const stakeRewards = useStakeRewards();
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		if (stakeRewards.getBalanceOf) {
+			stakeRewards.getBalanceOf(props.account).then(setData);
+		}
+	}, [stakeRewards.getBalanceOf]);
+
+	const hasBalance = () => {
+		return data ? <p>{JSON.stringify(data)}</p> : <p>Error.</p>;
+	};
 
 	return (
-			<div className="balanceOf">
-				Balance Of: <b>{balanceOf}</b>
-			</div>
+		<div className="body">
+			{' '}
+			Balance of <b>{props.account}</b>: {hasBalance()}
+		</div>
 	);
 };
-
-GetBalanceOf.propTypes = {
-};
-
-GetBalanceOf.defaultProps = {};

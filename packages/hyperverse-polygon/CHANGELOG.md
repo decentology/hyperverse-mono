@@ -1,5 +1,23 @@
 # @decentology/hyperverse-polygon
 
+## 1.0.7
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.17
+    -   @decentology/hyperverse-evm@1.0.17
+
+## 1.0.6
+
+### Patch Changes
+
+-   Milestone version
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.15
+    -   @decentology/hyperverse-evm@1.0.15
+    -   @decentology/unstated-next@1.1.9
+
 ## 1.0.5
 
 ### Patch Changes

@@ -1,18 +1,19 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
+import { useEffect, useState } from 'react';
 
 export const GetTotalSupply = ({ ...props }) => {
-	const { TotalSupply } = useERC777();
-	const { data: totalSupply } = TotalSupply();
+	const erc777 = useERC777();
+	const [data, setData] = useState(null);
 
-	return (
-			<div className="totalSupply">
-				Total Supply: <b>{totalSupply}</b>
-			</div>
-	);
+	useEffect(() => {
+		if (erc777.getTotalSuply) {
+			erc777.getTotalSuply().then(setData);
+		}
+	}, [erc777.getTotalSuply]);
+
+	const totalSupply = () => {
+		return data ? <p>{data} tokens</p> : <p>{erc777.error}</p>;
+	};
+
+	return <div className="body"> Total Supply: {totalSupply()}</div>;
 };
-
-GetTotalSupply.propTypes = {
-};
-
-GetTotalSupply.defaultProps = {};

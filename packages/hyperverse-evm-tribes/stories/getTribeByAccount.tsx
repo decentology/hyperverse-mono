@@ -1,33 +1,25 @@
-import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
 import { useState, useEffect } from 'react';
 
 export const GetTribeByAccount = ({ ...props }) => {
 	const tribes = useTribes();
+	const { address } = useEvm();
 	const [data, setData] = useState(null);
 
-	/**
-	 * Error in getTribeId()
-	 */
 	useEffect(() => {
-		console.log('before the if - get tribe by account')
-		console.log(props.account)
 		if (tribes.getTribeByAccount) {
-			tribes.getTribeByAccount(props.account).then(setData);
-			console.log('after the if', props.account)
-			console.log(data);
+			tribes.getTribeByAccount(address).then(setData);
 		}
 	}, [tribes.getTribeByAccount]);
 
-	return (
-		<div className="tribeByAccount">
-			Tribe: <b>{data}</b>
-		</div>
-	);
-};
+	const tribeOfAccount = () => {
+		return data ? (
+			<pre>Tribe: {JSON.stringify(data)}</pre>
+		) : (
+			<p>This account is not in a tribe!</p>
+		);
+	};
 
-GetTribeByAccount.propTypes = {
-	account: PropTypes.string.isRequired
+	return <div className="tribeMembers"> {tribeOfAccount()}</div>;
 };
-
-GetTribeByAccount.defaultProps = {};

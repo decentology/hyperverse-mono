@@ -1,7 +1,7 @@
 import { RevokeOperator } from './revokeOperator';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/revokeOperator.mdx';
+import Doc from '../docs/revokeOperator.mdx';
 
 export default {
 	title: 'Components/RevokeOperator',
@@ -22,5 +22,5 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	operator: ''
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 };

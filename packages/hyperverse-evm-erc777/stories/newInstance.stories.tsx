@@ -1,7 +1,7 @@
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/newInstance.mdx';
+import Doc from '../docs/newInstance.mdx';
 
 export default {
 	title: 'Components/NewInstance',
@@ -21,6 +21,4 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-	account: null,
-};
+Demo.args = {};

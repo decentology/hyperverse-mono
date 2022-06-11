@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
 import { useCallback, useRef } from 'react';
+import './style.css';
+
 export const AddTribe = ({ ...props }) => {
 	const { addTribe, error } = useTribes();
 	const { address, Connect } = useEvm();
@@ -48,10 +49,3 @@ export const AddTribe = ({ ...props }) => {
 		</>
 	);
 };
-
-AddTribe.propTypes = {
-	metadata: PropTypes.string.isRequired,
-	// image: PropTypes.file.isRequired
-};
-
-AddTribe.defaultProps = {};

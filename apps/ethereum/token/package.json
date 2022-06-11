@@ -1,6 +1,6 @@
 {
   "name": "@decentology/samples-token",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +13,6 @@
     "@decentology/hyperverse-ethereum": "workspace:^",
     "@decentology/hyperverse-evm-erc20": "workspace:^",
     "@decentology/unstated-next": "^1.1.1",
-    "@decentology/web3modal": "^1.0.0",
     "@radix-ui/react-accordion": "^0.1.6",
     "@stitches/react": "^1.2.6",
     "ethers": "^5.5.4",

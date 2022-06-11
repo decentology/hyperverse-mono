@@ -1,33 +1,23 @@
-import * as PropTypes from 'prop-types';
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
 
-export const Approve = ({ ...props }) => {
-	const { Approve } = useERC777();
-    const { address } = useEvm();
-	const { mutate } = Approve();
+export const Approve = ({ ...props }: {spender: string, amount: number}) => {
+	const { approve } = useERC777();
+	const { Connect } = useEvm();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				// if (address) {
-				// 	mutate({ });
-				// } else {
-				// 	console.log("error");
-				// }
-			}}
-		>
-            Approve Transaction
-		</button>
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					approve(props);
+				}}
+			>
+				Approve
+			</button>
+		</>
 	);
 };
-
-Approve.propTypes = {
-	spender: PropTypes.string.isRequired,
-    amount: PropTypes.string.isRequired
-};
-
-Approve.defaultProps = {};

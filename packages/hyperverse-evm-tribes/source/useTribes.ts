@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
-
 import { useEvm } from '@decentology/hyperverse-evm';
 import { TribesLibrary, TribesLibraryType } from './tribesLibrary';
 import { useHyperverse } from '@decentology/hyperverse';
@@ -12,11 +11,12 @@ function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const hyperverse = useHyperverse();
 	const [tribesLibrary, setTribesLibrary] = useState<TribesLibraryType>();
 
-
 	useEffect(() => {
-		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary)
+		const lib = TribesLibrary(hyperverse, signer || readOnlyProvider).then(setTribesLibrary).catch(x => {
+			// Ignoring stale library instance
+		});
 		return lib.cancel;
-	}, [signer, readOnlyProvider])
+	}, [signer, readOnlyProvider]);
 
 	const useTribeEvents = (eventName: string, callback: any) => {
 		return useEvent(

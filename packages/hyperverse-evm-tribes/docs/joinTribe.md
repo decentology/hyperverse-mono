@@ -22,9 +22,10 @@
 ### Stories
 
 ```jsx
+
+import React from 'react';
 import { JoinTribe } from './joinTribe';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import { Doc } from '../docs/joinTribe.mdx';
 
 export default {
@@ -46,68 +47,61 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-    knightId: 1,
-    mageId: 2
+	tribeId: 1,
 };
+
 ```
 
 ### Main UI Component
 
 ```jsx
-import React from 'react';
+
 import PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm/source';
 
 export const JoinTribe = ({ ...props }) => {
-	const tribes = useTribes();
-	const { address, connect } = useEvm();
+	const { joinTribe } = useTribes();
+	const { address, Connect } = useEvm();
 
-	return (
-		<div>
-			<button
-				type="button"
-				className={['storybook-button', `storybook-button--large`].join(' ')}
-				style={{ color: 'blue' }}
-				onClick={() => {
-					// tribes.joinTribe(id: 2)
-				}}
-			>
-				Join Tribe: Knight
-			</button>
-			<button
-				type="button"
-				className={['storybook-button', `storybook-button--large`].join(' ')}
-				style={{ color: 'green' }}
-				onClick={() => {
-					// tribes.joinTribe(id: 2)
-				}}
-			>
-				Join Tribe: Mage
-			</button>
-		</div>
+	const tribeJoin = () => {
+		if (joinTribe(props.tribeId)) {
+			joinTribe(props.tribeId);
+		}
+	};
+
+	return address ? (
+		<button
+			type="button"
+			className={['storybook-button', `storybook-button--large`].join(' ')}
+			style={{ color: 'blue' }}
+			onClick={tribeJoin}
+		>
+			Join Tribe
+		</button>
+	) : (
+		<Connect />
 	);
 };
 
 JoinTribe.propTypes = {
-	knightId: PropTypes.number.isRequired,
-	mageId: PropTypes.number.isRequired,
+	tribeId: PropTypes.number.isRequired,
 };
 
 JoinTribe.defaultProps = {};
+
 ```
 
 ### Args
 
-<p> Each tribe has its own tribe ID and is passed into the component.</p>
+<p> We chose the tribe id of **1** for our demo which belongs to the tribe **Mage**. You are welcome to change this value to interact with the other tribes in our module.</p>
 
 ```jsx
-JoinTribe.propTypes = {
-	knightId: PropTypes.number.isRequired,
-	mageId: PropTypes.number.isRequired,
+
+Demo.args = {
+	tribeId: 1,
 };
 
-JoinTribe.defaultProps = {};
 ```
 
-For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)
+For more information about our modules please visit: [**Hyperverse Docs**](https://docs.hyperverse.dev)

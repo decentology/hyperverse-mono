@@ -2,7 +2,7 @@ import { HyperverseConfig } from '@decentology/hyperverse';
 import { EvmLibraryBase, getProvider } from '@decentology/hyperverse-evm';
 import { ethers } from 'ethers';
 import { getEnvironment } from './environment';
-import { CancellablePromise } from 'real-cancellable-promise';
+import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { MerkleTree } from 'merkletreejs';
 import keccak256 from 'keccak256';
 import { TransactionReceipt } from '@ethersproject/abstract-provider'
@@ -11,7 +11,7 @@ export type WhitelistLibraryType = Awaited<ReturnType<typeof WhitelistLibraryInt
 export function WhitelistLibrary(
 	...args: Parameters<typeof WhitelistLibraryInternal>
 ): CancellablePromise<WhitelistLibraryType> {
-	return new CancellablePromise(WhitelistLibraryInternal(...args), () => {});
+	return pseudoCancellable(WhitelistLibraryInternal(...args));
 }
 
 export async function WhitelistLibraryInternal(
@@ -36,17 +36,6 @@ export async function WhitelistLibraryInternal(
 		providerOrSigner
 	);
 
-	const errors = (err: any) => {
-		if (!base.factoryContract?.signer) {
-			throw new Error('Please connect your wallet!');
-		}
-
-		if (err.code === 4001) {
-			throw new Error('You rejected the transaction!');
-		}
-
-		throw err;
-	};
 
 	const getWhitelistedAddresses = async () => {
 		try {

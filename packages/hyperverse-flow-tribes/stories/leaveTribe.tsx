@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
-import './button.css';
+import './style.css';
 
 export const LeaveTribe = ({ ...props }) => {
 	const { leaveTribe } = useTribes();

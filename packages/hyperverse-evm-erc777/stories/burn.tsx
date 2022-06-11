@@ -1,34 +1,24 @@
-
-import * as PropTypes from 'prop-types';
-import './button.css';
 import { useERC777 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
-export const Burn = ({ ...props }) => {
-	const { Burn } = useERC777();
-	const { address, connect } = useEvm();
-	const { mutate } = Burn();
+export const Burn = ({ ...props }: {amount: number, data: string}) => {
+	const { burn } = useERC777();
+	const { Connect } = useEvm();
 
 	return (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={() => {
-				// if (address) {
-				// 	mutate({  });
-				// } else {
-				// 	// TODO
-				// }
-			}}
-		>
-		</button>
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					burn(props);
+				}}
+			>
+				Burn Tokens
+			</button>
+		</>
 	);
 };
-
-Burn.propTypes = {
-	amount: PropTypes.number.isRequired,
-    data: PropTypes.string.isRequired
-};
-
-Burn.defaultProps = {};
