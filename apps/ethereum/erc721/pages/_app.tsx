@@ -10,29 +10,6 @@ import type { AppProps } from 'next/app';
 import { useLocalStorage } from 'react-use';
 import { createContext } from 'react';
 
-// const globalStyles = globalCss({
-// 	'*': {
-// 		margin: 0,
-// 		padding: 0,
-// 	},
-// 	html: {
-// 		fontSize: 14,
-// 		fontFamily: 'Proxima Nova, sans-serif',
-// 		letterSpacing: '0.9px',
-// 	},
-// 	body: {
-// 		fontSize: '1rem',
-
-// 		backgroundColor: '$blue500',
-// 		color: '$gray100',
-// 		maxWidth: '1200px',
-
-//     display: 'flex',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     height: '100vh',
-// 	},
-// });
 
 const globalStyles = globalCss({
 	'*': {
