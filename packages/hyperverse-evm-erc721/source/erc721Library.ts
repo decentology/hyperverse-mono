@@ -42,7 +42,7 @@ export async function ERC721LibraryInternal(
 	};
 
 
-	const ownerMint = async (to: string) => {
+	const tenantMint = async (to: string) => {
 		try {
 			const mintTxn = await base.proxyContract?.tenantMint(to);
 			return mintTxn.wait() as TransactionReceipt;
@@ -50,6 +50,16 @@ export async function ERC721LibraryInternal(
 			throw error;
 		}
 	};
+
+	const tenantMintUri = async (to: string, tokenUri: string) => {
+		try {
+			const mintTxn = await base.proxyContract?.tenantMint(to, tokenUri);
+			return mintTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
 
 	const getBaseURI = async () => {
 		try {
@@ -167,7 +177,8 @@ export async function ERC721LibraryInternal(
 	return {
 		...base,
 		mint,
-		ownerMint,
+		tenantMint,
+		tenantMintUri,
 		getBaseURI,
 		setMintPrice,
 		setBaseURI,
