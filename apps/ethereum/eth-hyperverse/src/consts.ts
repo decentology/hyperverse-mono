@@ -12,8 +12,8 @@ export const MODULES  = {
 			symbol: 'Token Symbol',
 		},
 		dappstarter: {
-			app: 'NextJS',
-			url: 'git clone https://github.com/decentology/erc721-dappstarter',
+			app: 'NextJS Boilerplate',
+			url: 'git clone https://github.com/decentology/erc721-nextjs-boilerplate',
 		},
 	},
 	erc20: {
