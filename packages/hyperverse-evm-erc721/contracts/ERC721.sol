@@ -50,8 +50,8 @@ contract ERC721 is
 	mapping(uint256 => address) private _tokenApprovals;
 	mapping(address => mapping(address => bool)) private _operatorApprovals;
 
-    // Mapping for individual token URIs
-    mapping (uint256 => string) internal _tokenURIs;
+	// Mapping for individual token URIs
+	mapping(uint256 => string) internal _tokenURIs;
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E V E N T S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+events
@@ -145,13 +145,14 @@ contract ERC721 is
 	}
 
 	//TENANT OWNER FUNCTIONS
-	function tenantMint(address _reciever) external isTenantOwner {
-		_safeMint(_reciever, nextTokenId());
+	function tenantMint(address _reciever) external isTenantOwner returns (uint256) {
+		uint256 tokenId = nextTokenId();
+		_safeMint(_reciever, tokenId);
+		return tokenId;
 	}
 
 	function tenantMint(address _to, string calldata _uri)
 		external
-		payable
 		isTenantOwner
 		returns (uint256)
 	{

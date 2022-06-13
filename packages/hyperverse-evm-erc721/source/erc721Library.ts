@@ -32,34 +32,49 @@ export async function ERC721LibraryInternal(
 		providerOrSigner
 	);
 
-	const mint = async () => {
+	const mint = async (to: string) => {
 		try {
-			const mintTxn = await base.proxyContract?.mint();
+			const mintTxn = await base.proxyContract?.mint(to);
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
 
-
-	const tenantMint = async (to: string) => {
+	const togglePublicMint = async (isPublic: boolean) => {
 		try {
-			const mintTxn = await base.proxyContract?.tenantMint(to);
+			const toggleTxn = await base.proxyContract?.togglePublicMint(isPublic);
+			return toggleTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const tenantMint = async ({ to, image }: { to: string; image?: File }) => {
+		try {
+			let mintTxn;
+
+			if (image) {
+				const tokenUri = await hyperverse.storage?.uploadFile(image);
+				mintTxn = await base.proxyContract?.tenantMint(to, tokenUri);
+			} else {
+				mintTxn = await base.proxyContract?.tenantMint(to);
+			}
+
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
 
-	const tenantMintUri = async (to: string, tokenUri: string) => {
+	const tenantMintUri = async ({ to, tokenURI }: { to: string; tokenURI: string }) => {
 		try {
-			const mintTxn = await base.proxyContract?.tenantMint(to, tokenUri);
+			const mintTxn = await base.proxyContract?.tenantMint(to, tokenURI);
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
-
 
 	const getBaseURI = async () => {
 		try {
@@ -68,34 +83,34 @@ export async function ERC721LibraryInternal(
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const setMintPrice = async (price: number) => {
 		try {
-			const setMintPriceTxn = await base.proxyContract?.setMintPrice(price)
+			const setMintPriceTxn = await base.proxyContract?.setMintPrice(price);
 			return setMintPriceTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const setBaseURI = async (baseURI: string) => {
 		try {
-			const setBaseURITxn = await base.proxyContract?.setBaseURI(baseURI)
+			const setBaseURITxn = await base.proxyContract?.setBaseURI(baseURI);
 			return setBaseURITxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const setPublicSale = async (publicSale: boolean) => {
 		try {
-			const setPublicSalesTxn = await base.proxyContract?.setPublicSales(publicSale)
+			const setPublicSalesTxn = await base.proxyContract?.setPublicSales(publicSale);
 			return setPublicSalesTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const withdraw = async () => {
 		try {
@@ -104,7 +119,7 @@ export async function ERC721LibraryInternal(
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const tokenURI = async (tokenId: number) => {
 		try {
@@ -113,8 +128,7 @@ export async function ERC721LibraryInternal(
 		} catch (error) {
 			throw error;
 		}
-	}
-
+	};
 
 	const getBalanceOf = async (account: string) => {
 		try {
@@ -134,9 +148,6 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-
-
-
 	const transfer = async ({
 		from,
 		to,
@@ -147,14 +158,12 @@ export async function ERC721LibraryInternal(
 		tokenId: number;
 	}) => {
 		try {
-			const transferTxn = await base.proxyContract?.tcdransferFrom(from, to, tokenId);
+			const transferTxn = await base.proxyContract?.transferFrom(from, to, tokenId);
 			return transferTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
-
-	
 
 	const approve = async ({ to, tokenId }: { to: string; tokenId: number }) => {
 		try {
@@ -165,7 +174,13 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-	const setApprovalForAll = async ({ operator, approved }: { operator: string; approved: boolean }) => {
+	const setApprovalForAll = async ({
+		operator,
+		approved,
+	}: {
+		operator: string;
+		approved: boolean;
+	}) => {
 		try {
 			const setApprovalTxn = await base.proxyContract?.setApprovalForAll(operator, approved);
 			return setApprovalTxn.wait() as TransactionReceipt;
@@ -177,6 +192,7 @@ export async function ERC721LibraryInternal(
 	return {
 		...base,
 		mint,
+		togglePublicMint,
 		tenantMint,
 		tenantMintUri,
 		getBaseURI,
