@@ -1,7 +1,7 @@
 import { GetOwnerOf } from './getOwnerOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/getOwnerOf.mdx';
+import { Doc } from '../docs/getOwnerOf.mdx';
 
 export default {
 	title: 'Components/GetOwnerOf',
