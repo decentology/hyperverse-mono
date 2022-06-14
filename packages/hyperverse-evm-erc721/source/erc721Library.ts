@@ -56,9 +56,10 @@ export async function ERC721LibraryInternal(
 
 			if (image) {
 				const tokenUri = await hyperverse.storage?.uploadFile(image);
-				mintTxn = await base.proxyContract?.tenantMint(to, tokenUri);
+				mintTxn = await base.proxyContract?.['tenantMint(address string)'](to, tokenUri);
+				
 			} else {
-				mintTxn = await base.proxyContract?.tenantMint(to);
+				mintTxn = await base.proxyContract?.['tenantMint(address)'](to);
 			}
 
 			return mintTxn.wait() as TransactionReceipt;
