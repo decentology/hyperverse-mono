@@ -26,13 +26,13 @@ const TenantMint = () => {
 	const mint = async () => {
 		try {
 			const instanceData: {
-				to: string;
 				image: File | undefined;
+				to: string;
 			} = {
-				to: receiver,
 				image: imageFile,
+				to: receiver,
 			};
-
+console.log(instanceData)
 			mutate(instanceData);
 		} catch (error) {
 			throw error;
