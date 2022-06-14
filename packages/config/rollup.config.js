@@ -16,6 +16,42 @@ const globals = {
 };
 
 export default defineConfig([
+	pkg['source:server']
+		? {
+				input: pkg['source:server'],
+				plugins: [
+					autoExternal({
+						packagePath: join(process.cwd(), 'package.json'),
+					}),
+					json(),
+					esbuild({
+						sourceMap: true,
+					}),
+				],
+				output: [
+					{
+						dir,
+						entryFileNames: '[name].server.js',
+						format: 'cjs',
+						sourcemap: true,
+						globals,
+					},
+					,
+				],
+		  }
+		: null,
+	pkg['source:server']
+		? {
+				input: pkg['source:server'],
+				output: [{ file: `${dir}/index.server.d.ts`, format: 'cjs' }],
+				plugins: [
+					autoExternal({
+						packagePath: join(process.cwd(), 'package.json'),
+					}),
+					dts(),
+				],
+		  }
+		: null,
 	{
 		input,
 		external: ['react', 'react-dom'],
@@ -74,15 +110,6 @@ export default defineConfig([
 				packagePath: join(process.cwd(), 'package.json'),
 			}),
 			dts(),
-			// ts(),
-			// flatDts({
-			// 	compilerOptions: {
-			// 		declarationMap: true,
-			// 		importHelpers: false
-			// 	},
-			// 	internal: ['@decentology/*'],
-
-			// }),
 		],
 	},
 ]);

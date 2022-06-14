@@ -3,12 +3,15 @@
 	"version": "1.0.0",
 	"description": "",
 	"source": "index.ts",
+	"source:server": "./source/server/index.ts",
 	"exports": {
 		".": {
+			"require": "./source/server/index.ts",
 			"import": "./source/index.ts"
 		}
 	},
-	"main": "./distribution/index.mjs",
+	"main": "./distribution/index.js",
+	"module": "./distribution/index.mjs",
 	"unpkg": "./distribution/index.umd.js",
 	"types": "./distribution/index.d.ts",
 	"scripts": {

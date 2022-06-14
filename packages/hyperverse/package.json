@@ -2,12 +2,15 @@
 	"name": "@decentology/hyperverse",
 	"exports": {
 		".": {
-			"import": "./index.ts"
+			"require": "./source/server/index.ts",
+			"import": "./source/index.ts"
 		}
 	},
 	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.mjs",
+	"source:server": "./source/server/index.ts",
+	"main": "./distribution/index.js",
+	"module": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"version": "1.0.17",
 	"license": "MIT",
