@@ -2,23 +2,30 @@ import React from 'react';
 import { useTribes } from '../source';
 import { useState, useEffect } from 'react';
 
-export const GetTribeMembers = ({ ...props }: {tribeId: number}) => {
+export const GetTribeMembers = ({ ...props }: { tribeId: number }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState();
+	const [error, setError] = useState<
+		({ tribeId: any; account: any } | undefined)[] | undefined
+	>();
 
 	useEffect(() => {
 		if (tribes.getTribeMembers) {
-			tribes.getTribeMembers(props.tribeId).then(setData);
+			tribes.getTribeMembers(props.tribeId).then(setData, (error) => setError(error));
 		}
 	}, [tribes.getTribeMembers]);
+	console.log(error);
 
 	const hasTribeMembers = () => {
-		return data.length > 0 ? (
-			<pre>Tribe Members: {JSON.stringify(data)}</pre>
-		) : (
-			<p>There are no members in this tribe.</p>
-		);
+		if (error) {
+			return (
+				<div role="alert">
+					<pre style={{ whiteSpace: 'normal' }}>{JSON.stringify(error)}</pre>
+				</div>
+			);
+		}
+		return <p> Tribe Members: {JSON.stringify(tribes.error)}</p>;
 	};
 
-	return <div className="tribeMembers"> {hasTribeMembers()}</div>;
+	return <div className="body"> {hasTribeMembers()}</div>;
 };

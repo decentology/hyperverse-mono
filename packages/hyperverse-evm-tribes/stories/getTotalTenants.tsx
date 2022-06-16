@@ -1,9 +1,9 @@
 import { useTribes } from '../source';
 import { useEffect, useState } from 'react';
 
-export const GetTotalTenants = ({ tenants, ...props }) => {
+export const GetTotalTenants = ({ ...props }: {tenants: number}) => {
 	const tribes = useTribes();
-	const [data, setData] = useState(tenants);
+	const [data, setData] = useState(props.tenants);
 
 	useEffect(() => {
 		if (tribes.getTotalTenants) {
@@ -19,5 +19,5 @@ export const GetTotalTenants = ({ tenants, ...props }) => {
 		);
 	};
 
-	return <div className="totalTenants"> Total Tenants: {hasTenants()}</div>;
+	return <div className="body"> Total Tenants: {hasTenants()}</div>;
 };

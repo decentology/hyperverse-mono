@@ -7,10 +7,11 @@ export const JoinTribe = ({ ...props }: {tribeId: number}) => {
 	const { address, Connect } = useEvm();
 
 	const tribeJoin = () => {
-		if (joinTribe(props.tribeId)) {
-			joinTribe(props.tribeId);
+		if (joinTribe?.(props.tribeId)) {
+			joinTribe?.(props.tribeId);
 		}
 	};
+	console.log('address', address)
 
 	return address ? (
 		<button

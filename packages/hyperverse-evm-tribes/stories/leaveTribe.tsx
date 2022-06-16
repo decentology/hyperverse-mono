@@ -5,11 +5,10 @@ import './style.css';
 export const LeaveTribe = ({ ...props }) => {
 	const { leaveTribe, error } = useTribes();
 	const { address, Connect } = useEvm();
-	console.log('address', address);
 
 	const tribeLeave = () => {
-		if (leaveTribe()) {
-			leaveTribe();
+		if (leaveTribe?.()) {
+			leaveTribe?.();
 		}
 	};
 
