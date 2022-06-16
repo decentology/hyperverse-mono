@@ -35,5 +35,5 @@ export const Localhost = makeHyperverseBlockchain({
 	getNetwork,
 });
 
-export { Provider, useEvm, getProvider};
-export type {ProviderProps};
+export { Provider, useEvm, getProvider };
+export type { ProviderProps };

@@ -1,5 +1,13 @@
 # @decentology/hyperverse-metis
 
+## 1.0.17
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.0.17
+    -   @decentology/hyperverse-evm@1.0.17
+
 ## 1.0.16
 
 ### Patch Changes

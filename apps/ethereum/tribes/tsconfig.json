@@ -1,14 +1,13 @@
 {
-  "extends": "@decentology/config/nextjs.json",
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "**/node_modules"
-  ],
-  "compilerOptions": {
-    "isolatedModules": true
-  }
+	"extends": "@decentology/config/nextjs.json",
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"exclude": ["**/node_modules"],
+	"compilerOptions": {
+		"isolatedModules": true,
+		"paths": {
+			// "@rainbow-me/rainbowkit": ["../../node_modules/@rainbow-me/rainbowkit"],
+			"@wagmi/core": ["../../node_modules/@wagmi/core"],
+			// "@ethersproject/providers": ["../../node_modules/@ethersproject/providers"]
+		}
+	}
 }

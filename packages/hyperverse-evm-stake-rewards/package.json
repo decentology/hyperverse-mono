@@ -1,10 +1,15 @@
 {
 	"name": "@decentology/hyperverse-evm-stake-rewards",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.mjs",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"scripts": {
 		"test": "hardhat test",
 		"compile": "hardhat compile",
@@ -19,7 +24,8 @@
 		"build-storybook": "build-storybook"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
@@ -36,7 +42,7 @@
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/hyperverse-ethereum": "workspace:^",
 		"@decentology/hyperverse-evm": "workspace:^",
-		"@decentology/hyperverse-evm-erc777": "^2.0.0",
+		"@decentology/hyperverse-evm-erc777": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
 		"dotenv": "^16.0.0",
 		"ethers": "^5.5.3",

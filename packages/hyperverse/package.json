@@ -5,12 +5,11 @@
 			"import": "./index.ts"
 		}
 	},
+	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.js",
-	"main:src": "./source/index.ts",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.15",
+	"version": "1.0.17",
 	"license": "MIT",
 	"files": [
 		"distribution"

@@ -1,11 +1,16 @@
 {
 	"name": "@decentology/hyperverse-storage-skynet",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.js",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
+	"module": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"version": "1.0.14",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"files": [
 		"distribution"
 	],
@@ -14,7 +19,8 @@
 		"url": "https://github.com/decentology/hyperverse-mono"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": null
 	},
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",

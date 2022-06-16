@@ -32,18 +32,113 @@ export async function ERC721LibraryInternal(
 		providerOrSigner
 	);
 
-	const getBalanceOf = async (account: string) => {
+	const mint = async (to: string) => {
 		try {
-			const balance = await base.proxyContract?.balanceOf(account);
-			return BigNumber.from(balance) as BigNumber;
+			const mintTxn = await base.proxyContract?.mint(to);
+			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
 
-	const getBalance = async () => {
+	const togglePublicMint = async (isPublic: boolean) => {
 		try {
-			const balance = await base.proxyContract?.balance();
+			const toggleTxn = await base.proxyContract?.togglePublicMint(isPublic);
+			return toggleTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const tenantMint = async ({ to, image }: { image?: File; to: string;  }) => {
+		try {
+			let mintTxn;
+			const erc72Name = await base.proxyContract?.name();
+			if (image) {
+				const tokenUri = await hyperverse.storage?.uploadFile(image);
+				const Metadata = {
+						image: `https://ipfs.io/ipfs/${tokenUri}`,
+						name :  `${erc72Name}`,
+				}
+				const metadataFile = new File([JSON.stringify(Metadata)], 'metadata.json');
+				const metadataFileLink = await hyperverse!.storage!.uploadFile(
+					metadataFile
+				);
+
+				mintTxn = await base.proxyContract?.['tenantMint(address,string)'](to, metadataFileLink, {
+					gasLimit: '1000000'
+				});
+
+				
+				
+			} else {
+				mintTxn = await base.proxyContract?.['tenantMint(address)'](to);
+			}
+
+			return mintTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+
+	const getBaseURI = async () => {
+		try {
+			const baseURI = await base.proxyContract?.getBaseURI();
+			return baseURI;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const setMintPrice = async (price: number) => {
+		try {
+			const setMintPriceTxn = await base.proxyContract?.setMintPrice(price);
+			return setMintPriceTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const setBaseURI = async (baseURI: string) => {
+		try {
+			const setBaseURITxn = await base.proxyContract?.setBaseURI(baseURI);
+			return setBaseURITxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const setPublicSale = async (publicSale: boolean) => {
+		try {
+			const setPublicSalesTxn = await base.proxyContract?.setPublicSales(publicSale);
+			return setPublicSalesTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const withdraw = async () => {
+		try {
+			const withdrawTxn = await base.proxyContract?.withdraw();
+			return withdrawTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const tokenURI = async (tokenId: number) => {
+		try {
+			const tokenURI = await base.proxyContract?.tokenURI(tokenId);
+			return tokenURI;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const getBalanceOf = async (account: string) => {
+		try {
+			const balance = await base.proxyContract?.balanceOf(account);
 			return BigNumber.from(balance) as BigNumber;
 		} catch (error) {
 			throw error;
@@ -59,25 +154,6 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-	const togglePublicMint = async () => {
-		try {
-			const toggle = await base.proxyContract?.togglePublicMint();
-			return toggle.wait() as TransactionReceipt;
-		} catch (error) {
-			throw error;
-		}
-	};
-
-	const mint = async (to: string) => {
-		try {
-			console.log(base.proxyContract?.signer);
-			const mintTxn = await base.proxyContract?.mint(to);
-			return mintTxn.wait() as TransactionReceipt;
-		} catch (error) {
-			throw error;
-		}
-	};
-
 	const transfer = async ({
 		from,
 		to,
@@ -88,7 +164,7 @@ export async function ERC721LibraryInternal(
 		tokenId: number;
 	}) => {
 		try {
-			const transferTxn = await base.proxyContract?.tcdransferFrom(from, to, tokenId);
+			const transferTxn = await base.proxyContract?.transferFrom(from, to, tokenId);
 			return transferTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
@@ -104,9 +180,15 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-	const setApprovalForAll = async ({ to, approved }: { to: string; approved: boolean }) => {
+	const setApprovalForAll = async ({
+		operator,
+		approved,
+	}: {
+		operator: string;
+		approved: boolean;
+	}) => {
 		try {
-			const setApprovalTxn = await base.proxyContract?.setApprovalForAll(to, approved);
+			const setApprovalTxn = await base.proxyContract?.setApprovalForAll(operator, approved);
 			return setApprovalTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
@@ -115,11 +197,17 @@ export async function ERC721LibraryInternal(
 
 	return {
 		...base,
-		getBalanceOf,
-		getBalance,
-		getOwnerOf,
-		togglePublicMint,
 		mint,
+		togglePublicMint,
+		tenantMint,
+		getBaseURI,
+		setMintPrice,
+		setBaseURI,
+		setPublicSale,
+		withdraw,
+		tokenURI,
+		getBalanceOf,
+		getOwnerOf,
 		transfer,
 		approve,
 		setApprovalForAll,

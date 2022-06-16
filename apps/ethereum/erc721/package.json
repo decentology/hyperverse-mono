@@ -1,10 +1,11 @@
 {
-  "name": "@decentology/samples-token",
-  "version": "0.1.1",
+  "name": "@decentology/samples-nft",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
+    "preview": "next build && next export && cd out && 7z a -mx=9 publish.zip . ../.azure/. && az webapp deployment source config-zip --resource-group samples --name dappstarter-samples --src publish.zip",
     "start": "next start",
     "lint": "next lint"
   },
@@ -12,7 +13,7 @@
     "@decentology/hyperverse": "workspace:^",
     "@decentology/hyperverse-ethereum": "workspace:^",
     "@decentology/hyperverse-evm-erc721": "workspace:^",
-    "@decentology/unstated-next": "^1.1.1",
+    "@decentology/unstated-next": "workspace:^",
     "@radix-ui/react-accordion": "^0.1.6",
     "@stitches/react": "^1.2.6",
     "ethers": "^5.5.4",
@@ -21,10 +22,12 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "react-query": "^3.38.0",
-    "react-toastify": "^8.2.0"
+    "react-toastify": "^8.2.0",
+    "react-use": "^17.4.0"
   },
   "devDependencies": {
-    "@decentology/config": "^1.0.0",
+    "@decentology/config": "workspace:^",
+    "@types/react": "17.0.2",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0"
   }

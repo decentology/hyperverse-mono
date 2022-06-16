@@ -1,11 +1,15 @@
 {
 	"name": "@decentology/hyperverse-ethereum-randompick",
-	"version": "1.0.17",
+	"version": "1.0.18",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"module": "./distribution/index.es.js",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.mjs",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"scripts": {
 		"test": "hardhat test",
 		"build": "rollup --config node:@decentology/config/rollup.config.js",

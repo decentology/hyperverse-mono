@@ -33,7 +33,7 @@ const GetOwnerOf = () => {
 	const [tokenId, setTokenId] = useState('');
 
 	const erc721 = useERC721();
-	const { data, isLoading } = useQuery('ownerOf', () => erc721.getOwnerOf!(tokenId));
+	const { data, isLoading } = useQuery('ownerOf', () => erc721.getOwnerOf!(tokenId), {enabled: !!erc721.proxyContract});
 
 	const [hidden, setHidden] = useState(false);
 

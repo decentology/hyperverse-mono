@@ -3,7 +3,7 @@
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.14",
+	"version": "1.0.15",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -25,7 +25,6 @@
 		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.30",
 		"@types/react": "17.0.2",
-
 		"rimraf": "^3.0.2"
 	},
 	"dependencies": {

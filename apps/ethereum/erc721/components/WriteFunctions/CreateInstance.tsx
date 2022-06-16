@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
 import { useERC721 } from '@decentology/hyperverse-evm-erc721';
@@ -14,12 +14,13 @@ import {
 } from '../ComponentStyles';
 
 import { useQuery, useMutation } from 'react-query';
+import { AppContext } from '../../pages/_app';
 
 const CreateInstance = () => {
 	const { account } = useEthereum();
-
+	const context = useContext(AppContext);
 	const erc721 = useERC721();
-	const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account));
+	const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account), {enabled: !!erc721.factoryContract});
 
 	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.createInstance);
 
@@ -32,7 +33,10 @@ const CreateInstance = () => {
 				account: account!,
 				tokenName,
 				tokenSymbol,
-			});
+			}, {
+				onSuccess: () => { 
+					context.setTenantId(account);
+			}});
 		} catch (error) {
 			throw error;
 		}

@@ -6,8 +6,7 @@
 		}
 	},
 	"source": "./source/index.ts",
-	"main": "./distribution/index.js",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"version": "1.0.14",
 	"license": "MIT",

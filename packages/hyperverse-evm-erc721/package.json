@@ -1,11 +1,15 @@
 {
 	"name": "@decentology/hyperverse-evm-erc721",
-	"version": "1.0.7",
+	"version": "1.0.10",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"main": "./distribution/index.js",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"scripts": {
 		"test": "hardhat test",
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
@@ -18,10 +22,12 @@
 		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",
 		"lint": "tsc --noEmit",
 		"storybook": "start-storybook -p 6006",
+		"preview": "STORYBOOK_NETWORK=rinkeby build-storybook && cd storybook-static && 7z a -mx=9 publish.zip . ../.azure/. && az webapp deployment source config-zip --resource-group samples --name dappstarter-samples --src publish.zip",
 		"build-storybook": "build-storybook"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
@@ -35,9 +41,9 @@
 		"node": ">=12.0.0"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1.0.15",
-		"@decentology/hyperverse-evm": "^1.0.15",
-		"@decentology/unstated-next": "^1.1.9",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"@openzeppelin/contracts": "^4.6.0",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
@@ -47,7 +53,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.18.2",
-		"@decentology/config": "^1.0.3",
+		"@decentology/config": "workspace:^",
 		"@ethersproject/abstract-provider": "^5.6.1",
 		"@nomiclabs/hardhat-ethers": "^2.0.6",
 		"@nomiclabs/hardhat-waffle": "^2.0.3",

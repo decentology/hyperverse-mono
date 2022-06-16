@@ -20,7 +20,7 @@ const BalanceOf = () => {
 	const [address, setAddress] = useState('');
 
 	const erc721 = useERC721();
-	const { data, isLoading } = useQuery('balanceOf', () => erc721.getBalanceOf!(address!));
+	const { data, isLoading } = useQuery('balanceOf', () => erc721.getBalanceOf!(address!), {enabled: !!erc721.proxyContract});
 	const [hidden, setHidden] = useState(false);
 
 	return (

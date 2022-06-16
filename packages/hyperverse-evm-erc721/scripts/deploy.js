@@ -35,15 +35,21 @@ async function main() {
 
 	// Save contract addresses back to file
 	fs.writeJsonSync('contracts.json', env, { spaces: 2 });
-	let proxyAddress = constants.AddressZero;
-	const instanceTnx = await nftFactoryContract.createInstance(deployer.address, 'Test', 'TST');
-	instanceTnx.wait();
-	console.log('Instance Created', instanceTnx.hash);
-	while (proxyAddress === constants.AddressZero) {
-		try {
-			proxyAddress = await nftFactoryContract.getProxy(deployer.address);
-		} catch (error) {
-			proxyAddress = constants.AddressZero;
+	if (process.env.LOCALDEPLOY) {
+		let proxyAddress = constants.AddressZero;
+		const instanceTnx = await nftFactoryContract.createInstance(
+			deployer.address,
+			'Test',
+			'TST'
+		);
+		instanceTnx.wait();
+		console.log('Instance Created', instanceTnx.hash);
+		while (proxyAddress === constants.AddressZero) {
+			try {
+				proxyAddress = await nftFactoryContract.getProxy(deployer.address);
+			} catch (error) {
+				proxyAddress = constants.AddressZero;
+			}
 		}
 	}
 }

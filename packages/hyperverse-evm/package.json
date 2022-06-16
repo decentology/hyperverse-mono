@@ -1,7 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm",
-	"version": "1.0.15",
-
+	"version": "1.0.17",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
@@ -9,9 +8,7 @@
 	},
 	"type": "module",
 	"source": "./source/index.ts",
-	"main:src": "./source/index.ts",
-	"main": "./distribution/index.js",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
 	"engines": {
@@ -28,12 +25,7 @@
 	],
 	"publishConfig": {
 		"access": "public",
-		"exports": {
-			".": {
-				"require": "./distribution/index.js",
-				"import": "./distribution/index.es.js"
-			}
-		}
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
@@ -43,9 +35,9 @@
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
 		"@ethersproject/providers": "^5.6.4",
-		"@rainbow-me/rainbowkit": "^0.1.0",
+		"@rainbow-me/rainbowkit": "^0.2.3",
 		"ethers": "^5.6.5",
-		"wagmi": "^0.3.3"
+		"wagmi": "^0.4.10"
 	},
 	"devDependencies": {
 		"@decentology/config": "workspace:^",
@@ -54,6 +46,7 @@
 		"parcel": "2.2.1",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.74.1",
-		"tslib": "^2.4.0"
+		"tslib": "^2.4.0",
+		"typescript-plugin-css-modules": "^3.4.0"
 	}
 }

@@ -18,6 +18,10 @@ function deploy() {
 			['run', join(__dirname, '../scripts/deploy.js'), '--network', 'localhost'],
 			{
 				shell: true,
+				env: {
+					...process.env,
+					LOCALDEPLOY: true,
+				},
 				stdio: 'inherit',
 			}
 		);

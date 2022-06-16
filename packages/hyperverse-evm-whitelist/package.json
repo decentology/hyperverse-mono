@@ -1,11 +1,15 @@
 {
 	"name": "@decentology/hyperverse-evm-whitelist",
-	"version": "2.0.4",
+	"version": "2.0.5",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
-	"module": "./distribution/index.es.js",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.mjs",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"scripts": {
 		"compile": "hardhat compile",
 		"test": "hardhat test",
@@ -21,7 +25,8 @@
 		"build-storybook": "build-storybook"
 	},
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
@@ -37,7 +42,6 @@
 	"dependencies": {
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/hyperverse-evm": "workspace:^",
-		"@decentology/hyperverse-evm-whitelist": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
 		"@openzeppelin/contracts": "^4.4.2",
 		"dotenv": "^16.0.0",

@@ -1,0 +1,39 @@
+{
+	"name": "hyperverse-react",
+	"version": "1.0.0",
+	"description": "",
+	"source": "index.ts",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
+	"main": "./distribution/index.mjs",
+	"unpkg": "./distribution/index.umd.js",
+	"types": "./distribution/index.d.ts",
+	"scripts": {
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
+		"build:parcel": "parcel build",
+		"clean": "rimraf ./distribution",
+		"lint": "tsc --noEmit"
+	},
+	"files": [
+		"distribution"
+	],
+	"publishConfig": {
+		"exports": null
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@decentology/config": "workspace:^",
+		"react": "17.0.2",
+		"react-dom": "17.0.2",
+		"rimraf": "^3.0.2"
+	},
+	"peerDependencies": {
+		"react": "17.0.2",
+		"react-dom": "17.0.2"
+	}
+}

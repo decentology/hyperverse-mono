@@ -57,7 +57,7 @@ const TribesPage = () => {
 								<h2>{data.name}</h2>
 							</div>
 						) : (
-							<Image
+							<img
 								width={300}
 								height={380}
 								src={`${data.imageUrl}`}

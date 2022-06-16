@@ -4,8 +4,8 @@ pragma experimental ABIEncoderV2;
 
 import './hyperverse/CloneFactory.sol';
 import './hyperverse/IHyperverseModule.sol';
-import './ERC721.sol';
 import './utils/Counters.sol';
+import './ERC721.sol';
 
 /**
  * @dev Clone Factory Implementation for ERC20 Token

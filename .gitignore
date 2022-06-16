@@ -39,3 +39,5 @@ pnpm-lock.yaml
 package-lock.json
 .vscode/settings.json
 storybook-static/
+*.tgz
+*.zip

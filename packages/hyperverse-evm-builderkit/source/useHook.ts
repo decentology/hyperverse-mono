@@ -1,27 +1,26 @@
 import { useState, useEffect } from 'react';
+import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
+
 import { useEvm } from '@decentology/hyperverse-evm';
 import { ModuleLibrary, ModuleLibraryType } from './moduleLibrary';
 import { useHyperverse } from '@decentology/hyperverse';
 
 function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, connectedProvider, readOnlyProvider } = useEvm();
+	const { readOnlyProvider, signer } = useEvm();
 	const hyperverse = useHyperverse();
-	const [hyperverseModule, setHyperverseModule] = useState<ModuleLibraryType>();
-
+	const [moduleLibrary, setModuleLibrary] = useState<ModuleLibraryType>();
 
 	useEffect(() => {
-		const lib = ModuleLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setHyperverseModule).catch(x => {
-			// Ignoring stale library instance
-		});
-
+		const lib = ModuleLibrary(hyperverse, signer || readOnlyProvider).then(setModuleLibrary).catch(() => {
+			
+		})
 		return lib.cancel;
-	}, [connectedProvider])
-
+	}, [signer, readOnlyProvider])
 
 	return {
-		...hyperverseModule,
+		...moduleLibrary,
 		tenantId,
 	};
 }

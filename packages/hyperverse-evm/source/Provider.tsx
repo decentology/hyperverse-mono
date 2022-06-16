@@ -1,64 +1,63 @@
-import '@rainbow-me/rainbowkit/styles.css';
-import {
-	apiProvider,
-	configureChains,
-	getDefaultWallets,
-	RainbowKitProvider,
-	darkTheme,
-} from '@rainbow-me/rainbowkit';
-import { ProviderProps as WagmiProviderProps, createClient, WagmiProvider } from 'wagmi';
+import { getDefaultWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
+import { createClient, configureChains, chain, WagmiConfig } from 'wagmi';
 import { Evm } from './useEVM';
 import { useHyperverse } from '@decentology/hyperverse';
-import { BaseProvider } from '@ethersproject/providers';
-
+import { publicProvider } from 'wagmi/providers/public';
+import { infuraProvider } from 'wagmi/providers/infura';
+import { useMemo } from 'react';
 export type ProviderProps = {
 	children: React.ReactNode;
 	networks?: any;
-} & WagmiProviderProps &
-	Partial<Parameters<typeof RainbowKitProvider>[0]>;
+} & Partial<Parameters<typeof RainbowKitProvider>[0]>;
 
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const { network: defaultNetwork } = useHyperverse();
-	const { chains, provider } = configureChains(
-		[
-			{
-				id: defaultNetwork.chainId!,
-				name: defaultNetwork.name!,
-				rpcUrls: {
-					default: defaultNetwork.networkUrl!,
-				},
-				blockExplorers: {
-					etherscan: {
-						name: 'Etherscan',
-						url: defaultNetwork.blockExplorer!,
+
+	const { chains, provider } = useMemo(
+		() =>
+			configureChains(
+				[
+					{
+						id: defaultNetwork.chainId!,
+						name: defaultNetwork.name!,
+						network: defaultNetwork.networkUrl!,
+						rpcUrls: {
+							default: defaultNetwork.networkUrl!,
+						},
+						blockExplorers: {
+							default: {
+								name: 'Block Explorer',
+								url: defaultNetwork.blockExplorer!,
+							},
+						},
 					},
-					default: { name: 'default', url: defaultNetwork.blockExplorer! },
-				},
-				testnet: defaultNetwork.type === 'testnet',
-			},
-		],
-		[
-			apiProvider.jsonRpc(() => ({
-				rpcUrl: defaultNetwork.networkUrl!,
-			})),
-			apiProvider.fallback(),
-		]
+				],
+				[publicProvider()]
+			),
+		[defaultNetwork]
 	);
 
-	const { connectors } = getDefaultWallets({
-		appName: 'Hyperverse',
-		chains,
-	});
+	const { connectors } = useMemo(
+		() =>
+			getDefaultWallets({
+				appName: 'Hyperverse',
+				chains,
+			}),
+		[chains]
+	);
 
-	const wagmiClient = createClient({
-		autoConnect: true,
-		connectors,
-		provider,
-	});
+	const wagmiClient = useMemo(
+		() =>
+			createClient({
+				autoConnect: true,
+				connectors,
+				provider,
+			}),
+		[chains]
+	);
 
 	return (
-		// @ts-ignore - StaticJsonRpcProvider missing type of BaseProvider. Needs fixed in Wagmi/Ethers
-		<WagmiProvider client={wagmiClient} {...props}>
+		<WagmiConfig client={wagmiClient}>
 			<RainbowKitProvider
 				chains={chains}
 				showRecentTransactions={true}
@@ -71,6 +70,6 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 			>
 				<Evm.Provider>{children}</Evm.Provider>
 			</RainbowKitProvider>
-		</WagmiProvider>
+		</WagmiConfig>
 	);
 };

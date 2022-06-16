@@ -1,11 +1,15 @@
 {
 	"name": "@decentology/hyperverse-metis",
-	"version": "1.0.16",
+	"version": "1.0.17",
 	"source": "./source/index.ts",
-	"module": "./distribution/index.es.js",
-	"main": "./distribution/index.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		}
+	},
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
 		"clean": "rimraf ./distribution",
@@ -15,7 +19,8 @@
 		"distribution"
 	],
 	"publishConfig": {
-		"access": "public"
+		"access": "public",
+		"exports": null
 	},
 	"peerDependencies": {
 		"react": "^17.0.2"

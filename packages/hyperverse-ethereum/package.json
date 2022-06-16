@@ -1,16 +1,15 @@
 {
 	"name": "@decentology/hyperverse-ethereum",
-	"version": "1.0.15",
+	"version": "1.0.18",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
-		}
+		},
+		"./styles.css": "./source/styles.css"
 	},
 	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.js",
-	"main:src": "./source/index.ts",
-	"module": "./distribution/index.es.js",
+	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"license": "MIT",
 	"scripts": {
@@ -25,10 +24,7 @@
 	"publishConfig": {
 		"access": "public",
 		"exports": {
-			".": {
-				"require": "./distribution/index.js",
-				"import": "./distribution/index.es.js"
-			}
+			"./styles.css": "./distribution/styles.css"
 		}
 	},
 	"peerDependencies": {

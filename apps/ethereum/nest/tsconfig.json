@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "CommonJS",
+		"moduleResolution": "Node",
 		"declaration": true,
 		"removeComments": true,
 		"emitDecoratorMetadata": true,
@@ -18,21 +19,20 @@
 		"resolveJsonModule": true,
 		"jsx": "react-jsx",
 		"noFallthroughCasesInSwitch": false,
-		"paths": {
-			"@decentology/hyperverse": [
-				"../../../packages/hyperverse"
-			],
+		// "paths": {
+		// 	"@decentology/hyperverse": [
+		// 		"../../../packages/hyperverse"
+		// 	],
+		// 	"@decentology/hyperverse-ethereum": [
+		// 		"../../../packages/hyperverse-ethereum"
+		// 	],
 
-			"@decentology/hyperverse-ethereum": [
-				"../../../packages/hyperverse-ethereum"
-			],
-
-			"@decentology/hyperverse-storage-ipfs": [
-				"../../../packages/hyperverse-storage-ipfs"
-			],
-			"@decentology/hyperverse-evm": [
-				"../../../packages/hyperverse-evm"
-			]
-		}
+		// 	"@decentology/hyperverse-storage-ipfs": [
+		// 		"../../../packages/hyperverse-storage-ipfs"
+		// 	],
+		// 	"@decentology/hyperverse-evm": [
+		// 		"../../../packages/hyperverse-evm"
+		// 	]
+		// }
 	}
 }
