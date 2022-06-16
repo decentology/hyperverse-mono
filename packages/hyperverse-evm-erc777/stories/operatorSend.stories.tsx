@@ -1,7 +1,7 @@
 import { OperatorSend } from './operatorSend';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/operatorSend.mdx';
+import { Doc } from '../docs/operatorSend.mdx';
 
 export default {
 	title: 'Components/OperatorSend',

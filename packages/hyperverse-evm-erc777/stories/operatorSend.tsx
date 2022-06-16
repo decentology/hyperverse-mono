@@ -22,7 +22,7 @@ export const OperatorSend = ({
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					operatorSend(props);
+					operatorSend?.(props);
 				}}
 			>
 				Operator Send

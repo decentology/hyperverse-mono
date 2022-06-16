@@ -1,7 +1,7 @@
 import { TransferFrom } from './transferFrom';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/transferFrom.mdx';
+import { Doc } from '../docs/transferFrom.mdx';
 
 export default {
 	title: 'Components/TransferFrom',

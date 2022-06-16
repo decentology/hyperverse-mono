@@ -14,7 +14,7 @@ export const Send = ({ ...props }: { to: string; amount: number; data: any }) =>
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					send(props);
+					send?.(props);
 				}}
 			>
 				Send
