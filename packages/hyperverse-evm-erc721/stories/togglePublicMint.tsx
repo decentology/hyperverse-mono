@@ -1,5 +1,6 @@
 import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
+import { useState } from 'react';
 import './style.css';
 
 export const TogglePublicMint = ({ ...props }) => {
@@ -14,7 +15,7 @@ export const TogglePublicMint = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					togglePublicMint();
+					togglePublicMint?.(true);
 				}}
 			>
 				Public Mint

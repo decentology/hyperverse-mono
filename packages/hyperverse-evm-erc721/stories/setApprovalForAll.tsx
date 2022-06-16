@@ -2,7 +2,7 @@ import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const ApproveAll = ({ ...props }: { to: string; approved: boolean }) => {
+export const ApproveAll = ({ ...props }: { operator: string; approved: boolean }) => {
 	const { setApprovalForAll } = useERC721();
 	const { address, Connect } = useEvm();
 
@@ -14,7 +14,7 @@ export const ApproveAll = ({ ...props }: { to: string; approved: boolean }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setApprovalForAll(props);
+					setApprovalForAll?.(props);
 				}}
 			>
 				Approve All
