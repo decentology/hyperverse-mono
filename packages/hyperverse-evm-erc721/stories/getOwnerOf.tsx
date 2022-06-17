@@ -1,10 +1,9 @@
 import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
+import { BigNumber } from 'ethers';
 
 export const GetOwnerOf = ({ ...props }: {account: string, tokenId: string}) => {
 	const erc721 = useERC721();
-	const { address } = useEvm();
 	const [data, setData] = useState(props.account);
 
 	useEffect(() => {
@@ -15,11 +14,11 @@ export const GetOwnerOf = ({ ...props }: {account: string, tokenId: string}) => 
 
 	const owner = () => {
 		return data ? (
-			<p>{data}</p>
+			<p>{JSON.stringify(data)}</p>
 		) : (
-			<p>Error!</p>
+			<p>{erc721.error}</p>
 		);
 	};
 
-	return <div className="ownerOf"> Owner of token {props.tokenId}: {owner()}</div>;
+	return <div className="body"> Owner of token <b>{props.tokenId}</b>: {owner()}</div>;
 };

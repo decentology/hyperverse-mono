@@ -1,11 +1,11 @@
-import { GetOwnerOf } from './getOwnerOf';
+import { SetPublicSale } from './setPublicSale';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getOwnerOf.mdx';
+import { Doc } from '../docs/setApprovalForAll.mdx';
 
 export default {
-	title: 'Components/GetOwnerOf',
-	component: GetOwnerOf,
+	title: 'Components/SetPublicSale',
+	component: SetPublicSale,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,12 +15,12 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetOwnerOf {...args} />
+		<SetPublicSale {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	tokenId: 1,
+	publicSale: true,
 };

@@ -1,11 +1,11 @@
-import { TogglePublicMint } from './togglePublicMint';
+import { Withdraw } from './withdraw';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/togglePublicMint.mdx';
+import { Doc } from '../docs/setApprovalForAll.mdx';
 
 export default {
-	title: 'Components/TogglePublicMint',
-	component: TogglePublicMint,
+	title: 'Components/Withdraw',
+	component: Withdraw,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,7 +15,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<TogglePublicMint {...args} />
+		<Withdraw {...args} />
 	</HyperverseProvider>
 );
 

@@ -4,7 +4,7 @@ import './style.css';
 
 export const Approve = ({ ...props }: { to: string; tokenId: number }) => {
 	const { approve } = useERC721();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -14,7 +14,7 @@ export const Approve = ({ ...props }: { to: string; tokenId: number }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					approve(props);
+					approve?.(props);
 				}}
 			>
 				Approve

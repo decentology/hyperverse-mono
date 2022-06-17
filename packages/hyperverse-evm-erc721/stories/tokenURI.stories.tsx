@@ -1,11 +1,11 @@
-import { GetOwnerOf } from './getOwnerOf';
+import { TokenURI } from './tokenURI';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getOwnerOf.mdx';
+import { Doc } from '../docs/tokenURI.mdx';
 
 export default {
-	title: 'Components/GetOwnerOf',
-	component: GetOwnerOf,
+	title: 'Components/TokenURI',
+	component: TokenURI,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,7 +15,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetOwnerOf {...args} />
+		<TokenURI {...args} />
 	</HyperverseProvider>
 );
 

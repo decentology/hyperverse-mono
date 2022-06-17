@@ -41,15 +41,6 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-	const togglePublicMint = async (isPublic: boolean) => {
-		try {
-			const toggleTxn = await base.proxyContract?.togglePublicMint(isPublic);
-			return toggleTxn.wait() as TransactionReceipt;
-		} catch (error) {
-			throw error;
-		}
-	};
-
 	const tenantMint = async ({ to, image }: { image?: File; to: string;  }) => {
 		try {
 			let mintTxn;
@@ -111,7 +102,7 @@ export async function ERC721LibraryInternal(
 
 	const setPublicSale = async (publicSale: boolean) => {
 		try {
-			const setPublicSalesTxn = await base.proxyContract?.setPublicSales(publicSale);
+			const setPublicSalesTxn = await base.proxyContract?.setPublicSale(publicSale);
 			return setPublicSalesTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
@@ -198,7 +189,6 @@ export async function ERC721LibraryInternal(
 	return {
 		...base,
 		mint,
-		togglePublicMint,
 		tenantMint,
 		getBaseURI,
 		setMintPrice,

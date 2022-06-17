@@ -1,7 +1,7 @@
 import { ApproveAll } from './setApprovalForAll';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/setApprovalForAll.mdx';
+import { Doc } from '../docs/setApprovalForAll.mdx';
 
 export default {
 	title: 'Components/ApproveAll',
@@ -22,6 +22,6 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 	approved: true,
 };

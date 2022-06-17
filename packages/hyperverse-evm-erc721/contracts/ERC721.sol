@@ -619,7 +619,7 @@ contract ERC721 is
 		}
 	}
 
-	/**
+	/**	
 	 * @dev Hook that is called before any token transfer. This includes minting
 	 * and burning.
 	 *

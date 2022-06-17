@@ -1,11 +1,11 @@
-import { GetOwnerOf } from './getOwnerOf';
+import { SetBaseURI } from './setBaseURI';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getOwnerOf.mdx';
+import { Doc } from '../docs/setBaseURI.mdx';
 
 export default {
-	title: 'Components/GetOwnerOf',
-	component: GetOwnerOf,
+	title: 'Components/SetBaseURI',
+	component: SetBaseURI,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,12 +15,12 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetOwnerOf {...args} />
+		<SetBaseURI {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	tokenId: 1,
+	baseURI: 'hyperverse-token',
 };
