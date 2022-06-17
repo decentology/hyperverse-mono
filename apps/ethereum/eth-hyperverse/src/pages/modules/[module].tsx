@@ -1,4 +1,4 @@
-import { Nav } from '../../components/Playground/Nav'
+import { Nav } from '../../components/basics/Nav'
 import { Playground } from '../../components/Playground'
 
 export default function PlaygroundTabs() {

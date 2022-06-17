@@ -6,6 +6,7 @@ import { globalCss } from '../../stitches.config'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { MediaQuery } from '../context/MediaQuery'
 
 import type { AppProps } from 'next/app'
 
@@ -34,11 +35,12 @@ const globalStyles = globalCss({
     flexDirection: 'column',
     margin: 'auto',
     fontSize: 16,
-    padding: '0 24px',
-    minHeight: 700,
+    padding: '0 16px 0 16px',
+    
     '@desktop': {
       padding: 0,
       width: '1260px',
+      
     },
   },
   a: {
@@ -74,8 +76,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider initialState={hyperverse}>
-        <ToastContainer />
-        <Component {...pageProps} />
+        <MediaQuery.Provider>
+          <ToastContainer />
+          <Component {...pageProps} />
+        </MediaQuery.Provider>
       </Provider>
     </QueryClientProvider>
   )

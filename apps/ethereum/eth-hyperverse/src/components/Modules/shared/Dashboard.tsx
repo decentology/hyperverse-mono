@@ -85,10 +85,10 @@ export const Dashboard = ({ module, instance, isLoading, createInstance, txnLoad
               {dappstarter && (
                 <>
                   <SubHeader>DappStarter</SubHeader>
-                  <CodeContainer>
+                  {/* <CodeContainer>
                     <h3>{dappstarter.app}</h3>
                     <Code code={dappstarter.url} theme={DEFAULT_THEME} lang="sh" />
-                  </CodeContainer>
+                  </CodeContainer> */}
                 </>
               )}
             </>
@@ -130,7 +130,7 @@ const CodeContainer = styled('div', {
   padding: 20,
   marginBottom: 20,
   boxShadow: '2px 2px 2px #342F4E',
-  maxWidth: 1000,
+
   h3: {
     fontFamily: '$mono',
     fontWeight: '400',

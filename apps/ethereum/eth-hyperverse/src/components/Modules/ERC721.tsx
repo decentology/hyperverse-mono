@@ -34,9 +34,9 @@ export const ERC721 = () => {
           <PanelTrigger active={activeTab === ModuleTabs.DASHBOARD} value={ModuleTabs.DASHBOARD}>
             <Heading>Dashboard</Heading>
           </PanelTrigger>
-          {/* <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
-            <Heading>Playground</Heading>
-          </PanelTrigger> */}
+          <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
+            <Heading>Code</Heading>
+          </PanelTrigger>
         </Header>
         <Content value={ModuleTabs.DASHBOARD}>
           <Dashboard
@@ -48,6 +48,10 @@ export const ERC721 = () => {
             txnLoading={txnLoading}
           />
         </Content>
+        <Content value={ModuleTabs.CODE}>
+          
+        </Content>
+
         {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />
           <ReadComponent />

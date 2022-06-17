@@ -136,13 +136,14 @@ export const CreateInstance = ({ createInstanceFn, txnLoading }: ReadFunctionPro
 
 export const InstanceContainer = styled('div', {
   display: 'flex',
-  justifyContent: 'space-between',
   alignItems: 'center',
   background: '$blue200',
   borderRadius: 14,
   padding: 20,
   boxShadow: '2px 2px 2px #342F4E',
-  width: '95%',
+  width: 'calc(100% - 50px)',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
 })
 
 const Info = styled('div', {
@@ -255,6 +256,3 @@ const InputContainer = styled('div', {
   marginTop: 18,
 })
 
-const Submit = styled('input', {
-  display: 'flex',
-})
