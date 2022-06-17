@@ -1,9 +1,22 @@
 import { Dashboard } from './shared/Dashboard'
 import { Content, Root as Tabs } from '@radix-ui/react-tabs'
 import React, { useEffect } from 'react'
-import { ModuleContainer, Header, PanelTrigger, Heading, ContentGrid, ModuleTabs } from './shared/ModuleStyles'
+import {
+  ModuleContainer,
+  Header,
+  PanelTrigger,
+  Heading,
+  ModuleTabs,
+  ScrollArea,
+  ViewportStyled,
+  ScrollbarStyled,
+  ThumbStyled,
+} from './shared/ModuleStyles'
+
 import { useERC721 } from '@decentology/hyperverse-evm-erc721'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
+import { ERC721CodeSnippets } from '../../consts'
+import { CodeContainer, SubHeader, DEFAULT_THEME, Code } from './shared/Dashboard'
 
 import { useMutation, useQuery } from 'react-query'
 
@@ -16,28 +29,30 @@ export const ERC721 = () => {
     enabled: !!erc721.factoryContract && !!account,
   })
   const { mutate, isLoading: txnLoading, isSuccess } = useMutation('createTokenInstance', erc721.createInstance)
-  
+
   useEffect(() => {
     if (isSuccess) {
       refetch()
     }
   }, [isSuccess, refetch])
+
   return (
     <ModuleContainer>
       <Tabs
         defaultValue={ModuleTabs.DASHBOARD}
-        onValueChange={(value) => {
-          setActiveTab(value === ModuleTabs.DASHBOARD ? ModuleTabs.DASHBOARD : ModuleTabs.PLAYGROUND)
-        }}
       >
         <Header>
-          <PanelTrigger active={activeTab === ModuleTabs.DASHBOARD} value={ModuleTabs.DASHBOARD}>
+          <PanelTrigger onClick={() => setActiveTab(ModuleTabs.DASHBOARD)} active={activeTab === ModuleTabs.DASHBOARD} value={ModuleTabs.DASHBOARD}>
             <Heading>Dashboard</Heading>
           </PanelTrigger>
-          <PanelTrigger active={activeTab === ModuleTabs.PLAYGROUND} value={ModuleTabs.PLAYGROUND}>
-            <Heading>Code</Heading>
+          <PanelTrigger onClick={() => setActiveTab(ModuleTabs.TENANT)} active={activeTab === ModuleTabs.TENANT} value={ModuleTabs.TENANT}>
+            <Heading>Tenant Functions</Heading>
+          </PanelTrigger>
+          <PanelTrigger onClick={() => setActiveTab(ModuleTabs.PUBLIC)} active={activeTab === ModuleTabs.PUBLIC} value={ModuleTabs.PUBLIC}>
+            <Heading>Functions</Heading>
           </PanelTrigger>
         </Header>
+
         <Content value={ModuleTabs.DASHBOARD}>
           <Dashboard
             key="erc721"
@@ -48,10 +63,49 @@ export const ERC721 = () => {
             txnLoading={txnLoading}
           />
         </Content>
-        <Content value={ModuleTabs.CODE}>
-          
-        </Content>
 
+        <Content value={ModuleTabs.TENANT}>
+          <ScrollArea>
+            <ViewportStyled>
+              <SubHeader>Tenant Functions</SubHeader>
+
+              {ERC721CodeSnippets.ownerFunctions.map((snippet) => {
+                return (
+                  <CodeContainer key={snippet.name}>
+                    <h3>{snippet.name}</h3>
+                    {snippet.snippet && (
+                      <Code code={snippet.snippet} theme={DEFAULT_THEME} />
+                    )}
+                  </CodeContainer>
+                )
+              })}
+            </ViewportStyled>
+            <ScrollbarStyled orientation="vertical">
+              <ThumbStyled />
+            </ScrollbarStyled>
+          </ScrollArea>
+        </Content>
+        <Content value={ModuleTabs.PUBLIC}>
+          <ScrollArea>
+            <ViewportStyled>
+              <SubHeader>Functions</SubHeader>
+
+              {ERC721CodeSnippets.publicFunctions.map((snippet) => {
+                return (
+                  <CodeContainer key={snippet.name}>
+                    <h3>{snippet.name}</h3>
+                    {snippet.snippet && (
+                      <Code code={snippet.snippet} theme={DEFAULT_THEME} />
+                    )}
+                  </CodeContainer>
+                )
+              })}
+            </ViewportStyled>
+            <ScrollbarStyled orientation="vertical">
+              <ThumbStyled />
+            </ScrollbarStyled>
+          </ScrollArea>
+        </Content>
         {/* <ContentGrid value={ModuleTabs.PLAYGROUND}>
           <ReadComponent />
           <ReadComponent />

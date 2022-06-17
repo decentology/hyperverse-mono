@@ -7,7 +7,8 @@ const SCROLLBAR_SIZE = 2
 export const ModuleTabs = {
   DASHBOARD: 'dashboard',
   PLAYGROUND: 'playground',
-  CODE: 'code',
+  TENANT: 'Tenant Functions',
+  PUBLIC: 'Functions',
 } as const
 
 export type ModuleTabs = typeof ModuleTabs[keyof typeof ModuleTabs]

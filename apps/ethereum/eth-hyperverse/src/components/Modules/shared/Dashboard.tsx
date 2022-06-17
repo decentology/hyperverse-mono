@@ -3,20 +3,19 @@ import { CreateInstance } from './CreateInstance'
 import { ScrollArea, ViewportStyled, ScrollbarStyled, ThumbStyled } from './ModuleStyles'
 import { getHighlighter, setCDN } from 'shiki'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
-import { useERC721 } from '@decentology/hyperverse-evm-erc721'
 
 import { MODULES } from '../../../consts'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Skeleton } from '../../basics/Skeleton'
 import { Instance } from './Instance'
-import { Loader } from '../../basics/Loader'
+
 
 setCDN('https://unpkg.com/shiki/')
-const DEFAULT_LANG = 'jsx'
+export const DEFAULT_LANG = 'jsx'
 
 
-const DEFAULT_THEME = 'material-darker'
+export const DEFAULT_THEME = 'material-darker'
 const highlighterPromise = getHighlighter({
   theme: DEFAULT_THEME,
   langs: [DEFAULT_LANG, 'sh'],
@@ -32,7 +31,6 @@ type DashboardType = {
 
 export const Dashboard = ({ module, instance, isLoading, createInstance, txnLoading }: DashboardType) => {
   const { account } = useEthereum()
-	console.log(txnLoading);
 
   const dependencies = `yarn add @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${module}`
   //@ts-ignore
@@ -85,10 +83,10 @@ export const Dashboard = ({ module, instance, isLoading, createInstance, txnLoad
               {dappstarter && (
                 <>
                   <SubHeader>DappStarter</SubHeader>
-                  {/* <CodeContainer>
+                  <CodeContainer>
                     <h3>{dappstarter.app}</h3>
                     <Code code={dappstarter.url} theme={DEFAULT_THEME} lang="sh" />
-                  </CodeContainer> */}
+                  </CodeContainer>
                 </>
               )}
             </>
@@ -104,7 +102,7 @@ export const Dashboard = ({ module, instance, isLoading, createInstance, txnLoad
   )
 }
 
-function Code({ code, theme, lang=DEFAULT_LANG }: { code: string; theme: string; lang?:string }) {
+export function Code({ code, theme, lang=DEFAULT_LANG }: { code: string; theme: string; lang?:string }) {
   const [innerHtml, setHtml] = React.useState('Loading...')
 
   React.useEffect(() => {
@@ -116,14 +114,14 @@ function Code({ code, theme, lang=DEFAULT_LANG }: { code: string; theme: string;
   return <div dangerouslySetInnerHTML={{ __html: innerHtml }} />
 }
 
-const SubHeader = styled('h3', {
+export const SubHeader = styled('h3', {
   fontFamily: '$mono',
   fontWeight: '400',
   fontSize: 16,
   margin: '20px 0',
 })
 
-const CodeContainer = styled('div', {
+export const CodeContainer = styled('div', {
   background: '$blue200',
   width: '95%',
   borderRadius: 14,

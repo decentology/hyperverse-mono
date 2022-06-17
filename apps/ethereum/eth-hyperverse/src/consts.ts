@@ -75,3 +75,67 @@ export const LINKS = {
 	Decentology: 'https://decentology.com/',
 	Docs: 'https://docs.hyperverse.dev/',
 }
+
+export const ERC721CodeSnippets = 
+	{
+		ownerFunctions: [
+			{
+				name: 'tenant mint',
+				description: 'mint a new token',
+				snippet : `const tenantMint = erc721.tenantMint!({to: address , image: File})`
+			},
+			{
+				name: 'withdraw',
+				snippet : `const tenantMint = erc721.tenantMint!({to: address , image: File})`
+
+				
+			},
+			{
+				name: 'setPublicSale',
+				snippet : `const tenantMint = erc721.tenantMint!({to: address , image: File})`
+
+			},
+
+			{
+				name: 'setMintPrice',
+				snippet : `const tenantMint = erc721.tenantMint!({to: address , image: File})`
+			},
+			{
+				name: 'setBaseURI',
+				snippet : `const tenantMint = erc721.tenantMint!({to: address , image: File})`
+			},
+			{
+				name: 'togglePublicMint',
+				snippet : `const tenantMint = erc721.tenantMint!({to: address , image: File})`
+			},
+		],
+		publicFunctions: [
+			{
+				name: 'mint',
+				snippet : `const tenantMint = erc721.tenantMint!({to: address , image: File})`
+
+			},
+			{
+				name: 'getBaseURI',
+			},
+			{
+				name: 'tokenURI',
+			},
+			{
+				name: 'getBalanceOf',
+			},
+			{
+				name: 'getOwnerOf',
+			},
+			{
+				name: 'transfer',
+			},
+			{
+				name: 'approve',
+			},
+			{
+				name: 'setApprovalForAll',
+			}
+
+		]
+	}
