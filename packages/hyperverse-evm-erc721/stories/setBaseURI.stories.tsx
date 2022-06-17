@@ -22,5 +22,5 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	baseURI: 'hyperverse-token',
+	baseURI: 'https://example-site.com/nfts/',
 };

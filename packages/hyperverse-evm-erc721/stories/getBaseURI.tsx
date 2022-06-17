@@ -12,7 +12,7 @@ export const GetBaseURI = ({ ...props }) => {
 	}, [erc721.getBalanceOf]);
 
 	const baseURI = () => {
-		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(erc721.error)}</p>;
+		return data ? <p>{data}</p> : <p>{JSON.stringify(erc721.error)}</p>;
 	};
 
 	return <div className="body"> Base URI: {baseURI()}</div>;
