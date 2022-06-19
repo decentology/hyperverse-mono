@@ -21,7 +21,7 @@ describe('ERC721', function () {
     erc721factoryCtr = await ERC721Factory.deploy(erc721ctr.address, owner.address);
     await erc721factoryCtr.deployed();
 
-    await erc721factoryCtr.connect(alice).createInstance(alice.address, "ALICE", "ALC", false);
+    await erc721factoryCtr.connect(alice).createInstance(alice.address, "ALICE", "ALC");
     aliceProxyContract = await ERC721.attach(await erc721factoryCtr.getProxy(alice.address));
   });
 
