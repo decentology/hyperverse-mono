@@ -31,11 +31,9 @@ contract ERC721 is
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	// Account used to deploy contract
 	address public immutable contractOwner;
 
-	//stores the tenant owner
-	address private _tenantOwner;
+	address public _tenantOwner;
 
 	Counters.Counter private tokenCounter;
 
@@ -43,6 +41,7 @@ contract ERC721 is
 	string private _symbol;
 	string private baseURI;
 	uint256 public price;
+	bool private _isCollection; // true if contract is an NFT collection
 	bool public isPublicSaleActive;
 
 	mapping(uint256 => address) private _owners;
@@ -69,6 +68,7 @@ contract ERC721 is
 	error TokenAlreadyMinted();
 	error IncorrectOwner();
 	error SameOwnerAndOperator();
+	error NotACollection();
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
@@ -101,6 +101,16 @@ contract ERC721 is
 		_;
 	}
 
+	/**
+	 *  @dev Checks functionlaities that are specific for ERC721 collections
+	 */
+	modifier isCollection() {
+		if (_isCollection == false) {
+			revert NotACollection();
+		}
+		_;
+	}
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	constructor(address _owner) {
@@ -120,12 +130,18 @@ contract ERC721 is
 	function initialize(
 		string memory name_,
 		string memory symbol_,
+		bool isCollection_,
 		address tenant_
 	) external initializer canInitialize(tenant_) {
 		_name = name_;
 		_symbol = symbol_;
 		_tenantOwner = tenant_;
+		_isCollection = isCollection_;
 	}
+
+	/**
+	 * @dev used for public minting of tokens for collection types.
+	 */
 
 	function mint(address _to)
 		external
@@ -144,13 +160,22 @@ contract ERC721 is
 		return baseURI;
 	}
 
-	//TENANT OWNER FUNCTIONS
-	function tenantMint(address _reciever) external isTenantOwner returns (uint256) {
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ T E N A N T  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+	/**
+	 * @dev tenant ownly minting function, used to mint a token with a tokenURI based on the baseURI and the tokenID
+	 * use case: Collection Minting
+	 */
+	function tenantMint(address _reciever) external isTenantOwner isCollection returns (uint256) {
 		uint256 tokenId = nextTokenId();
 		_safeMint(_reciever, tokenId);
 		return tokenId;
 	}
 
+	/**
+	 * @dev This  minting function is used to mint a token with a the provided tokenURI
+	 * use case: 1:1 NFTs
+	 */
 	function tenantMint(address _to, string calldata _uri)
 		external
 		isTenantOwner
@@ -173,14 +198,11 @@ contract ERC721 is
 		baseURI = baseURI_;
 	}
 
-	function setPublicSale(bool _isActive) external isTenantOwner {
+	/**
+	 * Can only set mint permissions if the contract is a collection
+	 */
+	function setMintPermissions(bool _isActive) external isCollection isTenantOwner {
 		isPublicSaleActive = _isActive;
-	}
-
-	// HELPERS
-	function nextTokenId() private returns (uint256) {
-		tokenCounter.increment();
-		return tokenCounter.current();
 	}
 
 	///TOKEN WITHDRAWAL
@@ -194,12 +216,23 @@ contract ERC721 is
 		_token.transfer(msg.sender, balance);
 	}
 
-	///FUNCTION OVERRIDES
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ H E L P E R  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	function nextTokenId() private returns (uint256) {
+		tokenCounter.increment();
+		return tokenCounter.current();
+	}
+
+
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ O V E R R I D E S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	/**
 	 * @dev See {IERC721Metadata-tokenURI}.
 	 */
 	function tokenURI(uint256 _tokenId) external view virtual override returns (string memory) {
 		_requireMinted(_tokenId);
+
+		if(!_isCollection) {
+			return bytes(_tokenURIs[_tokenId]).length > 0 ? _tokenURIs[_tokenId] : '';
+		}
 
 		string memory baseURI_ = _baseURI();
 		return
@@ -208,7 +241,7 @@ contract ERC721 is
 				: '';
 	}
 
-	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ERC721 METHODS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R C 7 2 1   M E T H O D S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	/**
 	 * @dev See {IERC165-supportsInterface}.
 	 */

@@ -67,12 +67,13 @@ contract ERC721Factory is CloneFactory {
 	function createInstance(
 		address _tenant,
 		string memory _name,
-		string memory _symbol
+		string memory _symbol,
+		bool _isCollection
 	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
 		ERC721 erc721 = ERC721(createClone(masterContract));
 
 		//initializing tenant state of clone
-		erc721.initialize(_name, _symbol, _tenant);
+		erc721.initialize(_name, _symbol, _isCollection, _tenant);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
