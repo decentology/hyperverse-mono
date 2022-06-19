@@ -142,7 +142,6 @@ contract ERC721 is
 	/**
 	 * @dev used for public minting of tokens for collection types.
 	 */
-
 	function mint(address _to)
 		external
 		payable
@@ -154,6 +153,16 @@ contract ERC721 is
 		uint256 tokenId = nextTokenId();
 		_safeMint(_to, tokenId);
 		return tokenId;
+	}
+
+	function mintBatch(address _to, uint256 _count) external payable nonReentrant checkMint checkPayment returns (uint256[] memory) {
+		uint256[] memory tokenIds = new uint256[](_count);
+		for (uint256 i = 0; i < _count; i++) {
+			uint256 tokenId = nextTokenId();
+			tokenIds[i] = tokenId;
+			_safeMint(_to, tokenId);
+		}
+		return tokenIds;
 	}
 
 	function getBaseURI() external view returns (string memory) {
