@@ -7,9 +7,14 @@ const withTM = require('next-transpile-modules')([
 
 module.exports = withTM({
 	reactStrictMode: true,
+	basePath: process.env.NODE_ENV === 'production' ? '/tribes-app' : null,
 	images: {
-		loader: 'imgix',
-		path: 'https://dappstarter-samples.azurewebsites.net/',
+		...(process.env.NODE_ENV === 'production'
+			? {
+					loader: 'imgix',
+					path: 'https://samples.hyperverse.dev/tribes-app/',
+			  }
+			: {}),
 		domains: ['siasky.net', 'fileportal.org', 'hyperverse.infura-ipfs.io'],
 	},
 });
