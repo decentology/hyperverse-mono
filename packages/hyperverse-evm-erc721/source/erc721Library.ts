@@ -32,64 +32,58 @@ export async function ERC721LibraryInternal(
 		providerOrSigner
 	);
 
-	const mint = async (to: string) => {
+	const mint = async (to: string, amount?: number) => {
 		try {
-			const mintTxn = await base.proxyContract?.mint(to);
+			if (!amount || amount == 1) {
+				const mintTxn = await base.proxyContract?.mint(to);
+				return mintTxn.wait() as TransactionReceipt;
+			}
+
+			const mintTxn = await base.proxyContract?.mintBatch(to, amount);
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
 
-	const togglePublicMint = async (isPublic: boolean) => {
+	const setMintPermissions = async (isPublic: boolean) => {
 		try {
-			const toggleTxn = await base.proxyContract?.togglePublicMint(isPublic);
+			const toggleTxn = await base.proxyContract?.setMintPermissions(isPublic);
 			return toggleTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
 
-	const tenantMint = async ({ to, image }: { image?: File; to: string;  }) => {
+	const tenantMint = async ({ image, to }: { image?: File; to: string }) => {
 		try {
-			let mintTxn;
 			const erc72Name = await base.proxyContract?.name();
 			if (image) {
 				const tokenUri = await hyperverse.storage?.uploadFile(image);
 				const Metadata = {
-						image: `https://ipfs.io/ipfs/${tokenUri}`,
-						name :  `${erc72Name}`,
-				}
+					image: `https://ipfs.io/ipfs/${tokenUri}`,
+					name: `${erc72Name}`,
+				};
 				const metadataFile = new File([JSON.stringify(Metadata)], 'metadata.json');
-				const metadataFileLink = await hyperverse!.storage!.uploadFile(
-					metadataFile
+				const metadataFileLink = await hyperverse!.storage!.uploadFile(metadataFile);
+
+				const mintTxn = await base.proxyContract?.['tenantMint(address,string)'](
+					to,
+					metadataFileLink,
+					{
+						gasLimit: '1000000',
+					}
 				);
-
-				mintTxn = await base.proxyContract?.['tenantMint(address,string)'](to, metadataFileLink, {
-					gasLimit: '1000000'
-				});
-
-				
-				
+				return mintTxn.wait() as TransactionReceipt;
 			} else {
-				mintTxn = await base.proxyContract?.['tenantMint(address)'](to);
+				const mintTxn = await base.proxyContract?.['tenantMint(address)'](to);
+				return mintTxn.wait() as TransactionReceipt;
 			}
-
-			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
 
-
-	const getBaseURI = async () => {
-		try {
-			const baseURI = await base.proxyContract?.getBaseURI();
-			return baseURI;
-		} catch (error) {
-			throw error;
-		}
-	};
 
 	const setMintPrice = async (price: number) => {
 		try {
@@ -104,6 +98,16 @@ export async function ERC721LibraryInternal(
 		try {
 			const setBaseURITxn = await base.proxyContract?.setBaseURI(baseURI);
 			return setBaseURITxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+
+	const getBaseURI = async () => {
+		try {
+			const baseURI = await base.proxyContract?.getBaseURI();
+			return baseURI;
 		} catch (error) {
 			throw error;
 		}
@@ -198,7 +202,7 @@ export async function ERC721LibraryInternal(
 	return {
 		...base,
 		mint,
-		togglePublicMint,
+		setMintPermissions,
 		tenantMint,
 		getBaseURI,
 		setMintPrice,
