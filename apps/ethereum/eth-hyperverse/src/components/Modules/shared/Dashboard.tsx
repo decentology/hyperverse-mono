@@ -14,7 +14,7 @@ import { InitializeCollection } from '../erc721/InitializeCollection'
 
 
 setCDN('https://unpkg.com/shiki/')
-export const DEFAULT_LANG = 'jsx'
+export const DEFAULT_LANG = 'tsx'
 
 
 export const DEFAULT_THEME = 'material-darker'

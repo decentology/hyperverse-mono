@@ -19,6 +19,7 @@ import { ERC721CodeSnippets } from '../../consts'
 import { CodeContainer, SubHeader, DEFAULT_THEME, Code } from './shared/Dashboard'
 
 import { useMutation, useQuery } from 'react-query'
+import { styled } from '../../../stitches.config'
 
 export const ERC721 = () => {
   const [activeTab, setActiveTab] = React.useState<ModuleTabs>(ModuleTabs.DASHBOARD)
@@ -71,8 +72,10 @@ export const ERC721 = () => {
 
               {ERC721CodeSnippets.ownerFunctions.map((snippet) => {
                 return (
-                  <CodeContainer key={snippet.name}>
+                  <CodeContainer key={snippet.name} css={{paddingBottom: 10}}>
+                    <Info>
                     <h3>{snippet.name}</h3>
+                    {snippet?.description}</Info>
                     {snippet.snippet && (
                       <Code code={snippet.snippet} theme={DEFAULT_THEME} />
                     )}
@@ -92,8 +95,10 @@ export const ERC721 = () => {
 
               {ERC721CodeSnippets.publicFunctions.map((snippet) => {
                 return (
-                  <CodeContainer key={snippet.name}>
+                  <CodeContainer key={snippet.name} css={{paddingBottom: 10}}>
+                    <Info>
                     <h3>{snippet.name}</h3>
+                    {snippet?.description}</Info>
                     {snippet.snippet && (
                       <Code code={snippet.snippet} theme={DEFAULT_THEME} />
                     )}
@@ -118,3 +123,22 @@ export const ERC721 = () => {
     </ModuleContainer>
   )
 }
+
+const Info = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'baseline',
+  fontSize: '12px',
+
+  h3: {
+    fontSize: '15px',
+    fontFamily: `$mono`,
+    margin: '0 24px 0 0',
+  },
+
+  marginBottom: '10px',
+
+  '@laptop': {
+    flexDirection: 'row',
+  }
+})
