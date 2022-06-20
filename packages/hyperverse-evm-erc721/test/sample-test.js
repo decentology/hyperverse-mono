@@ -34,9 +34,4 @@ describe('ERC721', function () {
     expect(await aliceProxyContract.symbol()).to.equal('ALC');
   });
 
-  it("Should reflect the correct balances", async function () {
-    await aliceProxyContract.connect(alice).mint(alice.address);
-    // expect(await aliceProxyContract.balanceOf(alice.address)).to.equal(1);
-    // expect(await aliceProxyContract.balanceOf(bob.address)).to.equal(0);
-  });
 });

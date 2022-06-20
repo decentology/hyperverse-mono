@@ -1,5 +1,16 @@
 import { createStitches } from '@stitches/react'
 
+
+export const mediaQueries = {
+  mobile: '(min-width: 340px)',
+  tablet: '(min-width: 768px)',
+  tabletLandscape: '(min-width: 1024px)',
+  laptop: '(min-width: 1160px)',
+  desktop: '(min-width: 1440px)',
+  desktopLg: '(min-width: 1920px)',
+};
+
+
 export const { styled, getCssText, globalCss, createTheme, css, keyframes } = createStitches({
   media: {
     mobile: '(min-width: 640px)',

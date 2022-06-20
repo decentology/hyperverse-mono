@@ -4,14 +4,27 @@ import { styled } from '../../../../stitches.config'
 import { SmartModules } from '../../Playground/PlaygroundBody'
 import { InstanceContainer } from './CreateInstance'
 import { CopyIcon } from './ModuleStyles'
+import { MediaQuery } from '../../../context/MediaQuery'
+
+const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
+	let shortendHash;
+	if (postCharLength) {
+		shortendHash =
+			hash.slice(0, charLength) +
+			'...' +
+			hash.slice(hash.length - postCharLength, hash.length);
+	} else {
+		shortendHash = hash.slice(0, charLength);
+	}
+	return shortendHash;
+};
 
 export const Instance = ({ instance }: { instance: string }) => {
   const router = useRouter()
   const { module } = router.query
 
   const moduleDefault = module?.toString() ?? 'erc721'
-  const { account } = useEthereum()
-
+  const { tablet } = MediaQuery.useContainer()
 	
 
   return (
@@ -19,10 +32,10 @@ export const Instance = ({ instance }: { instance: string }) => {
       <Name>
         {/* @ts-ignore */}
         {SmartModules[moduleDefault].title}
-        &nbsp;Tenant Contract
+        &nbsp;{tablet && "Tenant "}Contract
       </Name>
       <Address>
-        <p>{instance}</p>
+        <p>{tablet ? instance : shortenHash(instance, 4,4)}</p>
         <CopyButton>
           <button
             onClick={() => {
@@ -37,10 +50,13 @@ export const Instance = ({ instance }: { instance: string }) => {
   )
 }
 
+
+
 const Name = styled('h2', {
   fontFamily: '$mono',
   fontWeight: '400',
   fontSize: 14,
+  marginRight: 10,
 })
 
 const Address = styled('div', {

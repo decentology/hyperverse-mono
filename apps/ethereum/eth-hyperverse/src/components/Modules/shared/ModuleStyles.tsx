@@ -7,6 +7,8 @@ const SCROLLBAR_SIZE = 2
 export const ModuleTabs = {
   DASHBOARD: 'dashboard',
   PLAYGROUND: 'playground',
+  TENANT: 'Tenant Functions',
+  PUBLIC: 'Functions',
 } as const
 
 export type ModuleTabs = typeof ModuleTabs[keyof typeof ModuleTabs]
@@ -15,9 +17,10 @@ export const ModuleContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   padding: 24,
-  overflow: 'hidden',
+
   overflowY: 'auto',
-  maxHeight: 800,
+
+  
 })
 
 export const Heading = styled('h1', {
@@ -56,6 +59,7 @@ export const PanelTrigger = styled(Trigger, {
 export const ContentContainer = styled(Content, {
   maxHeight: 550,
   overflowY: 'auto',
+
 })
 
 export const ContentGrid = styled(Content, {
@@ -71,8 +75,7 @@ export const ContentGrid = styled(Content, {
 
 export const ScrollArea = styled(Root, {
   width: '100%',
-  maxWidth: 1000,
-
+  maxWidth: 1200,
   height: 540,
   borderRadius: 4,
   overflow: 'hidden',
