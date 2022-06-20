@@ -97,14 +97,6 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-	const setMintPrice = async (price: number) => {
-		try {
-			const setMintPriceTxn = await base.proxyContract?.setMintPrice(price);
-			return setMintPriceTxn.wait() as TransactionReceipt;
-		} catch (error) {
-			throw error;
-		}
-	};
 
 	const setBaseURI = async (baseURI: string) => {
 		try {
@@ -119,15 +111,6 @@ export async function ERC721LibraryInternal(
 		try {
 			const baseURI = await base.proxyContract?.getBaseURI();
 			return baseURI;
-		} catch (error) {
-			throw error;
-		}
-	};
-
-	const setPublicSale = async (publicSale: boolean) => {
-		try {
-			const setPublicSalesTxn = await base.proxyContract?.setPublicSales(publicSale);
-			return setPublicSalesTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
@@ -217,9 +200,7 @@ export async function ERC721LibraryInternal(
 		setMintPermissions,
 		tenantMint,
 		getBaseURI,
-		setMintPrice,
 		setBaseURI,
-		setPublicSale,
 		withdraw,
 		tokenURI,
 		getBalanceOf,

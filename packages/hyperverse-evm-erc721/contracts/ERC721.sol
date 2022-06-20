@@ -119,10 +119,6 @@ contract ERC721 is
 			if (isPublicSaleActive == false) {
 				revert PublicMintInactive();
 			}
-
-			if (isPublicSaleActive == false) {
-				revert PublicMintInactive();
-			}
 			_;
 		}
 		_;
