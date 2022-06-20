@@ -1,20 +1,20 @@
-# Set Base URI
+# Set Mint Permissions
 
-<p> The `setBaseURI` function from `erc721Library` sets the base URI for your NFTs. </p>
+<p> The `setMintPermissions` function from `erc721Library` sets the permissions to either true or false. </p>
 
 ---
 
 <br>
 
-### setBaseURI
+### setMintPermissions
 
-<p> The `setBaseURI` function takes in a base URI. </p>
+<p> The `setMintPermissions` function takes in a status of true or false for the permissions. </p>
 
 ```jsx
-	const setBaseURI = async (baseURI: string) => {
+	const setMintPermissions = async (isPublic: boolean) => {
 		try {
-			const setBaseURITxn = await base.proxyContract?.setBaseURI(baseURI);
-			return setBaseURITxn.wait() as TransactionReceipt;
+			const toggleTxn = await base.proxyContract?.setMintPermissions(isPublic);
+			return toggleTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
@@ -24,14 +24,14 @@
 ### Stories
 
 ```jsx
-import { SetBaseURI } from './setBaseURI';
+import { SetMintPermissions } from './setMintPermissions';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/setBaseURI.mdx';
+import { Doc } from '../docs/setMintPermissions.mdx';
 
 export default {
-	title: 'Components/SetBaseURI',
-	component: SetBaseURI,
+	title: 'Components/SetMintPermissions',
+	component: SetMintPermissions,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -41,14 +41,14 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<SetBaseURI {...args} />
+		<SetMintPermissions {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	baseURI: 'https://example-site.com/nfts/',
+	isPublic: true,
 };
 ```
 
@@ -59,8 +59,8 @@ import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const SetBaseURI = ({ ...props }: { baseURI: string }) => {
-	const { setBaseURI } = useERC721();
+export const SetMintPermissions = ({ ...props }: { isPublic: boolean }) => {
+	const { setMintPermissions } = useERC721();
 	const { Connect } = useEvm();
 
 	return (
@@ -71,10 +71,10 @@ export const SetBaseURI = ({ ...props }: { baseURI: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setBaseURI?.(props.baseURI);
+					setMintPermissions?.(props.isPublic);
 				}}
 			>
-				Set Base URI
+				Set Mint Permissions
 			</button>
 		</>
 	);

@@ -1,6 +1,6 @@
 # Approve
 
-<p> The `approve` function from `erc721Library` sets approves the transfer of a token to another address. </p>
+<p> The `approve` function from `erc721Library` approves the transfer of a token to another address. </p>
 
 ---
 

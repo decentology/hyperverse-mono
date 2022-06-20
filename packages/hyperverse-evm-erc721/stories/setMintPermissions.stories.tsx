@@ -1,11 +1,11 @@
-import { SetPublicSale } from './setPublicSale';
+import { SetMintPermissions } from './setMintPermissions';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/setApprovalForAll.mdx';
+import { Doc } from '../docs/setMintPermissions.mdx';
 
 export default {
-	title: 'Components/SetPublicSale',
-	component: SetPublicSale,
+	title: 'Components/SetMintPermissions',
+	component: SetMintPermissions,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,12 +15,12 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<SetPublicSale {...args} />
+		<SetMintPermissions {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	publicSale: true,
+	isPublic: true,
 };

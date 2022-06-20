@@ -2,8 +2,14 @@ import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const SetPublicSale = ({ ...props }: { publicSale: boolean }) => {
-	const { setPublicSale } = useERC721();
+export const InitializeCollection = ({
+	...props
+}: {
+	price: number;
+	maxSupply: number;
+	maxPerUser: number;
+}) => {
+	const { initializeCollection } = useERC721();
 	const { Connect } = useEvm();
 
 	return (
@@ -14,10 +20,10 @@ export const SetPublicSale = ({ ...props }: { publicSale: boolean }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setPublicSale?.(props.publicSale);
+					initializeCollection?.(props);
 				}}
 			>
-				Set Public Sale
+				Initialize Collection
 			</button>
 		</>
 	);

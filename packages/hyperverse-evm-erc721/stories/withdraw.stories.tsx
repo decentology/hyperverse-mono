@@ -1,7 +1,7 @@
 import { Withdraw } from './withdraw';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/setApprovalForAll.mdx';
+import { Doc } from '../docs/withdraw.mdx';
 
 export default {
 	title: 'Components/Withdraw',

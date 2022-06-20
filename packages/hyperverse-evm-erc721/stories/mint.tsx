@@ -2,7 +2,7 @@ import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const Mint = ({ ...props }: { to: string }) => {
+export const Mint = ({ ...props }: { to: string; amount: number }) => {
 	const { mint } = useERC721();
 	const { Connect } = useEvm();
 
@@ -14,7 +14,7 @@ export const Mint = ({ ...props }: { to: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					mint?.(props.to);
+					mint?.(props.to, props.amount);
 				}}
 			>
 				Mint
