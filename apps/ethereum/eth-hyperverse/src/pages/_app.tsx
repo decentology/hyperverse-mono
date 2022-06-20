@@ -35,12 +35,11 @@ const globalStyles = globalCss({
     flexDirection: 'column',
     margin: 'auto',
     fontSize: 16,
-    padding: '0 16px 0 16px',
-    
+    padding: '0 24px',
+    minHeight: 700,
     '@desktop': {
       padding: 0,
       width: '1260px',
-      
     },
   },
   a: {
