@@ -8,7 +8,7 @@ export const Playground = () => {
 	return (
 		<>
 			<Container>
-				{/* <PlaygroundTab /> */}
+				<PlaygroundTab />
         {/* Forces dynamic route pages to remount when changing route */}
 				<PlaygroundBody key={router.asPath} />
 			</Container>
