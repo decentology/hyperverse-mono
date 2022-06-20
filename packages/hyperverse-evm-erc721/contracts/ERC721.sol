@@ -185,8 +185,8 @@ contract ERC721 is
 		return tokenIds;
 	}
 
-	function getBaseURI() external view returns (string memory) {
-		return baseURI;
+	function getBaseURI() public view returns (string memory) {
+		return 	bytes(baseURI).length > 0 ? baseURI : "";
 	}
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ T E N A N T  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -273,7 +273,7 @@ contract ERC721 is
 			return bytes(_tokenURIs[_tokenId]).length > 0 ? _tokenURIs[_tokenId] : '';
 		}
 
-		string memory baseURI_ = _baseURI();
+		string memory baseURI_ = getBaseURI();
 		return
 			bytes(baseURI_).length > 0
 				? string(abi.encodePacked(baseURI_, _tokenId.toString()))

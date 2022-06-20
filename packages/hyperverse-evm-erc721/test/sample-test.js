@@ -23,6 +23,9 @@ describe('ERC721', function () {
 
     await erc721factoryCtr.connect(alice).createInstance(alice.address, "ALICE", "ALC");
     aliceProxyContract = await ERC721.attach(await erc721factoryCtr.getProxy(alice.address));
+
+    aliceProxyContract.connect(alice).initializeCollection(ethers.utils.parseEther("0.01"), 100, 5)
+    aliceProxyContract.connect(alice).setMintPermissions(true);
   });
 
   it('Master Contract should match exampleNFTContract', async function () {
@@ -32,6 +35,14 @@ describe('ERC721', function () {
   it("Should match alice's initial token data", async function () {
     expect(await aliceProxyContract.name()).to.equal('ALICE');
     expect(await aliceProxyContract.symbol()).to.equal('ALC');
+
+    const txn = await aliceProxyContract.mint(alice.address);
+    const receipt = await txn.wait();
+    const setURI = await aliceProxyContract.connect(alice).setBaseURI("https://example.com/");
+    expect(await aliceProxyContract.getBaseURI()).to.equal("https://example.com/");
+
+    const tokenUri = await aliceProxyContract.connect(alice).tokenURI(1);
+    console.log(tokenUri)
   });
 
 });
