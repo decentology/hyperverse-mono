@@ -1,5 +1,4 @@
 import { styled } from '../../../../stitches.config'
-import { CreateInstance } from './CreateInstance'
 import { ScrollArea, ViewportStyled, ScrollbarStyled, ThumbStyled } from './ModuleStyles'
 import { getHighlighter, setCDN } from 'shiki'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
@@ -9,6 +8,9 @@ import { MODULES } from '../../../consts'
 import React from 'react'
 import { Skeleton } from '../../basics/Skeleton'
 import { Instance } from './Instance'
+import { CreateInstance } from './CreateInstance'
+import { InitializeCollection } from '../erc721/InitializeCollection'
+
 
 
 setCDN('https://unpkg.com/shiki/')
@@ -73,6 +75,8 @@ export const Dashboard = ({ module, instance, isLoading, createInstance, txnLoad
             <>
               {/* <Loader/> */}
               <Instance instance={instance} />
+              <SubHeader>Set up collection</SubHeader>
+              <InitializeCollection />
               <SubHeader>Get Started</SubHeader>
               <CodeContainer>
                 <h3>Install Dependencies</h3>

@@ -32,10 +32,10 @@ export async function ERC721LibraryInternal(
 		providerOrSigner
 	);
 
-	const initializeCollection = async (price: number, maxSupply: number, maxPerUser: number) => {
+	const initializeCollection = async ({price, maxSupply, maxPerUser}: {price: number; maxSupply: number; maxPerUser: number}) => {
 		try {
 			const tnx = await base.proxyContract?.initializeCollection(
-				price,
+				ethers.utils.parseEther(price.toString()),
 				maxSupply,
 				maxPerUser
 			);
