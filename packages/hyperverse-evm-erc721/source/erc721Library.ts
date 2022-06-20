@@ -32,6 +32,19 @@ export async function ERC721LibraryInternal(
 		providerOrSigner
 	);
 
+	const initializeCollection = async (price: number, maxSupply: number, maxPerUser: number) => {
+		try {
+			const tnx = await base.proxyContract?.initializeCollection(
+				price,
+				maxSupply,
+				maxPerUser
+			);
+			return tnx.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
 	const mint = async (to: string, amount?: number) => {
 		try {
 			if (!amount || amount == 1) {
@@ -84,7 +97,6 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-
 	const setMintPrice = async (price: number) => {
 		try {
 			const setMintPriceTxn = await base.proxyContract?.setMintPrice(price);
@@ -102,7 +114,6 @@ export async function ERC721LibraryInternal(
 			throw error;
 		}
 	};
-
 
 	const getBaseURI = async () => {
 		try {
@@ -201,6 +212,7 @@ export async function ERC721LibraryInternal(
 
 	return {
 		...base,
+		initializeCollection,
 		mint,
 		setMintPermissions,
 		tenantMint,
