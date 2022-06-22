@@ -15,7 +15,7 @@ export const GetTribeId = ({ ...props }: { account: string }) => {
 	}, [tribes.getTribeId]);
 
 	const hasTribeId = () => {
-		return data ? <p>Tribe id: {data}</p> : <p>This account is not in a tribe!</p>;
+		return data ? <p>Tribe id: {data}</p> : <p>{JSON.stringify(tribes.error)}</p>;
 	};
 
 	return <div className="body"> {hasTribeId()}</div>;

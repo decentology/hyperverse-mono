@@ -12,16 +12,22 @@ export const LeaveTribe = ({ ...props }) => {
 		}
 	};
 
-	return address ? (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={tribeLeave}
-		>
-			Leave Tribe
-		</button>
+	return error != null ? (
+		<div>Error</div>
 	) : (
-		<Connect />
+		<>
+			{address ? (
+				<button
+					type="button"
+					className={['storybook-button', `storybook-button--large`].join(' ')}
+					style={{ color: 'blue' }}
+					onClick={tribeLeave}
+				>
+					Leave Tribe
+				</button>
+			) : (
+				<Connect />
+			)}
+		</>
 	);
 };
