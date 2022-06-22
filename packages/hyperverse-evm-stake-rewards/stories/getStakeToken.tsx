@@ -14,7 +14,7 @@ export const GetStakeToken = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					getStakeToken();
+					getStakeToken?.();
 				}}
 			>
 				Get Stake Tokens

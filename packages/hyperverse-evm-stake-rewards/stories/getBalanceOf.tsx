@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 export const GetBalanceOf = ({ ...props }: { account: string }) => {
 	const stakeRewards = useStakeRewards();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<number>();
 
 	useEffect(() => {
 		if (stakeRewards.getBalanceOf) {
@@ -12,7 +12,7 @@ export const GetBalanceOf = ({ ...props }: { account: string }) => {
 	}, [stakeRewards.getBalanceOf]);
 
 	const hasBalance = () => {
-		return data ? <p>{JSON.stringify(data)}</p> : <p>Error.</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
 	};
 
 	return (

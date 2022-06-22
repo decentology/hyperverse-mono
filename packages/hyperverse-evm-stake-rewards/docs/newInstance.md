@@ -31,14 +31,14 @@
 ### Stories
 
 ```jsx
-import { GetTotalSupply } from './getTotalSupply';
+import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getTotalSupply.mdx';
+import { Doc } from '../docs/newInstance.mdx';
 
 export default {
-	title: 'Components/GetTotalSupply',
-	component: GetTotalSupply,
+	title: 'Components/NewInstance',
+	component: NewInstance,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -48,7 +48,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<GetTotalSupply {...args} />
+		<NewInstance {...args} />
 	</HyperverseProvider>
 );
 
@@ -61,23 +61,33 @@ Demo.args = {};
 
 ```jsx
 import { useStakeRewards } from '../source';
-import { useEffect, useState } from 'react';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
 
-export const GetTotalSupply = ({ ...props }) => {
-	const stakeRewards = useStakeRewards();
-	const [data, setData] = useState(null);
+export const NewInstance = ({ ...props }) => {
+	const { createInstance } = useStakeRewards();
+	const { address, Connect } = useEvm();
 
-	useEffect(() => {
-		if (stakeRewards.getTotalSuply) {
-			stakeRewards.getTotalSuply().then(setData);
-		}
-	}, [stakeRewards.getTotalSuply]);
-
-	const hasTokenSupply = () => {
-		return data ? <p>{data}</p> : <p>Error.</p>;
-	};
-
-	return <div className="totalSupply"> Total Supply: {hasTokenSupply()}</div>;
+	return (
+		<>
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					createInstance?.({
+						account: address!,
+						stakeToken: 'STK',
+						rewardToken: 'RWD',
+						rewardRate: 20,
+					});
+				}}
+			>
+				New Instance
+			</button>
+		</>
+	);
 };
 ```
 

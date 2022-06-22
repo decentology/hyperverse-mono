@@ -14,7 +14,7 @@ export const StakeTokens = ({ ...props }: { amount: number }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					stake(props.amount);
+					stake?.(props.amount);
 				}}
 			>
 				Stake Tokens
