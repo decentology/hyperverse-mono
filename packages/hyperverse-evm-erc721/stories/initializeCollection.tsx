@@ -1,10 +1,15 @@
 import { useERC721 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import { useState } from 'react';
 import './style.css';
 
-export const TogglePublicMint = ({ ...props }) => {
-	const { togglePublicMint } = useERC721();
+export const InitializeCollection = ({
+	...props
+}: {
+	price: number;
+	maxSupply: number;
+	maxPerUser: number;
+}) => {
+	const { initializeCollection } = useERC721();
 	const { Connect } = useEvm();
 
 	return (
@@ -15,10 +20,10 @@ export const TogglePublicMint = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					togglePublicMint?.(true);
+					initializeCollection?.(props);
 				}}
 			>
-				Public Mint
+				Initialize Collection
 			</button>
 		</>
 	);

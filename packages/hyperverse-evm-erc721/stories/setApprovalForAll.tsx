@@ -4,7 +4,7 @@ import './style.css';
 
 export const ApproveAll = ({ ...props }: { operator: string; approved: boolean }) => {
 	const { setApprovalForAll } = useERC721();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

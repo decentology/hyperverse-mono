@@ -2,12 +2,11 @@ import { styled, keyframes } from '../../../../stitches.config'
 import { motion } from 'framer-motion'
 import { Close, Root as Dialog, Trigger, Portal, Content as DialogContent, Overlay } from '@radix-ui/react-dialog'
 import { Exit } from '../../icons'
-import { useRouter } from 'next/router'
-import { MODULES } from '../../../consts'
-import { useState } from 'react'
-import { useEthereum } from '@decentology/hyperverse-ethereum'
-import { Loader } from '../../../components/basics/Loader'
-import { CenterContainer} from './Dashboard'
+import { useEffect, useState } from 'react'
+import { useERC721 } from '@decentology/hyperverse-evm-erc721'
+import { Loader } from '../../basics/Loader'
+import { CenterContainer } from '../shared/Dashboard'
+import { useMutation } from 'react-query'
 
 function Content({ children, ...props }: { children: React.ReactNode }) {
   return (
@@ -18,115 +17,89 @@ function Content({ children, ...props }: { children: React.ReactNode }) {
   )
 }
 
-type ReadFunctionProps = {
-  createInstanceFn: any
-  txnLoading: boolean
-}
-
-export const CreateInstance = ({ createInstanceFn, txnLoading }: ReadFunctionProps) => {
-  const router = useRouter()
-  const { module } = router.query
-  const { account } = useEthereum()
-
-  const moduleDefault = module?.toString() ?? ('erc721' as any)
-
-  //@ts-ignore
-  const ARGUMENTS = MODULES[moduleDefault].args
-  const functionName = 'Create Tenant'
-  const description = `Create your own tenant of the ${module} smart module.`
-  const [test, setTest] = useState({})
+export const InitializeCollection = () => {
+  const [price, setPrice] = useState(0)
+  const [maxSupply, setMaxSupply] = useState(0)
+  const [maxPerUser, setMaxPerUser] = useState(0)
 
 
-  const createNewInstance = async () => {
+  const erc721 = useERC721()
+  const { mutate, isLoading, isSuccess } = useMutation('initializeCollection', erc721.initializeCollection)
+
+
+
+  const initializeCollection = async () => {
     try {
-		const orderedArgs = Object.assign(
-		  //@ts-ignore
-        ...Object.keys(ARGUMENTS).map((x) => {
-          //@ts-ignore
-          return { [x]: test[x] }
-        }),
-      )
-
-      createInstanceFn({
-        account: account!,
-        ...orderedArgs,
+      console.log({
+        price,
+        maxSupply,
+        maxPerUser,
+      })
+      mutate({
+        price,
+        maxSupply,
+        maxPerUser,
       })
     } catch (error) {
       throw error
     }
   }
 
+  useEffect(() => {
+    if (isSuccess) {
+     window.location.reload()
+    }
+  }, [isSuccess])
 
 
   return (
     <Dialog>
       <InstanceContainer>
         <Info>
-          <Name>{functionName} </Name>
-          <Description>{description}</Description>
+          <Name>Initialize Collection</Name>
+          <Description>setup if you want an erc721 collection</Description>
         </Info>
+        <>
+          <Trigger asChild>
+            <Button
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.1 },
+              }}
+            >
+              Initialize Collection
+            </Button>
+          </Trigger>
 
-	
-        {moduleDefault ? (
-          <>
-            <Trigger asChild>
-              <Button
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.1 },
-                }}
-              >
-                {functionName}
-              </Button>
-            </Trigger>
-
-            <Content>
-              <DialogClose>
-                <h2>{functionName}</h2>
-                <Exit />
-              </DialogClose>
-							{txnLoading ? (<CenterContainer css={{marginTop:20, height: 'fit-content'}}> 
-								<Loader/> 
-								</CenterContainer>)
-								: 
+          <Content>
+            <DialogClose>
+              <h2> Initialize Collection</h2>
+              <Exit />
+            </DialogClose>
+            {isLoading ? (
+              <CenterContainer css={{ marginTop: 20, height: 'fit-content' }}>
+                <Loader />
+              </CenterContainer>
+            ) : (
               <InputContainer>
-                {Object.keys(ARGUMENTS).map((item) => {
-                  return (
-                    <Input
-                      required={true}
-                      key={item}
-                      placeholder={ARGUMENTS[item]}
-                      onChange={(e) => {
-                        setTest((prev) => ({ ...prev, [item]: e.target.value }))
-                      }}
-                      //@ts-ignore
-                      value={test[item]}
-                    />
-                  )
-                })}
+                <Input type="number" required={true} placeholder="Price (eth)" onChange={(e)=> setPrice(e.target.valueAsNumber)}/>
+                <Input type="number" required={true} placeholder="Max Supply" onChange={(e)=> setMaxSupply(e.target.valueAsNumber)} />
+                <Input type="number" required={true} placeholder="Max per user" onChange={(e)=> setMaxPerUser(e.target.valueAsNumber)}/>
+                <Warning>once you initialize your contract as a  <br/> collection, you cannot revert back</Warning>
                 <Button
                   whileHover={{
                     scale: 1.1,
                     transition: { duration: 0.1 },
                   }}
-                  onClick={createNewInstance}
+                  onClick={initializeCollection}
                 >
-                  {functionName}
+                  Initialize
                 </Button>
               </InputContainer>
-}
-            </Content>
-          </>
-        ) : (
-          <Button
-            whileHover={{
-              scale: 1.1,
-              transition: { duration: 0.1 },
-            }}
-          >
-            {functionName}
-          </Button>
-        )}
+            )}
+          </Content>
+        </>
+
       </InstanceContainer>
     </Dialog>
   )
@@ -254,3 +227,11 @@ const InputContainer = styled('div', {
   marginTop: 18,
 })
 
+
+const Warning = styled('div', {
+  display: 'flex',
+  textAlign: 'center',
+  color: 'red',
+  fontSize: 12,
+  marginBottom: 10,
+})

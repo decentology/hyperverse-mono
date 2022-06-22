@@ -1,5 +1,7 @@
 import { ERC721, ERC20, ERC777, StakeRewards, Whitelist, Tribes } from './components/icons'
 
+
+
 export const MODULES  = {
 	erc721: {
 		name: 'ERC721',
@@ -73,3 +75,80 @@ export const LINKS = {
 	Decentology: 'https://decentology.com/',
 	Docs: 'https://docs.hyperverse.dev/',
 }
+
+export const ERC721CodeSnippets = 
+	{
+		ownerFunctions: [
+			{
+				name: 'tenant mint',
+				description: 'mint a new token, an image is optional',
+				snippet : `const tenantMint = erc721.tenantMint({address: string , image?: File})`
+			},
+			{
+				name: 'initialize collection',
+				description: 'for nft collections, this function will allow you to set the price, max supply, and max per user',
+				snippet : `const initializeCollection = erc721.tenantMint({price: number, maxSupply: number, maxPerUser: number})`
+			},
+			{
+				name: 'setMintPermissions',
+				description: 'toggle mint permission to public or only owner',
+				snippet : `const setMint = erc721.setMintPermissions(true)`
+
+			},
+			{
+				name: 'setBaseURI',
+				description: 'set the base URI for the collection',
+				snippet : `const tenantMint = erc721.setBaseURI(baseURI)`
+			},
+			{
+				name: 'withdraw',
+				description: 'withdraw any ethereum stored in the contract',
+				snippet : `const tenantMint = erc721.withdraw()`
+			},
+		],
+		publicFunctions: [
+			{
+				name: 'mint',
+				description: 'mint a new token',
+				snippet : `const mint = erc721.mint({address: string , amount?: number})`
+
+			},
+			{
+				name: 'getBaseURI',
+				description: 'get the base URI for the collection',
+				snippet : `const baseURI = erc721.getBaseURI()`
+			},
+			{
+				name: 'tokenURI',
+				description: 'get the token URI for a token',
+				snippet : `const tokenURI = erc721.tokenURI(tokenId)`
+			},
+			{
+				name: 'getBalanceOf',
+				description: 'get the balance of a user',
+				snippet : `const balance = erc721.getBalanceOf(address)`
+
+			},
+			{
+				name: 'getOwnerOf',
+				description: 'get the owner of a token',
+				snippet : `const owner = erc721.getOwnerOf(tokenId)`
+			},
+			{
+				name: 'transfer',
+				description: 'transfer a token to another user',
+				snippet : `const transfer = erc721.transfer({from: string , to: string, tokenId: number})`
+			},
+			{
+				name: 'approve',
+				description: 'approve a user to transfer a token',
+				snippet : `const approve = erc721.approve({to: string, tokenId: number})`
+			},
+			{
+				name: 'setApprovalForAll',
+				description: 'approve an operator for the caller, allows operator to tranfer caller\'s tokens',
+				snippet : `const setApprovalForAll = erc721.setApprovalForAll({operator: string, approved: boolean})`
+			}
+
+		]
+	}

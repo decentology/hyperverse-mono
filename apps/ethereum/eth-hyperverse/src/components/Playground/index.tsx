@@ -19,4 +19,5 @@ export const Playground = () => {
 const Container = styled('div', {
 	display: 'flex',
 	marginTop: 40,
+	width: '100%',
 })

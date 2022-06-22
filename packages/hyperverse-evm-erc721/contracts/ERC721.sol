@@ -31,19 +31,25 @@ contract ERC721 is
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
-	// Account used to deploy contract
+	struct CollectionInfo {
+		uint256 price;
+		uint256 maxSupply;
+		uint256 maxPerUser;
+		bool isPublicSaleActive;
+	}
 	address public immutable contractOwner;
 
-	//stores the tenant owner
-	address private _tenantOwner;
+	address public _tenantOwner;
 
 	Counters.Counter private tokenCounter;
 
 	string private _name;
 	string private _symbol;
 	string private baseURI;
-	uint256 public price;
 	bool public isPublicSaleActive;
+
+	bool private _isCollection; // true if contract is an NFT collection
+	CollectionInfo public _collectionInfo;
 
 	mapping(uint256 => address) private _owners;
 	mapping(address => uint256) private _balances;
@@ -69,7 +75,9 @@ contract ERC721 is
 	error TokenAlreadyMinted();
 	error IncorrectOwner();
 	error SameOwnerAndOperator();
-
+	error NotACollection();
+	error MaxSupplyExceeded();
+	error MaxPerUserExceeded();
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+modifiers
@@ -87,16 +95,41 @@ contract ERC721 is
 		_;
 	}
 
-	modifier checkMint() {
-		if (isPublicSaleActive == false) {
-			revert PublicMintInactive();
+	modifier mintCheck(uint256 _count) {
+		if (_isCollection == true) {
+			if (_collectionInfo.isPublicSaleActive == false) {
+				revert PublicMintInactive();
+			}
+
+			if (
+				tokenCounter.current() > _collectionInfo.maxSupply ||
+				tokenCounter.current() + _count > _collectionInfo.maxSupply
+			) {
+				revert MaxSupplyExceeded();
+			}
+
+			if (msg.value * _count != _collectionInfo.price * _count) {
+				revert InsufficientBalance();
+			}
+
+			if (balanceOf(msg.sender) + _count > _collectionInfo.maxPerUser) {
+				revert MaxPerUserExceeded();
+			}
+		} else {
+			if (isPublicSaleActive == false) {
+				revert PublicMintInactive();
+			}
+			_;
 		}
 		_;
 	}
 
-	modifier checkPayment() {
-		if (msg.value != price) {
-			revert InsufficientBalance();
+	/**
+	 *  @dev Checks functionlaities that are specific for ERC721 collections
+	 */
+	modifier isCollection() {
+		if (_isCollection == false) {
+			revert NotACollection();
 		}
 		_;
 	}
@@ -127,30 +160,62 @@ contract ERC721 is
 		_tenantOwner = tenant_;
 	}
 
-	function mint(address _to)
-		external
-		payable
-		nonReentrant
-		checkMint
-		checkPayment
-		returns (uint256)
-	{
+	/**
+	 * @dev used for public minting of tokens for collection types.
+	 */
+	function mint(address _to) external payable nonReentrant mintCheck(1) returns (uint256) {
 		uint256 tokenId = nextTokenId();
 		_safeMint(_to, tokenId);
 		return tokenId;
+	}
+
+	function mintBatch(address _to, uint256 _count)
+		external
+		payable
+		nonReentrant
+		mintCheck(_count)
+		returns (uint256[] memory)
+	{
+		uint256[] memory tokenIds = new uint256[](_count);
+		for (uint256 i = 0; i < _count; i++) {
+			uint256 tokenId = nextTokenId();
+			tokenIds[i] = tokenId;
+			_safeMint(_to, tokenId);
+		}
+		return tokenIds;
 	}
 
 	function getBaseURI() external view returns (string memory) {
 		return baseURI;
 	}
 
-	//TENANT OWNER FUNCTIONS
-	function tenantMint(address _reciever) external isTenantOwner returns (uint256) {
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ T E N A N T  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+
+	function initializeCollection(
+		uint256 _price,
+		uint256 _maxSupply,
+		uint256 _maxPerUser
+	) external isTenantOwner {
+		_collectionInfo.price = _price;
+		_collectionInfo.maxSupply = _maxSupply;
+		_collectionInfo.maxPerUser = _maxPerUser;
+		_isCollection = true;
+	}
+
+	/**
+	 * @dev tenant ownly minting function, used to mint a token with a tokenURI based on the baseURI and the tokenID
+	 * use case: Collection Minting
+	 */
+	function tenantMint(address _reciever) external isTenantOwner isCollection returns (uint256) {
 		uint256 tokenId = nextTokenId();
 		_safeMint(_reciever, tokenId);
 		return tokenId;
 	}
 
+	/**
+	 * @dev This  minting function is used to mint a token with a the provided tokenURI
+	 * use case: 1:1 NFTs
+	 */
 	function tenantMint(address _to, string calldata _uri)
 		external
 		isTenantOwner
@@ -165,25 +230,22 @@ contract ERC721 is
 		return tokenId;
 	}
 
-	function setMintPrice(uint256 _price) external isTenantOwner {
-		price = _price;
-	}
-
 	function setBaseURI(string memory baseURI_) external isTenantOwner {
 		baseURI = baseURI_;
 	}
 
-	function setPublicSale(bool _isActive) external isTenantOwner {
-		isPublicSaleActive = _isActive;
+	/**
+	 * Can only set mint permissions if the contract is a collection
+	 */
+	function setMintPermissions(bool _isActive) external isTenantOwner {
+		if (_isCollection == true) {
+			_collectionInfo.isPublicSaleActive = _isActive;
+		} else {
+			isPublicSaleActive = _isActive;
+		}
 	}
 
-	// HELPERS
-	function nextTokenId() private returns (uint256) {
-		tokenCounter.increment();
-		return tokenCounter.current();
-	}
 
-	///TOKEN WITHDRAWAL
 	function withdraw() public isTenantOwner {
 		uint256 balance = address(this).balance;
 		payable(msg.sender).transfer(balance);
@@ -194,12 +256,22 @@ contract ERC721 is
 		_token.transfer(msg.sender, balance);
 	}
 
-	///FUNCTION OVERRIDES
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ H E L P E R  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	function nextTokenId() private returns (uint256) {
+		tokenCounter.increment();
+		return tokenCounter.current();
+	}
+
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ O V E R R I D E S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	/**
 	 * @dev See {IERC721Metadata-tokenURI}.
 	 */
 	function tokenURI(uint256 _tokenId) external view virtual override returns (string memory) {
 		_requireMinted(_tokenId);
+
+		if (!_isCollection) {
+			return bytes(_tokenURIs[_tokenId]).length > 0 ? _tokenURIs[_tokenId] : '';
+		}
 
 		string memory baseURI_ = _baseURI();
 		return
@@ -208,7 +280,7 @@ contract ERC721 is
 				: '';
 	}
 
-	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ERC721 METHODS @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R C 7 2 1   M E T H O D S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	/**
 	 * @dev See {IERC165-supportsInterface}.
 	 */
@@ -360,20 +432,6 @@ contract ERC721 is
 	/**
 	 * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
 	 * are aware of the ERC721 protocol to prevent tokens from being forever locked.
-	 *
-	 * `data` is additional data, it has no specified format and it is sent in call to `to`.
-	 *
-	 * This internal function is equivalent to {safeTransferFrom}, and can be used to e.g.
-	 * implement alternative mechanisms to perform token transfer, such as signature-based.
-	 *
-	 * Requirements:
-	 *
-	 * - `from` cannot be the zero address.
-	 * - `to` cannot be the zero address.
-	 * - `tokenId` token must exist and be owned by `from`.
-	 * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
-	 *
-	 * Emits a {Transfer} event.
 	 */
 	function _safeTransfer(
 		address _from,
@@ -391,10 +449,6 @@ contract ERC721 is
 	/**
 	 * @dev Returns whether `tokenId` exists.
 	 *
-	 * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
-	 *
-	 * Tokens start existing when they are minted (`_mint`),
-	 * and stop existing when they are burned (`_burn`).
 	 */
 	function _exists(uint256 _tokenId) internal view virtual returns (bool) {
 		return _owners[_tokenId] != address(0);
@@ -403,9 +457,6 @@ contract ERC721 is
 	/**
 	 * @dev Returns whether `spender` is allowed to manage `tokenId`.
 	 *
-	 * Requirements:
-	 *
-	 * - `tokenId` must exist.
 	 */
 	function _isApprovedOrOwner(address _spender, uint256 _tokenId)
 		internal
@@ -422,12 +473,6 @@ contract ERC721 is
 	/**
 	 * @dev Safely mints `tokenId` and transfers it to `to`.
 	 *
-	 * Requirements:
-	 *
-	 * - `tokenId` must not exist.
-	 * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
-	 *
-	 * Emits a {Transfer} event.
 	 */
 	function _safeMint(address _to, uint256 _tokenId) internal virtual {
 		_safeMint(_to, _tokenId, '');
@@ -453,13 +498,6 @@ contract ERC721 is
 	 * @dev Mints `tokenId` and transfers it to `to`.
 	 *
 	 * WARNING: Usage of this method is discouraged, use {_safeMint} whenever possible
-	 *
-	 * Requirements:
-	 *
-	 * - `tokenId` must not exist.
-	 * - `to` cannot be the zero address.
-	 *
-	 * Emits a {Transfer} event.
 	 */
 	function _mint(address _to, uint256 _tokenId) internal virtual {
 		if (_to == address(0)) {
@@ -483,12 +521,6 @@ contract ERC721 is
 	/**
 	 * @dev Destroys `tokenId`.
 	 * The approval is cleared when the token is burned.
-	 *
-	 * Requirements:
-	 *
-	 * - `tokenId` must exist.
-	 *
-	 * Emits a {Transfer} event.
 	 */
 	function _burn(uint256 _tokenId) internal virtual {
 		address owner = ERC721.ownerOf(_tokenId);
@@ -509,13 +541,6 @@ contract ERC721 is
 	/**
 	 * @dev Transfers `tokenId` from `from` to `to`.
 	 *  As opposed to {transferFrom}, this imposes no restrictions on msg.sender.
-	 *
-	 * Requirements:
-	 *
-	 * - `to` cannot be the zero address.
-	 * - `tokenId` token must be owned by `from`.
-	 *
-	 * Emits a {Transfer} event.
 	 */
 	function _transfer(
 		address _from,
@@ -545,8 +570,6 @@ contract ERC721 is
 
 	/**
 	 * @dev Approve `to` to operate on `tokenId`
-	 *
-	 * Emits an {Approval} event.
 	 */
 	function _approve(address _to, uint256 _tokenId) internal virtual {
 		_tokenApprovals[_tokenId] = _to;
@@ -555,8 +578,6 @@ contract ERC721 is
 
 	/**
 	 * @dev Approve `operator` to operate on all of `owner` tokens
-	 *
-	 * Emits an {ApprovalForAll} event.
 	 */
 	function _setApprovalForAll(
 		address _owner,
@@ -619,7 +640,7 @@ contract ERC721 is
 		}
 	}
 
-	/**
+	/**	
 	 * @dev Hook that is called before any token transfer. This includes minting
 	 * and burning.
 	 *

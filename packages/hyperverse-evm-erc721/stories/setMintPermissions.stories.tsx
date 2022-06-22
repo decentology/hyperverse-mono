@@ -1,11 +1,11 @@
-import { TogglePublicMint } from './togglePublicMint';
+import { SetMintPermissions } from './setMintPermissions';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/togglePublicMint.mdx';
+import { Doc } from '../docs/setMintPermissions.mdx';
 
 export default {
-	title: 'Components/TogglePublicMint',
-	component: TogglePublicMint,
+	title: 'Components/SetMintPermissions',
+	component: SetMintPermissions,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,10 +15,12 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<TogglePublicMint {...args} />
+		<SetMintPermissions {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
-Demo.args = {};
+Demo.args = {
+	isPublic: true,
+};
