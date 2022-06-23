@@ -1,9 +1,8 @@
-import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import './button.css';
+import './style.css';
 
-export const Allowance = ({ ...props }) => {
+export const Allowance = ({ ...props }: { owner: string; spender: string }) => {
 	const { allowance } = useERC20();
 	const { address, Connect } = useEvm();
 
@@ -13,7 +12,7 @@ export const Allowance = ({ ...props }) => {
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				allowance({'', ''});
+				allowance?.(props.owner, props.spender);
 			}}
 		>
 			Allowance
@@ -22,7 +21,3 @@ export const Allowance = ({ ...props }) => {
 		<Connect />
 	);
 };
-
-Allowance.propTypes = {};
-
-Allowance.defaultProps = {};

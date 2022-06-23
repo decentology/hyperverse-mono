@@ -1,10 +1,10 @@
-import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
 import { useEffect, useState } from 'react';
+import { BigNumber } from 'ethers';
 
-export const GetTotalSupply = ({ total, ...props }) => {
+export const GetTotalSupply = ({ ...props }) => {
 	const erc20 = useERC20();
-	const [data, setData] = useState(total);
+	const [data, setData] = useState<BigNumber>();
 
 	useEffect(() => {
 		if (erc20.getTotalSuply) {
@@ -13,16 +13,8 @@ export const GetTotalSupply = ({ total, ...props }) => {
 	}, [erc20.getTotalSuply]);
 
 	const hasTokens = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>There are no tokens.</p>
-		);
+		return data ? <p>{data}</p> : <p>{JSON.stringify(erc20.error)}</p>;
 	};
 
-	return <div className="totalSupply"> Total Supply: {hasTokens()}</div>;
+	return <div className="body"> Total Supply: {hasTokens()}</div>;
 };
-
-GetTotalSupply.propTypes = {};
-
-GetTotalSupply.defaultProps = {};

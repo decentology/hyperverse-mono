@@ -21,4 +21,7 @@ const Template = (args) => (
 
 export const Demo = Template.bind({});
 
-Demo.args = {};
+Demo.args = {
+	owner: '',
+	spender: '',
+};

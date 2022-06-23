@@ -1,9 +1,8 @@
-import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import './button.css';
+import './style.css';
 
-export const Burn = ({ ...props }) => {
+export const Burn = ({ ...props }: { amount: number }) => {
 	const { burn } = useERC20();
 	const { address, Connect } = useEvm();
 
@@ -13,7 +12,7 @@ export const Burn = ({ ...props }) => {
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				burn({});
+				burn?.(props.amount);
 			}}
 		>
 			Burn Tokens
@@ -22,7 +21,3 @@ export const Burn = ({ ...props }) => {
 		<Connect />
 	);
 };
-
-Burn.propTypes = {};
-
-Burn.defaultProps = {};
