@@ -13,13 +13,13 @@ export const GetBalanceOf = ({ ...props }: { account: string }) => {
 	}, [erc20.getBalanceOf]);
 
 	const validAddress = () => {
-		return data ? <p>{data}</p> : <p>{JSON.stringify(erc20.error)}</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(erc20.error)}</p>;
 	};
 
 	return (
 		<div className="body">
 			{' '}
-			Balance of {props.account}: {validAddress()}
+			Balance of <b>{props.account}</b>: {validAddress()}
 		</div>
 	);
 };

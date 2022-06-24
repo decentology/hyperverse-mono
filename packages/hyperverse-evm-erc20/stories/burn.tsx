@@ -15,7 +15,7 @@ export const Burn = ({ ...props }: { amount: number }) => {
 				burn?.(props.amount);
 			}}
 		>
-			Burn Tokens
+			Burn
 		</button>
 	) : (
 		<Connect />

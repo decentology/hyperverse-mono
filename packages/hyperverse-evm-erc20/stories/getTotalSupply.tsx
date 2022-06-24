@@ -13,7 +13,7 @@ export const GetTotalSupply = ({ ...props }) => {
 	}, [erc20.getTotalSuply]);
 
 	const hasTokens = () => {
-		return data ? <p>{data}</p> : <p>{JSON.stringify(erc20.error)}</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(erc20.error)}</p>;
 	};
 
 	return <div className="body"> Total Supply: {hasTokens()}</div>;

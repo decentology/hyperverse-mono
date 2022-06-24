@@ -1,5 +1,4 @@
 import { useERC20 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
 
@@ -14,7 +13,7 @@ export const GetBalance = ({ ...props }) => {
 	}, [erc20.getBalance]);
 
 	const balanceAvailable = () => {
-		return data ? <p>{data}</p> : <p>{JSON.stringify(erc20.error)}</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(erc20.error)}</p>;
 	};
 
 	return <div className="body"> Balance: {balanceAvailable()}</div>;
