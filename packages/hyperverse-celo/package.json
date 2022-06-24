@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-celo",
-	"version": "1.0.22",
+	"version": "1.0.23",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
