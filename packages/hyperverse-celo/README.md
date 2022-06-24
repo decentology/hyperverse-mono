@@ -1,9 +1,9 @@
 
 <div align="center">
-	<img src="../../.github/Hyperverse_Logo_Vertical_White.png#gh-dark-mode-only" style="height: 70px" alt="Hyperverse logo" />
-	<img src="../../.github/Hyperverse_Logo_Vertical_Blue.png#gh-light-mode-only" style="height: 70px" alt="Hyperverse logo" />
-	<img src=".github/celo-logo-reversed.svg#gh-dark-mode-only" alt="Celo logo" style="height: 70px" />
-	<img src=".github/celo-logo.svg#gh-light-mode-only" alt="Celo logo" style="height: 70px" />
+	<img src="../../assets/Hyperverse_Logo_Vertical_White.png#gh-dark-mode-only" style="height: 70px" alt="Hyperverse logo" />
+	<img src="../../assets//Hyperverse_Logo_Vertical_Blue.png#gh-light-mode-only" style="height: 70px" alt="Hyperverse logo" />
+	<img src="assets/celo-logo-reversed.svg#gh-dark-mode-only" alt="Celo logo" style="height: 70px" />
+	<img src="assets/celo-logo.svg#gh-light-mode-only" alt="Celo logo" style="height: 70px" />
 </div>
 
 
