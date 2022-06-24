@@ -13,7 +13,7 @@ This module allows you to connect to the Celo blockchain using the Hyperverse de
 *Note: This module acts as a configuration module for the base implementation found in Hyperverse-EVM module*
 
 ## Installation
-`npm install hyperverse hyperverse-evm-celo`
+`npm install @decentology/hyperverse @decentology/hyperverse-evm-celo`
 
 ## Features
 - Connecting to Celo blockchain mainnet and testnet
