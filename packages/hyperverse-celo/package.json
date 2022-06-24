@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-celo",
-	"version": "1.0.23",
+	"version": "1.0.24",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
@@ -15,7 +15,7 @@
 	"homepage": "https://www.hyperverse.dev",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/decentology/hyperverse-mono"
+		"url": "https://github.com/decentology/hyperverse-mono/packages/hyperverse-celo"
 	},
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
