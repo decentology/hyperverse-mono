@@ -5,14 +5,14 @@ import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';
 
-export type NFTGame1LibraryType = Awaited<ReturnType<typeof NFTGame1LibraryInternal>>;
-export function NFTGame1Library(
-	...args: Parameters<typeof NFTGame1LibraryInternal>
-): CancellablePromise<NFTGame1LibraryType> {
-	return pseudoCancellable(NFTGame1LibraryInternal(...args));
+export type NFTGameLibraryType = Awaited<ReturnType<typeof NFTGameLibraryInternal>>;
+export function NFTGameLibrary(
+	...args: Parameters<typeof NFTGameLibraryInternal>
+): CancellablePromise<NFTGameLibraryType> {
+	return pseudoCancellable(NFTGameLibraryInternal(...args));
 }
 
-export async function NFTGame1LibraryInternal(
+export async function NFTGameLibraryInternal(
 	hyperverse: HyperverseConfig,
 	providerOrSigner?: ethers.providers.Provider | ethers.Signer
 ) {
@@ -24,7 +24,7 @@ export async function NFTGame1LibraryInternal(
 		providerOrSigner = getProvider(hyperverse.network);
 	}
 	const base = await EvmLibraryBase(
-		'NFTGame1',
+		'NFTGame',
 		hyperverse,
 		factoryAddress!,
 		FactoryABI,
@@ -32,32 +32,33 @@ export async function NFTGame1LibraryInternal(
 		providerOrSigner
 	);
 
-	const initializeCollection = async ({price, maxSupply, maxPerUser}: {price: number; maxSupply: number; maxPerUser: number}) => {
-		try {
-			const tnx = await base.proxyContract?.initializeCollection(
-				ethers.utils.parseEther(price.toString()),
-				maxSupply,
-				maxPerUser
-			);
-			return tnx.wait() as TransactionReceipt;
-		} catch (error) {
-			throw error;
-		}
+	type MetaData = {
+		tokenName: string;
+		eyeId: number;
+		mouthId: number;
+		bodyId: number;
 	};
+	type MintType = {
+		to: string;
+	} & MetaData;
 
-	const mint = async (to: string, amount?: number) => {
+	const mint = async ({ to, tokenName, eyeId, mouthId, bodyId }: MintType) => {
 		try {
-			if (!amount || amount == 1) {
-				const mintTxn = await base.proxyContract?.mint(to);
-				return mintTxn.wait() as TransactionReceipt;
-			}
-
-			const mintTxn = await base.proxyContract?.mintBatch(to, amount);
+			const mintTxn = await base.proxyContract?.mint(to, tokenName, eyeId, mouthId, bodyId);
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
+
+	const getAttributes = async (tokenId: number) => {
+		try {
+			const attrs = await base.proxyContract?.getAttributesByTokenId(tokenId);
+			return attrs;
+		} catch (error) {
+			throw error;
+		}
+	}
 
 	const setMintPermissions = async (isPublic: boolean) => {
 		try {
@@ -68,30 +69,10 @@ export async function NFTGame1LibraryInternal(
 		}
 	};
 
-	const tenantMint = async ({ image, to }: { image?: File; to: string }) => {
+	const tenantMint = async ({ to, tokenName, eyeId, mouthId, bodyId }: MintType) => {
 		try {
-			const erc72Name = await base.proxyContract?.name();
-			if (image) {
-				const tokenUri = await hyperverse.storage?.uploadFile(image);
-				const Metadata = {
-					image: `https://ipfs.io/ipfs/${tokenUri}`,
-					name: `${erc72Name}`,
-				};
-				const metadataFile = new File([JSON.stringify(Metadata)], 'metadata.json');
-				const metadataFileLink = await hyperverse!.storage!.uploadFile(metadataFile);
-
-				const mintTxn = await base.proxyContract?.['tenantMint(address,string)'](
-					to,
-					metadataFileLink,
-					{
-						gasLimit: '1000000',
-					}
-				);
-				return mintTxn.wait() as TransactionReceipt;
-			} else {
-				const mintTxn = await base.proxyContract?.['tenantMint(address)'](to);
-				return mintTxn.wait() as TransactionReceipt;
-			}
+			const mintTxn = await base.proxyContract?.tenantMint(to, tokenName, eyeId, mouthId, bodyId);
+			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
@@ -195,12 +176,12 @@ export async function NFTGame1LibraryInternal(
 
 	return {
 		...base,
-		initializeCollection,
+		getAttributes,
 		mint,
 		setMintPermissions,
 		tenantMint,
 		getBaseURI,
-		//setBaseURI,
+		setBaseURI,
 		withdraw,
 		tokenURI,
 		getBalanceOf,
