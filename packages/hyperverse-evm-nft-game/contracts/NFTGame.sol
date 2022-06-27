@@ -16,7 +16,7 @@ import './interface/IERC721.sol';
 import './interface/IERC721Receiver.sol';
 import './interface/IERC20.sol';
 
-contract NFTGame1 is
+contract NFTGame is
 	Context,
 	ERC165,
 	IERC721,
@@ -138,7 +138,7 @@ contract NFTGame1 is
 
 	constructor(address _owner) {
 		metadata = ModuleMetadata(
-			'NFTGame1',
+			'NFTGame',
 			Author(_owner, 'https://externallink.net'),
 			'0.0.1',
 			3479831479814,
@@ -232,9 +232,9 @@ contract NFTGame1 is
 		return tokenId;
 	}
 
-	// function setBaseURI(string memory baseURI_) external isTenantOwner {
-	// 	baseURI = baseURI_;
-	// }
+	function setBaseURI(string memory baseURI_) external isTenantOwner {
+		baseURI = baseURI_;
+	}
 
 	/**
 	 * Can only set mint permissions if the contract is a collection
@@ -466,7 +466,7 @@ contract NFTGame1 is
 		virtual
 		returns (bool)
 	{
-		address owner = NFTGame1.ownerOf(_tokenId);
+		address owner = NFTGame.ownerOf(_tokenId);
 		return (_spender == owner ||
 			isApprovedForAll(owner, _spender) ||
 			getApproved(_tokenId) == _spender);
@@ -549,7 +549,7 @@ contract NFTGame1 is
 		address _to,
 		uint256 _tokenId
 	) internal virtual {
-		if (NFTGame1.ownerOf(_tokenId) != _from) {
+		if (NFTGame.ownerOf(_tokenId) != _from) {
 			revert IncorrectOwner();
 		}
 
@@ -575,7 +575,7 @@ contract NFTGame1 is
 	 */
 	function _approve(address _to, uint256 _tokenId) internal virtual {
 		_tokenApprovals[_tokenId] = _to;
-		emit Approval(NFTGame1.ownerOf(_tokenId), _to, _tokenId);
+		emit Approval(NFTGame.ownerOf(_tokenId), _to, _tokenId);
 	}
 
 	/**

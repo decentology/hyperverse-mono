@@ -5,18 +5,18 @@ pragma experimental ABIEncoderV2;
 import './hyperverse/CloneFactory.sol';
 import './hyperverse/IHyperverseModule.sol';
 import './utils/Counters.sol';
-import './NFTGame1.sol';
+import './NFTGame.sol';
 
 /**
  * @dev Clone Factory Implementation for ERC20 Token
  */
 
-contract NFTGame1Factory is CloneFactory {
+contract NFTGameFactory is CloneFactory {
 	using Counters for Counters.Counter;
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ S T A T E @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	struct Tenant {
-		NFTGame1 nftGame1;
+		NFTGame nftGame;
 		address owner;
 	}
 
@@ -70,10 +70,10 @@ contract NFTGame1Factory is CloneFactory {
 		string memory _symbol,
 		string memory _instanceBaseURI
 	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
-		NFTGame1 nftGame1 = NFTGame1(createClone(masterContract));
+		NFTGame nftGame = NFTGame1(createClone(masterContract));
 
 		//initializing tenant state of clone
-		nftGame1.initialize(_name, _symbol, _instanceBaseURI, _tenant);
+		nftGame.initialize(_name, _symbol, _instanceBaseURI, _tenant);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
@@ -85,7 +85,7 @@ contract NFTGame1Factory is CloneFactory {
 		emit TenantCreated(_tenant, address(nftGame1));
 	}
 
-	function getProxy(address _tenant) public view returns (NFTGame1) {
+	function getProxy(address _tenant) public view returns (NFTGame) {
 				if (!instance[_tenant]) {
 			revert InstanceDoesNotExist();
 		}

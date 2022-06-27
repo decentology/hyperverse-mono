@@ -98,14 +98,14 @@ export async function NFTGame1LibraryInternal(
 	};
 
 
-	// const setBaseURI = async (baseURI: string) => {
-	// 	try {
-	// 		const setBaseURITxn = await base.proxyContract?.setBaseURI(baseURI);
-	// 		return setBaseURITxn.wait() as TransactionReceipt;
-	// 	} catch (error) {
-	// 		throw error;
-	// 	}
-	// };
+	const setBaseURI = async (baseURI: string) => {
+		try {
+			const setBaseURITxn = await base.proxyContract?.setBaseURI(baseURI);
+			return setBaseURITxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
 
 	const getBaseURI = async () => {
 		try {
