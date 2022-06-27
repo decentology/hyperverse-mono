@@ -40,10 +40,10 @@ contract NFTGame is
 
 	struct TokenAttributes {
 		uint256 tokenId;
-		string 	attrName;
-		uint256 eyeType;
-		uint256 mouth;
-		uint256 bodyType;
+		string name;
+		uint256 eyeId;
+		uint256 mouthId;
+		uint256 bodyId;
 	}
 
 	address public immutable contractOwner;
@@ -85,7 +85,6 @@ contract NFTGame is
 	error TokenAlreadyMinted();
 	error IncorrectOwner();
 	error SameOwnerAndOperator();
-	error NotACollection();
 	error MaxSupplyExceeded();
 	error MaxPerUserExceeded();
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
@@ -105,41 +104,9 @@ contract NFTGame is
 		_;
 	}
 
-	modifier mintCheck(uint256 _count) {
-		if (_isCollection == true) {
-			if (_collectionInfo.isPublicSaleActive == false) {
-				revert PublicMintInactive();
-			}
-
-			if (
-				tokenCounter.current() > _collectionInfo.maxSupply ||
-				tokenCounter.current() + _count > _collectionInfo.maxSupply
-			) {
-				revert MaxSupplyExceeded();
-			}
-
-			if (msg.value * _count != _collectionInfo.price * _count) {
-				revert InsufficientBalance();
-			}
-
-			if (balanceOf(msg.sender) + _count > _collectionInfo.maxPerUser) {
-				revert MaxPerUserExceeded();
-			}
-		} else {
-			if (isPublicSaleActive == false) {
-				revert PublicMintInactive();
-			}
-			_;
-		}
-		_;
-	}
-
-	/**
-	 *  @dev Checks functionlaities that are specific for ERC721 collections
-	 */
-	modifier isCollection() {
-		if (_isCollection == false) {
-			revert NotACollection();
+	modifier mintCheck() {
+		if (isPublicSaleActive == false) {
+			revert PublicMintInactive();
 		}
 		_;
 	}
@@ -173,85 +140,60 @@ contract NFTGame is
 	/**
 	 * @dev used for public minting of tokens for collection types.
 	 */
-	function mint(address _to, string memory _attrName, uint256 _eyeType, uint256 _mouth, uint256 _bodyType) external payable nonReentrant mintCheck(1) returns (uint256) {
+	function mint(
+		address _to,
+		string memory _tokenName,
+		uint256 _eyeId,
+		uint256 _mouthId,
+		uint256 _bodyId
+	) external payable nonReentrant mintCheck returns (uint256) {
 		uint256 tokenId = nextTokenId();
-		_tokenAttribute[tokenId] = TokenAttributes(tokenId, _attrName, _eyeType, _mouth, _bodyType);
+		_tokenAttribute[tokenId] = TokenAttributes(tokenId, _tokenName, _eyeId, _mouthId, _bodyId);
 		_safeMint(_to, tokenId);
 		return tokenId;
 	}
 
-	function getAttributesByTokenId(uint256 _tokenId) 
+	function getAttributesByTokenId(uint256 _tokenId)
 		public
 		view
 		returns (
-		uint256 tokenId,
-		string memory attrName,
-		uint256 eyeType,
-		uint256 mouth,
-		uint256 bodyType)
+			uint256,
+			string memory,
+			uint256,
+			uint256,
+			uint256
+		)
 	{
-		TokenAttributes storage tokenAttr = _tokenAttribute[_tokenId];
-		return(tokenAttr.tokenId, tokenAttr.attrName, tokenAttr.eyeType, tokenAttr.mouth, tokenAttr.bodyType);
-	}
-
-	function mintBatch(address _to, uint256 _count)
-		external
-		payable
-		nonReentrant
-		mintCheck(_count)
-		returns (uint256[] memory)
-	{
-		uint256[] memory tokenIds = new uint256[](_count);
-		for (uint256 i = 0; i < _count; i++) {
-			uint256 tokenId = nextTokenId();
-			tokenIds[i] = tokenId;
-			_safeMint(_to, tokenId);
-		}
-		return tokenIds;
+		TokenAttributes storage tokenAttributes = _tokenAttribute[_tokenId];
+		return (
+			tokenAttributes.tokenId,
+			tokenAttributes.name,
+			tokenAttributes.eyeId,
+			tokenAttributes.mouthId,
+			tokenAttributes.bodyId
+		);
 	}
 
 	function getBaseURI() public view returns (string memory) {
-		return 	bytes(baseURI).length > 0 ? baseURI : "";
+		return bytes(baseURI).length > 0 ? baseURI : '';
 	}
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ T E N A N T  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
-
-	function initializeCollection(
-		uint256 _price,
-		uint256 _maxSupply,
-		uint256 _maxPerUser
-	) external isTenantOwner {
-		_collectionInfo.price = _price;
-		_collectionInfo.maxSupply = _maxSupply;
-		_collectionInfo.maxPerUser = _maxPerUser;
-		_isCollection = true;
-	}
 
 	/**
 	 * @dev tenant ownly minting function, used to mint a token with a tokenURI based on the baseURI and the tokenID
 	 * use case: Collection Minting
 	 */
-	function tenantMint(address _reciever) external isTenantOwner isCollection returns (uint256) {
+	function tenantMint(
+		address _reciever,
+		string memory _tokenName,
+		uint256 _eyeId,
+		uint256 _mouthId,
+		uint256 _bodyId
+	) external isTenantOwner returns (uint256) {
 		uint256 tokenId = nextTokenId();
+		_tokenAttribute[tokenId] = TokenAttributes(tokenId, _tokenName, _eyeId, _mouthId, _bodyId);
 		_safeMint(_reciever, tokenId);
-		return tokenId;
-	}
-
-	/**
-	 * @dev This  minting function is used to mint a token with a the provided tokenURI
-	 * use case: 1:1 NFTs
-	 */
-	function tenantMint(address _to, string calldata _uri)
-		external
-		isTenantOwner
-		returns (uint256)
-	{
-		uint256 tokenId = nextTokenId();
-		_safeMint(_to, tokenId);
-		if (bytes(_uri).length > 0) {
-			_tokenURIs[tokenId] = _uri;
-		}
-
 		return tokenId;
 	}
 
@@ -263,13 +205,8 @@ contract NFTGame is
 	 * Can only set mint permissions if the contract is a collection
 	 */
 	function setMintPermissions(bool _isActive) external isTenantOwner {
-		if (_isCollection == true) {
-			_collectionInfo.isPublicSaleActive = _isActive;
-		} else {
-			isPublicSaleActive = _isActive;
-		}
+		isPublicSaleActive = _isActive;
 	}
-
 
 	function withdraw() public isTenantOwner {
 		uint256 balance = address(this).balance;
