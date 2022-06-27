@@ -67,13 +67,12 @@ contract NFTGameFactory is CloneFactory {
 	function createInstance(
 		address _tenant,
 		string memory _name,
-		string memory _symbol,
-		string memory _instanceBaseURI
+		string memory _symbol
 	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
 		NFTGame nftGame = NFTGame1(createClone(masterContract));
 
 		//initializing tenant state of clone
-		nftGame.initialize(_name, _symbol, _instanceBaseURI, _tenant);
+		nftGame.initialize(_name, _symbol, _tenant);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];

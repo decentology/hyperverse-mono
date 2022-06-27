@@ -37,6 +37,15 @@ contract NFTGame is
 		uint256 maxPerUser;
 		bool isPublicSaleActive;
 	}
+
+	struct TokenAttributes {
+		uint256 tokenId;
+		string 	attrName;
+		uint256 eyeType;
+		uint256 mouth;
+		uint256 bodyType;
+	}
+
 	address public immutable contractOwner;
 
 	address public _tenantOwner;
@@ -55,6 +64,7 @@ contract NFTGame is
 	mapping(address => uint256) private _balances;
 	mapping(uint256 => address) private _tokenApprovals;
 	mapping(address => mapping(address => bool)) private _operatorApprovals;
+	mapping(uint256 => TokenAttributes) public tokenAttribute;
 
 	// Mapping for individual token URIs
 	mapping(uint256 => string) internal _tokenURIs;
@@ -153,22 +163,35 @@ contract NFTGame is
 	function initialize(
 		string memory name_,
 		string memory symbol_,
-		string memory instanceBaseURI_,
 		address tenant_
 	) external initializer canInitialize(tenant_) {
 		_name = name_;
 		_symbol = symbol_;
 		_tenantOwner = tenant_;
-		baseURI = instanceBaseURI_;
 	}
 
 	/**
 	 * @dev used for public minting of tokens for collection types.
 	 */
-	function mint(address _to) external payable nonReentrant mintCheck(1) returns (uint256) {
+	function mint(address _to, string memory _attrName, uint256 _eyeType, uint256 _mouth, uint256 _bodyType) external payable nonReentrant mintCheck(1) returns (uint256) {
 		uint256 tokenId = nextTokenId();
+		tokenAttribute[tokenId] = TokenAttributes(tokenId, _attrName, _eyeType, _mouth, _bodyType);
 		_safeMint(_to, tokenId);
 		return tokenId;
+	}
+
+	function getAttributesByTokenId(uint256 _tokenId) 
+		public
+		view
+		returns (
+		uint256 tokenId,
+		string memory attrName,
+		uint256 eyeType,
+		uint256 mouth,
+		uint256 bodyType)
+	{
+		TokenAttributes storage tokenAttr = tokenAttribute[_tokenId];
+		return(tokenAttr.tokenId, tokenAttr.attrName, tokenAttr.eyeType, tokenAttr.mouth, tokenAttr.bodyType);
 	}
 
 	function mintBatch(address _to, uint256 _count)
@@ -348,7 +371,7 @@ contract NFTGame is
 	 * @dev See {IERC721-approve}.
 	 */
 	function approve(address _to, uint256 _tokenId) public virtual override {
-		address owner = NFTGame1.ownerOf(_tokenId);
+		address owner = NFTGame.ownerOf(_tokenId);
 		if (owner == _to) {
 			revert SameAddress();
 		}
@@ -525,7 +548,7 @@ contract NFTGame is
 	 * The approval is cleared when the token is burned.
 	 */
 	function _burn(uint256 _tokenId) internal virtual {
-		address owner = NFTGame1.ownerOf(_tokenId);
+		address owner = NFTGame.ownerOf(_tokenId);
 
 		_beforeTokenTransfer(owner, address(0), _tokenId);
 
