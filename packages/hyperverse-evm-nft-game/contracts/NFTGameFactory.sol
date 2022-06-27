@@ -69,25 +69,25 @@ contract NFTGameFactory is CloneFactory {
 		string memory _name,
 		string memory _symbol
 	) external isAuthorized(_tenant) hasAnInstance(_tenant) {
-		NFTGame nftGame = NFTGame1(createClone(masterContract));
+		NFTGame nftGame = NFTGame(createClone(masterContract));
 
 		//initializing tenant state of clone
 		nftGame.initialize(_name, _symbol, _tenant);
 
 		//set Tenant data
 		Tenant storage newTenant = tenants[_tenant];
-		newTenant.nftGame1 = nftGame1;
+		newTenant.nftGame = nftGame;
 		newTenant.owner = _tenant;
 		instance[_tenant] = true;
 		tenantCounter.increment();
 
-		emit TenantCreated(_tenant, address(nftGame1));
+		emit TenantCreated(_tenant, address(nftGame));
 	}
 
 	function getProxy(address _tenant) public view returns (NFTGame) {
 				if (!instance[_tenant]) {
 			revert InstanceDoesNotExist();
 		}
-		return tenants[_tenant].nftGame1;
+		return tenants[_tenant].nftGame;
 	}
 }
