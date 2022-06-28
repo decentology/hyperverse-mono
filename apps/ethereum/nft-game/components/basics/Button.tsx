@@ -1,12 +1,11 @@
 import React from 'react'
 import { styled } from '../../stitches.config'
-export const Button = ({ label, onClick }: { label: string; onClick?: () => void }) => {
-  return <StyledButton onClick={onClick}>{label}</StyledButton>
+export const Button = ({ label, disabled, onClick }: { label: string; disabled?: boolean, onClick?: () => void }) => {
+  return <StyledButton onClick={onClick} disabled={disabled}>{label}</StyledButton>
 }
 
 const StyledButton = styled('button', {
   background: '#2679A1',
-  backgroundSize: 'fill',
   border: 'none',
   borderRadius: 4,
   padding: '8px 10px',
@@ -16,4 +15,12 @@ const StyledButton = styled('button', {
   '&:hover': {
     transform: 'scale(1.02)',
   },
+
+  '&:disabled': {
+    opacity: 0.5,
+    cursor: 'not-allowed',
+    '&:hover': {
+      transform: 'unset',
+    }
+  }
 })

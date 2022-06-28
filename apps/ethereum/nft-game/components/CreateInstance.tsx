@@ -3,23 +3,59 @@ import { styled } from '../stitches.config';
 import { Button } from './basics/Button';
 import { InfoHeading } from './basics/InfoHeading';
 import { InputContainer, Label, StyledInput } from './basics/Input';
+import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useNFTGame } from '@decentology/hyperverse-evm-nft-game';
+import { useMutation, useQuery } from 'react-query';
 
 export const CreateInstance = () => {
+	const { account } = useEthereum();
+	const NFTGame = useNFTGame();
+
+	const { data: instance } = useQuery('instance', () => NFTGame.checkInstance!(account), {
+		enabled: !!NFTGame.factoryContract,
+	});
+
+	const [tokenName, setTokenName] = React.useState<string>('');
+	const [tokenSymbol, setTokenSymbol] = React.useState<string>('');
+
+	const { mutate, isLoading } = useMutation('createTokenInstance', NFTGame.createInstance);
+
+	const createNewInstance = async () => {
+		try {
+			mutate({
+				account: account!,
+				tokenName,
+				tokenSymbol,
+			});
+		} catch (error) {
+			throw error;
+		}
+	};
 	return (
 		<Container>
 			<InfoHeading heading="Create Instance" variant="subHeading" />
 			<Inputs>
 				<InputContainer>
 					<Label>Collection Name</Label>
-					<StyledInput placeholder="Collection Name" />
+					<StyledInput placeholder="Collection Name" onChange={(e) => setTokenName(e.target.value)} />
 				</InputContainer>
-        <InputContainer>
+				<InputContainer>
 					<Label>Collection Symbol</Label>
-					<StyledInput placeholder="Collection Symbol" />
+					<StyledInput placeholder="Collection Symbol" onChange={(e) => setTokenSymbol(e.target.value)} />
 				</InputContainer>
 			</Inputs>
 			<ButtonContainer>
-				<Button label="Create Instance" />
+				<Button
+					label={
+						!instance
+							? 'Create Instance'
+							: isLoading
+							? 'txn loading ...'
+							: 'Instance Created'
+					}
+					disabled={!account || instance}
+					onClick={createNewInstance}
+				/>
 			</ButtonContainer>
 		</Container>
 	);

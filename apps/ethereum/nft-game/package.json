@@ -11,6 +11,7 @@
   "dependencies": {
     "@decentology/hyperverse": "workspace:^",
     "@decentology/hyperverse-ethereum": "workspace:^",
+    "@decentology/hyperverse-evm-nft-game": "workspace:^",
     "@decentology/unstated-next": "^1.1.1",
     "@radix-ui/react-hover-card": "^0.1.5",
     "@stitches/react": "^1.2.6",
