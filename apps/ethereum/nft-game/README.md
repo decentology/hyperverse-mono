@@ -21,8 +21,9 @@ To run this project locally:
     git clone https://github.com/decentology/hyperverse-mono.git
     ```
 
-    cd into apps/ethereum/nft-game folder
-
+    ```bash
+    cd hyperverse-mono
+    ```
     ```bash
     cd apps/ethereum/nft-game
     ```
