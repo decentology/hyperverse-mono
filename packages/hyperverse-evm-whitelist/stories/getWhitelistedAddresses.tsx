@@ -14,7 +14,7 @@ export const GetWhitelistedAddresses = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					getWhitelistedAddresses();
+					getWhitelistedAddresses?.();
 				}}
 			>
 				Get Whitelisted Addresses

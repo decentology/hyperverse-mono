@@ -14,7 +14,7 @@ export const RevokeOperator = ({ ...props }: { operator: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					revokeOperator(props.operator);
+					revokeOperator?.(props.operator);
 				}}
 			>
 				Revoke Operator

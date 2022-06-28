@@ -14,7 +14,7 @@ export const ClaimWhitelist = ({ ...props }: { account: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					claimWhitelist(props.account);
+					claimWhitelist?.(props.account);
 				}}
 			>
 				Claim Whitelist

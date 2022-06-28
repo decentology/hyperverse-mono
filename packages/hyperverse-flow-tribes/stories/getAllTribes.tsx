@@ -1,29 +1,19 @@
-import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import { useState, useEffect } from 'react';
 
-export const GetAllTribes = ({ ...props }) => {
-	const { getAllTribes } = useTribes();
+export const GetAllTribes = ({ ...props }: { tenantId: number }) => {
+	const tribes = useTribes();
 	const [data, setData] = useState(null);
 
 	useEffect(() => {
-		try {
-			getAllTribes(props.tenantId).then(setData);
-		} catch (err) {
-			console.log(err);
+		if (tribes.getAllTribes) {
+			tribes.getAllTribes(props.tenantId).then(setData);
 		}
-		getAllTribes(props.tenantId);
-	}, []);
+	}, [tribes.getAllTribes]);
 
 	return (
-		<div className="allTribes">
-			All Tribes: <b>{data}</b>
+		<div className="body">
+			All Tribes: <b>{JSON.stringify(data)}</b>
 		</div>
 	);
 };
-
-GetAllTribes.propTypes = {
-	tenantId: PropTypes.string.isRequired,
-};
-
-GetAllTribes.defaultProps = {};

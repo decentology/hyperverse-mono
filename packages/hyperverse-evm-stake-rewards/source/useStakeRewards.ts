@@ -12,7 +12,6 @@ function StakeRewardsState(initialState: { tenantId: string } = { tenantId: '' }
 	const hyperverse = useHyperverse();
 	const [stakeRewardsLibrary, setStakeRewardsLibrary] = useState<StakeRewardsLibraryType>();
 
-
 	useEffect(() => {
 		const lib = StakeRewardsLibrary(hyperverse, signer || readOnlyProvider).then(setStakeRewardsLibrary).catch(x => {
 			// Ignoring stale library instance

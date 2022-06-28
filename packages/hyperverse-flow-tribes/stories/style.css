@@ -30,3 +30,13 @@
   padding: 12px 24px;
   border-radius: 3em;
 }
+.body {
+  color: '#999';
+  font-weight: 200;
+  font-size: 18px;
+  letter-spacing: 0px;
+  line-height: 21px;
+  margin-bottom: 12px;
+  margin-top: 8px;
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

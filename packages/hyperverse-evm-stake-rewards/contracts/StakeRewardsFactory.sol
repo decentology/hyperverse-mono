@@ -7,6 +7,8 @@ import './StakeRewardsToken.sol';
 import './interfaces/IERC1820Registry.sol';
 import './utils/Counters.sol';
 
+import 'hardhat/console.sol';
+
 /**
  * @dev Clone Factory Implementation for Stake Rewards Module
  */
@@ -92,6 +94,7 @@ contract StakeRewardsFactory is CloneFactory {
 		hasAnInstance(_tenant)
 		erc777interfaceCheck(_stakingToken, _rewardsToken)
 	{
+		console.log('creating instance', _tenant);
 		StakeRewardsToken stakeInstance = StakeRewardsToken(createClone(masterContract));
 
 		//initializing tenant state of clone
@@ -108,6 +111,7 @@ contract StakeRewardsFactory is CloneFactory {
 	}
 
 	function getProxy(address _tenant) public view returns (StakeRewardsToken) {
+		console.log('getting proxy', _tenant);
 		if (!instance[_tenant]) {
 			revert InstanceDoesNotExist();
 		}

@@ -100,6 +100,7 @@ export async function EvmLibraryBase(
 			const createTxn = await factoryContract.createInstance(account, ...Object.values(args));
 			return createTxn.wait();
 		} catch (err) {
+			console.log('error', err);
 			factoryErrors(err);
 			throw err;
 		}

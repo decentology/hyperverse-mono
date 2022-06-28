@@ -5,7 +5,7 @@ import './style.css';
 export const NewInstance = ({
 	...props
 }: {
-	tenant: string;
+	account: string;
 	startTime: number;
 	endTime: number;
 	units: number;
@@ -24,7 +24,17 @@ export const NewInstance = ({
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					// createInstance({ tenant: address, startTime: 3 });
+					console.log('in the click');
+					createInstance?.({
+						account: address!,
+						startTime: parseInt(((new Date().getTime() + 60 * 1000) / 1000).toFixed(0)),
+						endTime: parseInt(
+							((new Date().getTime() + 60 ** 3 * 1000) / 1000).toFixed(0)
+						),
+						ERC721: '0x0000000000000000000000000000000000000000',
+						ERC20: '0x0000000000000000000000000000000000000000',
+						merkleRoot: null,
+					});
 				}}
 			>
 				New Instance
