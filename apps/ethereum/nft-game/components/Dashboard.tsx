@@ -7,7 +7,7 @@ import { TenantMint } from "./Mint"
 export const Dashboard = () => {
   return (
     <Container>
-    <Heading>NFT Game Module</Heading>
+    <Heading>NFTGame-1 Module</Heading>
 
       <SubContainer>
 
