@@ -1,6 +1,6 @@
 import { initialize, Provider, Network } from '@decentology/hyperverse';
 import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as NFTGame from '@decentology/hyperverse-evm-nft-game';
+import * as NFTGame from '@decentology/hyperverse-evm-nft-game-1';
 
 import { globalCss } from '../stitches.config';
 import { ToastContainer } from 'react-toastify';

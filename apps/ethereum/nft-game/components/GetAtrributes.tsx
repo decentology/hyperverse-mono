@@ -4,7 +4,7 @@ import { Button } from './basics/Button';
 import { InfoHeading } from './basics/InfoHeading';
 import { InputContainer, Label, StyledInput } from './basics/Input';
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useNFTGame } from '@decentology/hyperverse-evm-nft-game';
+import { useNFTGame } from '@decentology/hyperverse-evm-nft-game-1';
 import { useMutation, useQuery } from 'react-query';
 import { Container, Inputs, ButtonContainer } from './CreateInstance';
 

@@ -1,5 +1,5 @@
 {
-	"name": "@decentology/hyperverse-evm-nft-game",
+	"name": "@decentology/hyperverse-evm-nft-game-1",
 	"version": "1.0.1",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",

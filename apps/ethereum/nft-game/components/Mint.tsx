@@ -1,5 +1,5 @@
 import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useNFTGame } from '@decentology/hyperverse-evm-nft-game';
+import { useNFTGame } from '@decentology/hyperverse-evm-nft-game-1';
 import React from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { styled } from '../stitches.config';
