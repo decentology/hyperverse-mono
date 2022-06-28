@@ -45,6 +45,23 @@ To run this project locally:
 
   Open [http://localhost:3000](http://localhost:3000/) with your browser to see the result.
 
+### Testing and using your own instance
+
+Once you create your own instance open up `pages/_app.tsx` and update the tenantID
+
+```
+	const hyperverse = initialize({
+		blockchain: Ethereum,
+		network: Network.Testnet,
+		modules: [
+			{
+				bundle: NFTGame,
+				tenantId: //Input the account you used to create your tenant here,
+			},
+		],
+	});
+```
+
 ### Prerequisities
 
 To be able to interact with the dapp, you need a Metmask Wallet and Rinkeby eth.

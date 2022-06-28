@@ -1,6 +1,7 @@
 import React from "react"
 import { styled } from "../stitches.config"
 import { CreateInstance } from "./CreateInstance"
+import { GetAttributes } from "./GetAtrributes"
 import { TenantMint } from "./Mint"
 
 
@@ -13,6 +14,7 @@ export const Dashboard = () => {
 
        <CreateInstance />
        <TenantMint />
+       <GetAttributes />
        
       </SubContainer>
     </Container>
@@ -22,6 +24,7 @@ export const Dashboard = () => {
 const Container = styled('div', {
   height: '100%',
   marginTop: 50,
+  paddingBottom: 80,
 })
 
 const Heading = styled('h1', {

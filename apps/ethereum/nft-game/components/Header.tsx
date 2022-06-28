@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 
 export function Header() {
   const { Connect } = useEthereum()
-  const ClientConnect = dynamic(() => Promise.resolve(Connect), { ssr: false })
+
 
   return (
     <HeaderContainer>
@@ -25,7 +25,7 @@ export function Header() {
       <NavLink to={HEADER_LINKS.github} external>
         <Github />
       </NavLink>
-      <ClientConnect  />
+      <Connect  />
     </Section>
   </HeaderContainer>
   )

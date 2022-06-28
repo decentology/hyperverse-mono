@@ -45,6 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		modules: [
 			{
 				bundle: NFTGame,
+        //TO DO: Input the account you used to create your tenant here,
 				tenantId: "0x62a7aa79a52591Ccc62B71729329A80a666fA50f",
 			},
 		],
