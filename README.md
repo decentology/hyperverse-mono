@@ -1,8 +1,12 @@
 # Preview
 
-# tribes-eth
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1UFpBzZRnOBIZhIcaAWui1FIe9OSfJTKx" width="256" alt="Hyperverse logo" />
+</p>
 
-`tribes-eth` is a sample [Next.js](https://nextjs.org/) project utilizing the tribes module from the [hyperverse](https://www.decentology.com/hyperverse). The aim of this project is to allow users to join different tribes (or communities) and gain access to content only visible to those in that specific tribe.
+## ⌘ The Hyperverse Monorepo
+
+`hyperverse-mono` holds the core [hyperverse](https://www.decentology.com/hyperverse) packages, smart modules developed by the Decentology Team and sample apps.
 
 -   If you have any questions please join the [Decentology Discord.](http://discord.gg/decentology)
 
@@ -11,7 +15,7 @@
 -   [Visual Studio Code](https://code.visualstudio.com/download) (or any IDE for editing JavaScript)
 -   [Git](https://git-scm.com/)
 -   [Node.js](https://nodejs.org/en/) >=14.0.0
--   [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable)
+-   [Pnpm](https://pnpm.io/)
 
 ## 🛠 Installation
 
@@ -24,28 +28,25 @@ To run this project locally:
     git clone https://github.com/decentology/hyperverse-mono
     ```
 
-2. Download all the dependencies needed to run the project by running `yarn`.
+2. Download all the dependencies needed to run the project by running `pnpm i`.
 
     ```bash
-    yarn
+    pnpm i
     ```
 
-    Select the example project you want to run from the `apps` directory and run the following command
+## 🏁 Testing & Running the Sample Apps
+
+Select the example project you want to run from the `apps` directory and run the following command
 
     ```bash
-    yarn dev
+    pnpm dev
     ```
 
-    Open [http://localhost:3000](http://localhost:3000/) with your browser to see the result.
-
-## 🏁 Testing & Running the Application
-
-If you were successful following the Installation application, you should be greeted with the tribes home page that looks like this:
-<img src="./apps/ethereum/tribes/public/tribes-home.png" alt="tribes"/>
+Open [http://localhost:3000](http://localhost:3000/) with your browser to see the result.
 
 ### Prerequisities
 
-To be able to interact with the dapp, you need a Metmask Wallet and Rinkeby eth.
+To be able to interact with any of the sample dapps, you need a Metmask Wallet and Rinkeby eth.
 
 1. **Metamask**
 
@@ -59,11 +60,3 @@ To be able to interact with the dapp, you need a Metmask Wallet and Rinkeby eth.
 -   https://app.mycrypto.com/faucet
 
     Or ask us to send you some in our [Discord Server.](http://discord.gg/decentology)
-
-## 📌 Important Links and File Locations
-
-Here are some links and locations of files related to tribes:
-
--   Rinkeby Etherscan of the [contract](https://rinkeby.etherscan.io/address/0x410E22b393B3A90953c0677F2282E331580ed45b)
--   [Contract code](https://github.com/decentology/workshop-yeovil/blob/workshop/yeovil/packages/hyperverse-ethereum-tribes/contracts/Tribes.sol) found in the repo
--   [useTribe](https://github.com/decentology/workshop-yeovil/blob/workshop/yeovil/packages/hyperverse-ethereum-tribes/source/useTribes.ts) hook which is what allows us to interact and transact with the contract
