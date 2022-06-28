@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# nft-game
 
-## Getting Started
+`nft-game` is a sample [Next.js](https://nextjs.org/) interface utilizing the NFT-Game module from the [hyperverse](https://www.decentology.com/hyperverse). The aim of this project is to allow users to deploy and create their own NFT-Game Tenant.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 💻 System Requirements
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   [Visual Studio Code](https://code.visualstudio.com/download) (or any IDE for editing JavaScript)
+-   [Git](https://git-scm.com/)
+-   [Node.js](https://nodejs.org/en/)
+-   [Pnpm](https://pnpm.io/) or [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 🛠 Installation
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To run this project locally:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. In your terminal run these commands:
+   clone the repository
 
-## Learn More
+    ```bash
+    git clone https://github.com/decentology/hyperverse-mono.git
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+    cd into apps/ethereum/nft-game folder
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    cd apps/ethereum/nft-game
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. Download all the dependencies needed to run the project.
 
-## Deploy on Vercel
+    ```bash
+    pnpm i
+    # or
+    yarn i
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  To run the development server run our custom script
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```bash
+    pnpm dev
+    # or
+    yarn dev
+    ```
+
+  Open [http://localhost:3000](http://localhost:3000/) with your browser to see the result.
+
+### Prerequisities
+
+To be able to interact with the dapp, you need a Metmask Wallet and Rinkeby eth.
+
+1. **Metamask**
+
+    If you do not have a metamask wallet, [here](https://www.surgewomen.io/learn-about-web3/set-up-metamask-wallet) is a guide you can follow on how to set up one.
+
+2. **Rinkeby Faucets**
+
+    To get some Rinkeby eth here are some available faucets you can request from:
+
+-   https://faucet.paradigm.xyz/
+-   https://app.mycrypto.com/faucet
+
+    Or ask us to send you some in our [Discord Server.](http://discord.gg/decentology)
