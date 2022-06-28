@@ -19,8 +19,14 @@ const Template = (args) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const BaseURI1 = Template.bind({});
 
-Demo.args = {
-	baseURI: 'https://example-site.com/nfts/',
+BaseURI1.args = {
+	baseURI: 'https://site-1.com/nfts/',
+};
+
+export const BaseURI2 = Template.bind({});
+
+BaseURI2.args = {
+	baseURI: 'https://site-2.com/nfts/',
 };

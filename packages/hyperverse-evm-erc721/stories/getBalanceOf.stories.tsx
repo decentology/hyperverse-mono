@@ -19,8 +19,15 @@ const Template = (args) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Account1 = Template.bind({});
 
-Demo.args = {
+Account1.args = {
 	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9'
 };
+
+export const Account2 = Template.bind({});
+
+Account2.args = {
+	account: '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc'
+};
+

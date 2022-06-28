@@ -15,11 +15,7 @@ export const Withdraw = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-<<<<<<<< HEAD:packages/hyperverse-evm-erc721/stories/withdraw.tsx
 					withdraw?.();
-========
-					togglePublicMint?.(true);
->>>>>>>> erc721-sb-update:packages/hyperverse-evm-erc721/stories/togglePublicMint.tsx
 				}}
 			>
 				Withdraw

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
+
 import { useHyperverse } from '@decentology/hyperverse';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { ERC721Library, ERC721LibraryType } from './erc721Library';
@@ -15,6 +16,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 		const lib = ERC721Library(hyperverse, signer || readOnlyProvider).then(setERC721Library).catch(x => {
 			// Ignoring stale library instance
 		});
+		
 		return lib.cancel;
 	}, [signer, readOnlyProvider]);
 

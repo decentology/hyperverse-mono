@@ -19,9 +19,17 @@ const Template: Story = (args) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Collection1 = Template.bind({});
 
-Demo.args = {
+Collection1.args = {
+    price: 10,
+    maxSupply: 50,
+    maxPerUser: 5,
+};
+
+export const Collection2 = Template.bind({});
+
+Collection2.args = {
     price: 10,
     maxSupply: 50,
     maxPerUser: 5,

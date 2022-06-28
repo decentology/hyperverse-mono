@@ -19,8 +19,14 @@ const Template = (args) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const True = Template.bind({});
 
-Demo.args = {
+True.args = {
 	isPublic: true,
+};
+
+export const False = Template.bind({});
+
+False.args = {
+	isPublic: false,
 };

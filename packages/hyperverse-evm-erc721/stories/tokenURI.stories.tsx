@@ -19,8 +19,14 @@ const Template = (args) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Token1 = Template.bind({});
 
-Demo.args = {
+Token1.args = {
 	tokenId: 1,
+};
+
+export const Token2 = Template.bind({});
+
+Token2.args = {
+	tokenId: 2,
 };
