@@ -34,9 +34,9 @@ export async function NFTGameLibraryInternal(
 
 	type MetaData = {
 		tokenName: string;
-		eyeId: number;
-		mouthId: number;
-		bodyId: number;
+		eyeId: string;
+		mouthId: string;
+		bodyId: string;
 	};
 	type MintType = {
 		to: string;

@@ -1,29 +1,29 @@
 {
   "metis": {
     "testnet": {
-      "contractAddress": "0x4Ad8135D5d1a94c8aA3EbF753b3014e8f9663290",
-      "factoryAddress": "0x7037E17e7D17980f20d7b88FdF241b4E78E7d50d"
+      "contractAddress": "0xACec20ad889Ba58Ec9d65AB0aA7C0e0D151222e0",
+      "factoryAddress": "0xb38d8C98646C7F07fdc0512e1DB9ee25BfE77F30"
     },
     "mainnet": {}
   },
   "avalanche": {
     "testnet": {
-      "contractAddress": "0x296a744F4716f237F5aD92e1BFE709725C28337C",
-      "factoryAddress": "0xC0257126e148AE62E0D5Bd15553e720Ca7DE6dFf"
+      "contractAddress": "0x995d701c0CaAeDA88DBF21727202F3a61AF01177",
+      "factoryAddress": "0xACec20ad889Ba58Ec9d65AB0aA7C0e0D151222e0"
     },
     "mainnet": {}
   },
   "ethereum": {
     "testnet": {
-      "contractAddress": "0xF02cE0559fBD989aE9EF5E14804be360642402B4",
-      "factoryAddress": "0xEc72DF0fEB5E05166Ff7E6eE5FEa8469Ce867070"
+      "contractAddress": "0xb12f055CCAC00F6262b146b5f7fc8cCf3dbEC321",
+      "factoryAddress": "0x49e329d5f4cDF13Cf52340F6AC6b25ddd5e17f1d"
     },
     "mainnet": {}
   },
   "polygon": {
     "testnet": {
-      "contractAddress": "0xB872bba890D7D2F555f68b078CcbE9E40DA2b3cd",
-      "factoryAddress": "0x1F7c352ccF96974dC696b693b54E90248ce7A6D0"
+      "contractAddress": "0x1f6c0449EA114c4A5A542d20801650066Ef8767D",
+      "factoryAddress": "0x17f32a93376C24b4EFdAaeA72a1173606e7A2d1C"
     },
     "mainnet": {}
   },
@@ -38,7 +38,6 @@
     "testnet": {
       "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       "factoryAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
-    },
-    "mainnet": {}
+    }
   }
 }

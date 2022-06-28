@@ -9,7 +9,7 @@ function NFTGameState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const { signer, readOnlyProvider } = useEvm();
 	const hyperverse = useHyperverse();
-	const [nftGameLibrary, setNftGameLibrary] = useState<NFTGameLibraryType>();
+	const [nftgameLibrary, setNftGameLibrary] = useState<NFTGameLibraryType>();
 
 	useEffect(() => {
 		const lib = NFTGameLibrary(hyperverse, signer || readOnlyProvider).then(setNftGameLibrary).catch(x => {
@@ -21,21 +21,21 @@ function NFTGameState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const useERC721Events = (eventName: string, callback: any) => {
 		return useEvent(
 			eventName,
-			useCallback(callback, [nftGameLibrary?.proxyContract]),
-			nftGameLibrary?.proxyContract
+			useCallback(callback, [nftgameLibrary?.proxyContract]),
+			nftgameLibrary?.proxyContract
 		);
 	};
 
 	return {
-		...nftGameLibrary,
-		loading: !nftGameLibrary,
+		...nftgameLibrary,
+		loading: !nftgameLibrary,
 		tenantId,
 		useERC721Events,
 	};
 }
 
-export const NFTGame = createContainer(NftGameState);
+export const NFTGame = createContainer(NFTGameState);
 
 export function useNFTGame() {
-	return useContainer(NFTGameState);
+	return useContainer(NFTGame);
 }
