@@ -1,9 +1,9 @@
-import { useERC721 } from '../source';
+import { useNFTGame } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const TogglePublicMint = ({ ...props }) => {
-	const { togglePublicMint } = useERC721();
+export const Withdraw = ({ ...props }) => {
+	const { withdraw } = useNFTGame();
 	const { Connect } = useEvm();
 
 	return (
@@ -14,10 +14,10 @@ export const TogglePublicMint = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					togglePublicMint();
+					withdraw?.();
 				}}
 			>
-				Public Mint
+				Withdraw
 			</button>
 		</>
 	);

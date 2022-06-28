@@ -1,36 +1,36 @@
-# Toggle Public Mint
-<p> The `togglePublicMint` function from `erc721Library` ... </p>
+# Withdraw
+
+<p> The `withdraw` function from `nftGameLibrary` allows the current address to withdraw their tokens. </p>
 
 ---
 
 <br>
 
-### togglePublicMint
-
-<p> The `togglePublicMint` function takes in ... </p>
+### withdraw
 
 ```jsx
-  const togglePublicMint = async () => {
-    try {
-      const toggle = await base.proxyContract?.togglePublicMint();
-      return toggle.wait() as TransactionReceipt;
-    } catch (error) {
-      throw error;
-    }
-  }
+	const withdraw = async () => {
+		try {
+			const withdrawTxn = await base.proxyContract?.withdraw();
+			return withdrawTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
 ```
 
 ### Stories
 
 ```jsx
-import { TogglePublicMint } from './togglePublicMint';
+
+import { Withdraw } from './withdraw';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/togglePublicMint.mdx';
+import { Doc } from '../docs/withdraw.mdx';
 
 export default {
-	title: 'Components/TogglePublicMint',
-	component: TogglePublicMint,
+	title: 'Components/Withdraw',
+	component: Withdraw,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -40,24 +40,26 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<TogglePublicMint {...args} />
+		<Withdraw {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {};
+
 ```
 
 ### Main UI Component
 
 ```jsx
-import { useERC721 } from '../source';
+
+import { useNFTGame } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const TogglePublicMint = ({ ...props }) => {
-	const { togglePublicMint } = useERC721();
+export const Withdraw = ({ ...props }) => {
+	const { withdraw } = useNFTGame();
 	const { Connect } = useEvm();
 
 	return (
@@ -68,14 +70,15 @@ export const TogglePublicMint = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					togglePublicMint();
+					withdraw?.();
 				}}
 			>
-				Public Mint
+				Withdraw
 			</button>
 		</>
 	);
 };
+
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

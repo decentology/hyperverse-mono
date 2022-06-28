@@ -1,11 +1,14 @@
-import { Mint } from './mint';
+import { TenantMint } from './tenantMint';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/mint.mdx';
+import { Doc } from '../docs/tenantMint.mdx';
 
 export default {
-	title: 'Components/Mint',
-	component: Mint,
+	title: 'Components/TenantMint',
+	component: TenantMint,
+	argTypes: {
+		image: { control: { type: 'file', accept: '.png' } },
+	},
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,7 +18,7 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<Mint {...args} />
+		<TenantMint {...args} />
 	</HyperverseProvider>
 );
 

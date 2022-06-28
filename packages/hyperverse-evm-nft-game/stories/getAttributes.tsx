@@ -2,24 +2,24 @@ import { useNFTGame } from '../source';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
 
-export const GetBalanceOf = ({ ...props }: { account: string }) => {
+export const GetAttributes = ({ ...props }: { tokenId: number }) => {
 	const nftGame = useNFTGame();
 	const [data, setData] = useState<BigNumber>();
 
 	useEffect(() => {
-		if (nftGame.getBalanceOf) {
-			nftGame.getBalanceOf(props.account).then(setData);
+		if (nftGame.getAttributes) {
+			nftGame.getAttributes(props.tokenId).then(setData);
 		}
-	}, [nftGame.getBalanceOf]);
+	}, [nftGame.getAttributes]);
 
-	const balanceAvailable = () => {
+	const checkAttributes = () => {
 		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(nftGame.error)}</p>;
 	};
 
 	return (
 		<div className="body">
 			{' '}
-			Balance of: <b>{props.account}</b> {balanceAvailable()}
+			Attributes: <b>{}</b> {checkAttributes()}
 		</div>
 	);
 };

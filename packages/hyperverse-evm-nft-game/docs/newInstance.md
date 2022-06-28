@@ -13,6 +13,8 @@
 ```jsx
 	const createInstance = async ({
 		account,
+		tokenName,
+		tokenSymbol
 		...args
 	}: {
 		account: string;
@@ -31,6 +33,7 @@
 ### Stories
 
 ```jsx
+
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
 import { Story } from '@storybook/react';
@@ -55,35 +58,39 @@ const Template: Story = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {};
+
 ```
 
 ### Main UI Component
 
 ```jsx
-import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
-import './style.css';
+
+import { useNFTGame } from "../source";
+import { useEvm } from "@decentology/hyperverse-evm";
+import "./style.css";
 
 export const NewInstance = ({ ...props }) => {
-	const { createInstance } = useERC721();
-	const { address, Connect } = useEvm();
+  const { createInstance } = useNFTGame();
+  const { address, Connect } = useEvm();
 
-	return (
-		<>
-			<Connect />
-			<button
-				type="button"
-				className={['storybook-button', `storybook-button--large`].join(' ')}
-				style={{ color: 'blue' }}
-				onClick={() => {
-					createInstance({ account: address, name: 'TEST', symbol:'TST' });
-				}}
-			>
-				New Instance
-			</button>
-		</>
-	);
+  return (
+    <>
+      <Connect />
+      <button
+        type="button"
+        className={["storybook-button", `storybook-button--large`].join(" ")}
+        style={{ color: "blue" }}
+        onClick={() => {
+			console.log('click')
+          createInstance?.({ account: address!, name: "token", symbol: "TKN" });
+        }}
+      >
+        New Instance
+      </button>
+    </>
+  );
 };
+
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

@@ -1,11 +1,11 @@
-import { MintNFT } from './mintNFT';
+import { GetAttributes } from './getAttributes';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/mintNFT.mdx';
+import { Doc } from '../docs/getAttributes.mdx';
 
 export default {
-	title: 'Components/MintNFT',
-	component: MintNFT,
+	title: 'Components/GetAttributes',
+	component: GetAttributes,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,12 +15,12 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<MintNFT {...args} />
+		<GetAttributes {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
 Demo.args = {
-	to: ''
+	tokenId: 1,
 };

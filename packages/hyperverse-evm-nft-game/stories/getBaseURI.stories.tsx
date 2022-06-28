@@ -1,11 +1,11 @@
-import { Mint } from './mint';
+import { GetBaseURI } from './getBaseURI';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/mint.mdx';
+import { Doc } from '../docs/getBaseURI.mdx';
 
 export default {
-	title: 'Components/Mint',
-	component: Mint,
+	title: 'Components/GetBaseURI',
+	component: GetBaseURI,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,16 +15,10 @@ export default {
 
 const Template = (args) => (
 	<HyperverseProvider>
-		<Mint {...args} />
+		<GetBaseURI {...args} />
 	</HyperverseProvider>
 );
 
 export const Demo = Template.bind({});
 
-Demo.args = {
-	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
-	tokenName: 'Test',
-	eyeId: 1,
-	mouthId: 2,
-	bodyId: 3,
-};
+Demo.args = {};

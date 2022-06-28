@@ -16,6 +16,8 @@ import './interface/IERC721.sol';
 import './interface/IERC721Receiver.sol';
 import './interface/IERC20.sol';
 
+import "hardhat/console.sol";
+
 contract NFTGame is
 	Context,
 	ERC165,
@@ -231,11 +233,16 @@ contract NFTGame is
 	function tokenURI(uint256 _tokenId) external view virtual override returns (string memory) {
 		_requireMinted(_tokenId);
 
+		console.log('tokenId in contract 1', _tokenId);
+
 		if (!_isCollection) {
+			console.log('in the if');
 			return bytes(_tokenURIs[_tokenId]).length > 0 ? _tokenURIs[_tokenId] : '';
 		}
+		console.log('tokenId in contract', _tokenId);
 
 		string memory baseURI_ = getBaseURI();
+		console.log('base URI', baseURI_);
 		return
 			bytes(baseURI_).length > 0
 				? string(abi.encodePacked(baseURI_, _tokenId.toString()))

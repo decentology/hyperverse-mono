@@ -23,47 +23,38 @@ import Storybook from './assets/storybook-logo.svg';
     line-height: 24px;
     margin-bottom: 20px;
     margin-top: 40px;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
-    font-size: 18px;
+    font-size: 16px;
     color: #999;
     letter-spacing: 4px;
     line-height: 24px;
     text-transform: uppercase;
     margin-bottom: 12px;
     margin-top: 40px;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .body {
     color: '#999';
     font-weight: 200;
-    font-size: 18px;
+    font-size: 16px;
     letter-spacing: 0px;
     line-height: 21px;
     margin-bottom: 12px;
     margin-top: 8px;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
-
-  @font-face {
-  font-family: "Fira Sans";
-  src: url('fonts/fira/eot/FiraSans-Regular.eot');
-  src: url('fonts/fira/eot/FiraSans-Regular.eot') format('embedded-opentype'),
-       url('fonts/fira/woff2/FiraSans-Regular.woff2') format('woff2'),
-       url('fonts/fira/woff/FiraSans-Regular.woff') format('woff'),
-       url('fonts/fira/woff2/FiraSans-Regular.ttf') format('truetype');
-}
 
   .link-list {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     row-gap: 10px;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   
   }
 
@@ -72,7 +63,7 @@ import Storybook from './assets/storybook-logo.svg';
       row-gap: 20px;
       column-gap: 20px;
       grid-template-columns: 1fr 1fr;
-      font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       
     }
   }
@@ -82,7 +73,7 @@ import Storybook from './assets/storybook-logo.svg';
       display: -ms-grid;
       -ms-grid-columns: 1fr 1fr;
       -ms-grid-rows: 1fr 1fr;
-      font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+      font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
   }
 
@@ -96,20 +87,20 @@ import Storybook from './assets/storybook-logo.svg';
     display: flex;
     align-items: flex-start;
     background: #19495e;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-item:hover {
     transform: translate3d(0, -3px, 0);
     box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
     background: #246685;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-item:active {
     border-color: #1EA7FD;
     transform: translate3d(0, 0, 0);
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   }
 
@@ -117,7 +108,7 @@ import Storybook from './assets/storybook-logo.svg';
     font-weight: 700;
     display: block;
     margin-bottom: 2px;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
   
   .link-item img {
@@ -125,13 +116,13 @@ import Storybook from './assets/storybook-logo.svg';
     width: 40px;
     margin-right: 15px;
     flex: none;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .link-item span {
     font-size: 14px;
     line-height: 20px;
-    font-family: "PT Sans", Calibri, Tahoma, sans-serif;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   .tip {
@@ -162,7 +153,12 @@ import Storybook from './assets/storybook-logo.svg';
   
 `}</style>
 
-<div className="heading">Create Stories</div>
+<div className="heading">
+	Create Stories{' '}
+	<span role="img" aria-label="book">
+		📖
+	</span>
+</div>
 
 <div className="body">
 	Each of our stories is written with two files: one for the component and one for the story

@@ -1,6 +1,6 @@
 # Get Balance Of
 
-<p> The `getBalanceOf` function from `erc721Library` returns the current available balance of a provided address. </p>
+<p> The `getBalanceOf` function from `nftGameLibrary` returns the current available balance of a provided address. </p>
 
 ---
 
@@ -11,7 +11,7 @@
 <p> The `getBalanceOf` function takes in an account. </p>
 
 ```jsx
-  const getBalanceOf = async (account: string) => {
+	const getBalanceOf = async (account: string) => {
 		try {
 			const balance = await base.proxyContract?.balanceOf(account);
 			return BigNumber.from(balance) as BigNumber;
@@ -24,10 +24,11 @@
 ### Stories
 
 ```jsx
+
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/getBalanceOf.mdx';
+import { Doc } from '../docs/getBalanceOf.mdx';
 
 export default {
 	title: 'Components/GetBalanceOf',
@@ -45,42 +46,50 @@ const Template = (args) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Account1 = Template.bind({});
 
-Demo.args = {
+Account1.args = {
 	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9'
 };
+
+export const Account2 = Template.bind({});
+
+Account2.args = {
+	account: '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc'
+};
+
 ```
 
 ### Main UI Component
 
 ```jsx
-import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+
+import { useNFTGame } from '../source';
 import { useEffect, useState } from 'react';
+import { BigNumber } from 'ethers';
 
 export const GetBalanceOf = ({ ...props }: { account: string }) => {
-	const erc721 = useERC721();
-	const { address } = useEvm();
-	const [data, setData] = useState(null);
+	const nftGame = useNFTGame();
+	const [data, setData] = useState<BigNumber>();
 
 	useEffect(() => {
-		if (erc721.getBalanceOf) {
-			erc721.getBalanceOf(props.account).then(setData);
+		if (nftGame.getBalanceOf) {
+			nftGame.getBalanceOf(props.account).then(setData);
 		}
-	}, [erc721.getBalanceOf]);
+	}, [nftGame.getBalanceOf]);
 
 	const balanceAvailable = () => {
-		return data ? <p>{JSON.stringify(data)}</p> : <p>Error.</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(nftGame.error)}</p>;
 	};
 
 	return (
-		<div className="balanceOf">
+		<div className="body">
 			{' '}
-			Balance of: {props.account} {balanceAvailable()}
+			Balance of: <b>{props.account}</b> {balanceAvailable()}
 		</div>
 	);
 };
+
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)
