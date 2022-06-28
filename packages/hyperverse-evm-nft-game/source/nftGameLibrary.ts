@@ -51,10 +51,13 @@ export async function NFTGameLibraryInternal(
 		}
 	};
 
-	const getAttributes = async (tokenId: number) => {
+	const getAttributes = async (tokenId?: string) => {
 		try {
+			if(!tokenId) {
+				return null
+			}
 			const attrs = await base.proxyContract?.getAttributesByTokenId(tokenId);
-			return attrs;
+			return { tokenName: attrs[1], eyeId: attrs[2].toNumber(), mouthId:attrs[3].toNumber(), bodyId: attrs[4].toNumber() };
 		} catch (error) {
 			throw error;
 		}
