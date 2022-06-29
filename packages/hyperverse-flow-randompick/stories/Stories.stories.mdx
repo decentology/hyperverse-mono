@@ -11,6 +11,15 @@ import StackAlt from './assets/stackalt.svg';
 <Meta title="Get Started/Stories"/>
 
 <style>{`
+  .mainheading {
+    --mediumdark: '#999999';
+    font-weight: 900;
+    font-size: 30px;
+    color: #000;
+    line-height: 24px;
+    margin-bottom: 2px;
+    margin-top: 30px;
+  }
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
@@ -125,7 +134,12 @@ import StackAlt from './assets/stackalt.svg';
   
 `}</style>
 
-# Create Stories
+<div className="mainheading">
+	Create Stories{' '}
+	<span role="img" aria-label="book">
+		📖
+	</span>
+</div>
 
 Each of our stories is written with two files: one for the component and one for the story itself 
 (each story file will include **".stories"** within the file name).

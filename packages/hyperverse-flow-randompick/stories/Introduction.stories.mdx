@@ -15,6 +15,15 @@ import Storybook from './assets/storybook-logo.svg';
 <Meta title="Get Started/Introduction" />
 
 <style>{`
+  .mainheading {
+    --mediumdark: '#999999';
+    font-weight: 900;
+    font-size: 30px;
+    color: #000;
+    line-height: 24px;
+    margin-bottom: 2px;
+    margin-top: 30px;
+  }
   .subheading {
     --mediumdark: '#999999';
     font-weight: 900;
@@ -118,11 +127,15 @@ import Storybook from './assets/storybook-logo.svg';
     font-size: 12px;
     display: inline-block;
   }
-
   
 `}</style>
 
-# Welcome!
+<div className="mainheading">
+	Welcome!{' '}
+	<span role="img" aria-label="wave">
+		👋
+	</span>
+</div>
 
 We have integrated Storybook with **Random Pick (Flow)** in an effort to help users interact with the different components in this module.
 
