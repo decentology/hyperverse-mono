@@ -12,7 +12,7 @@ export const RewardPerToken = ({ ...props }) => {
 	}, [stakeRewards.rewardPerToken]);
 
 	const hasRewardToken = () => {
-		return data ? <p>{data}</p> : <p>{JSON.stringify(data)}</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(data)}</p>;
 	};
 
 	return <div className="body"> Reward per Token: {hasRewardToken()}</div>;

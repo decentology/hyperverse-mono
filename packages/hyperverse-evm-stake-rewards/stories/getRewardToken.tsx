@@ -1,23 +1,20 @@
 import { useStakeRewards } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEffect, useState } from 'react';
 
 export const GetRewardToken = ({ ...props }) => {
-	const { getRewardToken } = useStakeRewards();
-	const { Connect } = useEvm();
+	const stakeRewards = useStakeRewards();
+	const [data, setData] = useState<string>();
 
-	return (
-		<>
-			<Connect />
-			<button
-				type="button"
-				className={['storybook-button', `storybook-button--large`].join(' ')}
-				style={{ color: 'blue' }}
-				onClick={() => {
-					getRewardToken?.();
-				}}
-			>
-				Get Reward Tokens
-			</button>
-		</>
-	);
+	useEffect(() => {
+		if (stakeRewards.getRewardToken) {
+			stakeRewards.getRewardToken().then(setData);
+		}
+	}, [stakeRewards.getRewardToken]);
+
+	const hasRewardToken = () => {
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
+	};
+
+	return <div className="body"> Reward Token: {hasRewardToken()}</div>;
 };
+

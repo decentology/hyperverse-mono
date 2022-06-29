@@ -18,7 +18,7 @@ export const NewInstance = ({ ...props }) => {
 						account: address!,
 						stakeToken: 'STK',
 						rewardToken: 'RWD',
-						rewardRate: 20,
+						rewardRate: 1,
 					});
 				}}
 			>

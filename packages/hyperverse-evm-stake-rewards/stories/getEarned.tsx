@@ -12,7 +12,7 @@ export const GetEarned = ({ ...props }: { account: string }) => {
 	}, [stakeRewards.getEarned]);
 
 	const hasEarnedTokens = () => {
-		return data ? <p>{data}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
 	};
 
 	return <div className="body"> Earned Tokens: {hasEarnedTokens()}</div>;

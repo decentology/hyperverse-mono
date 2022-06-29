@@ -12,7 +12,7 @@ export const GetBalance = ({ ...props }) => {
 	}, [stakeRewards.getBalance]);
 
 	const hasBalance = () => {
-		return data ? <p>{data}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
 	};
 
 	return <div className="body"> Balance: {hasBalance()}</div>;
