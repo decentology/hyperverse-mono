@@ -15,7 +15,7 @@ export const Input = ({ label, placeholder = label }: InputProps) => {
   )
 }
 
-const InputContainer = styled('div', {
+export const InputContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -26,14 +26,14 @@ const InputContainer = styled('div', {
   maxHeight: 60,
 })
 
-const Label = styled('label', {
+export const Label = styled('label', {
   textTransform: 'uppercase',
   fontSize: 12,
   fontWeight: 700,
   paddingX: 4,
 })
 
-const StyledInput = styled('input', {
+export const StyledInput = styled('input', {
   fontSize: 16,
   fontFamily: '$body',
   background: 'transparent',

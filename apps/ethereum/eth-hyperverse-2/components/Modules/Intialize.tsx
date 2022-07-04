@@ -1,10 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '../../stitches.config'
 import { InfoBox } from '../InfoBox'
-import { Input } from '../basics/Input'
+import { InputContainer, Label, StyledInput } from '../basics/Input'
 import { InfoHeading } from '../basics/InfoHeading'
+import { Modules, ModulesInfo } from '../../utils/constants'
 import { Button } from '../basics/Button'
-export const Intialize = () => {
+import { useEthereum } from '@decentology/hyperverse-ethereum'
+import { useERC721 } from '@decentology/hyperverse-evm-erc721'
+import { useERC20 } from '@decentology/hyperverse-evm-erc20'
+import { useMutation } from 'react-query'
+
+
+export const Intialize = ({module} : {module:Modules}) => {
+  const { account } = useEthereum()
+  const erc721 = useERC721()
+  const erc20 = useERC20()
+  const [inputs, setInputs] = useState<{[key: string]: string} >({})
+
+  const { mutate: mutateERC721, isLoading: erc721Loading, isSuccess } = useMutation('createTokenInstance', erc721.createInstance)
+  const { mutate: mutateERC20, isLoading: erc20Loading, isSuccess: isSuccess2 } = useMutation('createTokenInstance', erc20.createInstance)
+
+
+  const loading = erc721Loading || erc20Loading
+  const success = isSuccess || isSuccess2
+
+
+  const args = ModulesInfo[module].args
+
+  const createInstance = async () => {
+    try {
+      const orderedArgs = args && Object.assign(
+          Object.keys(args).map((x) => {
+            return { [x]: inputs[x] }
+          }),
+        )
+
+      if (module === Modules.erc721) {
+        mutateERC721({
+          account: account!, ...orderedArgs
+        })
+      } else if (module === Modules.erc20) {
+        mutateERC20({
+          account: account!, ...orderedArgs
+        })
+      }
+
+    } catch (error) {
+      console.error(error)
+      throw(error)
+    }
+  }
+
   return (
     <InitizalizeContainer>
       <InfoContainer>
@@ -22,11 +68,18 @@ export const Intialize = () => {
           info="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
         />
         <Inputs>
-          <Input label="ERC721 Name" />
-          <Input label="ERC721 Symbol" />
+          {args && Object.keys(args).map((key) => {
+            return (
+              <InputContainer key={key}>
+                <Label>{args[key]}</Label>
+                <StyledInput value={inputs[key]} placeholder={args[key]} onChange={(e) => setInputs({...inputs, [key]: e.target.value})} />
+              </InputContainer>
+                 
+            )
+          })}
         </Inputs>
         <ButtonContainer>
-          <Button label="Create Tenant" />
+          <Button label="Create Tenant" onClick={createInstance} loading={loading} loadingLabel="Creating Tenant" />
         </ButtonContainer>
       </SubContainer>
     </InitizalizeContainer>

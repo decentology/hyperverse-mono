@@ -1,11 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from '../../stitches.config'
 import { CopyBlock, railscast, dracula } from 'react-code-blocks'
 import { Modules, ModulesInfo } from '../../utils/constants'
 import { Intialize } from './Intialize'
+import { useEthereum } from '@decentology/hyperverse-ethereum'
+import { useERC721 } from '@decentology/hyperverse-evm-erc721'
+import { useERC20 } from '@decentology/hyperverse-evm-erc20'
+import { useQuery } from 'react-query'
 
 export const GetStarted = ({ module }: { module: Modules }) => {
-  console.log('module', Modules[module])
+  const [proxy, seProxy] = React.useState<string>('')
+
+  const { account } = useEthereum()
+  const erc721 = useERC721()
+  const erc20 = useERC20()
+
+  const { data: erc721Proxy } = useQuery('instance', () => erc721.getProxy!(account), {
+    enabled: !!erc721.factoryContract && !!account && module === Modules.erc721,
+  })
+
+  const { data: erc20Proxy } = useQuery('instance', () => erc20.getProxy!(account), {
+    enabled: !!erc20.factoryContract && !!account && module === Modules.erc20,
+  })
+
+  useEffect(() => {
+    if (module === Modules.erc721) {
+      seProxy(erc721Proxy)
+    } else if (module === Modules.erc20) {
+      seProxy(erc20Proxy)
+    }
+  }, [erc721Proxy, erc20Proxy, module])
+
   const dependencies = `yarn add @decentology/hyperverse @decentology/hyperverse-ethereum @decentology/hyperverse-${Modules[module]}`
 
   const hyperverseInitialize = `  import { initialize, Provider, Network } from '@decentology/hyperverse'
@@ -18,7 +43,7 @@ export const GetStarted = ({ module }: { module: Modules }) => {
       network: Network.Testnet,
         {
           bundle: ${ModulesInfo[module].name},
-          tenantId: //your address here,
+          tenantId: "${account}",
         },
       ],
     })
@@ -33,51 +58,54 @@ export const GetStarted = ({ module }: { module: Modules }) => {
 
   return (
     <>
-      <Intialize />
-      {/* <div>
-        <Container>
-          <Heading>Install Dependecies</Heading>
-          <CodeContainer>
-            <CopyBlock
-              language="bash"
-              text={dependencies}
-              theme={dracula}
-              wrapLines={true}
-              codeBlock
-              showLineNumbers={false}
-            />
-          </CodeContainer>
-        </Container>
-        <Container>
-          <Heading>Initiazlie Hyperverse</Heading>
-          <CodeContainer>
-            <CopyBlock
-              language="jsx"
-              text={hyperverseInitialize}
-              theme={railscast}
-              wrapLines={true}
-              codeBlock
-              showLineNumbers={false}
-            />
-          </CodeContainer>
-        </Container>
-        <Container>
-          <Heading>Boilerplates</Heading>
-          <SubContainer>
-            <SubHeading>NextJS</SubHeading>
+      {!proxy ? (
+        <Intialize module={module} />
+      ) : (
+        <div>
+          <Container>
+            <Heading>Install Dependecies</Heading>
             <CodeContainer>
               <CopyBlock
                 language="bash"
-                text={'git clone https://github.com/decentology/erc721-nextjs-boilerplate'}
+                text={dependencies}
                 theme={dracula}
                 wrapLines={true}
                 codeBlock
                 showLineNumbers={false}
               />
             </CodeContainer>
-          </SubContainer>
-        </Container>
-      </div> */}
+          </Container>
+          <Container>
+            <Heading>Initiazlie Hyperverse</Heading>
+            <CodeContainer>
+              <CopyBlock
+                language="jsx"
+                text={hyperverseInitialize}
+                theme={railscast}
+                wrapLines={true}
+                codeBlock
+                showLineNumbers={false}
+              />
+            </CodeContainer>
+          </Container>
+          <Container>
+            <Heading>Boilerplates</Heading>
+            <SubContainer>
+              <SubHeading>NextJS</SubHeading>
+              <CodeContainer>
+                <CopyBlock
+                  language="bash"
+                  text={'git clone https://github.com/decentology/erc721-nextjs-boilerplate'}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                  showLineNumbers={false}
+                />
+              </CodeContainer>
+            </SubContainer>
+          </Container>
+        </div>
+      )}
     </>
   )
 }

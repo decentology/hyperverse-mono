@@ -1,11 +1,32 @@
 import React from 'react'
-import { styled } from '../../stitches.config'
-export const Button = ({ label, onClick }: { label: string; onClick?: () => void }) => {
-  return <StyledButton onClick={onClick}>{label}</StyledButton>
+import { keyframes, styled } from '../../stitches.config'
+
+type ButtonProps = {
+  label: string
+  onClick?: () => void
+  disabled?: boolean
+  loading?: boolean
+  loadingLabel?: string
 }
 
+
+export const Button = ({ label, onClick, disabled, loading,loadingLabel }: ButtonProps) => {
+  return <StyledButton onClick={onClick} disabled={disabled} loading={loading}>
+    {loading ? loadingLabel : label}
+  </StyledButton>
+}
+
+
+const ellipsis = keyframes({
+  to: {
+    width: '1.25em'
+  }
+})
+
 const StyledButton = styled('button', {
-  background: '#2679A1',
+  background: '$blue100',
+  color: '#fff',
+  fontWeight: 400,
   backgroundSize: 'fill',
   border: 'none',
   borderRadius: 4,
@@ -16,4 +37,20 @@ const StyledButton = styled('button', {
   '&:hover': {
     transform: 'scale(1.02)',
   },
+
+  variants: {
+    loading: {
+        true: {
+          '&:after': {
+            overflow: 'hidden',
+            display: 'inline-block',
+            verticalAlign: 'middle',
+            animation: `${ellipsis} 1s steps(4, end) infinite`,
+            content: "...",
+            width: 0
+          }
+        
+      }
+    }
+  }
 })

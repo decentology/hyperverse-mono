@@ -22,6 +22,7 @@ export const { styled, css, globalCss, keyframes, getCssText, theme, createTheme
       black100: '#1B1A25',
       black200: '#0F0E15',
       black300: '#030202',
+      blue100: '#4D9ACC',
       blue500: '#32303E',
     },
     backgroundImages: {

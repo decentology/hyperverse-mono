@@ -61,6 +61,7 @@ const Container = styled('div', {
       },
       gradientPink: {
         ...gradientPink,
+        
       },
       gradientYellow: {
         ...gradientYellow,
