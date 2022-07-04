@@ -3,70 +3,64 @@ import { styled } from '../../stitches.config'
 import { InfoBox } from '../InfoBox'
 import { CopyBlock, dracula } from 'react-code-blocks'
 import { CodeContainer } from './GetStarted'
+import { Modules, ModulesInfo } from '../../utils/constants'
 
-export const Code = () => {
-  const sample = `  const { mint } = useERC721()
-  
-  return <button type="button" onClick={() => { mint({ to: address, file: file })}}>Mint</button>`
+export const Code = ({ module }: { module: Modules }) => {
+  const codeSnippets = module && ModulesInfo[module].codeSnippets
+  const storybook = ModulesInfo[module].storybook
+  const sample = ModulesInfo[module].sample
   return (
     <Container>
       <SubContainer>
-        <InfoBox
-          to=""
-          name="Storybook"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
-          color="gradientPink"
-          size="md"
-        />
-        <InfoBox
-          to=""
-          name="Sample App"
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
-          color="gradientYellow"
-          size="md"
-        />
+        {storybook && (
+          <InfoBox
+            to={storybook}
+            name="Storybook"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+            color="gradientPink"
+            size="md"
+            external
+          />
+        )}
+        {sample && (
+          <InfoBox
+            to={sample}
+            name="Sample App"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+            color="gradientYellow"
+            size="md"
+            external
+          />
+        )}
       </SubContainer>
       <Snippets>
         <Heading>Code Snippets</Heading>
-        <Container>
-          <FunctionName>Mint</FunctionName>
-          <CodeContainer>
-            <CopyBlock
-              language="jsx"
-              text={sample}
-              theme={dracula}
-              wrapLines={true}
-              codeBlock
-              showLineNumbers={false}
-            />
-          </CodeContainer>
-        </Container>
-        <Container>
-          <FunctionName>Mint</FunctionName>
-          <CodeContainer>
-            <CopyBlock
-              language="jsx"
-              text={sample}
-              theme={dracula}
-              wrapLines={true}
-              codeBlock
-              showLineNumbers={false}
-            />
-          </CodeContainer>
-        </Container>
-        <Container>
-          <FunctionName>Mint</FunctionName>
-          <CodeContainer>
-            <CopyBlock
-              language="jsx"
-              text={sample}
-              theme={dracula}
-              wrapLines={true}
-              codeBlock
-              showLineNumbers={false}
-            />
-          </CodeContainer>
-        </Container>
+
+        {codeSnippets &&
+          codeSnippets.map((snippet) => {
+            const read = `const { ${snippet.name} } = useERC721()
+
+          <p>{${snippet.snippet}}</p>
+          `
+            const mutate = `  const { ${snippet.name} } = useERC721()
+          
+          return <button type="button" onClick={() => { ${snippet.snippet} }}>${snippet.name}</button>`
+            return (
+              <Container key={snippet.name}>
+                <FunctionName>{snippet.name}</FunctionName>
+                <CodeContainer variant="preLine">
+                  <CopyBlock
+                    language="jsx"
+                    text={snippet.type === 'read' ? read : mutate}
+                    theme={dracula}
+                    wrapLines={true}
+                    codeBlock
+                    showLineNumbers={false}
+                  />
+                </CodeContainer>
+              </Container>
+            )
+          })}
       </Snippets>
     </Container>
   )

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { styled } from '../stitches.config'
 import { gradientYellow, gradientPink } from '../utils/constants'
 import { ArrowRight } from './basics/icons'
+import {NavLink} from './basics/NavLink'
 
 type InfoProps = {
   name: string
@@ -10,11 +11,12 @@ type InfoProps = {
   to: string
   color?: 'grey' | 'gradientPink' | 'gradientYellow'
   size?: 'md' | 'lg'
+  external?: boolean
 }
 
-export const InfoBox = ({ name, description, to, color = 'grey', size = 'md' }: InfoProps) => {
+export const InfoBox = ({ name, description, to, color = 'grey', size = 'md', external }: InfoProps) => {
   return (
-    <Link href={to} passHref>
+    <NavLink to={to} external={external}>
       <Container key={name} color={color} size={size}>
         <Info>
           <div>
@@ -27,7 +29,7 @@ export const InfoBox = ({ name, description, to, color = 'grey', size = 'md' }: 
           </Bottom>
         </Info>
       </Container>
-    </Link>
+    </NavLink>
   )
 }
 
@@ -61,7 +63,6 @@ const Container = styled('div', {
       },
       gradientPink: {
         ...gradientPink,
-        
       },
       gradientYellow: {
         ...gradientYellow,

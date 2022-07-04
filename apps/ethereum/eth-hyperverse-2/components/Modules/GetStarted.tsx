@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { styled } from '../../stitches.config'
 import { CopyBlock, railscast, dracula } from 'react-code-blocks'
 import { Modules, ModulesInfo } from '../../utils/constants'
-import { Intialize } from './Intialize'
+import { Initialize } from './Initialize'
 import { useEthereum } from '@decentology/hyperverse-ethereum'
 import { useERC721 } from '@decentology/hyperverse-evm-erc721'
 import { useERC20 } from '@decentology/hyperverse-evm-erc20'
@@ -15,13 +15,15 @@ export const GetStarted = ({ module }: { module: Modules }) => {
   const erc721 = useERC721()
   const erc20 = useERC20()
 
-  const { data: erc721Proxy } = useQuery('instance', () => erc721.getProxy!(account), {
+  const { data: erc721Proxy, isLoading } = useQuery('instance', () => erc721.getProxy!(account), {
     enabled: !!erc721.factoryContract && !!account && module === Modules.erc721,
   })
 
-  const { data: erc20Proxy } = useQuery('instance', () => erc20.getProxy!(account), {
+  const { data: erc20Proxy, isLoading: loading2 } = useQuery('instance', () => erc20.getProxy!(account), {
     enabled: !!erc20.factoryContract && !!account && module === Modules.erc20,
   })
+
+  const loading = isLoading || loading2
 
   useEffect(() => {
     if (module === Modules.erc721) {
@@ -58,8 +60,8 @@ export const GetStarted = ({ module }: { module: Modules }) => {
 
   return (
     <>
-      {!proxy ? (
-        <Intialize module={module} />
+      {!proxy && !loading ? (
+        <Initialize module={module} />
       ) : (
         <div>
           <Container>
@@ -166,4 +168,15 @@ export const CodeContainer = styled('div', {
       margin: 0,
     },
   },
+
+  variants: {
+    variant: {
+      preLine: {
+        code: {
+          whiteSpace: 'pre-line', }}
+
+        
+      
+    }
+  }
 })

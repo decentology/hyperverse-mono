@@ -11,19 +11,17 @@ import { useERC20 } from '@decentology/hyperverse-evm-erc20'
 import { useMutation } from 'react-query'
 
 
-export const Intialize = ({module} : {module:Modules}) => {
+export const Initialize = ({module} : {module:Modules}) => {
   const { account } = useEthereum()
   const erc721 = useERC721()
   const erc20 = useERC20()
   const [inputs, setInputs] = useState<{[key: string]: string} >({})
 
-  const { mutate: mutateERC721, isLoading: erc721Loading, isSuccess } = useMutation('createTokenInstance', erc721.createInstance)
-  const { mutate: mutateERC20, isLoading: erc20Loading, isSuccess: isSuccess2 } = useMutation('createTokenInstance', erc20.createInstance)
+  const { mutate: mutateERC721, isLoading: erc721Loading } = useMutation('createTokenInstance', erc721.createInstance)
+  const { mutate: mutateERC20, isLoading: erc20Loading } = useMutation('createTokenInstance', erc20.createInstance)
 
 
   const loading = erc721Loading || erc20Loading
-  const success = isSuccess || isSuccess2
-
 
   const args = ModulesInfo[module].args
 

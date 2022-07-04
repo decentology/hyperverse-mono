@@ -22,6 +22,7 @@ export function Modules() {
 
   const currentModule = module ? ModulesKey[module as ModulesKey] : ModulesKey.erc721
 
+
   const [activeTab, setActiveTab] = React.useState<Tabs>(Tabs.GET_STARTED)
 
   return (
@@ -36,13 +37,13 @@ export function Modules() {
           >
             Get Started
           </TabTrigger>
-          <TabTrigger
+          {/* <TabTrigger
             value={Tabs.DASHBOARD}
             active={activeTab === Tabs.DASHBOARD}
             onClick={() => setActiveTab(Tabs.DASHBOARD)}
           >
             Dashboard
-          </TabTrigger>
+          </TabTrigger> */}
           <TabTrigger value={Tabs.CODE} active={activeTab === Tabs.CODE} onClick={() => setActiveTab(Tabs.CODE)}>
             Code
           </TabTrigger>
@@ -51,11 +52,11 @@ export function Modules() {
           <StyledContent value={Tabs.GET_STARTED}>
             <GetStarted module={currentModule} />
           </StyledContent>
-          <StyledContent value={Tabs.DASHBOARD}>
-            <ERC721Dashboard />
-          </StyledContent>
+          {/* <StyledContent value={Tabs.DASHBOARD}>
+            {currentModule === ModulesKey.erc721 && <ERC721Dashboard />}
+          </StyledContent> */}
           <StyledContent value={Tabs.CODE}>
-            <Code />
+            <Code module={currentModule}/>
           </StyledContent>
         </Container>
       </Root>
