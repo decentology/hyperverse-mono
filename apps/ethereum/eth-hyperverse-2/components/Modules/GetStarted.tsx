@@ -9,7 +9,7 @@ import { useERC20 } from '@decentology/hyperverse-evm-erc20'
 import { useQuery } from 'react-query'
 
 export const GetStarted = ({ module }: { module: Modules }) => {
-  const [proxy, seProxy] = React.useState<string>('')
+  const [proxy, seProxy] = React.useState<string>()
 
   const { account } = useEthereum()
   const erc721 = useERC721()
@@ -60,7 +60,7 @@ export const GetStarted = ({ module }: { module: Modules }) => {
 
   return (
     <>
-      {!proxy && !loading ? (
+      {!proxy  ? (
         <Initialize module={module} />
       ) : (
         <div>

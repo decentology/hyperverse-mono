@@ -125,6 +125,67 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 			symbol: 'Token Symbol',
 			decimals: 'Token Decimals',
 		},
+    codeSnippets: [
+			{
+				name: 'mint',
+        type: 'mutate',
+				snippet : `mint({amount?: number})`
+
+			},
+      {
+				name: 'burn',
+        type: 'mutate',
+				snippet : `burn({amount?: number})`
+
+			},
+      {
+				name: 'transfer',
+        type: 'mutate',
+				snippet : `transfer({ to: string, amount: number})`
+			},
+      {
+				name: 'transferFrom',
+        type: 'mutate',
+				snippet : `transfer({ from:string, to: string, amount: number})`
+			},
+			{
+				name: 'approve',
+        type: 'mutate',
+				snippet : `approve({spender: string, amount: number})`
+			},
+			{
+				name: 'allowance',
+        type: 'read',
+				snippet : `setApprovalForAll({owner: string, spender: string})`
+			},
+			{
+				name: 'getTotalSupply',
+        type: 'read',
+				snippet : `getTotalSupply()`
+			},
+			{
+				name: 'getBalanceOf',
+        type: 'read',
+				snippet : `getBalanceOf(address: string)`
+			},
+			{
+				name: 'getBalance',
+        type: 'read',
+				snippet : `getBalance()`
+			},
+			{
+				name: 'getTokenName',
+        type: 'read',
+				snippet : `getTokenName()`
+			},
+      {
+				name: 'getTokenSymbol',
+        type: 'read',
+				snippet : `getTokenSymbol()`
+			},
+	
+
+		]
 	},
 	[Modules.tribes]: {
 		name: 'Tribes',

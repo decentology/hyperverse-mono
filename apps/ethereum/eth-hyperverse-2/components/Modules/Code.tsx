@@ -9,10 +9,12 @@ export const Code = ({ module }: { module: Modules }) => {
   const codeSnippets = module && ModulesInfo[module].codeSnippets
   const storybook = ModulesInfo[module].storybook
   const sample = ModulesInfo[module].sample
+
+  const subContainer = storybook && sample
   return (
     <Container>
-      <SubContainer>
-        {storybook && (
+      {subContainer && (
+        <SubContainer>
           <InfoBox
             to={storybook}
             name="Storybook"
@@ -21,8 +23,7 @@ export const Code = ({ module }: { module: Modules }) => {
             size="md"
             external
           />
-        )}
-        {sample && (
+
           <InfoBox
             to={sample}
             name="Sample App"
@@ -31,8 +32,8 @@ export const Code = ({ module }: { module: Modules }) => {
             size="md"
             external
           />
-        )}
-      </SubContainer>
+        </SubContainer>
+      )}
       <Snippets>
         <Heading>Code Snippets</Heading>
 
@@ -80,11 +81,10 @@ const SubContainer = styled('div', {
   columnGap: '1rem',
   gridTemplateColumns: 'repeat(3, minmax(300px, 0.6fr))',
   gridTemplateRows: '233px',
+  marginBottom: 40,
 })
 
-const Snippets = styled('div', {
-  marginTop: 40,
-})
+const Snippets = styled('div', {})
 
 const Heading = styled('h1', {
   fontSize: '1.4rem',
