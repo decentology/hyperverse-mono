@@ -26,14 +26,7 @@ export const NewInstance = ({
 				onClick={() => {
 					console.log('in the click');
 					createInstance?.({
-						account: address!,
-						startTime: parseInt(((new Date().getTime() + 60 * 1000) / 1000).toFixed(0)),
-						endTime: parseInt(
-							((new Date().getTime() + 60 ** 3 * 1000) / 1000).toFixed(0)
-						),
-						ERC721: '0x0000000000000000000000000000000000000000',
-						ERC20: '0x0000000000000000000000000000000000000000',
-						merkleRoot: null,
+						account: address!
 					});
 				}}
 			>

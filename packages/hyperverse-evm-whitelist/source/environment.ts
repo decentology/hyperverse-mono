@@ -5,12 +5,14 @@ import {
 	EvmEnvironment,
 	NetworkConfig,
 } from '@decentology/hyperverse';
-import Whitelist from '../artifacts/contracts/Whitelist.sol/Whitelist.json';
-import WhitelistFactory from '../artifacts/contracts/WhitelistFactory.sol/WhitelistFactory.json';
+
 import Contracts from '../contracts.json';
 import { ContractInterface } from 'ethers';
-export const ContractABI = Whitelist.abi as ContractInterface;
-export const FactoryABI = WhitelistFactory.abi as ContractInterface;
+import WhitelistFactoryABI from '../artifacts/contracts/WhitelistFactory.sol/WhitelistFactory.json';
+import WhitelistABI from '../artifacts/contracts/Whitelist.sol/Whitelist.json';
+
+export const FactoryABI = WhitelistFactoryABI.abi as ContractInterface;
+export const ContractABI = WhitelistABI.abi as ContractInterface;
 
 const environment = Contracts as EvmEnvironment;
 

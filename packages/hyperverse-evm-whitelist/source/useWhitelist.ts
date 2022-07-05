@@ -1,24 +1,24 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useEvent } from 'react-use';
+import { createContainer, useContainer } from '@decentology/unstated-next';
+
 import { useHyperverse } from '@decentology/hyperverse';
 import { useEvm } from '@decentology/hyperverse-evm';
-import { createContainer, useContainer } from '@decentology/unstated-next';
 import { WhitelistLibrary, WhitelistLibraryType } from './whitelistlibrary';
 
 function WhitelistState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { address, connectedProvider, readOnlyProvider } = useEvm();
+	const { signer, readOnlyProvider } = useEvm();
 	const hyperverse = useHyperverse();
 	const [whitelistLibrary, setWhitelistLibrary] = useState<WhitelistLibraryType>();
 
 	useEffect(() => {
-		const lib = WhitelistLibrary(hyperverse, connectedProvider || readOnlyProvider).then(setWhitelistLibrary).catch(x => {
+		const lib = WhitelistLibrary(hyperverse, signer || readOnlyProvider).then(setWhitelistLibrary).catch(x => {
 			// Ignoring stale library instance
 		});
 
 		return lib.cancel;
-	}, [connectedProvider])
+	}, [signer, readOnlyProvider])
 
 	const useWhitelistEvents = (eventName: string, callback: any) => {
 		return useEvent(

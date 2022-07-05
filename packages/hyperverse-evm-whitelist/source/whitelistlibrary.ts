@@ -26,6 +26,7 @@ export async function WhitelistLibraryInternal(
 	if (!providerOrSigner) {
 		providerOrSigner = getProvider(hyperverse.network);
 	}
+	console.log('signer', providerOrSigner);
 
 	const base = await EvmLibraryBase(
 		'Whitelist',

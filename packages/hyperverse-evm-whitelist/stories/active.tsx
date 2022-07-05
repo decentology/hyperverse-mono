@@ -12,7 +12,7 @@ export const Active = ({ ...props }) => {
 	}, [whitelist.active]);
 
 	const checkActive = () => {
-		return data ? <p>{JSON.stringify(data)}</p> : <p>{whitelist.error}</p>;
+		return data ? <p>(data)</p> : <p>{whitelist.error}</p>;
 	};
 
 	return <div className="body"> Active Status: {checkActive()}</div>;

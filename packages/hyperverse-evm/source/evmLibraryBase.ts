@@ -35,6 +35,7 @@ export async function EvmLibraryBase(
 	
 	const setProvider = (provider: ethers.providers.Provider) => {
 		factoryContract = new ethers.Contract(factoryAddress!, factoryABI, provider) as Contract;
+		console.log('setting provider');
 		if (proxyContract) {
 			proxyContract = new ethers.Contract(
 				proxyContract.address,
@@ -69,6 +70,7 @@ export async function EvmLibraryBase(
 	const checkInstance = async (account: any) => {
 		try {
 			const instance = await factoryContract.instance(account);
+			console.log('instance', instance);
 			return instance;
 		} catch (err) {
 			factoryErrors(err);
@@ -78,9 +80,11 @@ export async function EvmLibraryBase(
 
 	const getProxy = async (account: any) => {
 		try {
+			console.log('getting proxy');
 			const instance = await factoryContract.getProxy(account);
 			return instance;
 		} catch (err) {
+			console.log('error', err);
 			if((err as any).errorName === 'InstanceDoesNotExist') {
 				return;
 			}
@@ -97,6 +101,7 @@ export async function EvmLibraryBase(
 		[key: string]: any;
 	}) => {
 		try {
+			console.log('trying to create an instance', account);
 			const createTxn = await factoryContract.createInstance(account, ...Object.values(args));
 			return createTxn.wait();
 		} catch (err) {

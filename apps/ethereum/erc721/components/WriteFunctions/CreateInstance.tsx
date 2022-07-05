@@ -35,7 +35,7 @@ const CreateInstance = () => {
 				tokenSymbol,
 			}, {
 				onSuccess: () => { 
-					context.setTenantId(account);
+					context.setTenantId(account!);
 			}});
 		} catch (error) {
 			throw error;
