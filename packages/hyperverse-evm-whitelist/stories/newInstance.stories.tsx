@@ -23,10 +23,13 @@ export const Demo = Template.bind({});
 
 Demo.args = {
 	account: '',
-	startTime: parseInt(((new Date().getTime() + 60 * 1000) / 1000).toFixed(0)),
-	endTime: parseInt(((new Date().getTime() + 60 ** 3 * 1000) / 1000).toFixed(0)),
+	startTime: 20,
+	endTime: 40,
 	units: 10,
 	ERC721: '0x0000000000000000000000000000000000000000',
 	ERC20: '0x0000000000000000000000000000000000000000',
 	merkleRoot: '',
 };
+
+// startTime: parseInt(((new Date().getTime() + 60 * 1000) / 1000).toFixed(0)),
+// endTime: parseInt(((new Date().getTime() + 60 ** 3 * 1000) / 1000).toFixed(0)),

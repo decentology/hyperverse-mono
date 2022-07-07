@@ -2,6 +2,7 @@ import { HyperverseConfig, NetworkConfig } from '@decentology/hyperverse';
 import { Contract, ContractInterface, ethers } from 'ethers';
 
 export const getProvider = (network: NetworkConfig) => {
+	console.log('getting provider')
 	return new ethers.providers.JsonRpcProvider(network.networkUrl, {
 		chainId: network.chainId!,
 		name: network.name!,
@@ -30,6 +31,7 @@ export async function EvmLibraryBase(
 
 	const tenantId = hyperverse.modules.find((x) => x.bundle.ModuleName === moduleName)?.tenantId;
 	if (!tenantId) {
+		console.log('tenant Id')
 		throw new Error('Tenant ID is required');
 	}
 	
@@ -70,7 +72,6 @@ export async function EvmLibraryBase(
 	const checkInstance = async (account: any) => {
 		try {
 			const instance = await factoryContract.instance(account);
-			console.log('instance', instance);
 			return instance;
 		} catch (err) {
 			factoryErrors(err);
@@ -80,11 +81,9 @@ export async function EvmLibraryBase(
 
 	const getProxy = async (account: any) => {
 		try {
-			console.log('getting proxy');
 			const instance = await factoryContract.getProxy(account);
 			return instance;
 		} catch (err) {
-			console.log('error', err);
 			if((err as any).errorName === 'InstanceDoesNotExist') {
 				return;
 			}
@@ -101,10 +100,10 @@ export async function EvmLibraryBase(
 		[key: string]: any;
 	}) => {
 		try {
-			console.log('trying to create an instance', account);
 			const createTxn = await factoryContract.createInstance(account, ...Object.values(args));
 			return createTxn.wait();
 		} catch (err) {
+			console.log('error', err);
 			factoryErrors(err);
 			throw err;
 		}
