@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import Loader from '../components/Loader';
-import { useTribes } from '@decentology/hyperverse-evm-tribes';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useTribes } from '@decentology/hyperverse-evm-tribes/react';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { toast } from 'react-toastify';
 import { useMutation, useQuery } from 'react-query';
 

@@ -1,15 +1,13 @@
-<a href="https://www.hyperverse.dev/#gh-dark-mode-only" style="text-decoration: none">
-	<img src="/.github/Hyperverse_Logo_Vertical_White.png#gh-dark-mode-only" style="height: 70px" alt="Hyperverse logo" />
-</a>
-<a href="https://www.hyperverse.dev/#gh-light-mode-only" style="text-decoration: none">
-	<img src="/.github//Hyperverse_Logo_Vertical_Blue.png#gh-light-mode-only" style="height: 70px" alt="Hyperverse logo" />
-</a>
-<a href="https://celo.org/#gh-dark-mode-only" style="text-decoration: none">
-	<img src="/packages/hyperverse-celo/.github/celo-logo-reversed.svg#gh-dark-mode-only" alt="Celo logo" style="height: 70px" />
-</a>
-<a href="https://celo.org/#gh-light-mode-only" style="text-decoration: none">
-	<img src="/packages/hyperverse-celo/.github/celo-logo.svg#gh-light-mode-only" alt="Celo logo" style="height: 70px" />
-</a>
+<table>
+<tr>
+	<td><a href="https://www.hyperverse.dev/#gh-dark-mode-only"> <img src="../../.github/Hyperverse_Logo_Vertical_White.svg" alt="Hyperverse logo" /> </a>
+</td>
+	<td>
+	<a href="https://celo.org/#gh-dark-mode-only"> <img src=".github/celo-logo-reversed.svg" alt="Celo logo" /> </a>
+	</td>
+
+</tr>
+</table>
 
 # Hyperverse EVM Celo
 

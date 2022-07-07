@@ -1,9 +1,8 @@
 import { getDefaultWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
-import { createClient, configureChains, chain, WagmiConfig } from 'wagmi';
+import { createClient, configureChains, WagmiConfig } from 'wagmi';
 import { Evm } from './useEVM';
 import { useHyperverse } from '@decentology/hyperverse';
 import { publicProvider } from 'wagmi/providers/public';
-import { infuraProvider } from 'wagmi/providers/infura';
 import { useMemo } from 'react';
 export type ProviderProps = {
 	children: React.ReactNode;

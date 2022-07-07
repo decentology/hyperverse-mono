@@ -28,19 +28,23 @@ module.exports = function (options) {
 		...packages,
 	];
 
-	config.module.rules.push({
-		test: /\.tsx?$/,
+	config.module.rules.unshift({
+		// test: /\.tsx?$/,
+		test: /\.+(js|jsx|mjs|ts|tsx)$/,
+
 		loader: 'ts-loader',
 		// include: [/[\\/]node_modules[\\/]@decentology[\\/]/, ...packages], // <-- instruct to transpile ts files from this path
-		include: [...packages],
-		options: {
-			allowTsInNodeModules: true, // <- this a specific option of ts-loader
-			transpileOnly: true,
-			compilerOptions: {
-				module: 'commonjs',
-				noEmit: false,
-			},
-		},
+		// include: [...packages],
+		include: createWebpackMatcher(packages),
+		type: 'javascript/auto',
+		// options: {
+		// 	allowTsInNodeModules: true, // <- this a specific option of ts-loader
+		// 	transpileOnly: true,
+		// 	compilerOptions: {
+		// 		module: 'commonjs',
+		// 		noEmit: false,
+		// 	},
+		// },
 	});
 	// config.resolve.alias = {
 	// 	...options.resolve.alias,
@@ -57,6 +61,31 @@ module.exports = function (options) {
 	// 		'../../../packages/unstated-next',
 	// 	),
 	// };
-	console.log(JSON.stringify(config, null, 2));
+	// console.log(JSON.stringify(config, null, 2));
 	return config;
+};
+
+
+const createWebpackMatcher = (
+	modulesToTranspile,
+) => {
+	// create an array of tuples with each passed in module to transpile and its node_modules depth
+	// example: ['/full/path/to/node_modules/button/node_modules/icon', 2]
+	const modulePathsWithDepth = modulesToTranspile.map((modulePath) => [
+		modulePath,
+		(modulePath.match(/node_modules/g) || []).length,
+	]);
+
+	return (filePath) => {
+		const nodeModulesDepth = (filePath.match(/node_modules/g) || []).length;
+
+		return modulePathsWithDepth.some(([modulePath, moduleDepth]) => {
+			// Ensure we aren't implicitly transpiling nested dependencies by comparing depths of modules to be transpiled and the module being checked
+			const transpiled =
+				filePath.startsWith(modulePath) &&
+				nodeModulesDepth === moduleDepth;
+			if (transpiled) console.log(`transpiled: ${filePath}`);
+			return transpiled;
+		});
+	};
 };

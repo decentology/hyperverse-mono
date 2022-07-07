@@ -12,6 +12,7 @@ const hyperverse = initialize({
 	network: Network.Testnet,
 	modules: [
 		{
+			// @ts-ignore
 			bundle: Tribes,
 			tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
 		},

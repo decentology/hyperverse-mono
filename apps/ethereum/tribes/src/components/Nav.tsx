@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { toast } from 'react-toastify';
 
 

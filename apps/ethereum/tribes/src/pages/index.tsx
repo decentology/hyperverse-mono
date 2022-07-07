@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
-import { useTribes } from '@decentology/hyperverse-evm-tribes';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useTribes } from '@decentology/hyperverse-evm-tribes/react';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { useState } from 'react';
 
 const Home: NextPage = () => {

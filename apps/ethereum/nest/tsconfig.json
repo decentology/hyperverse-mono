@@ -7,11 +7,11 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"target": "es2017",
+		"target": "ES2022",
 		"sourceMap": true,
 		"outDir": "./dist",
 		"baseUrl": "./",
-		"incremental": true,
+		"incremental": false,
 		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"strictBindCallApply": false,
@@ -19,20 +19,18 @@
 		"resolveJsonModule": true,
 		"jsx": "react-jsx",
 		"noFallthroughCasesInSwitch": false,
-		// "paths": {
-		// 	"@decentology/hyperverse": [
-		// 		"../../../packages/hyperverse"
-		// 	],
-		// 	"@decentology/hyperverse-ethereum": [
-		// 		"../../../packages/hyperverse-ethereum"
-		// 	],
-
-		// 	"@decentology/hyperverse-storage-ipfs": [
-		// 		"../../../packages/hyperverse-storage-ipfs"
-		// 	],
-		// 	"@decentology/hyperverse-evm": [
-		// 		"../../../packages/hyperverse-evm"
-		// 	]
-		// }
+		"preserveSymlinks": true,
+		"paths": {
+			"@decentology/*": ["../../../packages/*"],
+			"react": ["../../../node_modules/@types/react"],
+			"ethers": ["../../../node_modules/ethers"],
+			"@rainbow-me/rainbowkit": [
+				"../../../node_modules/@rainbow-me/rainbowkit"
+			],
+			"@decentology/unstated-next": ["../../../packages/unstated-next"],
+			"@ethersproject/abstract-provider": [
+				"../../../node_modules/@ethersproject/abstract-provider"
+			]
+		}
 	}
 }
