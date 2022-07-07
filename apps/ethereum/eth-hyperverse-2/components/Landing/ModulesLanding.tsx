@@ -2,20 +2,23 @@ import React from 'react'
 import { styled } from '../../stitches.config'
 import { InfoBox } from '../InfoBox'
 import { Modules, ModulesInfo } from '../../utils/constants'
+import { NavLink } from '../basics/NavLink'
 
 export const ModulesLanding = () => {
   return (
     <MoudlesContainer>
       <ModulesHeader>
         <Heading>Smart Modules</Heading>
-        {/* <NavLink to="/modules" external css={{ fontSize: '0.8rem' }}>
+        <NavLink to="/modules" css={{ fontSize: '0.8rem', marginRight: 0, }}>
           View all
-        </NavLink> */}
+        </NavLink>
       </ModulesHeader>
       <ModuleGrid>
-        {Object.values(Modules).map((key) => (
-          <InfoBox key={key} {...ModulesInfo[key]} />
-        ))}
+
+        <InfoBox {...ModulesInfo[Modules.erc721]} />
+        <InfoBox {...ModulesInfo[Modules.erc721]} />
+        <InfoBox {...ModulesInfo[Modules.erc721]} />
+
       </ModuleGrid>
       <ModulesHeader>
         <Heading>Developer Resources</Heading>
@@ -40,7 +43,7 @@ export const ModulesLanding = () => {
   )
 }
 
-const MoudlesContainer = styled('div', {
+export const MoudlesContainer = styled('div', {
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
@@ -51,7 +54,7 @@ const MoudlesContainer = styled('div', {
   },
 })
 
-const ModulesHeader = styled('div', {
+export const ModulesHeader = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -59,11 +62,11 @@ const ModulesHeader = styled('div', {
   width: '100%',
 })
 
-const Heading = styled('h1', {
+export const Heading = styled('h1', {
   fontSize: '1.58rem',
 })
 
-const ModuleGrid = styled('div', {
+export const ModuleGrid = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   rowGap: '1rem',

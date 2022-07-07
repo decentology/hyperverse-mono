@@ -1,6 +1,6 @@
 export const gradientYellow = {
 	background: 'linear-gradient(90deg, #25759A, $black200)',
-  
+
 	'&:before': {
 		borderRadius: 4,
 		content: '',
@@ -28,7 +28,6 @@ export const gradientPink = {
 	},
 }
 
-
 export const HEADER_LINKS = {
 	ethereum: 'https://ethereum.org/',
 	documentation: 'https://docs.hyperverse.dev/',
@@ -41,6 +40,11 @@ export const HEADER_LINKS = {
 export const Modules = {
 	erc721: 'erc721',
 	erc20: 'erc20',
+	erc777: 'erc777',
+	randomPick: 'randomPick',
+
+	whitelist: 'whitelist',
+	stakeRewards: 'stakeRewards',
 	tribes: 'tribes',
 } as const
 
@@ -49,13 +53,13 @@ export type Modules = typeof Modules[keyof typeof Modules]
 type ModuleTypes = {
 	name: string
 	description: string
-	to: string
-  storybook?: string
-  sample?: string
+	to?: string
+	storybook?: string
+	sample?: string
 	args?: {
 		[key: string]: string
 	}
-  codeSnippets?: {[key: string]: string}[]
+	codeSnippets?: { [key: string]: string }[]
 }
 
 export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
@@ -63,58 +67,54 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 		name: 'ERC721',
 		description: 'Create and own your own ERC721 Contract. This can be used for collection NFTs or 1:1 NFTs.',
 		to: '/modules/erc721',
-    storybook: 'https://samples.hyperverse.dev/erc721-storybook/',
-    sample: 'https://samples.hyperverse.dev/erc721-app/',
+		storybook: 'https://samples.hyperverse.dev/erc721-storybook/',
+		sample: 'https://samples.hyperverse.dev/erc721-app/',
 		args: {
 			token: 'Token Name',
 			symbol: 'Token Symbol',
 		},
-    codeSnippets: [
+		codeSnippets: [
 			{
 				name: 'mint',
-        type: 'mutate',
-				snippet : `mint({address: string , amount?: number})`
-
+				type: 'mutate',
+				snippet: `mint({address: string , amount?: number})`,
 			},
-      {
+			{
 				name: 'transfer',
-        type: 'mutate',
-				snippet : `transfer({from: string , to: string, tokenId: number})`
+				type: 'mutate',
+				snippet: `transfer({from: string , to: string, tokenId: number})`,
 			},
 			{
 				name: 'approve',
-        type: 'mutate',
-				snippet : `approve({to: string, tokenId: number})`
+				type: 'mutate',
+				snippet: `approve({to: string, tokenId: number})`,
 			},
 			{
 				name: 'setApprovalForAll',
-        type: 'mutate',
-				snippet : `setApprovalForAll({operator: string, approved: boolean})`
+				type: 'mutate',
+				snippet: `setApprovalForAll({operator: string, approved: boolean})`,
 			},
 			{
 				name: 'getBaseURI',
-        type: 'read',
-				snippet : `getBaseURI()`
+				type: 'read',
+				snippet: `getBaseURI()`,
 			},
 			{
 				name: 'tokenURI',
-        type: 'read',
-				snippet : `tokenURI(tokenId)`
+				type: 'read',
+				snippet: `tokenURI(tokenId)`,
 			},
 			{
 				name: 'getBalanceOf',
-        type: 'read',
-				snippet : `getBalanceOf(address)`
-
+				type: 'read',
+				snippet: `getBalanceOf(address)`,
 			},
 			{
 				name: 'getOwnerOf',
-        type: 'read',
-				snippet : `getOwnerOf(tokenId)`
+				type: 'read',
+				snippet: `getOwnerOf(tokenId)`,
 			},
-	
-
-		]
+		],
 	},
 	[Modules.erc20]: {
 		name: 'ERC20',
@@ -125,72 +125,87 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 			symbol: 'Token Symbol',
 			decimals: 'Token Decimals',
 		},
-    codeSnippets: [
+		codeSnippets: [
 			{
 				name: 'mint',
-        type: 'mutate',
-				snippet : `mint({amount?: number})`
-
+				type: 'mutate',
+				snippet: `mint({amount?: number})`,
 			},
-      {
+			{
 				name: 'burn',
-        type: 'mutate',
-				snippet : `burn({amount?: number})`
-
+				type: 'mutate',
+				snippet: `burn({amount?: number})`,
 			},
-      {
+			{
 				name: 'transfer',
-        type: 'mutate',
-				snippet : `transfer({ to: string, amount: number})`
+				type: 'mutate',
+				snippet: `transfer({ to: string, amount: number})`,
 			},
-      {
+			{
 				name: 'transferFrom',
-        type: 'mutate',
-				snippet : `transfer({ from:string, to: string, amount: number})`
+				type: 'mutate',
+				snippet: `transfer({ from:string, to: string, amount: number})`,
 			},
 			{
 				name: 'approve',
-        type: 'mutate',
-				snippet : `approve({spender: string, amount: number})`
+				type: 'mutate',
+				snippet: `approve({spender: string, amount: number})`,
 			},
 			{
 				name: 'allowance',
-        type: 'read',
-				snippet : `setApprovalForAll({owner: string, spender: string})`
+				type: 'read',
+				snippet: `setApprovalForAll({owner: string, spender: string})`,
 			},
 			{
 				name: 'getTotalSupply',
-        type: 'read',
-				snippet : `getTotalSupply()`
+				type: 'read',
+				snippet: `getTotalSupply()`,
 			},
 			{
 				name: 'getBalanceOf',
-        type: 'read',
-				snippet : `getBalanceOf(address: string)`
+				type: 'read',
+				snippet: `getBalanceOf(address: string)`,
 			},
 			{
 				name: 'getBalance',
-        type: 'read',
-				snippet : `getBalance()`
+				type: 'read',
+				snippet: `getBalance()`,
 			},
 			{
 				name: 'getTokenName',
-        type: 'read',
-				snippet : `getTokenName()`
+				type: 'read',
+				snippet: `getTokenName()`,
 			},
-      {
+			{
 				name: 'getTokenSymbol',
-        type: 'read',
-				snippet : `getTokenSymbol()`
+				type: 'read',
+				snippet: `getTokenSymbol()`,
 			},
-	
+		],
+	},
+	[Modules.randomPick]: {
+		name: 'Random Pick',
+		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+	},
 
-		]
+	[Modules.whitelist]: {
+		name: 'Whitelist',
+		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+	},
+	[Modules.erc777]: {
+		name: 'ERC777',
+		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+	},
+	[Modules.stakeRewards]: {
+		name: 'Stake Rewards',
+		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+	},
+	[Modules.stakeRewards]: {
+		name: 'Stake Rewards',
+		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
 	},
 	[Modules.tribes]: {
 		name: 'Tribes',
 		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-		to: '/modules/tribes',
 	},
 }
-

@@ -1,9 +1,8 @@
 import React from 'react'
-import Link from 'next/link'
 import { styled } from '../stitches.config'
 import { gradientYellow, gradientPink } from '../utils/constants'
 import { ArrowRight } from './basics/icons'
-import {NavLink} from './basics/NavLink'
+import { NavLink } from './basics/NavLink'
 
 type InfoProps = {
   name: string
@@ -12,15 +11,19 @@ type InfoProps = {
   color?: 'grey' | 'gradientPink' | 'gradientYellow'
   size?: 'md' | 'lg'
   external?: boolean
+  comingSoon?: boolean
 }
 
-export const InfoBox = ({ name, description, to, color = 'grey', size = 'md', external }: InfoProps) => {
+export const InfoBox = ({ name, description, to, color = 'grey', size = 'md', external, comingSoon }: InfoProps) => {
   return (
-    <NavLink to={to} external={external}>
-      <Container key={name} color={color} size={size}>
+    <NavLink to={to} external={external} disabled={comingSoon}>
+      <Container key={name} color={color} size={size} comingSoon={comingSoon}>
         <Info>
           <div>
-            <ModuleName>{name}</ModuleName>
+            <HeaderContainer>
+              <ModuleName>{name}</ModuleName>
+              {comingSoon && <SubText>(Coming Soon)</SubText>}
+            </HeaderContainer>
             <Description>{description}</Description>
           </div>
 
@@ -53,6 +56,16 @@ const Container = styled('div', {
   },
 
   variants: {
+    comingSoon: {
+      true: {
+        opacity: 0.5,
+        '&:hover': {
+          opacity: 0.5,
+          transform: 'scale(1)',
+          boxShadow: 'none',
+        },
+      },
+    },
     color: {
       grey: {
         background: '$black200',
@@ -116,4 +129,16 @@ const Info = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   zIndex: 1,
+})
+
+const HeaderContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'baseline',
+  justifyContent: 'space-between',
+})
+
+const SubText = styled('p', {
+  fontFamily: '$body',
+  fontSize: '12px',
+  lineHeight: '14px',
 })
