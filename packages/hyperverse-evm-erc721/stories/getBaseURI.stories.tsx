@@ -1,6 +1,6 @@
 import { GetBaseURI } from './getBaseURI';
 import { HyperverseProvider } from './utils/Provider';
-import Doc from '../docs/togglePublicMint.mdx';
+import Doc from '../docs/getBaseURI.mdx';
 
 export default {
 	title: 'Components/GetBaseURI',

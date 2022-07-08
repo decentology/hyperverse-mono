@@ -1,6 +1,11 @@
 import { SetBaseURI } from './setBaseURI';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/setBaseURI.mdx';
+import {
+	ComponentMeta,
+	ComponentStoryFn,
+	StoryFn,
+} from '@storybook/react';
 
 export default {
 	title: 'Components/SetBaseURI',
@@ -10,18 +15,16 @@ export default {
 			page: Doc,
 		},
 	},
+	decorators: [
+		(Story: StoryFn) => (
+			<HyperverseProvider>
+				<Story />
+			</HyperverseProvider>
+		),
+	],
+} as ComponentMeta<typeof SetBaseURI>;
+
+export const Demo: ComponentStoryFn<typeof SetBaseURI> = (args) => <SetBaseURI {...args} />;
+Demo.args = {
+	baseURI: 'https://site-1.com/',
 };
-
-const Template = (args) => (
-	<HyperverseProvider>
-		<SetBaseURI {...args} />
-	</HyperverseProvider>
-);
-
-export const BaseURI1 = Template.bind({});
-
-BaseURI1.args = {
-	baseURI: 'https://site-1.com/nfts/',
-};
-
-
