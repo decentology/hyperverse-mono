@@ -19,20 +19,18 @@ const Modules: NextPage = () => {
         <MoudlesContainer>
           <Heading>Smart Modules</Heading>
           <ModuleGrid>
-            {Object.values(ModulesKey).map((key) => 
-             {
-              const comingSoon = !ModulesInfo[key].to 
+            {Object.values(ModulesKey).map((key) => {
+              const comingSoon = !ModulesInfo[key].to
               return (
-
-                <InfoBox key={key} to={comingSoon ? '/modules' : `${ModulesInfo[key].to}`} 
+                <InfoBox
+                  key={key}
+                  to={comingSoon ? '/modules' : `${ModulesInfo[key].to}`}
                   name={ModulesInfo[key].name}
                   description={ModulesInfo[key].description}
                   comingSoon={comingSoon}
                 />
-                )
-              } 
-          )}
-            
+              )
+            })}
           </ModuleGrid>
         </MoudlesContainer>
         <Footer />
