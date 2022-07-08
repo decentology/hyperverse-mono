@@ -18,5 +18,5 @@ export const GetBalanceOf = ({ ...props }: { account: string }) => {
 		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(erc721.error)}</p>;
 	};
 
-	return <div className="balanceOf"> Balance of: {props.account} {balanceAvailable()}</div>;
+	return <div className="body"> Balance of: {props.account} {balanceAvailable()}</div>;
 };

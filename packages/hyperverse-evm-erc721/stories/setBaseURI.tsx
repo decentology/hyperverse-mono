@@ -14,7 +14,7 @@ export const SetBaseURI = ({ ...props }: { baseURI: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setBaseURI?.(props.baseURI);
+					setBaseURI!(props.baseURI);
 				}}
 			>
 				Set Base URI
