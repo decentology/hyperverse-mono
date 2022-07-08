@@ -118,7 +118,7 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 	},
 	[Modules.erc20]: {
 		name: 'ERC20',
-		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+		description: 'Deploy your own ERC20 fungible token to use for currency, voting rights, staking, and more.',
 		to: '/modules/erc20',
 		args: {
 			token: 'Token Name',
@@ -185,27 +185,28 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 	},
 	[Modules.randomPick]: {
 		name: 'Random Pick',
-		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+		description: 'Access Chainlink VRF to select a random winner, roll a die, or generate a random number.',
+		to: '/modules/randomPick',
 	},
 
 	[Modules.whitelist]: {
 		name: 'Whitelist',
-		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+		description: 'Manage addresses by whitelisting users that can be later checked and verified',
+		to: '/modules/whitelist',
 	},
 	[Modules.erc777]: {
 		name: 'ERC777',
-		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+		description: 'Improve your fungible tokens with an improved user experience and additional functionalities.',
+		to: '/modules/erc777',
 	},
 	[Modules.stakeRewards]: {
 		name: 'Stake Rewards',
-		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
-	},
-	[Modules.stakeRewards]: {
-		name: 'Stake Rewards',
-		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+		description: 'Allow staking for users to earn rewards and receive additional benefits for their contribution.',
+		to: '/modules/stakeRewards',
 	},
 	[Modules.tribes]: {
 		name: 'Tribes',
-		description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+		description: 'Build communities for your favorite teams, animals, anime characters, hobbies, or interests.',
+		to: '/modules/tribes',
 	},
 }
