@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { createContainer } from '@decentology/unstated-next';
 import { Blockchain, useHyperverse } from '@decentology/hyperverse';
-import { FlowUser } from './types';
+import { FlowUser } from '../types';
 import { useAsync } from 'react-async-hook';
-import { Initialize } from './context/initialize';
-import sendFlow from './context/sendFlow';
-import fetchBalance from './context/fetchBalance';
+import { Initialize } from '../context/initialize';
+import sendFlow from '../context/sendFlow';
+import fetchBalance from '../context/fetchBalance';
 const fcl = require('@onflow/fcl');
 const t = require('@onflow/types');
 function FlowState() {

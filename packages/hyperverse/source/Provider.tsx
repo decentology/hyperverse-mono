@@ -35,7 +35,7 @@ export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, ini
 							: undefined
 					}
 				>
-					{initialState.blockchain ? (
+					{initialState.blockchain && initialState.blockchain.Provider ? (
 						<initialState.blockchain.Provider>
 							{children}
 						</initialState.blockchain.Provider>

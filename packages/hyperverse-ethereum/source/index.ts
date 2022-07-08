@@ -6,8 +6,6 @@ const getNetwork = (network: Network) => {
 }
 export const Ethereum = makeHyperverseBlockchain({
 	name: Blockchain.Ethereum,
-	// @ts-ignore
-	Provider: null,
 	getNetwork
 });
 export { getNetwork, Networks };
