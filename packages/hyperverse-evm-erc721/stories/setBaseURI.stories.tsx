@@ -1,7 +1,6 @@
 import { SetBaseURI } from './setBaseURI';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/setBaseURI.mdx';
+import Doc from '../docs/setBaseURI.mdx';
 
 export default {
 	title: 'Components/SetBaseURI',
@@ -25,8 +24,4 @@ BaseURI1.args = {
 	baseURI: 'https://site-1.com/nfts/',
 };
 
-export const BaseURI2 = Template.bind({});
 
-BaseURI2.args = {
-	baseURI: 'https://site-2.com/nfts/',
-};

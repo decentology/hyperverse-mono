@@ -1,5 +1,5 @@
 import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
 
 export const SetBaseURI = ({ ...props }: { baseURI: string }) => {

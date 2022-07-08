@@ -49,7 +49,7 @@ contract ERC721 is
 
 	bool private _isCollection; // true if contract is an NFT collection
 	bool public collectionLock; // locks the values of CollectionInfo
-	CollectionInfo public _collectionInfo;
+	CollectionInfo public collectionInfo;
 
 	mapping(uint256 => address) private _owners;
 	mapping(address => uint256) private _balances;
@@ -97,25 +97,25 @@ contract ERC721 is
 	}
 
 	modifier mintCollectionCheck(uint256 _count) {
-		if (_collectionInfo.isPublicSaleActive == false) {
+		if (collectionInfo.isPublicSaleActive == false) {
 			revert PublicMintInactive();
 		}
 
 		if (
 			//TO DO: add unit test
-			tokenCounter.current() > _collectionInfo.maxSupply ||
-			tokenCounter.current() + _count > _collectionInfo.maxSupply
+			tokenCounter.current() > collectionInfo.maxSupply ||
+			tokenCounter.current() + _count > collectionInfo.maxSupply
 		) {
 			revert MaxSupplyExceeded();
 		}
 
-		if (msg.value * _count != _collectionInfo.price * _count) {
+		if (msg.value * _count != collectionInfo.price * _count) {
 			revert InsufficientBalance();
 		}
 
 		if (
-			_collectionInfo.maxPerUser != 0 &&
-			balanceOf(msg.sender) + _count > _collectionInfo.maxPerUser
+			collectionInfo.maxPerUser != 0 &&
+			balanceOf(msg.sender) + _count > collectionInfo.maxPerUser
 		) {
 			revert MaxPerUserExceeded();
 		}
@@ -124,8 +124,8 @@ contract ERC721 is
 				maxPerUser == maxSupply -> no limit
 			 */
 		if (
-			_collectionInfo.maxPerUser == 0 &&
-			_collectionInfo.maxPerUser == _collectionInfo.maxSupply
+			collectionInfo.maxPerUser == 0 &&
+			collectionInfo.maxPerUser == collectionInfo.maxSupply
 		) {
 			revert MaxPerUserExceeded();
 		}
@@ -233,24 +233,24 @@ contract ERC721 is
 		if(_isCollection == true) {
 			revert AlreadyInitialized();
 		}
-		_collectionInfo.price = _price;
-		_collectionInfo.maxSupply = _maxSupply;
-		_collectionInfo.maxPerUser = _maxPerUser;
+		collectionInfo.price = _price;
+		collectionInfo.maxSupply = _maxSupply;
+		collectionInfo.maxPerUser = _maxPerUser;
 		collectionLock = _lockCollection;
 		_isCollection = true;
 	}
 
 
 	function updatePrice(uint256 _price) external isTenantOwner collectionLocked {
-		_collectionInfo.price = _price;
+		collectionInfo.price = _price;
 	}
 
 	function updateMaxSupply(uint256 _maxSupply) external isTenantOwner collectionLocked {
-		_collectionInfo.maxSupply = _maxSupply;
+		collectionInfo.maxSupply = _maxSupply;
 	}
 
 	function updateMaxPerUser(uint256 _maxPerUser) external isTenantOwner collectionLocked{
-		_collectionInfo.maxPerUser = _maxPerUser;
+		collectionInfo.maxPerUser = _maxPerUser;
 	}
 
 	function lockCollection() external isTenantOwner collectionLocked {
@@ -296,7 +296,7 @@ contract ERC721 is
 	 * Can only set mint permissions if the contract is a collection
 	 */
 	function setMintPermissions(bool _isActive) external isCollection isTenantOwner {
-		_collectionInfo.isPublicSaleActive = _isActive;
+		collectionInfo.isPublicSaleActive = _isActive;
 	}
 
 	/**
