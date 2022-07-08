@@ -1,6 +1,6 @@
 # Get Balance
 
-<p> The `getBalance` function from `stakeRewardsLibrary` returns the current available balance of the current address. </p>
+<p> The `getBalance` function from `stakeRewardsLibrary` returns the available balance of the current address. </p>
 
 ---
 
@@ -56,7 +56,7 @@ import { useEffect, useState } from 'react';
 
 export const GetBalance = ({ ...props }) => {
 	const stakeRewards = useStakeRewards();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<number>();
 
 	useEffect(() => {
 		if (stakeRewards.getBalance) {
@@ -65,10 +65,10 @@ export const GetBalance = ({ ...props }) => {
 	}, [stakeRewards.getBalance]);
 
 	const hasBalance = () => {
-		return data ? <p>{data}</p> : <p>Error.</p>;
+		return data ? <p>{data}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
 	};
 
-	return <div className="balance"> Balance: {hasBalance()}</div>;
+	return <div className="body"> Balance: {hasBalance()}</div>;
 };
 ```
 

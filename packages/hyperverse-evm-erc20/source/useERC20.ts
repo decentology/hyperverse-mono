@@ -1,26 +1,22 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
-
 import { useHyperverse } from '@decentology/hyperverse';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { ERC20Library, ERC20LibraryType } from './erc20Library';
 
 function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
-	const { connectedProvider, readOnlyProvider } = useEvm();
+	const { signer, readOnlyProvider } = useEvm();
 	const hyperverse = useHyperverse();
 	const [erc20Library, setERC20Library] = useState<ERC20LibraryType>();
 
 	useEffect(() => {
-		const lib = ERC20Library(hyperverse, connectedProvider || readOnlyProvider).then(
-			setERC20Library
-		).catch(x => {
+		const lib = ERC20Library(hyperverse, signer || readOnlyProvider).then(setERC20Library).catch(x => {
 			// Ignoring stale library instance
 		});
-
 		return lib.cancel;
-	}, [connectedProvider]);
+	}, [signer, readOnlyProvider]);
 
 	const useERC20Events = (eventName: string, callback: any) => {
 		return useEvent(

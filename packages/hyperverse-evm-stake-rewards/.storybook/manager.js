@@ -4,7 +4,7 @@ import { create } from '@storybook/theming';
 
 const theme = create({
 	base: 'light',
-	brandTitle: 'Hyperverse-EVM-Stake-Rewards',
+	brandTitle: 'Hyperverse-EVM-StakeRewards',
 	brandUrl: 'https://www.decentology.com',
 	brandImage: 'https://drive.google.com/uc?export=view&id=1gi_Ni_r1xQqrLRVlVVfXVvEEj-THLrq1',
 });

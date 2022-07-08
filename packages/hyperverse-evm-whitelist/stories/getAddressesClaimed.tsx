@@ -14,7 +14,7 @@ export const GetAddressesClaimed = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					getAddressesClaimed();
+					getAddressesClaimed?.();
 				}}
 			>
 				Get Addresses Claimed

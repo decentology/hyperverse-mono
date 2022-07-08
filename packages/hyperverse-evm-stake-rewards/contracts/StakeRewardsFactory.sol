@@ -7,6 +7,8 @@ import './StakeRewardsToken.sol';
 import './interfaces/IERC1820Registry.sol';
 import './utils/Counters.sol';
 
+import 'hardhat/console.sol';
+
 /**
  * @dev Clone Factory Implementation for Stake Rewards Module
  */

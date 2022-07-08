@@ -4,7 +4,7 @@ import './style.css';
 
 export const Approve = ({ ...props }: { to: string; tokenId: number }) => {
 	const { approve } = useERC721();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>

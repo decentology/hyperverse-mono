@@ -2,16 +2,15 @@ import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 
+import { useHyperverse } from '@decentology/hyperverse';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { StakeRewardsLibrary, StakeRewardsLibraryType } from './stakeRewardsLibrary';
-import { useHyperverse } from '@decentology/hyperverse';
 
 function StakeRewardsState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
 	const { readOnlyProvider, signer } = useEvm();
 	const hyperverse = useHyperverse();
 	const [stakeRewardsLibrary, setStakeRewardsLibrary] = useState<StakeRewardsLibraryType>();
-
 
 	useEffect(() => {
 		const lib = StakeRewardsLibrary(hyperverse, signer || readOnlyProvider).then(setStakeRewardsLibrary).catch(x => {

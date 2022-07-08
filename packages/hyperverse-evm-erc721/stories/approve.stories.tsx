@@ -18,9 +18,16 @@ const Template = (args) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Address1 = Template.bind({});
 
-Demo.args = {
+Address1.args = {
 	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
-	tokenId: 1
+	tokenId: 1,
+};
+
+export const Address2 = Template.bind({});
+
+Address2.args = {
+	to: '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc',
+	tokenId: 1,
 };

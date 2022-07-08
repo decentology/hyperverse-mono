@@ -2,9 +2,9 @@ import React from 'react';
 import { useTribes } from '../source';
 import { useState, useEffect } from 'react';
 
-export const GetTribeMembers = ({ ...props }: {tribeId: number}) => {
+export const GetTribeMembers = ({ ...props }: { tribeId: number }) => {
 	const tribes = useTribes();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState<({ tribeId: any; account: any } | undefined)[] | undefined>();
 
 	useEffect(() => {
 		if (tribes.getTribeMembers) {
@@ -13,12 +13,8 @@ export const GetTribeMembers = ({ ...props }: {tribeId: number}) => {
 	}, [tribes.getTribeMembers]);
 
 	const hasTribeMembers = () => {
-		return data.length > 0 ? (
-			<pre>Tribe Members: {JSON.stringify(data)}</pre>
-		) : (
-			<p>There are no members in this tribe.</p>
-		);
+		return data ? <p> Tribe Members: {data}</p> : <p>{JSON.stringify(tribes.error)}</p>;
 	};
 
-	return <div className="tribeMembers"> {hasTribeMembers()}</div>;
+	return <div className="body"> {hasTribeMembers()}</div>;
 };

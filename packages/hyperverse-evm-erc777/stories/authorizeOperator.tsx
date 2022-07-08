@@ -14,7 +14,7 @@ export const AuthorizeOperator = ({ ...props }: { operator: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					authorizeOperator(props.operator);
+					authorizeOperator?.(props.operator);
 				}}
 			>
 				Authorize Operator

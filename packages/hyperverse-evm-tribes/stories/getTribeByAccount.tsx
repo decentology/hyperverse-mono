@@ -1,17 +1,19 @@
 import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useState, useEffect } from 'react';
+import { MetaDataFormatted } from '../source/types';
 
-export const GetTribeByAccount = ({ ...props }) => {
+export const GetTribeByAccount = ({ ...props }: {address: string}) => {
 	const tribes = useTribes();
 	const { address } = useEvm();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<MetaDataFormatted | null>(null);
 
 	useEffect(() => {
 		if (tribes.getTribeByAccount) {
-			tribes.getTribeByAccount(address).then(setData);
+			tribes.getTribeByAccount(props.address).then(setData);
 		}
 	}, [tribes.getTribeByAccount]);
+	console.log(address)
 
 	const tribeOfAccount = () => {
 		return data ? (
@@ -21,5 +23,5 @@ export const GetTribeByAccount = ({ ...props }) => {
 		);
 	};
 
-	return <div className="tribeMembers"> {tribeOfAccount()}</div>;
+	return <div className="body"> {tribeOfAccount()}</div>;
 };

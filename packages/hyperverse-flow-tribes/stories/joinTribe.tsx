@@ -1,28 +1,23 @@
-import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
 import './style.css';
 
-export const JoinTribe = ({ ...props }) => {
+export const JoinTribe = ({ ...props }: { tenantId: string; tribeName: string }) => {
 	const { joinTribe } = useTribes();
-	const { } = joinTribe();
+
+	const tribeJoin = () => {
+		if (joinTribe?.(props.tenantId, props.tribeName)) {
+			joinTribe?.(props.tenantId, props.tribeName);
+		}
+	};
 
 	return (
 		<button
 			type="button"
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
-			onClick={() => {
-                // TODO
-			}}
+			onClick={tribeJoin}
 		>
-			Add Tribe
+			Join Tribe
 		</button>
 	);
 };
-
-JoinTribe.propTypes = {
-	tenantId: PropTypes.string.isRequired,
-    tribeName: PropTypes.string.isRequired
-};
-
-JoinTribe.defaultProps = {};

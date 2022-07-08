@@ -21,7 +21,7 @@ export const OperatorBurn = ({
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					operatorBurn(props);
+					operatorBurn?.(props);
 				}}
 			>
 				Operator Burn

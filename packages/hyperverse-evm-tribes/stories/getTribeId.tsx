@@ -3,24 +3,20 @@ import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
-export const GetTribeId = ({ account, ...props }) => {
+export const GetTribeId = ({ ...props }: { account: string }) => {
 	const tribes = useTribes();
 	const { address } = useEvm();
-	const [data, setData] = useState(account);
-
+	const [data, setData] = useState<number | null | undefined>(null);
+	
 	useEffect(() => {
 		if (tribes.getTribeId) {
-			tribes.getTribeId(address).then(setData);
+			tribes.getTribeId(props.account).then(setData);
 		}
 	}, [tribes.getTribeId]);
 
 	const hasTribeId = () => {
-		return data ? (
-			<p>Tribe id: {data}</p>
-		) : (
-			<p>This account is not in a tribe!</p>
-		);
+		return data ? <p>Tribe id: {data}</p> : <p>{JSON.stringify(tribes.error)}</p>;
 	};
 
-	return <div className="tribeId"> {hasTribeId()}</div>;
+	return <div className="body"> {hasTribeId()}</div>;
 };

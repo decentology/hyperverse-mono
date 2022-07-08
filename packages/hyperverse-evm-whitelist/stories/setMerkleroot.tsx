@@ -14,7 +14,7 @@ export const SetMerkleRoot = ({ ...props }: { root: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setMerkleRoot(props.root);
+					setMerkleRoot?.(props.root);
 				}}
 			>
 				Set Merkle Root

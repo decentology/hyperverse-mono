@@ -1,9 +1,8 @@
-import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import './button.css';
+import './style.css';
 
-export const Transfer = ({ ...props }) => {
+export const Transfer = ({ ...props }: { to: string; amount: number }) => {
 	const { transfer } = useERC20();
 	const { address, Connect } = useEvm();
 
@@ -13,16 +12,12 @@ export const Transfer = ({ ...props }) => {
 			className={['storybook-button', `storybook-button--large`].join(' ')}
 			style={{ color: 'blue' }}
 			onClick={() => {
-				transfer({});
+				transfer?.(props);
 			}}
 		>
-			Transfer NFT
+			Transfer
 		</button>
 	) : (
 		<Connect />
 	);
 };
-
-Transfer.propTypes = {};
-
-Transfer.defaultProps = {};

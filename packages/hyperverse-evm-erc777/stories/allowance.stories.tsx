@@ -1,7 +1,7 @@
 import { Allowance } from './allowance';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/allowance.mdx';
+import { Doc } from '../docs/allowance.mdx';
 
 export default {
 	title: 'Components/Allowance',

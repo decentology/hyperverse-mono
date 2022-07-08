@@ -5,24 +5,29 @@ import './style.css';
 export const LeaveTribe = ({ ...props }) => {
 	const { leaveTribe, error } = useTribes();
 	const { address, Connect } = useEvm();
-	console.log('address', address);
 
 	const tribeLeave = () => {
-		if (leaveTribe()) {
-			leaveTribe();
+		if (leaveTribe?.()) {
+			leaveTribe?.();
 		}
 	};
 
-	return address ? (
-		<button
-			type="button"
-			className={['storybook-button', `storybook-button--large`].join(' ')}
-			style={{ color: 'blue' }}
-			onClick={tribeLeave}
-		>
-			Leave Tribe
-		</button>
+	return error != null ? (
+		<div>Error</div>
 	) : (
-		<Connect />
+		<>
+			{address ? (
+				<button
+					type="button"
+					className={['storybook-button', `storybook-button--large`].join(' ')}
+					style={{ color: 'blue' }}
+					onClick={tribeLeave}
+				>
+					Leave Tribe
+				</button>
+			) : (
+				<Connect />
+			)}
+		</>
 	);
 };

@@ -2,28 +2,23 @@ import { useTribes } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const NewInstance = ({ ...props }) => {
-	const { createInstance, error } = useTribes();
+export const NewInstance = ({ ...props }: { account: string }) => {
+	const { createInstance } = useTribes();
 	const { address, Connect } = useEvm();
 
-	return error != null ? (
-		<div>Error</div>
-	) : (
+	return (
 		<>
-			{address ? (
-				<button
-					type="button"
-					className={['storybook-button', `storybook-button--large`].join(' ')}
-					style={{ color: 'blue' }}
-					onClick={() => {
-						createInstance({account: address});
-					}}
-				>
-					New Instance
-				</button>
-			) : (
-				<Connect />
-			)}
+			<Connect />
+			<button
+				type="button"
+				className={['storybook-button', `storybook-button--large`].join(' ')}
+				style={{ color: 'blue' }}
+				onClick={() => {
+					createInstance?.({ account: address! });
+				}}
+			>
+				New Instance
+			</button>
 		</>
 	);
 };

@@ -57,11 +57,11 @@ Demo.args = {
 ```jsx
 import { useStakeRewards } from '../source';
 import { useEvm } from '@decentology/hyperverse-evm';
-import './button.css';
+import './style.css';
 
 export const StakeTokens = ({ ...props }: { amount: number }) => {
 	const { stake } = useStakeRewards();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -71,7 +71,7 @@ export const StakeTokens = ({ ...props }: { amount: number }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					stake(props.amount);
+					stake?.(props.amount);
 				}}
 			>
 				Stake Tokens

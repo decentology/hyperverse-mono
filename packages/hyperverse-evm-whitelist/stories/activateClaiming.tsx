@@ -14,7 +14,7 @@ export const ActivateClaiming = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					activateClaiming();
+					activateClaiming?.();
 				}}
 			>
 				Activate Claiming

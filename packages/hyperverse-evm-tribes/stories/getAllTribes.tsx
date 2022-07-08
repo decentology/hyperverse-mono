@@ -14,7 +14,7 @@ export const GetAllTribes = ({ ...props }) => {
 	}, [tribes.getAllTribes]);
 
 	return (
-		<div className="tribeMembers">
+		<div className="body">
 			<div>All Tribes: </div>
 			<pre>{JSON.stringify(data, null, 2)}</pre>
 		</div>

@@ -11,23 +11,49 @@
 <p> The `approve` function takes in the spender and the amount allowed for the transaction. </p>
 
 ```jsx
-	const approve = useCallback(
-		async (spender: string, amount: number) => {
-			try {
-				const approve = await proxyContract?.approve(spender, amount);
-				return approve.wait();
-			} catch (err) {
-				errors(err);
-				throw err;
-			}
-		},
-		[address]
-	);
+
+	const approve = async ({ spender, amount }: { spender: string; amount: number }) => {
+		try {
+			const approveTxn = await base.proxyContract?.approve(spender, amount);
+			return approveTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+	
 ```
 
 ### Stories
 
 ```jsx
+
+import { Approve } from './approve';
+import { HyperverseProvider } from './utils/Provider';
+import React from 'react';
+import { Doc } from '../docs/approve.mdx';
+
+export default {
+	title: 'Components/Approve',
+	component: Approve,
+	parameters: {
+		docs: {
+			page: Doc,
+		},
+	},
+};
+
+const Template = (args) => (
+	<HyperverseProvider>
+		<Approve {...args} />
+	</HyperverseProvider>
+);
+
+export const Demo = Template.bind({});
+
+Demo.args = {
+	spender: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	amount: 100,
+};
 
 ```
 
@@ -35,12 +61,30 @@
 
 ```jsx
 
+import { useERC20 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm';
+import './style.css';
+
+export const Approve = ({ ...props }: { spender: string; amount: number }) => {
+	const { approve } = useERC20();
+	const { address, Connect } = useEvm();
+
+	return address ? (
+		<button
+			type="button"
+			className={['storybook-button', `storybook-button--large`].join(' ')}
+			style={{ color: 'blue' }}
+			onClick={() => {
+				approve?.(props);
+			}}
+		>
+			Approve
+		</button>
+	) : (
+		<Connect />
+	);
+};
+
 ```
 
-### Args
-
-```jsx
-
-```
-
-For more information about our modules please visit: [**Hyperverse Docs**](https://docs.hyperverse.dev)
+For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

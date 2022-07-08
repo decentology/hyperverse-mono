@@ -15,6 +15,7 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 		const lib = ERC721Library(hyperverse, signer || readOnlyProvider).then(setERC721Library).catch(x => {
 			// Ignoring stale library instance
 		});
+		
 		return lib.cancel;
 	}, [signer, readOnlyProvider]);
 

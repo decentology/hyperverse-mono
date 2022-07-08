@@ -18,9 +18,16 @@ const Template = (args: any) => (
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Approve = Template.bind({});
 
-Demo.args = {
-	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+Approve.args = {
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 	approved: true,
+};
+
+export const Deny = Template.bind({});
+
+Deny.args = {
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	approved: false,
 };
