@@ -1,7 +1,7 @@
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import { Doc } from '../docs/getBalanceOf.mdx';
+import Doc from '../docs/getBalanceOf.mdx';
 
 export default {
 	title: 'Components/GetBalanceOf',

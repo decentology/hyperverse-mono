@@ -1,6 +1,6 @@
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { useHyperverse } from '@decentology/hyperverse';
-import { useAccount, useSigner, useEnsName, useProvider, useNetwork } from 'wagmi';
+import { useHyperverse } from '@decentology/hyperverse/react';
+import { useAccount, useSigner, useEnsName, useProvider } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useEffect, useState } from 'react';
 

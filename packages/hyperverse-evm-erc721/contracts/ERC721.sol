@@ -41,7 +41,7 @@ contract ERC721 is
 
 	address public _tenantOwner;
 
-	Counters.Counter private tokenCounter;
+	Counters.Counter public tokenCounter;
 
 	string private _name;
 	string private _symbol;
@@ -318,6 +318,7 @@ contract ERC721 is
 		}
 		return owner;
 	}
+
 
 	/**
 	 * @dev See {IERC721Metadata-name}.

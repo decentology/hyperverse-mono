@@ -1,7 +1,7 @@
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
 import { Story } from '@storybook/react';
-import { Doc } from '../docs/newInstance.mdx';
+import Doc from '../docs/newInstance.mdx';
 
 export default {
 	title: 'Components/NewInstance',

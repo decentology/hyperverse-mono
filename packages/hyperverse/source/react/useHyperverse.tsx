@@ -1,5 +1,5 @@
-import { Network } from './constants/networks';
-import { HyperverseConfig } from './types';
+import { Network } from '../constants/networks';
+import { HyperverseConfig } from '../types';
 import { createContainer } from '@decentology/unstated-next';
 
 function HyperverseState(

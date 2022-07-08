@@ -1,5 +1,5 @@
 import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
 
 export const Transfer = ({ ...props }: { from: string; to: string; tokenId: number }) => {
@@ -14,7 +14,7 @@ export const Transfer = ({ ...props }: { from: string; to: string; tokenId: numb
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					transfer(props);
+					transfer!(props);
 				}}
 			>
 				Transfer

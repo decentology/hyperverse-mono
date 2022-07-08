@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createContainer } from '@decentology/unstated-next';
-import { Blockchain, useHyperverse } from '@decentology/hyperverse';
+import { Blockchain, useHyperverse } from '@decentology/hyperverse/react';
 import { FlowUser } from '../types';
 import { useAsync } from 'react-async-hook';
 import { Initialize } from '../context/initialize';

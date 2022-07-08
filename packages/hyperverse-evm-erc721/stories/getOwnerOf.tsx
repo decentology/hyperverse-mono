@@ -1,5 +1,5 @@
 import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import { useEffect, useState } from 'react';
 
 export const GetOwnerOf = ({ ...props }: {account: string, tokenId: string}) => {

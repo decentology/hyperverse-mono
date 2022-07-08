@@ -1,7 +1,7 @@
 import { getDefaultWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
 import { createClient, configureChains, WagmiConfig } from 'wagmi';
 import { Evm } from './useEVM';
-import { useHyperverse } from '@decentology/hyperverse';
+import { useHyperverse } from '@decentology/hyperverse/react';
 import { publicProvider } from 'wagmi/providers/public';
 import { useMemo } from 'react';
 export type ProviderProps = {
