@@ -1,11 +1,7 @@
 import { SetBaseURI } from './setBaseURI';
-import { HyperverseProvider } from './utils/Provider';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
+import { hyperverseDecorator } from './utils/decorators';
 import Doc from '../docs/setBaseURI.mdx';
-import {
-	ComponentMeta,
-	ComponentStoryFn,
-	StoryFn,
-} from '@storybook/react';
 
 export default {
 	title: 'Components/SetBaseURI',
@@ -15,13 +11,7 @@ export default {
 			page: Doc,
 		},
 	},
-	decorators: [
-		(Story: StoryFn) => (
-			<HyperverseProvider>
-				<Story />
-			</HyperverseProvider>
-		),
-	],
+	decorators: [hyperverseDecorator],
 } as ComponentMeta<typeof SetBaseURI>;
 
 export const Demo: ComponentStoryFn<typeof SetBaseURI> = (args) => <SetBaseURI {...args} />;
