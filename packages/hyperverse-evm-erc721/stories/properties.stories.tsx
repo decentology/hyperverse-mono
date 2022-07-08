@@ -1,6 +1,6 @@
 import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
-import { useERC721 } from '../source';
+import { CollectionInfo, useERC721 } from '../source';
 import { HyperverseProvider } from './utils/Provider';
 import { Story } from '@storybook/react';
 
@@ -21,6 +21,12 @@ function Properties() {
 	const { proxyContract } = useERC721();
 	const [name, setName] = useState('');
 	const [symbol, setSymbol] = useState('');
+	const [collectionInfo, setCollectionInfo] = useState<CollectionInfo>({
+		isPublicSaleActive: false,
+		maxPerUser: BigNumber.from(0),
+		maxSupply: BigNumber.from(0),
+		price: BigNumber.from(0),
+	});
 	const [totalTokens, setTotalTokens] = useState(0);
 	useEffect(() => {
 		if (proxyContract) {
@@ -28,18 +34,37 @@ function Properties() {
 				console.log(proxyContract);
 				const name = await proxyContract.name();
 				const symbol = await proxyContract.symbol();
+				const collectionInfo = (await proxyContract.collectionInfo()) as CollectionInfo;
 				const totalTokens = (await proxyContract.tokenCounter()) as BigNumber;
 				setName(name);
 				setSymbol(symbol);
 				setTotalTokens(totalTokens.toNumber());
+				console.log(collectionInfo);
+				setCollectionInfo({
+					isPublicSaleActive: collectionInfo.isPublicSaleActive,
+					maxPerUser: collectionInfo.maxPerUser,
+					maxSupply: collectionInfo.maxSupply,
+					price: collectionInfo.price,
+				});
 			})();
 		}
 	}, [proxyContract]);
 	return (
-		<div className="body">
-			<h1><b>Name:</b> {name}</h1>
-			<h2><b>Symbol:</b> {symbol}</h2>
-			<h2><b>Total Tokens:</b> {totalTokens}</h2>
+		<div>
+			<h1>Name: {name}</h1>
+			<h2>Symbol: {symbol}</h2>
+			<h2>Total Tokens: {totalTokens}</h2>
+			<h2>Collection Info</h2>
+			<ul>
+				{(Object.keys(collectionInfo) as Array<keyof typeof collectionInfo>).map((key) => (
+					<li key={key}>
+						<span style={{ fontWeight: 'bold' }}>{key}:</span>{' '}
+						{BigNumber.isBigNumber(collectionInfo[key])
+							? collectionInfo[key].toString()
+							: collectionInfo[key].toString()}
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 }
