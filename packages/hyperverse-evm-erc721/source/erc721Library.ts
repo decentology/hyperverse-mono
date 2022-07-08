@@ -4,6 +4,7 @@ import { ethers, BigNumber } from 'ethers';
 import { TransactionReceipt } from '@ethersproject/abstract-provider';
 import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise';
 import { getEnvironment } from './environment';
+import { CollectionInfo } from './types';
 
 export type ERC721LibraryType = Awaited<ReturnType<typeof ERC721LibraryInternal>>;
 export function ERC721Library(
@@ -32,7 +33,7 @@ export async function ERC721LibraryInternal(
 		providerOrSigner
 	);
 
-	const initializeCollection = async ({price, maxSupply, maxPerUser}: {price: number; maxSupply: number; maxPerUser: number}) => {
+	const initializeCollection = async ({ price, maxSupply, maxPerUser }: { price: number; maxSupply: number; maxPerUser: number }) => {
 		try {
 			const tnx = await base.proxyContract?.initializeCollection(
 				ethers.utils.parseEther(price.toString()),
@@ -145,12 +146,48 @@ export async function ERC721LibraryInternal(
 
 	const getOwnerOf = async (tokenId: string) => {
 		try {
-			const owner = await base.proxyContract?.ownerOf(tokenId);
+			const owner = await base.proxyContract?.ownerOf(tokenId) as string;
 			return owner;
 		} catch (error) {
 			throw error;
 		}
 	};
+
+	const getCollectionInfo = async () => {
+		try {
+			const collectionInfo = await base.proxyContract?.collectionInfo() as CollectionInfo;
+			return collectionInfo;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	const getName = async () => {
+		try {
+			const name = await base.proxyContract?.name() as string;
+			return name;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	const getSymbol = async () => {
+		try {
+			const name = await base.proxyContract?.symbol() as string;
+			return name;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	const getTokenCounter = async () => {
+		try {
+			const tokenCounter = await base.proxyContract?.tokenCounter() as BigNumber;
+			return tokenCounter;
+		} catch (error) {
+			throw error;
+		}
+	}
 
 	const transfer = async ({
 		from,
@@ -208,5 +245,9 @@ export async function ERC721LibraryInternal(
 		transfer,
 		approve,
 		setApprovalForAll,
+		getCollectionInfo,
+		getName,
+		getSymbol,
+		getTokenCounter,
 	};
 }

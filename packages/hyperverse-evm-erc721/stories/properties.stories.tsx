@@ -1,3 +1,4 @@
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 import { CollectionInfo, useERC721 } from '../source';
@@ -6,18 +7,16 @@ import { HyperverseProvider } from './utils/Provider';
 export default {
 	title: 'Base/Properties',
 	component: Properties,
-};
+} as ComponentMeta<typeof Properties>;
 
-const Template = (args) => (
+export const Demo: ComponentStoryFn<typeof Properties> = () => (
 	<HyperverseProvider>
-		<Properties {...args} />
+		<Properties />
 	</HyperverseProvider>
 );
 
-export const Base = Template.bind({});
-
 function Properties() {
-	const { proxyContract } = useERC721();
+	const { loading,proxyContract,  getName, getSymbol, getCollectionInfo, getTokenCounter } = useERC721();
 	const [name, setName] = useState('');
 	const [symbol, setSymbol] = useState('');
 	const [collectionInfo, setCollectionInfo] = useState<CollectionInfo>({
@@ -28,17 +27,16 @@ function Properties() {
 	});
 	const [totalTokens, setTotalTokens] = useState(0);
 	useEffect(() => {
-		if (proxyContract) {
+		if (!loading) {
 			(async () => {
-				console.log(proxyContract);
-				const name = await proxyContract.name();
-				const symbol = await proxyContract.symbol();
-				const collectionInfo = (await proxyContract.collectionInfo()) as CollectionInfo;
-				const totalTokens = (await proxyContract.tokenCounter()) as BigNumber;
+				const name = await getName!();
+				const symbol = await getSymbol!();
+				const collectionInfo = await getCollectionInfo!();
+				const totalTokens = await getTokenCounter!();
 				setName(name);
+				console.log(name)
 				setSymbol(symbol);
 				setTotalTokens(totalTokens.toNumber());
-				console.log(collectionInfo);
 				setCollectionInfo({
 					isPublicSaleActive: collectionInfo.isPublicSaleActive,
 					maxPerUser: collectionInfo.maxPerUser,
@@ -47,7 +45,7 @@ function Properties() {
 				});
 			})();
 		}
-	}, [proxyContract]);
+	}, [proxyContract, loading]);
 	return (
 		<div>
 			<h1>Name: {name}</h1>
