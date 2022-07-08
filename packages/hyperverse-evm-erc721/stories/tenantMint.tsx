@@ -7,11 +7,9 @@ export const TenantMint = ({ ...props }: { to: string; image: File }) => {
 	const { tenantMint, error } = useERC721();
 	const { address, Connect } = useEvm();
 	const imageRef = useRef(null);
+	var require: any
 
 	const uploadFile = useCallback(async () => {
-		// const resp = await fetch(props.to || imageRef.current.src);
-		// const blob = await resp.blob();
-		// const file = new File([blob], 'hyperverse-logo.png', { type: 'image/png' });
 		const result = await tenantMint?.({
 			to: props.to,
 			image: props.image,

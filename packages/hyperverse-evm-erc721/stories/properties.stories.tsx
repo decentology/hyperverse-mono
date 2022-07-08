@@ -2,13 +2,14 @@ import { BigNumber } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useERC721 } from '../source';
 import { HyperverseProvider } from './utils/Provider';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Base/Properties',
 	component: Properties,
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<Properties {...args} />
 	</HyperverseProvider>
@@ -27,7 +28,7 @@ function Properties() {
 				console.log(proxyContract);
 				const name = await proxyContract.name();
 				const symbol = await proxyContract.symbol();
-				const totalTokens = await proxyContract.tokenCounter() as BigNumber;
+				const totalTokens = (await proxyContract.tokenCounter()) as BigNumber;
 				setName(name);
 				setSymbol(symbol);
 				setTotalTokens(totalTokens.toNumber());
@@ -35,10 +36,10 @@ function Properties() {
 		}
 	}, [proxyContract]);
 	return (
-		<div>
-			<h1>Name: {name}</h1>
-			<h2>Symbol: {symbol}</h2>
-			<h2>Total Tokens: {totalTokens}</h2>
+		<div className="body">
+			<h1><b>Name:</b> {name}</h1>
+			<h2><b>Symbol:</b> {symbol}</h2>
+			<h2><b>Total Tokens:</b> {totalTokens}</h2>
 		</div>
 	);
 }

@@ -1,6 +1,7 @@
 import { SetBaseURI } from './setBaseURI';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/setBaseURI.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/SetBaseURI',
@@ -12,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<SetBaseURI {...args} />
 	</HyperverseProvider>

@@ -1,6 +1,7 @@
 import { ApproveAll } from './setApprovalForAll';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/setApprovalForAll.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/ApproveAll',
@@ -12,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args: any) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<ApproveAll {...args} />
 	</HyperverseProvider>

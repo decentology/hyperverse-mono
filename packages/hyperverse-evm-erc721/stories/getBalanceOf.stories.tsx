@@ -1,6 +1,6 @@
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
+import { Story } from '@storybook/react';
 import Doc from '../docs/getBalanceOf.mdx';
 
 export default {
@@ -13,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<GetBalanceOf {...args} />
 	</HyperverseProvider>

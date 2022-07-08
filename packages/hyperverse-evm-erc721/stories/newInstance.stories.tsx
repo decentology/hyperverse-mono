@@ -1,7 +1,7 @@
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
-import { Story } from '@storybook/react';
 import Doc from '../docs/newInstance.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/NewInstance',
@@ -13,7 +13,7 @@ export default {
 	},
 };
 
-const Template: Story = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<NewInstance {...args} />
 	</HyperverseProvider>
