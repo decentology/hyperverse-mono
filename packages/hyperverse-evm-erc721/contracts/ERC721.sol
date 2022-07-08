@@ -46,9 +46,9 @@ contract ERC721 is
 	string private _name;
 	string private _symbol;
 	string private baseURI;
-	bool public isPublicSaleActive;
 
 	bool private _isCollection; // true if contract is an NFT collection
+	bool public collectionLock; // locks the values of CollectionInfo
 	CollectionInfo public _collectionInfo;
 
 	mapping(uint256 => address) private _owners;
@@ -78,6 +78,7 @@ contract ERC721 is
 	error NotACollection();
 	error MaxSupplyExceeded();
 	error MaxPerUserExceeded();
+	error CollectionLocked();
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+modifiers
@@ -95,32 +96,40 @@ contract ERC721 is
 		_;
 	}
 
-	modifier mintCheck(uint256 _count) {
-		if (_isCollection == true) {
-			if (_collectionInfo.isPublicSaleActive == false) {
-				revert PublicMintInactive();
-			}
-
-			if (
-				tokenCounter.current() > _collectionInfo.maxSupply ||
-				tokenCounter.current() + _count > _collectionInfo.maxSupply
-			) {
-				revert MaxSupplyExceeded();
-			}
-
-			if (msg.value * _count != _collectionInfo.price * _count) {
-				revert InsufficientBalance();
-			}
-
-			if (balanceOf(msg.sender) + _count > _collectionInfo.maxPerUser) {
-				revert MaxPerUserExceeded();
-			}
-		} else {
-			if (isPublicSaleActive == false) {
-				revert PublicMintInactive();
-			}
-			_;
+	modifier mintCollectionCheck(uint256 _count) {
+		if (_collectionInfo.isPublicSaleActive == false) {
+			revert PublicMintInactive();
 		}
+
+		if (
+			//TO DO: add unit test
+			tokenCounter.current() > _collectionInfo.maxSupply ||
+			tokenCounter.current() + _count > _collectionInfo.maxSupply
+		) {
+			revert MaxSupplyExceeded();
+		}
+
+		if (msg.value * _count != _collectionInfo.price * _count) {
+			revert InsufficientBalance();
+		}
+
+		if (
+			_collectionInfo.maxPerUser != 0 &&
+			balanceOf(msg.sender) + _count > _collectionInfo.maxPerUser
+		) {
+			revert MaxPerUserExceeded();
+		}
+
+		/**
+				maxPerUser == maxSupply -> no limit
+			 */
+		if (
+			_collectionInfo.maxPerUser == 0 &&
+			_collectionInfo.maxPerUser == _collectionInfo.maxSupply
+		) {
+			revert MaxPerUserExceeded();
+		}
+
 		_;
 	}
 
@@ -134,15 +143,22 @@ contract ERC721 is
 		_;
 	}
 
+	modifier collectionLocked() {
+		if (collectionLock == true) {
+			revert CollectionLocked();
+		}
+		_;
+	}
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ C O N S T R U C T O R @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	constructor(address _owner) {
 		metadata = ModuleMetadata(
 			'ERC721',
-			Author(_owner, 'https://externallink.net'),
+			_owner,
 			'0.0.1',
-			3479831479814,
-			'https://externalLink.net'
+			block.timestamp,
+			'https://www.hyperverse.dev/'
 		);
 		contractOwner = _owner;
 	}
@@ -163,7 +179,14 @@ contract ERC721 is
 	/**
 	 * @dev used for public minting of tokens for collection types.
 	 */
-	function mint(address _to) external payable nonReentrant mintCheck(1) returns (uint256) {
+	function mint(address _to)
+		external
+		payable
+		nonReentrant
+		isCollection
+		mintCollectionCheck(1)
+		returns (uint256)
+	{
 		uint256 tokenId = nextTokenId();
 		_safeMint(_to, tokenId);
 		return tokenId;
@@ -173,7 +196,7 @@ contract ERC721 is
 		external
 		payable
 		nonReentrant
-		mintCheck(_count)
+		mintCollectionCheck(_count)
 		returns (uint256[] memory)
 	{
 		uint256[] memory tokenIds = new uint256[](_count);
@@ -185,6 +208,16 @@ contract ERC721 is
 		return tokenIds;
 	}
 
+	function burn(uint256 _tokenId) external {
+		address owner = ERC721.ownerOf(_tokenId);
+
+		if (owner != msg.sender) {
+			revert Unauthorized();
+		}
+
+		_burn(_tokenId);
+	}
+
 	function getBaseURI() external view returns (string memory) {
 		return baseURI;
 	}
@@ -194,18 +227,43 @@ contract ERC721 is
 	function initializeCollection(
 		uint256 _price,
 		uint256 _maxSupply,
-		uint256 _maxPerUser
+		uint256 _maxPerUser,
+		bool _lockCollection
 	) external isTenantOwner {
+		if(_isCollection == true) {
+			revert AlreadyInitialized();
+		}
 		_collectionInfo.price = _price;
 		_collectionInfo.maxSupply = _maxSupply;
 		_collectionInfo.maxPerUser = _maxPerUser;
+		collectionLock = _lockCollection;
 		_isCollection = true;
 	}
+
+
+	function updatePrice(uint256 _price) external isTenantOwner collectionLocked {
+		_collectionInfo.price = _price;
+	}
+
+	function updateMaxSupply(uint256 _maxSupply) external isTenantOwner collectionLocked {
+		_collectionInfo.maxSupply = _maxSupply;
+	}
+
+	function updateMaxPerUser(uint256 _maxPerUser) external isTenantOwner collectionLocked{
+		_collectionInfo.maxPerUser = _maxPerUser;
+	}
+
+	function lockCollection() external isTenantOwner collectionLocked {
+		collectionLock = true;
+	}
+	
 
 	/**
 	 * @dev tenant ownly minting function, used to mint a token with a tokenURI based on the baseURI and the tokenID
 	 * use case: Collection Minting
 	 */
+
+	//TO DO: collection allow tenant
 	function tenantMint(address _reciever) external isTenantOwner isCollection returns (uint256) {
 		uint256 tokenId = nextTokenId();
 		_safeMint(_reciever, tokenId);
@@ -216,15 +274,15 @@ contract ERC721 is
 	 * @dev This  minting function is used to mint a token with a the provided tokenURI
 	 * use case: 1:1 NFTs
 	 */
-	function tenantMint(address _to, string calldata _uri)
+	function tenantMint(address _reciever, string calldata _tokenUri)
 		external
 		isTenantOwner
 		returns (uint256)
 	{
 		uint256 tokenId = nextTokenId();
-		_safeMint(_to, tokenId);
-		if (bytes(_uri).length > 0) {
-			_tokenURIs[tokenId] = _uri;
+		_safeMint(_reciever, tokenId);
+		if (bytes(_tokenUri).length > 0) {
+			_tokenURIs[tokenId] = _tokenUri;
 		}
 
 		return tokenId;
@@ -237,24 +295,22 @@ contract ERC721 is
 	/**
 	 * Can only set mint permissions if the contract is a collection
 	 */
-	function setMintPermissions(bool _isActive) external isTenantOwner {
-		if (_isCollection == true) {
-			_collectionInfo.isPublicSaleActive = _isActive;
-		} else {
-			isPublicSaleActive = _isActive;
-		}
+	function setMintPermissions(bool _isActive) external isCollection isTenantOwner {
+		_collectionInfo.isPublicSaleActive = _isActive;
 	}
 
-
+	/**
+	 * Used to withdraw eth in the contract
+	 */
 	function withdraw() public isTenantOwner {
 		uint256 balance = address(this).balance;
 		payable(msg.sender).transfer(balance);
 	}
 
-	function withdrawTokens(IERC20 _token) public isTenantOwner {
-		uint256 balance = _token.balanceOf(address(this));
-		_token.transfer(msg.sender, balance);
-	}
+	// function withdrawTokens(IERC20 _token) public isTenantOwner {
+	// 	uint256 balance = _token.balanceOf(address(this));
+	// 	_token.transfer(msg.sender, balance);
+	// }
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ H E L P E R  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	function nextTokenId() private returns (uint256) {
@@ -509,14 +565,10 @@ contract ERC721 is
 			revert TokenAlreadyMinted();
 		}
 
-		_beforeTokenTransfer(address(0), _to, _tokenId);
-
 		_balances[_to] += 1;
 		_owners[_tokenId] = _to;
 
 		emit Transfer(address(0), _to, _tokenId);
-
-		_afterTokenTransfer(address(0), _to, _tokenId);
 	}
 
 	/**
@@ -526,8 +578,6 @@ contract ERC721 is
 	function _burn(uint256 _tokenId) internal virtual {
 		address owner = ERC721.ownerOf(_tokenId);
 
-		_beforeTokenTransfer(owner, address(0), _tokenId);
-
 		// Clear approvals
 		_approve(address(0), _tokenId);
 
@@ -535,8 +585,6 @@ contract ERC721 is
 		delete _owners[_tokenId];
 
 		emit Transfer(owner, address(0), _tokenId);
-
-		_afterTokenTransfer(owner, address(0), _tokenId);
 	}
 
 	/**
@@ -555,7 +603,6 @@ contract ERC721 is
 		if (_to == address(0)) {
 			revert ZeroAddress();
 		}
-		_beforeTokenTransfer(_from, _to, _tokenId);
 
 		// Clear approvals from the previous owner
 		_approve(address(0), _tokenId);
@@ -565,8 +612,6 @@ contract ERC721 is
 		_owners[_tokenId] = _to;
 
 		emit Transfer(_from, _to, _tokenId);
-
-		_afterTokenTransfer(_from, _to, _tokenId);
 	}
 
 	/**
@@ -599,6 +644,7 @@ contract ERC721 is
 	/**
 	 * @dev Reverts if the `tokenId` has not been minted yet.
 	 */
+	// TO DO: why is it not a modifier?
 	function _requireMinted(uint256 _tokenId) internal view virtual {
 		if (!_exists(_tokenId)) {
 			revert InvalidTokenId();
@@ -641,40 +687,5 @@ contract ERC721 is
 		}
 	}
 
-	/**	
-	 * @dev Hook that is called before any token transfer. This includes minting
-	 * and burning.
-	 *
-	 * Calling conditions:
-	 *
-	 * - When `from` and `to` are both non-zero, ``from``'s `tokenId` will be
-	 * transferred to `to`.
-	 * - When `from` is zero, `tokenId` will be minted for `to`.
-	 * - When `to` is zero, ``from``'s `tokenId` will be burned.
-	 * - `from` and `to` are never both zero.
-	 *
-	 * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
-	 */
-	function _beforeTokenTransfer(
-		address _from,
-		address _to,
-		uint256 _tokenId
-	) internal virtual {}
-
-	/**
-	 * @dev Hook that is called after any transfer of tokens. This includes
-	 * minting and burning.
-	 *
-	 * Calling conditions:
-	 *
-	 * - when `from` and `to` are both non-zero.
-	 * - `from` and `to` are never both zero.
-	 *
-	 * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
-	 */
-	function _afterTokenTransfer(
-		address _from,
-		address _to,
-		uint256 _tokenId
-	) internal virtual {}
+	//TO DO: look into beforeTransfer and afterTransfer hooks
 }

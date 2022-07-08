@@ -144,10 +144,10 @@ contract Whitelist is IHyperverseModule, Initializable {
 	constructor(address _owner) {
 		metadata = ModuleMetadata(
 			'Whitelist Module',
-			Author(_owner, 'https://externallink.net'),
+			_owner,
 			'1.0.0',
-			3479831479814,
-			'https://externallink.net'
+			block.timestamp,
+			'https://www.hyperverse.dev/'
 		);
 		contractOwner = _owner;
 	}
