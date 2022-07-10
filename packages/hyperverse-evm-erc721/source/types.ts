@@ -4,5 +4,5 @@ export type CollectionInfo = {
 	price: BigNumber;
 	maxPerUser: BigNumber;
 	maxSupply: BigNumber;
-	isPublicSaleActive: boolean;
+	lockCollection: boolean;
 }
