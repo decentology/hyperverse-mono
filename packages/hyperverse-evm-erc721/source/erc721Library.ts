@@ -59,15 +59,16 @@ export async function ERC721LibraryInternal(
 
 	const mint = async (to: string, amount?: number) => {
 		try {
+			const collectionInfo = await getCollectionInfo()
 			if (!amount || amount == 1) {
 				const mintTxn = await base.proxyContract?.mint(to, {
-					value: ethers.utils.parseEther('0.005'),
+					value: collectionInfo.price.toString(),
 					gasLimit: '1000000',
 				});
 				return mintTxn.wait() as TransactionReceipt;
 			}
 
-			const mintTxn = await base.proxyContract?.mintBatch(to, amount, { gasLimit: '1000000', value: ethers.utils.parseEther((0.005 * amount).toString()) });
+			const mintTxn = await base.proxyContract?.mintBatch(to, amount, { gasLimit: '1000000', value: (collectionInfo.price.toNumber() * amount).toString() });
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			console.error(error);
