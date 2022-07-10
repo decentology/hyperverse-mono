@@ -188,7 +188,6 @@ contract ERC721 is
 		mintCollectionCheck(1)
 		returns (uint256)
 	{
-		require(msg.value == collectionInfo.price);
 		uint256 tokenId = nextTokenId();
 		_safeMint(_to, tokenId);
 		return tokenId;
