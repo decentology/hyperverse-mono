@@ -65,6 +65,7 @@ contract ERC721 is
 
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ E R R O R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	error Unauthorized();
+	error InitializeLocked();
 	error AlreadyInitialized();
 	error ZeroAddress();
 	error SameAddress();
@@ -109,8 +110,8 @@ contract ERC721 is
 		) {
 			revert MaxSupplyExceeded();
 		}
-			
-		if (msg.value * _count != collectionInfo.price * _count) {
+
+		if (msg.value != collectionInfo.price * _count) {
 			revert InsufficientBalance();
 		}
 
@@ -231,8 +232,8 @@ contract ERC721 is
 		uint256 _maxPerUser,
 		bool _lockCollection
 	) external isTenantOwner {
-		if(_isCollection == true) {
-			revert AlreadyInitialized();
+		if(collectionLock == true) {
+			revert InitializeLocked();
 		}
 		collectionInfo.price = _price;
 		collectionInfo.maxSupply = _maxSupply;

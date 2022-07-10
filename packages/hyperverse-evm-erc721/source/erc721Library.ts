@@ -49,7 +49,8 @@ export async function ERC721LibraryInternal(
 				ethers.utils.parseEther(price.toString()),
 				maxSupply,
 				maxPerUser,
-				lockCollection
+				lockCollection,
+				{gasLimit: '1000000'}
 			);
 			return tnx.wait() as TransactionReceipt;
 		} catch (error) {
