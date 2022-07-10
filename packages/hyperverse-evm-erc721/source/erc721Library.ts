@@ -33,12 +33,23 @@ export async function ERC721LibraryInternal(
 		providerOrSigner
 	);
 
-	const initializeCollection = async ({ price, maxSupply, maxPerUser }: { price: number; maxSupply: number; maxPerUser: number }) => {
+	const initializeCollection = async ({
+		price,
+		maxSupply,
+		maxPerUser,
+		lockCollection,
+	}: {
+		price: number;
+		maxSupply: number;
+		maxPerUser: number;
+		lockCollection: boolean;
+	}) => {
 		try {
 			const tnx = await base.proxyContract?.initializeCollection(
 				ethers.utils.parseEther(price.toString()),
 				maxSupply,
-				maxPerUser
+				maxPerUser,
+				lockCollection
 			);
 			return tnx.wait() as TransactionReceipt;
 		} catch (error) {
@@ -49,13 +60,17 @@ export async function ERC721LibraryInternal(
 	const mint = async (to: string, amount?: number) => {
 		try {
 			if (!amount || amount == 1) {
-				const mintTxn = await base.proxyContract?.mint(to);
+				const mintTxn = await base.proxyContract?.mint(to, {
+					value: ethers.utils.parseEther('0.005'),
+					gasLimit: '1000000',
+				});
 				return mintTxn.wait() as TransactionReceipt;
 			}
 
-			const mintTxn = await base.proxyContract?.mintBatch(to, amount);
+			const mintTxn = await base.proxyContract?.mintBatch(to, amount, { gasLimit: '1000000', value: ethers.utils.parseEther((0.005 * amount).toString()) });
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
+			console.error(error);
 			throw error;
 		}
 	};
@@ -94,10 +109,10 @@ export async function ERC721LibraryInternal(
 				return mintTxn.wait() as TransactionReceipt;
 			}
 		} catch (error) {
+			console.log(error);
 			throw error;
 		}
 	};
-
 
 	const setBaseURI = async (baseURI: string) => {
 		try {
@@ -146,7 +161,7 @@ export async function ERC721LibraryInternal(
 
 	const getOwnerOf = async (tokenId: string) => {
 		try {
-			const owner = await base.proxyContract?.ownerOf(tokenId) as string;
+			const owner = (await base.proxyContract?.ownerOf(tokenId)) as string;
 			return owner;
 		} catch (error) {
 			throw error;
@@ -155,39 +170,39 @@ export async function ERC721LibraryInternal(
 
 	const getCollectionInfo = async () => {
 		try {
-			const collectionInfo = await base.proxyContract?.collectionInfo() as CollectionInfo;
+			const collectionInfo = (await base.proxyContract?.collectionInfo()) as CollectionInfo;
 			return collectionInfo;
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const getName = async () => {
 		try {
-			const name = await base.proxyContract?.name() as string;
+			const name = (await base.proxyContract?.name()) as string;
 			return name;
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const getSymbol = async () => {
 		try {
-			const name = await base.proxyContract?.symbol() as string;
+			const name = (await base.proxyContract?.symbol()) as string;
 			return name;
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const getTokenCounter = async () => {
 		try {
-			const tokenCounter = await base.proxyContract?.tokenCounter() as BigNumber;
+			const tokenCounter = (await base.proxyContract?.tokenCounter()) as BigNumber;
 			return tokenCounter;
 		} catch (error) {
 			throw error;
 		}
-	}
+	};
 
 	const transfer = async ({
 		from,
@@ -211,6 +226,18 @@ export async function ERC721LibraryInternal(
 			const approveTxn = await base.proxyContract?.approve(to, tokenId);
 			return approveTxn.wait() as TransactionReceipt;
 		} catch (error) {
+			throw error;
+		}
+	};
+
+	const contractBalance = async () => {
+		try {
+			const balance = await base.proxyContract?.provider.getBalance(
+				base.proxyContract?.address
+			);
+			return balance;
+		} catch (error) {
+			console.error(error);
 			throw error;
 		}
 	};
@@ -249,5 +276,6 @@ export async function ERC721LibraryInternal(
 		getName,
 		getSymbol,
 		getTokenCounter,
+		contractBalance,
 	};
 }

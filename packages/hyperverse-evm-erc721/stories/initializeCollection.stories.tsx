@@ -1,6 +1,6 @@
 import { InitializeCollection } from './initializeCollection';
 import { HyperverseProvider } from './utils/Provider';
-import { Story } from '@storybook/react';
+import { ComponentMeta, ComponentStoryFn, Story } from '@storybook/react';
 import Doc from '../docs/initializeCollection.mdx';
 
 export default {
@@ -11,18 +11,17 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof InitializeCollection>;
 
-const Template: Story = (args) => (
+export const Demo: ComponentStoryFn<typeof InitializeCollection> = (args) => (
 	<HyperverseProvider>
 		<InitializeCollection {...args} />
 	</HyperverseProvider>
 );
 
-export const Collection1 = Template.bind({});
-
-Collection1.args = {
-    price: 0.005,
-    maxSupply: 50,
-    maxPerUser: 5,
+Demo.args = {
+	price: 0.005,
+	maxSupply: 50,
+	maxPerUser: 5,
+	lockCollection: false,
 };

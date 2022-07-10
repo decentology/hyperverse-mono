@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
+import "hardhat/console.sol";
 
 import './hyperverse/IHyperverseModule.sol';
 import './hyperverse/Initializable.sol';
@@ -108,7 +109,7 @@ contract ERC721 is
 		) {
 			revert MaxSupplyExceeded();
 		}
-
+			
 		if (msg.value * _count != collectionInfo.price * _count) {
 			revert InsufficientBalance();
 		}
@@ -187,6 +188,7 @@ contract ERC721 is
 		mintCollectionCheck(1)
 		returns (uint256)
 	{
+		require(msg.value == collectionInfo.price);
 		uint256 tokenId = nextTokenId();
 		_safeMint(_to, tokenId);
 		return tokenId;
