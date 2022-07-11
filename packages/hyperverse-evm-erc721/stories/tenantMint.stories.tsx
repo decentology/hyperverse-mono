@@ -15,7 +15,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<TenantMint {...args} />
 	</HyperverseProvider>

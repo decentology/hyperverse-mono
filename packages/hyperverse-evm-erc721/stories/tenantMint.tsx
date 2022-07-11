@@ -1,4 +1,4 @@
-import { useERC721 } from '../source';
+import { useERC721 } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm/react';
 import { useCallback, useRef } from 'react';
 import './style.css';
@@ -27,7 +27,7 @@ export const TenantMint = ({ ...props }: { to: string; image: File }) => {
 				id="hyperverse-logo"
 				ref={imageRef}
 				style={{ display: 'none' }}
-				src={require('./assets/hyperverse-logo.png')}
+				// src={require('./assets/hyperverse-logo.png')}
 			/>
 			{address ? (
 				<button
