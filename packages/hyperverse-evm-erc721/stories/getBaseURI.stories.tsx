@@ -1,7 +1,6 @@
 import { GetBaseURI } from './getBaseURI';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/getBaseURI.mdx';
+import Doc from '../docs/getBaseURI.mdx';
 
 export default {
 	title: 'Components/GetBaseURI',

@@ -1,4 +1,5 @@
 import { useERC721 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
 

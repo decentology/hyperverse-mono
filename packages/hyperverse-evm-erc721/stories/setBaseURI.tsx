@@ -1,8 +1,9 @@
 import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
+import { ReactElement } from 'react';
 
-export const SetBaseURI = ({ ...props }: { baseURI: string }) => {
+export const SetBaseURI = ({ baseURI }: {baseURI: string}): ReactElement => {
 	const { setBaseURI } = useERC721();
 	const { Connect } = useEvm();
 
@@ -14,7 +15,7 @@ export const SetBaseURI = ({ ...props }: { baseURI: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setBaseURI?.(props.baseURI);
+					setBaseURI?.(baseURI);
 				}}
 			>
 				Set Base URI

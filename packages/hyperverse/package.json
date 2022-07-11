@@ -1,10 +1,5 @@
 {
 	"name": "@decentology/hyperverse",
-	"exports": {
-		".": {
-			"import": "./index.ts"
-		}
-	},
 	"type": "module",
 	"source": "./source/index.ts",
 	"main": "./distribution/index.mjs",

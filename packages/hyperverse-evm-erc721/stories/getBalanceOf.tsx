@@ -1,9 +1,11 @@
 import { useERC721 } from '../source';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';
 
 export const GetBalanceOf = ({ ...props }: { account: string }) => {
 	const erc721 = useERC721();
+	const { address } = useEvm();
 	const [data, setData] = useState<BigNumber>();
 
 	useEffect(() => {
@@ -16,10 +18,5 @@ export const GetBalanceOf = ({ ...props }: { account: string }) => {
 		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(erc721.error)}</p>;
 	};
 
-	return (
-		<div className="body">
-			{' '}
-			Balance of: <b>{props.account}</b> {balanceAvailable()}
-		</div>
-	);
+	return <div className="balanceOf"> Balance of: {props.account} {balanceAvailable()}</div>;
 };

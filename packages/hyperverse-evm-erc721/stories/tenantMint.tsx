@@ -1,5 +1,5 @@
 import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import { useCallback, useRef } from 'react';
 import './style.css';
 
@@ -9,9 +9,9 @@ export const TenantMint = ({ ...props }: { to: string; image: File }) => {
 	const imageRef = useRef(null);
 
 	const uploadFile = useCallback(async () => {
-		const resp = await fetch(props.to || imageRef.current.src);
-		const blob = await resp.blob();
-		const file = new File([blob], 'hyperverse-logo.png', { type: 'image/png' });
+		// const resp = await fetch(props.to || imageRef.current.src);
+		// const blob = await resp.blob();
+		// const file = new File([blob], 'hyperverse-logo.png', { type: 'image/png' });
 		const result = await tenantMint?.({
 			to: props.to,
 			image: props.image,

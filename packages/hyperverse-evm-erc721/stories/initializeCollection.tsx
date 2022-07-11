@@ -1,5 +1,5 @@
 import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
 
 export const InitializeCollection = ({
@@ -8,6 +8,7 @@ export const InitializeCollection = ({
 	price: number;
 	maxSupply: number;
 	maxPerUser: number;
+	lockCollection: boolean;
 }) => {
 	const { initializeCollection } = useERC721();
 	const { Connect } = useEvm();
@@ -20,7 +21,7 @@ export const InitializeCollection = ({
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					initializeCollection?.(props);
+					initializeCollection!(props);
 				}}
 			>
 				Initialize Collection

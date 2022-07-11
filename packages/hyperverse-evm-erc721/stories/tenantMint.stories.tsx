@@ -1,7 +1,6 @@
 import { TenantMint } from './tenantMint';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/tenantMint.mdx';
+import Doc from '../docs/tenantMint.mdx';
 
 export default {
 	title: 'Components/TenantMint',
