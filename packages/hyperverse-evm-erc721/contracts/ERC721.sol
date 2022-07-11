@@ -309,11 +309,6 @@ contract ERC721 is
 		payable(msg.sender).transfer(balance);
 	}
 
-	// function withdrawTokens(IERC20 _token) public isTenantOwner {
-	// 	uint256 balance = _token.balanceOf(address(this));
-	// 	_token.transfer(msg.sender, balance);
-	// }
-
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ H E L P E R  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 	function nextTokenId() private returns (uint256) {
 		tokenCounter.increment();

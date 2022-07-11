@@ -3,7 +3,7 @@ import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse } from '@decentology/hyperverse/react';
 import { useEvm } from '@decentology/hyperverse-evm/react';
-import { ERC721Library, ERC721LibraryType } from './erc721Library';
+import { ERC721Library, ERC721LibraryType } from '../erc721Library';
 
 function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;

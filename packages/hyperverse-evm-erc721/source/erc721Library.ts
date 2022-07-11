@@ -50,7 +50,7 @@ export async function ERC721LibraryInternal(
 				maxSupply,
 				maxPerUser,
 				lockCollection,
-				{gasLimit: '1000000'}
+				{ gasLimit: '1000000' }
 			);
 			return tnx.wait() as TransactionReceipt;
 		} catch (error) {
@@ -139,7 +139,19 @@ export async function ERC721LibraryInternal(
 
 	const withdraw = async () => {
 		try {
-			const withdrawTxn = await base.proxyContract?.withdraw();
+			const withdrawTxn = await base.proxyContract?.['withdraw()']();
+			return withdrawTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const withdrawTo = async (to: string, price: number) => {
+		try {
+			const withdrawTxn = await base.proxyContract?.['withdrawTo(address,uint256)'](
+				to,
+				ethers.utils.parseEther(price.toString())
+			);
 			return withdrawTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
@@ -271,6 +283,7 @@ export async function ERC721LibraryInternal(
 		getBaseURI,
 		setBaseURI,
 		withdraw,
+		withdrawTo,
 		tokenURI,
 		getBalanceOf,
 		getOwnerOf,

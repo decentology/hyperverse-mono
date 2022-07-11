@@ -8,9 +8,9 @@ export const Networks = {
 		chainId: -1,
 	},
 	[Network.Testnet]: {
-		type: Network.Mainnet,
+		type: Network.Testnet,
 		name: 'testnet',
 		networkUrl: 'http://localhost:8545',
-		chainId: 1337,
+		chainId: 31337,
 	},
 };
