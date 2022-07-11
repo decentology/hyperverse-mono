@@ -13,7 +13,6 @@ export const TokenURI = ({ ...props }: { tokenId: number }) => {
 	console.log(props.tokenId)
 
 	const checkURI = () => {
-		console.log('in check')
 		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(erc721.error)}</p>;
 	};
 

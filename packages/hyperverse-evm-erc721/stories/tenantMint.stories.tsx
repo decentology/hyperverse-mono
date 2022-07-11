@@ -1,6 +1,7 @@
 import { TenantMint } from './tenantMint';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/tenantMint.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/TenantMint',

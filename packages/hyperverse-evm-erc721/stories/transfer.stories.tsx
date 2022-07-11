@@ -1,6 +1,7 @@
 import { Transfer } from './transfer';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/transfer.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/Transfer',
@@ -12,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<Transfer {...args} />
 	</HyperverseProvider>

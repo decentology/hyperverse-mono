@@ -1,7 +1,7 @@
 import { TokenURI } from './tokenURI';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/tokenURI.mdx';
+import Doc from '../docs/tokenURI.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/TokenURI',
@@ -13,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<TokenURI {...args} />
 	</HyperverseProvider>

@@ -1,6 +1,7 @@
 import { Mint } from './mint';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/mint.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/Mint',
@@ -12,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<Mint {...args} />
 	</HyperverseProvider>

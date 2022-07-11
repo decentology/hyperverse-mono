@@ -1,7 +1,7 @@
 import { SetMintPermissions } from './setMintPermissions';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import Doc from '../docs/setMintPermissions.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/SetMintPermissions',
@@ -13,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<SetMintPermissions {...args} />
 	</HyperverseProvider>

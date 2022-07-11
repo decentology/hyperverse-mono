@@ -15,7 +15,7 @@ export const SetBaseURI = ({ baseURI }: {baseURI: string}): ReactElement => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setBaseURI?.(baseURI);
+					setBaseURI!(baseURI);
 				}}
 			>
 				Set Base URI

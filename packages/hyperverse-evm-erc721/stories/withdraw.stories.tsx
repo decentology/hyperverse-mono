@@ -1,7 +1,7 @@
 import { Withdraw } from './withdraw';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/withdraw.mdx';
+import Doc from '../docs/withdraw.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/Withdraw',
@@ -13,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<Withdraw {...args} />
 	</HyperverseProvider>

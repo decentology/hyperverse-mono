@@ -1,7 +1,7 @@
 import { GetOwnerOf } from './getOwnerOf';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import Doc from '../docs/getOwnerOf.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/GetOwnerOf',
@@ -13,7 +13,7 @@ export default {
 	},
 };
 
-const Template = (args) => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<GetOwnerOf {...args} />
 	</HyperverseProvider>

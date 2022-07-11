@@ -14,7 +14,7 @@ export const Mint = ({ ...props }: { to: string; amount: number }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					mint?.(props.to, props.amount);
+					mint!(props.to, props.amount);
 				}}
 			>
 				Mint

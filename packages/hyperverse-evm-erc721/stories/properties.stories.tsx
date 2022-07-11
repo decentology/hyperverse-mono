@@ -1,15 +1,17 @@
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 import { BigNumber, ethers } from 'ethers';
 import { useEffect, useState } from 'react';
-import { CollectionInfo, useERC721 } from '../source';
+import { CollectionInfo } from '../source/types';
+import { useERC721 } from '../source';
 import { HyperverseProvider } from './utils/Provider';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Base/Properties',
 	component: Properties,
 } as ComponentMeta<typeof Properties>;
 
-export const Demo: ComponentStoryFn<typeof Properties> = () => (
+const Template: Story = (args: any) => (
 	<HyperverseProvider>
 		<Properties />
 	</HyperverseProvider>
@@ -48,11 +50,11 @@ function Properties() {
 		}
 	}, [proxyContract, loading]);
 	return (
-		<div>
-			<h1>Name: {name}</h1>
+		<div className="body">
+			<h2>Name: {name}</h2>
 			<h2>Symbol: {symbol}</h2>
 			<h2>Total Tokens: {totalTokens}</h2>
-			<h2>Collection Info</h2>
+			<h2>Collection Info:</h2>
 			<ul>
 				<li>
 					<span style={{ fontWeight: 'bold' }}>Price:</span>{' '}

@@ -14,7 +14,7 @@ export const ApproveAll = ({ ...props }: { operator: string; approved: boolean }
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setApprovalForAll?.(props);
+					setApprovalForAll!(props);
 				}}
 			>
 				Approve All

@@ -14,7 +14,7 @@ export const SetMintPermissions = ({ ...props }: { isPublic: boolean }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setMintPermissions?.(props.isPublic);
+					setMintPermissions!(props.isPublic);
 				}}
 			>
 				Set Mint Permissions

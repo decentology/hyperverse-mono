@@ -2,6 +2,7 @@ import { SetBaseURI } from './setBaseURI';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 import { hyperverseDecorator } from './utils/decorators';
 import Doc from '../docs/setBaseURI.mdx';
+import { Story } from '@storybook/react';
 
 export default {
 	title: 'Components/SetBaseURI',
@@ -11,8 +12,15 @@ export default {
 			page: Doc,
 		},
 	},
-	decorators: [hyperverseDecorator],
-} as ComponentMeta<typeof SetBaseURI>;
+};
+
+const Template: Story = (args: any) => (
+	<HyperverseProvider>
+		<SetBaseURI {...args} />
+	</HyperverseProvider>
+);
+
+export const BaseURI1 = Template.bind({});
 
 export const Demo: ComponentStoryFn<typeof SetBaseURI> = (args) => <SetBaseURI {...args} />;
 Demo.args = {
