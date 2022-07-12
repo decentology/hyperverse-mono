@@ -167,7 +167,7 @@ contract NFTGame is
 		// _standardAttrLen = standardAttr.length;
 		// _specialAttrLen = specialAttr.length;
 
-		_standardAttrMemory = [3,4,5,6,7,8];
+		_standardAttrMemory = [3,4,5,6,7];
 		_specialAttrMemory = [3,3];
 		_standardAttrLen = _standardAttrMemory.length;
 		_specialAttrLen = _specialAttrMemory.length;
