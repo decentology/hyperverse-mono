@@ -35,16 +35,36 @@ contract NFTGame is
 		uint256 price;
 		uint256 maxSupply;
 		uint256 maxPerUser;
-		bool isPublicSaleActive;
+		bool 	isPublicSaleActive;
 	}
 
 	struct TokenAttributes {
 		uint256 tokenId;
-		string name;
+		string 	name;
 		uint256 eyeId;
 		uint256 mouthId;
 		uint256 bodyId;
+		uint256 level;
+		StandardAttributes standard;
+		SpecialAttributes special;
 	}
+
+	struct StandardAttributes{
+		uint256 tokenId;
+		uint256[] choices;
+		uint256[] options;
+	}
+	
+	struct SpecialAttributes{
+		uint256 tokenId;
+		uint256[] choices;
+		uint256[] options;
+	}
+
+	uint256 [] private _standardAttrMemory;
+	uint256 [] private _specialAttrMemory;
+	uint256	private _standardAttrLen;
+	uint256 private _specialAttrLen;
 
 	address public immutable contractOwner;
 
@@ -65,6 +85,8 @@ contract NFTGame is
 	mapping(uint256 => address) private _tokenApprovals;
 	mapping(address => mapping(address => bool)) private _operatorApprovals;
 	mapping(uint256 => TokenAttributes) private _tokenAttribute;
+	mapping(uint256 => StandardAttributes) private _standardAttributes;
+	mapping(uint256 => SpecialAttributes) private _specialAttributes;
 
 	// Mapping for individual token URIs
 	mapping(uint256 => string) internal _tokenURIs;
@@ -87,6 +109,7 @@ contract NFTGame is
 	error SameOwnerAndOperator();
 	error MaxSupplyExceeded();
 	error MaxPerUserExceeded();
+	error InvalidModification();
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ M O D I F I E R S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	///+modifiers
@@ -131,10 +154,23 @@ contract NFTGame is
 		string memory name_,
 		string memory symbol_,
 		address tenant_
+		// uint256[] memory standardAttr,
+		// uint256[] memory specialAttr
 	) external initializer canInitialize(tenant_) {
 		_name = name_;
 		_symbol = symbol_;
 		_tenantOwner = tenant_;
+
+		// THIS SHALL BE UN-COMMENTED
+		// _standardAttrMemory = standardAttr;
+		// _specialAttrMemory = specialAttr;
+		// _standardAttrLen = standardAttr.length;
+		// _specialAttrLen = specialAttr.length;
+
+		_standardAttrMemory = [3,4,5,6,7,8];
+		_specialAttrMemory = [3,3];
+		_standardAttrLen = _standardAttrMemory.length;
+		_specialAttrLen = _specialAttrMemory.length;
 	}
 
 	/**
@@ -145,12 +181,112 @@ contract NFTGame is
 		string memory _tokenName,
 		uint256 _eyeId,
 		uint256 _mouthId,
-		uint256 _bodyId
+		uint256 _bodyId,
+		uint256 _level,
+		uint256[] memory _standardChoices,
+		uint256[] memory _standardOptions,
+		uint256[] memory _specialChoices,
+		uint256[] memory _specialOptions
 	) external payable nonReentrant mintCheck returns (uint256) {
 		uint256 tokenId = nextTokenId();
-		_tokenAttribute[tokenId] = TokenAttributes(tokenId, _tokenName, _eyeId, _mouthId, _bodyId);
+		
+		_standardAttributes[tokenId] = StandardAttributes(tokenId, _standardChoices, _standardOptions);
+		_specialAttributes[tokenId] = SpecialAttributes(tokenId, _specialChoices, _specialOptions);
+		
+		_tokenAttribute[tokenId] = TokenAttributes(tokenId,
+												_tokenName,
+												_eyeId,
+												_mouthId,
+												_bodyId,
+												_level,
+												_standardAttributes[tokenId],
+												_specialAttributes[tokenId]);
 		_safeMint(_to, tokenId);
 		return tokenId;
+	}
+
+	function levelUp(uint256 _tokenId) external isTenantOwner {
+		TokenAttributes storage tokenAttributes = _tokenAttribute[_tokenId];
+		uint256 newLevel = tokenAttributes.level + 5;
+		require(newLevel % 5 == 0, "Invalid Level Up");
+		uint256 attrType; 
+		uint256 attrIndex;
+		(attrType, attrIndex) = _levelUpAlgo(newLevel);
+
+		if(attrType == 0){
+			uint256 standardOption = tokenAttributes.standard.options[attrIndex];
+			require(_standardAttrMemory[attrIndex] > standardOption, "Invalid Level Up");
+			tokenAttributes.standard.options[attrIndex] = standardOption + 1;
+			tokenAttributes.level = newLevel;
+		}
+		else if(attrType == 1){
+			uint256 specialOption = tokenAttributes.special.options[attrIndex];
+			require(_specialAttrMemory[attrIndex] > specialOption, "Invalid Level Up");
+			tokenAttributes.special.options[attrIndex] = specialOption + 1;
+			tokenAttributes.level = newLevel;
+		}
+	}
+
+	// Work in-progress (Restricted to 2 types special attributes)
+	function _levelUpAlgo(uint256 _level) internal virtual returns (uint256, uint256){
+		uint256 sLevel = (_standardAttrLen + 1) * 5;
+		uint256 dLevel = _level / 5;
+
+		if(_level % sLevel == 0){
+
+			uint256 spOption = 0;
+			uint256 checkLevel = _level/sLevel;
+
+			if(checkLevel % 2 == 0){
+				spOption = 1;
+			}
+			else{
+				spOption = 0;
+			}
+            return (1, spOption);
+		}
+		else {
+			uint256 stOption = (dLevel % (_standardAttrLen + 1) - 1);
+            return (0, stOption);
+		}
+	}
+
+	function modifyDynamicAttribute(uint256 _attrType, uint256[] memory _attrOptions) external isTenantOwner {
+		require (_attrOptions.length == _standardAttrLen || _attrOptions.length == _specialAttrLen, "Invalid - array len should match Standard or Special attr");
+		if (_attrType == 0){
+			_standardAttrMemory = _attrOptions;
+		}
+		else if(_attrType == 1){
+			_specialAttrMemory = _attrOptions;
+		}
+		else {
+			revert InvalidModification();
+		}
+	}
+
+	function setDynamicAttribute(uint256 _tokenId, uint256 _attrType, uint256[] memory _attrOptions) external {
+		TokenAttributes storage tokenAttributes = _tokenAttribute[_tokenId];
+		require (_attrOptions.length == _standardAttrLen || _attrOptions.length == _specialAttrLen, "Invalid - array len should match Standard or Special attr");
+		if (_attrType == 0){
+			//require(keccak256(abi.encodePacked(_standardAttrMemory)) >= keccak256(abi.encodePacked(_attrOptions)));
+			
+			//SHOULD BE REMOVED
+			require(_standardAttrMemory[0] >= _attrOptions[0], "Selected choice is greater than allowed options");
+			require(_standardAttrMemory[1] >= _attrOptions[1], "Selected choice is greater than allowed options");
+			require(_standardAttrMemory[2] >= _attrOptions[2], "Selected choice is greater than allowed options");
+			require(_standardAttrMemory[3] >= _attrOptions[3], "Selected choice is greater than allowed options");
+			require(_standardAttrMemory[4] >= _attrOptions[4], "Selected choice is greater than allowed options");
+			tokenAttributes.standard.choices = _attrOptions;
+		}
+		else if(_attrType == 1){
+			//SHOULD BE REMOVED
+			require(_specialAttrMemory[0] >= _attrOptions[0], "Selected choice is greater than allowed options");
+			require(_specialAttrMemory[1] >= _attrOptions[1], "Selected choice is greater than allowed options");
+			tokenAttributes.special.choices = _attrOptions;
+		}
+		else {
+			revert InvalidModification();
+		}
 	}
 
 	function getAttributesByTokenId(uint256 _tokenId)
@@ -161,7 +297,10 @@ contract NFTGame is
 			string memory,
 			uint256,
 			uint256,
-			uint256
+			uint256,
+			uint256,
+			StandardAttributes memory,
+			SpecialAttributes memory
 		)
 	{
 		TokenAttributes storage tokenAttributes = _tokenAttribute[_tokenId];
@@ -170,7 +309,10 @@ contract NFTGame is
 			tokenAttributes.name,
 			tokenAttributes.eyeId,
 			tokenAttributes.mouthId,
-			tokenAttributes.bodyId
+			tokenAttributes.bodyId,
+			tokenAttributes.level,
+			tokenAttributes.standard,
+			tokenAttributes.special
 		);
 	}
 
@@ -189,10 +331,26 @@ contract NFTGame is
 		string memory _tokenName,
 		uint256 _eyeId,
 		uint256 _mouthId,
-		uint256 _bodyId
+		uint256 _bodyId,
+		uint256 _level,
+		uint256[] memory _standardChoices,
+		uint256[] memory _standardOptions,
+		uint256[] memory _specialChoices,
+		uint256[] memory _specialOptions
 	) external isTenantOwner returns (uint256) {
 		uint256 tokenId = nextTokenId();
-		_tokenAttribute[tokenId] = TokenAttributes(tokenId, _tokenName, _eyeId, _mouthId, _bodyId);
+		
+		_standardAttributes[tokenId] = StandardAttributes(tokenId, _standardChoices, _standardOptions);
+		_specialAttributes[tokenId] = SpecialAttributes(tokenId, _specialChoices, _specialOptions);
+		
+		_tokenAttribute[tokenId] = TokenAttributes(tokenId,
+												_tokenName,
+												_eyeId,
+												_mouthId,
+												_bodyId,
+												_level,
+												_standardAttributes[tokenId],
+												_specialAttributes[tokenId]);
 		_safeMint(_reciever, tokenId);
 		return tokenId;
 	}
