@@ -1,7 +1,7 @@
 import { initialize, Network, NetworkConfig, Provider } from '@decentology/hyperverse';
 import { Localhost, Ethereum } from '@decentology/hyperverse-evm';
 import { FC, VFC } from 'react';
-import * as NFTGame1 from '../../source';
+import { NFTGame } from '../../source/react';
 
 export const HyperverseProvider: FC<{}> = ({ children }) => {
 	const hyperverse = initialize({
@@ -24,7 +24,7 @@ export const HyperverseProvider: FC<{}> = ({ children }) => {
 				  },
 		modules: [
 			{
-				bundle: NFTGame1,
+				bundle: NFTGame,
 				tenantId:
 					process.env.STORYBOOK_NETWORK === 'rinkeby'
 						? '0x62a7aa79a52591Ccc62B71729329A80a666fA50f'

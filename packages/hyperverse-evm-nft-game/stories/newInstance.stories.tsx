@@ -1,7 +1,8 @@
+import React from 'react';
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
-import { Story } from '@storybook/react';
-import { Doc } from '../docs/newInstance.mdx';
+import Doc from '../docs/newInstance.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/NewInstance',
@@ -11,14 +12,10 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof NewInstance>;
 
-const Template: Story = (args) => (
+export const Demo: ComponentStoryFn<typeof NewInstance> = (args) => (
 	<HyperverseProvider>
 		<NewInstance {...args} />
 	</HyperverseProvider>
 );
-
-export const Demo = Template.bind({});
-
-Demo.args = {};

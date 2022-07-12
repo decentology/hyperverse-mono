@@ -87,7 +87,7 @@ export async function NFTGameLibraryInternal(
 		}
 	};
 
-	const levelUp = async(tokenId: number) {
+	const levelUp = async(tokenId: number) => {
 		try {
 			const toggleTxn = await base.proxyContract?.levelUp(tokenId);
 			return toggleTxn.wait() as TransactionReceipt;

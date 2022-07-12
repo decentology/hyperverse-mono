@@ -8,11 +8,11 @@ import {
 
 import Contracts from '../contracts.json';
 import { ContractInterface } from 'ethers';
-import NFTGame1FactoryABI from '../artifacts/contracts/NFTGame1Factory.sol/NFTGame1Factory.json';
-import NFTGame1ABI from '../artifacts/contracts/NFTGame1.sol/NFTGame1.json';
+import NFTGameFactoryABI from '../artifacts/contracts/NFTGameFactory.sol/NFTGameFactory.json';
+import NFTGameABI from '../artifacts/contracts/NFTGame.sol/NFTGame.json';
 
-export const FactoryABI = NFTGame1FactoryABI.abi as ContractInterface;
-export const ContractABI = NFTGame1ABI.abi as ContractInterface;
+export const FactoryABI = NFTGameFactoryABI.abi as ContractInterface;
+export const ContractABI = NFTGameABI.abi as ContractInterface;
 
 const environment = Contracts as EvmEnvironment;
 
