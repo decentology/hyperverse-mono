@@ -1,7 +1,7 @@
 import { initialize, Network, NetworkConfig, Provider } from '@decentology/hyperverse';
 import { Localhost, Ethereum } from '@decentology/hyperverse-evm';
 import { FC, VFC } from 'react';
-import * as NFTGame1 from '../../source';
+import * as NFTGame1 from '../../source/react';
 
 export const HyperverseProvider: FC<{}> = ({ children }) => {
 	const hyperverse = initialize({

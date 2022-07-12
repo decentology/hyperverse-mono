@@ -1,25 +1,23 @@
-import { useNFTGame1 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useNFTGame } from '../source/react';
 import { useEffect, useState } from 'react';
 
-export const GetOwnerOf = ({ ...props }: {account: string, tokenId: string}) => {
-	const nftGame1 = useNFTGame1();
-	const { address } = useEvm();
-	const [data, setData] = useState(props.account);
+export const GetOwnerOf = ({ ...props }: { tokenId: string}) => {
+	const nftGame1 = useNFTGame();
+	const [data, setData] = useState();
 
 	useEffect(() => {
 		if (nftGame1.getOwnerOf) {
 			nftGame1.getOwnerOf(props.tokenId).then(setData);
 		}
-	}, [props.tokenId, props.account, nftGame1.getOwnerOf]);
+	}, [props.tokenId, nftGame1.getOwnerOf]);
 
 	const owner = () => {
 		return data ? (
-			<p>{data}</p>
+			<p>{JSON.stringify(data)}</p>
 		) : (
-			<p>Error!</p>
+			<p>{JSON.stringify(nftGame1.error)}</p>
 		);
 	};
 
-	return <div className="ownerOf"> Owner of token {props.tokenId}: {owner()}</div>;
+	return <div className="body"> Owner of token {props.tokenId}: {owner()}</div>;
 };

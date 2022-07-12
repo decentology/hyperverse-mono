@@ -1,10 +1,10 @@
-import { useNFTGame1 } from '../source';
+import { useNFTGame } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
 export const Transfer = ({ ...props }: { from: string; to: string; tokenId: number }) => {
-	const { transfer } = useNFTGame1();
-	const { address, Connect } = useEvm();
+	const { transfer } = useNFTGame();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -14,7 +14,7 @@ export const Transfer = ({ ...props }: { from: string; to: string; tokenId: numb
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					transfer(props);
+					transfer!(props);
 				}}
 			>
 				Transfer

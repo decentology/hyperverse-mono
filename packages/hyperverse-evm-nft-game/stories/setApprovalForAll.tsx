@@ -1,10 +1,10 @@
-import { useNFTGame1 } from '../source';
+import { useNFTGame } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const ApproveAll = ({ ...props }: { to: string; approved: boolean }) => {
-	const { setApprovalForAll } = useNFTGame1();
-	const { address, Connect } = useEvm();
+export const ApproveAll = ({ ...props }: { operator: string; approved: boolean }) => {
+	const { setApprovalForAll } = useNFTGame();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -14,7 +14,7 @@ export const ApproveAll = ({ ...props }: { to: string; approved: boolean }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setApprovalForAll(props);
+					setApprovalForAll!(props);
 				}}
 			>
 				Approve All

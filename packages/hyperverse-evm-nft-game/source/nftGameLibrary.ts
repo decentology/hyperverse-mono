@@ -87,7 +87,7 @@ export async function NFTGameLibraryInternal(
 		}
 	};
 
-	const levelUp = async(tokenId: number) {
+	const levelUp = async(tokenId: number) => {
 		try {
 			const toggleTxn = await base.proxyContract?.levelUp(tokenId);
 			return toggleTxn.wait() as TransactionReceipt;
@@ -325,17 +325,28 @@ export async function NFTGameLibraryInternal(
 	return {
 		...base,
 		getAttributes,
+		levelUp,
+		modifyDynamicAttributes,
+		setDynamicAttributes,
+		getAttributesByTokenId,
 		mint,
 		setMintPermissions,
 		tenantMint,
 		getBaseURI,
 		setBaseURI,
 		withdraw,
+		withdrawTokens,
 		tokenURI,
+		supportsInterface,
 		getBalanceOf,
 		getOwnerOf,
+		getName,
+		getSymbol,
 		transfer,
 		approve,
+		getApproved,
 		setApprovalForAll,
+		isApprovedForAll,
+		transferFrom
 	};
 }

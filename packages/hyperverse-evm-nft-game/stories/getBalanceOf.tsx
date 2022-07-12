@@ -1,11 +1,10 @@
-import { useNFTGame1 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useNFTGame } from '../source/react';
 import { useEffect, useState } from 'react';
+import { BigNumber } from 'ethers';
 
 export const GetBalanceOf = ({ ...props }: {account: string}) => {
-	const nftGame1 = useNFTGame1();
-	const { address } = useEvm();
-	const [data, setData] = useState(null);
+	const nftGame1 = useNFTGame();
+	const [data, setData] = useState<BigNumber>();
 
 	useEffect(() => {
 		if (nftGame1.getBalanceOf) {
@@ -17,9 +16,9 @@ export const GetBalanceOf = ({ ...props }: {account: string}) => {
 		return data ? (
 			<p>{JSON.stringify(data)}</p>
 		) : (
-			<p>Error.</p>
+			<p>{JSON.stringify(nftGame1.error)}</p>
 		);
 	};
 
-	return <div className="balanceOf"> Balance of: {props.account} {balanceAvailable()}</div>;
+	return <div className="body"> Balance of: {props.account} {balanceAvailable()}</div>;
 };

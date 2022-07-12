@@ -3,7 +3,7 @@ import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse } from '@decentology/hyperverse';
 import { useEvm } from '@decentology/hyperverse-evm';
-import { NFTGameLibrary, NFTGameLibraryType } from './nftGameLibrary';
+import { NFTGameLibrary, NFTGameLibraryType } from '../nftGameLibrary';
 
 function NFTGameState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
@@ -34,8 +34,8 @@ function NFTGameState(initialState: { tenantId: string } = { tenantId: '' }) {
 	};
 }
 
-export const NFTGame = createContainer(NftGameState);
+export const NFTGame = createContainer(NFTGameState);
 
 export function useNFTGame() {
-	return useContainer(NFTGameState);
+	return useContainer(NFTGame);
 }
