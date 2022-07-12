@@ -1,7 +1,7 @@
 import { SetMintPermissions } from './setMintPermissions';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import Doc from '../docs/setMintPermissions.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/SetMintPermissions',
@@ -11,9 +11,9 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof SetMintPermissions>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof SetMintPermissions> = (args) => (
 	<HyperverseProvider>
 		<SetMintPermissions {...args} />
 	</HyperverseProvider>

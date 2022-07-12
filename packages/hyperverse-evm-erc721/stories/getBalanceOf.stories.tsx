@@ -1,6 +1,6 @@
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 import Doc from '../docs/getBalanceOf.mdx';
 
 export default {
@@ -11,9 +11,9 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof GetBalanceOf>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof GetBalanceOf>= (args) => (
 	<HyperverseProvider>
 		<GetBalanceOf {...args} />
 	</HyperverseProvider>

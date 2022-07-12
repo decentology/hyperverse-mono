@@ -1,6 +1,7 @@
 import { ApproveAll } from './setApprovalForAll';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/setApprovalForAll.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/ApproveAll',
@@ -10,9 +11,9 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof ApproveAll>;
 
-const Template = (args: any) => (
+const Template: ComponentStoryFn<typeof ApproveAll> = (args: any) => (
 	<HyperverseProvider>
 		<ApproveAll {...args} />
 	</HyperverseProvider>

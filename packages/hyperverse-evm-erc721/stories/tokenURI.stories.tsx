@@ -1,7 +1,7 @@
 import { TokenURI } from './tokenURI';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/tokenURI.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
+import Doc from '../docs/tokenURI.mdx';
 
 export default {
 	title: 'Components/TokenURI',
@@ -11,9 +11,9 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof TokenURI>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof TokenURI> = (args) => (
 	<HyperverseProvider>
 		<TokenURI {...args} />
 	</HyperverseProvider>

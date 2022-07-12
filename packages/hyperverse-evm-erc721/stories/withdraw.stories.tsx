@@ -1,7 +1,7 @@
 import { Withdraw } from './withdraw';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/withdraw.mdx';
+import Doc from '../docs/withdraw.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/Withdraw',
@@ -11,9 +11,9 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof Withdraw>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof Withdraw> = (args) => (
 	<HyperverseProvider>
 		<Withdraw {...args} />
 	</HyperverseProvider>

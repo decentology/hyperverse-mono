@@ -1,6 +1,5 @@
-import { useERC721 } from '../source';
+import { useERC721 } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm/react';
-import { useState } from 'react';
 import './style.css';
 
 export const Withdraw = ({ ...props }) => {

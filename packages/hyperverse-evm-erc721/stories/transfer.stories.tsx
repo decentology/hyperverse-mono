@@ -1,6 +1,7 @@
 import { Transfer } from './transfer';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/transfer.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/Transfer',
@@ -10,9 +11,9 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof Transfer>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof Transfer> = (args) => (
 	<HyperverseProvider>
 		<Transfer {...args} />
 	</HyperverseProvider>

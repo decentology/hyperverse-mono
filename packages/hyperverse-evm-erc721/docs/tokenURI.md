@@ -55,7 +55,7 @@ Demo.args = {
 ### Main UI Component
 
 ```jsx
-import { useERC721 } from '../source';
+import { useERC721 } from '../source/react';
 import { useEffect, useState } from 'react';
 
 export const TokenURI = ({ ...props }: { tokenId: number }) => {

@@ -1,5 +1,6 @@
 import { GetBaseURI } from './getBaseURI';
 import { HyperverseProvider } from './utils/Provider';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 import Doc from '../docs/getBaseURI.mdx';
 
 export default {
@@ -10,9 +11,9 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof GetBaseURI>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof GetBaseURI>= (args) => (
 	<HyperverseProvider>
 		<GetBaseURI {...args} />
 	</HyperverseProvider>

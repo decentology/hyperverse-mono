@@ -1,11 +1,9 @@
-import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm/react';
+import { useERC721 } from '../source/react';
 import { useEffect, useState } from 'react';
-import { BigNumber } from 'ethers';
 
-export const GetOwnerOf = ({ ...props }: { account: string; tokenId: string }) => {
+export const GetOwnerOf = ({ ...props }: {  tokenId: string }) => {
 	const erc721 = useERC721();
-	const [data, setData] = useState(props.account);
+	const [data, setData] = useState('');
 
 	useEffect(() => {
 		if (erc721.getOwnerOf) {

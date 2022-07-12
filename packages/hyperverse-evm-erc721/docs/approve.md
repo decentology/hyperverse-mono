@@ -56,7 +56,7 @@ Demo.args = {
 ### Main UI Component
 
 ```jsx
-import { useERC721 } from '../source';
+import { useERC721 } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
