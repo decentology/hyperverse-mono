@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { useHyperverse } from '@decentology/hyperverse';
-import { useEvm } from '@decentology/hyperverse-evm';
-import { ERC20Library, ERC20LibraryType } from './erc20Library';
+import { useHyperverse } from '@decentology/hyperverse/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
+import { ERC20Library, ERC20LibraryType } from '../erc20Library';
 
 function ERC20State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
