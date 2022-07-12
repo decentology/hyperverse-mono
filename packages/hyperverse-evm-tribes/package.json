@@ -6,7 +6,7 @@
 	"main": "./distribution/index.mjs",
 	"exports": {
 		".": {
-			"default": "./source/index.ts"
+			"import": "./source/index.ts"
 		},
 		"./react": "./source/react"
 	},
