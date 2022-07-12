@@ -23,5 +23,4 @@ Demo.args = {
 	price: 0.005,
 	maxSupply: 50,
 	maxPerUser: 5,
-	lockCollection: false,
 };

@@ -37,6 +37,7 @@ contract ERC721 is
 		uint256 maxSupply;
 		uint256 maxPerUser;
 		bool isPublicSaleActive;
+		bool isCollectionLocked; // locks the values of CollectionInfo
 	}
 	address public immutable contractOwner;
 
@@ -49,7 +50,6 @@ contract ERC721 is
 	string private baseURI;
 
 	bool private _isCollection; // true if contract is an NFT collection
-	bool public collectionLock; // locks the values of CollectionInfo
 	CollectionInfo public collectionInfo;
 
 	mapping(uint256 => address) private _owners;
@@ -146,7 +146,7 @@ contract ERC721 is
 	}
 
 	modifier collectionLocked() {
-		if (collectionLock == true) {
+		if (collectionInfo.isCollectionLocked == true) {
 			revert CollectionLocked();
 		}
 		_;
@@ -229,16 +229,14 @@ contract ERC721 is
 	function initializeCollection(
 		uint256 _price,
 		uint256 _maxSupply,
-		uint256 _maxPerUser,
-		bool _lockCollection
+		uint256 _maxPerUser
 	) external isTenantOwner {
-		if(collectionLock == true) {
+		if(collectionInfo.isCollectionLocked == true) {
 			revert InitializeLocked();
 		}
 		collectionInfo.price = _price;
 		collectionInfo.maxSupply = _maxSupply;
 		collectionInfo.maxPerUser = _maxPerUser;
-		collectionLock = _lockCollection;
 		_isCollection = true;
 	}
 
@@ -256,7 +254,7 @@ contract ERC721 is
 	}
 
 	function lockCollection() external isTenantOwner collectionLocked {
-		collectionLock = true;
+		collectionInfo.isCollectionLocked = true;
 	}
 	
 

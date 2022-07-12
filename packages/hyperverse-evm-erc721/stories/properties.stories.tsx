@@ -21,7 +21,8 @@ function Properties() {
 	const [name, setName] = useState('');
 	const [symbol, setSymbol] = useState('');
 	const [collectionInfo, setCollectionInfo] = useState<CollectionInfo>({
-		lockCollection: false,
+		isPublicSaleActive: false,
+		isCollectionLocked: false,
 		maxPerUser: BigNumber.from(0),
 		maxSupply: BigNumber.from(0),
 		price: BigNumber.from(0),
@@ -35,11 +36,11 @@ function Properties() {
 				const collectionInfo = await getCollectionInfo!();
 				const totalTokens = await getTokenCounter!();
 				setName(name);
-				console.log(name);
 				setSymbol(symbol);
 				setTotalTokens(totalTokens.toNumber());
 				setCollectionInfo({
-					lockCollection: collectionInfo.lockCollection,
+					isPublicSaleActive: collectionInfo.isPublicSaleActive,
+					isCollectionLocked: collectionInfo.isCollectionLocked,
 					maxPerUser: collectionInfo.maxPerUser,
 					maxSupply: collectionInfo.maxSupply,
 					price: collectionInfo.price,
@@ -60,7 +61,11 @@ function Properties() {
 				</li>
 				<li>
 					<span style={{ fontWeight: 'bold' }}>Public Sale:</span>{' '}
-					{collectionInfo.lockCollection.toString()}
+					{collectionInfo.isPublicSaleActive.toString()}
+				</li>
+				<li>
+					<span style={{ fontWeight: 'bold' }}>Public Sale:</span>{' '}
+					{collectionInfo.isCollectionLocked.toString()}
 				</li>
 				<li>
 					<span style={{ fontWeight: 'bold' }}>Max Supply:</span>{' '}

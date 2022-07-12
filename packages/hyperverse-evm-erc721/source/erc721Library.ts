@@ -37,19 +37,16 @@ export async function ERC721LibraryInternal(
 		price,
 		maxSupply,
 		maxPerUser,
-		lockCollection,
 	}: {
 		price: number;
 		maxSupply: number;
 		maxPerUser: number;
-		lockCollection: boolean;
 	}) => {
 		try {
 			const tnx = await base.proxyContract?.initializeCollection(
 				ethers.utils.parseEther(price.toString()),
 				maxSupply,
 				maxPerUser,
-				lockCollection,
 				{ gasLimit: '1000000' }
 			);
 			return tnx.wait() as TransactionReceipt;
@@ -83,6 +80,15 @@ export async function ERC721LibraryInternal(
 	const setMintPermissions = async (isPublic: boolean) => {
 		try {
 			const toggleTxn = await base.proxyContract?.setMintPermissions(isPublic);
+			return toggleTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const lockCollection = async () => {
+		try {
+			const toggleTxn = await base.proxyContract?.lockCollection();
 			return toggleTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
@@ -294,6 +300,7 @@ export async function ERC721LibraryInternal(
 		getName,
 		getSymbol,
 		getTokenCounter,
+		lockCollection ,
 		contractBalance,
 	};
 }

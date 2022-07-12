@@ -13,20 +13,12 @@ export default {
 	},
 } as ComponentMeta<typeof SetMintPermissions>;
 
-const Template: ComponentStoryFn<typeof SetMintPermissions> = (args) => (
+export const Demo: ComponentStoryFn<typeof SetMintPermissions> = (args) => (
 	<HyperverseProvider>
 		<SetMintPermissions {...args} />
 	</HyperverseProvider>
 );
 
-export const True = Template.bind({});
-
-True.args = {
+Demo.args = {
 	isPublic: true,
-};
-
-export const False = Template.bind({});
-
-False.args = {
-	isPublic: false,
 };

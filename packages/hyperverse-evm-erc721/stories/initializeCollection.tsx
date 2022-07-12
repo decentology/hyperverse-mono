@@ -8,7 +8,6 @@ export const InitializeCollection = ({
 	price: number;
 	maxSupply: number;
 	maxPerUser: number;
-	lockCollection: boolean;
 }) => {
 	const { initializeCollection } = useERC721();
 	const { Connect } = useEvm();
