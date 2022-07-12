@@ -78,7 +78,7 @@ export async function NFTGameLibraryInternal(
 		}
 	};
 
-	const getAttributes = async (tokenId: number) => {
+	const getAttributesByTokenId = async (tokenId: number) => {
 		try {
 			const attrs = await base.proxyContract?.getAttributesByTokenId(tokenId);
 			return attrs;
@@ -109,15 +109,6 @@ export async function NFTGameLibraryInternal(
 		try {
 			const tx = await base.proxyContract?.setDynamicAttributes(tokenId, attributes);
 			return tx.wait() as TransactionReceipt;
-		} catch (error) {
-			throw error;
-		}
-	}
-
-	const getAttributesByTokenId = async (tokenId: number) => { 
-		try {
-			const attrs = await base.proxyContract?.getAttributesByTokenId(tokenId);
-			return attrs;
 		} catch (error) {
 			throw error;
 		}
@@ -324,11 +315,10 @@ export async function NFTGameLibraryInternal(
 
 	return {
 		...base,
-		getAttributes,
+		getAttributesByTokenId,
 		levelUp,
 		modifyDynamicAttributes,
 		setDynamicAttributes,
-		getAttributesByTokenId,
 		mint,
 		setMintPermissions,
 		tenantMint,
