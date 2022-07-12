@@ -45,7 +45,7 @@ export type HyperverseConfig = {
 export type HyperverseModuleBase = {
 	bundle: {
 		ModuleName?: string;
-		Provider: FC<HyperverseModuleInstance>;
+		Provider?: FC<HyperverseModuleInstance>;
 	};
 	tenantId: string;
 	autoLoadContext?: boolean;

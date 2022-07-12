@@ -64,7 +64,7 @@ function Properties() {
 					{collectionInfo.isPublicSaleActive.toString()}
 				</li>
 				<li>
-					<span style={{ fontWeight: 'bold' }}>Public Sale:</span>{' '}
+					<span style={{ fontWeight: 'bold' }}>Collection Locked:</span>{' '}
 					{collectionInfo.isCollectionLocked.toString()}
 				</li>
 				<li>

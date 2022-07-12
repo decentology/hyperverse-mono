@@ -152,18 +152,6 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-	const withdrawTo = async (to: string, price: number) => {
-		try {
-			const withdrawTxn = await base.proxyContract?.['withdrawTo(address,uint256)'](
-				to,
-				ethers.utils.parseEther(price.toString())
-			);
-			return withdrawTxn.wait() as TransactionReceipt;
-		} catch (error) {
-			throw error;
-		}
-	};
-
 	const tokenURI = async (tokenId: number) => {
 		try {
 			const tokenURI = await base.proxyContract?.tokenURI(tokenId);
@@ -289,7 +277,6 @@ export async function ERC721LibraryInternal(
 		getBaseURI,
 		setBaseURI,
 		withdraw,
-		withdrawTo,
 		tokenURI,
 		getBalanceOf,
 		getOwnerOf,
