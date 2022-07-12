@@ -37,14 +37,41 @@ export async function NFTGameLibraryInternal(
 		eyeId: number;
 		mouthId: number;
 		bodyId: number;
+		level: number;
+		standardChoices: number[];
+		standardOptions: number[];
+		specialChoices: number[];
+		specialOptions: number[];
 	};
 	type MintType = {
 		to: string;
 	} & MetaData;
 
-	const mint = async ({ to, tokenName, eyeId, mouthId, bodyId }: MintType) => {
+	const mint = async ({
+		to,
+		tokenName,
+		eyeId,
+		mouthId,
+		bodyId,
+		level,
+		standardChoices,
+		standardOptions,
+		specialChoices,
+		specialOptions,
+	}: MintType) => {
 		try {
-			const mintTxn = await base.proxyContract?.mint(to, tokenName, eyeId, mouthId, bodyId);
+			const mintTxn = await base.proxyContract?.mint(
+				to,
+				tokenName,
+				eyeId,
+				mouthId,
+				bodyId,
+				level,
+				standardChoices,
+				standardOptions,
+				specialChoices,
+				specialOptions
+			);
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
@@ -52,6 +79,42 @@ export async function NFTGameLibraryInternal(
 	};
 
 	const getAttributes = async (tokenId: number) => {
+		try {
+			const attrs = await base.proxyContract?.getAttributesByTokenId(tokenId);
+			return attrs;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const levelUp = async(tokenId: number) {
+		try {
+			const toggleTxn = await base.proxyContract?.levelUp(tokenId);
+			return toggleTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	const modifyDynamicAttributes = async (tokenId: number, attributes: number[]) => { 
+		try {
+			const tx = await base.proxyContract?.modifyDynamicAttributes(tokenId, attributes);
+			return tx.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	const setDynamicAttributes = async (tokenId: number, attributes: number[]) => { 
+		try {
+			const tx = await base.proxyContract?.setDynamicAttributes(tokenId, attributes);
+			return tx.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	const getAttributesByTokenId = async (tokenId: number) => { 
 		try {
 			const attrs = await base.proxyContract?.getAttributesByTokenId(tokenId);
 			return attrs;
@@ -69,15 +132,36 @@ export async function NFTGameLibraryInternal(
 		}
 	};
 
-	const tenantMint = async ({ to, tokenName, eyeId, mouthId, bodyId }: MintType) => {
+	const tenantMint = async ({
+		to,
+		tokenName,
+		eyeId,
+		mouthId,
+		bodyId,
+		level,
+		standardChoices,
+		standardOptions,
+		specialChoices,
+		specialOptions
+	}: MintType) => {
 		try {
-			const mintTxn = await base.proxyContract?.tenantMint(to, tokenName, eyeId, mouthId, bodyId);
+			const mintTxn = await base.proxyContract?.tenantMint(
+				to,
+				tokenName,
+				eyeId,
+				mouthId,
+				bodyId,
+				level,
+				standardChoices,
+				standardOptions,
+				specialChoices,
+				specialOptions
+			);
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;
 		}
 	};
-
 
 	const setBaseURI = async (baseURI: string) => {
 		try {
@@ -106,6 +190,15 @@ export async function NFTGameLibraryInternal(
 		}
 	};
 
+	const withdrawTokens = async () => { 
+		try {
+			const tx = await base.proxyContract?.withdrawTokens();
+			return tx.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	}
+
 	const tokenURI = async (tokenId: number) => {
 		try {
 			const tokenURI = await base.proxyContract?.tokenURI(tokenId);
@@ -114,6 +207,15 @@ export async function NFTGameLibraryInternal(
 			throw error;
 		}
 	};
+
+	const supportsInterface = async (interfaceId: string) => { 
+		try {
+			const supportsInterface = await base.proxyContract?.supportsInterface(interfaceId);
+			return supportsInterface;
+		} catch (error) {
+			throw error;
+		}
+	}
 
 	const getBalanceOf = async (account: string) => {
 		try {
@@ -128,6 +230,24 @@ export async function NFTGameLibraryInternal(
 		try {
 			const owner = await base.proxyContract?.ownerOf(tokenId);
 			return owner;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const getName = async () => {
+		try {
+			const name = (await base.proxyContract?.name()) as string;
+			return name;
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const getSymbol = async () => {
+		try {
+			const name = (await base.proxyContract?.symbol()) as string;
+			return name;
 		} catch (error) {
 			throw error;
 		}
@@ -159,6 +279,15 @@ export async function NFTGameLibraryInternal(
 		}
 	};
 
+	const getApproved = async (tokenId: number) => { 
+		try {
+			const approved = await base.proxyContract?.getApproved(tokenId);
+			return approved;
+		} catch (error) {
+			throw error;
+		}
+	}
+
 	const setApprovalForAll = async ({
 		operator,
 		approved,
@@ -173,6 +302,25 @@ export async function NFTGameLibraryInternal(
 			throw error;
 		}
 	};
+
+	const isApprovedForAll = async ({owner, operator}: {owner: string, operator:string}) => {
+		try {
+			const isApprovedForAll = await base.proxyContract?.isApprovedForAll(owner, operator);
+			return isApprovedForAll;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+
+	const transferFrom = async ({from, to, tokenId}: {from: string, to: string, tokenId: number}) => {
+		try {
+			const transferFromTxn = await base.proxyContract?.transferFrom(from, to, tokenId);
+			return transferFromTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	}
 
 	return {
 		...base,
