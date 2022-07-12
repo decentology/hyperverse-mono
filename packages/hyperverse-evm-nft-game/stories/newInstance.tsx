@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNFTGame } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
@@ -14,7 +15,11 @@ export const NewInstance = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					createInstance!({ account: address!, name: 'TEST', symbol:'TST' });
+					createInstance!({
+						name: 'TEST',
+						symbol: 'TST',
+						account: address!,
+					});
 				}}
 			>
 				New Instance
