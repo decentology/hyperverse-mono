@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 import { BigNumber, ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import { CollectionInfo } from '../source/types';
-import { useERC721 } from '../source';
+import { useERC721 } from '../source/react';
 import { HyperverseProvider } from './utils/Provider';
 import { Story } from '@storybook/react';
 
@@ -23,7 +23,7 @@ function Properties() {
 	const [name, setName] = useState('');
 	const [symbol, setSymbol] = useState('');
 	const [collectionInfo, setCollectionInfo] = useState<CollectionInfo>({
-		isPublicSaleActive: false,
+		lockCollection: false,
 		maxPerUser: BigNumber.from(0),
 		maxSupply: BigNumber.from(0),
 		price: BigNumber.from(0),
@@ -41,7 +41,7 @@ function Properties() {
 				setSymbol(symbol);
 				setTotalTokens(totalTokens.toNumber());
 				setCollectionInfo({
-					isPublicSaleActive: collectionInfo.isPublicSaleActive,
+					lockCollection: collectionInfo.lockCollection,
 					maxPerUser: collectionInfo.maxPerUser,
 					maxSupply: collectionInfo.maxSupply,
 					price: collectionInfo.price,
@@ -62,7 +62,7 @@ function Properties() {
 				</li>
 				<li>
 					<span style={{ fontWeight: 'bold' }}>Public Sale:</span>{' '}
-					{collectionInfo.isPublicSaleActive.toString()}
+					{collectionInfo.lockCollection.toString()}
 				</li>
 				<li>
 					<span style={{ fontWeight: 'bold' }}>Max Supply:</span>{' '}

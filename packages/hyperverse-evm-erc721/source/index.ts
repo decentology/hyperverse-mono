@@ -1,4 +1,4 @@
-import { Provider } from './Provider';
+import { Provider } from './react/Provider';
 export * from './types';
 export const ModuleName = 'ERC721';
 

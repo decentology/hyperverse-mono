@@ -1,9 +1,9 @@
-import { useERC721 } from '../source';
+import { useERC721 } from '../source/react';
 import { useEffect, useState } from 'react';
 
 export const GetOwnerOf = ({ ...props }: { tokenId: string }) => {
 	const erc721 = useERC721();
-	const [data, setData] = useState();
+	const [data, setData] = useState('');
 
 	useEffect(() => {
 		if (erc721.getOwnerOf) {

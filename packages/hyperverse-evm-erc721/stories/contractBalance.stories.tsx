@@ -1,11 +1,11 @@
-import { GetBaseURI } from './getBaseURI';
+import { ContractBalance } from './contractBalance';
 import { HyperverseProvider } from './utils/Provider';
-import Doc from '../docs/getBaseURI.mdx';
 import { Story } from '@storybook/react';
+import Doc from '../docs/contractBalance.mdx';
 
 export default {
-	title: 'Components/GetBaseURI',
-	component: GetBaseURI,
+	title: 'Components/ContractBalance',
+	component: ContractBalance,
 	parameters: {
 		docs: {
 			page: Doc,
@@ -15,7 +15,7 @@ export default {
 
 const Template: Story = (args: any) => (
 	<HyperverseProvider>
-		<GetBaseURI {...args} />
+		<ContractBalance {...args} />
 	</HyperverseProvider>
 );
 

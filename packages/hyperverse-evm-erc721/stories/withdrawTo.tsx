@@ -1,10 +1,9 @@
 import { useERC721 } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm/react';
-import { ReactElement } from 'react';
 import './style.css';
 
-export const SetBaseURI = ({ baseURI }: {baseURI: string}): ReactElement => {
-	const { setBaseURI } = useERC721();
+export const WithdrawTo = ({ ...props }) => {
+	const { withdrawTo } = useERC721();
 	const { Connect } = useEvm();
 
 	return (
@@ -15,10 +14,10 @@ export const SetBaseURI = ({ baseURI }: {baseURI: string}): ReactElement => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setBaseURI!(baseURI);
+					withdrawTo!(props.to, props.price);
 				}}
 			>
-				Set Base URI
+				Withdraw To
 			</button>
 		</>
 	);

@@ -1,7 +1,7 @@
 import { InitializeCollection } from './initializeCollection';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/initializeCollection.mdx';
-import { Story } from '@storybook/react';
+import { ComponentMeta, Story } from '@storybook/react';
 
 export default {
 	title: 'Components/InitializeCollection',
@@ -18,6 +18,8 @@ const Template: Story = (args: any) => (
 		<InitializeCollection {...args} />
 	</HyperverseProvider>
 );
+
+export const Demo = Template.bind({});
 
 Demo.args = {
 	price: 0.005,
