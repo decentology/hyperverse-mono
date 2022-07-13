@@ -1,5 +1,6 @@
 import { initialize, Provider, Network } from '@decentology/hyperverse/react';
-import { Ethereum } from '@decentology/hyperverse-ethereum';
+import { Ethereum } from '@decentology/hyperverse-ethereum/react';
+import '@decentology/hyperverse-ethereum/styles.css';
 import { NFTGame } from '@decentology/hyperverse-evm-nft-game/react';
 
 import { globalCss } from '../stitches.config';

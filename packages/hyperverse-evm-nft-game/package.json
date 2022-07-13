@@ -46,6 +46,7 @@
 	"dependencies": {
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/hyperverse-evm-nft-game": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
 		"@openzeppelin/contracts": "^4.6.0",
 		"ethers": "^5.6.8",

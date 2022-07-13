@@ -1,5 +1,5 @@
-export const ModuleName = 'NFTGame1';
+export const ModuleName = 'NFTGame';
 
-export const NFTGame1 = {
+export const NFTGame = {
 	ModuleName,
 };
