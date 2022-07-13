@@ -1,6 +1,6 @@
 import { SetMintPermissions } from './setMintPermissions';
 import { HyperverseProvider } from './utils/Provider';
-import Doc from '../docs/transfer.mdx';
+import Doc from '../docs/setMintPermissions.mdx';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {

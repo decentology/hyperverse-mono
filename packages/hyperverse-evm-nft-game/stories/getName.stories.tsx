@@ -1,7 +1,7 @@
 import { GetName } from './getName';
 import { HyperverseProvider } from './utils/Provider';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
-import Doc from '../docs/getBalanceOf.mdx';
+import Doc from '../docs/getName.mdx';
 
 export default {
 	title: 'Components/GetName',

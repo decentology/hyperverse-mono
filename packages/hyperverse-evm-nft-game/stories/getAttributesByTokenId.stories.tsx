@@ -1,7 +1,7 @@
 import { GetAttributesByTokenId } from './getAttributesByTokenId';
 import { HyperverseProvider } from './utils/Provider';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
-import Doc from '../docs/getBalanceOf.mdx';
+import Doc from '../docs/getAttributesByTokenId.mdx';
 
 export default {
 	title: 'Components/GetAttributesByTokenId',

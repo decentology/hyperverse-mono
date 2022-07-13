@@ -1,21 +1,21 @@
-import { ApproveAll } from './setApprovalForAll';
+import { SetApprovalForAll } from './setApprovalForAll';
 import { HyperverseProvider } from './utils/Provider';
 import Doc from '../docs/setApprovalForAll.mdx';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
-	title: 'Components/ApproveAll',
-	component: ApproveAll,
+	title: 'Components/SetApprovalForAll',
+	component: SetApprovalForAll,
 	parameters: {
 		docs: {
 			page: Doc,
 		},
 	},
-} as ComponentMeta<typeof ApproveAll>;
+} as ComponentMeta<typeof SetApprovalForAll>;
 
-const Template: ComponentStoryFn<typeof ApproveAll> = (args: any) => (
+const Template: ComponentStoryFn<typeof SetApprovalForAll> = (args: any) => (
 	<HyperverseProvider>
-		<ApproveAll {...args} />
+		<SetApprovalForAll {...args} />
 	</HyperverseProvider>
 );
 

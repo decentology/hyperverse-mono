@@ -1,7 +1,6 @@
 import { useNFTGame } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
-import { NumberLiteralType } from 'typescript';
 
 export const Mint = ({
 	...props

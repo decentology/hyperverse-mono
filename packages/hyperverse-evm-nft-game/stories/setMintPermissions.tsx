@@ -17,7 +17,7 @@ export const SetMintPermissions = ({ ...props }: { isPublic: boolean }) => {
 					setMintPermissions!(props.isPublic);
 				}}
 			>
-				Public Mint
+				Set Mint Permissions
 			</button>
 		</>
 	);

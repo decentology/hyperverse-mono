@@ -2,7 +2,7 @@ import { useNFTGame } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const ApproveAll = ({ ...props }: { operator: string; approved: boolean }) => {
+export const SetApprovalForAll = ({ ...props }: { operator: string; approved: boolean }) => {
 	const { setApprovalForAll } = useNFTGame();
 	const { Connect } = useEvm();
 
@@ -17,7 +17,7 @@ export const ApproveAll = ({ ...props }: { operator: string; approved: boolean }
 					setApprovalForAll!(props);
 				}}
 			>
-				Approve All
+				Set Approval for All
 			</button>
 		</>
 	);

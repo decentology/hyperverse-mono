@@ -1,7 +1,7 @@
 import { GetSymbol } from './getSymbol';
 import { HyperverseProvider } from './utils/Provider';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
-import Doc from '../docs/getBalanceOf.mdx';
+import Doc from '../docs/getSymbol.mdx';
 
 export default {
 	title: 'Components/GetSymbol',
