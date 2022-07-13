@@ -40,8 +40,7 @@ async function main() {
 		const instanceTnx = await nftFactoryContract.createInstance(
 			deployer.address,
 			'Test',
-			'TST',
-			'https://example.com/'
+			'TST'
 		);
 		instanceTnx.wait();
 		console.log('Instance Created', instanceTnx.hash);
