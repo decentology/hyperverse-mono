@@ -15,11 +15,11 @@ async function main() {
 	console.log('Deploying contracts with the account:', deployer.address);
 	console.log('Account balance:', (await deployer.getBalance()).toString());
 
-	const NFT = await ethers.getContractFactory('NFTGame1');
+	const NFT = await ethers.getContractFactory('NFTGame');
 	const nftContract = await NFT.deploy(hyperverseAdmin);
 	await nftContract.deployed();
 
-	const NFTFactory = await ethers.getContractFactory('NFTGame1Factory');
+	const NFTFactory = await ethers.getContractFactory('NFTGameFactory');
 	const nftFactoryContract = await NFTFactory.deploy(nftContract.address, hyperverseAdmin);
 	await nftFactoryContract.deployed();
 

@@ -1,11 +1,11 @@
 const { ethers } = require('hardhat');
 const { expect } = require('chai');
 
-describe('NFTGame1', function () {
-  let NFTGame1;
-  let nftGame1ctr;
-  let NFTGame1Factory;
-  let nftGame1factoryCtr;
+describe('NFTGame', function () {
+  let NFTGame;
+  let nftGamectr;
+  let NFTGameFactory;
+  let nftGamefactoryCtr;
   let alice;
   let bob;
   let owner;
@@ -13,25 +13,25 @@ describe('NFTGame1', function () {
 
   beforeEach(async () => {
     [owner, alice, bob] = await ethers.getSigners();
-    NFTGame1 = await ethers.getContractFactory('NFTGame1');
-    nftGame1ctr = await NFTGame1.deploy(owner.address);
-    await nftGame1ctr.deployed();
+    NFTGame = await ethers.getContractFactory('NFTGame');
+    nftGamectr = await NFTGame.deploy(owner.address);
+    await nftGamectr.deployed();
 
-    NFTGame1Factory = await ethers.getContractFactory('NFTGame1Factory');
-    nftGame1factoryCtr = await NFTGame1Factory.deploy(nftGame1ctr.address, owner.address);
-    await nftGame1factoryCtr.deployed();
+    NFTGameFactory = await ethers.getContractFactory('NFTGameFactory');
+    nftGamefactoryCtr = await NFTGameFactory.deploy(nftGamectr.address, owner.address);
+    await nftGamefactoryCtr.deployed();
 
-    await nftGame1factoryCtr.connect(alice).createInstance(alice.address, "ALICE", "ALC");
-    aliceProxyContract = await NFTGame1.attach(await nftGame1factoryCtr.getProxy(alice.address));
+    await nftGamefactoryCtr.connect(alice).createInstance(alice.address, "ALICE", "ALC");
+    aliceProxyContract = await NFTGame.attach(await nftGamefactoryCtr.getProxy(alice.address));
 
     aliceProxyContract.connect(alice).setMintPermissions(true);
   });
 
   it('Master Contract should match exampleNFTContract', async function () {
-    expect(await nftGame1factoryCtr.masterContract()).to.equal(nftGame1ctr.address);
+    expect(await nftGamefactoryCtr.masterContract()).to.equal(nftGamectr.address);
   });
 
-  it("Should match alice's initial token data", async function () {
+  it("Should match alice's initial token data and mint", async function () {
     expect(await aliceProxyContract.name()).to.equal('ALICE');
     expect(await aliceProxyContract.symbol()).to.equal('ALC');
 
@@ -46,9 +46,11 @@ describe('NFTGame1', function () {
     const getTokenAttr = await aliceProxyContract.connect(alice).getAttributesByTokenId(1);
     tokenId = parseInt(getTokenAttr[0])
     console.log('Token ID -', tokenId)
+
   });
 
   it("Should modify dynamic attributes data", async function () {
+
     const getStandardMemoryBefore = await aliceProxyContract.connect(alice).getStandardAttrMemory();
     console.log('Standard Token Attr Before -', getStandardMemoryBefore)
 
@@ -57,5 +59,21 @@ describe('NFTGame1', function () {
     
     console.log('Standard Token Attr After -', getStandardMemoryAfter)
   });
+
+  it("Should set attributes for NFT", async function () {
+
+    await aliceProxyContract.connect(alice).setDynamicAttribute(1, 0, [1,1,1,1,1]);
+
+    const getTokenAttr1 = await aliceProxyContract.connect(alice).getAttributesByTokenId(1);
+    console.log('Token Info -', getTokenAttr1)
+  });
+
+  // it("Should level-up NFT attributes", async function () {
+
+  //   await aliceProxyContract.connect(alice).levelUp(1);
+
+  //   const getTokenAttr1 = await aliceProxyContract.connect(alice).getAttributesByTokenId(1);
+  //   console.log('NFT data after -', getTokenAttr1)
+  // });
 
 });

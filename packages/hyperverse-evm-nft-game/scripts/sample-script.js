@@ -14,14 +14,14 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const NFTGame1 = await hre.ethers.getContractFactory("NFTGame1");
+  const NFTGame = await hre.ethers.getContractFactory("NFTGame");
   // Gas cost: 1875000000
-  const masterContract = await NFTGame1.deploy();
+  const masterContract = await NFTGame.deploy();
   console.log("Master contract deployment");
   console.log(masterContract);
 
-  const NFTGame1Factory = await hre.ethers.getContractFactory("NFTGame1Factory");
-  const factoryContract = await NFTGame1Factory.deploy(masterContract.address);
+  const NFTGameFactory = await hre.ethers.getContractFactory("NFTGameFactory");
+  const factoryContract = await NFTGameFactory.deploy(masterContract.address);
 
   await masterContract.deployed();
   await factoryContract.deployed();
