@@ -3,8 +3,8 @@ import { styled } from '../stitches.config';
 import { Button } from './basics/Button';
 import { InfoHeading } from './basics/InfoHeading';
 import { InputContainer, Label, StyledInput } from './basics/Input';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useNFTGame } from '@decentology/hyperverse-evm-nft-game-1';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useNFTGame } from '@decentology/hyperverse-evm-nft-game/react';
 import { useMutation, useQuery } from 'react-query';
 import { Container, Inputs, ButtonContainer } from './CreateInstance';
 
@@ -16,11 +16,11 @@ export const GetAttributes = () => {
 		enabled: !!NFTGame.factoryContract,
 	});
 
-	const [tokenId, setTokenId] = React.useState<string | undefined>();
+	const [tokenId, setTokenId] = React.useState<number>();
 
 	const { data: attributes, isLoading, refetch } = useQuery(
 		'attributes',
-		() => NFTGame.getAttributes!(tokenId),
+		() => NFTGame.getAttributesByTokenId!(tokenId!),
 		{
 			enabled: !!NFTGame.factoryContract,
 		}
@@ -39,7 +39,7 @@ export const GetAttributes = () => {
 							<Label>Token ID</Label>
 							<StyledInput
 								placeholder="Token ID"
-								onChange={(e) => setTokenId(e.target.value)}
+								onChange={(e) => setTokenId(parseInt(e.target.value))}
 							/>
 						</InputContainer>
 					</Inputs>

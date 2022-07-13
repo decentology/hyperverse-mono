@@ -3,8 +3,8 @@ import { styled } from '../stitches.config';
 import { Button } from './basics/Button';
 import { InfoHeading } from './basics/InfoHeading';
 import { InputContainer, Label, StyledInput } from './basics/Input';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useNFTGame } from '@decentology/hyperverse-evm-nft-game-1';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useNFTGame } from '@decentology/hyperverse-evm-nft-game/react';
 import { useMutation, useQuery } from 'react-query';
 import { NavLink } from './basics/NavLink';
 

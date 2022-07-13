@@ -4,7 +4,7 @@ import { styled } from '../stitches.config'
 import { HEADER_LINKS } from '../utils/constants'
 import { Github } from './basics/icons'
 import { NavLink } from './basics/NavLink'
-import { useEthereum } from '@decentology/hyperverse-ethereum'
+import { useEthereum } from '@decentology/hyperverse-ethereum/react'
 import dynamic from 'next/dynamic'
 
 export function Header() {

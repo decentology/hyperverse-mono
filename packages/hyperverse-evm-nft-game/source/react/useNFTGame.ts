@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { useHyperverse } from '@decentology/hyperverse';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useHyperverse } from '@decentology/hyperverse/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import { NFTGameLibrary, NFTGameLibraryType } from '../nftGameLibrary';
 
 function NFTGameState(initialState: { tenantId: string } = { tenantId: '' }) {

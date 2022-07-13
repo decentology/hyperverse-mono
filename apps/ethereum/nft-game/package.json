@@ -11,7 +11,7 @@
   "dependencies": {
     "@decentology/hyperverse": "workspace:^",
     "@decentology/hyperverse-ethereum": "workspace:^",
-    "@decentology/hyperverse-evm-nft-game-1": "workspace:^",
+    "@decentology/hyperverse-evm-nft-game": "workspace:^",
     "@decentology/unstated-next": "^1.1.1",
     "@radix-ui/react-hover-card": "^0.1.5",
     "@stitches/react": "^1.2.6",
@@ -21,7 +21,8 @@
     "next-transpile-modules": "^9.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-query": "^3.38.0"
+    "react-query": "^3.38.0",
+    "react-toastify": "^9.0.5"
   },
   "devDependencies": {
     "@decentology/config": "^1.0.0",

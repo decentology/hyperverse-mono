@@ -1,5 +1,5 @@
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useNFTGame } from '@decentology/hyperverse-evm-nft-game-1';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useNFTGame } from '@decentology/hyperverse-evm-nft-game/react';
 import React from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { styled } from '../stitches.config';
@@ -18,9 +18,10 @@ export const TenantMint = () => {
 
 	const [reciever, setReciever] = React.useState<string>('');
 	const [tokenName, setTokenName] = React.useState<string>('');
-	const [eyeId, setEyeId] = React.useState<string>('');
-	const [mouthId, setMouthId] = React.useState<string>('');
-	const [bodyId, setBodyId] = React.useState<string>('');
+	const [eyeId, setEyeId] = React.useState<number>();
+	const [mouthId, setMouthId] = React.useState<number>();
+	const [bodyId, setBodyId] = React.useState<number>();
+	const [level, setLevel] = React.useState<number>();
 
 	const { mutate, isLoading } = useMutation('tenantMint', NFTGame.tenantMint);
 
@@ -29,9 +30,14 @@ export const TenantMint = () => {
 			mutate({
 				to: reciever,
 				tokenName,
-				eyeId,
-				mouthId,
-				bodyId,
+				eyeId: eyeId!,
+				mouthId: mouthId!,
+				bodyId : bodyId!,
+				level: 0,
+				specialChoices: [],
+				specialOptions: [],
+				standardChoices: [],
+				standardOptions: [],
 			});
 		} catch (error) {
 			throw error;
@@ -59,20 +65,20 @@ export const TenantMint = () => {
 			<Inputs>
 				<InputContainer>
 					<Label>Eye Id</Label>
-					<StyledInput placeholder="Eye Id" onChange={(e) => setEyeId(e.target.value)} />
+					<StyledInput placeholder="Eye Id" onChange={(e) => setEyeId(parseInt(e.target.value))} />
 				</InputContainer>
 				<InputContainer>
 					<Label>Mouth Id</Label>
 					<StyledInput
 						placeholder="Mouth Id"
-						onChange={(e) => setMouthId(e.target.value)}
+						onChange={(e) => setMouthId(parseInt(e.target.value))}
 					/>
 				</InputContainer>
 				<InputContainer>
 					<Label>Body Id</Label>
 					<StyledInput
 						placeholder="Body Id"
-						onChange={(e) => setBodyId(e.target.value)}
+						onChange={(e) => setBodyId(parseInt(e.target.value))}
 					/>
 				</InputContainer>
 			</Inputs>
