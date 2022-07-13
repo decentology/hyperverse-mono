@@ -1,7 +1,7 @@
 import { Burn } from './burn';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/burn.mdx';
+import { Doc } from '../docs/burn.mdx';
 
 export default {
 	title: 'Components/Burn',

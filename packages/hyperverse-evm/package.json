@@ -3,8 +3,10 @@
 	"version": "1.0.17",
 	"exports": {
 		".": {
-			"import": "./source/index.ts"
-		}
+			"default": "./source/index.ts"
+		},
+		"./react": "./source/react/index.ts",
+		"./styles.css": "./source/styles.css"
 	},
 	"type": "module",
 	"source": "./source/index.ts",
@@ -25,7 +27,9 @@
 	],
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			"./styles.css": "./distribution/styles.css"
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",

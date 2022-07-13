@@ -57,7 +57,7 @@ import './style.css';
 
 export const GetStakeToken = ({ ...props }) => {
 	const { getStakeToken } = useStakeRewards();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -67,7 +67,7 @@ export const GetStakeToken = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					getStakeToken();
+					getStakeToken?.();
 				}}
 			>
 				Get Stake Tokens

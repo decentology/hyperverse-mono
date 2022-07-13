@@ -508,6 +508,514 @@
       "artifacts": [
         "Counters"
       ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/ERC777.sol": {
+      "lastModificationDate": 1655327624948,
+      "contentHash": "ec84b544d61387cacc221bb27b1e4de0",
+      "sourceName": "contracts/ERC777.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./interfaces/IERC777.sol",
+        "./interfaces/IERC777Recipient.sol",
+        "./interfaces/IERC777Sender.sol",
+        "./interfaces/IERC20.sol",
+        "./utils/Address.sol",
+        "./utils/Context.sol",
+        "./utils/SafeMath.sol",
+        "./interfaces/IERC1820Registry.sol",
+        "./hyperverse/IHyperverseModule.sol",
+        "./hyperverse/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC777"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/interfaces/IERC777.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "323865777bfc326711ec4ec8b5abdf09",
+      "sourceName": "contracts/interfaces/IERC777.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC777"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/interfaces/IERC777Recipient.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "2c7f74ab45a79281c2e801067c070856",
+      "sourceName": "contracts/interfaces/IERC777Recipient.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC777Recipient"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/interfaces/IERC777Sender.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "177fa70fd5eb9d5bd8a506eb42d6dc6a",
+      "sourceName": "contracts/interfaces/IERC777Sender.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC777Sender"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/interfaces/IERC20.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "8ff57496c22ba5a9e5dc88de0db28f60",
+      "sourceName": "contracts/interfaces/IERC20.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC20"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/utils/Address.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "69cde7252b43acab976bf06be5ea86be",
+      "sourceName": "contracts/utils/Address.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Address"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/utils/Context.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "c4b296fb9a98a645ca52cc72c3fbae06",
+      "sourceName": "contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/utils/SafeMath.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "d650ec0096e6a6cb27b68aa9c10d491d",
+      "sourceName": "contracts/utils/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/interfaces/IERC1820Registry.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "287e0dc77e9dfc7712435b86ad0e4424",
+      "sourceName": "contracts/interfaces/IERC1820Registry.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IERC1820Registry"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/hyperverse/IHyperverseModule.sol": {
+      "lastModificationDate": 1655327624948,
+      "contentHash": "e43cc1d8c6d728b28b4de4aae8af3e6c",
+      "sourceName": "contracts/hyperverse/IHyperverseModule.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "IHyperverseModule"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/hyperverse/Initializable.sol": {
+      "lastModificationDate": 1655327624948,
+      "contentHash": "0a3b9c5b09289b91ca961da4ce60ee3d",
+      "sourceName": "contracts/hyperverse/Initializable.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Address.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.2"
+      ],
+      "artifacts": [
+        "Initializable"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/ERC777Factory.sol": {
+      "lastModificationDate": 1655327624948,
+      "contentHash": "62c4a22b9e2fdfa8921a666b7c75f2ef",
+      "sourceName": "contracts/ERC777Factory.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./hyperverse/CloneFactory.sol",
+        "./hyperverse/IHyperverseModule.sol",
+        "./utils/Counters.sol",
+        "./ERC777.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ERC777Factory"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/hyperverse/CloneFactory.sol": {
+      "lastModificationDate": 1655327624948,
+      "contentHash": "224c980a2659bf5f04e9f7c017964918",
+      "sourceName": "contracts/hyperverse/CloneFactory.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CloneFactory"
+      ]
+    },
+    "/Users/kendyl/hyperverse-mono/hyperverse-mono/packages/hyperverse-evm-erc777/contracts/utils/Counters.sol": {
+      "lastModificationDate": 1655327624949,
+      "contentHash": "1f9080df42fd7e65667ee9167a3c050f",
+      "sourceName": "contracts/utils/Counters.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Counters"
+      ]
     }
   }
 }

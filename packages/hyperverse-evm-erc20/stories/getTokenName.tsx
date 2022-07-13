@@ -1,11 +1,9 @@
-import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
-export const GetTokenName = ({ name, ...props }) => {
+export const GetTokenName = ({ ...props }) => {
 	const erc20 = useERC20();
-	const [data, setData] = useState(name);
+	const [data, setData] = useState<string>();
 
 	useEffect(() => {
 		if (erc20.getTokenName) {
@@ -14,16 +12,8 @@ export const GetTokenName = ({ name, ...props }) => {
 	}, [erc20.getTokenName]);
 
 	const hasTokenName = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>There is no token name.</p>
-		);
+		return data ? <p>{data}</p> : <p>{JSON.stringify(erc20.error)}</p>;
 	};
 
-	return <div className="tokenName"> Token Name: {hasTokenName()}</div>;
+	return <div className="body"> Token Name: {hasTokenName()}</div>;
 };
-
-GetTokenName.propTypes = {};
-
-GetTokenName.defaultProps = {};

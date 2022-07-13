@@ -3,10 +3,10 @@
 	"display": "React Library",
 	"extends": "./base.json",
 	"include": ["source/**/*"],
-	"exclude": ["node_modules"],
+	"exclude": ["**/node_modules/*"],
 	"compilerOptions": {
 		"lib": ["ES2017", "DOM"],
-		"module": "ES6",
+		"module": "ESNext",
 		"target": "ES6",
 		"rootDir": "../",
 		"preserveSymlinks": true,

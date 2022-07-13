@@ -14,7 +14,7 @@ export const Whitelist = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					// whitelist();
+					whitelist?.();
 				}}
 			>
 				Whitelist

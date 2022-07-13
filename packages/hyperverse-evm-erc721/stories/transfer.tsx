@@ -1,10 +1,10 @@
-import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useERC721 } from '../source/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
 
 export const Transfer = ({ ...props }: { from: string; to: string; tokenId: number }) => {
 	const { transfer } = useERC721();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -14,7 +14,7 @@ export const Transfer = ({ ...props }: { from: string; to: string; tokenId: numb
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					transfer(props);
+					transfer?.(props);
 				}}
 			>
 				Transfer

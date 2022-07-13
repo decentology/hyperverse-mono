@@ -14,7 +14,7 @@ export const TransferFrom = ({ ...props }: { from: string; to: string; amount: n
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					transferFrom(props);
+					transferFrom?.(props);
 				}}
 			>
 				Transfer From

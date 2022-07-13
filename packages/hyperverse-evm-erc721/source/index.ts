@@ -1,10 +1,7 @@
-import { Provider } from './Provider';
-
-export { useERC721 } from './useERC721';
-export { Provider } from './Provider';
+export * from './types';
 export const ModuleName = 'ERC721';
+export { ERC721Library } from './erc721Library';
 
 export const ERC721 = {
-	Provider,
 	ModuleName,
 };

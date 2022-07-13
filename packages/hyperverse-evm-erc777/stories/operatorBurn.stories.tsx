@@ -1,7 +1,7 @@
 import { OperatorBurn } from './operatorBurn';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/operatorBurn.mdx';
+import { Doc } from '../docs/operatorBurn.mdx';
 
 export default {
 	title: 'Components/OperatorBurn',

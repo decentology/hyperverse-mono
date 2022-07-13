@@ -1,10 +1,9 @@
-import * as PropTypes from 'prop-types';
 import { useTribes } from '../source';
+import { useFlow } from '@decentology/hyperverse-flow';
 import './style.css';
 
 export const AddTribe = ({ ...props }) => {
-	const { addTribe } = useTribes();
-	const { } = addTribe('', '', '');
+	const tribes = useTribes();
 
 	return (
 		<button
@@ -19,11 +18,3 @@ export const AddTribe = ({ ...props }) => {
 		</button>
 	);
 };
-
-AddTribe.propTypes = {
-	newTribeName: PropTypes.string.isRequired,
-    ipfsHash: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-};
-
-AddTribe.defaultProps = {};

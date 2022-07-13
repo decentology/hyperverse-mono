@@ -21,14 +21,10 @@ abstract contract IHyperverseModule {
 
     struct ModuleMetadata {
         bytes title;
-        Author author;
+        address author;
         bytes version;
-        uint64 publishedAt;
+        uint256 publishedAt;
         bytes externalLink; 
     }
-    
-    struct Author {
-        address authorAddress;
-        string externalLink;
-    }
 }
+    

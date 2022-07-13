@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 export const GetEarned = ({ ...props }: { account: string }) => {
 	const stakeRewards = useStakeRewards();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<number>();
 
 	useEffect(() => {
 		if (stakeRewards.getEarned) {
@@ -12,7 +12,7 @@ export const GetEarned = ({ ...props }: { account: string }) => {
 	}, [stakeRewards.getEarned]);
 
 	const hasEarnedTokens = () => {
-		return data ? <p>{data}</p> : <p>Error.</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
 	};
 
 	return <div className="body"> Earned Tokens: {hasEarnedTokens()}</div>;

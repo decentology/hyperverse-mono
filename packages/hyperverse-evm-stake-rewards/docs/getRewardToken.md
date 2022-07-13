@@ -16,7 +16,7 @@
 		} catch (error) {
 			throw error;
 		}
-	};
+	};.
 ```
 
 ### Stories
@@ -56,7 +56,7 @@ import { useEvm } from '@decentology/hyperverse-evm';
 
 export const GetRewardToken = ({ ...props }) => {
 	const { getRewardToken } = useStakeRewards();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -66,10 +66,10 @@ export const GetRewardToken = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					getRewardToken();
+					getRewardToken?.();
 				}}
 			>
-				Get Rewawrd Tokens
+				Get Reward Tokens
 			</button>
 		</>
 	);

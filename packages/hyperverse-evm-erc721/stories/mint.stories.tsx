@@ -1,8 +1,7 @@
 import { Mint } from './mint';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/mint.mdx';
-
+import Doc from '../docs/mint.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 export default {
 	title: 'Components/Mint',
 	component: Mint,
@@ -11,9 +10,9 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof Mint>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof Mint> = (args) => (
 	<HyperverseProvider>
 		<Mint {...args} />
 	</HyperverseProvider>
@@ -22,5 +21,6 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9'
+	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	amount: 5,
 };

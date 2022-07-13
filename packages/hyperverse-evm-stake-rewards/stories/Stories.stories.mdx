@@ -205,14 +205,14 @@ import Storybook from './assets/storybook-logo.svg';
 </div>
 
 ```jsx
-const getBalanceOf = async (account: string) => {
-	try {
-		const balance = await base.proxyContract?.balanceOf(account);
-		return BigNumber.from(balance).toNumber();
-	} catch (error) {
-		throw error;
-	}
-};
+	const getBalanceOf = async (account: string) => {
+		try {
+			const balance = await base.proxyContract?.balanceOf(account);
+			return balance ? BigNumber.from(balance).toNumber() : 0;
+		} catch (error) {
+			throw error;
+		}
+	};
 ```
 
 <div className="subheading">getBalanceOf.stories.tsx</div>
@@ -248,14 +248,14 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	account: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
 };
 ```
 
 <div className="body">
 	We'll import the component we want this story to render in our story template. This template
 	will call the <b>GetBalanceOf</b> component. It is binded with our first story we have titled{' '}
-	<b>Demo</b>. We provide an initial address of <b>0x976EA74026E726554dB657fA54763abd0C3a0aa9</b>{' '}
+	<b>Demo</b>. We provide an initial address of <b>0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266</b>{' '}
 	that we will pass through as the account that <b>getBalanceOf</b> requires. Feel free to replace
 	this address with another.
 </div>
@@ -276,13 +276,11 @@ Demo.args = {
 
 ```jsx
 import { useStakeRewards } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
 export const GetBalanceOf = ({ ...props }: { account: string }) => {
 	const stakeRewards = useStakeRewards();
-	const { address } = useEvm();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<number>();
 
 	useEffect(() => {
 		if (stakeRewards.getBalanceOf) {
@@ -291,10 +289,15 @@ export const GetBalanceOf = ({ ...props }: { account: string }) => {
 	}, [stakeRewards.getBalanceOf]);
 
 	const hasBalance = () => {
-		return data ? <p>{data}</p> : <p>Error.</p>;
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(data)}</p>;
 	};
 
-	return <div className="balanceOf"> Balance Of: {hasBalance()}</div>;
+	return (
+		<div className="body">
+			{' '}
+			Balance of <b>{props.account}</b>: {hasBalance()}
+		</div>
+	);
 };
 ```
 

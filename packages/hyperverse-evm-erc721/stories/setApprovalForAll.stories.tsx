@@ -1,7 +1,7 @@
 import { ApproveAll } from './setApprovalForAll';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
-import { Doc } from '../docs/setApprovalForAll.mdx';
+import Doc from '../docs/setApprovalForAll.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/ApproveAll',
@@ -11,17 +11,24 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof ApproveAll>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof ApproveAll> = (args: any) => (
 	<HyperverseProvider>
 		<ApproveAll {...args} />
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Approve = Template.bind({});
 
-Demo.args = {
-	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+Approve.args = {
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 	approved: true,
+};
+
+export const Deny = Template.bind({});
+
+Deny.args = {
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	approved: false,
 };

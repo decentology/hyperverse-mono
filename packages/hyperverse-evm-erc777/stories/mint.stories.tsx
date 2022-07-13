@@ -1,7 +1,7 @@
 import { Mint } from './mint';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/mint.mdx';
+import { Doc } from '../docs/mint.mdx';
 
 export default {
 	title: 'Components/Mint',

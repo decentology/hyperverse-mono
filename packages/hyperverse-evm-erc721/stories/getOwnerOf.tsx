@@ -1,25 +1,23 @@
-import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useERC721 } from '../source/react';
 import { useEffect, useState } from 'react';
 
-export const GetOwnerOf = ({ ...props }: {account: string, tokenId: string}) => {
+export const GetOwnerOf = ({ ...props }: {  tokenId: string }) => {
 	const erc721 = useERC721();
-	const { address } = useEvm();
-	const [data, setData] = useState(props.account);
+	const [data, setData] = useState('');
 
 	useEffect(() => {
 		if (erc721.getOwnerOf) {
 			erc721.getOwnerOf(props.tokenId).then(setData);
 		}
-	}, [props.tokenId, props.account, erc721.getOwnerOf]);
+	}, [erc721.getOwnerOf]);
 
 	const owner = () => {
 		return data ? (
-			<p>{data}</p>
+			<p>{JSON.stringify(data)}</p>
 		) : (
-			<p>Error!</p>
+			<p>{erc721.error}</p>
 		);
 	};
 
-	return <div className="ownerOf"> Owner of token {props.tokenId}: {owner()}</div>;
+	return <div className="body"> Owner of token <b>{props.tokenId}</b>: {owner()}</div>;
 };

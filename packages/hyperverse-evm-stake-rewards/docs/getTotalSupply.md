@@ -56,7 +56,7 @@ import { useEffect, useState } from 'react';
 
 export const GetTotalSupply = ({ ...props }) => {
 	const stakeRewards = useStakeRewards();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<number>();
 
 	useEffect(() => {
 		if (stakeRewards.getTotalSuply) {
@@ -65,10 +65,10 @@ export const GetTotalSupply = ({ ...props }) => {
 	}, [stakeRewards.getTotalSuply]);
 
 	const hasTokenSupply = () => {
-		return data ? <p>{data}</p> : <p>There is are no tokens.</p>;
+		return data ? <p>{data}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
 	};
 
-	return <div className="totalSupply"> Total Supply: {hasTokenSupply()}</div>;
+	return <div className="body"> Total Supply: {hasTokenSupply()}</div>;
 };
 ```
 

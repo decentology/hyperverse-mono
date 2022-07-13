@@ -48,21 +48,20 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	account: '',
+	account: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 };
+
 ```
 
 ### Main UI Component
 
 ```jsx
 import { useStakeRewards } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
 
 export const GetEarned = ({ ...props }: { account: string }) => {
 	const stakeRewards = useStakeRewards();
-	const { address } = useEvm();
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<number>();
 
 	useEffect(() => {
 		if (stakeRewards.getEarned) {
@@ -71,10 +70,10 @@ export const GetEarned = ({ ...props }: { account: string }) => {
 	}, [stakeRewards.getEarned]);
 
 	const hasEarnedTokens = () => {
-		return data ? <p>{data}</p> : <p>Error.</p>;
+		return data ? <p>{data}</p> : <p>{JSON.stringify(stakeRewards.error)}</p>;
 	};
 
-	return <div className="earnedTokens"> Earned Tokens: {hasEarnedTokens()}</div>;
+	return <div className="body"> Earned Tokens: {hasEarnedTokens()}</div>;
 };
 ```
 

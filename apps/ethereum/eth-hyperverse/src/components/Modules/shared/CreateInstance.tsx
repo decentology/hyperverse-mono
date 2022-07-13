@@ -110,6 +110,7 @@ export const CreateInstance = ({ createInstanceFn, txnLoading }: ReadFunctionPro
                     transition: { duration: 0.1 },
                   }}
                   onClick={createNewInstance}
+                  
                 >
                   {functionName}
                 </Button>

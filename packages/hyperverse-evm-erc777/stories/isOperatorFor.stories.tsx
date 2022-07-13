@@ -1,7 +1,7 @@
 import { IsOperatorFor } from './isOperatorFor';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/isOperatorFor.mdx';
+import { Doc } from '../docs/isOperatorFor.mdx';
 
 export default {
 	title: 'Components/IsOperatorFor',

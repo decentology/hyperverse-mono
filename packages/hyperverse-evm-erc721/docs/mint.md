@@ -8,17 +8,22 @@
 
 ### mint
 
-<p> The `mint` function takes in a target address. </p>
+<p> The `mint` function takes in a target address and an optional amount. </p>
 
 ```jsx
-  const mint = async(to: string) => {
-    try {
-      const mintTxn = await base.proxyContract?.mint(to);
-      return mintTxn.wait() as TransactionReceipt;
-    } catch (error) {
-      throw error;
-    }
-  }
+	const mint = async (to: string, amount?: number) => {
+		try {
+			if (!amount || amount == 1) {
+				const mintTxn = await base.proxyContract?.mint(to);
+				return mintTxn.wait() as TransactionReceipt;
+			}
+
+			const mintTxn = await base.proxyContract?.mintBatch(to, amount);
+			return mintTxn.wait() as TransactionReceipt;
+		} catch (error) {
+			throw error;
+		}
+	};
 ```
 
 ### Stories
@@ -49,19 +54,20 @@ export const Demo = Template.bind({});
 
 Demo.args = {
 	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	amount: 5,
 };
 ```
 
 ### Main UI Component
 
 ```jsx
-import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useERC721 } from '../source/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
 
-export const Mint = ({ ...props }: { to: string }) => {
+export const Mint = ({ ...props }: { to: string; amount: number }) => {
 	const { mint } = useERC721();
-	const { address, Connect } = useEvm();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -71,7 +77,7 @@ export const Mint = ({ ...props }: { to: string }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					mint(props.to);
+					mint?.(props.to, props.amount);
 				}}
 			>
 				Mint

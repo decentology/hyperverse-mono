@@ -1,7 +1,7 @@
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
-import Doc from '../docs/whitelist.mdx';
+import { Doc } from '../docs/newInstance.mdx';
 
 export default {
 	title: 'Components/NewInstance',
@@ -22,11 +22,11 @@ const Template = (args) => (
 export const Demo = Template.bind({});
 
 Demo.args = {
-	tenant: '',
-	startTime: 1,
-	endTime: 10,
+	account: '',
+	startTime: parseInt(((new Date().getTime() + 60 * 1000) / 1000).toFixed(0)),
+	endTime: parseInt(((new Date().getTime() + 60 ** 3 * 1000) / 1000).toFixed(0)),
 	units: 10,
-	ERC721: '',
-	ERC20: '',
-	merkleRoot: null,
+	ERC721: '0x0000000000000000000000000000000000000000',
+	ERC20: '0x0000000000000000000000000000000000000000',
+	merkleRoot: '',
 };

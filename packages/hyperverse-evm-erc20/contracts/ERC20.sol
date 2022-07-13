@@ -82,10 +82,10 @@ contract ERC20 is IERC20, IHyperverseModule, Initializable {
 	constructor(address _owner) {
 		metadata = ModuleMetadata(
 			'ERC20',
-			Author(_owner, 'https://externallink.net'),
+			_owner,
 			'0.0.1',
-			3479831479814,
-			'https://externalLink.net'
+			block.timestamp,
+			'https://www.hyperverse.dev/'
 		);
 		contractOwner = _owner;
 	}

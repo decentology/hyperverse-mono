@@ -64,9 +64,9 @@ contract Module is IHyperverseModule, Initializable {
     constructor(address _owner) {
         metadata = ModuleMetadata(
             "Module Name",
-            Author(_owner, "https://externallink.net"),
+            _owner,
             "0.0.1",
-            3479831479814,
+            block.timestamp,
             "https://externalLink.net"
         );
         contractOwner = _owner;

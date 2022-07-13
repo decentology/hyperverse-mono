@@ -1,30 +1,25 @@
-import * as PropTypes from 'prop-types';
 import { useERC20 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
 import { useEffect, useState } from 'react';
+import { BigNumber } from 'ethers';
 
-export const GetBalanceOf = ({ balance, ...props }) => {
+export const GetBalanceOf = ({ ...props }: { account: string }) => {
 	const erc20 = useERC20();
-	const { address } = useEvm();
-	const [data, setData] = useState(balance);
+	const [data, setData] = useState<BigNumber>();
 
 	useEffect(() => {
 		if (erc20.getBalanceOf) {
-			erc20.getBalanceOf('').then(setData);
+			erc20.getBalanceOf(props.account).then(setData);
 		}
 	}, [erc20.getBalanceOf]);
 
 	const validAddress = () => {
-		return data ? (
-			<p>{data}</p>
-		) : (
-			<p>This is not a valid address.</p>
-		);
+		return data ? <p>{JSON.stringify(data)}</p> : <p>{JSON.stringify(erc20.error)}</p>;
 	};
 
-	return <div className="balanceOf"> Balance Of {address}: {validAddress()}</div>;
+	return (
+		<div className="body">
+			{' '}
+			Balance of <b>{props.account}</b>: {validAddress()}
+		</div>
+	);
 };
-
-GetBalanceOf.propTypes = {};
-
-GetBalanceOf.defaultProps = {};

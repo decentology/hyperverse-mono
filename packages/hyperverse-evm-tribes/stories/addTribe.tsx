@@ -12,7 +12,7 @@ export const AddTribe = ({ ...props }) => {
 		const resp = await fetch(props.image || imageRef.current.src);
 		const blob = await resp.blob();
 		const file = new File([blob], 'mage.png', { type: 'image/png' });
-		const result = await addTribe({
+		const result = await addTribe?.({
 			image: file,
 			metadata: {
 				name: props.name || 'Mage',
