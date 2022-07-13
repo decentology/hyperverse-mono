@@ -1,22 +1,22 @@
-import { Mint } from './mint';
+import { TenantMint } from './tenantMint';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import Doc from '../docs/mint.mdx';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
-	title: 'Components/Mint',
-	component: Mint,
+	title: 'Components/TenantMint',
+	component: TenantMint,
 	parameters: {
 		docs: {
 			page: Doc,
 		},
 	},
-} as ComponentMeta<typeof Mint>;
+} as ComponentMeta<typeof TenantMint>;
 
-const Template: ComponentStoryFn<typeof Mint> = (args: any) => (
+const Template: ComponentStoryFn<typeof TenantMint> = (args: any) => (
 	<HyperverseProvider>
-		<Mint {...args} />
+		<TenantMint {...args} />
 	</HyperverseProvider>
 );
 
