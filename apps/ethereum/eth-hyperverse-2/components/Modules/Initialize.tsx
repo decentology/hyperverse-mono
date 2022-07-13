@@ -5,9 +5,9 @@ import { InputContainer, Label, StyledInput } from '../basics/Input'
 import { InfoHeading } from '../basics/InfoHeading'
 import { Modules, ModulesInfo } from '../../utils/constants'
 import { Button } from '../basics/Button'
-import { useEthereum } from '@decentology/hyperverse-ethereum'
-import { useERC721 } from '@decentology/hyperverse-evm-erc721'
-import { useERC20 } from '@decentology/hyperverse-evm-erc20'
+import { useEthereum } from '@decentology/hyperverse-ethereum/react'
+import { useERC721 } from '@decentology/hyperverse-evm-erc721/react'
+import { useERC20 } from '@decentology/hyperverse-evm-erc20/react'
 import { useMutation } from 'react-query'
 
 export const Initialize = ({ module }: { module: Modules }) => {

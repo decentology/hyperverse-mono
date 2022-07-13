@@ -22,6 +22,7 @@ export function Modules() {
 
   const currentModule = module ? ModulesKey[module as ModulesKey] : ModulesKey.erc721
 
+  const existingDashboard = currentModule === ModulesKey.erc721
 
   const [activeTab, setActiveTab] = React.useState<Tabs>(Tabs.GET_STARTED)
 
@@ -37,13 +38,15 @@ export function Modules() {
           >
             Get Started
           </TabTrigger>
-          {/* <TabTrigger
-            value={Tabs.DASHBOARD}
-            active={activeTab === Tabs.DASHBOARD}
-            onClick={() => setActiveTab(Tabs.DASHBOARD)}
-          >
-            Dashboard
-          </TabTrigger> */}
+          {!!existingDashboard && (
+            <TabTrigger
+              value={Tabs.DASHBOARD}
+              active={activeTab === Tabs.DASHBOARD}
+              onClick={() => setActiveTab(Tabs.DASHBOARD)}
+            >
+              Dashboard
+            </TabTrigger>
+          )}
           <TabTrigger value={Tabs.CODE} active={activeTab === Tabs.CODE} onClick={() => setActiveTab(Tabs.CODE)}>
             Code
           </TabTrigger>
@@ -52,11 +55,13 @@ export function Modules() {
           <StyledContent value={Tabs.GET_STARTED}>
             <GetStarted module={currentModule} />
           </StyledContent>
-          {/* <StyledContent value={Tabs.DASHBOARD}>
-            {currentModule === ModulesKey.erc721 && <ERC721Dashboard />}
-          </StyledContent> */}
+          {!!existingDashboard && (
+            <StyledContent value={Tabs.DASHBOARD}>
+              {currentModule === ModulesKey.erc721 && <ERC721Dashboard />}
+            </StyledContent>
+          )}
           <StyledContent value={Tabs.CODE}>
-            <Code module={currentModule}/>
+            <Code module={currentModule} />
           </StyledContent>
         </Container>
       </Root>
