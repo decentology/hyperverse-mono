@@ -320,6 +320,14 @@ contract NFTGame is
 		return bytes(baseURI).length > 0 ? baseURI : '';
 	}
 
+	function getStandardAttrMemory() public view returns (uint256[] memory){
+		return _standardAttrMemory;
+	}
+
+	function getSpecialAttrMemory() public view returns (uint256[] memory){
+		return _specialAttrMemory;
+	}
+
 	/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ T E N A N T  F U N C T I O N S @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 
 	/**
