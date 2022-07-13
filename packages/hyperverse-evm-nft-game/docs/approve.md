@@ -1,6 +1,6 @@
 # Approve
 
-<p> The `approve` function from `nftGame1Library` sets approves the transfer of a token to another address. </p>
+<p> The `approve` function from `nftGameLibrary` sets approves the transfer of a token to another address. </p>
 
 ---
 
@@ -26,8 +26,8 @@
 ```jsx
 import { Approve } from './approve';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import Doc from '../docs/approve.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/Approve',
@@ -37,15 +37,13 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof Approve>;
 
-const Template = (args) => (
+export const Demo: ComponentStoryFn<typeof Approve> = (args: any) => (
 	<HyperverseProvider>
 		<Approve {...args} />
 	</HyperverseProvider>
 );
-
-export const Demo = Template.bind({});
 
 Demo.args = {
 	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
@@ -56,13 +54,13 @@ Demo.args = {
 ### Main UI Component
 
 ```jsx
-import { useNFTGame1 } from '../source';
+import { useNFTGame } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const Approve = ({ ...props }: { to: string, tokenId: number }) => {
-	const { approve } = useNFTGame1();
-	const { address, Connect } = useEvm();
+export const Approve = ({ ...props }: { to: string; tokenId: number }) => {
+	const { approve } = useNFTGame();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -72,7 +70,7 @@ export const Approve = ({ ...props }: { to: string, tokenId: number }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					approve(props);
+					approve!(props);
 				}}
 			>
 				Approve

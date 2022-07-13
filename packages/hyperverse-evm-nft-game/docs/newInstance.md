@@ -31,10 +31,11 @@
 ### Stories
 
 ```jsx
+import React from 'react';
 import { NewInstance } from './newInstance';
 import { HyperverseProvider } from './utils/Provider';
-import { Story } from '@storybook/react';
-import { Doc } from '../docs/newInstance.mdx';
+import Doc from '../docs/newInstance.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/NewInstance',
@@ -44,28 +45,25 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof NewInstance>;
 
-const Template: Story = (args) => (
+export const Demo: ComponentStoryFn<typeof NewInstance> = (args) => (
 	<HyperverseProvider>
 		<NewInstance {...args} />
 	</HyperverseProvider>
 );
-
-export const Demo = Template.bind({});
-
-Demo.args = {};
 ```
 
 ### Main UI Component
 
 ```jsx
-import { useNFTGame1 } from '../source';
+import React from 'react';
+import { useNFTGame } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
 export const NewInstance = ({ ...props }) => {
-	const { createInstance } = useNFTGame1();
+	const { createInstance } = useNFTGame();
 	const { address, Connect } = useEvm();
 
 	return (
@@ -76,7 +74,11 @@ export const NewInstance = ({ ...props }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					createInstance({ account: address, name: 'TEST', symbol:'TST', instanceBaseURI: 'https://example.com/' });
+					createInstance!({
+						name: 'TEST',
+						symbol: 'TST',
+						account: address!,
+					});
 				}}
 			>
 				New Instance

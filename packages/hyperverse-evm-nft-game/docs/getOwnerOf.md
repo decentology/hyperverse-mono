@@ -1,6 +1,6 @@
 # Get Owner Of
 
-<p> The `getOwnerOf` function from `nftGame1Library` returns the address of a token ID owner. </p>
+<p> The `getOwnerOf` function from `nftGameLibrary` returns the address of a token Id owner. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### getOwnerOf
 
-<p> The `getOwnerOf` function takes in a token ID. </p>
+<p> The `getOwnerOf` function takes in a token Id. </p>
 
 ```jsx
   const getOwnerOf = async (tokenId: string) => {
@@ -28,6 +28,7 @@ import { GetOwnerOf } from './getOwnerOf';
 import { HyperverseProvider } from './utils/Provider';
 import React from 'react';
 import Doc from '../docs/getOwnerOf.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
 	title: 'Components/GetOwnerOf',
@@ -37,48 +38,53 @@ export default {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof GetOwnerOf>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof GetOwnerOf>= (args: any) => (
 	<HyperverseProvider>
 		<GetOwnerOf {...args} />
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Token1 = Template.bind({});
 
-Demo.args = {
-	tokenId: 1
+Token1.args = {
+	tokenId: '1',
+};
+
+export const Token2 = Template.bind({});
+
+Token2.args = {
+	tokenId: '2',
 };
 ```
 
 ### Main UI Component
 
 ```jsx
-import { useNFTGame1 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useNFTGame } from '../source/react';
 import { useEffect, useState } from 'react';
 
-export const GetOwnerOf = ({ ...props }: {tokenId: string}) => {
-	const nftGame1 = useNFTGame1();
-	const { address } = useEvm();
-	const [data, setData] = useState(null);
+export const GetOwnerOf = ({ ...props }: { tokenId: string}) => {
+	const nftGame = useNFTGame();
+	const [data, setData] = useState();
 
 	useEffect(() => {
-		if (nftGame1.getOwnerOf) {
-			nftGame1.getOwnerOf(props.tokenId).then(setData);
+		if (nftGame.getOwnerOf) {
+			nftGame.getOwnerOf(props.tokenId).then(setData);
 		}
-	}, [nftGame1.getOwnerOf]);
+	}, [props.tokenId, nftGame.getOwnerOf]);
 
 	const owner = () => {
 		return data ? (
-			<p>{data}</p>
+			<p>{JSON.stringify(data)}</p>
 		) : (
-			<p>Error.</p>
+			<p>{JSON.stringify(nftGame.error)}</p>
 		);
 	};
 
-	return <div className="ownerOf"> Owner of {props.tokenId}: {owner()}</div>;
+	return <div className="body"> Owner of token {props.tokenId}: {owner()}</div>;
+};
 ```
 
 For more information about our modules please visit: [**Hyperverse Docs**](docs.hyperverse.dev)

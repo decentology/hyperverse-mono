@@ -1,6 +1,6 @@
 # Set Approval for All
 
-<p> The `setApprovalForAll` function from `nftGame1Library` approves all transfers of tokens to other addresses. </p>
+<p> The `setApprovalForAll` function from `nftGameLibrary` approves all transfers of tokens to other addresses. </p>
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### setApprovalForAll
 
-<p> The `transfer` function takes in the target address and a value of true for approved. </p>
+<p> The `setApprovalForAll` function takes in the target address and a value of true for approved. </p>
 
 ```jsx
   const setApprovalForAll = async ({ to, approved }: { to: string; approved: boolean }) => {
@@ -24,45 +24,52 @@
 ### Stories
 
 ```jsx
-import { ApproveAll } from './setApprovalForAll';
+import { SetApprovalForAll } from './setApprovalForAll';
 import { HyperverseProvider } from './utils/Provider';
-import React from 'react';
 import Doc from '../docs/setApprovalForAll.mdx';
+import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
 
 export default {
-	title: 'Components/ApproveAll',
-	component: ApproveAll,
+	title: 'Components/SetApprovalForAll',
+	component: SetApprovalForAll,
 	parameters: {
 		docs: {
 			page: Doc,
 		},
 	},
-};
+} as ComponentMeta<typeof SetApprovalForAll>;
 
-const Template = (args) => (
+const Template: ComponentStoryFn<typeof SetApprovalForAll> = (args: any) => (
 	<HyperverseProvider>
-		<ApproveAll {...args} />
+		<SetApprovalForAll {...args} />
 	</HyperverseProvider>
 );
 
-export const Demo = Template.bind({});
+export const Approve = Template.bind({});
 
-Demo.args = {
-	to: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+Approve.args = {
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
 	approved: true,
+};
+
+export const Deny = Template.bind({});
+
+Deny.args = {
+	operator: '0x976EA74026E726554dB657fA54763abd0C3a0aa9',
+	approved: false,
 };
 ```
 
 ### Main UI Component
 
 ```jsx
-import { useNFTGame1 } from '../source';
+import { useNFTGame } from '../source/react';
 import { useEvm } from '@decentology/hyperverse-evm';
 import './style.css';
 
-export const ApproveAll = ({ ...props }: { to: string; approved: boolean }) => {
-	const { setApprovalForAll } = useNFTGame1();
-	const { address, Connect } = useEvm();
+export const SetApprovalForAll = ({ ...props }: { operator: string; approved: boolean }) => {
+	const { setApprovalForAll } = useNFTGame();
+	const { Connect } = useEvm();
 
 	return (
 		<>
@@ -72,10 +79,10 @@ export const ApproveAll = ({ ...props }: { to: string; approved: boolean }) => {
 				className={['storybook-button', `storybook-button--large`].join(' ')}
 				style={{ color: 'blue' }}
 				onClick={() => {
-					setApprovalForAll(props);
+					setApprovalForAll!(props);
 				}}
 			>
-				Approve All
+				Set Approval for All
 			</button>
 		</>
 	);
