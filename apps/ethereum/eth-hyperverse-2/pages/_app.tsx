@@ -1,6 +1,7 @@
 import { initialize, Provider, Network } from '@decentology/hyperverse/react'
 import { Ethereum } from '@decentology/hyperverse-ethereum/react'
-import * as Token from '@decentology/hyperverse-evm-erc20/react'
+import '@decentology/hyperverse-ethereum/styles.css'
+import { ERC20 } from '@decentology/hyperverse-evm-erc20/react'
 import * as NFT from '@decentology/hyperverse-evm-erc721/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import type { AppProps } from 'next/app'
@@ -45,7 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     network: Network.Testnet,
     modules: [
       {
-        bundle: Token,
+        bundle: ERC20,
         tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
       },
       {
