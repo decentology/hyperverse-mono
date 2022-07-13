@@ -214,15 +214,15 @@ contract NFTGame is
 		(attrType, attrIndex) = _levelUpAlgo(newLevel);
 
 		if(attrType == 0){
-			uint256 standardOption = tokenAttributes.standard.options[attrIndex];
+			uint256 standardOption = tokenAttributes.standard.choices[attrIndex];
 			require(_standardAttrMemory[attrIndex] > standardOption, "Invalid Level Up");
-			tokenAttributes.standard.options[attrIndex] = standardOption + 1;
+			tokenAttributes.standard.choices[attrIndex] = standardOption + 1;
 			tokenAttributes.level = newLevel;
 		}
 		else if(attrType == 1){
-			uint256 specialOption = tokenAttributes.special.options[attrIndex];
+			uint256 specialOption = tokenAttributes.special.choices[attrIndex];
 			require(_specialAttrMemory[attrIndex] > specialOption, "Invalid Level Up");
-			tokenAttributes.special.options[attrIndex] = specialOption + 1;
+			tokenAttributes.special.choices[attrIndex] = specialOption + 1;
 			tokenAttributes.level = newLevel;
 		}
 	}
