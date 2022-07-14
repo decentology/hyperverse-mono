@@ -56,6 +56,7 @@ type ModuleTypes = {
 	to?: string
 	storybook?: string
 	sample?: string
+	npm?: string
 	args?: {
 		[key: string]: string
 	}
@@ -69,6 +70,7 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 		to: '/modules/erc721',
 		storybook: 'https://samples.hyperverse.dev/erc721-storybook/',
 		sample: 'https://samples.hyperverse.dev/erc721-app/',
+		npm: 'https://www.npmjs.com/package/@decentology/hyperverse-evm-erc721',
 		args: {
 			token: 'Token Name',
 			symbol: 'Token Symbol',
@@ -120,6 +122,8 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 		name: 'ERC20',
 		description: 'Deploy your own ERC20 fungible token to use for currency, voting rights, staking, and more.',
 		to: '/modules/erc20',
+		npm: 'https://www.npmjs.com/package/@decentology/hyperverse-evm-erc20',
+		
 		args: {
 			token: 'Token Name',
 			symbol: 'Token Symbol',
@@ -186,27 +190,33 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 	[Modules.randomPick]: {
 		name: 'Random Pick',
 		description: 'Access Chainlink VRF to select a random winner, roll a die, or generate a random number.',
+		npm: 'https://www.npmjs.com/package/@decentology/hyperverse-ethereum-randompick',
 		// to: '/modules/randomPick',
 	},
 
 	[Modules.whitelist]: {
 		name: 'Whitelist',
 		description: 'Manage addresses by whitelisting users that can be later checked and verified',
+		npm: 'https://www.npmjs.com/package/@decentology/hyperverse-evm-whitelist',
 		// to: '/modules/whitelist',
 	},
 	[Modules.erc777]: {
 		name: 'ERC777',
 		description: 'Improve your fungible tokens with an improved user experience and additional functionalities.',
+		npm: 'https://www.npmjs.com/package/@decentology/hyperverse-evm-erc777',
+
 		// to: '/modules/erc777',
 	},
 	[Modules.stakeRewards]: {
 		name: 'Stake Rewards',
 		description: 'Allow staking for users to earn rewards and receive additional benefits for their contribution.',
+		npm: 'https://www.npmjs.com/package/@decentology/hyperverse-evm-stake-rewards'
 		// to: '/modules/stakeRewards',
 	},
 	[Modules.tribes]: {
 		name: 'Tribes',
 		description: 'Build communities for your favorite teams, animals, anime characters, hobbies, or interests.',
+		npm: 'https://www.npmjs.com/package/@decentology/hyperverse-evm-tribes',
 		// to: '/modules/tribes',
 	},
 }

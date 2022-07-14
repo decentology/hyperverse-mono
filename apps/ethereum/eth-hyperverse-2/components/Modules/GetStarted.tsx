@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { styled } from '../../stitches.config'
+import { keyframes, styled } from '../../stitches.config'
 import { CopyBlock, railscast, dracula } from 'react-code-blocks'
 import { Modules, ModulesInfo } from '../../utils/constants'
 import { Initialize } from './Initialize'
@@ -24,6 +24,7 @@ export const GetStarted = ({ module }: { module: Modules }) => {
   })
 
   const loading = isLoading || loading2
+
 
   useEffect(() => {
     if (module === Modules.erc721) {
@@ -59,7 +60,7 @@ export const GetStarted = ({ module }: { module: Modules }) => {
 `
 
   return (
-    <>
+    <GetStartedContainer>
       {!proxy  ? (
         <Initialize module={module} />
       ) : (
@@ -108,12 +109,28 @@ export const GetStarted = ({ module }: { module: Modules }) => {
           </Container>
         </div>
       )}
-    </>
+    </GetStartedContainer>
   )
 }
 
+export const bubble = keyframes({
+  '0%': {
+    opacity: 0,
+  },
+  '100%': {
+    opacity: 1,
+  },
+});
+
+const GetStartedContainer = styled('div', {
+  animationDuration: '500ms',
+  animationName: `${bubble}`,
+  animationTimingFunction: 'linear',
+})
+
 const Container = styled('div', {
   marginBottom: '3rem',
+  
   '&:last-child': {
     marginBottom: 0,
   },

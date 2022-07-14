@@ -3,37 +3,70 @@ import { styled } from '../stitches.config'
 import { gradientYellow, gradientPink } from '../utils/constants'
 import { ArrowRight } from './basics/icons'
 import { NavLink } from './basics/NavLink'
+import { NPMIcon } from './basics/icons'
 
 type InfoProps = {
   name: string
   description: string
-  to: string
+  to?: string
   color?: 'grey' | 'gradientPink' | 'gradientYellow'
   size?: 'md' | 'lg'
   external?: boolean
   comingSoon?: boolean
+  npm?: string
 }
 
-export const InfoBox = ({ name, description, to, color = 'grey', size = 'md', external, comingSoon }: InfoProps) => {
-  return (
-    <NavLink to={to} external={external} disabled={comingSoon}>
-      <Container key={name} color={color} size={size} comingSoon={comingSoon}>
-        <Info>
-          <div>
-            <HeaderContainer>
-              <ModuleName>{name}</ModuleName>
+export const InfoBox = ({
+  name,
+  description,
+  /* href link*/
+  to,
+  /* background colour*/
+  color = 'grey',
+  /* card size*/
+  size = 'md',
+  external,
+  /* coming soon state, false by default */
+  comingSoon,
+  /* npm link */
+  npm,
+}: InfoProps) => {
+  
+  const BoxInfo = (
+    <Container key={name} color={color} size={size} comingSoon={comingSoon} cursorDefault={!to}>
+      <Info>
+        <div>
+          <HeaderContainer>
+            <ModuleName>{name}</ModuleName>
+            <SubContainer>
               {comingSoon && <SubText>(Coming Soon)</SubText>}
-            </HeaderContainer>
-            <Description>{description}</Description>
-          </div>
+              {npm && (
+                <NavLink to={npm} external>
+                  <SVGContainer>
+                    <NPMIcon />
+                  </SVGContainer>
+                </NavLink>
+              )}
+            </SubContainer>
+          </HeaderContainer>
+          <Description>{description}</Description>
+        </div>
 
-          <Bottom>
-            <ArrowRight />
-          </Bottom>
-        </Info>
-      </Container>
-    </NavLink>
+          {to && (
+            <Bottom>
+              <ArrowRight />
+            </Bottom>
+          )}
+
+      </Info>
+    </Container>
   )
+  return to ? 
+    <NavLink to={to} external={external} disabled={comingSoon}>
+      {BoxInfo}
+    </NavLink>
+    : BoxInfo
+  
 }
 
 const Container = styled('div', {
@@ -47,22 +80,23 @@ const Container = styled('div', {
   height: '100%',
   paddingX: 24,
   transition: 'all 0.2s ease-in-out',
-  '&:hover': {
-    transform: 'scale(1.02)',
-  },
 
   '@laptop': {
     minHeight: 233,
   },
 
   variants: {
+    cursorDefault: {
+      true: {
+        cursor: 'default',
+      }
+    },
     comingSoon: {
       true: {
-        opacity: 0.5,
+        background: '$black300 !important',
+        cursor: 'default',
         '&:hover': {
-          opacity: 0.5,
-          transform: 'scale(1)',
-          boxShadow: 'none',
+          boxShadow: 'unset',
         },
       },
     },
@@ -133,7 +167,7 @@ const Info = styled('div', {
 
 const HeaderContainer = styled('div', {
   display: 'flex',
-  alignItems: 'baseline',
+  alignItems: 'center',
   justifyContent: 'space-between',
 })
 
@@ -141,4 +175,17 @@ const SubText = styled('p', {
   fontFamily: '$body',
   fontSize: '12px',
   lineHeight: '14px',
+})
+
+const SVGContainer = styled('div', {
+  svg: {
+    width: 30,
+    height: 30,
+  },
+})
+
+const SubContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: 8,
 })

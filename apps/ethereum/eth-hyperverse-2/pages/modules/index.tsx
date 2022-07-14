@@ -24,10 +24,11 @@ const Modules: NextPage = () => {
               return (
                 <InfoBox
                   key={key}
-                  to={comingSoon ? '/modules' : `${ModulesInfo[key].to}`}
+                  to={ModulesInfo[key].to}
                   name={ModulesInfo[key].name}
                   description={ModulesInfo[key].description}
                   comingSoon={comingSoon}
+                  npm={ModulesInfo[key].npm}
                 />
               )
             })}
