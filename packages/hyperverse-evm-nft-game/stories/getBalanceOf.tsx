@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNFTGame } from '../source/react';
 import { useEffect, useState } from 'react';
 import { BigNumber } from 'ethers';

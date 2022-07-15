@@ -1,3 +1,4 @@
+import React from 'react';
 import { GetBaseURI } from './getBaseURI';
 import { HyperverseProvider } from './utils/Provider';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';

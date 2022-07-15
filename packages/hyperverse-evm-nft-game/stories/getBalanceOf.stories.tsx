@@ -1,3 +1,4 @@
+import React from 'react';
 import { GetBalanceOf } from './getBalanceOf';
 import { HyperverseProvider } from './utils/Provider';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';

@@ -1,5 +1,5 @@
 import { useNFTGame } from '../source/react';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
 
 export const Withdraw = ({ ...props }) => {
