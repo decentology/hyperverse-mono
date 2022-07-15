@@ -1,5 +1,5 @@
-import { initialize, Network, NetworkConfig, Provider } from '@decentology/hyperverse';
-import { Localhost, Ethereum } from '@decentology/hyperverse-evm';
+import { initialize, Network, NetworkConfig, Provider } from '@decentology/hyperverse/react';
+import { Localhost, Ethereum } from '@decentology/hyperverse-evm/react';
 import { FC, VFC } from 'react';
 import { NFTGame } from '../../source/react';
 

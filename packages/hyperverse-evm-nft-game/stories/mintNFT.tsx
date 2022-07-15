@@ -1,9 +1,10 @@
-import { useERC721 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import React from 'react';
+import { useNFTGame } from '../source/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
 
 export const MintNFT = ({ ...props }: { to: string }) => {
-	const { mint } = useERC721();
+	const { mint } = useNFTGame();
 	const { address, Connect } = useEvm();
 
 	return (

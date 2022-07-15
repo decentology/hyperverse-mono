@@ -29,8 +29,8 @@ Demo.args = {
 	mouthId: 2,
 	bodyId: 3,
 	level: 1,
-	standardChoices: [3, 4, 5],
-	standardOptions: [3, 4, 5],
-	specialChoices: [3, 4, 5],
-	specialOptions: [3, 4, 5],
+	standardChoices: [1,1,0,0],
+	standardOptions: [1,1,0,0],
+	specialChoices: [0,0],
+	specialOptions: [0,0],
 };
