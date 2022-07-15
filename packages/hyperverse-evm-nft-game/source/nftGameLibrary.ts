@@ -71,7 +71,7 @@ export async function NFTGameLibraryInternal(
 				standardOptions,
 				specialChoices,
 				specialOptions
-			);
+			, {gasLimit: 1000000});
 			return mintTxn.wait() as TransactionReceipt;
 		} catch (error) {
 			throw error;

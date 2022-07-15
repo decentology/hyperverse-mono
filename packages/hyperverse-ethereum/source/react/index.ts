@@ -6,10 +6,17 @@ import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hype
 const getNetwork = (network: Network) => {
 	return Networks[network];
 };
+
 export const Ethereum = makeHyperverseBlockchain({
 	name: Blockchain.Ethereum,
 	Provider: Provider,
 	getNetwork,
 });
-export { Localhost, lightTheme, darkTheme } from '@decentology/hyperverse-evm/react';
+
+export const Localhost = makeHyperverseBlockchain({
+	name: Blockchain.Ethereum,
+	Provider: Provider,
+	getNetwork,
+});
+export { lightTheme, darkTheme } from '@decentology/hyperverse-evm/react';
 export { Provider, useEthereum, getNetwork, Networks };
