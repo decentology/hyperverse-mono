@@ -23,8 +23,6 @@ export const CreateInstance = () => {
 		}
 	);
 
-	console.log('Instance Address', instanceAddress);
-
 	const [tokenName, setTokenName] = React.useState<string>('');
 	const [tokenSymbol, setTokenSymbol] = React.useState<string>('');
 
