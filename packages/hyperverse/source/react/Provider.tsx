@@ -16,7 +16,7 @@ export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, ini
 	if (initialState.blockchain && !initialState.options?.disableProviderAutoInit) {
 		for (const module of initialState.modules.reverse()) {
 			children = createElementLocal(
-				module.bundle.Provider,
+				module.bundle.Provider!,
 				{
 					tenantId: module.tenantId,
 				},
