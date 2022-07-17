@@ -14,7 +14,7 @@ export const Ethereum = makeHyperverseBlockchain({
 });
 
 export const Localhost = makeHyperverseBlockchain({
-	name: Blockchain.Ethereum,
+	name: Blockchain.Localhost,
 	Provider: Provider,
 	getNetwork,
 });

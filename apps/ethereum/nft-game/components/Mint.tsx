@@ -22,6 +22,10 @@ export const TenantMint = () => {
 	const [mouthId, setMouthId] = React.useState<number>();
 	const [bodyId, setBodyId] = React.useState<number>();
 	const [level, setLevel] = React.useState<number>();
+	const [standardChoices, setStandardChoices] = React.useState<string>();
+	const [standardOptions, setStandardOptions] = React.useState<string>();
+	const [specialChoices, setSpecialChoices] = React.useState<string>();
+	const [specialOptions, setSpecialOptions] = React.useState<string>();
 
 	const { mutate, isLoading } = useMutation('tenantMint', NFTGame.tenantMint);
 
@@ -32,12 +36,12 @@ export const TenantMint = () => {
 				tokenName,
 				eyeId: eyeId!,
 				mouthId: mouthId!,
-				bodyId : bodyId!,
-				level: 0,
-				specialChoices: [],
-				specialOptions: [],
-				standardChoices: [],
-				standardOptions: [],
+				bodyId: bodyId!,
+				level: level!,
+				specialChoices: specialChoices?.split(',').map((x) => parseInt(x)) || [],
+				specialOptions: specialOptions?.split(',').map((x) => parseInt(x)) || [],
+				standardChoices: standardChoices?.split(',').map((x) => parseInt(x)) || [],
+				standardOptions: standardOptions?.split(',').map((x) => parseInt(x)) || [],
 			});
 		} catch (error) {
 			throw error;
@@ -65,7 +69,10 @@ export const TenantMint = () => {
 			<Inputs>
 				<InputContainer>
 					<Label>Eye Id</Label>
-					<StyledInput placeholder="Eye Id" onChange={(e) => setEyeId(parseInt(e.target.value))} />
+					<StyledInput
+						placeholder="Eye Id"
+						onChange={(e) => setEyeId(parseInt(e.target.value))}
+					/>
 				</InputContainer>
 				<InputContainer>
 					<Label>Mouth Id</Label>
@@ -79,6 +86,45 @@ export const TenantMint = () => {
 					<StyledInput
 						placeholder="Body Id"
 						onChange={(e) => setBodyId(parseInt(e.target.value))}
+					/>
+				</InputContainer>
+				<InputContainer>
+					<Label>Level</Label>
+					<StyledInput
+						placeholder="Level"
+						onChange={(e) => setLevel(parseInt(e.target.value))}
+					/>
+				</InputContainer>
+			</Inputs>
+			<Inputs>
+				<InputContainer>
+					<Label>Standard Choices</Label>
+					<StyledInput
+						placeholder="1,1,0,0"
+						onChange={(e) => setStandardChoices(e.target.value)}
+					/>
+				</InputContainer>
+				<InputContainer>
+					<Label>Standard Options</Label>
+					<StyledInput
+						placeholder="1,1,0,0"
+						onChange={(e) => setStandardOptions(e.target.value)}
+					/>
+				</InputContainer>
+			</Inputs>
+			<Inputs>
+				<InputContainer>
+					<Label>Special Choices</Label>
+					<StyledInput
+						placeholder="0,0"
+						onChange={(e) => setSpecialChoices(e.target.value)}
+					/>
+				</InputContainer>
+				<InputContainer>
+					<Label>Special Options</Label>
+					<StyledInput
+						placeholder="0,0"
+						onChange={(e) => setSpecialOptions(e.target.value)}
 					/>
 				</InputContainer>
 			</Inputs>

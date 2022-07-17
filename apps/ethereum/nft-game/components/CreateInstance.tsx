@@ -11,16 +11,19 @@ import { NavLink } from './basics/NavLink';
 export const CreateInstance = () => {
 	const { account } = useEthereum();
 	const NFTGame = useNFTGame();
-
 	const { data: instance } = useQuery('instance', () => NFTGame.checkInstance!(account), {
-		enabled: !!NFTGame.factoryContract,
+		enabled: !!NFTGame.factoryContract && !!NFTGame.checkInstance,
 	});
 
-	const { data: instanceAddress } = useQuery('instanceAddress', () => NFTGame.getProxy!(account), {
-		enabled: !!NFTGame.factoryContract && !!instance,
-	});
+	const { data: instanceAddress } = useQuery(
+		'instanceAddress',
+		() => NFTGame.getProxy!(account),
+		{
+			enabled: !!NFTGame.factoryContract && !!instance,
+		}
+	);
 
-	console.log(instanceAddress);
+	console.log('Instance Address', instanceAddress);
 
 	const [tokenName, setTokenName] = React.useState<string>('');
 	const [tokenSymbol, setTokenSymbol] = React.useState<string>('');
@@ -47,7 +50,14 @@ export const CreateInstance = () => {
 			/>
 			{!!instanceAddress && (
 				<InfoBox>
-					<InfoContainer><NavLink to={`https://rinkeby.etherscan.io/address/${instanceAddress}`} external>{instanceAddress}</NavLink></InfoContainer>
+					<InfoContainer>
+						<NavLink
+							to={`https://rinkeby.etherscan.io/address/${instanceAddress}`}
+							external
+						>
+							{instanceAddress}
+						</NavLink>
+					</InfoContainer>
 				</InfoBox>
 			)}
 
@@ -99,15 +109,14 @@ export const Container = styled('div', {
 
 	variants: {
 		instance: {
-			true :  {
+			true: {
 				alignItems: 'center',
 				flexDirection: 'row',
 				columnGap: 10,
 				justifyContent: 'space-between',
-
-			}
-		}
-	}
+			},
+		},
+	},
 });
 
 export const Inputs = styled('div', {
@@ -137,8 +146,6 @@ const InfoBox = styled(Inputs, {
 	width: '80%',
 	marginBottom: 0,
 	display: 'flex',
-	
-	
 });
 
 const InfoContainer = styled(InputContainer, {
@@ -148,6 +155,4 @@ const InfoContainer = styled(InputContainer, {
 	justifyContent: 'center',
 	alignItems: 'flex-end',
 	border: 'none',
-
-
 });

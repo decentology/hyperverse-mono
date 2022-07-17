@@ -42,12 +42,18 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: Localhost,
-		network: Network.Testnet,
+		// network: Network.Testnet,
+		network: {
+			type: Network.Testnet,
+			networkUrl: 'http://localhost:8545',
+			chainId: 31337,
+
+		},
 		modules: [
 			{
 				bundle: NFTGame,
 				//TO DO: Input the account you used to create your tenant here,
-				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
+				tenantId: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
 			},
 		],
 	});
