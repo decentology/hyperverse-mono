@@ -40,7 +40,7 @@ _attrType = 0
 
 _attrOptions = [1,1,2,3]
 
-![NFT Workflow Diagram](/assets/nftgame.png)
+![NFT Workflow Diagram](assets/nftgame.png)
 
 
 ## How the project is setup
