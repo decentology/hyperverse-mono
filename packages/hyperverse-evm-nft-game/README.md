@@ -8,14 +8,14 @@
 Initial Module for the Hyperverse EVM NFT Game Module
 
 ## NFT Attributes
-Standard Attributes Len = 4
+Standard Attributes Len = 5
 
 Special Attributes Len = 2
 
 ### Function - Mint / Tenant Mint (example)
-_standardChoices = [1,1,0,0]
+_standardChoices = [1,1,0,0,0]
 
-_standardOptions = [1,1,0,0]
+_standardOptions = [2,2,0,0,0]
 
 _specialChoices = [0,0]
 
@@ -29,16 +29,16 @@ Special Type = 1
 
 _attrType = 0
 
-_attrOptions = [3,4,5,4]
+_attrOptions = [3,4,5,4,5]
 
-  [3,4,5,6] => [3,4,5,4]
+  [3,4,5,4,5] => [3,4,5,5,5]
 
 ### Function - SetDynamicAttribute (Called by player/user) 
 _tokenId = 1
 
 _attrType = 0
 
-_attrOptions = [1,1,2,3]
+_attrOptions = [1,2,3,1,1]
 
 ![NFT Workflow Diagram](assets/nftgame.png)
 
