@@ -5,7 +5,7 @@
 
 # Hyperverse EVM NFT-Game
 
-This is a initial scaffold project to assit with building a smart module for the Hypervers
+Initial Module for the Hyperverse EVM NFT Game Module
 
 ## NFT Attributes
 Standard Attributes Len = 4
