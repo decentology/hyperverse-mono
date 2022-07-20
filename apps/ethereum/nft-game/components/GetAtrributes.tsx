@@ -19,16 +19,14 @@ export const GetAttributes = () => {
 	const [tokenId, setTokenId] = React.useState<number>();
 
 	const { data: attributes, isLoading, refetch } = useQuery(
-		'attributes',
+		['attributes'],
 		() => NFTGame.getAttributesByTokenId!(tokenId!),
 		{
-			enabled: !!NFTGame.factoryContract,
+			enabled: !!NFTGame.factoryContract && !!tokenId,
 		}
 	);
 
-
-
-
+ 
 	return (
 		<Container css={{ width: !attributes ? '30%' : 'unset'}}>
 			<InfoHeading heading="Get Attributes by Token ID" variant="subHeading" />
@@ -58,16 +56,9 @@ export const GetAttributes = () => {
 					</ButtonContainer>
 				</ReadContainer>
 
-				{attributes &&
-					Object.keys(attributes).map((attribute) => (
-						<InfoBox key={attribute}>
-							<InfoContainer>
-								<Label>{attribute}</Label>
-								{/* @ts-ignore */}
-								<Label>{attributes[attribute]}</Label>
-							</InfoContainer>
-						</InfoBox>
-					))}
+				{attributes && (
+					<pre>{JSON.stringify(attributes, null, 2)}</pre>
+				)}
 			</SubContainer>
 		</Container>
 	);
