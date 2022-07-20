@@ -2,7 +2,7 @@ import { useEthereum } from './useEthereum';
 import Provider from './Provider';
 import {Networks } from '../networks'
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
-
+export { Localhost } from '@decentology/hyperverse-evm'
 const getNetwork = (network: Network) => {
 	return Networks[network];
 };
