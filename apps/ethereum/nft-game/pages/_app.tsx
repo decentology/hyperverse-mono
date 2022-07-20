@@ -1,5 +1,5 @@
 import { initialize, Provider, Network } from '@decentology/hyperverse/react';
-import { Ethereum, Localhost } from '@decentology/hyperverse-ethereum/react';
+import { Ethereum } from '@decentology/hyperverse-ethereum/react';
 import '@decentology/hyperverse-ethereum/styles.css';
 import { NFTGame } from '@decentology/hyperverse-evm-nft-game/react';
 
@@ -41,13 +41,12 @@ const globalStyles = globalCss({
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
-		blockchain: Localhost,
+		blockchain: Ethereum,
 		// network: Network.Testnet,
 		network: {
 			type: Network.Testnet,
 			networkUrl: 'http://localhost:8545',
 			chainId: 31337,
-
 		},
 		modules: [
 			{

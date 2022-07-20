@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 
-import { useEvm } from '@decentology/hyperverse-evm';
-import { ModuleLibrary, ModuleLibraryType } from './moduleLibrary';
-import { useHyperverse } from '@decentology/hyperverse';
+import { useEvm } from '@decentology/hyperverse-evm/react';
+import { ModuleLibrary, ModuleLibraryType } from '../moduleLibrary';
+import { useHyperverse } from '@decentology/hyperverse/react';
 
 function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
@@ -14,7 +13,7 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 
 	useEffect(() => {
 		const lib = ModuleLibrary(hyperverse, signer || readOnlyProvider).then(setModuleLibrary).catch(() => {
-			
+
 		})
 		return lib.cancel;
 	}, [signer, readOnlyProvider])
