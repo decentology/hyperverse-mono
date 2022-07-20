@@ -1,9 +1,12 @@
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
-import { NETWORKS } from './networks';
+import { Networks } from './networks';
 
+const getNetwork = (network: Network) => {
+	return Networks[network];
+}
 export const Metis = makeHyperverseBlockchain({
 	name: Blockchain.Metis,
-	getNetwork: (network: Network) => {
-		return NETWORKS[network];
-	}
+	getNetwork: 
 });
+
+export { getNetwork, Networks };

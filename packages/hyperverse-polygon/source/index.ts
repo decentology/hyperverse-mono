@@ -1,9 +1,12 @@
-import { Provider, usePolygon } from './usePolygon';
-import { Blockchain, makeHyperverseBlockchain } from '@decentology/hyperverse';
+import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
+import { Networks } from './networks';
 
+const getNetwork = (network: Network) => {
+	return Networks[network];
+}
 export const Polygon = makeHyperverseBlockchain({
 	name: Blockchain.Polygon,
-	Provider: Provider,
 });
 
-export { Provider, usePolygon };
+
+export { getNetwork, Networks };

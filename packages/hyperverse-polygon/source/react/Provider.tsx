@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Provider as EvmProvider, ProviderProps } from '@decentology/hyperverse-evm';
+import { Provider as EvmProvider, ProviderProps } from '@decentology/hyperverse-evm/react';
 import { Polygon } from './usePolygon';
 import { Network } from '@decentology/hyperverse';
 const Provider: FC<ProviderProps> = ({ children, ...props }) => {

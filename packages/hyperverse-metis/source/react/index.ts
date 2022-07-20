@@ -1,6 +1,6 @@
 import { useMetis } from './useMetis';
 import Provider from './Provider';
-import {NETWORKS as Networks } from '../networks'
+import { Networks as Networks } from '../networks'
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
 
 const getNetwork = (network: Network) => {
