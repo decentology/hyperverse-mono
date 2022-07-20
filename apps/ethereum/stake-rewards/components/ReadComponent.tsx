@@ -1,5 +1,5 @@
 import { styled } from '../stitches.config';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Module } from './ComponentStyles';
@@ -40,7 +40,7 @@ const ReadComponent = ({
 	const [hidden, setHidden] = useState(false);
 	const { data, error, isLoading } = useQuery(header, hook);
 
-	const dataFetched = isAddress ? shortenHash(data as any, 5, 5) : data;
+	const dataFetched = isAddress ? shortenHash(data as any, 5, 5) : data as string;
 
 	useEffect(() => {
 		if (error) {

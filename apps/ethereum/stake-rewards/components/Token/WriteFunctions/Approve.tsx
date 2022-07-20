@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC777 } from '@decentology/hyperverse-evm-erc777';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777/react';
 import {
 	Box,
 	Item,

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { styled } from '../stitches.config';

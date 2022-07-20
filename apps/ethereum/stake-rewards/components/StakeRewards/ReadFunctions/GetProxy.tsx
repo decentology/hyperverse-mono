@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards/react';
 import { MdFileCopy } from 'react-icons/md';
 import {
 	Box,

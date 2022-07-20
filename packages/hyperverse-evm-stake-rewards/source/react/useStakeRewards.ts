@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 
-import { useHyperverse } from '@decentology/hyperverse';
-import { useEvm } from '@decentology/hyperverse-evm';
-import { StakeRewardsLibrary, StakeRewardsLibraryType } from './stakeRewardsLibrary';
+import { useHyperverse } from '@decentology/hyperverse/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
+import { StakeRewardsLibrary, StakeRewardsLibraryType } from '../stakeRewardsLibrary';
 
 function StakeRewardsState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;

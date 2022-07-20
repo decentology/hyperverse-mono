@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import {
 	Box,
 	Item,
@@ -13,7 +13,7 @@ import {
 	Module,
 } from '../../ComponentStyles';
 import { useMutation } from 'react-query';
-import { useERC777 } from '@decentology/hyperverse-evm-erc777';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777/react';
 
 const CreateTokenInstance = () => {
 	const { account } = useEthereum();

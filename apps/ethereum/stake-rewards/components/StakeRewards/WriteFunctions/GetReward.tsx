@@ -1,5 +1,5 @@
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards/react';
 import { Box, Button } from '../../ComponentStyles';
 import { useMutation, useQuery } from 'react-query';
 

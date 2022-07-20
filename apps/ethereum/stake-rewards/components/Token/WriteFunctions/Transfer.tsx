@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { toast } from 'react-toastify';
 import {
 	Box,
@@ -13,7 +13,7 @@ import {
 	Button,
 	Module,
 } from '../../ComponentStyles';
-import { useERC777 } from '@decentology/hyperverse-evm-erc777/source';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777/react';
 import { useMutation } from 'react-query';
 
 const Transfer = () => {

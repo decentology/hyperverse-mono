@@ -1,7 +1,7 @@
-import { initialize, Provider, Network } from '@decentology/hyperverse';
-import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as ERC777 from '@decentology/hyperverse-evm-erc777';
-import * as StakeRewards from '@decentology/hyperverse-evm-stake-rewards';
+import { initialize, Provider, Network } from '@decentology/hyperverse/react';
+import { Ethereum } from '@decentology/hyperverse-ethereum/react';
+import { ERC777 } from '@decentology/hyperverse-evm-erc777/react';
+import { StakeRewards } from '@decentology/hyperverse-evm-stake-rewards/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ToastContainer } from 'react-toastify';
 

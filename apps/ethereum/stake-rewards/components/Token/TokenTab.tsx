@@ -8,9 +8,9 @@ import TransferFrom from './WriteFunctions/TransferFrom';
 import Approve from './WriteFunctions/Approve';
 import Mint from './WriteFunctions/Mint';
 import GetProxyToken from './ReadFunctions/GetProxyToken';
-import { useERC777 } from '@decentology/hyperverse-evm-erc777';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777/react';
 import { BsExclamationTriangleFill } from 'react-icons/bs';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { useQuery } from 'react-query';
 
 const TokenTab = () => {
@@ -39,7 +39,7 @@ const TokenTab = () => {
 			buttonText: 'Get Total Supply',
 		},
 		{
-			hook: erc777.getBalance!,
+			hook: erc777.getBalanceOf!,
 			header: 'Balance',
 			description: 'Get the balance of your account',
 			buttonText: 'Get Balance',

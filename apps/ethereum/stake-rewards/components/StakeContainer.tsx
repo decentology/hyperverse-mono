@@ -1,6 +1,6 @@
 import { styled } from '../stitches.config';
-import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useStakeRewards } from '@decentology/hyperverse-evm-stake-rewards/react';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import ReadComponent from './ReadComponent';
 import * as Accordion from '@radix-ui/react-accordion';
 import CreateStakeInstance from './StakeRewards/WriteFunctions/CreateStakeInstance';

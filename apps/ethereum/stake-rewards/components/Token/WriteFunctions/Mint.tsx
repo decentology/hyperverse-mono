@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-// import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import {
 	Box,
 	Item,
@@ -12,7 +11,7 @@ import {
 	Content,
 	Button,
 } from '../../ComponentStyles';
-import { useERC777 } from '@decentology/hyperverse-evm-erc777';
+import { useERC777 } from '@decentology/hyperverse-evm-erc777/react';
 import { useMutation } from 'react-query';
 
 const Mint = () => {
