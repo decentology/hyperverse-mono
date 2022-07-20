@@ -1,2 +1,5 @@
-export { useRandomPick } from './useRandomPick'
-export { Provider } from "./Provider";
+
+export { RandomPickLibrary } from './randomPickLibrary'
+export const RandomPick = {
+	ModuleName: 'RandomPick',
+}

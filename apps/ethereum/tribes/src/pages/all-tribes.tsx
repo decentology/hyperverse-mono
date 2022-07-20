@@ -3,8 +3,6 @@ import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
 import Loader from '../components/Loader';
 import { useTribes } from '@decentology/hyperverse-evm-tribes/react';
-import { useEthereum } from '@decentology/hyperverse-ethereum/react';
-import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import Link from 'next/link';

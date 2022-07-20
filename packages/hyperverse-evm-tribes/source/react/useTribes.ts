@@ -3,7 +3,7 @@ import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useEvm } from '@decentology/hyperverse-evm/react';
 import { TribesLibrary, TribesLibraryType } from '../tribesLibrary';
-import { useHyperverse } from '@decentology/hyperverse';
+import { useHyperverse } from '@decentology/hyperverse/react';
 
 function TribesState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;

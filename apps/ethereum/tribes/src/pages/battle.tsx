@@ -1,6 +1,5 @@
-import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick';
-import { useTribes } from '@decentology/hyperverse-evm-tribes';
-import Image from 'next/image';
+import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick/react';
+import { useTribes } from '@decentology/hyperverse-evm-tribes/react';
 import { useCallback, useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { useMutation, useQuery } from 'react-query';
@@ -23,10 +22,10 @@ const Battle = () => {
 		mutate: randomMutate,
 		data: requestId,
 		isLoading: randomNumber,
-	} = useMutation(startRandomPick);
+	} = useMutation('startRandomPick', startRandomPick);
 	let { data: randomNumberPick, isLoading: loadingWinner } = useQuery(
 		['randomNumber', { requestId }],
-		() => getRandomPick(requestId),
+		() => getRandomPick!(requestId),
 		{
 			enabled: !!requestId,
 		}

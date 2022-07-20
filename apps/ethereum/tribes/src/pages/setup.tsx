@@ -76,7 +76,7 @@ const Setup = () => {
 							<button
 								className={styles.join}
 								type="submit"
-								onClick={() => mutate(account)}
+								onClick={() => mutate({ account })}
 							>
 								Create Instance
 							</button>

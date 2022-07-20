@@ -1,14 +1,15 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { initialize, Provider } from '@decentology/hyperverse';
-import { Network } from '@decentology/hyperverse';
+import { initialize, Provider } from '@decentology/hyperverse/react';
+import { Network } from '@decentology/hyperverse/react';
 import { Ethereum, darkTheme } from '@decentology/hyperverse-ethereum/react';
 import '@decentology/hyperverse-ethereum/styles.css';
 import { Tribes } from '@decentology/hyperverse-evm-tribes/react';
-import * as RandomPick from '@decentology/hyperverse-ethereum-randompick';
+import { RandomPick } from '@decentology/hyperverse-ethereum-randompick/react';
 import InnerComponent from '../components/InnerComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '@decentology/hyperverse-ethereum/styles.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 // Change your Tenant ID here.

@@ -1,27 +1,26 @@
 import {
-	Network,
-	Blockchain,
-	useHyperverse,
 	isEvm,
+	Blockchain,
 	BlockchainEvm,
 	EvmEnvironment,
+	NetworkConfig,
 } from '@decentology/hyperverse';
 import RandomPick from '../artifacts/contracts/RandomPick.sol/RandomPick.json';
 import Contracts from '../contracts.json';
-export const ContractABI = RandomPick.abi;
+import { ContractInterface } from 'ethers';
+export const ContractABI = RandomPick.abi as ContractInterface;
 
 const environment = Contracts as EvmEnvironment;
 
-function useEnvironment() {
-	const { blockchain, network } = useHyperverse();
-	if (blockchain == null) {
+function getEnvironment(blockchainName: Blockchain, network: NetworkConfig) {
+	if (blockchainName == null) {
 		throw new Error('Blockchain is not set');
 	}
-	if (blockchain?.name !== Blockchain.Ethereum) {
+	if (!isEvm(blockchainName)) {
 		throw new Error('Blockchain is not EVM compatible');
 	}
 
-	const chain = environment[blockchain.name as BlockchainEvm];
+	const chain = environment[blockchainName as BlockchainEvm];
 	if (!chain) {
 		throw new Error('Blockchain is not supported');
 	}
@@ -32,4 +31,4 @@ function useEnvironment() {
 	};
 }
 
-export { environment, useEnvironment };
+export { environment, getEnvironment };

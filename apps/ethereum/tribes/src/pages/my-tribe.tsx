@@ -7,7 +7,6 @@ import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
-import Image from 'next/image';
 
 const TribesPage = () => {
 	const router = useRouter();
