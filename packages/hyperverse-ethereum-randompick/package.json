@@ -9,7 +9,7 @@
 		".": {
 			"import": "./source/index.ts"
 		},
-		"./react": "./source/react"
+		"./react": "./source/react/index.ts"
 	},
 	"scripts": {
 		"test": "hardhat test",

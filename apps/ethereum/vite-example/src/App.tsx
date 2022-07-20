@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './App.css';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick';
+import '@decentology/hyperverse-ethereum/styles.css';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick/react';
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -22,7 +23,7 @@ function App() {
 					</button>
 				</p>
 				<p>
-					Contract Address: <code>{contract.address}</code>
+					Contract Address: <code>{contract?.address}</code>
 				</p>
 				<Connect />
 			</header>

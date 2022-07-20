@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Provider, initialize, Network } from '@decentology/hyperverse';
-import { Ethereum } from '@decentology/hyperverse-ethereum';
-import * as RandomPick from '@decentology/hyperverse-ethereum-randompick';
-// import * as Tribes from '@decentology/hyperverse-evm-tribes';
+import { Provider, initialize, Network } from '@decentology/hyperverse/react';
+import { Ethereum } from '@decentology/hyperverse-ethereum/react';
+import { RandomPick } from '@decentology/hyperverse-ethereum-randompick/react';
 
 const hyperverse = initialize({
 	blockchain: Ethereum,

@@ -6,6 +6,12 @@
 	"types": "./distribution/index.d.ts",
 	"version": "1.0.17",
 	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		},
+		"./react": "./source/react/index.ts"
+	},
 	"files": [
 		"distribution"
 	],
