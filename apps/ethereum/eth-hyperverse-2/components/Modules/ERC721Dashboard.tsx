@@ -1,8 +1,8 @@
 import React from 'react'
 import { AdminFunction } from '../AdminFunction'
 import { styled } from '../../stitches.config'
-import { useEthereum } from '@decentology/hyperverse-ethereum'
-import { useERC721 } from '@decentology/hyperverse-evm-erc721'
+import { useEthereum } from '@decentology/hyperverse-ethereum/react'
+import { useERC721 } from '@decentology/hyperverse-evm-erc721/react'
 
 
 export const ERC721Dashboard = () => {

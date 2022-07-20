@@ -3,9 +3,9 @@ import { styled } from '../../stitches.config'
 import { CopyBlock, railscast, dracula } from 'react-code-blocks'
 import { Modules, ModulesInfo } from '../../utils/constants'
 import { Initialize } from './Initialize'
-import { useEthereum } from '@decentology/hyperverse-ethereum'
-import { useERC721 } from '@decentology/hyperverse-evm-erc721'
-import { useERC20 } from '@decentology/hyperverse-evm-erc20'
+import { useEthereum } from '@decentology/hyperverse-ethereum/react'
+import { useERC721 } from '@decentology/hyperverse-evm-erc721/react'
+import { useERC20 } from '@decentology/hyperverse-evm-erc20/react'
 import { useQuery } from 'react-query'
 
 export const GetStarted = ({ module }: { module: Modules }) => {
