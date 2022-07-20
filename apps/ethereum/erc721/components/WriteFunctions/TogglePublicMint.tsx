@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC721 } from '@decentology/hyperverse-evm-erc721';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useERC721 } from '@decentology/hyperverse-evm-erc721/react';
 import {
 	Box,
 	Item,
@@ -20,7 +20,7 @@ const TogglePublicMint = () => {
 	const erc721 = useERC721();
 	const [boolMint, setBoolMint] = useState<string>('false');
 
-	const { mutate, isLoading } = useMutation('togglePublicMint', erc721.togglePublicMint);
+	const { mutate, isLoading } = useMutation('togglePublicMint', erc721.setMintPermissions);
 
 	const publicMint = async () => {
 		try {

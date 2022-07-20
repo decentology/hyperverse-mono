@@ -11,11 +11,11 @@ import TenantMint from './WriteFunctions/TenantMint';
 import Mint from './WriteFunctions/Mint';
 import GetOwnerOf from './ReadFunctions/GetOwnerOf';
 import GetProxy from './ReadFunctions/GetProxy';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { BsFillExclamationDiamondFill } from 'react-icons/bs';
-import { useERC721 } from '@decentology/hyperverse-evm-erc721';
+import { useERC721 } from '@decentology/hyperverse-evm-erc721/react';
 import { useQuery } from 'react-query';
 
 const Container = () => {

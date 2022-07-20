@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import * as Accordion from '@radix-ui/react-accordion';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useERC721 } from '@decentology/hyperverse-evm-erc721';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useERC721 } from '@decentology/hyperverse-evm-erc721/react';
 import { MdFileCopy } from 'react-icons/md';
 import { Box } from '../ComponentStyles';
 import { styled } from '@stitches/react';
