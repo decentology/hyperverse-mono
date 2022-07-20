@@ -4,6 +4,9 @@
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
+		},
+		"./react": {
+			"import": "./source/react/index.ts"
 		}
 	},
 	"source": "./source/index.ts",

@@ -7,12 +7,12 @@ import Allowance from './ReadFunctions/Allowance';
 import TransferFrom from './WriteFunctions/TransferFrom';
 import Approve from './WriteFunctions/Approve';
 import Mint from './WriteFunctions/Mint';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { BsFillExclamationDiamondFill } from 'react-icons/bs';
 import GetProxy from './ReadFunctions/GetProxy';
-import { useERC20 } from '@decentology/hyperverse-evm-erc20';
+import { useERC20 } from '@decentology/hyperverse-evm-erc20/react';
 import { useQuery } from 'react-query';
 
 const Container = () => {

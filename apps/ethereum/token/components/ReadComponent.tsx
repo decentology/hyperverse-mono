@@ -1,5 +1,5 @@
 import { styled } from '../stitches.config';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useQuery } from 'react-query';
@@ -18,7 +18,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 type Props = {
-	fn: any;
+	fn: (...args: any) => any;
 	header: string;
 	description: string;
 	buttonText: string;
