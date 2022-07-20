@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
-import { useTribes } from '@decentology/hyperverse-evm-tribes';
-import { useMetis } from '@decentology/hyperverse-metis';
+import { useTribes } from '@decentology/hyperverse-evm-tribes/react';
+import { useMetis } from '@decentology/hyperverse-metis/react';
 
 const Home: NextPage = () => {
 	const router = useRouter();

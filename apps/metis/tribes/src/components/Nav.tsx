@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
-import { useMetis } from '@decentology/hyperverse-metis';
+import { useMetis } from '@decentology/hyperverse-metis/react';
 import { toast } from 'react-toastify';
 
 const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?: number) => {
@@ -18,7 +18,7 @@ const shortenHash = (hash: string = '', charLength: number = 6, postCharLength?:
 };
 
 const Nav = () => {
-	const { address, disconnect, connect, error } = useMetis();
+	const { address, Connect, error } = useMetis();
 
 	useEffect(() => {
 		if (error) {
@@ -39,15 +39,7 @@ const Nav = () => {
 					</a>
 				</Link>
 
-				{!address ? (
-					<button className={styles.connect} onClick={connect}>
-						Connect Wallet
-					</button>
-				) : (
-					<button className={styles.logout} onClick={disconnect}>
-						<span>{shortenHash(address, 5, 5)}</span>
-					</button>
-				)}
+				<Connect />
 			</div>
 		</nav>
 	);

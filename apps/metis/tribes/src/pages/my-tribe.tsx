@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from 'react-query';
 import { useEffect } from 'react';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useTribes } from '@decentology/hyperverse-evm-tribes';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useTribes } from '@decentology/hyperverse-evm-tribes/react';
 import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
 import Loader from '../components/Loader';

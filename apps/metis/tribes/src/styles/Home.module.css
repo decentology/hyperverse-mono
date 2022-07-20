@@ -10,6 +10,12 @@
   justify-content: center;
   align-items: center;
   font-family: "Press Start 2P";
+  padding: 0 1.25rem ;
+  
+}
+
+.rightNav a {
+  margin-right: 1.5rem;
 }
 
 .connect {
@@ -234,7 +240,7 @@
 .tribe {
   height: auto;
   margin-top: 2.5rem;
-  margin-right: 2rem !important;
+  margin-right: 1rem !important;
 }
 
 .tribeCard {
@@ -435,3 +441,87 @@
 .modalContainer > button {
   margin-bottom: 0.5rem;
 }
+
+/* --------------- End of Modal Wallet ---------------- */
+
+/* ------------------- Battle Tribe ------------------- */
+.battleRoyal { 
+    max-width: 1500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 8rem);
+    font-family: "Press Start 2P";
+
+}
+
+.battleBtn {
+  font-family: 'Press Start 2P';
+  cursor: pointer;
+  margin: -3rem auto 3rem;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--color-theme-white);
+  width: 12.5rem;
+  height: 2.2rem;
+  background: rgb(180, 58, 58);
+  background: linear-gradient(
+    0deg,
+    rgba(253, 29, 29, 100) 70%,
+    rgba(180, 58, 58, 100) 85%,
+    rgba(255, 255, 255, 100) 100%
+  );
+}
+.battleStage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 4rem 3rem;
+}
+
+.winner {
+  animation: zoominoutsinglefeatured 5s forwards infinite;
+  overflow: hidden;
+}
+
+.loser {
+  animation: fadeOut 5s;
+  opacity: 0;
+}
+
+.container4 {
+  height: 270;
+  width: 350;
+  padding: 0 1rem 3rem;
+}
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+@keyframes zoominoutsinglefeatured {
+  0% {
+      transform: scale(1,1);
+  }
+  50% {
+      transform: scale(1.2,1.2);
+  }
+  100% {
+      transform: scale(1,1);
+  }
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;} 
+} 

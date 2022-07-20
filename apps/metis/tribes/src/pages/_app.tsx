@@ -1,19 +1,17 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { initialize, Provider } from '@decentology/hyperverse';
-import { Network } from '@decentology/hyperverse';
-import { Metis } from '@decentology/hyperverse-metis';
-import {Tribes }from '@decentology/hyperverse-evm-tribes';
+import { initialize, Provider } from '@decentology/hyperverse/react';
+import { Network } from '@decentology/hyperverse/react';
+import { Metis } from '@decentology/hyperverse-metis/react';
+import { Tribes } from '@decentology/hyperverse-evm-tribes/react';
 import InnerComponent from '../components/InnerComponent';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '@decentology/hyperverse-metis/styles.css';
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: Metis,
 		network: Network.Testnet,
-		storage: {
-			options: { clientUrl: 'https://skynetpro.net' }, // Updated to fileportal due to SSL error issues with SiaSky.net
-		},
 		modules: [
 			{
 				bundle: Tribes,
