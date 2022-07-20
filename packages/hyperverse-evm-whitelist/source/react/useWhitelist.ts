@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useQuery, useMutation, UseMutationOptions } from 'react-query';
 import { useEvent } from 'react-use';
-import { useHyperverse } from '@decentology/hyperverse';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useHyperverse } from '@decentology/hyperverse/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { WhitelistLibrary, WhitelistLibraryType } from './whitelistlibrary';
+import { WhitelistLibrary, WhitelistLibraryType } from '../whitelistlibrary';
 
 function WhitelistState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;

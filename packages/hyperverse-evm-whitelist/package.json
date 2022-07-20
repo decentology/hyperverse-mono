@@ -8,7 +8,8 @@
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
-		}
+		},
+		"./react": "./source/react/index.ts"
 	},
 	"scripts": {
 		"compile": "hardhat compile",
