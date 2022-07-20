@@ -1,10 +1,10 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { HyperverseBlockchain, initialize, Provider } from '@decentology/hyperverse';
+import { HyperverseBlockchain, initialize, Provider } from '@decentology/hyperverse/react';
 import { Network } from '@decentology/hyperverse';
-import { Metis, Provider as MetisProvider } from '@decentology/hyperverse-metis';
-import { Ethereum, Provider as EthereumProvider } from '@decentology/hyperverse-ethereum';
-import { Flow, Provider as FlowProvider } from '@decentology/hyperverse-flow';
+import { Metis, Provider as MetisProvider } from '@decentology/hyperverse-metis/react';
+import { Ethereum, Provider as EthereumProvider } from '@decentology/hyperverse-ethereum/react';
+import { Flow, Provider as FlowProvider } from '@decentology/hyperverse-flow/react';
 import { useState } from 'react';
 import context from '../context/globalContext';
 function MyApp({ Component, pageProps }: AppProps) {

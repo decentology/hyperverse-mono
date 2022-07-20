@@ -1,40 +1,35 @@
-import { Blockchain, useHyperverse } from '@decentology/hyperverse';
-import { useEthereum } from '@decentology/hyperverse-ethereum';
-import { useFlow } from '@decentology/hyperverse-flow';
-import { useMetis } from '@decentology/hyperverse-metis';
+import { Blockchain, useHyperverse } from '@decentology/hyperverse/react';
+import { useEthereum } from '@decentology/hyperverse-ethereum/react';
+import { useFlow } from '@decentology/hyperverse-flow/react';
+import { useMetis } from '@decentology/hyperverse-metis/react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useContext } from 'react';
 import context from '../context/globalContext';
 import styles from '../styles/Home.module.css';
+import '@decentology/hyperverse-ethereum/styles.css';
 
 const Home: NextPage = () => {
 	const { blockchain } = useHyperverse();
-	const { address, connect: EthereumConnect, disconnect: EthereumDisconnect } = useEthereum();
-	const {
-		address: metisAddress,
-		connect: MetisConnect,
-		disconnect: MetisDisconnect,
-	} = useMetis();
+	const { address, Connect: EthereumConnect } = useEthereum();
+	const { address: metisAddress, Connect: MetisConnect } = useMetis();
 	const { user, authenticate, unauthenticate } = useFlow();
 	const globalContext = useContext(context);
+	let Connect: typeof EthereumConnect;
+
 	switch (blockchain!.name) {
 		case Blockchain.Ethereum:
-			var connect = EthereumConnect;
-			var disconnect = EthereumDisconnect;
+			Connect = EthereumConnect;
 			break;
 		case Blockchain.Metis:
-			var connect = MetisConnect;
-			var disconnect = MetisDisconnect;
-			break;
-		case Blockchain.Flow:
-			var connect = authenticate;
-			var disconnect = unauthenticate;
+			Connect = MetisConnect;
 			break;
 		default:
+			Connect = EthereumConnect;
 			break;
 	}
+
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -56,16 +51,24 @@ const Home: NextPage = () => {
 					<li>Metis: {metisAddress}</li>
 					<li>Flow: {user?.addr}</li>
 				</ul>
+				<div>
+					{(blockchain?.name === Blockchain.Ethereum ||
+						blockchain?.name === Blockchain.Metis) && <Connect />}
+				</div>
 				<div className={styles.grid}>
-					<div onClick={() => connect()} className={styles.card}>
-						<h2>Connect</h2>
-						<p>Connect wallet to the selected provider</p>
-					</div>
+					{blockchain?.name === Blockchain.Flow && (
+						<>
+							<div onClick={() => authenticate()} className={styles.card}>
+								<h2>Connect</h2>
+								<p>Connect wallet to the selected provider</p>
+							</div>
 
-					<div onClick={() => disconnect()} className={styles.card}>
-						<h2>Disconnect</h2>
-						<p>Disconnect wallet from selected provider</p>
-					</div>
+							<div onClick={() => unauthenticate()} className={styles.card}>
+								<h2>Disconnect</h2>
+								<p>Disconnect wallet from selected provider</p>
+							</div>
+						</>
+					)}
 
 					<div
 						onClick={() => globalContext?.switchBlockchain('ethereum')}

@@ -9,11 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@decentology/hyperverse": "^1.0.0",
-    "@decentology/hyperverse-ethereum": "^1.0.0",
-    "@decentology/hyperverse-flow": "^1.0.0",
-    "@decentology/hyperverse-metis": "^1.0.0",
-    "@decentology/hyperverse-evm-tribes": "^1.0.0",
+    "@decentology/hyperverse": "workspace:^",
+    "@decentology/hyperverse-ethereum": "workspace:^",
+    "@decentology/hyperverse-evm-tribes": "workspace:^",
+    "@decentology/hyperverse-flow": "workspace:^",
+    "@decentology/hyperverse-metis": "workspace:^",
+    "@decentology/unstated-next": "workspace:^",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -24,6 +25,7 @@
     "@types/react": "17.0.39",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0",
+    "next-transpile-modules": "^9.0.0",
     "typescript": "4.5.5"
   }
 }
