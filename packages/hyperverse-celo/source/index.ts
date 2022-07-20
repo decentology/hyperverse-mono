@@ -5,7 +5,7 @@ const getNetwork = (network: Network) => {
 	return Networks[network];
 }
 export const Cello = makeHyperverseBlockchain({
-	name: Blockchain.Ethereum,
+	name: Blockchain.Celo,
 	getNetwork
 });
 export { Localhost, } from '@decentology/hyperverse-evm';

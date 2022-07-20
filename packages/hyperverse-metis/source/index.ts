@@ -6,7 +6,7 @@ const getNetwork = (network: Network) => {
 }
 export const Metis = makeHyperverseBlockchain({
 	name: Blockchain.Metis,
-	getNetwork: 
+	getNetwork
 });
 
 export { getNetwork, Networks };
