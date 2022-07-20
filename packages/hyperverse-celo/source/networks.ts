@@ -1,8 +1,5 @@
-import { FC } from 'react';
-import { Provider as EvmProvider, } from '@decentology/hyperverse-evm';
-import { Celo } from './useCelo';
-import { Network, NetworkConfig } from '@decentology/hyperverse';
-import './styles.css';
+import { Network, NetworkConfig } from "@decentology/hyperverse";
+
 export const Networks : {[key in Network] : NetworkConfig} = {
 	[Network.Mainnet]: {
 		type: Network.Mainnet,
@@ -19,12 +16,3 @@ export const Networks : {[key in Network] : NetworkConfig} = {
 		blockExplorer: 'https://alfajores-blockscout.celo-testnet.org',
 	},
 };
-const Provider: FC<any> = ({ children, ...props }) => {
-	return (
-		<EvmProvider networks={Networks} { ...props}>
-			<Celo.Provider>{children}</Celo.Provider>
-		</EvmProvider>
-	);
-};
-
-export default Provider;

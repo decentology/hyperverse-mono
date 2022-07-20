@@ -8,7 +8,9 @@
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
-		}
+		},
+		"./react": "./source/react/index.ts",
+		"./styles.css": "./source/styles.css"
 	},
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",

@@ -5,6 +5,7 @@
 		".": {
 			"import": "./source/index.ts"
 		},
+		"./react": "./source/react/index.ts",
 		"./styles.css": "./source/styles.css"
 	},
 	"type": "module",

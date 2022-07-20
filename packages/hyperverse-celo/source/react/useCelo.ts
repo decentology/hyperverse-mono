@@ -1,5 +1,5 @@
 import { createContainer, useContainer } from '@decentology/unstated-next';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 
 function CeloState() {
 	const state = useEvm();
