@@ -1,8 +1,9 @@
 import { getDefaultWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
-import { createClient, configureChains, WagmiConfig } from 'wagmi';
+import { createClient, configureChains, WagmiConfig, chain } from 'wagmi';
 import { Evm } from './useEVM';
-import { useHyperverse } from '@decentology/hyperverse/react';
+import { Network, useHyperverse } from '@decentology/hyperverse/react';
 import { publicProvider } from 'wagmi/providers/public';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { useMemo } from 'react';
 export type ProviderProps = {
 	children: React.ReactNode;
@@ -11,7 +12,6 @@ export type ProviderProps = {
 
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const { network: defaultNetwork } = useHyperverse();
-
 	const { chains, provider } = useMemo(
 		() =>
 			configureChains(
@@ -19,7 +19,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 					{
 						id: defaultNetwork.chainId!,
 						name: defaultNetwork.name!,
-						network: defaultNetwork.networkUrl!,
+						network: defaultNetwork.name!,
 						rpcUrls: {
 							default: defaultNetwork.networkUrl!,
 						},

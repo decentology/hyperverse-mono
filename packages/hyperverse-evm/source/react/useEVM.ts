@@ -6,17 +6,13 @@ import { useEffect, useState } from 'react';
 
 function EvmState() {
 	const [allow, setAllow] = useState(false);
-
 	const { network } = useHyperverse();
-
 	const readOnlyProvider = useProvider();
+	const { address, status: accountErr, isConnecting, isReconnecting } = useAccount();
+	const isLoading = isConnecting || isReconnecting;
 
-	const { data: account, error: accountErr, isLoading } = useAccount();
-
-	const address = account?.address;
-
-	const { data: ens } = useEnsName({ address: address });
-
+	// @ts-ignore - Type requires too many extra params that aren't actually required
+	const { data: ens } = useEnsName({address: address});
 	let { data: signer } = useSigner();
 
 	useEffect(() => {
@@ -26,10 +22,10 @@ function EvmState() {
 	}, [signer?.provider]);
 
 	useEffect(() => {
-		if (account == null) {
+		if (address == null) {
 			setAllow(false);
 		}
-	}, [account]);
+	}, [address]);
 
 	return {
 		Connect: ConnectButton,
