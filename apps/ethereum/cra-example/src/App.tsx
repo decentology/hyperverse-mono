@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick';
+import { useRandomPick } from '@decentology/hyperverse-ethereum-randompick/react';
 
 function App() {
 	const { contract } = useRandomPick();
@@ -18,7 +18,7 @@ function App() {
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					{contract.address}
+					{contract?.address}
 				</a>
 			</header>
 		</div>
