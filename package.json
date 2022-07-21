@@ -42,9 +42,7 @@
 	},
 	"pnpm": {
 		"overrides": {
-			"ipfs-utils": "9.0.6",
-			"@rainbow-me/rainbowkit": "0.2.4",
-			"wagmi": "0.4.11"
+			"ipfs-utils": "9.0.6"
 		},
 		"onlyBuiltDependencies": [],
 		"peerDependencyRules": {
