@@ -4,9 +4,9 @@ import { StorageProps } from '@decentology/hyperverse-types';
 import { IpfsStorageLibrary } from './ipfsStorageLibrary';
 
 function StorageState(
-	{ clientUrl }: StorageProps = { clientUrl: 'https://ipfs.infura.io:5001' }
+	{ clientUrl, resolveUrl }: StorageProps = { clientUrl: 'https://ipfs.infura.io:5001', resolveUrl: 'https://hyperverse.infura-ipfs.io/ipfs' }
 ) {
-	const lib = IpfsStorageLibrary({ clientUrl });
+	const lib = IpfsStorageLibrary({ clientUrl, resolveUrl });
 	return lib
 }
 
