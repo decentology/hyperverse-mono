@@ -19,24 +19,29 @@ import { AppContext } from '../../pages/_app';
 const CreateInstance = () => {
 	const { account } = useEthereum();
 	const context = useContext(AppContext);
-	const erc721 = useERC721();
-	const { data: instance } = useQuery('instance', () => erc721.checkInstance!(account), {enabled: !!erc721.factoryContract});
-
-	const { mutate, isLoading } = useMutation('createTokenInstance', erc721.createInstance);
+	const { createInstance, checkInstance, factoryContract } = useERC721();
+	const { data: instance } = useQuery('instance', () => checkInstance!(account), {
+		enabled: !!factoryContract,
+	});
+	const { mutate, isLoading } = useMutation('createTokenInstance', createInstance);
 
 	const [tokenName, setTokenName] = useState('');
 	const [tokenSymbol, setTokenSymbol] = useState('');
 
 	const createNewInstance = async () => {
 		try {
-			mutate({
-				account: account!,
-				tokenName,
-				tokenSymbol,
-			}, {
-				onSuccess: () => { 
-					context.setTenantId(account!);
-			}});
+			mutate(
+				{
+					account: account!,
+					tokenName,
+					tokenSymbol,
+				},
+				{
+					onSuccess: () => {
+						context.setTenantId(account!);
+					},
+				}
+			);
 		} catch (error) {
 			throw error;
 		}
