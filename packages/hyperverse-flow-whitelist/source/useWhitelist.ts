@@ -1,7 +1,6 @@
-import { Network, useHyperverse } from '@decentology/hyperverse';
+import { Network, useHyperverse } from '@decentology/hyperverse/react';
 import { useEffect, useState } from 'react';
 import { createContainer } from '@decentology/unstated-next';
-import * as actions from './actions';
 const fcl = require('@onflow/fcl');
 
 function WhitelistState(initialState: { tenantId: string } = { tenantId: '' }) {
