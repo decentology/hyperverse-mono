@@ -41,5 +41,9 @@ module.exports = {
 			url: 'https://matic-mumbai.chainstacklabs.com/',
 			accounts,
 		},
+		celo: {
+			url: 'https://alfajores-forno.celo-testnet.org',
+			accounts,
+		},
 	},
 };
