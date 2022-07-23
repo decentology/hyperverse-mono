@@ -26,6 +26,7 @@
 	"publishConfig": {
 		"access": "public",
 		"exports": {
+			".": "./distribution/index.js",
 			"./react": "./distribution/react.mjs",
 			"./styles.css": "./distribution/styles.css"
 		}
