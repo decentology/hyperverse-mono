@@ -29,14 +29,17 @@
 	"publishConfig": {
 		"access": "public",
 		"exports": {
-			"./react": "./distribution/react.ts"
+			"./react": "./distribution/react.mjs"
 		}
 	},
 	"engines": {
 		"node": ">=12"
 	},
 	"exports": {
-		"./react": "./distribution/react.ts"
+		".": {
+			"import": "./source/index.ts"
+		},
+		"./react": "./source/react/index.ts"
 	},
 	"dependencies": {
 		"@decentology/hyperverse": "*",

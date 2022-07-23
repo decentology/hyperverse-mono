@@ -30,7 +30,7 @@
 	"publishConfig": {
 		"access": "public",
 		"exports": {
-			"./react": "./distribution/react.ts"
+			"./react": "./distribution/react.mjs"
 		}
 	},
 	"peerDependencies": {

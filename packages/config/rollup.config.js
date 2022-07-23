@@ -84,15 +84,6 @@ export default defineConfig([
 				packagePath: join(process.cwd(), 'package.json'),
 			}),
 			dts(),
-			// ts(),
-			// flatDts({
-			// 	compilerOptions: {
-			// 		declarationMap: true,
-			// 		importHelpers: false
-			// 	},
-			// 	internal: ['@decentology/*'],
-
-			// }),
 		],
 	},
 ]);

@@ -2,9 +2,9 @@
 	"name": "@decentology/hyperverse",
 	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./index.mjs",
-	"types": "./index.d.ts",
-	"version": "1.1.0",
+	"main": "./distribution/index.mjs",
+	"types": "./distribution/index.d.ts",
+	"version": "1.1.1",
 	"license": "MIT",
 	"exports": {
 		".": {
@@ -23,7 +23,7 @@
 	"publishConfig": {
 		"access": "public",
 		"exports": {
-			"./react": "./distribution/react.ts"
+			"./react": "./distribution/react.mjs"
 		}
 	},
 	"scripts": {
