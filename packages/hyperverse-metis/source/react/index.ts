@@ -3,6 +3,7 @@ import Provider from './Provider';
 import { Networks as Networks } from '../networks'
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
 
+import "../styles.css"
 const getNetwork = (network: Network) => {
 	return Networks[network];
 };
