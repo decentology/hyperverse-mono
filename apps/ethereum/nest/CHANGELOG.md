@@ -1,5 +1,14 @@
 # nest
 
+## 0.0.6
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.5
+    -   @decentology/hyperverse-ethereum@1.1.5
+    -   @decentology/hyperverse-evm-tribes@1.1.4
+
 ## 0.0.5
 
 ### Patch Changes

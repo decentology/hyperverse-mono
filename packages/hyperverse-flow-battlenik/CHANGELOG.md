@@ -1,5 +1,13 @@
 # @decentology/hyperverse-flow-1v1nik
 
+## 1.1.4
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.5
+    -   @decentology/hyperverse-flow@1.0.21
+
 ## 1.1.3
 
 ### Patch Changes

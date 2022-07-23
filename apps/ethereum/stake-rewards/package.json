@@ -1,6 +1,6 @@
 {
 	"name": "stake-rewards",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
@@ -12,7 +12,7 @@
 		"react": "^17.0.2"
 	},
 	"dependencies": {
-		"@decentology/config": "^1.1.0",
+		"@decentology/config": "^1.1.1",
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/hyperverse-ethereum": "workspace:^",
 		"@decentology/hyperverse-evm-erc777": "workspace:^",

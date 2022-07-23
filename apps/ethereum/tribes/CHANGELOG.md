@@ -1,5 +1,16 @@
 # @decentology/samples-web-tribes
 
+## 1.0.11
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.5
+    -   @decentology/hyperverse-ethereum@1.1.5
+    -   @decentology/hyperverse-ethereum-randompick@1.1.4
+    -   @decentology/hyperverse-evm@1.1.4
+    -   @decentology/hyperverse-evm-tribes@1.1.4
+
 ## 1.0.10
 
 ### Patch Changes

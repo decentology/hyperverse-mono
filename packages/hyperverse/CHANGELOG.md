@@ -1,5 +1,13 @@
 # @decentology/hyperverse
 
+## 1.1.5
+
+### Patch Changes
+
+-   Formated exports for server and client
+    -   @decentology/hyperverse-storage-ipfs@1.0.16
+    -   @decentology/hyperverse-storage-skynet@1.0.16
+
 ## 1.1.4
 
 ### Patch Changes

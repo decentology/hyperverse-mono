@@ -1,5 +1,15 @@
 # @decentology/hyperverse-ethereum-randompick
 
+## 1.1.4
+
+### Patch Changes
+
+-   Formated exports for server and client
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.5
+    -   @decentology/hyperverse-evm@1.1.4
+    -   @decentology/hyperverse-storage-skynet@1.0.16
+
 ## 1.1.3
 
 ### Patch Changes

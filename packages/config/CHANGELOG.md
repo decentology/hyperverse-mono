@@ -1,5 +1,11 @@
 # @decentology/config
 
+## 1.1.1
+
+### Patch Changes
+
+-   Formated exports for server and client
+
 ## 1.1.0
 
 ### Minor Changes

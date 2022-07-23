@@ -1,5 +1,14 @@
 # @decentology/hyperverse-ethereum-tribes
 
+## 2.1.4
+
+### Patch Changes
+
+-   Formated exports for server and client
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.5
+    -   @decentology/hyperverse-evm@1.1.4
+
 ## 2.1.3
 
 ### Patch Changes
