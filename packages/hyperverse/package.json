@@ -4,7 +4,7 @@
 	"source": "./source/index.ts",
 	"main": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"license": "MIT",
 	"exports": {
 		".": {

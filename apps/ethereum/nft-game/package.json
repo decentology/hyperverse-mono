@@ -1,6 +1,6 @@
 {
-  "name": "@decentology/nft-game",
-  "version": "0.0.2",
+  "name": "@decentology/samples-nft-game",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "next dev",

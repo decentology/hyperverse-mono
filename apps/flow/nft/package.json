@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/samples-flow-nft",
-	"version": "0.1.9",
+	"version": "0.1.10",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
@@ -9,9 +9,9 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1.1.0",
-		"@decentology/hyperverse-flow": "^1.0.17",
-		"@decentology/hyperverse-flow-nft": "1.1.0",
+		"@decentology/hyperverse": "^1.1.2",
+		"@decentology/hyperverse-flow": "^1.0.18",
+		"@decentology/hyperverse-flow-nft": "1.1.1",
 		"@decentology/unstated-next": "^1.1.9",
 		"@radix-ui/react-accordion": "^0.1.6",
 		"@stitches/react": "^1.2.6",

@@ -1,5 +1,11 @@
 # @decentology/hyperverse
 
+## 1.1.2
+
+### Patch Changes
+
+-   Fixed exports
+
 ## 1.1.0
 
 ### Minor Changes

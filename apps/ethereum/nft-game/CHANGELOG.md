@@ -1,5 +1,14 @@
 # token
 
+## 0.0.3
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.2
+    -   @decentology/hyperverse-ethereum@1.1.2
+    -   @decentology/hyperverse-evm-nft-game@0.1.1
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @decentology/hyperverse-ethereum
 
+## 1.1.1
+
+### Patch Changes
+
+-   Fixed exports
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.2
+
 ## 1.1.0
 
 ### Minor Changes
