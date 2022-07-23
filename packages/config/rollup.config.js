@@ -6,10 +6,20 @@ import esbuild from 'rollup-plugin-esbuild';
 import json from '@rollup/plugin-json';
 import dts from 'rollup-plugin-dts';
 import postcss from 'rollup-plugin-postcss';
-
 const dir = 'distribution';
 const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'));
-const input = pkg.source;
+const input = pkg.exports
+	? Object.assign(
+			{},
+			...Object.entries(pkg.exports)
+				.filter(([key]) => !key.includes('.css'))
+				.map(([key, value]) => {
+					key = key === '.' ? 'index' : key.replace('./', '');
+					return [key, value.import || value.default || value];
+				})
+				.map((x) => ({ [x[0]]: x[1] }))
+	  )
+	: pkg.source;
 const globals = {
 	react: 'React',
 	'react-dom': 'ReactDOM',
@@ -64,7 +74,7 @@ export default defineConfig([
 	},
 	{
 		input,
-		output: [{ file: `${dir}/index.d.ts`, format: 'es' }],
+		output: [{ dir: `${dir}`,  format: 'es' }],
 		plugins: [
 			postcss({
 				modules: true,
