@@ -30,7 +30,9 @@
 	},
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			"./react": "./distribution/react.ts"
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
@@ -38,7 +40,7 @@
 	},
 	"files": [
 		"distribution",
-		"utils"
+		"react.d.ts"
 	],
 	"engines": {
 		"node": ">=12.0.0"

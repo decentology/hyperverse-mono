@@ -18,11 +18,15 @@
 		"lint": "tsc --noEmit"
 	},
 	"files": [
-		"distribution"
+		"distribution",
+		"react.d.ts"
 	],
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			"./react": "./distribution/react.ts",
+			"./styles.css": "./distribution/styles.css"
+		}
 	},
 	"peerDependencies": {
 		"react": "^17.0.2"

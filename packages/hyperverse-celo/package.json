@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-celo",
-	"version": "1.0.27",
+	"version": "1.0.28",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
@@ -25,11 +25,13 @@
 		"lint": "tsc --noEmit"
 	},
 	"files": [
-		"distribution"
+		"distribution",
+		"react.d.ts"
 	],
 	"publishConfig": {
 		"access": "public",
 		"exports": {
+			"./react": "./distribution/react.ts",
 			"./styles.css": "./distribution/styles.css"
 		}
 	},

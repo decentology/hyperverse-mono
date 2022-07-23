@@ -2,8 +2,8 @@
 	"name": "@decentology/hyperverse",
 	"type": "module",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.mjs",
-	"types": "./distribution/index.d.ts",
+	"main": "./index.mjs",
+	"types": "./index.d.ts",
 	"version": "1.0.17",
 	"license": "MIT",
 	"exports": {
@@ -13,7 +13,8 @@
 		"./react": "./source/react/index.ts"
 	},
 	"files": [
-		"distribution"
+		"distribution",
+		"react.d.ts"
 	],
 	"repository": {
 		"type": "git",
@@ -21,7 +22,9 @@
 	},
 	"publishConfig": {
 		"access": "public",
-		"exports": null
+		"exports": {
+			"./react": "./distribution/react.ts"
+		}
 	},
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",

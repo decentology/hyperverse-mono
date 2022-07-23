@@ -23,11 +23,13 @@
 		"lint": "tsc --noEmit"
 	},
 	"files": [
-		"distribution"
+		"distribution",
+		"react.d.ts"
 	],
 	"publishConfig": {
 		"access": "public",
 		"exports": {
+			"./react": "./distribution/react.mjs",
 			"./styles.css": "./distribution/styles.css"
 		}
 	},

@@ -1,9 +1,18 @@
-import { createElement as createElementLocal, FC, useEffect, useState } from 'react';
+import {
+	createElement as createElementLocal,
+	FC,
+	PropsWithChildren,
+	useEffect,
+	useState,
+} from 'react';
 import { Hyperverse, HyperverseConfig } from '../types';
 import { HyperverseContainer } from './useHyperverse';
 import { Provider as IPFSProvider } from '@decentology/hyperverse-storage-ipfs';
 
-export const Provider: FC<{ initialState: HyperverseConfig }> = ({ children, initialState }) => {
+export const Provider: FC<PropsWithChildren<{ initialState: HyperverseConfig }>> = ({
+	children,
+	initialState,
+}) => {
 	const [selectedBlockchain, setSelectedBlockchain] = useState<string | null>(
 		initialState?.blockchain?.name || null
 	);

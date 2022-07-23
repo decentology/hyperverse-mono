@@ -2,7 +2,7 @@ import { useCelo } from './useCelo';
 import Provider from './Provider'
 import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hyperverse';
 import { Networks } from '../networks';
-
+import "../styles.css"
 const getNetwork = (network: Network) => {
 	return Networks[network];
 }
