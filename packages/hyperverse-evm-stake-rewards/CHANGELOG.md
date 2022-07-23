@@ -1,5 +1,16 @@
 # @decentology/hyperverse-ethereum-token
 
+## 1.1.3
+
+### Patch Changes
+
+-   Build don't complete for all modules. Re-publishing
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.4
+    -   @decentology/hyperverse-ethereum@1.1.4
+    -   @decentology/hyperverse-evm@1.1.3
+    -   @decentology/hyperverse-evm-erc777@2.1.3
+
 ## 1.1.2
 
 ### Patch Changes

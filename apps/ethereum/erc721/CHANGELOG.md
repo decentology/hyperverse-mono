@@ -1,5 +1,14 @@
 # token
 
+## 0.1.6
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.4
+    -   @decentology/hyperverse-ethereum@1.1.4
+    -   @decentology/hyperverse-evm-erc721@1.1.3
+
 ## 0.1.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @decentology/hyperverse
 
+## 1.1.4
+
+### Patch Changes
+
+-   Build don't complete for all modules. Re-publishing
+
 ## 1.1.3
 
 ### Patch Changes

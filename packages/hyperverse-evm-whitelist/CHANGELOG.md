@@ -1,5 +1,14 @@
 # @decentology/hyperverse-ethereum-tribes
 
+## 2.1.3
+
+### Patch Changes
+
+-   Build don't complete for all modules. Re-publishing
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.4
+    -   @decentology/hyperverse-evm@1.1.3
+
 ## 2.1.2
 
 ### Patch Changes
