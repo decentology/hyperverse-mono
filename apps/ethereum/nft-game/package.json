@@ -1,6 +1,6 @@
 {
   "name": "@decentology/nft-game",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -25,7 +25,7 @@
     "react-toastify": "^9.0.5"
   },
   "devDependencies": {
-    "@decentology/config": "^1.0.0",
+    "@decentology/config": "^1.1.0",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0"
   }

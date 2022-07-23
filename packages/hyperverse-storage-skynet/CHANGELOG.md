@@ -1,5 +1,11 @@
 # @decentology/hyperverse-storage-skynet
 
+## 1.0.15
+
+### Patch Changes
+
+-   @decentology/hyperverse-types@1.0.13
+
 ## 1.0.14
 
 ### Patch Changes

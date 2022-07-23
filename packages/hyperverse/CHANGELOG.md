@@ -1,5 +1,16 @@
 # @decentology/hyperverse
 
+## 1.1.0
+
+### Minor Changes
+
+-   fb1754ce: Major update to separate react from base libraries
+
+### Patch Changes
+
+-   @decentology/hyperverse-storage-ipfs@1.0.15
+-   @decentology/hyperverse-storage-skynet@1.0.15
+
 ## 1.0.17
 
 ### Patch Changes

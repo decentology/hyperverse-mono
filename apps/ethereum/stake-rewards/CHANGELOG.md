@@ -1,5 +1,16 @@
 # token
 
+## 0.1.4
+
+### Patch Changes
+
+-   Updated dependencies [fb1754ce]
+    -   @decentology/config@1.1.0
+    -   @decentology/hyperverse@1.1.0
+    -   @decentology/hyperverse-ethereum@1.1.0
+    -   @decentology/hyperverse-evm-erc777@2.1.0
+    -   @decentology/hyperverse-evm-stake-rewards@1.1.0
+
 ## 0.1.3
 
 ### Patch Changes

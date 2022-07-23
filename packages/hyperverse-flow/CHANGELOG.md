@@ -1,5 +1,13 @@
 # @decentology/hyperverse-flow
 
+## 1.0.17
+
+### Patch Changes
+
+-   Updated dependencies [fb1754ce]
+    -   @decentology/hyperverse@1.1.0
+    -   @decentology/hyperverse-storage-skynet@1.0.15
+
 ## 1.0.16
 
 ### Patch Changes

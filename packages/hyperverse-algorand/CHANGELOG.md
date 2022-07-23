@@ -1,5 +1,12 @@
 # @decentology/hyperverse-algorand
 
+## 1.0.16
+
+### Patch Changes
+
+-   Updated dependencies [fb1754ce]
+    -   @decentology/hyperverse@1.1.0
+
 ## 1.0.15
 
 ### Patch Changes

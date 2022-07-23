@@ -1,5 +1,17 @@
 # @decentology/hyperverse-flow-helloworld
 
+## 1.1.0
+
+### Minor Changes
+
+-   fb1754ce: Major update to separate react from base libraries
+
+### Patch Changes
+
+-   Updated dependencies [fb1754ce]
+    -   @decentology/hyperverse@1.1.0
+    -   @decentology/hyperverse-flow@1.0.17
+
 ## 1.0.6
 
 ### Patch Changes

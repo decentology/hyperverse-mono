@@ -1,5 +1,11 @@
 # @decentology/config
 
+## 1.1.0
+
+### Minor Changes
+
+-   fb1754ce: Major update to separate react from base libraries
+
 ## 1.0.3
 
 ### Patch Changes
