@@ -19,62 +19,49 @@ const input = pkg.exports
 				})
 				.map((x) => ({ [x[0]]: x[1] }))
 	  )
-	: pkg.source;
+	: { ['index']: pkg.source };
 const globals = {
 	react: 'React',
 	'react-dom': 'ReactDOM',
 };
 
+const base = {
+	external: ['react', 'react-dom'],
+	plugins: [
+		postcss({
+			modules: true,
+			extract: 'styles.css',
+		}),
+		autoExternal({
+			packagePath: join(process.cwd(), 'package.json'),
+		}),
+		json(),
+		esbuild({
+			sourceMap: true,
+			loaders: 'tsx',
+			jsxFactory: 'createElement',
+			banner: "import { createElement } from 'react';\n",
+		}),
+	],
+};
+
 export default defineConfig([
-	{
-		input,
-		external: ['react', 'react-dom'],
-		plugins: [
-			postcss({
-				modules: true,
-				extract: 'styles.css',
-			}),
-			autoExternal({
-				packagePath: join(process.cwd(), 'package.json'),
-			}),
-			json(),
-			esbuild({
-				sourceMap: true,
-				loaders: 'tsx',
-				jsxFactory: 'createElement',
-				banner: "import { createElement } from 'react';\n",
-			}),
-		],
-		output: [
-			!pkg.main.endsWith('.mjs')
-				? {
-						dir,
-						entryFileNames: '[name].js',
-						format: 'cjs',
-						sourcemap: true,
-						globals,
-				  }
-				: null,
-			{
+	...Object.entries(input).map(([key, value]) => {
+		return {
+			...base,
+			input: { [key]: value },
+			output: {
 				dir,
-				entryFileNames: '[name].mjs',
-				format: 'es',
+				entryFileNames: '[name].' + (key === 'react' ? 'mjs' : 'js'),
+				format: key === 'react' ? 'es' : 'cjs',
 				sourcemap: true,
 				globals,
 			},
-			// TODO: Will work on creating UMD builds. Not ready for initial release
-			// {
-			// 	dir,
-			// 	entryFileNames: '[name].umd.js',
-			// 	format: 'umd',
-			// 	name: pkg.name,
-			// 	sourcemap: true,
-			// },
-		],
-	},
+		};
+	}),
 	{
 		input,
-		output: [{ dir: `${dir}`,  format: 'es' }],
+		output: [{ dir: `${dir}`, format: 'es' }],
 		plugins: [
 			postcss({
 				modules: true,

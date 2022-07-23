@@ -1,7 +1,7 @@
 {
 	"name": "@decentology/hyperverse-storage-skynet",
 	"source": "./source/index.ts",
-	"main": "./distribution/index.mjs",
+	"main": "./distribution/index.js",
 	"module": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
 	"version": "1.0.15",

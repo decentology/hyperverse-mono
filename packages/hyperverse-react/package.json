@@ -8,7 +8,7 @@
 			"import": "./source/index.ts"
 		}
 	},
-	"main": "./distribution/index.mjs",
+	"main": "./distribution/index.js",
 	"unpkg": "./distribution/index.umd.js",
 	"types": "./distribution/index.d.ts",
 	"scripts": {
