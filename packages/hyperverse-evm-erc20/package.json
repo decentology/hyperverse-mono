@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm-erc20",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"

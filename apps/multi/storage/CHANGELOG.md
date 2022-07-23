@@ -1,5 +1,13 @@
 # @decentology/samples-storage
 
+## 0.1.4
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.3
+    -   @decentology/hyperverse-metis@1.1.2
+
 ## 0.1.3
 
 ### Patch Changes

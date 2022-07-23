@@ -1,5 +1,11 @@
 # @decentology/hyperverse
 
+## 1.1.3
+
+### Patch Changes
+
+-   Forgot to build before publish 😥😥😥
+
 ## 1.1.2
 
 ### Patch Changes

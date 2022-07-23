@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm-stake-rewards",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"main": "./distribution/index.mjs",
