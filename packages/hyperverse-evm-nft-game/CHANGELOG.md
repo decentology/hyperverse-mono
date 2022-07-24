@@ -1,5 +1,14 @@
 # @decentology/hyperverse-ethereum-nftgame1
 
+## 0.1.5
+
+### Patch Changes
+
+-   Another attempt at getting build to work with nest.js and next.js
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.6
+    -   @decentology/hyperverse-evm@1.1.5
+
 ## 0.1.4
 
 ### Patch Changes

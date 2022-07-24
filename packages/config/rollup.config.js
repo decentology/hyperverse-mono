@@ -26,7 +26,7 @@ const globals = {
 };
 
 const base = {
-	external: ['react', 'react-dom'],
+	// external: ['react', 'react-dom'],
 	plugins: [
 		postcss({
 			modules: true,
@@ -36,12 +36,6 @@ const base = {
 			packagePath: join(process.cwd(), 'package.json'),
 		}),
 		json(),
-		esbuild({
-			sourceMap: true,
-			loaders: 'tsx',
-			jsxFactory: 'createElement',
-			banner: "import { createElement } from 'react';\n",
-		}),
 	],
 };
 
@@ -50,6 +44,20 @@ export default defineConfig([
 		return {
 			...base,
 			input: { [key]: value },
+			external: key === 'react' ? ['react', 'react-dom'] : null,
+			plugins: [
+				...base.plugins,
+				key === 'react'
+					? esbuild({
+							sourceMap: true,
+							loaders: 'tsx',
+							jsxFactory: 'createElement',
+							banner: "import { createElement } from 'react';\n",
+					  })
+					: esbuild({
+							sourceMap: true,
+					  }),
+			],
 			output: {
 				dir,
 				entryFileNames: '[name].' + (key === 'react' ? 'mjs' : 'js'),

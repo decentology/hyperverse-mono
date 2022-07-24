@@ -1,5 +1,11 @@
 # @decentology/hyperverse-storage-skynet
 
+## 1.0.17
+
+### Patch Changes
+
+-   Another attempt at getting build to work with nest.js and next.js
+
 ## 1.0.16
 
 ### Patch Changes

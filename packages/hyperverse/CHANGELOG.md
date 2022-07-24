@@ -1,5 +1,14 @@
 # @decentology/hyperverse
 
+## 1.1.6
+
+### Patch Changes
+
+-   Another attempt at getting build to work with nest.js and next.js
+-   Updated dependencies
+    -   @decentology/hyperverse-storage-ipfs@1.0.17
+    -   @decentology/hyperverse-storage-skynet@1.0.17
+
 ## 1.1.5
 
 ### Patch Changes

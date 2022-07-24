@@ -1,5 +1,12 @@
 # @decentology/hyperverse-algorand
 
+## 1.0.21
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.6
+
 ## 1.0.20
 
 ### Patch Changes
