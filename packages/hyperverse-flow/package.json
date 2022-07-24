@@ -3,7 +3,7 @@
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.22",
+	"version": "1.0.23",
 	"license": "MIT",
 	"repository": {
 		"type": "git",

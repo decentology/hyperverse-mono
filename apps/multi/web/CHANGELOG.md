@@ -1,5 +1,16 @@
 # @decentology/samples-multi-web
 
+## 0.1.7
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.7
+    -   @decentology/hyperverse-ethereum@1.1.7
+    -   @decentology/hyperverse-evm-tribes@1.1.6
+    -   @decentology/hyperverse-metis@1.1.6
+    -   @decentology/hyperverse-flow@1.0.23
+
 ## 0.1.6
 
 ### Patch Changes

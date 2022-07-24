@@ -2,9 +2,8 @@
 	"name": "@decentology/hyperverse-storage-skynet",
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
-	"module": "./distribution/index.mjs",
 	"types": "./distribution/index.d.ts",
-	"version": "1.0.17",
+	"version": "1.0.18",
 	"license": "MIT",
 	"exports": {
 		".": {

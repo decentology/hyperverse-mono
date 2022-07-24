@@ -1,5 +1,14 @@
 # @decentology/hyperverse
 
+## 1.1.7
+
+### Patch Changes
+
+-   Removed module definition from package.json
+-   Updated dependencies
+    -   @decentology/hyperverse-storage-ipfs@1.0.18
+    -   @decentology/hyperverse-storage-skynet@1.0.18
+
 ## 1.1.6
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @decentology/hyperverse-evm-builderkit
 
+## 1.1.6
+
+### Patch Changes
+
+-   Removed module definition from package.json
+-   Updated dependencies
+    -   @decentology/hyperverse@1.1.7
+    -   @decentology/hyperverse-evm@1.1.6
+
 ## 1.1.5
 
 ### Patch Changes

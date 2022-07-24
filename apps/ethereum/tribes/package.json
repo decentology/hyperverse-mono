@@ -1,7 +1,7 @@
 {
 	"name": "@decentology/samples-web-tribes",
 	"private": true,
-	"version": "1.0.12",
+	"version": "1.0.13",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build && next export",

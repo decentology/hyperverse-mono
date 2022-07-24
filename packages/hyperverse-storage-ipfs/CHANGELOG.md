@@ -1,5 +1,11 @@
 # @decentology/hyperverse-storage-skynet
 
+## 1.0.18
+
+### Patch Changes
+
+-   Removed module definition from package.json
+
 ## 1.0.17
 
 ### Patch Changes
