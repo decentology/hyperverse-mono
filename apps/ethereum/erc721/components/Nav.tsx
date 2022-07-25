@@ -10,7 +10,7 @@ const Nav = () => {
 	const { Connect, error } = useEthereum();
 	useEffect(() => {
 		if (error) {
-			toast.warn(error.message, {
+			toast.warn(error, {
 				position: toast.POSITION.BOTTOM_CENTER,
 			});
 		}
