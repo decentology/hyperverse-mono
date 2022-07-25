@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
+	"launch": "next build && next export && cd out && az webapp up -g decentology -n eth-hyperverse --html",
     "lint": "next lint",
     "pretty": "prettier . --write"
   },
