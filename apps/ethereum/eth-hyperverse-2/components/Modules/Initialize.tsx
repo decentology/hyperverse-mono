@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { styled } from '../../stitches.config'
+import { keyframes, styled } from '../../stitches.config'
 import { InfoBox } from '../InfoBox'
 import { InputContainer, Label, StyledInput } from '../basics/Input'
 import { InfoHeading } from '../basics/InfoHeading'
@@ -63,7 +63,7 @@ export const Initialize = ({ module }: { module: Modules }) => {
 			</InfoContainer>
 			<SubContainer>
 				<InfoHeading
-					heading="Intialize Tenant"
+					heading="Initialize Tenant"
 					info="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
 				/>
 				<Inputs>
@@ -94,6 +94,14 @@ export const Initialize = ({ module }: { module: Modules }) => {
 	)
 }
 
+const bubble = keyframes({
+  '0%': {
+    opacity: 0,
+  },
+  '100%': {
+    opacity: 1,
+  },
+});
 const InitizalizeContainer = styled('div', {
 	display: 'flex',
 	flexDirection: 'column',
@@ -101,6 +109,9 @@ const InitizalizeContainer = styled('div', {
 	width: '100%',
 	height: '100% ',
 	marginY: 24,
+	animationDuration: '500ms',
+  animationName: `${bubble}`,
+  animationTimingFunction: 'linear',
 
 	'@laptop': {
 		flexDirection: 'row',

@@ -13,6 +13,8 @@ export function Header() {
   const { pathname } = router
   const { Connect } = useEthereum()
   const ClientConnect = dynamic(() => Promise.resolve(Connect), { ssr: false })
+
+
   if (pathname.startsWith('/module')) {
     return (
       <HeaderContainer>

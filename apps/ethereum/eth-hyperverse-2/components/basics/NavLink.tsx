@@ -35,7 +35,6 @@ const NavItem = styled('a', {
   variants: {
     disabled: {
       true: {
-        pointerEvents: 'none',
         '&:hover': {
           opacity: 'unset',
         },

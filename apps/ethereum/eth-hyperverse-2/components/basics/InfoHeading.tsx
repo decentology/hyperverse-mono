@@ -14,11 +14,11 @@ export const InfoHeading = ({ heading, info, variant = 'heading' }: InfoHeadingP
     <Root>
       <Header>
         <Heading variant={variant}>{heading}</Heading>
-        <StyledTrigger>
+        {/* <StyledTrigger>
           <Info />
-        </StyledTrigger>
+        </StyledTrigger> */}
       </Header>
-      <StyledContent>{info}</StyledContent>
+      {/* <StyledContent>{info}</StyledContent> */}
     </Root>
   )
 }

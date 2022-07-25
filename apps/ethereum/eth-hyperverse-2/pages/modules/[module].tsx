@@ -1,11 +1,12 @@
 import React from 'react'
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header } from '../../components/Header'
 import { Modules } from '../../components/Modules'
 import { Footer } from '../../components/Footer'
+import { useRouter } from 'next/router'
 
 function Module() {
+  const router = useRouter()
   return (
     <div>
       <Head>
@@ -15,7 +16,7 @@ function Module() {
       </Head>
       <section>
         <Header />
-        <Modules />
+        <Modules key={router.asPath} />
         <Footer />
       </section>
     </div>

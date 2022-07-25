@@ -20,10 +20,11 @@ export const ModulesLanding = () => {
           return (
             <InfoBox
               key={key}
-              to={comingSoon ? '/modules' : `${ModulesInfo[key].to}`}
+              to={ModulesInfo[key].to}
               name={ModulesInfo[key].name}
               description={ModulesInfo[key].description}
               comingSoon={comingSoon}
+              npm={ModulesInfo[key].npm}
             />
           )
         })}
@@ -34,18 +35,20 @@ export const ModulesLanding = () => {
       </ModulesHeader>
       <ModuleGrid variant="resources">
         <InfoBox
-          to=""
+          to="https://docs.hyperverse.dev/"
           name="Hyperverse Documentation"
           description="Explore docs, tutorials, and examples to build dApps with the Hyperverse."
           color="gradientPink"
           size="lg"
+          external
         />
         <InfoBox
-          to=""
+          to="https://ethereum.org/en/developers/docs/"
           name="Ethereum Documentation"
           description="Learn about Ethereum, its tech stack, and advanced topics for dApp development."
           color="gradientYellow"
           size="lg"
+          external
         />
       </ModuleGrid>
     </MoudlesContainer>

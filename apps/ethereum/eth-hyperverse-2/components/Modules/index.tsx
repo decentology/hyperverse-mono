@@ -20,46 +20,58 @@ export function Modules() {
   const router = useRouter()
   const { module } = router.query
 
-  const currentModule = module ? ModulesKey[module as ModulesKey] : ModulesKey.erc721
+  const currentModule =  ModulesKey[module as ModulesKey]
 
+  const existingDashboard = currentModule === ModulesKey.erc721
 
   const [activeTab, setActiveTab] = React.useState<Tabs>(Tabs.GET_STARTED)
 
+  const isLoading = React.useMemo(()=>  !!module, [module]) 
+
+  if(!module) return <div>Loading...</div>
+
   return (
-    <div key={router.asPath}>
-      <Heading>{ModulesInfo[currentModule].name} Module</Heading>
-      <Root defaultValue={Tabs.GET_STARTED}>
-        <TabList>
-          <TabTrigger
-            value={Tabs.GET_STARTED}
-            active={activeTab === Tabs.GET_STARTED}
-            onClick={() => setActiveTab(Tabs.GET_STARTED)}
-          >
-            Get Started
-          </TabTrigger>
-          {/* <TabTrigger
-            value={Tabs.DASHBOARD}
-            active={activeTab === Tabs.DASHBOARD}
-            onClick={() => setActiveTab(Tabs.DASHBOARD)}
-          >
-            Dashboard
-          </TabTrigger> */}
-          <TabTrigger value={Tabs.CODE} active={activeTab === Tabs.CODE} onClick={() => setActiveTab(Tabs.CODE)}>
-            Code
-          </TabTrigger>
-        </TabList>
-        <Container>
-          <StyledContent value={Tabs.GET_STARTED}>
-            <GetStarted module={currentModule} />
-          </StyledContent>
-          {/* <StyledContent value={Tabs.DASHBOARD}>
-            {currentModule === ModulesKey.erc721 && <ERC721Dashboard />}
-          </StyledContent> */}
-          <StyledContent value={Tabs.CODE}>
-            <Code module={currentModule}/>
-          </StyledContent>
-        </Container>
-      </Root>
+    <div>
+        <>
+          <Heading>{ModulesInfo[currentModule].name} Module</Heading>
+          <Root defaultValue={Tabs.GET_STARTED}>
+            <TabList>
+              <TabTrigger
+                value={Tabs.GET_STARTED}
+                active={activeTab === Tabs.GET_STARTED}
+                onClick={() => setActiveTab(Tabs.GET_STARTED)}
+              >
+                Get Started
+              </TabTrigger>
+              {!!existingDashboard && (
+                <TabTrigger
+                  value={Tabs.DASHBOARD}
+                  active={activeTab === Tabs.DASHBOARD}
+                  onClick={() => setActiveTab(Tabs.DASHBOARD)}
+                >
+                  Dashboard
+                </TabTrigger>
+              )}
+              <TabTrigger value={Tabs.CODE} active={activeTab === Tabs.CODE} onClick={() => setActiveTab(Tabs.CODE)}>
+                Code
+              </TabTrigger>
+            </TabList>
+            <Container>
+              <StyledContent value={Tabs.GET_STARTED}>
+                <GetStarted module={currentModule} />
+              </StyledContent>
+              {!!existingDashboard && (
+                <StyledContent value={Tabs.DASHBOARD}>
+                  {currentModule === ModulesKey.erc721 && <ERC721Dashboard />}
+                </StyledContent>
+              )}
+              <StyledContent value={Tabs.CODE}>
+                <Code module={currentModule} />
+              </StyledContent>
+            </Container>
+          </Root>
+        </>
+
     </div>
   )
 }
