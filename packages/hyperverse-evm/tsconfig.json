@@ -4,9 +4,8 @@
 	"exclude": ["node_modules", "distribution"],
 	"compilerOptions": {
 		"paths": {
-			"@decentology/*": ["../*"],
 			"@rainbow-me/rainbowkit": ["../../node_modules/@rainbow-me/rainbowkit"],
-			"@ethersproject/providers": ["../../node_modules/@ethersproject/providers"],
+			"@ethersproject/providers": ["../../node_modules/@ethersproject/providers"]
 		}
-	},
+	}
 }
