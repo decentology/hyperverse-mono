@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useEvent } from 'react-use';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 import { useHyperverse } from '@decentology/hyperverse/react';
 import { useEvm } from '@decentology/hyperverse-evm/react';
 import { ERC721Library, ERC721LibraryType } from '../erc721Library';
+import { useEventListener } from './useEventListener';
 
 function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 	const { tenantId } = initialState;
@@ -15,12 +15,12 @@ function ERC721State(initialState: { tenantId: string } = { tenantId: '' }) {
 		const lib = ERC721Library(hyperverse, signer || readOnlyProvider).then(setERC721Library).catch(x => {
 			// Ignoring stale library instance
 		});
-		
+
 		return lib.cancel;
 	}, [signer, readOnlyProvider]);
 
 	const useERC721Events = (eventName: string, callback: any) => {
-		return useEvent(
+		return useEventListener(
 			eventName,
 			useCallback(callback, [erc721Library?.proxyContract]),
 			erc721Library?.proxyContract

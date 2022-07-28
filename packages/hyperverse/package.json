@@ -41,8 +41,7 @@
 	"dependencies": {
 		"@decentology/hyperverse-storage-ipfs": "workspace:^",
 		"@decentology/hyperverse-storage-skynet": "workspace:^",
-		"@decentology/unstated-next": "workspace:^",
-		"@swc/helpers": "^0.3.6"
+		"@decentology/unstated-next": "workspace:^"
 	},
 	"devDependencies": {
 		"@decentology/config": "workspace:^",
