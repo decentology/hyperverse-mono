@@ -17,6 +17,7 @@
 	},
 	"scripts": {
 		"build": "rollup --config node:@decentology/config/rollup.config.js",
+		"mytest": "test",
 		"build:parcel": "parcel build",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit"
@@ -34,16 +35,16 @@
 		}
 	},
 	"peerDependencies": {
-		"react": "^17.0.0 || ^18.0.0",
-		"react-dom": "^17.0.0 || ^18.0.0"
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
 	},
 	"dependencies": {
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/unstated-next": "workspace:^",
 		"@ethersproject/providers": "^5.6.4",
-		"@rainbow-me/rainbowkit": "^0.4.3",
+		"@rainbow-me/rainbowkit": "^0.4.4",
 		"ethers": "^5.6.5",
-		"wagmi": "^0.5.11"
+		"wagmi": "^0.6.0"
 	},
 	"devDependencies": {
 		"@decentology/config": "workspace:^",
