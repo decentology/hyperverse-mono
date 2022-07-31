@@ -1,3 +1,4 @@
+const path = require('path');
 const withTM = require('next-transpile-modules')([
 	'@decentology/unstated-next',
 	'@decentology/hyperverse',
@@ -16,5 +17,13 @@ module.exports = withTM({
 			  }
 			: {}),
 		domains: ['siasky.net', 'fileportal.org'],
+	},
+	webpack: (config, { isServer }) => {
+		if (isServer) {
+			config.externals = ['react', 'react-dom', ...config.externals];
+		}
+		config.resolve.alias['react'] = path.resolve(__dirname, '.', 'node_modules', 'react');
+		config.resolve.alias['react-dom'] = path.resolve(__dirname, '.', 'node_modules', 'react-dom');
+		return config;
 	},
 });

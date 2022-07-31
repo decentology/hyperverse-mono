@@ -3,7 +3,6 @@ import { useHyperverse } from '@decentology/hyperverse/react';
 import { useAccount, useSigner, useEnsName, useProvider } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useEffect, useState } from 'react';
-
 function EvmState() {
 	const [allow, setAllow] = useState(false);
 	const { network } = useHyperverse();
@@ -12,7 +11,7 @@ function EvmState() {
 	const isLoading = isConnecting || isReconnecting;
 
 	// @ts-ignore - Type requires too many extra params that aren't actually required
-	const { data: ens } = useEnsName({address: address});
+	const { data: ens } = useEnsName({ address: address });
 	let { data: signer } = useSigner();
 
 	useEffect(() => {

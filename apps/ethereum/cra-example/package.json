@@ -3,9 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@decentology/hyperverse": "^1.0.9",
-		"@decentology/hyperverse-ethereum": "^1.0.9",
-		"@decentology/hyperverse-ethereum-randompick": "^1.0.11",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-ethereum": "workspace:^",
+		"@decentology/hyperverse-ethereum-randompick": "workspace:^",
 		"@testing-library/jest-dom": "^5.16.2",
 		"@testing-library/react": "^12.1.3",
 		"@testing-library/user-event": "^13.5.0",
@@ -46,7 +46,7 @@
 	},
 	"devDependencies": {
 		"@craco/craco": "^6.4.3",
-		"@decentology/config": "^1.0.1",
+		"@decentology/config": "workspace:^",
 		"buffer": "^6.0.3"
 	}
 }

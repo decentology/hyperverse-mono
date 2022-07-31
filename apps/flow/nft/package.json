@@ -9,21 +9,20 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@decentology/hyperverse": "^1.1.7",
-		"@decentology/hyperverse-flow": "^1.0.23",
-		"@decentology/hyperverse-flow-nft": "1.1.6",
-		"@decentology/unstated-next": "^1.1.9",
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-flow": "workspace:^",
+		"@decentology/hyperverse-flow-nft": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
 		"@radix-ui/react-accordion": "^0.1.6",
 		"@stitches/react": "^1.2.6",
-		"next": "12.1.0",
-		"react": "17.0.2",
-		"react-dom": "17.0.2",
+		"next": "12.2.3",
+		"react": "^18",
+		"react-dom": "^18",
 		"react-query": "^3.34.16",
 		"react-toastify": "^8.2.0"
 	},
 	"devDependencies": {
-		"@decentology/config": "^1.1.1",
-		"@types/react": "17.0.2",
+		"@decentology/config": "workspace:^",
 		"eslint": "8.9.0",
 		"eslint-config-next": "12.1.0"
 	}

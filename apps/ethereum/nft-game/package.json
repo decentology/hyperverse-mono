@@ -12,20 +12,20 @@
     "@decentology/hyperverse": "workspace:^",
     "@decentology/hyperverse-ethereum": "workspace:^",
     "@decentology/hyperverse-evm-nft-game": "workspace:^",
-    "@decentology/unstated-next": "^1.1.1",
+    "@decentology/unstated-next": "workspace:^",
     "@radix-ui/react-hover-card": "^0.1.5",
     "@stitches/react": "^1.2.6",
     "@types/node": "^18.0.0",
     "ethers": "^5.5.4",
-    "next": "12.1.0",
+    "next": "^12",
     "next-transpile-modules": "^9.0.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "^18",
+    "react-dom": "^18",
     "react-query": "^3.38.0",
     "react-toastify": "^9.0.5"
   },
   "devDependencies": {
-    "@decentology/config": "^1.1.1",
+    "@decentology/config": "workspace:^",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0"
   }

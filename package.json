@@ -34,14 +34,22 @@
 	"dependencies": {
 		"turborepo": "^0.0.1"
 	},
-	"resolutions": {
-		"@types/react": "^17.0.2",
-		"@types/react-dom": "^17.0.2",
-		"ipfs-utils": "9.0.6"
-	},
 	"pnpm": {
 		"overrides": {
+			"@types/react": "^18",
+			"@types/react-dom": "^18",
+			"@decentology/samples-nft@0.1.9>@types/react": "17.0.2",
+			"@decentology/samples-nft@0.1.9>@types/react-dom": "17.0.2",
+			"@rainbow-me/rainbowkit": "0.4.5",
 			"ipfs-utils": "9.0.6"
+		},
+		"packageExtensions": {
+			"@decentology/*": {
+				"devDependencies": {
+					"@types/react": "^18",
+					"@types/react-dom": "^18"
+				}
+			}
 		},
 		"onlyBuiltDependencies": [],
 		"peerDependencyRules": {

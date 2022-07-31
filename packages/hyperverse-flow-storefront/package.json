@@ -33,7 +33,7 @@
 		"@decentology/hyperverse-flow": "workspace:^",
 		"@onflow/fcl": "^0.0.78",
 		"@onflow/types": "^0.0.6",
-		"@decentology/unstated-next": "^1.1.9"
+		"@decentology/unstated-next": "workspace:^"
 	},
 	"devDependencies": {
 		"@storybook/addon-actions": "^6.4.22",

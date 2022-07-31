@@ -9,18 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "12.0.8",
+    "next": "12.2.3",
     "next-transpile-modules": "^9.0.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "@decentology/hyperverse": "^1.0.0",
-    "@decentology/hyperverse-flow": "^1.0.0",
-    "@decentology/hyperverse-flow-tribes": "^1.0.0"
+    "react": "^18",
+    "react-dom": "^18",
+    "@decentology/hyperverse": "workspace:^",
+    "@decentology/hyperverse-flow": "workspace:^",
+    "@decentology/hyperverse-flow-tribes": "workspace:^"
   },
   "devDependencies": {
-    "@decentology/config": "^1.0.0",
+    "@decentology/config": "workspace:^",
     "@types/node": "17.0.10",
-    "@types/react": "17.0.38",
     "eslint": "8.7.0",
     "eslint-config-next": "12.0.8",
     "typescript": "4.5.5",

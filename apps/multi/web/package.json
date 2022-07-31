@@ -15,14 +15,13 @@
     "@decentology/hyperverse-flow": "workspace:^",
     "@decentology/hyperverse-metis": "workspace:^",
     "@decentology/unstated-next": "workspace:^",
-    "next": "12.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "next": "12.2.3",
+    "react": "^18",
+    "react-dom": "^18",
     "react-use": "^17.3.2"
   },
   "devDependencies": {
     "@types/node": "17.0.21",
-    "@types/react": "17.0.39",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0",
     "next-transpile-modules": "^9.0.0",
