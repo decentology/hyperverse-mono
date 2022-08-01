@@ -1,5 +1,11 @@
 # @decentology/hyperverse-db
 
+## 1.1.0
+
+### Minor Changes
+
+-   Update to React 18
+
 ## 1.0.2
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @decentology/samples-web
 
+## 1.0.6
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.0
+    -   @decentology/hyperverse-algorand@1.1.0
+    -   @decentology/hyperverse-algorand-counter@1.1.0
+    -   @decentology/hyperverse-db@1.1.0
+    -   @decentology/hyperverse-flow@1.1.0
+
 ## 1.0.5
 
 ### Patch Changes

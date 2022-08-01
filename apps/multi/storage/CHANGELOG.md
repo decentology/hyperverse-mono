@@ -1,5 +1,16 @@
 # @decentology/samples-storage
 
+## 0.1.9
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.0
+    -   @decentology/hyperverse-metis@1.2.0
+    -   @decentology/hyperverse-storage-ipfs@1.1.0
+    -   @decentology/hyperverse-storage-skynet@1.1.0
+    -   @decentology/unstated-next@1.2.0
+
 ## 0.1.8
 
 ### Patch Changes

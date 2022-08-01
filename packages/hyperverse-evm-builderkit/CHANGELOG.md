@@ -1,5 +1,18 @@
 # @decentology/hyperverse-evm-builderkit
 
+## 1.2.0
+
+### Minor Changes
+
+-   Update to React 18
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.0
+    -   @decentology/hyperverse-evm@1.2.0
+    -   @decentology/unstated-next@1.2.0
+
 ## 1.1.6
 
 ### Patch Changes

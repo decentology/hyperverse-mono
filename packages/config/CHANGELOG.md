@@ -1,5 +1,11 @@
 # @decentology/config
 
+## 1.2.0
+
+### Minor Changes
+
+-   Update to React 18
+
 ## 1.1.1
 
 ### Patch Changes
