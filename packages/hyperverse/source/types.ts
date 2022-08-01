@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { ContainerProvider } from '@decentology/unstated-next';
 import { Blockchain, BlockchainEvm } from './constants/blockchains';
 import { Network, NetworkConfig } from './constants/networks';
@@ -57,7 +57,7 @@ export type HyperverseModule = {
 
 export type HyperverseModuleInstance = {
 	tenantId?: string;
-};
+} & PropsWithChildren;
 
 export type StorageOptions = { name?: Storage; options?: { clientUrl: string, resolveUrl: string} } | undefined;
 
