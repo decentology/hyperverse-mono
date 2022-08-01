@@ -4,7 +4,7 @@ import { Networks } from './networks';
 const getNetwork = (network: Network) => {
 	return Networks[network];
 }
-export const Cello = makeHyperverseBlockchain({
+export const Celo = makeHyperverseBlockchain({
 	name: Blockchain.Celo,
 	getNetwork
 });

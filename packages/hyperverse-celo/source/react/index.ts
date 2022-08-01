@@ -6,7 +6,7 @@ import "../styles.css"
 const getNetwork = (network: Network) => {
 	return Networks[network];
 }
-export const Cello = makeHyperverseBlockchain({
+export const Celo = makeHyperverseBlockchain({
 	name: Blockchain.Ethereum,
 	Provider: Provider,
 	getNetwork
