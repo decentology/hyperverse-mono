@@ -35,7 +35,8 @@
 	},
 	"devDependencies": {
 		"@decentology/config": "workspace:^",
-		"@types/react": "17.0.2",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
 		"ipfs-core-types": "^0.10.3",
 		"rimraf": "^3.0.2"
 	},
