@@ -1,5 +1,11 @@
 # @decentology/unstated-next
 
+## 1.2.0
+
+### Minor Changes
+
+-   Update to React 18
+
 ## 1.1.9
 
 ### Patch Changes

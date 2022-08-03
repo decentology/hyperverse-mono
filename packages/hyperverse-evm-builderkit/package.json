@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm-builderkit",
-	"version": "1.1.6",
+	"version": "1.2.0",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"main": "./distribution/index.js",
@@ -65,7 +65,8 @@
 		"@storybook/react": "^6.4.19",
 		"@storybook/testing-library": "^0.0.9",
 		"@types/node": "^17.0.31",
-		"@types/react": "17.0.2",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
 		"@types/wait-on": "^5.3.1",
 		"babel-loader": "^8.2.4",
 		"chai": "^4.3.4",

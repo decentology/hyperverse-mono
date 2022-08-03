@@ -1,9 +1,9 @@
 import { initialize, Network, NetworkConfig, Provider } from '@decentology/hyperverse/react';
 import { Localhost, Ethereum } from '@decentology/hyperverse-evm/react';
-import { FC, VFC } from 'react';
+import { FC, PropsWithChildren, VFC } from 'react';
 import { NFTGame } from '../../source/react';
 
-export const HyperverseProvider: FC<{}> = ({ children }) => {
+export const HyperverseProvider: FC<PropsWithChildren> = ({ children }) => {
 	const hyperverse = initialize({
 		blockchain: process.env.STORYBOOK_NETWORK === 'rinkeby' ? Ethereum : Localhost,
 		network:

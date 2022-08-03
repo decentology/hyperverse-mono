@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-ethereum",
-	"version": "1.1.7-beta1",
+	"version": "1.2.0",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
@@ -45,6 +45,8 @@
 	"devDependencies": {
 		"@decentology/config": "workspace:^",
 		"@types/node": "^17.0.30",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
 		"parcel": "2.2.1",
 		"rimraf": "^3.0.2",
 		"rollup": "^2.74.1",

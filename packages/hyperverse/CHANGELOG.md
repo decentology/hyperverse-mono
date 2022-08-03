@@ -1,5 +1,18 @@
 # @decentology/hyperverse
 
+## 1.2.0
+
+### Minor Changes
+
+-   Update to React 18
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse-storage-ipfs@1.1.0
+    -   @decentology/hyperverse-storage-skynet@1.1.0
+    -   @decentology/unstated-next@1.2.0
+
 ## 1.1.7
 
 ### Patch Changes

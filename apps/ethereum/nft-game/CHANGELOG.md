@@ -1,5 +1,15 @@
 # token
 
+## 0.0.9
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.0
+    -   @decentology/hyperverse-ethereum@1.2.0
+    -   @decentology/hyperverse-evm-nft-game@0.2.0
+    -   @decentology/unstated-next@1.2.0
+
 ## 0.0.8
 
 ### Patch Changes

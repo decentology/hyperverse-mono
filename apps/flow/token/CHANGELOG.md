@@ -1,5 +1,15 @@
 # erc721
 
+## 0.1.3
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.0
+    -   @decentology/hyperverse-flow@1.1.0
+    -   @decentology/hyperverse-flow-token@1.2.0
+    -   @decentology/unstated-next@1.2.0
+
 ## 0.1.2
 
 ### Patch Changes

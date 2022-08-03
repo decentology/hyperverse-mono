@@ -15,7 +15,7 @@ export const GetOwnerOf = ({ ...props }: {  tokenId: string }) => {
 		return data ? (
 			<p>{JSON.stringify(data)}</p>
 		) : (
-			<p>{erc721.error}</p>
+			<p>{erc721.error?.message}</p>
 		);
 	};
 
