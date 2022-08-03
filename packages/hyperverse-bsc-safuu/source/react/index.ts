@@ -1,11 +1,11 @@
-export { useSafuu as useModule } from './useSafuu';
+export { useSafuu } from './useSafuu';
 import { Provider } from './Provider';
 
 export { Provider } from './Provider';
 export const ModuleName = 'CustomModule';
-export { ModuleLibrary } from '../safuuLibrary';
+export { SafuuLibrary } from '../safuuLibrary';
 
-export const CustomModule = {
+export const Safuu = {
 	Provider,
 	ModuleName
 }

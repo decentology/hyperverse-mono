@@ -1,12 +1,13 @@
 import { HyperverseProvider } from './utils/Provider';
 import { Meta, Story } from '@storybook/react';
-import { useModule } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useSafuu } from '../source/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import Doc from '../docs/connectWallet.mdx';
+import React from 'react';
 
 const Button = () => {
 	const { address, Connect } = useEvm();
-	const { factoryContract } = useModule();
+	const { factoryContract } = useSafuu();
 	return <Connect />;
 };
 

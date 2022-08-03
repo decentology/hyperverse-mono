@@ -46,8 +46,11 @@
 		"@decentology/hyperverse": "*",
 		"@decentology/hyperverse-evm": "*",
 		"@decentology/unstated-next": "*",
+		"@openzeppelin/contracts": "^4.5.0",
 		"ethers": "^5.5.3",
 		"http-proxy-middleware": "^2.0.4",
+		"keccak256": "^1.0.6",
+		"merkletreejs": "^0.2.31",
 		"react-query": "^3.34.7",
 		"react-use": "^17.3.2",
 		"real-cancellable-promise": "^1.1.1"

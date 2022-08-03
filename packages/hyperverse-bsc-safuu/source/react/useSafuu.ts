@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { createContainer, useContainer } from '@decentology/unstated-next';
 
 import { useEvm } from '@decentology/hyperverse-evm/react';
-import { ModuleLibrary, ModuleLibraryType } from '../safuuLibrary';
+import { SafuuLibrary, ModuleLibraryType } from '../safuuLibrary';
 import { useHyperverse } from '@decentology/hyperverse/react';
 
 function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
@@ -12,7 +12,7 @@ function ModuleState(initialState: { tenantId: string } = { tenantId: '' }) {
 	const [moduleLibrary, setModuleLibrary] = useState<ModuleLibraryType>();
 
 	useEffect(() => {
-		const lib = ModuleLibrary(hyperverse, signer || readOnlyProvider).then(setModuleLibrary).catch(() => {
+		const lib = SafuuLibrary(hyperverse, signer || readOnlyProvider).then(setModuleLibrary).catch(() => {
 
 		})
 		return lib.cancel;
