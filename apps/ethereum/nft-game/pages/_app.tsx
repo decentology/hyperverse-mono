@@ -42,12 +42,7 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
 	const hyperverse = initialize({
 		blockchain: Ethereum,
-		// network: Network.Testnet,
-		network: {
-			type: Network.Testnet,
-			networkUrl: 'http://localhost:8545',
-			chainId: 31337,
-		},
+		network: Network.Testnet,
 		modules: [
 			{
 				bundle: NFTGame,
