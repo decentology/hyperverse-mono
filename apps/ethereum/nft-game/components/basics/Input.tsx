@@ -34,7 +34,6 @@ export const Label = styled('label', {
 })
 
 export const StyledInput = styled('input', {
-  fontSize: 16,
   fontFamily: '$body',
   background: 'transparent',
   border: 'none',
