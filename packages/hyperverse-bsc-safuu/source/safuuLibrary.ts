@@ -73,8 +73,12 @@ async function ModuleLibraryInternal(
 	const mintWhiteList = async (fullNodeCount: number, lightNodeCount: number) => {
 		const signerAddress = await signer?.getAddress();
 		const proof = generateMerkleProof(WHITELIST, signerAddress);
-		const tx = await base.mintWhiteList(fullNodeCount, lightNodeCount, proof);
-		return tx.wait() as TransactionReceipt;
+		try {
+			const tx = await base.mintWhiteList(fullNodeCount, lightNodeCount, proof);
+			return tx.wait() as TransactionReceipt;
+		} catch (error) {
+			throw new Error(parseError(error as Error));
+		}
 	};
 	const withdrawFunds = async () => {
 		const tx = await base.withdrawFunds();
@@ -110,32 +114,19 @@ async function ModuleLibraryInternal(
 		return MerkleTree.verify(proof, target, merkleTree.getRoot());
 	};
 	const getGoldListMerkleRoot = async () => {
-		try {
-			const root = (await base._goldListMerkleRoot()) as string;
-			return root;
-		} catch (error) {
-			throw error;
-		}
+		return (await base._goldListMerkleRoot()) as string;
 	};
 	const getWhiteListMerkleRoot = async () => {
-		try {
-			const root = (await base._whiteListMerkleRoot()) as string;
-			return root;
-		} catch (error) {
-			throw error;
-		}
+		const root = (await base._whiteListMerkleRoot()) as string;
+		return root;
 	};
 	const setURI = async (tokenId: number, uri: string) => {
 		const tx = await base.setURI(tokenId, uri);
 		return tx.wait() as TransactionReceipt;
 	};
 	const getURI = async (tokenId: number) => {
-		try {
-			const uri = (await base.uri(tokenId)) as string;
-			return uri;
-		} catch (error) {
-			throw error;
-		}
+		const uri = (await base.uri(tokenId)) as string;
+		return uri;
 	};
 	const setGoldListSaleStatus = async (status: boolean) => {
 		const tx = await base.setGoldListSaleStatus(status);
@@ -146,52 +137,36 @@ async function ModuleLibraryInternal(
 		return tx.wait() as TransactionReceipt;
 	};
 	const isGoldListSaleActive = async () => {
-		try {
-			const result = (await base._isGoldListSaleActive()) as boolean;
-			return result;
-		} catch (error) {
-			throw error;
-		}
+		const result = (await base._isGoldListSaleActive()) as boolean;
+		return result;
 	};
 	const isWhiteListSaleActive = async () => {
-		try {
-			const result = (await base._isWhiteListSaleActive()) as boolean;
-			return result;
-		} catch (error) {
-			throw error;
-		}
+		const result = (await base._isWhiteListSaleActive()) as boolean;
+		return result;
 	};
 	const getName = async () => {
-		try {
-			const name = (await base.name()) as string;
-			return name;
-		} catch (error) {
-			throw error;
-		}
+		const name = (await base.name()) as string;
+		return name;
 	};
 	const getSymbol = async () => {
-		try {
-			const name = (await base.symbol()) as string;
-			return name;
-		} catch (error) {
-			throw error;
-		}
+		const name = (await base.symbol()) as string;
+		return name;
 	};
 	const fullNodeSupply = async () => {
-		try {
-			const count = Number(await base.FULL_NODE_CURRENT_SUPPLY());
-			return count;
-		} catch (error) {
-			throw error;
-		}
+		const count = Number(await base.FULL_NODE_CURRENT_SUPPLY());
+		return count;
+	};
+	const fullNodeLimit = async () => {
+		const count = Number(await base.FULL_NODE_LIMIT());
+		return count;
+	};
+	const liteNodeLimit = async () => {
+		const count = Number(await base.LITE_NODE_LIMIT());
+		return count;
 	};
 	const liteNodeSupply = async () => {
-		try {
-			const count = Number(await base.LITE_NODE_CURRENT_SUPPLY());
-			return count;
-		} catch (error) {
-			throw error;
-		}
+		const count = Number(await base.LITE_NODE_CURRENT_SUPPLY());
+		return count;
 	};
 
 	// ***** Private Methods *********
@@ -239,5 +214,7 @@ async function ModuleLibraryInternal(
 		setGoldListSaleStatus,
 		getFullNodeCost,
 		getLiteNodeCost,
+		liteNodeLimit,
+		fullNodeLimit,
 	};
 }

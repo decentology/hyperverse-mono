@@ -20,15 +20,19 @@ Demo.args = {
 };
 
 const Component = ({ cost }: { cost: number }) => {
-	const { setFullNodeCost, getFullNodeCost, fullNodeSupply } = useSafuu();
+	const { setFullNodeCost, getFullNodeCost, fullNodeSupply, fullNodeLimit } = useSafuu();
 	const [localCost, setLocalCost] = useState<number | null>();
 	const [localSupply, setLocalSupply] = useState<number | null>();
+	const [localLimit, setLocalLimit] = useState<number | null>();
 	useEffect(() => {
 		getFullNodeCost?.().then(setLocalCost);
 	}, [getFullNodeCost]);
 	useEffect(() => {
 		fullNodeSupply?.().then(setLocalSupply);
 	}, [fullNodeSupply]);
+	useEffect(() => {
+		fullNodeLimit?.().then(setLocalLimit);
+	}, [fullNodeLimit]);
 	const handleCost = () => {
 		setFullNodeCost!(cost).then(() => setLocalCost(cost));
 	};
@@ -37,6 +41,7 @@ const Component = ({ cost }: { cost: number }) => {
 			<h1>Full Node Cost & Supply</h1>
 			<p>Cost: {localCost}</p>
 			<p>Supply: {localSupply}</p>
+			<p>Limit: {localLimit}</p>
 			<button onClick={handleCost}>Set Cost</button>
 		</div>
 	);
