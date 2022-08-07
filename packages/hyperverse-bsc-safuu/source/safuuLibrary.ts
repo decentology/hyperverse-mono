@@ -60,11 +60,6 @@ async function ModuleLibraryInternal(
 		signer = providerOrSigner;
 	}
 
-	const parseError = (error: Error) => {
-		const match = /reverted with reason string '(.*?)'/.exec(error.message);
-		return match ? match[1] : error.message;
-	};
-
 	const mintGoldList = async (fullNodeCount: number, lightNodeCount: number) => {
 		const signerAddress = await signer?.getAddress();
 		const proof = generateMerkleProof(GOLDLIST, signerAddress);
@@ -96,6 +91,12 @@ async function ModuleLibraryInternal(
 	const setFullNodeCost = async (cost: number) => {
 		const tx = await base.setFullNodeCost(cost);
 		return tx.wait() as TransactionReceipt;
+	};
+	const getFullNodeCost = async () => {
+		return Number(await base.FULL_NODE_COST());
+	};
+	const getLiteNodeCost = async () => {
+		return Number(await base.LITE_NODE_COST());
 	};
 	const setLiteNodeCost = async (cost: number) => {
 		const tx = await base.setLiteNodeCost(cost);
@@ -178,7 +179,7 @@ async function ModuleLibraryInternal(
 	};
 	const fullNodeSupply = async () => {
 		try {
-			const count = (await base.FULL_NODE_CURRENT_SUPPLY()) as number;
+			const count = Number(await base.FULL_NODE_CURRENT_SUPPLY());
 			return count;
 		} catch (error) {
 			throw error;
@@ -186,7 +187,7 @@ async function ModuleLibraryInternal(
 	};
 	const liteNodeSupply = async () => {
 		try {
-			const count = (await base.LITE_NODE_CURRENT_SUPPLY()) as number;
+			const count = Number(await base.LITE_NODE_CURRENT_SUPPLY());
 			return count;
 		} catch (error) {
 			throw error;
@@ -194,6 +195,11 @@ async function ModuleLibraryInternal(
 	};
 
 	// ***** Private Methods *********
+
+	const parseError = (error: Error) => {
+		const match = /reverted with reason string '(.*?)'/.exec(error.message);
+		return match ? match[1] : error.message;
+	};
 
 	const generateMerkleRoot = (addresses: string[]) => {
 		const leafNodes = addresses.map((address) => keccak256(address));
@@ -231,5 +237,7 @@ async function ModuleLibraryInternal(
 		isGoldListSaleActive,
 		setWhiteListSaleStatus,
 		setGoldListSaleStatus,
+		getFullNodeCost,
+		getLiteNodeCost,
 	};
 }

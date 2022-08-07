@@ -18,6 +18,7 @@ const MintGoldList: FC = () => {
 	const [error, setError] = useState<Error | null>(null);
 	const { Connect } = useEvm();
 	const mint = () => {
+		setError(null);
 		mintGoldList!(1, 0).catch(setError);
 	};
 	return (

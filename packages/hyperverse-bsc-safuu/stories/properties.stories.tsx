@@ -20,8 +20,8 @@ const Properties: FC = () => {
 	const [name, setName] = useState('');
 	const [symbol, setSymbol] = useState('');
 	useEffect(() => {
-		getName?.().then(setName);
-		getSymbol?.().then(setSymbol);
+		!name && getName?.().then(setName);
+		!symbol && getSymbol?.().then(setSymbol);
 	}, [getName, getSymbol]);
 	return (
 		<div>
