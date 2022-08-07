@@ -47,7 +47,7 @@ async function ModuleLibraryInternal(
 		const signerAddress = await signer?.getAddress();
 		const proof = generateMerkleProof(GOLDLIST, signerAddress);
 		try {
-			const tx = base.mintGoldList(fullNodeCount, lightNodeCount, proof);
+			const tx = await base.mintGoldList(fullNodeCount, lightNodeCount, proof);
 			return tx.wait() as TransactionReceipt;
 		} catch (error) {
 			// TODO: Can fail if gold list is not active
@@ -56,27 +56,27 @@ async function ModuleLibraryInternal(
 	const mintWhiteList = async (fullNodeCount: number, lightNodeCount: number) => {
 		const signerAddress = await signer?.getAddress();
 		const proof = generateMerkleProof(WHITELIST, signerAddress);
-		const tx = base.mintWhiteList(fullNodeCount, lightNodeCount, proof);
+		const tx = await base.mintWhiteList(fullNodeCount, lightNodeCount, proof);
 		return tx.wait() as TransactionReceipt;
 	};
 	const withdrawFunds = async () => {
-		const tx = base.withdrawFunds();
+		const tx = await base.withdrawFunds();
 		return tx.wait() as TransactionReceipt;
 	};
 	const withdrawTokens = async (tokenContract: string, toAddress: string) => {
-		const tx = base.withdrawTokens(tokenContract, toAddress);
+		const tx = await base.withdrawTokens(tokenContract, toAddress);
 		return tx.wait() as TransactionReceipt;
 	};
 	const burn = async (tokenId: number, amount: number) => {
-		const tx = base.burn(tokenId, amount);
+		const tx = await base.burn(tokenId, amount);
 		return tx.wait() as TransactionReceipt;
 	};
 	const setFullNodeCost = async (cost: number) => {
-		const tx = base.setFullNodeCost(cost);
+		const tx = await base.setFullNodeCost(cost);
 		return tx.wait() as TransactionReceipt;
 	};
 	const setLiteNodeCost = async (cost: number) => {
-		const tx = base.setLiteNodeCost(cost);
+		const tx = await base.setLiteNodeCost(cost);
 		return tx.wait() as TransactionReceipt;
 	};
 	const checkEligibility = (address: string) => {
@@ -102,8 +102,8 @@ async function ModuleLibraryInternal(
 			throw error;
 		}
 	};
-	const setURI = (tokenId: number, uri: string) => {
-		const tx = base.setURI(tokenId, uri);
+	const setURI = async (tokenId: number, uri: string) => {
+		const tx = await base.setURI(tokenId, uri);
 		return tx.wait() as TransactionReceipt;
 	};
 	const getURI = async (tokenId: number) => {
@@ -114,14 +114,14 @@ async function ModuleLibraryInternal(
 			throw error;
 		}
 	};
-	const setGoldListSaleStatus = async (status: boolean) => { 
+	const setGoldListSaleStatus = async (status: boolean) => {
 		const tx = await base.setGoldListSaleStatus(status);
 		return tx.wait() as TransactionReceipt;
-	}
-	const setWhiteListSaleStatus = async (status: boolean) => { 
+	};
+	const setWhiteListSaleStatus = async (status: boolean) => {
 		const tx = await base.setWhiteListSaleStatus(status);
 		return tx.wait() as TransactionReceipt;
-	}
+	};
 	const isGoldListSaleActive = async () => {
 		try {
 			const result = (await base._isGoldListSaleActive()) as boolean;
