@@ -27,7 +27,7 @@ const ToggleWhiteList: FC = () => {
 	return (
 		<div>
 			<Connect />
-			<h1>WhiteList Status</h1>
+			<h1>White List Status</h1>
 			<p>{JSON.stringify(isActive)}</p>
 			<button
 				onClick={() => {
