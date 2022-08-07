@@ -7,7 +7,7 @@ import React from 'react';
 
 const Button = () => {
 	const { address, Connect } = useEvm();
-	const { factoryContract } = useSafuu();
+	const {} = useSafuu();
 	return <Connect />;
 };
 

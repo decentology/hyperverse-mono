@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 module.exports = {
 	core: {
 		builder: 'webpack5'
@@ -18,6 +19,11 @@ module.exports = {
 			include: /node_modules/,
 			type: 'javascript/auto',
 		});
+		config.plugins.push(
+			new webpack.ProvidePlugin({
+				Buffer: ['buffer', 'Buffer'],
+			})
+		)
 		return config;
 	},
 };
