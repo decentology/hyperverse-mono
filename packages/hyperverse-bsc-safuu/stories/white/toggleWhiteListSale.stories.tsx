@@ -15,7 +15,11 @@ export const Demo: ComponentStoryFn<typeof ToggleWhiteList> = (args) => (
 	</HyperverseProvider>
 );
 
-const ToggleWhiteList: FC = () => {
+Demo.args = {
+	status: true,
+};
+
+const ToggleWhiteList = ({ status }: { status: boolean }) => {
 	const { isWhiteListSaleActive, setWhiteListSaleStatus } = useSafuu();
 	const [isActive, setIsActive] = useState<boolean>();
 	useEffect(() => {
@@ -31,8 +35,8 @@ const ToggleWhiteList: FC = () => {
 			<p>{JSON.stringify(isActive)}</p>
 			<button
 				onClick={() => {
-					setWhiteListSaleStatus!(!isActive).then(() => {
-						setIsActive(!isActive);
+					setWhiteListSaleStatus!(status).then(() => {
+						setIsActive(status);
 					});
 				}}
 			>

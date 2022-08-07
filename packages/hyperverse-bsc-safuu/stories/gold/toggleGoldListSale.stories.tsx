@@ -15,7 +15,11 @@ export const Demo: ComponentStoryFn<typeof ToggleGoldList> = (args) => (
 	</HyperverseProvider>
 );
 
-const ToggleGoldList: FC = () => {
+Demo.args = {
+	status: true,
+};
+
+const ToggleGoldList = ({ status }: { status: boolean }) => {
 	const { isGoldListSaleActive, setGoldListSaleStatus } = useSafuu();
 	const [isActive, setIsActive] = useState<boolean>();
 	useEffect(() => {
@@ -31,8 +35,8 @@ const ToggleGoldList: FC = () => {
 			<p>{JSON.stringify(isActive)}</p>
 			<button
 				onClick={() => {
-					setGoldListSaleStatus!(!isActive).then(() => {
-						setIsActive(!isActive);
+					setGoldListSaleStatus!(status).then(() => {
+						setIsActive(status);
 					});
 				}}
 			>
