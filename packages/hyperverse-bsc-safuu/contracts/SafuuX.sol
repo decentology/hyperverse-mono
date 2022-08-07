@@ -80,9 +80,6 @@ contract SafuuX is ERC1155, Ownable {
         _merkleTreeInputURI = merkleTreeInputURI_;
         _goldListMerkleRoot = goldListMerkleRoot_;
         _whiteListMerkleRoot = whiteListMerkleRoot_;
-
-        FULL_NODE_CURRENT_SUPPLY = 5;
-        //_mint(msg.sender, 1, 5, "");
     }
 
     function mintGoldList(
