@@ -25,6 +25,21 @@ const WHITELIST: string[] = [
 	'0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc',
 ];
 
+const REVERT_MESSAGES = [
+	'Exceeds max 1 Full Node limit per address',
+	'Purchase would exceed max Full Node supply',
+	'Insufficient balance',
+	'Exceeds max 5 Lite Node limit per address',
+	'Purchase would exceed max Lite Node supply',
+	'Max 1 FullNode, 5 LiteNodes per wallet',
+	'Insufficient balance',
+	'Max 1 FullNode, 5 LiteNodes per wallet',
+	'Full node and Lite node count cannot be zero',
+	'GoldList sale not active',
+	'WhiteList sale not active',
+	'Address not eligible - Invalid merkle proof',
+];
+
 async function ModuleLibraryInternal(
 	hyperverse: HyperverseConfig,
 	providerOrSigner?: ethers.providers.Provider | ethers.Signer
@@ -41,7 +56,14 @@ async function ModuleLibraryInternal(
 	let signer: ethers.Signer;
 	if (providerOrSigner instanceof ethers.providers.Web3Provider) {
 		signer = providerOrSigner.getSigner();
+	} else if (providerOrSigner instanceof ethers.Signer) {
+		signer = providerOrSigner;
 	}
+
+	const parseError = (error: Error) => {
+		const match = /reverted with reason string '(.*?)'/.exec(error.message);
+		return match ? match[1] : error.message;
+	};
 
 	const mintGoldList = async (fullNodeCount: number, lightNodeCount: number) => {
 		const signerAddress = await signer?.getAddress();
@@ -50,7 +72,7 @@ async function ModuleLibraryInternal(
 			const tx = await base.mintGoldList(fullNodeCount, lightNodeCount, proof);
 			return tx.wait() as TransactionReceipt;
 		} catch (error) {
-			// TODO: Can fail if gold list is not active
+			throw new Error(parseError(error as Error));
 		}
 	};
 	const mintWhiteList = async (fullNodeCount: number, lightNodeCount: number) => {
@@ -108,7 +130,7 @@ async function ModuleLibraryInternal(
 	};
 	const getURI = async (tokenId: number) => {
 		try {
-			const uri = (await base.uri()) as string;
+			const uri = (await base.uri(tokenId)) as string;
 			return uri;
 		} catch (error) {
 			throw error;

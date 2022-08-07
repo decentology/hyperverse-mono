@@ -1,6 +1,6 @@
 import { HyperverseProvider } from '../utils/Provider';
 import { ComponentMeta, ComponentStoryFn } from '@storybook/react';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useSafuu } from '../../source/react';
 import { useEvm } from '@decentology/hyperverse-evm/react';
 export default {
@@ -15,11 +15,16 @@ export const Demo: ComponentStoryFn<typeof MintGoldList> = (args) => (
 
 const MintGoldList: FC = () => {
 	const { mintGoldList } = useSafuu();
+	const [error, setError] = useState<Error | null>(null);
 	const { Connect } = useEvm();
+	const mint = () => {
+		mintGoldList!(1, 0).catch(setError);
+	};
 	return (
 		<div>
 			<Connect />
-			<button onClick={() => mintGoldList!(1, 0)}>Attempt Gold List Mint</button>
+			<button onClick={mint}>Attempt Gold List Mint</button>
+			{error && <p>{error.message}</p>}
 		</div>
 	);
 };
