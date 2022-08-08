@@ -1,6 +1,5 @@
 import { useSafuu } from '@decentology/hyperverse-bsc-safuu/react';
-import { useEffect, useState } from 'react';
-
+import { useQueries, useQuery } from '@tanstack/react-query';
 export const Statistics = ({ nodeType }: { nodeType: 'full' | 'lite' }) => {
 	const {
 		fullNodeSupply,
@@ -10,23 +9,22 @@ export const Statistics = ({ nodeType }: { nodeType: 'full' | 'lite' }) => {
 		getFullNodeCost,
 		getLiteNodeCost,
 	} = useSafuu();
-	const [supply, setSupply] = useState<number | null>();
-	const [total, setTotal] = useState<number | null>();
-	const [cost, setCost] = useState<number | null>();
-	useEffect(() => {
-		switch (nodeType) {
-			case 'full':
-				fullNodeSupply?.().then(setSupply);
-				fullNodeLimit?.().then(setTotal);
-				getFullNodeCost?.().then(setCost);
-				break;
-			case 'lite':
-				liteNodeSupply?.().then(setSupply);
-				liteNodeLimit?.().then(setTotal);
-				getLiteNodeCost?.().then(setCost);
-				break;
-		}
-	}, [nodeType, fullNodeSupply, liteNodeSupply, fullNodeLimit, liteNodeLimit, getFullNodeCost, getLiteNodeCost]);
+	const [{ data: supply }, { data: cost }, { data: total }] = useQueries({
+		queries: [
+			{
+				queryKey: ['supply', nodeType],
+				queryFn: () => (nodeType == 'full' ? fullNodeSupply!() : liteNodeSupply!()),
+			},
+			{
+				queryKey: ['cost', nodeType],
+				queryFn: () => (nodeType == 'full' ? getFullNodeCost!() : getLiteNodeCost!()),
+			},
+			{
+				queryKey: ['total', nodeType],
+				queryFn: () => (nodeType == 'full' ? fullNodeLimit!() : liteNodeLimit!()),
+			},
+		],
+	});
 	return (
 		<table>
 			<tr>

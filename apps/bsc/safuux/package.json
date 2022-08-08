@@ -9,10 +9,11 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@decentology/unstated-next": "workspace:^",
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/hyperverse-bsc": "workspace:^",
 		"@decentology/hyperverse-bsc-safuu": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
+		"@tanstack/react-query": "^4.0.10",
 		"next": "12.2.4",
 		"react": "18.2.0",
 		"react-dom": "18.2.0"
