@@ -28,7 +28,7 @@ export const Statistics = ({ nodeType }: { nodeType: 'full' | 'lite' }) => {
 	return (
 		<table>
 			<tr>
-				<td>Available Nodes</td>
+				<td>Purchased Nodes</td>
 				<td>{supply}</td>
 			</tr>
 			<tr>
