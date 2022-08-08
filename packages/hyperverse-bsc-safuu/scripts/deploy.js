@@ -17,25 +17,26 @@ const main = async () => {
 	const SafuuToken = await ethers.getContractFactory("TestERC20");
 	this.safuuToken = await SafuuToken.deploy();
 	await this.safuuToken.deployed();
-	const BaseModule = await hre.ethers.getContractFactory('SafuuX');
-	const baseContract = await BaseModule.deploy(
+	const SafuuX = await hre.ethers.getContractFactory('SafuuX');
+	const safuux = await SafuuX.deploy(
 		"Safuu",
-		"Safuu",
+		"SFX",
 		this.safuuToken.address,
 		generateMerkleRoot(this.GOLD_LIST),
 		generateMerkleRoot(this.WHITE_LIST),
 		"ipfs://ipfs/...."
 	);
-	await baseContract.deployed();
+	await safuux.deployed();
+	await this.safuuToken.approve(safuux.address, 1000000000000000);
 
-	console.log('Module Contract deployed to: ', baseContract.address);
+	console.log('Module Contract deployed to: ', safuux.address);
 	console.log('Safuu Token deployed to: ', this.safuuToken.address);
 
 	const env = JSON.parse(fs.readFileSync('contracts.json').toString());
 	env[hre.network.name] = env[hre.network.name] || {};
 	env[hre.network.name].testnet = env[hre.network.name].testnet || {};
 
-	env[hre.network.name].testnet.contractAddress = baseContract.address;
+	env[hre.network.name].testnet.contractAddress = safuux.address;
 
 	// Save contract addresses back to file
 	fs.writeJsonSync('contracts.json', env, { spaces: 2 });
