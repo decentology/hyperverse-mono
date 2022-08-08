@@ -10,7 +10,7 @@ export const Networks : {[key in Network] : NetworkConfig} = {
 	},
 	[Network.Testnet]: {
 		type: Network.Testnet,
-		name: 'testnet',
+		name: 'bsc-testnet',
 		chainId: 97,
 		networkUrl: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
 		blockExplorer: 'https://testnet.bscscan.com/',
