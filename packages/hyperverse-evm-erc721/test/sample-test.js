@@ -40,7 +40,7 @@ describe('ERC721', function () {
 	it('Public mint', async function () {
 		await aliceProxyContract
 			.connect(alice)
-			.initializeCollection(utils.parseEther(price.toString()), 50, 5, false);
+			.initializeCollection(utils.parseEther(price.toString()), 50, 5, );
 		await aliceProxyContract.connect(alice).setMintPermissions(true);
 		const collectionInfo = await aliceProxyContract.collectionInfo();
 		expect(utils.formatEther(collectionInfo.price)).to.equals(price.toString());
@@ -55,7 +55,7 @@ describe('ERC721', function () {
 	it('Can initializeCollectin more than once', async function () {
 		await aliceProxyContract
 			.connect(alice)
-			.initializeCollection(utils.parseEther(price.toString()), 50, 5, false);
+			.initializeCollection(utils.parseEther(price.toString()), 50, 5, );
 
 		await aliceProxyContract
 			.connect(alice)
@@ -63,7 +63,7 @@ describe('ERC721', function () {
 				utils.parseEther((price + 0.0001).toFixed(4).toString()),
 				50,
 				5,
-				false
+				
 			);
 		const collectionInfo = await aliceProxyContract.collectionInfo();
 		expect(utils.formatEther(collectionInfo.price)).to.equals(
@@ -73,7 +73,7 @@ describe('ERC721', function () {
 	it('Batch Mint', async function () {
 		await aliceProxyContract
 			.connect(alice)
-			.initializeCollection(utils.parseEther(price.toString()), 50, 5, false);
+			.initializeCollection(utils.parseEther(price.toString()), 50, 5, );
 		await aliceProxyContract.connect(alice).setMintPermissions(true);
 		await aliceProxyContract
 			.connect(alice)
