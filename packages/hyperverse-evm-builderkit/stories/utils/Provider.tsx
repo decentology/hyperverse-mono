@@ -1,7 +1,8 @@
-import { initialize, Network, Provider } from '@decentology/hyperverse';
-import { Localhost } from '@decentology/hyperverse-evm';
-import { FC } from 'react';
-import * as SmartModule from '../../source';
+import { initialize, Network, Provider } from '@decentology/hyperverse/react';
+import { Localhost } from '@decentology/hyperverse-evm/react';
+import React, { FC } from 'react';
+import * as SmartModule from '../../source/react';
+import '@decentology/hyperverse-evm/styles.css'
 
 export const HyperverseProvider: FC<any> = ({ children }) => {
 	const hyperverse = initialize({

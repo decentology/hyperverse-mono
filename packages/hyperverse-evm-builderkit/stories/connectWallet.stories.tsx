@@ -1,7 +1,8 @@
+import React from 'react';
 import { HyperverseProvider } from './utils/Provider';
 import { Meta, Story } from '@storybook/react';
-import { useModule } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import { useModule } from '../source/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import Doc from '../docs/connectWallet.mdx';
 
 const Button = () => {
