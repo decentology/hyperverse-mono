@@ -50,188 +50,181 @@ describe('Whitelist Test', function () {
 		});
 	});
 
-	describe('Default Whitelist', function () {
-		describe('Time Based Whitelist', function () {
-			before(async function () {
-				await factoryContract
-					.connect(alice)
-					.createInstance(
-						alice.address,
-						time,
-						time2,
-						0,
-						constants.AddressZero,
-						constants.AddressZero,
-						ethers.utils.formatBytes32String('')
-					);
+	describe('Time Based Whitelist', function () {
+		before(async function () {
+			await factoryContract
+				.connect(alice)
+				.createInstance(
+					alice.address,
+					time,
+					time2,
+					0,
+					constants.AddressZero,
+					constants.AddressZero,
+					ethers.utils.formatBytes32String('')
+				);
 
-				timeInstance = await Module.attach(await factoryContract.getProxy(alice.address));
-				await timeInstance.connect(alice).authorizeOperator(cara.address);
+			timeInstance = await Module.attach(await factoryContract.getProxy(alice.address));
+			await timeInstance.connect(alice).authorizeOperator(cara.address);
+		});
+
+		describe('Initial', function () {
+			it('Start Time and End Time', async function () {
+				expect(await timeInstance.startTime()).to.equal(time);
+				expect(await timeInstance.endTime()).to.equal(time2);
 			});
 
-			describe('Initial', function () {
-				it('Start Time and End Time', async function () {
-					expect(await timeInstance.startTime()).to.equal(time);
-					expect(await timeInstance.endTime()).to.equal(time2);
-				});
-
-				it('Time Based flag should be true', async function () {
-					expect(await timeInstance.timeBased()).to.equal(true);
-				});
-
-				it('Quantity Based flag should be false', async function () {
-					expect(await timeInstance.quantityBased()).to.equal(false);
-				});
-
-				it('Active flag should be false', async function () {
-					expect(await timeInstance.active()).to.equal(false);
-				});
+			it('Time Based flag should be true', async function () {
+				expect(await timeInstance.timeBased()).to.equal(true);
 			});
 
-			describe('Getting Whitelisted', function () {
-				beforeEach(async function () {
-					const extraTime = 1 * 24 * 60 * 60;
-					await ethers.provider.send('evm_increaseTime', [extraTime]);
-		
-				});
+			it('Quantity Based flag should be false', async function () {
+				expect(await timeInstance.quantityBased()).to.equal(false);
+			});
 
-				it('Should allow Cara to whitelist', async function () {
-					await timeInstance.connect(cara).getWhitelisted();
-				});
-
-				it('Should not allow Cara to whitelist twice', async function () {
-					await expect(timeInstance.connect(cara).getWhitelisted()).to.be.revertedWith(
-						'AlreadyInWhitelist()'
-					);
-				});
-
-				it('Should not allow Cara to claim her whitelist', async function () {
-					await expect(
-						timeInstance.connect(cara).claimWhitelist(cara.address, tempHex)
-					).to.be.revertedWith('WhitelistIsNotActive()');
-				});
-
-				it('Alice should be able to active claiming of whitelist', async function () {
-					await timeInstance.connect(alice).activateWhitelistClaiming();
-					expect(await timeInstance.active()).to.equal(true);
-				});
-
-				it('Should allow Cara to claim her whitelist', async function () {
-					await timeInstance.connect(cara).claimWhitelist(cara.address, tempHex);
-					expect(await timeInstance.addressesClaimed(cara.address)).to.equal(true);
-				});
-
-				it('Should now allow Cara to claim her again', async function () {
-					await expect(
-						timeInstance.connect(cara).claimWhitelist(cara.address, tempHex)
-					).to.be.revertedWith('AlreadyClaimedWhitelist()');
-				});
+			it('Active flag should be false', async function () {
+				expect(await timeInstance.active()).to.equal(false);
 			});
 		});
 
-		describe('Quantity Based Whitelist', function () {
-			before(async function () {
-				await factoryContract
-					.connect(alice)
-					.createInstance(
-						alice.address,
-						0,
-						0,
-						2,
-						constants.AddressZero,
-						constants.AddressZero,
-						ethers.utils.formatBytes32String('')
-					);
+		describe('Getting Whitelisted', function () {
+			beforeEach(async function () {
+				const extraTime = 1 * 24 * 60 * 60;
+				await ethers.provider.send('evm_increaseTime', [extraTime]);
+			});
 
-				quantityInstance = await Module.attach(
-					await factoryContract.getProxy(alice.address)
+			it('Should allow Cara to whitelist', async function () {
+				await timeInstance.connect(cara).getWhitelisted();
+			});
+
+			it('Should not allow Cara to whitelist twice', async function () {
+				await expect(timeInstance.connect(cara).getWhitelisted()).to.be.revertedWith(
+					'AlreadyInWhitelist()'
 				);
 			});
 
-			describe('Initial', function () {
-				it('Units', async function () {
-					expect(await quantityInstance.units()).to.equal(2);
-				});
-
-				it('Quantity Based flag should be true', async function () {
-					expect(await quantityInstance.quantityBased()).to.equal(true);
-				});
-
-				it('Time Based flag should be false', async function () {
-					expect(await quantityInstance.timeBased()).to.equal(false);
-				});
+			it('Should not allow Cara to claim her whitelist', async function () {
+				await expect(
+					timeInstance.connect(cara).claimWhitelist(cara.address, tempHex)
+				).to.be.revertedWith('WhitelistIsNotActive()');
 			});
 
-			describe('Getting Whitelisted', function () {
-				it('Should allow Cara and Bob to whitelist', async function () {
-					await quantityInstance.connect(cara).getWhitelisted();
-					await quantityInstance.connect(bob).getWhitelisted();
-				});
+			it('Alice should be able to active claiming of whitelist', async function () {
+				await timeInstance.connect(alice).activateWhitelistClaiming();
+				expect(await timeInstance.active()).to.equal(true);
+			});
 
-				it('Should not allow Joe to whitelist', async function () {
-					await expect(quantityInstance.connect(joe).getWhitelisted()).to.be.revertedWith(
-						'NoAvailableUnitsLeft()'
-					);
-				});
+			it('Should allow Cara to claim her whitelist', async function () {
+				await timeInstance.connect(cara).claimWhitelist(cara.address, tempHex);
+				expect(await timeInstance.addressesClaimed(cara.address)).to.equal(true);
+			});
+
+			it('Should now allow Cara to claim her again', async function () {
+				await expect(
+					timeInstance.connect(cara).claimWhitelist(cara.address, tempHex)
+				).to.be.revertedWith('AlreadyClaimedWhitelist()');
 			});
 		});
-
-		describe('Time and Quantity Based Whitelist', function () {
-			before(async function () {
-				await factoryContract
-					.connect(alice)
-					.createInstance(
-						alice.address,
-						time3,
-						time4,
-						2,
-						constants.AddressZero,
-						constants.AddressZero,
-						ethers.utils.formatBytes32String('')
-					);
-
-				timeAndQuantityInstance = await Module.attach(
-					await factoryContract.getProxy(alice.address)
-				);
-			});
-
-			describe('Initial', function () {
-				it('Start Time, End Time, Units', async function () {
-					expect(await timeAndQuantityInstance.startTime()).to.equal(time3);
-					expect(await timeAndQuantityInstance.endTime()).to.equal(time4);
-					expect(await timeAndQuantityInstance.units()).to.equal(2);
-				});
-
-				it('Time Based and Quantity flag should be true', async function () {
-					expect(await timeAndQuantityInstance.timeBased()).to.equal(true);
-					expect(await timeAndQuantityInstance.quantityBased()).to.equal(true);
-				});
-			});
-
-			describe('Getting Whitelisted', function () {
-				beforeEach(async function () {
-					const extraTime = 15 * 24 * 60 * 60 * 60;
-					await ethers.provider.send('evm_increaseTime', [extraTime * 2]);
-				});
-
-				it('Should allow Cara and Bob to whitelist', async function () {
-					await timeAndQuantityInstance.connect(cara).getWhitelisted();
-					await timeAndQuantityInstance.connect(bob).getWhitelisted();
-				});
-
-				it('Should not allow Joe to whitelist', async function () {
-					await expect(
-						timeAndQuantityInstance.connect(joe).getWhitelisted()
-					).to.be.revertedWith('NoAvailableUnitsLeft()');
-				});
-			});
-		});
-
-		describe('NFT Based Whitelist', function () {});
-		describe('FT Based Whitelist', function () {});
-
-
 	});
+
+	describe('Quantity Based Whitelist', function () {
+		before(async function () {
+			await factoryContract
+				.connect(alice)
+				.createInstance(
+					alice.address,
+					0,
+					0,
+					2,
+					constants.AddressZero,
+					constants.AddressZero,
+					ethers.utils.formatBytes32String('')
+				);
+
+			quantityInstance = await Module.attach(await factoryContract.getProxy(alice.address));
+		});
+
+		describe('Initial', function () {
+			it('Units', async function () {
+				expect(await quantityInstance.units()).to.equal(2);
+			});
+
+			it('Quantity Based flag should be true', async function () {
+				expect(await quantityInstance.quantityBased()).to.equal(true);
+			});
+
+			it('Time Based flag should be false', async function () {
+				expect(await quantityInstance.timeBased()).to.equal(false);
+			});
+		});
+
+		describe('Getting Whitelisted', function () {
+			it('Should allow Cara and Bob to whitelist', async function () {
+				await quantityInstance.connect(cara).getWhitelisted();
+				await quantityInstance.connect(bob).getWhitelisted();
+			});
+
+			it('Should not allow Joe to whitelist', async function () {
+				await expect(quantityInstance.connect(joe).getWhitelisted()).to.be.revertedWith(
+					'NoAvailableUnitsLeft()'
+				);
+			});
+		});
+	});
+
+	describe('Time and Quantity Based Whitelist', function () {
+		before(async function () {
+			await factoryContract
+				.connect(alice)
+				.createInstance(
+					alice.address,
+					time3,
+					time4,
+					2,
+					constants.AddressZero,
+					constants.AddressZero,
+					ethers.utils.formatBytes32String('')
+				);
+
+			timeAndQuantityInstance = await Module.attach(
+				await factoryContract.getProxy(alice.address)
+			);
+		});
+
+		describe('Initial', function () {
+			it('Start Time, End Time, Units', async function () {
+				expect(await timeAndQuantityInstance.startTime()).to.equal(time3);
+				expect(await timeAndQuantityInstance.endTime()).to.equal(time4);
+				expect(await timeAndQuantityInstance.units()).to.equal(2);
+			});
+
+			it('Time Based and Quantity flag should be true', async function () {
+				expect(await timeAndQuantityInstance.timeBased()).to.equal(true);
+				expect(await timeAndQuantityInstance.quantityBased()).to.equal(true);
+			});
+		});
+
+		describe('Getting Whitelisted', function () {
+			beforeEach(async function () {
+				const extraTime = 15 * 24 * 60 * 60 * 60;
+				await ethers.provider.send('evm_increaseTime', [extraTime * 2]);
+			});
+
+			it('Should allow Cara and Bob to whitelist', async function () {
+				await timeAndQuantityInstance.connect(cara).getWhitelisted();
+				await timeAndQuantityInstance.connect(bob).getWhitelisted();
+			});
+
+			it('Should not allow Joe to whitelist', async function () {
+				await expect(
+					timeAndQuantityInstance.connect(joe).getWhitelisted()
+				).to.be.revertedWith('NoAvailableUnitsLeft()');
+			});
+		});
+	});
+
+	describe('NFT Based Whitelist', function () {});
+	describe('FT Based Whitelist', function () {});
 
 	describe('Merkle Whitelist', function () {
 		let hexProof;
@@ -240,7 +233,7 @@ describe('Whitelist Test', function () {
 		before(async function () {
 			whitelistedAddresses = [cara.address, alice.address, bob.address];
 			const leafNodes = whitelistedAddresses.map((address) => keccak256(address));
-			 tree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
+			tree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
 			await factoryContract
 				.connect(alice)
 				.createInstance(
@@ -253,15 +246,12 @@ describe('Whitelist Test', function () {
 					`0x${tree.getRoot().toString('hex')}`
 				);
 
-				merkleInstance = await Module.attach(await factoryContract.getProxy(alice.address));
+			merkleInstance = await Module.attach(await factoryContract.getProxy(alice.address));
 
-
-				root = `0x${tree.getRoot().toString('hex')}`
-				const claimingCara = leafNodes[0];
-				hexProof = tree.getHexProof(claimingCara);
-
+			root = `0x${tree.getRoot().toString('hex')}`;
+			const claimingCara = leafNodes[0];
+			hexProof = tree.getHexProof(claimingCara);
 		});
-
 
 		it('Initial', async function () {
 			expect(await moduleContract.contractOwner()).to.equal(owner.address);
@@ -269,19 +259,22 @@ describe('Whitelist Test', function () {
 		});
 
 		it('Should return true for Cara being in the Whitelist Merkle', async function () {
-			expect(await merkleInstance.checkMerkleWhitelist(cara.address, hexProof)).to.equal(true);
-		})
+			expect(await merkleInstance.checkMerkleWhitelist(cara.address, hexProof)).to.equal(
+				true
+			);
+		});
 
 		it('Should return false for joe being in the Whitelist Merkle', async function () {
-			expect(await merkleInstance.checkMerkleWhitelist(joe.address, hexProof)).to.equal(false);
-		})
-
+			expect(await merkleInstance.checkMerkleWhitelist(joe.address, hexProof)).to.equal(
+				false
+			);
+		});
 
 		it('Should allow Cara to claim her whitelist', async function () {
-			await merkleInstance.connect(alice).activateWhitelistClaiming()
-			await merkleInstance.connect(alice).authorizeOperator(cara.address)
-			await merkleInstance.connect(cara).claimWhitelist(cara.address, hexProof)
+			await merkleInstance.connect(alice).activateWhitelistClaiming();
+			await merkleInstance.connect(alice).authorizeOperator(cara.address);
+			await merkleInstance.connect(cara).claimWhitelist(cara.address, hexProof);
 			expect(await merkleInstance.addressesClaimed(cara.address)).to.equal(true);
-		})
+		});
 	});
 });
