@@ -1,0 +1,55 @@
+{
+	"name": "@decentology/hyperverse-avalanche",
+	"version": "1.1.8",
+	"exports": {
+		".": {
+			"import": "./source/index.ts"
+		},
+		"./react": "./source/react/index.ts",
+		"./styles.css": "./source/styles.css"
+	},
+	"source": "./source/index.ts",
+	"main": "./distribution/index.js",
+	"types": "./distribution/index.d.ts",
+	"license": "MIT",
+	"scripts": {
+		"build": "rollup --config node:@decentology/config/rollup.config.js",
+		"build:parcel": "parcel build",
+		"clean": "rimraf ./distribution",
+		"lint": "tsc --noEmit"
+	},
+	"files": [
+		"distribution",
+		"react.d.ts"
+	],
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": "./distribution/index.js",
+			"./react": "./distribution/react.mjs",
+			"./styles.css": "./distribution/styles.css"
+		}
+	},
+	"peerDependencies": {
+		"react": "^17.0.0 || ^18.0.0",
+		"react-dom": "^17.0.0 || ^18.0.0"
+	},
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"dependencies": {
+		"@decentology/hyperverse": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
+		"@decentology/unstated-next": "workspace:^"
+	},
+	"devDependencies": {
+		"@decentology/config": "workspace:^",
+		"@types/node": "^17.0.30",
+		"@types/react": "^18",
+		"@types/react-dom": "^18",
+		"parcel": "2.2.1",
+		"rimraf": "^3.0.2",
+		"rollup": "^2.74.1",
+		"tslib": "^2.4.0"
+	}
+}
