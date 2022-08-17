@@ -1,0 +1,53 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+}
+
+.icon-spin {
+	-webkit-animation: icon-spin 2s infinite linear;
+			animation: icon-spin 2s infinite linear;
+  }
+  
+  @-webkit-keyframes icon-spin {
+	0% {
+	  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+	}
+	100% {
+	  -webkit-transform: rotate(359deg);
+			  transform: rotate(359deg);
+	}
+  }
+  
+  @keyframes icon-spin {
+	0% {
+	  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+	}
+	100% {
+	  -webkit-transform: rotate(359deg);
+			  transform: rotate(359deg);
+	}
+  }

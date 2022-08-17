@@ -16,7 +16,7 @@ export const Demo: ComponentStoryFn<typeof Properties> = () => (
 );
 
 function Properties() {
-	const { loading, proxyContract, getName, getSymbol, getCollectionInfo, getTokenCounter } =
+	const { loading, proxyContract, proxyAddress, getName, getSymbol, getCollectionInfo, getTokenCounter } =
 		useERC721();
 	const [name, setName] = useState('');
 	const [symbol, setSymbol] = useState('');
@@ -53,6 +53,7 @@ function Properties() {
 			<h1>Name: {name}</h1>
 			<h2>Symbol: {symbol}</h2>
 			<h2>Total Tokens: {totalTokens}</h2>
+			<h2>Tenant Address: {proxyAddress}</h2>
 			<h2>Collection Info</h2>
 			<ul>
 				<li>

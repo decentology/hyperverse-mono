@@ -6,6 +6,7 @@ export enum Blockchain {
 	Avalanche = 'avalanche',
 	Polygon = 'polygon',
 	Celo = 'celo',
+	BSC = 'bsc',
 	Localhost = "localhost"
 }
 
