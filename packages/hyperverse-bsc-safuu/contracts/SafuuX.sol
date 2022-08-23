@@ -176,19 +176,6 @@ contract SafuuX is ERC1155, Ownable {
         return eligibility;
     }
 
-    function checkWhiteListEligibility(
-        address walletAddress,
-        bytes32[] calldata merkleProof
-    ) external view returns (bool) {
-        bytes32 leaf = keccak256(abi.encodePacked(walletAddress));
-        bool eligibility = _checkEligibility(
-            _whiteListMerkleRoot,
-            merkleProof,
-            leaf
-        );
-        return eligibility;
-    }
-
     function _checkEligibility(
         bytes32 merkleRoot,
         bytes32[] calldata merkleProof,
