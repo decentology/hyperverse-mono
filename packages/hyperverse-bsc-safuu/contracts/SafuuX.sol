@@ -14,7 +14,6 @@ contract SafuuX is ERC1155, Ownable {
     bool public _isGoldListSaleActive = false;
     bool public _isPublicMintActive = false;
     bytes32 public immutable _goldListMerkleRoot;
-    bytes32 public immutable _whiteListMerkleRoot;
     address public _safuuTokenAddress;
 
     uint256 public LITE_NODE_COST = 50;
@@ -71,7 +70,6 @@ contract SafuuX is ERC1155, Ownable {
         string memory symbol_,
         address safuuTokenAddress_,
         bytes32 goldListMerkleRoot_,
-        bytes32 whiteListMerkleRoot_,
         string memory merkleTreeInputURI_
     ) ERC1155("") {
         _name = name_;
@@ -79,7 +77,6 @@ contract SafuuX is ERC1155, Ownable {
         _safuuTokenAddress = safuuTokenAddress_;
         _merkleTreeInputURI = merkleTreeInputURI_;
         _goldListMerkleRoot = goldListMerkleRoot_;
-        _whiteListMerkleRoot = whiteListMerkleRoot_;
     }
 
     function mintGoldList(
