@@ -12,4 +12,8 @@ export interface IHyperverseStorage {
 export type StorageProps = {
 	clientUrl: string | undefined;
 	resolveUrl?: string
+	auth?: {
+		projectId: string;
+		projectSecret: string;
+	}
 };

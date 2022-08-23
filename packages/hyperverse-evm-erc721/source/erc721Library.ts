@@ -99,9 +99,9 @@ export async function ERC721LibraryInternal(
 		try {
 			const erc72Name = await base.proxyContract?.name();
 			if (image) {
-				const tokenUri = await hyperverse.storage?.uploadFile(image);
+				const tokenId = await hyperverse.storage?.uploadFile(image);
 				const Metadata = {
-					image: `https://ipfs.io/ipfs/${tokenUri}`,
+					image: hyperverse.storage?.getLink(tokenId!),
 					name: `${erc72Name}`,
 				};
 				const metadataFile = new File([JSON.stringify(Metadata)], 'metadata.json');
@@ -124,6 +124,14 @@ export async function ERC721LibraryInternal(
 			throw error;
 		}
 	};
+
+	const getImageURI = async (tokenId: number) => {
+		// TODO: Needs Collection check for images to pull from BaseURI + tokenId
+		const tokenUri = await base.proxyContract?.tokenURI(tokenId);
+		const metadata = await hyperverse!.storage!.openFile(tokenUri!);
+		const json = JSON.parse(metadata) as { image: string };
+		return json.image
+	}
 
 	const setBaseURI = async (baseURI: string) => {
 		try {
@@ -170,7 +178,7 @@ export async function ERC721LibraryInternal(
 		}
 	};
 
-	const getOwnerOf = async (tokenId: string) => {
+	const getOwnerOf = async (tokenId: number) => {
 		try {
 			const owner = (await base.proxyContract?.ownerOf(tokenId)) as string;
 			return owner;
@@ -287,7 +295,8 @@ export async function ERC721LibraryInternal(
 		getName,
 		getSymbol,
 		getTokenCounter,
-		lockCollection ,
+		lockCollection,
 		contractBalance,
+		getImageURI
 	};
 }
