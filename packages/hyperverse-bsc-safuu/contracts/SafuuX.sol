@@ -12,7 +12,7 @@ contract SafuuX is ERC1155, Ownable {
     string public _symbol;
     string public _merkleTreeInputURI;
     bool public _isGoldListSaleActive = false;
-    bool public _isPublicMint = false;
+    bool public _isPublicMintActive = false;
     bytes32 public immutable _goldListMerkleRoot;
     bytes32 public immutable _whiteListMerkleRoot;
     address public _safuuTokenAddress;
@@ -107,6 +107,7 @@ contract SafuuX is ERC1155, Ownable {
     function mintLiteNode(
         uint256 _liteNodeCount
     ) external {
+        require(_isPublicMintActive == true, "Public sale not active");
         require(
             _liteNodesClaimed[msg.sender] < 5,
             "Max 5 LiteNodes per wallet"
@@ -147,7 +148,6 @@ contract SafuuX is ERC1155, Ownable {
     function _mintLiteNode(
         uint256 _amount
     ) internal mintLiteNodeCheck(_amount) {
-        require(_isPublicMint == true, "Public sale not active");
         LITE_NODE_CURRENT_SUPPLY = LITE_NODE_CURRENT_SUPPLY + _amount;
 
         if (
@@ -208,8 +208,8 @@ contract SafuuX is ERC1155, Ownable {
         _isGoldListSaleActive = _isActive;
     }
 
-    function setPublicMint(bool _isActive) external onlyOwner {
-        _isPublicMint = _isActive;
+    function setPublicMintStatus(bool _isActive) external onlyOwner {
+        _isPublicMintActive = _isActive;
     }
 
     function setFullNodeCost(uint256 cost) external onlyOwner {
