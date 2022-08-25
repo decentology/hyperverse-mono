@@ -106,9 +106,9 @@ async function ModuleLibraryInternal(
 		const tx = await base.setLiteNodeCost(cost);
 		return tx.wait() as TransactionReceipt;
 	};
-	const checkEligibility = (address: string) => {
+	const checkEligibility = (address: string, isGold: boolean = false) => {
 		const target = keccak256(address);
-		const leafs = WHITELIST.map((address) => keccak256(address));
+		const leafs = (isGold ? GOLDLIST : WHITELIST).map((address) => keccak256(address));
 		const merkleTree = new MerkleTree(leafs, keccak256, { sortPairs: true });
 		const proof = merkleTree.getHexProof(target);
 		return MerkleTree.verify(proof, target, merkleTree.getRoot());
