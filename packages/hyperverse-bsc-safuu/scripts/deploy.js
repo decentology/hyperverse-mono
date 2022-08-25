@@ -11,7 +11,9 @@ const main = async () => {
 	console.log('Deployer Address: ', deployer.address);
 
 	this.GOLD_LIST = [...this.accounts.slice(0, 3)];
+	this.WHITE_LIST = [...this.accounts.splice(3, 3)];
 	console.log('GOLD LIST', this.GOLD_LIST.map((account) => account.address));
+	console.log('WHITE_LIST', this.WHITE_LIST.map((account) => account.address));
 	const SafuuToken = await ethers.getContractFactory("TestERC20");
 	this.safuuToken = await SafuuToken.deploy();
 	await this.safuuToken.deployed();
@@ -21,6 +23,7 @@ const main = async () => {
 		"SFX",
 		this.safuuToken.address,
 		generateMerkleRoot(this.GOLD_LIST),
+		generateMerkleRoot(this.WHITE_LIST),
 		"ipfs://ipfs/...."
 	);
 	await safuux.deployed();

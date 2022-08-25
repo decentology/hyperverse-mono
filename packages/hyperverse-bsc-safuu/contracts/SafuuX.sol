@@ -12,8 +12,9 @@ contract SafuuX is ERC1155, Ownable {
     string public _symbol;
     string public _merkleTreeInputURI;
     bool public _isGoldListSaleActive = false;
-    bool public _isPublicMintActive = false;
+    bool public _isWhiteListSaleActive = false;
     bytes32 public immutable _goldListMerkleRoot;
+    bytes32 public immutable _whiteListMerkleRoot;
     address public _safuuTokenAddress;
 
     uint256 public LITE_NODE_COST = 50;
@@ -70,6 +71,7 @@ contract SafuuX is ERC1155, Ownable {
         string memory symbol_,
         address safuuTokenAddress_,
         bytes32 goldListMerkleRoot_,
+        bytes32 whiteListMerkleRoot_,
         string memory merkleTreeInputURI_
     ) ERC1155("") {
         _name = name_;
@@ -77,6 +79,7 @@ contract SafuuX is ERC1155, Ownable {
         _safuuTokenAddress = safuuTokenAddress_;
         _merkleTreeInputURI = merkleTreeInputURI_;
         _goldListMerkleRoot = goldListMerkleRoot_;
+        _whiteListMerkleRoot = whiteListMerkleRoot_;
     }
 
     function mintGoldList(
@@ -97,20 +100,29 @@ contract SafuuX is ERC1155, Ownable {
             _mintFullNode(_fullNodeCount, _goldListMerkleRoot, merkleProof);
         }
         if (_liteNodeCount > 0) {
-            _mintLiteNode(_liteNodeCount);
+            _mintLiteNode(_liteNodeCount, _goldListMerkleRoot, merkleProof);
         }
     }
 
-    function mintLiteNode(
-        uint256 _liteNodeCount
+    function mintWhiteList(
+        uint256 _fullNodeCount,
+        uint256 _liteNodeCount,
+        bytes32[] calldata merkleProof
     ) external {
-        require(_isPublicMintActive == true, "Public sale not active");
+        require(_isWhiteListSaleActive == true, "WhiteList sale not active");
         require(
-            _liteNodesClaimed[msg.sender] < 5,
-            "Max 5 LiteNodes per wallet"
+            nodesClaimed[msg.sender] == false,
+            "Max 1 FullNode, 5 LiteNodes per wallet"
         );
+        require(
+            _fullNodeCount > 0 || _liteNodeCount > 0,
+            "Full node and Lite node count cannot be zero"
+        );
+        if (_fullNodeCount > 0) {
+            _mintFullNode(_fullNodeCount, _whiteListMerkleRoot, merkleProof);
+        }
         if (_liteNodeCount > 0) {
-            _mintLiteNode(_liteNodeCount);
+            _mintLiteNode(_liteNodeCount, _whiteListMerkleRoot, merkleProof);
         }
     }
 
@@ -143,8 +155,16 @@ contract SafuuX is ERC1155, Ownable {
     }
 
     function _mintLiteNode(
-        uint256 _amount
+        uint256 _amount,
+        bytes32 _merkleRoot,
+        bytes32[] calldata _merkleProof
     ) internal mintLiteNodeCheck(_amount) {
+        bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
+        require(
+            _checkEligibility(_merkleRoot, _merkleProof, leaf) == true,
+            "Address not eligible - Invalid merkle proof"
+        );
+
         LITE_NODE_CURRENT_SUPPLY = LITE_NODE_CURRENT_SUPPLY + _amount;
 
         if (
@@ -176,6 +196,19 @@ contract SafuuX is ERC1155, Ownable {
         return eligibility;
     }
 
+    function checkWhiteListEligibility(
+        address walletAddress,
+        bytes32[] calldata merkleProof
+    ) external view returns (bool) {
+        bytes32 leaf = keccak256(abi.encodePacked(walletAddress));
+        bool eligibility = _checkEligibility(
+            _whiteListMerkleRoot,
+            merkleProof,
+            leaf
+        );
+        return eligibility;
+    }
+
     function _checkEligibility(
         bytes32 merkleRoot,
         bytes32[] calldata merkleProof,
@@ -189,11 +222,13 @@ contract SafuuX is ERC1155, Ownable {
     }
 
     function setGoldListSaleStatus(bool _isActive) external onlyOwner {
+        _isWhiteListSaleActive = false;
         _isGoldListSaleActive = _isActive;
     }
 
-    function setPublicMintStatus(bool _isActive) external onlyOwner {
-        _isPublicMintActive = _isActive;
+    function setWhiteListSaleStatus(bool _isActive) external onlyOwner {
+        _isGoldListSaleActive = false;
+        _isWhiteListSaleActive = _isActive;
     }
 
     function setFullNodeCost(uint256 cost) external onlyOwner {
