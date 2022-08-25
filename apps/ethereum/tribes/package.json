@@ -1,7 +1,7 @@
 {
 	"name": "@decentology/samples-web-tribes",
 	"private": true,
-	"version": "1.0.14",
+	"version": "1.0.15",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build && next export",
@@ -9,12 +9,13 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@decentology/unstated-next": "workspace:^",
-		"@decentology/hyperverse-evm": "workspace:^",
 		"@decentology/hyperverse": "workspace:^",
 		"@decentology/hyperverse-ethereum": "workspace:^",
 		"@decentology/hyperverse-ethereum-randompick": "workspace:^",
+		"@decentology/hyperverse-evm": "workspace:^",
 		"@decentology/hyperverse-evm-tribes": "workspace:^",
+		"@decentology/unstated-next": "workspace:^",
+		"electron": "^20.1.0",
 		"ethers": "^5.5.2",
 		"next": "^12",
 		"react": "^18",

@@ -1,6 +1,6 @@
 {
   "name": "eth-hyperverse-2",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,7 +15,7 @@
     "@decentology/hyperverse-ethereum": "workspace:^",
     "@decentology/hyperverse-evm-erc20": "workspace:^",
     "@decentology/hyperverse-evm-erc721": "workspace:^",
-    "@decentology/unstated-next": "workspace:^1.2.0",
+    "@decentology/unstated-next": "workspace:^1.2.1",
     "@radix-ui/react-hover-card": "^0.1.5",
     "@radix-ui/react-icons": "^1.1.1",
     "@radix-ui/react-tabs": "^0.1.5",

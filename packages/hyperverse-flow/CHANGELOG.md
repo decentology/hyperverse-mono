@@ -1,5 +1,14 @@
 # @decentology/hyperverse-flow
 
+## 1.1.1
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.5
+    -   @decentology/hyperverse-storage-skynet@1.1.1
+    -   @decentology/unstated-next@1.2.1
+
 ## 1.1.0
 
 ### Minor Changes

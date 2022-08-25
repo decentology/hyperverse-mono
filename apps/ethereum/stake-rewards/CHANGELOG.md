@@ -1,5 +1,16 @@
 # token
 
+## 0.1.12
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.5
+    -   @decentology/hyperverse-ethereum@1.2.1
+    -   @decentology/hyperverse-evm-erc777@2.2.1
+    -   @decentology/hyperverse-evm-stake-rewards@1.2.1
+    -   @decentology/unstated-next@1.2.1
+
 ## 0.1.11
 
 ### Patch Changes

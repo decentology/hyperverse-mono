@@ -1,5 +1,11 @@
 # @decentology/unstated-next
 
+## 1.2.1
+
+### Patch Changes
+
+-   EVM Update
+
 ## 1.2.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @decentology/samples-flow-tribes
 
+## 0.0.8
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.5
+    -   @decentology/hyperverse-flow@1.1.1
+    -   @decentology/hyperverse-flow-tribes@1.2.1
+
 ## 0.0.7
 
 ### Patch Changes

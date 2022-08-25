@@ -1,5 +1,15 @@
 # @decentology/hyperverse
 
+## 1.2.5
+
+### Patch Changes
+
+-   EVM Update
+-   Updated dependencies
+    -   @decentology/hyperverse-storage-ipfs@1.1.1
+    -   @decentology/hyperverse-storage-skynet@1.1.1
+    -   @decentology/unstated-next@1.2.1
+
 ## 1.2.0
 
 ### Minor Changes

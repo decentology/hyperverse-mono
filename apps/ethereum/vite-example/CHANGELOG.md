@@ -1,5 +1,14 @@
 # @decentology/samples-vite-example
 
+## 0.0.9
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.5
+    -   @decentology/hyperverse-ethereum@1.2.1
+    -   @decentology/hyperverse-ethereum-randompick@1.2.1
+
 ## 0.0.8
 
 ### Patch Changes
