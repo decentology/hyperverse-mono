@@ -1,5 +1,12 @@
 # safuux
 
+## 0.1.2
+
+### Patch Changes
+
+-   Updated dependencies
+    -   @decentology/hyperverse-bsc-safuu@1.1.13
+
 ## 0.1.1
 
 ### Patch Changes

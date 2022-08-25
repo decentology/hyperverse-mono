@@ -1,5 +1,11 @@
 # @decentology/hyperverse-evm-builderkit
 
+## 1.1.13
+
+### Patch Changes
+
+-   Version bump
+
 ## 1.1.11
 
 ### Patch Changes
