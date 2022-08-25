@@ -12,6 +12,9 @@ const main = async () => {
 
 	this.GOLD_LIST = [...this.accounts.slice(0, 3)];
 	this.WHITE_LIST = [...this.accounts.splice(3, 3)];
+	if (this.WHITE_LIST.length == 0) {
+		this.WHITE_LIST = this.GOLD_LIST;
+	}
 	console.log('GOLD LIST', this.GOLD_LIST.map((account) => account.address));
 	console.log('WHITE_LIST', this.WHITE_LIST.map((account) => account.address));
 	const SafuuToken = await ethers.getContractFactory("TestERC20");

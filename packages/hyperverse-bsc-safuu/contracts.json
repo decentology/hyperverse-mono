@@ -32,5 +32,10 @@
       "contractAddress": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
       "factoryAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     }
+  },
+  "bsc": {
+    "testnet": {
+      "contractAddress": "0x17f32a93376C24b4EFdAaeA72a1173606e7A2d1C"
+    }
   }
 }
