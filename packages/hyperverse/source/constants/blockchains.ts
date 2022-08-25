@@ -10,13 +10,14 @@ export enum Blockchain {
 	Localhost = "localhost"
 }
 
-export type BlockchainEvm = Blockchain.Ethereum | Blockchain.Metis | Blockchain.Avalanche | Blockchain.Polygon | Blockchain.Localhost;
+export type BlockchainEvm = Blockchain.Ethereum | Blockchain.Metis | Blockchain.Avalanche | Blockchain.Polygon | Blockchain.BSC | Blockchain.Localhost;
 
 export const EVM: Record<BlockchainEvm, string> = {
 	[Blockchain.Ethereum]: Blockchain.Ethereum,
 	[Blockchain.Avalanche]: Blockchain.Avalanche,
 	[Blockchain.Metis]: Blockchain.Metis,
 	[Blockchain.Polygon]: Blockchain.Polygon,
+	[Blockchain.BSC]: Blockchain.BSC,
 	[Blockchain.Localhost]: Blockchain.Localhost
 }
 

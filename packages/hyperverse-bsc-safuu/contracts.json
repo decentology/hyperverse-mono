@@ -29,7 +29,7 @@
   },
   "localhost": {
     "testnet": {
-      "contractAddress": "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+      "contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
       "factoryAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     }
   },
