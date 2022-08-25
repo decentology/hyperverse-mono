@@ -1,4 +1,4 @@
-import { getDefaultWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
+import { getDefaultWallets, RainbowKitProvider, darkTheme, wallet, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import { createClient, configureChains, WagmiConfig, chain } from 'wagmi';
 import { Evm } from './useEVM';
 import { Network, useHyperverse } from '@decentology/hyperverse/react';
@@ -36,7 +36,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 		[defaultNetwork]
 	);
 
-	const { connectors } = useMemo(
+	const { wallets } = useMemo(
 		() =>
 			getDefaultWallets({
 				appName: 'Hyperverse',
@@ -44,6 +44,22 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 			}),
 		[chains]
 	);
+
+	const connectors = connectorsForWallets([
+		...wallets,
+		{
+			groupName: 'More',
+			wallets: [
+				wallet.argent({ chains }),
+				wallet.trust({ chains }),
+				wallet.steak({ chains }),
+				wallet.imToken({ chains }),
+				wallet.ledger({ chains }),
+				wallet.brave({ chains }),
+			],
+		},
+	]);
+
 
 	const wagmiClient = useMemo(
 		() =>
