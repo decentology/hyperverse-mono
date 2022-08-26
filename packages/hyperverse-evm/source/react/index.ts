@@ -19,5 +19,5 @@ export const Localhost = makeHyperverseBlockchain({
 
 export { useEvm } from './useEVM';
 export { Provider };
-export { darkTheme, lightTheme } from '@rainbow-me/rainbowkit';
+export * from '@rainbow-me/rainbowkit';
 export type { ProviderProps };

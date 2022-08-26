@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 			},
 			{
 				bundle: RandomPick,
-				tenantId: TENANT_ID,
+				tenantId: 'auto',
 			},
 		],
 	});

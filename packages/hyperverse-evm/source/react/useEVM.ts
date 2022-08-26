@@ -5,7 +5,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useEffect, useState } from 'react';
 function EvmState() {
 	const [allow, setAllow] = useState(false);
-	const { network } = useHyperverse();
+	const { network, setModulesTenantId } = useHyperverse();
 	const readOnlyProvider = useProvider();
 	const { address, status: accountErr, isConnecting, isReconnecting } = useAccount();
 	const isLoading = isConnecting || isReconnecting;
@@ -23,6 +23,8 @@ function EvmState() {
 	useEffect(() => {
 		if (address == null) {
 			setAllow(false);
+		} else {
+			setModulesTenantId(address);
 		}
 	}, [address]);
 
