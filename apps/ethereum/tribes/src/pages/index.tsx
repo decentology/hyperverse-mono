@@ -1,25 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import Nav from '../components/Nav';
-import { useTribes } from '@decentology/hyperverse-evm-tribes/react';
-import { useEthereum } from '@decentology/hyperverse-ethereum/react';
-import { useState } from 'react';
+import dynamic from 'next/dynamic';
+const HomeButtons = dynamic(() => import('../components/home-buttons'), { ssr: false });
 
 const Home: NextPage = () => {
-	const router = useRouter();
-	const { account:address } = useEthereum();
-	const { getTribeId } = useTribes();
-	const [tribeId, setTribeId] = useState<number | null>();
-	useEffect(() => {
-		if (getTribeId && address) {
-			getTribeId(address).then(setTribeId);
-		}
-	}, [getTribeId, address]);
-
-
 	return (
 		<>
 			<Head>
@@ -40,25 +26,7 @@ const Home: NextPage = () => {
 							Tribes allows you to build communities that people can join, leave, or
 							create.
 						</p>
-						{address ? (
-							!tribeId ? (
-								<button
-									className={styles.join}
-									onClick={() => {
-										router.push('/all-tribes');
-									}}
-								>
-									Join A Tribe
-								</button>
-							) : (
-								<button
-									className={styles.join}
-									onClick={() => router.push('/my-tribe')}
-								>
-									View Your Tribe
-								</button>
-							)
-						) : null}
+						<HomeButtons />
 					</div>
 				</div>
 			</main>
