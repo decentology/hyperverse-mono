@@ -1,33 +1,43 @@
 const hre = require('hardhat');
-const { ethers } = require("hardhat");
+const { ethers } = require('hardhat');
 const fs = require('fs-extra');
-const { MerkleTree } = require("merkletreejs");
-const keccak256 = require("keccak256");
-
+const { MerkleTree } = require('merkletreejs');
+const keccak256 = require('keccak256');
 
 const main = async () => {
 	this.accounts = await ethers.getSigners();
 	const deployer = this.accounts[0];
 	console.log('Deployer Address: ', deployer.address);
-
-	this.GOLD_LIST = [...this.accounts.slice(0, 3)];
-	this.WHITE_LIST = [...this.accounts.splice(3, 3)];
+	if (process.env.NODE_ENV === 'production') {
+		// Read Gold list from json file to GOLD_LIST
+		this.GOLD_LIST = JSON.parse(fs.readFileSync('../whitelist/gold-wallets.json', 'utf8'));
+		this.WHITE_LIST = JSON.parse(fs.readFileSync('../whitelist/all-eligible-wallets', 'utf8'));
+	} else {
+		this.GOLD_LIST = [...this.accounts.slice(0, 3)];
+		this.WHITE_LIST = [...this.accounts.splice(3, 3)];
+		console.log(
+			'GOLD LIST',
+			this.GOLD_LIST.map((account) => account.address)
+		);
+		console.log(
+			'WHITE_LIST',
+			this.WHITE_LIST.map((account) => account.address)
+		);
+	}
 	if (this.WHITE_LIST.length == 0) {
 		this.WHITE_LIST = this.GOLD_LIST;
 	}
-	console.log('GOLD LIST', this.GOLD_LIST.map((account) => account.address));
-	console.log('WHITE_LIST', this.WHITE_LIST.map((account) => account.address));
-	const SafuuToken = await ethers.getContractFactory("TestERC20");
+	const SafuuToken = await ethers.getContractFactory('TestERC20');
 	this.safuuToken = await SafuuToken.deploy();
 	await this.safuuToken.deployed();
 	const SafuuX = await hre.ethers.getContractFactory('SafuuX');
 	const safuux = await SafuuX.deploy(
-		"Safuu",
-		"SFX",
+		'SafuuX',
+		'SFX',
 		this.safuuToken.address,
 		generateMerkleRoot(this.GOLD_LIST),
 		generateMerkleRoot(this.WHITE_LIST),
-		"ipfs://ipfs/...."
+		'ipfs://ipfs/....'
 	);
 	await safuux.deployed();
 	await this.safuuToken.approve(safuux.address, 1000000000000000);
@@ -48,7 +58,7 @@ const main = async () => {
 function generateMerkleRoot(signers) {
 	const leafNodes = signers.map((signer) => keccak256(signer.address));
 	const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
-	return "0x" + merkleTree.getRoot().toString("hex");
+	return '0x' + merkleTree.getRoot().toString('hex');
 }
 
 const runMain = async () => {
