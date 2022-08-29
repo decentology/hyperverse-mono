@@ -7,7 +7,7 @@ export const GetOwnerOf = ({ ...props }: {  tokenId: string }) => {
 
 	useEffect(() => {
 		if (erc721.getOwnerOf) {
-			erc721.getOwnerOf(props.tokenId).then(setData);
+			erc721.getOwnerOf(parseInt(props.tokenId)).then(setData);
 		}
 	}, [erc721.getOwnerOf]);
 
