@@ -13,8 +13,8 @@ contract SafuuX is ERC1155, Ownable {
     string public _merkleTreeInputURI;
     bool public _isGoldListSaleActive = false;
     bool public _isWhiteListSaleActive = false;
-    bytes32 public immutable _goldListMerkleRoot;
-    bytes32 public immutable _whiteListMerkleRoot;
+    bytes32 public _goldListMerkleRoot;
+    bytes32 public _whiteListMerkleRoot;
     address public _safuuTokenAddress;
 
     uint256 public LITE_NODE_COST = 50;
@@ -243,6 +243,14 @@ contract SafuuX is ERC1155, Ownable {
         _burnBatch(_from, _burnIds, _burnAmounts);
         _mintBatch(_from, _mintIds, _mintAmounts, "");
     }
+
+	function setGoldList(bytes32 _goldList) external onlyOwner {
+		_goldListMerkleRoot = _goldList;
+	}
+
+	function setWhitelist(bytes32 _whitelist) external onlyOwner {
+		_whiteListMerkleRoot = _whitelist;
+	}
 
     function setURI(uint256 _id, string memory _uri) external onlyOwner {
         tokenURI[_id] = _uri;
