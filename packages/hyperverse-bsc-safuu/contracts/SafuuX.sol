@@ -6,8 +6,10 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract SafuuX is ERC1155, Ownable {
+
+contract SafuuX is ERC1155, ReentrancyGuard, Ownable {
     string public _name;
     string public _symbol;
     string public _merkleTreeInputURI;
@@ -85,7 +87,7 @@ contract SafuuX is ERC1155, Ownable {
     function mintFullNode(
         uint256 _fullNodeCount,
         bytes32[] calldata merkleProof
-    ) external {
+    ) external nonReentrant {
         require(_isGoldListSaleActive == true || _isWhiteListSaleActive == true, "Whitelist sale not active");
         require(
             nodesClaimed[msg.sender] == false,
@@ -102,7 +104,7 @@ contract SafuuX is ERC1155, Ownable {
 
     function mintLiteNode(
         uint256 _liteNodeCount
-    ) external {
+    ) external nonReentrant {
         require(
             nodesClaimed[msg.sender] == false,
             "Max 5 LiteNodes per wallet"

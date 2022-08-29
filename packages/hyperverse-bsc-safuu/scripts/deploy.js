@@ -10,8 +10,8 @@ const main = async () => {
 	console.log('Deployer Address: ', deployer.address);
 	if (process.env.NODE_ENV === 'production') {
 		// Read Gold list from json file to GOLD_LIST
-		this.GOLD_LIST = JSON.parse(fs.readFileSync('../whitelist/gold-wallets.json', 'utf8'));
-		this.WHITE_LIST = JSON.parse(fs.readFileSync('../whitelist/all-eligible-wallets', 'utf8'));
+		this.GOLD_LIST = JSON.parse(fs.readFileSync('./whitelist/gold-wallets.json', 'utf8'));
+		this.WHITE_LIST = JSON.parse(fs.readFileSync('./whitelist/all-eligible-wallets.json', 'utf8'));
 	} else {
 		this.GOLD_LIST = [...this.accounts.slice(0, 3)];
 		this.WHITE_LIST = [...this.accounts.splice(3, 3)];
