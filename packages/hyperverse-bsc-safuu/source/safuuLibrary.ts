@@ -54,21 +54,19 @@ async function ModuleLibraryInternal(
 		signer = providerOrSigner;
 	}
 
-	const mintGoldList = async (fullNodeCount: number, lightNodeCount: number) => {
+	const mintFullNode = async (fullNodeCount: number) => {
 		const signerAddress = await signer?.getAddress();
 		const proof = generateMerkleProof(GOLDLIST, signerAddress);
 		try {
-			const tx = await base.mintGoldList(fullNodeCount, lightNodeCount, proof);
+			const tx = await base.mintFullNode(fullNodeCount, proof);
 			return tx.wait() as TransactionReceipt;
 		} catch (error) {
 			throw new Error(parseError(error as Error));
 		}
 	};
-	const mintWhiteList = async (fullNodeCount: number, lightNodeCount: number) => {
-		const signerAddress = await signer?.getAddress();
-		const proof = generateMerkleProof(WHITELIST, signerAddress);
+	const mintLiteNode = async (lightNodeCount: number) => {
 		try {
-			const tx = await base.mintWhiteList(fullNodeCount, lightNodeCount, proof);
+			const tx = await base.mintLiteNode(lightNodeCount);
 			return tx.wait() as TransactionReceipt;
 		} catch (error) {
 			throw new Error(parseError(error as Error));
@@ -187,8 +185,8 @@ async function ModuleLibraryInternal(
 	return {
 		contract: base,
 		checkEligibility,
-		mintGoldList,
-		mintWhiteList,
+		mintFullNode,
+		mintLiteNode,
 		getName,
 		getSymbol,
 		getURI,

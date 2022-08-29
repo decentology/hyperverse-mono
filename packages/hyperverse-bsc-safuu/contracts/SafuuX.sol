@@ -82,47 +82,38 @@ contract SafuuX is ERC1155, Ownable {
         _whiteListMerkleRoot = whiteListMerkleRoot_;
     }
 
-    function mintGoldList(
+    function mintFullNode(
         uint256 _fullNodeCount,
-        uint256 _liteNodeCount,
         bytes32[] calldata merkleProof
     ) external {
-        require(_isGoldListSaleActive == true, "GoldList sale not active");
+        require(_isGoldListSaleActive == true || _isWhiteListSaleActive == true, "Whitelist sale not active");
         require(
             nodesClaimed[msg.sender] == false,
             "Max 1 FullNode, 5 LiteNodes per wallet"
         );
         require(
-            _fullNodeCount > 0 || _liteNodeCount > 0,
-            "Full node and Lite node count cannot be zero"
+            _fullNodeCount > 0,
+            "Full node count cannot be zero"
         );
         if (_fullNodeCount > 0) {
-            _mintFullNode(_fullNodeCount, _goldListMerkleRoot, merkleProof);
-        }
-        if (_liteNodeCount > 0) {
-            _mintLiteNode(_liteNodeCount, _goldListMerkleRoot, merkleProof);
+            _mintFullNode(_fullNodeCount, (_isWhiteListSaleActive == true ? _whiteListMerkleRoot : _goldListMerkleRoot), merkleProof);
         }
     }
 
-    function mintWhiteList(
-        uint256 _fullNodeCount,
-        uint256 _liteNodeCount,
-        bytes32[] calldata merkleProof
+    function mintLiteNode(
+        uint256 _liteNodeCount
     ) external {
-        require(_isWhiteListSaleActive == true, "WhiteList sale not active");
         require(
             nodesClaimed[msg.sender] == false,
-            "Max 1 FullNode, 5 LiteNodes per wallet"
+            "Max 5 LiteNodes per wallet"
         );
         require(
-            _fullNodeCount > 0 || _liteNodeCount > 0,
-            "Full node and Lite node count cannot be zero"
+            _liteNodeCount > 0,
+            "Lite node count cannot be zero"
         );
-        if (_fullNodeCount > 0) {
-            _mintFullNode(_fullNodeCount, _whiteListMerkleRoot, merkleProof);
-        }
+
         if (_liteNodeCount > 0) {
-            _mintLiteNode(_liteNodeCount, _whiteListMerkleRoot, merkleProof);
+            _mintLiteNode(_liteNodeCount);
         }
     }
 
@@ -155,15 +146,8 @@ contract SafuuX is ERC1155, Ownable {
     }
 
     function _mintLiteNode(
-        uint256 _amount,
-        bytes32 _merkleRoot,
-        bytes32[] calldata _merkleProof
+        uint256 _amount
     ) internal mintLiteNodeCheck(_amount) {
-        bytes32 leaf = keccak256(abi.encodePacked(msg.sender));
-        require(
-            _checkEligibility(_merkleRoot, _merkleProof, leaf) == true,
-            "Address not eligible - Invalid merkle proof"
-        );
 
         LITE_NODE_CURRENT_SUPPLY = LITE_NODE_CURRENT_SUPPLY + _amount;
 
