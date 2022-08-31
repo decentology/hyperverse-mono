@@ -8,7 +8,7 @@ const main = async () => {
 	this.accounts = await ethers.getSigners();
 	const deployer = this.accounts[0];
 	console.log('Deployer Address: ', deployer.address);
-	if (process.env.NODE_ENV === 'production' || process.env.NODE_END === 'staging') {
+	if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
 		// Read Gold list from json file to GOLD_LIST
 		this.GOLD_LIST = JSON.parse(fs.readFileSync('./whitelist/gold-wallets.json', 'utf8'));
 		this.WHITE_LIST = JSON.parse(
