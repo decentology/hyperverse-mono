@@ -15,24 +15,12 @@ export function SafuuLibrary(
 ): CancellablePromise<ModuleLibraryType> {
 	return pseudoCancellable(ModuleLibraryInternal(...args));
 }
-
-const GOLDLIST: string[] = (goldListJson).map(x => x.address);
-const WHITELIST: string[] = (whiteListJson).map(x => x.address);
-
-const REVERT_MESSAGES = [
-	'Exceeds max 1 Full Node limit per address',
-	'Purchase would exceed max Full Node supply',
-	'Insufficient balance',
-	'Exceeds max 5 Lite Node limit per address',
-	'Purchase would exceed max Lite Node supply',
-	'Max 1 FullNode, 5 LiteNodes per wallet',
-	'Insufficient balance',
-	'Max 1 FullNode, 5 LiteNodes per wallet',
-	'Full node and Lite node count cannot be zero',
-	'GoldList sale not active',
-	'WhiteList sale not active',
-	'Address not eligible - Invalid merkle proof',
-];
+type Whitelist = {
+	address: string;
+	gold?: "true" | "false";
+}
+const GOLDLIST: string[] = (goldListJson as Whitelist[]).map(x => x.address);
+const WHITELIST: string[] = (whiteListJson as Whitelist[]).map(x => x.address);
 
 async function ModuleLibraryInternal(
 	hyperverse: HyperverseConfig,
@@ -56,12 +44,12 @@ async function ModuleLibraryInternal(
 
 	const mintFullNode = async (fullNodeCount: number) => {
 		const signerAddress = await signer?.getAddress();
-		const proof = generateMerkleProof(GOLDLIST, signerAddress);
+		const proof = _generateMerkleProof(GOLDLIST, signerAddress);
 		try {
 			const tx = await base.mintFullNode(fullNodeCount, proof);
 			return tx.wait() as TransactionReceipt;
 		} catch (error) {
-			throw new Error(parseError(error as Error));
+			throw new Error(_parseError(error as Error));
 		}
 	};
 	const mintLiteNode = async (lightNodeCount: number) => {
@@ -69,7 +57,7 @@ async function ModuleLibraryInternal(
 			const tx = await base.mintLiteNode(lightNodeCount);
 			return tx.wait() as TransactionReceipt;
 		} catch (error) {
-			throw new Error(parseError(error as Error));
+			throw new Error(_parseError(error as Error));
 		}
 	};
 	const withdrawFunds = async () => {
@@ -160,21 +148,38 @@ async function ModuleLibraryInternal(
 		const count = Number(await base.LITE_NODE_CURRENT_SUPPLY());
 		return count;
 	};
+	const safuuTokenAddress = async () => {
+		return await base._safuuTokenAddress();
+	}
+	const allowance = async () => {
+		const tokenAddress = await safuuTokenAddress();
+		const count = Number(await base.allowance(signer?.getAddress(), tokenAddress));
+		return count;
+	}
+	const approve = async (amount: number) => {
+		const tokenAddress = await safuuTokenAddress();
+		const tx = await base.approve(tokenAddress, amount);
+		return tx.wait() as TransactionReceipt;
+	}
+	const hasTokenAllowance = async (amount: number) => {
+		const hasTokenAllowance = await allowance();
+		return hasTokenAllowance >= amount;
+	}
 
 	// ***** Private Methods *********
 
-	const parseError = (error: Error) => {
+	const _parseError = (error: Error) => {
 		const match = /reverted with reason string '(.*?)'/.exec(error.message);
 		return match ? match[1] : error.message;
 	};
 
-	const generateMerkleRoot = (addresses: string[]) => {
+	const _generateMerkleRoot = (addresses: string[]) => {
 		const leafNodes = addresses.map((address) => keccak256(address));
 		const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
 		return '0x' + merkleTree.getRoot().toString('hex');
 	};
 
-	const generateMerkleProof = (addresses: string[], address: string) => {
+	const _generateMerkleProof = (addresses: string[], address: string) => {
 		const leafNodes = addresses.map((address) => keccak256(address));
 		const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
 		return merkleTree.getHexProof(keccak256(address));
@@ -207,6 +212,9 @@ async function ModuleLibraryInternal(
 		getFullNodeCost,
 		getLiteNodeCost,
 		liteNodeLimit,
+		approve,
+		allowance,
+		hasTokenAllowance,
 		fullNodeLimit,
 	};
 }
