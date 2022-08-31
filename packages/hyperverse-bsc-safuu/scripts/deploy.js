@@ -8,10 +8,12 @@ const main = async () => {
 	this.accounts = await ethers.getSigners();
 	const deployer = this.accounts[0];
 	console.log('Deployer Address: ', deployer.address);
-	if (process.env.NODE_ENV === 'production') {
+	if (process.env.NODE_ENV === 'production' || process.env.NODE_END === 'staging') {
 		// Read Gold list from json file to GOLD_LIST
 		this.GOLD_LIST = JSON.parse(fs.readFileSync('./whitelist/gold-wallets.json', 'utf8'));
-		this.WHITE_LIST = JSON.parse(fs.readFileSync('./whitelist/all-eligible-wallets.json', 'utf8'));
+		this.WHITE_LIST = JSON.parse(
+			fs.readFileSync('./whitelist/all-eligible-wallets.json', 'utf8')
+		);
 	} else {
 		this.GOLD_LIST = [...this.accounts.slice(0, 3)];
 		this.WHITE_LIST = [...this.accounts.splice(3, 3)];
@@ -36,8 +38,7 @@ const main = async () => {
 		'SFX',
 		this.safuuToken.address,
 		generateMerkleRoot(this.GOLD_LIST),
-		generateMerkleRoot(this.WHITE_LIST),
-		'ipfs://ipfs/....'
+		generateMerkleRoot(this.WHITE_LIST)
 	);
 	await safuux.deployed();
 	await this.safuuToken.approve(safuux.address, 1000000000000000);

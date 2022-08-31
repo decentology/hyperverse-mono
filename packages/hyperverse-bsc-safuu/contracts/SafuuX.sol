@@ -67,13 +67,11 @@ contract SafuuX is ERC1155, ReentrancyGuard, Ownable {
 		string memory symbol_,
 		address safuuTokenAddress_,
 		bytes32 goldListMerkleRoot_,
-		bytes32 whiteListMerkleRoot_,
-		string memory merkleTreeInputURI_
+		bytes32 whiteListMerkleRoot_
 	) ERC1155('') {
 		_name = name_;
 		_symbol = symbol_;
 		_safuuTokenAddress = safuuTokenAddress_;
-		_merkleTreeInputURI = merkleTreeInputURI_;
 		_goldListMerkleRoot = goldListMerkleRoot_;
 		_whiteListMerkleRoot = whiteListMerkleRoot_;
 		FULL_NODE_CURRENT_SUPPLY += 5;
@@ -171,10 +169,6 @@ contract SafuuX is ERC1155, ReentrancyGuard, Ownable {
 		bytes32 leaf
 	) internal pure returns (bool) {
 		return (MerkleProof.verify(merkleProof, merkleRoot, leaf));
-	}
-
-	function getMerkleTreeInputURI() public view returns (string memory) {
-		return _merkleTreeInputURI;
 	}
 
 	function setGoldListSaleStatus(bool _isActive) external onlyOwner {
