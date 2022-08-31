@@ -29,6 +29,7 @@
 		"build:parcel": "parcel build",
 		"clean": "rimraf ./distribution",
 		"lint": "tsc --noEmit",
+		"merkleroots": "node scripts/merkleroots.js",
 		"storybook": "start-storybook -p 6006",
 		"build-storybook": "build-storybook"
 	},
