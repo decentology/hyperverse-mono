@@ -30,8 +30,7 @@ describe('SafuuX', function () {
 			'Safuu',
 			this.safuuToken.address,
 			generateMerkleRoot(this.GOLD_LIST),
-			generateMerkleRoot(this.WHITE_LIST),
-			'ipfs://ipfs/....'
+			generateMerkleRoot(this.WHITE_LIST)
 		);
 		await this.safuux.deployed();
 	};
@@ -43,7 +42,6 @@ describe('SafuuX', function () {
 		const tokenSymbol = await this.safuux.symbol();
 		expect(tokenName).to.equal('Safuu');
 		expect(tokenSymbol).to.equal('Safuu');
-		expect(await this.safuux._merkleTreeInputURI()).to.equal('ipfs://ipfs/....');
 		expect(await this.safuux._goldListMerkleRoot()).to.equal(
 			generateMerkleRoot(this.GOLD_LIST)
 		);
@@ -184,7 +182,7 @@ describe('SafuuX', function () {
 				.connect(this.GOLD_LIST[0])
 				.approve(this.safuux.address, 1000000000000000);
 			await this.safuuToken.mint(this.GOLD_LIST[0].address, 100000);
-			
+
 			const saleStatus = await this.safuux.setGoldListSaleStatus(true);
 			await this.safuux.mintFullNode(
 				1,
