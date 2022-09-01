@@ -41,7 +41,7 @@ const main = async () => {
 		generateMerkleRoot(this.WHITE_LIST)
 	);
 	await safuux.deployed();
-	await this.safuuToken.approve(safuux.address, 1000000000000000);
+	// await this.safuuToken.approve(safuux.address, 1000000000000000);
 
 	console.log('Module Contract deployed to: ', safuux.address);
 	console.log('Safuu Token deployed to: ', this.safuuToken.address);
