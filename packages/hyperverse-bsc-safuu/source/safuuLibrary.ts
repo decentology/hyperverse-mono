@@ -19,8 +19,14 @@ type Whitelist = {
 	address: string;
 	gold?: "true" | "false";
 }
-const GOLDLIST: string[] = (goldListJson as Whitelist[]).map(x => x.address);
-const WHITELIST: string[] = (whiteListJson as Whitelist[]).map(x => x.address);
+let GOLDLIST: string[] = (goldListJson as Whitelist[]).map(x => x.address);
+let WHITELIST: string[] = (whiteListJson as Whitelist[]).map(x => x.address);
+if(process.env.GOLD_LIST) { 
+	GOLDLIST = process.env.GOLD_LIST.split(',');
+}
+if(process.env.WHITE_LIST) {
+	WHITELIST = process.env.WHITE_LIST.split(',');
+}
 
 async function ModuleLibraryInternal(
 	hyperverse: HyperverseConfig,
