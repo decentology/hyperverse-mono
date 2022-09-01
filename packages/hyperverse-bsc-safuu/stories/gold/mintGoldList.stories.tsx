@@ -14,12 +14,12 @@ export const Demo: ComponentStoryFn<typeof MintGoldList> = (args) => (
 );
 
 const MintGoldList: FC = () => {
-	const { mintGoldList } = useSafuu();
+	const { mintFullNode } = useSafuu();
 	const [error, setError] = useState<Error | null>(null);
 	const { Connect } = useEvm();
 	const mint = () => {
 		setError(null);
-		mintGoldList!(1, 0).catch(setError);
+		mintFullNode!(1).catch(setError);
 	};
 	return (
 		<div>

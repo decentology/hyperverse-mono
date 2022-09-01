@@ -21,10 +21,10 @@ type Whitelist = {
 }
 let GOLDLIST: string[] = (goldListJson as Whitelist[]).map(x => x.address);
 let WHITELIST: string[] = (whiteListJson as Whitelist[]).map(x => x.address);
-if(process.env.GOLD_LIST) { 
+if (process.env.GOLD_LIST) {
 	GOLDLIST = process.env.GOLD_LIST.split(',');
 }
-if(process.env.WHITE_LIST) {
+if (process.env.WHITE_LIST) {
 	WHITELIST = process.env.WHITE_LIST.split(',');
 }
 
@@ -83,10 +83,12 @@ async function ModuleLibraryInternal(
 		return tx.wait() as TransactionReceipt;
 	};
 	const getFullNodeCost = async () => {
-		return Number(await base.FULL_NODE_COST());
+		const cost = Number(await base.FULL_NODE_COST());
+		return cost;
 	};
 	const getLiteNodeCost = async () => {
-		return Number(await base.LITE_NODE_COST());
+		const cost = Number(await base.LITE_NODE_COST());
+		return cost;
 	};
 	const setLiteNodeCost = async (cost: number) => {
 		const tx = await base.setLiteNodeCost(cost);
@@ -100,7 +102,8 @@ async function ModuleLibraryInternal(
 		return MerkleTree.verify(proof, target, merkleTree.getRoot());
 	};
 	const getGoldListMerkleRoot = async () => {
-		return (await base._goldListMerkleRoot()) as string;
+		const root = (await base._goldListMerkleRoot()) as string;
+		return root;
 	};
 	const getWhiteListMerkleRoot = async () => {
 		const root = (await base._whiteListMerkleRoot()) as string;
@@ -138,33 +141,70 @@ async function ModuleLibraryInternal(
 		const name = (await base.symbol()) as string;
 		return name;
 	};
-	const fullNodeSupply = async () => {
+	const getFullNodeSupply = async () => {
 		const count = Number(await base.FULL_NODE_CURRENT_SUPPLY());
 		return count;
 	};
-	const fullNodeLimit = async () => {
+	const getFullNodeLimit = async () => {
 		const count = Number(await base.FULL_NODE_LIMIT());
 		return count;
 	};
-	const liteNodeLimit = async () => {
+	const getLiteNodeLimit = async () => {
 		const count = Number(await base.LITE_NODE_LIMIT());
 		return count;
 	};
-	const liteNodeSupply = async () => {
+	const getLiteNodeSupply = async () => {
 		const count = Number(await base.LITE_NODE_CURRENT_SUPPLY());
 		return count;
 	};
-	const safuuTokenAddress = async () => {
-		return await base._safuuTokenAddress();
+	const getSafuuTokenAddress = async () => {
+		const address = await base._safuuTokenAddress();
+		return address;
 	}
 	const allowance = async () => {
-		const tokenAddress = await safuuTokenAddress();
-		const count = Number(await base.allowance(signer?.getAddress(), tokenAddress));
+		const tokenAddress = await getSafuuTokenAddress();
+		const token = new ethers.Contract(tokenAddress, JSON.stringify([{
+			"name": "allowance",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		}]), signer);
+		const count = Number(await token.allowance(signer?.getAddress(), tokenAddress));
 		return count;
 	}
 	const approve = async (amount: number) => {
-		const tokenAddress = await safuuTokenAddress();
-		const tx = await base.approve(tokenAddress, amount);
+		const tokenAddress = await getSafuuTokenAddress();
+		const token = new ethers.Contract(tokenAddress, JSON.stringify([{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "spender",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amount",
+					"type": "uint256"
+				}
+			],
+			"name": "approve",
+			"outputs": [
+				{
+					"internalType": "bool",
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}]), signer);
+		const tx = await token.approve(tokenAddress, amount);
 		return tx.wait() as TransactionReceipt;
 	}
 	const hasTokenAllowance = async (amount: number) => {
@@ -209,18 +249,18 @@ async function ModuleLibraryInternal(
 		setFullNodeCost,
 		setLiteNodeCost,
 		burn,
-		fullNodeSupply,
-		liteNodeSupply,
+		getFullNodeSupply,
+		getLiteNodeSupply,
 		isWhiteListSaleActive,
 		isGoldListSaleActive,
 		setWhiteListSaleStatus,
 		setGoldListSaleStatus,
 		getFullNodeCost,
 		getLiteNodeCost,
-		liteNodeLimit,
+		getLiteNodeLimit,
 		approve,
 		allowance,
 		hasTokenAllowance,
-		fullNodeLimit,
+		getFullNodeLimit,
 	};
 }

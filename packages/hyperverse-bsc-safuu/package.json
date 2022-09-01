@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-bsc-safuu",
-	"version": "1.1.16",
+	"version": "1.1.17",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"main": "./distribution/index.js",
@@ -79,10 +79,11 @@
 		"dotenv": "^16.0.0",
 		"hardhat": "^2.8.3",
 		"http-proxy-middleware": "^2.0.6",
-		"node-watch": "^0.7.3",
-		"rimraf": "^3.0.2",
-		"typescript": "^4.6.2",
 		"mocha": "^10.0.0",
+		"node-watch": "^0.7.3",
+		"react-dom": "^18.2.0",
+		"rimraf": "^3.0.2",
+		"typescript": "^4.8.2",
 		"wait-on": "^6.0.1"
 	}
 }

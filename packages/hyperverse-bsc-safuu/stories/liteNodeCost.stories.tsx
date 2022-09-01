@@ -20,7 +20,7 @@ Demo.args = {
 };
 
 const Component = ({ cost }: { cost: number }) => {
-	const { setLiteNodeCost, getLiteNodeCost, liteNodeSupply, liteNodeLimit} = useSafuu();
+	const { setLiteNodeCost, getLiteNodeCost, getLiteNodeSupply, getLiteNodeLimit } = useSafuu();
 	const [localCost, setLocalCost] = useState<number | null>();
 	const [localSupply, setLocalSupply] = useState<number | null>();
 	const [localLimit, setLocalLimit] = useState<number | null>();
@@ -28,11 +28,11 @@ const Component = ({ cost }: { cost: number }) => {
 		getLiteNodeCost?.().then(setLocalCost);
 	}, [getLiteNodeCost]);
 	useEffect(() => {
-		liteNodeSupply?.().then(setLocalSupply);
-	}, [liteNodeSupply]);
+		getLiteNodeSupply?.().then(setLocalSupply);
+	}, [getLiteNodeSupply]);
 	useEffect(() => {
-		liteNodeLimit?.().then(setLocalLimit);
-	}, [liteNodeLimit]);
+		getLiteNodeLimit?.().then(setLocalLimit);
+	}, [getLiteNodeLimit]);
 	const handleCost = () => {
 		setLiteNodeCost!(cost).then(() => setLocalCost(cost));
 	};

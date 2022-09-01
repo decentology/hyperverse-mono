@@ -22,7 +22,7 @@ export const Localhost = makeHyperverseBlockchain({
 			networkUrl: 'http://localhost:8545',
 			chainId: 31337,
 		};
-	},
+	}
 });
 
 export { lightTheme, darkTheme } from '@decentology/hyperverse-evm/react';
