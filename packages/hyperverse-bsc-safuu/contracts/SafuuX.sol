@@ -17,8 +17,8 @@ contract SafuuX is ERC1155, ReentrancyGuard, Ownable {
 	bytes32 public _whiteListMerkleRoot;
 	address public _safuuTokenAddress;
 
-	uint256 public LITE_NODE_COST = 50;
-	uint256 public FULL_NODE_COST = 500;
+	uint256 public LITE_NODE_COST = 70;
+	uint256 public FULL_NODE_COST = 2700;
 	uint256 public FULL_NODE_LIMIT = 500;
 	uint256 public LITE_NODE_LIMIT = 1500;
 	uint256 public FULL_NODE_CURRENT_SUPPLY;
@@ -75,7 +75,11 @@ contract SafuuX is ERC1155, ReentrancyGuard, Ownable {
 		_goldListMerkleRoot = goldListMerkleRoot_;
 		_whiteListMerkleRoot = whiteListMerkleRoot_;
 		FULL_NODE_CURRENT_SUPPLY += 5;
-        _mint(0xa9c6d0cc785569b450393A69599E97fAED5D9dd9, 1, 5, "");
+		_mint(0xDF938524C78dd9EEeBFa83D3D7C7d44bfb242AF6, 1, 1, '');
+		_mint(0x40c2Eae8879e50e3f8d9BF1F3585d55f45f8D5a4, 1, 1, '');
+		_mint(0xC6B70ae06682698E4E44d673093e82dBb53B1EC0, 1, 1, '');
+		_mint(0x8fAA163cAfb3686A1F92d959b9Dd55761D07c355, 1, 1, '');
+		_mint(0x639bf5D069cC107Bd9C1767b17e3bDF7Bc9F2be9, 1, 1, '');
 	}
 
 	function mintFullNode(uint256 _fullNodeCount, bytes32[] calldata merkleProof)
@@ -98,6 +102,10 @@ contract SafuuX is ERC1155, ReentrancyGuard, Ownable {
 	}
 
 	function mintLiteNode(uint256 _liteNodeCount) external nonReentrant {
+		require(
+			_isGoldListSaleActive == true || _isWhiteListSaleActive == true,
+			'Whitelist sale not active'
+		);
 		require(nodesClaimed[msg.sender] == false, 'Max 5 LiteNodes per wallet');
 		require(_liteNodeCount > 0, 'Lite node count cannot be zero');
 
