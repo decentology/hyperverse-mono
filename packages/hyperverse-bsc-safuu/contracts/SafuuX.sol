@@ -17,8 +17,8 @@ contract SafuuX is ERC1155, ReentrancyGuard, Ownable {
 	bytes32 public _whiteListMerkleRoot;
 	address public _safuuTokenAddress;
 
-	uint256 public LITE_NODE_COST = 70;
-	uint256 public FULL_NODE_COST = 2700;
+	uint256 public LITE_NODE_COST = 7000000;
+	uint256 public FULL_NODE_COST = 270000000;
 	uint256 public FULL_NODE_LIMIT = 500;
 	uint256 public LITE_NODE_LIMIT = 1500;
 	uint256 public FULL_NODE_CURRENT_SUPPLY;
