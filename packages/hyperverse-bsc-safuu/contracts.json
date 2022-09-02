@@ -29,13 +29,13 @@
   },
   "localhost": {
     "testnet": {
-      "contractAddress": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+      "contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
       "factoryAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
     }
   },
   "bsc": {
     "testnet": {
-      "contractAddress": "0x296a744F4716f237F5aD92e1BFE709725C28337C"
+      "contractAddress": "0xE1002dF972079b676c34E94B55e0c3aE8cB7f7BD"
     }
   }
 }
