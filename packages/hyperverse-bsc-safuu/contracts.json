@@ -1,41 +1,44 @@
 {
-  "ethereum": {
-    "testnet": {
-      "contractAddress": "",
-      "factoryAddress": ""
-    },
-    "mainnet": {}
-  },
-  "metis": {
-    "testnet": {
-      "contractAddress": "",
-      "factoryAddress": ""
-    },
-    "mainnet": {}
-  },
-  "avalanche": {
-    "testnet": {
-      "contractAddress": "",
-      "factoryAddress": ""
-    },
-    "mainnet": {}
-  },
-  "polygon": {
-    "testnet": {
-      "contractAddress": "",
-      "factoryAddress": ""
-    },
-    "mainnet": {}
-  },
-  "localhost": {
-    "testnet": {
-      "contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-      "factoryAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
-    }
-  },
-  "bsc": {
-    "testnet": {
-      "contractAddress": "0xE1002dF972079b676c34E94B55e0c3aE8cB7f7BD"
-    }
-  }
+	"ethereum": {
+		"testnet": {
+			"contractAddress": "",
+			"factoryAddress": ""
+		},
+		"mainnet": {}
+	},
+	"metis": {
+		"testnet": {
+			"contractAddress": "",
+			"factoryAddress": ""
+		},
+		"mainnet": {}
+	},
+	"avalanche": {
+		"testnet": {
+			"contractAddress": "",
+			"factoryAddress": ""
+		},
+		"mainnet": {}
+	},
+	"polygon": {
+		"testnet": {
+			"contractAddress": "",
+			"factoryAddress": ""
+		},
+		"mainnet": {}
+	},
+	"localhost": {
+		"testnet": {
+			"contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+			"factoryAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+		}
+	},
+	"bsc": {
+		"testnet": {
+			"contractAddress": "0xE1002dF972079b676c34E94B55e0c3aE8cB7f7BD"
+		},
+		"mainnet": {
+			"contractAddress": "0x0989b03b8ced1aa72aca962d22f1098653690aef"
+		}
+	}
 }
