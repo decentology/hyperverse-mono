@@ -6,8 +6,8 @@ import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise'
 import { getEnvironment } from './environment';
 import { MerkleTree } from 'merkletreejs';
 import keccak256 from 'keccak256';
-import goldListJson from '../whitelist/gold-wallets.json'
-import whiteListJson from '../whitelist/all-eligible-wallets.json'
+import goldListJson from '../whitelist/gold-wallets.json';
+import whiteListJson from '../whitelist/all-eligible-wallets.json';
 
 export type ModuleLibraryType = Awaited<ReturnType<typeof ModuleLibraryInternal>>;
 export function SafuuLibrary(
@@ -17,10 +17,10 @@ export function SafuuLibrary(
 }
 type Whitelist = {
 	address: string;
-	gold?: "true" | "false";
-}
-let GOLDLIST: string[] = (goldListJson as Whitelist[]).map(x => x.address);
-let WHITELIST: string[] = (whiteListJson as Whitelist[]).map(x => x.address);
+	gold?: 'true' | 'false';
+};
+let GOLDLIST: string[] = (goldListJson as Whitelist[]).map((x) => x.address);
+let WHITELIST: string[] = (whiteListJson as Whitelist[]).map((x) => x.address);
 if (process.env.GOLD_LIST) {
 	GOLDLIST = process.env.GOLD_LIST.split(',');
 }
@@ -95,8 +95,10 @@ async function ModuleLibraryInternal(
 		return tx.wait() as TransactionReceipt;
 	};
 	const checkEligibility = (address: string, isGold: boolean = false) => {
-		const target = keccak256(address);
-		const leafs = (isGold ? GOLDLIST : WHITELIST).map((address) => keccak256(address));
+		const target = keccak256(address.toLowerCase());
+		let leafs = (isGold ? GOLDLIST : WHITELIST).map((address) =>
+			keccak256(address.toLowerCase())
+		);
 		const merkleTree = new MerkleTree(leafs, keccak256, { sortPairs: true });
 		const proof = merkleTree.getHexProof(target);
 		return MerkleTree.verify(proof, target, merkleTree.getRoot());
@@ -160,70 +162,82 @@ async function ModuleLibraryInternal(
 	const getSafuuTokenAddress = async () => {
 		const address = await base._safuuTokenAddress();
 		return address;
-	}
+	};
 	const allowance = async () => {
 		const tokenAddress = await getSafuuTokenAddress();
-		const token = new ethers.Contract(tokenAddress, JSON.stringify([{
-			"name": "allowance",
-			"inputs": [
+		const token = new ethers.Contract(
+			tokenAddress,
+			JSON.stringify([
 				{
-					"internalType": "address",
-					"name": "owner",
-					"type": "address"
+					name: 'allowance',
+					inputs: [
+						{
+							internalType: 'address',
+							name: 'owner',
+							type: 'address',
+						},
+						{
+							internalType: 'address',
+							name: 'spender',
+							type: 'address',
+						},
+					],
+					outputs: [
+						{
+							internalType: 'uint256',
+							name: '',
+							type: 'uint256',
+						},
+					],
+					stateMutability: 'view',
+					type: 'function',
 				},
-				{
-					"internalType": "address",
-					"name": "spender",
-					"type": "address"
-				}
-			],
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		}]), signer);
+			]),
+			signer
+		);
 		const signerAddress = await signer.getAddress();
 		const count = Number(await token.allowance(signerAddress, base.address));
 		return count;
-	}
+	};
 	const approve = async (amount: number) => {
 		const tokenAddress = await getSafuuTokenAddress();
-		const token = new ethers.Contract(tokenAddress, JSON.stringify([{
-			"inputs": [
+		const token = new ethers.Contract(
+			tokenAddress,
+			JSON.stringify([
 				{
-					"internalType": "address",
-					"name": "spender",
-					"type": "address"
+					inputs: [
+						{
+							internalType: 'address',
+							name: 'spender',
+							type: 'address',
+						},
+						{
+							internalType: 'uint256',
+							name: 'amount',
+							type: 'uint256',
+						},
+					],
+					name: 'approve',
+					outputs: [
+						{
+							internalType: 'bool',
+							name: '',
+							type: 'bool',
+						},
+					],
+					stateMutability: 'nonpayable',
+					type: 'function',
 				},
-				{
-					"internalType": "uint256",
-					"name": "amount",
-					"type": "uint256"
-				}
-			],
-			"name": "approve",
-			"outputs": [
-				{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		}]), signer);
+			]),
+			signer
+		);
 		const tx = await token.approve(base.address, amount);
 		return tx.wait() as TransactionReceipt;
-	}
+	};
 	const hasTokenAllowance = async (amount: number) => {
 		const hasTokenAllowance = await allowance();
 		return hasTokenAllowance >= amount;
-	}
+	};
 
 	// ***** Private Methods *********
 
@@ -233,15 +247,15 @@ async function ModuleLibraryInternal(
 	};
 
 	const _generateMerkleRoot = (addresses: string[]) => {
-		const leafNodes = addresses.map((address) => keccak256(address));
+		const leafNodes = addresses.map((address) => keccak256(address.toLowerCase()));
 		const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
 		return '0x' + merkleTree.getRoot().toString('hex');
 	};
 
 	const _generateMerkleProof = (addresses: string[], address: string) => {
-		const leafNodes = addresses.map((address) => keccak256(address));
+		const leafNodes = addresses.map((address) => keccak256(address.toLowerCase()));
 		const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
-		return merkleTree.getHexProof(keccak256(address));
+		return merkleTree.getHexProof(keccak256(address.toLowerCase()));
 	};
 
 	// ***** End Private Methods *****

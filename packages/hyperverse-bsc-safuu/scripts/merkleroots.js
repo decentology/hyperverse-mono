@@ -9,7 +9,7 @@ console.log('WHITELIST', generateMerkleRoot(WHITE_LIST))
 
 
 function generateMerkleRoot(signers) {
-	const leafNodes = signers.map((signer) => keccak256(signer.address));
+	const leafNodes = signers.map((signer) => keccak256(signer.address.toLowerCase()));
 	const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
 	return '0x' + merkleTree.getRoot().toString('hex');
 }
