@@ -1,5 +1,11 @@
 # @decentology/unstated-next
 
+## 1.2.2
+
+### Patch Changes
+
+-   Milestone update
+
 ## 1.2.1
 
 ### Patch Changes

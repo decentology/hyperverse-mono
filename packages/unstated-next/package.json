@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/unstated-next",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"description": "200 bytes to never think about React state management libraries ever again",
 	"exports": {
 		".": {

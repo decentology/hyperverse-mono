@@ -1,5 +1,16 @@
 # @decentology/hyperverse-ethereum-token
 
+## 2.2.2
+
+### Patch Changes
+
+-   Milestone update
+-   Updated dependencies
+    -   @decentology/hyperverse@1.2.6
+    -   @decentology/hyperverse-ethereum@1.2.2
+    -   @decentology/hyperverse-evm@1.2.5
+    -   @decentology/unstated-next@1.2.2
+
 ## 2.2.1
 
 ### Patch Changes

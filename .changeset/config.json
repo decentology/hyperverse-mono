@@ -5,5 +5,6 @@
   "linked": [],
   "access": "public",
   "baseBranch": "main",
+  "ignore": ["@decentology/samples*", "eth-hyperverse", "eth-hyperverse-2", "nest", "stake-rewards", "hyperverse-react", "safuux", "next-js-boilerplate"],
   "updateInternalDependencies": "patch"
 }

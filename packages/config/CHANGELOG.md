@@ -1,5 +1,11 @@
 # @decentology/config
 
+## 1.2.1
+
+### Patch Changes
+
+-   Milestone update
+
 ## 1.2.0
 
 ### Minor Changes

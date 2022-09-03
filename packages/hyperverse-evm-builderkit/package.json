@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm-builderkit",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"main": "./distribution/index.js",

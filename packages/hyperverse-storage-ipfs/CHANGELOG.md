@@ -1,5 +1,14 @@
 # @decentology/hyperverse-storage-skynet
 
+## 1.1.2
+
+### Patch Changes
+
+-   Milestone update
+-   Updated dependencies
+    -   @decentology/hyperverse-types@1.1.1
+    -   @decentology/unstated-next@1.2.2
+
 ## 1.1.1
 
 ### Patch Changes

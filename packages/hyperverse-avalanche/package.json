@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-avalanche",
-	"version": "1.1.9",
+	"version": "1.1.10",
 	"exports": {
 		".": {
 			"import": "./source/index.ts"
