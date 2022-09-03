@@ -101,7 +101,7 @@ async function ModuleLibraryInternal(
 		);
 		const merkleTree = new MerkleTree(leafs, keccak256, { sortPairs: true });
 		const proof = merkleTree.getHexProof(target);
-		return MerkleTree.verify(proof, target, merkleTree.getRoot());
+		return merkleTree.verify(proof, target, merkleTree.getRoot());
 	};
 	const getGoldListMerkleRoot = async () => {
 		const root = (await base._goldListMerkleRoot()) as string;
