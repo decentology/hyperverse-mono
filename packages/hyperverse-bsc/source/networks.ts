@@ -3,7 +3,7 @@ import { Network, NetworkConfig } from "@decentology/hyperverse";
 export const Networks : {[key in Network] : NetworkConfig} = {
 	[Network.Mainnet]: {
 		type: Network.Mainnet,
-		name: 'mainnet',
+		name: 'bsc',
 		networkUrl: `https://bsc-dataseed.binance.org/`,
 		chainId: 56,
 		blockExplorer: 'https://bscscan.com/'

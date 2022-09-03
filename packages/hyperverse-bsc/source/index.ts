@@ -7,6 +7,7 @@ const getNetwork = (network: Network) => {
 }
 export const BSC = makeHyperverseBlockchain({
 	name: Blockchain.BSC,
+	label: 'Binance Smart Chain Mainnet',
 	getNetwork
 });
 

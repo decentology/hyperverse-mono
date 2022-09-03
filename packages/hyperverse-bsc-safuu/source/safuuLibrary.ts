@@ -165,6 +165,18 @@ async function ModuleLibraryInternal(
 		const tokenAddress = await getSafuuTokenAddress();
 		const token = new ethers.Contract(tokenAddress, JSON.stringify([{
 			"name": "allowance",
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "owner",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "spender",
+					"type": "address"
+				}
+			],
 			"outputs": [
 				{
 					"internalType": "uint256",
@@ -175,7 +187,8 @@ async function ModuleLibraryInternal(
 			"stateMutability": "view",
 			"type": "function"
 		}]), signer);
-		const count = Number(await token.allowance(signer?.getAddress(), tokenAddress));
+		const signerAddress = await signer.getAddress();
+		const count = Number(await token.allowance(signerAddress, base.address));
 		return count;
 	}
 	const approve = async (amount: number) => {
@@ -204,7 +217,7 @@ async function ModuleLibraryInternal(
 			"stateMutability": "nonpayable",
 			"type": "function"
 		}]), signer);
-		const tx = await token.approve(tokenAddress, amount);
+		const tx = await token.approve(base.address, amount);
 		return tx.wait() as TransactionReceipt;
 	}
 	const hasTokenAllowance = async (amount: number) => {

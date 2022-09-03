@@ -18,8 +18,8 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 				[
 					{
 						id: defaultNetwork.chainId!,
-						name: defaultNetwork.name!,
-						network: defaultNetwork.name!,
+						name: defaultNetwork.label || defaultNetwork.name!,
+						network: defaultNetwork.label || defaultNetwork.name!,
 						rpcUrls: {
 							default: defaultNetwork.networkUrl!,
 						},
