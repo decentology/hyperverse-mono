@@ -1,5 +1,11 @@
 # @decentology/hyperverse-evm-builderkit
 
+## 1.1.21
+
+### Patch Changes
+
+-   Updated whitelists
+
 ## 1.1.20
 
 ### Patch Changes
