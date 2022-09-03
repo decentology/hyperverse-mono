@@ -16,6 +16,7 @@ export function IpfsStorageLibrary(
 	const { add, get, addAll, cat } = client;
 	const getLink = (link: string) => `${resolveUrl}/${link}`;
 	const uploadFile = async (file: File) => {
+		// @ts-ignore
 		const result = await add({name: file.name, content: file});
 		return result.cid.toString();
 		// return getLink(result.path);
