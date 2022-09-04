@@ -41,6 +41,8 @@ async function ModuleLibraryInternal(
 	}
 
 	const base = new ethers.Contract(contractAddress!, ContractABI, providerOrSigner);
+	const goldListMerkleTree = new MerkleTree(GOLDLIST.map(address => keccak256(address.toLowerCase())),keccak256, {sortPairs: true});
+	const whiteListMerkleTree = new MerkleTree(WHITELIST.map(address => keccak256(address.toLowerCase())),keccak256, {sortPairs: true});
 	let signer: ethers.Signer;
 	if (providerOrSigner instanceof ethers.providers.Web3Provider) {
 		signer = providerOrSigner.getSigner();
@@ -96,10 +98,7 @@ async function ModuleLibraryInternal(
 	};
 	const checkEligibility = (address: string, isGold: boolean = false) => {
 		const target = keccak256(address.toLowerCase());
-		let leafs = (isGold ? GOLDLIST : WHITELIST).map((address) =>
-			keccak256(address.toLowerCase())
-		);
-		const merkleTree = new MerkleTree(leafs, keccak256, { sortPairs: true });
+		const merkleTree = isGold ? goldListMerkleTree : whiteListMerkleTree;
 		const proof = merkleTree.getHexProof(target);
 		return merkleTree.verify(proof, target, merkleTree.getRoot());
 	};
