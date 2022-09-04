@@ -9,6 +9,11 @@ export type NetworkConfig = {
 	label?: string;
 	networkUrl?: string;
 	chainId?: number;
+	nativeCurrency?: {
+        name: string;
+        symbol: string;
+        decimals: number;
+	},
 	blockExplorer?: string;
 	providerId?: string;
 	[key: string]: any;

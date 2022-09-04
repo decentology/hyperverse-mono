@@ -1,4 +1,10 @@
-import { getDefaultWallets, RainbowKitProvider, darkTheme, wallet, connectorsForWallets } from '@rainbow-me/rainbowkit';
+import {
+	getDefaultWallets,
+	RainbowKitProvider,
+	darkTheme,
+	wallet,
+	connectorsForWallets,
+} from '@rainbow-me/rainbowkit';
 import { createClient, configureChains, WagmiConfig, chain } from 'wagmi';
 import { Evm } from './useEVM';
 import { Network, useHyperverse } from '@decentology/hyperverse/react';
@@ -20,6 +26,7 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 						id: defaultNetwork.chainId!,
 						name: defaultNetwork.label || defaultNetwork.name!,
 						network: defaultNetwork.label || defaultNetwork.name!,
+						nativeCurrency: defaultNetwork.nativeCurrency,
 						rpcUrls: {
 							default: defaultNetwork.networkUrl!,
 						},
@@ -59,7 +66,6 @@ export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 			],
 		},
 	]);
-
 
 	const wagmiClient = useMemo(
 		() =>
