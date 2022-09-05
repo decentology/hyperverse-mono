@@ -52,7 +52,8 @@ async function ModuleLibraryInternal(
 
 	const mintFullNode = async (fullNodeCount: number) => {
 		const signerAddress = await signer?.getAddress();
-		const proof = _generateMerkleProof(GOLDLIST, signerAddress);
+		const whiteListActive = await isWhiteListSaleActive()
+		const proof = _generateMerkleProof(whiteListActive ? WHITELIST : GOLDLIST, signerAddress);
 		try {
 			const tx = await base.mintFullNode(fullNodeCount, proof);
 			return tx.wait() as TransactionReceipt;
