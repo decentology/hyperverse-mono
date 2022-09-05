@@ -6,8 +6,8 @@ import { CancellablePromise, pseudoCancellable } from 'real-cancellable-promise'
 import { getEnvironment } from './environment';
 import { MerkleTree } from 'merkletreejs';
 import keccak256 from 'keccak256';
-import goldListJson from '../whitelist/gold-wallets.json';
-import whiteListJson from '../whitelist/all-eligible-wallets.json';
+import goldListJson from '../whitelist/gold-wallets.hashed.json';
+import whiteListJson from '../whitelist/all-eligible-wallets.hashed.json';
 
 export type ModuleLibraryType = Awaited<ReturnType<typeof ModuleLibraryInternal>>;
 export function SafuuLibrary(
@@ -16,17 +16,10 @@ export function SafuuLibrary(
 	return pseudoCancellable(ModuleLibraryInternal(...args));
 }
 type Whitelist = {
-	address: string;
-	gold?: 'true' | 'false';
+	data: number[];
 };
-let GOLDLIST: string[] = (goldListJson as Whitelist[]).map((x) => x.address);
-let WHITELIST: string[] = (whiteListJson as Whitelist[]).map((x) => x.address);
-if (process.env.GOLD_LIST) {
-	GOLDLIST = process.env.GOLD_LIST.split(',');
-}
-if (process.env.WHITE_LIST) {
-	WHITELIST = process.env.WHITE_LIST.split(',');
-}
+let GOLDLIST: Uint8Array[] = (goldListJson as Whitelist[]).map((x) => new Uint8Array(x.data));
+let WHITELIST: Uint8Array[] = (whiteListJson as Whitelist[]).map((x) => new Uint8Array(x.data));
 
 async function ModuleLibraryInternal(
 	hyperverse: HyperverseConfig,
@@ -41,8 +34,8 @@ async function ModuleLibraryInternal(
 	}
 
 	const base = new ethers.Contract(contractAddress!, ContractABI, providerOrSigner);
-	const goldListMerkleTree = new MerkleTree(GOLDLIST.map(address => keccak256(address.toLowerCase())),keccak256, {sortPairs: true});
-	const whiteListMerkleTree = new MerkleTree(WHITELIST.map(address => keccak256(address.toLowerCase())),keccak256, {sortPairs: true});
+	const goldListMerkleTree = new MerkleTree(GOLDLIST, keccak256, { sortPairs: true });
+	const whiteListMerkleTree = new MerkleTree(WHITELIST, keccak256, { sortPairs: true });
 	let signer: ethers.Signer;
 	if (providerOrSigner instanceof ethers.providers.Web3Provider) {
 		signer = providerOrSigner.getSigner();
@@ -52,7 +45,7 @@ async function ModuleLibraryInternal(
 
 	const mintFullNode = async (fullNodeCount: number) => {
 		const signerAddress = await signer?.getAddress();
-		const whiteListActive = await isWhiteListSaleActive()
+		const whiteListActive = await isWhiteListSaleActive();
 		const proof = _generateMerkleProof(whiteListActive ? WHITELIST : GOLDLIST, signerAddress);
 		try {
 			const tx = await base.mintFullNode(fullNodeCount, proof);
@@ -252,9 +245,8 @@ async function ModuleLibraryInternal(
 		return '0x' + merkleTree.getRoot().toString('hex');
 	};
 
-	const _generateMerkleProof = (addresses: string[], address: string) => {
-		const leafNodes = addresses.map((address) => keccak256(address.toLowerCase()));
-		const merkleTree = new MerkleTree(leafNodes, keccak256, { sortPairs: true });
+	const _generateMerkleProof = (addresses: Uint8Array[], address: string) => {
+		const merkleTree = new MerkleTree(addresses, keccak256, { sortPairs: true });
 		return merkleTree.getHexProof(keccak256(address.toLowerCase()));
 	};
 
