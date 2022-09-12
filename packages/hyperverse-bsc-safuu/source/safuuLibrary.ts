@@ -20,6 +20,8 @@ type Whitelist = {
 };
 let GOLDLIST: Uint8Array[] = (goldListJson as Whitelist[]).map((x) => new Uint8Array(x.data));
 let WHITELIST: Uint8Array[] = (whiteListJson as Whitelist[]).map((x) => new Uint8Array(x.data));
+const goldListMerkleTree = new MerkleTree(GOLDLIST, keccak256, { sortPairs: true });
+const whiteListMerkleTree = new MerkleTree(WHITELIST, keccak256, { sortPairs: true });
 
 async function ModuleLibraryInternal(
 	hyperverse: HyperverseConfig,
@@ -34,8 +36,6 @@ async function ModuleLibraryInternal(
 	}
 
 	const base = new ethers.Contract(contractAddress!, ContractABI, providerOrSigner);
-	const goldListMerkleTree = new MerkleTree(GOLDLIST, keccak256, { sortPairs: true });
-	const whiteListMerkleTree = new MerkleTree(WHITELIST, keccak256, { sortPairs: true });
 	let signer: ethers.Signer;
 	if (providerOrSigner instanceof ethers.providers.Web3Provider) {
 		signer = providerOrSigner.getSigner();
@@ -249,6 +249,7 @@ async function ModuleLibraryInternal(
 		const merkleTree = new MerkleTree(addresses, keccak256, { sortPairs: true });
 		return merkleTree.getHexProof(keccak256(address.toLowerCase()));
 	};
+
 
 	// ***** End Private Methods *****
 
