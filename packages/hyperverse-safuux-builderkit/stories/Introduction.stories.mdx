@@ -1,0 +1,192 @@
+import { Meta } from '@storybook/addon-docs';
+import Code from './assets/code-brackets.svg';
+import Colors from './assets/colors.svg';
+import Comments from './assets/comments.svg';
+import Direction from './assets/direction.svg';
+import Flow from './assets/flow.svg';
+import Plugin from './assets/plugin.svg';
+import Repo from './assets/repo.svg';
+import StackAlt from './assets/stackalt.svg';
+import Hyperverse from './assets/hyperverse-logo.png';
+import Discord from './assets/discord-logo.svg';
+import Github from './assets/github-logo.png';
+import Storybook from './assets/storybook-logo.svg';
+
+<Meta title="Get Started/Introduction" />
+
+<style>{`
+  .subheading {
+    --mediumdark: '#999999';
+    font-weight: 900;
+    font-size: 15px;
+    color: #999;
+    letter-spacing: 4px;
+    line-height: 24px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-top: 40px;
+  }
+
+  .link-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 10px;
+  
+  }
+
+  @media (min-width: 620px) {
+    .link-list {
+      row-gap: 20px;
+      column-gap: 20px;
+      grid-template-columns: 1fr 1fr;
+      
+    }
+  }
+
+  @media all and (-ms-high-contrast:none) {
+  .link-list {
+      display: -ms-grid;
+      -ms-grid-columns: 1fr 1fr;
+      -ms-grid-rows: 1fr 1fr;
+    }
+  }
+
+  .link-item {
+    display: block;
+    padding: 20px 30px 20px 15px;
+    border: 1px solid #00000010;
+    border-radius: 5px;
+    transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
+    color: #ffffff;
+    display: flex;
+    align-items: flex-start;
+    background: #19495e;
+  }
+
+  .link-item:hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
+    background: #246685;
+  }
+
+  .link-item:active {
+    border-color: #1EA7FD;
+    transform: translate3d(0, 0, 0);
+
+  }
+
+  .link-item strong {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 2px;
+  }
+  
+  .link-item img {
+    height: 40px;
+    width: 40px;
+    margin-right: 15px;
+    flex: none;
+  }
+
+  .link-item span {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .tip {
+    display: inline-block;
+    border-radius: 1em;
+    font-size: 11px;
+    line-height: 12px;
+    font-weight: 700;
+    background: #E7FDD8;
+    color: #66BF3C;
+    padding: 4px 12px;
+    margin-right: 10px;
+    vertical-align: top;
+  }
+
+  .tip-wrapper {
+    font-size: 13px;
+    line-height: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .tip-wrapper code {
+    font-size: 12px;
+    display: inline-block;
+  }
+
+  
+`}</style>
+
+# Welcome!
+
+We have integrated Storybook with **Builder Kit (EVM)** in an effort to help users interact with the different components in this module.
+
+Feel free to browse our example stories from our Hyperverse modules now by navigating to them in the left sidebar under **Components**.
+Every story includes a demo and a docs page.
+You can view each demo under the **Canvas** tab and the docs under the **Docs** tab.
+
+
+<div className="subheading">About Builder Kit</div>
+
+The **Builder Kit** (formerly known as DappStarter) is a full stack development environment for blockchains.
+It supports an integrated front end user experience in your choice of client side framework and different smart contract features.
+
+**Blockchains:** Blockchains are the underlying technology for the decentralized web.
+There are numerous public and private blockchains and Builder Kit will support many of them soon.
+
+**Languages:** Different blockchains use different languages. Some blockchains use one language while others use several languages.
+
+**Frameworks:** Includes a starter client app (optional; can be replaced) using Tailwind CSS and JavaScript. You choose!
+
+**Smart Contract Features:** Users will also be able to add differentfeatures that will give you the customized smart contract needed for your application.
+
+**Dapp Customization:** Tailor your blockchain app to fit your brand with your own Dapp name.
+
+<div className="subheading">About Storybook</div>
+
+Storybook helps users with their UI development, testing, and documentation.
+
+Each story includes a demo and a docs page. Our demonstrations
+simulate the user's interaction with each component. This is done by providing props for the initial state.
+
+While we have provided a set of stories for you to get started with, you are welcome to create your own!
+Navigate to the **Stories** section on the sidebar for more information on how to create them.
+
+
+<div className="subheading">Resources</div>
+
+<div className="link-list">
+	<a className="link-item" href="https://storybook.js.org/" target="_blank">
+		<img src={Storybook} alt="storybook" />
+		<span>
+			<strong>Storybook Documentation</strong>
+			Learn more about Storybook
+		</span>
+	</a>
+	<a className="link-item" href="https://docs.hyperverse.dev/" target="_blank">
+		<img src={Hyperverse} alt="hyperverse" />
+		<span>
+			<strong>Hyperverse Docs</strong>
+			Documentation and videos
+		</span>
+	</a>
+	<a className="link-item" href="https://github.com/decentology/hyperverse-mono" target="_blank">
+		<img src={Github} alt="github" />
+		<span>
+			<strong>Decentology's GitHub</strong>
+			Check out our mono repo
+		</span>
+	</a>
+	<a className="link-item" href="https://discord.com/invite/uqecGxg" target="_blank">
+		<img src={Discord} alt="discord" />
+		<span>
+			<strong>Join us on Discord</strong>
+			Ask for help or chat with the community
+		</span>
+	</a>
+</div>
