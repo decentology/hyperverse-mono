@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src=".assets/SafuuX-Token_Black-BG-a5d22aaf.svg" width="256" alt="Hyperverse logo" />
+<img src=".assets/SafuuX-Token_White-BG-a5d22aaf.svg" width="256" alt="SafuuX logo" />
 </p>
 
 # Hyperverse SafuuX Builderkit
@@ -29,5 +29,6 @@ The javascript source connects to the smart module using `ethers` by default. Th
 # Documentation
 For more information and learn about Hyperverse checkout the resources below
 
+- [SafuuX](https://www.safuux.com/)
 - [Hyperverse Documentation](https://docs.hyperverse.dev/)
 - [Decentology YouTube Channel](https://www.youtube.com/c/Decentology)
