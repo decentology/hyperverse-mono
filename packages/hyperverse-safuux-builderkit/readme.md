@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src=".assets/SafuuX-Token_White-BG-a5d22aaf.svg" width="256" alt="SafuuX logo" />
+<img src="./.assets/SafuuX-Token-White-BG-a5d22aaf.svg" width="256" alt="SafuuX logo" />
 </p>
 
 # Hyperverse SafuuX Builderkit
