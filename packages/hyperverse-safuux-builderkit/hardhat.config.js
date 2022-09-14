@@ -25,20 +25,8 @@ module.exports = {
 	defaultNetwork: 'hardhat',
 	networks: {
 		hardhat: {},
-		ethereum: {
-			url: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
-			accounts,
-		},
-		metis: {
-			url: 'https://stardust.metis.io/?owner=588',
-			accounts,
-		},
-		avalanche: {
-			url: 'https://api.avax-test.network/ext/bc/C/rpc',
-			accounts,
-		},
-		polygon: {
-			url: 'https://rpc-mumbai.maticvigil.com',
+		safuux: {
+			url: ``,
 			accounts,
 		},
 	},
