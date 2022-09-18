@@ -27,11 +27,18 @@ async function main() {
 	console.log(`[${hre.network.name}] NFT Factory deployed to: ${nftFactoryContract.address}`);
 
 	const env = JSON.parse(fs.readFileSync('contracts.json').toString());
-	env[hre.network.name] = env[hre.network.name] || {};
-	env[hre.network.name].testnet = env[hre.network.name].testnet || {};
+	let networkName = hre.network.name;
+	let isMainnet = false;
+	if (networkName.includes('mainnet')) {
+		isMainnet = true;
+		networkName = networkName.split('-')[0];
+	}
+	env[networkName] = env[networkName] || {};
+	env[networkName].testnet = env[networkName].testnet || {};
+	env[networkName].mainnet = env[networkName].mainnet || {};
 
-	env[hre.network.name].testnet.contractAddress = nftContract.address;
-	env[hre.network.name].testnet.factoryAddress = nftFactoryContract.address;
+	env[networkName][isMainnet ? 'mainnet' : 'testnet'].contractAddress = nftContract.address;
+	env[networkName][isMainnet ? 'mainnet' : 'testnet'].factoryAddress = nftFactoryContract.address;
 
 	// Save contract addresses back to file
 	fs.writeJsonSync('contracts.json', env, { spaces: 2 });

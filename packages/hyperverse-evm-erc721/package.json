@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm-erc721",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"source": "./source/index.ts",
 	"types": "./distribution/index.d.ts",
 	"main": "./distribution/index.js",
@@ -19,7 +19,8 @@
 		"clean": "rimraf ./distribution",
 		"compile": "hardhat compile",
 		"deploy": "run-p deploy-ethereum deploy-metis deploy-avalanche deploy-polygon deploy-celo",
-		"deploy-ethereum": "hardhat run scripts/deploy.js --network ethereum ",
+		"deploy-ethereum": "hardhat run scripts/deploy.js --network ethereum",
+		"deploy-ethereum-mainnet": "hardhat run scripts/deploy.js --network ethereum-mainnet",
 		"deploy-metis": "hardhat run scripts/deploy.js --network metis",
 		"deploy-avalanche": "hardhat run scripts/deploy.js --network avalanche",
 		"deploy-polygon": "hardhat run scripts/deploy.js --network polygon",

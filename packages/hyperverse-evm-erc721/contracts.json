@@ -15,10 +15,13 @@
   },
   "ethereum": {
     "testnet": {
-      "contractAddress": "0x7Cae25FEB0812F2b0a47c377D78d1656ce109fcb",
-      "factoryAddress": "0x60246c5ca42D7fF214ae8884f40061D96921DCD9"
+      "contractAddress": "0x1cf66D41C3f0f2a83b814C6014E9c2a8bDc45a75",
+      "factoryAddress": "0x63C3E07a1538727901B23fa0d91Ca9d69B979Aab"
     },
-    "mainnet": {}
+    "mainnet": {
+      "contractAddress": "0xD5e1f0ebB274401db991D59c786cBc2a86f565e0",
+      "factoryAddress": "0x7f47eE116C458b92872D81e2f40E1aa81912d2A7"
+    }
   },
   "polygon": {
     "testnet": {
