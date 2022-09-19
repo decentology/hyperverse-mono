@@ -18,7 +18,10 @@
       "contractAddress": "0x49d5D8bCE6E90cc6985a0DF36e5e0Fd2aDD8b6bA",
       "factoryAddress": "0x8fA32a6e3CF8c7e49817dFcdAC4C3BB5a31A49bC"
     },
-    "mainnet": {}
+    "mainnet": {
+		"contractAddress": "0x0807690cd4658ea64fda21183fc1897acfb6e790",
+		"factoryAddress": "0xe62b0a48b0ed4ad53d74626dcbb52dd13156d264"
+	}
   },
   "polygon": {
     "testnet": {

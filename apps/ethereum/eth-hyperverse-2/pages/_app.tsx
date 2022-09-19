@@ -42,15 +42,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 	globalStyles()
 	const hyperverse = initialize({
 		blockchain: Ethereum,
-		network: Network.Testnet,
+		network: Network.Mainnet,
 		modules: [
 			{
 				bundle: ERC20,
-				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
+				tenantId: '0x9999931619749631f2D53F2A575Dc953922EC5e5',
 			},
 			{
 				bundle: ERC721,
-				tenantId: '0x62a7aa79a52591Ccc62B71729329A80a666fA50f',
+				tenantId: '0x9999931619749631f2D53F2A575Dc953922EC5e5',
 			},
 		],
 	})

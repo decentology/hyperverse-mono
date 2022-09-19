@@ -7,6 +7,7 @@
     "build": "next build && next export",
     "start": "next start",
     "launch": "next build && next export && cd out && az webapp up -g decentology -n eth-hyperverse --html",
+    "mainnet": "next build && next export && cd out && 7z a publish.zip . && az webapp deployment source config-zip -g decentology -n eth-hyperverse --slot mainnet --src publish.zip",
     "lint": "next lint",
     "pretty": "prettier . --write"
   },

@@ -14,11 +14,18 @@ const main = async () => {
 	console.log(`[${hre.network.name}] Token Factory deployed to:  ${tokenFactory.address}`);
 
 	const env = JSON.parse(fs.readFileSync('contracts.json').toString());
-	env[hre.network.name] = env[hre.network.name] || {};
-	env[hre.network.name].testnet = env[hre.network.name].testnet || {};
+	let networkName = hre.network.name;
+	let isMainnet = false;
+	if (networkName.includes('mainnet')) {
+		isMainnet = true;
+		networkName = networkName.split('-')[0];
+	}
+	env[networkName] = env[networkName] || {};
+	env[networkName].testnet = env[networkName].testnet || {};
+	env[networkName].mainnet = env[networkName].mainnet || {};
 
-	env[hre.network.name].testnet.contractAddress = token.address;
-	env[hre.network.name].testnet.factoryAddress = tokenFactory.address;
+	env[networkName][isMainnet ? 'mainnet' : 'testnet'].contractAddress = token.address;
+	env[networkName][isMainnet ? 'mainnet' : 'testnet'].factoryAddress = tokenFactory.address;
 
 	// Save contract addresses back to file
 	fs.writeJsonSync('contracts.json', env, { spaces: 2 });

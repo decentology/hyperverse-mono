@@ -25,8 +25,12 @@ module.exports = {
 	defaultNetwork: 'hardhat',
 	networks: {
 		hardhat: {},
+		'ethereum-mainnet': {
+			url: `https://mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
+			accounts,
+		},
 		ethereum: {
-			url: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
+			url: `https://goerli.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_API_KEY}`,
 			accounts,
 		},
 		metis: {
