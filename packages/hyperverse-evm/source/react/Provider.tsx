@@ -15,6 +15,7 @@ export type ProviderProps = {
 	children: React.ReactNode;
 	networks?: any;
 } & Partial<Parameters<typeof RainbowKitProvider>[0]>;
+import './styles.css'
 
 export const Provider = ({ children, networks, ...props }: ProviderProps) => {
 	const { network: defaultNetwork } = useHyperverse();

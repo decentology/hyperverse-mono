@@ -6,7 +6,7 @@
 			"default": "./source/index.ts"
 		},
 		"./react": "./source/react/index.ts",
-		"./styles.css": "./source/styles.css"
+		"./styles.css": "./source/react/styles.css"
 	},
 	"source": "./source/index.ts",
 	"main": "./distribution/index.js",
