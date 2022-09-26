@@ -5,7 +5,7 @@ import logo from '../.assets/SafuuX-Token_Black-BG-a5d22aaf.svg';
 
 const theme = create({
 	base: 'light',
-	brandTitle: 'Hyperverse-EVM-ERC721',
+	brandTitle: 'Hyperverse-safuux',
 	brandUrl: 'https://www.safuux.com/',
 	brandImage: logo,
 });
