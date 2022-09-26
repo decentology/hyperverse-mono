@@ -1,6 +1,6 @@
 {
 	"name": "@decentology/hyperverse-evm",
-	"version": "1.2.5",
+	"version": "1.2.6",
 	"exports": {
 		".": {
 			"default": "./source/index.ts"
