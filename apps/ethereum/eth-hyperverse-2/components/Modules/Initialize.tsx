@@ -14,7 +14,7 @@ export const Initialize = ({ module }: { module: Modules }) => {
 	const { account } = useEthereum()
 	const erc721 = useERC721()
 	const erc20 = useERC20()
-	const [inputs, setInputs] = useState<{ [key: string]: string }>({})
+	const [inputs, setInputs] = useState<{ [key: string]: string | number }>({})
 
 	const { mutate: mutateERC721, isLoading: erc721Loading } = useMutation('createTokenInstance', erc721.createInstance)
 	const { mutate: mutateERC20, isLoading: erc20Loading } = useMutation('createTokenInstance', erc20.createInstance)
@@ -28,7 +28,8 @@ export const Initialize = ({ module }: { module: Modules }) => {
 			const orderedArgs =
 				args &&
 				Object.assign(
-					Object.keys(args).map((x) => {
+					{},
+					...Object.keys(args).map((x) => {
 						return { [x]: inputs[x] }
 					}),
 				)
@@ -74,8 +75,13 @@ export const Initialize = ({ module }: { module: Modules }) => {
 									<Label>{args[key]}</Label>
 									<StyledInput
 										value={inputs[key]}
-										placeholder={args[key]}
-										onChange={(e) => setInputs({ ...inputs, [key]: e.target.value })}
+										placeholder={args[key].toString()}
+										onChange={(e) => {
+											const value = isNaN(parseFloat(e.target.value)) // parseFloat because typescript is wrong isNaN() takes a string
+												? e.target.value
+												: Number(e.target.value)
+											return setInputs({ ...inputs, [key]: value })
+										}}
 									/>
 								</InputContainer>
 							)
@@ -95,13 +101,13 @@ export const Initialize = ({ module }: { module: Modules }) => {
 }
 
 const bubble = keyframes({
-  '0%': {
-    opacity: 0,
-  },
-  '100%': {
-    opacity: 1,
-  },
-});
+	'0%': {
+		opacity: 0,
+	},
+	'100%': {
+		opacity: 1,
+	},
+})
 const InitizalizeContainer = styled('div', {
 	display: 'flex',
 	flexDirection: 'column',
@@ -110,8 +116,8 @@ const InitizalizeContainer = styled('div', {
 	height: '100% ',
 	marginY: 24,
 	animationDuration: '500ms',
-  animationName: `${bubble}`,
-  animationTimingFunction: 'linear',
+	animationName: `${bubble}`,
+	animationTimingFunction: 'linear',
 
 	'@laptop': {
 		flexDirection: 'row',

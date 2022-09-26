@@ -58,7 +58,7 @@ type ModuleTypes = {
 	sample?: string
 	npm?: string
 	args?: {
-		[key: string]: string
+		[key: string]: string | number
 	}
 	codeSnippets?: { [key: string]: string }[]
 }
@@ -123,7 +123,7 @@ export const ModulesInfo: { [key in Modules]: ModuleTypes } = {
 		description: 'Deploy your own ERC20 fungible token to use for currency, voting rights, staking, and more.',
 		to: '/modules/erc20',
 		npm: 'https://www.npmjs.com/package/@decentology/hyperverse-evm-erc20',
-		
+
 		args: {
 			token: 'Token Name',
 			symbol: 'Token Symbol',
