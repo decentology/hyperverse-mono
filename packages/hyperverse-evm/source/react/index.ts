@@ -2,6 +2,7 @@ import { Blockchain, makeHyperverseBlockchain, Network } from '@decentology/hype
 import { Networks } from '../networks';
 import { Provider, ProviderProps } from './Provider';
 export * from '../index'
+import '../styles.css'
 const getNetwork = (network: Network) => {
 	return Networks[network];
 };
