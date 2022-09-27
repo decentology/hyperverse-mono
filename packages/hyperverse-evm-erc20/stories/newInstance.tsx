@@ -1,5 +1,6 @@
-import { useERC20 } from '../source';
-import { useEvm } from '@decentology/hyperverse-evm';
+import React from 'react';
+import { useERC20 } from '../source/react';
+import { useEvm } from '@decentology/hyperverse-evm/react';
 import './style.css';
 
 export const NewInstance = ({ ...props }) => {
